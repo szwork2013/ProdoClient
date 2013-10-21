@@ -1,3 +1,38 @@
+=============
+Organization
+==============
+1.Org registration
+2.signup employees for registration
+3.send invites to employees prodonus
+5.manage accounts
+6.load products
+7.load warranty
+8.manage product gallery
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 var app = angular.module('validationExample', []);
 
 app.directive('ensureUnique', ['$http', function($http) {
