@@ -644,6 +644,80 @@ p.price{
 	padding: 10px;
 	color: #2b8dc0;
 }
+
+/**
+* Prodo Main View
+**/
+
+#prodo-row{
+   margin: 0;
+}
+ 
+#prodo-col-md-3{
+  padding: 0;
+  margin-right: 15px;
+}
+
+#prodo-col-md-8{
+  padding: 0;
+  background-color: #2C2D2E;
+  margin-right: 15px;
+  border-radius: 5px;
+}
+
+/* Prodo Main View: Sidebar*/
+#prodo-sidebar-list{
+  width: 75%; 
+  margin-left: 70px;
+}
+
+#prodo-sidebar-list-group-item:last-child {
+margin-bottom: 0;
+border-bottom-right-radius: 0px;
+border-bottom-left-radius: 0px;
+}
+
+/* Prodo Main View: Carousel*/
+#prodo-view-carousel{
+  margin-top: 20px;
+  width: 80%; 
+  margin-left:64.5px; 
+  height:330px;
+}
+ 
+#prodo-view-carousel-slide{
+  height: 290px; 
+}
+
+#prodo-view-carousel-nav{
+  background-color: #ffffff;
+
+}
+
+#prodo-carousel-nav-pills > li > a {
+  border-radius: 0px;
+  font-weight: bold;
+  color: #33373C;
+}
+
+#prodo-carousel-nav-pills > li.active > a {
+color: #ffffff;
+background-color: #BE7A3B;
+}
+/* Prodo Main View: Dashboard*/
+
+#prodo-dashboard-container{
+  background-color: #ffffff;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+/* Prodo Main View: Comments*/
+ #prodo-comment-container{
+  background-color: #ffffff;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  border-radius: 10px;
+}
  
 /**
 *	Footer
@@ -660,9 +734,13 @@ p.price{
 #prodo-row-footer{
 	margin: 0;
 }
+#footer-nav-heading{
+  color: #bdbdbd;
+}
 
 #prodo-copyright{
   margin-left: 230px;
+  color: #bdbdbd;
 }
 
  

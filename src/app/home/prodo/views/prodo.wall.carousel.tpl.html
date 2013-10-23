@@ -1,6 +1,6 @@
-<div style="width: 80%; margin-left:64.5px; height:330px;">
+<div id="prodo-view-carousel">
      	<div carousel interval="3000">
-      		<div slide ng-repeat="slide in slides" style="height: 290px;" active="slide.active">
+      		<div id="prodo-view-carousel-slide" slide ng-repeat="slide in slides" active="slide.active">
         		<img ng-src="{{slide.image}}" style="margin: auto;">
         		<div class="carousel-caption">
           		<h4>Slide {{$index}}</h4>
@@ -9,8 +9,8 @@
     </div>  
     <!---------------------carousel code end--------------------------------- -->
     <!---------------------tabs below carousel end--------------------------------- -->
-     <div>
-      <ul class="nav nav-pills nav-justified" style="background-color: #ffffff;">
+     <div id="prodo-view-carousel-nav">
+      <ul id="prodo-carousel-nav-pills" class="nav nav-pills nav-justified">
   		  <li ng-class="{'active':isCurrentTabIndex($index)}" ng-repeat="prodotab in prodotabs"><a href="#">{{prodotab.value}}</a></li>
 	   </ul>
      </div>

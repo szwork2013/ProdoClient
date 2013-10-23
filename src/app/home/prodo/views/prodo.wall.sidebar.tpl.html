@@ -1,19 +1,19 @@
 <!-- Prodonus Sidebar -->
 
 <!-- Org list code -->
-<div class="container-org-list">
-	<div class="list-group">
-		<div class="list" ng-repeat="listorg in listorgs" style="width: 75%; margin-left: 70px;">
-      <a ng-class="{'active':isCurrentListIndex($index)}" href="#" class="list-group-item">{{listorg.orgname}}</a>
+<div id="prodo-sidebar-orglist-container" class="container">
+	<div id="prodo-sidebar-list-group" class="list-group">
+		<div id="prodo-sidebar-list" class="list" ng-repeat="listorg in listorgs">
+      <a ng-class="{'active':isCurrentListIndex($index)}" href="#" id="prodo-sidebar-list-group-item" class="list-group-item">{{listorg.orgname}}</a>
     </div>
 	</div>
 </div>
 
 <!-- Product list code -->
-<div class="container-product-list">
-	 <div class="list-group">
-		<div class="list" ng-repeat="listproduct in listproducts" style="width: 75%; margin-left: 70px;">
-      <a ng-class="{'active':isCurrentListIndex($index)}" href="#" class="list-group-item">{{listproduct.productname}}</a>
+<div id="prodo-sidebar-productlist-container" class="container">
+	 <div id="prodo-sidebar-list-group" class="list-group">
+		<div id="prodo-sidebar-list" class="list" ng-repeat="listproduct in listproducts">
+      <a ng-class="{'active':isCurrentListIndex($index)}" href="#" id="prodo-sidebar-list-group-item" class="list-group-item">{{listproduct.productname}}</a>
     </div>
 	</div>
 </div>
