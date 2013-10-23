@@ -1,0 +1,59 @@
+<div id="prodo-container" class="container">
+  <div id="prodo-row" class="row">
+    <div class="col-md-3">
+    <!---------------------Org list code------------------------------------ -->
+	    <div class="container-org-list">
+	    	<div class="list-group">
+	    		<div class="list" ng-repeat="listorg in listorgs" style="width: 75%; margin-left: 70px;">
+                    <a ng-class="{'active':isCurrentListIndex($index)}" href="#" class="list-group-item">{{listorg.orgname}}</a>
+                </div>
+			</div>
+	    </div>
+	<!---------------------end----------------------------------------------- -->
+	<!---------------------Product list code--------------------------------- -->
+		<div class="container-product-list">
+	    	<div class="list-group">
+				<div class="list" ng-repeat="listproduct in listproducts" style="width: 75%; margin-left: 70px;">
+                    <a ng-class="{'active':isCurrentListIndex($index)}" href="#" class="list-group-item">{{listproduct.productname}}</a>
+                </div>
+			</div>
+	    </div>
+	<!---------------------end----------------------------------------------- -->
+    </div>
+    <div class="col-md-6" style="padding: 0; background-color: #b8b8b8;">
+    <!---------------------carousel code------------------------------------- -->
+    <div style="width: 80%; margin-left:64.5px; height: 300px;">
+     	<div carousel interval="3000">
+      		<div slide ng-repeat="slide in slides" style="height: 300px;" active="slide.active">
+        		<img ng-src="{{slide.image}}" style="margin: auto;">
+        		<div class="carousel-caption">
+          		<h4>Slide {{$index}}</h4>
+        	</div>
+      	</div>
+    </div>  
+    <!---------------------carousel code end--------------------------------- -->
+    <!---------------------tabs below carousel end--------------------------------- -->
+    <ul class="nav nav-pills nav-justified" style="background-color: #ffffff;">
+  		<li ng-class="{'active':isCurrentTabIndex($index)}" ng-repeat="prodotab in prodotabs"><a href="#">{{prodotab.value}}</a></li>
+	</ul> 
+	<!---------------------end--------------------------------- -->
+	<div style="border: 1px solid #ddd; -webkit-border-radius: 20px; -moz-border-radius: 20px; border-radius: 20px;" id="fixed" >
+      <div align="center">
+        <textarea cols="30" required rows="5" type="text" placeholder="Add comment" class="commentTextbox" id="txtComment" ng-model="textField"></textarea>
+              <button class="btn btn-default" ng-click="add()">Add</button><br>
+
+<div style="padding-left:350px;" align="left" >   
+      <h2 >Comments</h2>
+</div><br>
+
+      <div prodo-comments when-scrolled="loadMore()" comments="comments" pages-size="pagesSize" pages-shown="pagesShown" style=" width:600px;">
+      </div>  
+        <img  id="spinner" style="alignment:center;" ng-class="searching && 'active' "                          ng-src="https://raw.github.com/ThomasBurleson/angularJS-TwitterSearch/master/webroot/assets/image/spinner2.gif" alt="Loading"  style="display:none;"  /> 
+
+         </div>
+    </div>
+    </div>
+    </div>
+  </div>
+</div>
+      

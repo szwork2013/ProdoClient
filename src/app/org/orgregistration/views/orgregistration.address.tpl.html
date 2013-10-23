@@ -1,35 +1,25 @@
-<div class="container">
-  <form name=" formOrgRegisterAddress" class="css-form" ng-submit="" novalidate>
-  	<center>
+<div id="prodo-address-container" class="container">
+  <form id="prodo-form-address" name=" formOrgRegisterAddress" class="css-form" ng-submit="" novalidate>
   		<div class="control-group">
-	      <label class="label-control">Location</label><br>    
-				<input name="address1"  type="text" class="form-control" placeholder="Address Line1" ng-model="org.address1" autofocus required>
-					<div class="input-help">
-            <h4>Field Required!</h4>
-          </div>
-				<input name="address2"  type="text" class="form-control" placeholder="Address Line2" ng-model="org.address2">
-				<input name="address3"  type="text" class="form-control" placeholder="Address Line3" ng-model="org.address3">
-				<input name="country"  type="text" class="form-control" placeholder="Country" ng-model="org.country" required>
-					<div class="input-help">
-            <h4>Field Required!</h4>
-          </div>
-				<input name="city"  type="text" class="form-control" placeholder="City" ng-model="org.city" required/>
-					<div class="input-help">
-            <h4>Field Required!</h4>
-          </div>
-				<input name="state"  type="text" class="form-control" placeholder="State" ng-model="org.state" required/>
-					<div class="input-help">
-            <h4>Field Required!</h4>
-          </div>
-				<input name="zip"  type="text" class="form-control" placeholder="Zip Code" ng-model="org.zipcode" required/> 
-					<div class="input-help">
-            <h4>Field Required!</h4>
-          </div>
+	      <label id="prodo-address-label-control" class="label-control">Location</label><br>    
+				<input id="prodo-form-input-address" name="address1"  type="text" class="form-control" placeholder="Address Line1" ng-model="org.address1" autofocus required>
+					 
+				<input name="address2"  type="text" id="prodo-form-input-address" class="form-control" placeholder="Address Line2" ng-model="org.address2">
+
+				<input name="address3"  type="text" id="prodo-form-input-address" class="form-control" placeholder="Address Line3" ng-model="org.address3">
+
+				<input name="country"  type="text" id="prodo-form-input-address" class="form-control" placeholder="Country" ng-model="org.country" required>
+					 
+				<input name="city"  type="text" id="prodo-form-input-address" class="form-control" placeholder="City" ng-model="org.city" required/>
+					 
+				<input name="state"  type="text" id="prodo-form-input-address" class="form-control" placeholder="State" ng-model="org.state" required/>
+			
+				<input name="zip" type="text" id="prodo-form-input-address" class="form-control" placeholder="Zip Code" ng-model="org.zipcode" required/> 
+					 
 			</div>
-  	</center>
-	  <center>
-      <button class="btn btn-md btn-primary" type="submit" ui-sref="subscription.company">Previous</button>
-    <button class="btn btn-md btn-primary" type="submit" ui-sref="subscription.contact">Next</button>
-    </center>
+   
+      <button id="prodo-form-address-btn" class="btn btn-md btn-primary" type="submit" ui-sref="subscription.company">Previous</button>
+      <button id="prodo-form-address-btn" class="btn btn-md btn-primary" type="submit" ui-sref="subscription.contact">Next</button>
+    
    </form>
 </div>   

@@ -3,6 +3,7 @@
 *
 **/
 angular.module('prodo.UserApp', []);
+angular.module('prodo.ProdoWallApp', []);
 angular.module('prodo.OrgApp', []);
 angular.module('prodo.ProductApp', []);
 angular.module('prodo.WarrantyApp', []);
@@ -11,13 +12,13 @@ angular.module('prodo.CommonApp', []);
 angular.module('prodo.BlogApp', []);
 angular.module('prodo.AdApp', []);
 
-angular.module('prodo.ProdonusApp',['ui.router','prodo.UserApp', 'prodo.OrgApp',
+angular.module('prodo.ProdonusApp',['ui.router','prodo.UserApp', 'prodo.ProdoWallApp', 'prodo.OrgApp',
   'prodo.ProductApp', 'prodo.WarrantyApp', 'prodo.DashboardApp','prodo.CommonApp', 
   'prodo.BlogApp', 'prodo.AdApp'
   ])
 	.controller('ProdoMainController', ['$scope', '$state', function($scope, $state) {
 
-		$state.transitionTo('landing.start');
+		$state.transitionTo('home.start');
 // $state.transitionTo('home.prodo');
 		// somewhere else
 		$scope.$on('$stateNotFound', 

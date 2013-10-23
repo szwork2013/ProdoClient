@@ -3,21 +3,18 @@
 **/
 angular.module('prodo.UserApp')
 .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {  
-  $urlRouterProvider.otherwise('/user/');
+  $urlRouterProvider.otherwise('/user');
   $stateProvider
     .state('user', {
       abstract: true,
       url: '/user',
-      templateUrl: 'main/views/main.home.tpl.html'
-    })   
-    .state('user.signin', {
-        url: '/signin',
-        templateUrl:  'user/js/user.signin.tpl.html'
-        controller: UserSigninController;
+      templateUrl: 'user/views/user.tpl.html',
+      controller: 'UserSigninController'
     })
     .state('user.forgotPassword', {
         url: '/forgotPassword',
-        templateUrl: 'main/views/user.forgot.password.tpl.html'
+        templateUrl: 'user/views/user.signin.forgotpassword.tpl.html',
+        controller: 'UserSigninController'
     })        
     .state('user.activate', {
         url: '/activate',
@@ -27,10 +24,7 @@ angular.module('prodo.UserApp')
         url: '/payment',
         templateUrl: 'main/views/user.forgot.password.tpl.html'
     }) 
-    .state('user.resetpassword', {
-        url: '/resetpassword',
-        templateUrl: 'main/views/user.forgot.password.tpl.html'
-    })   
+      
     .state('user.profile', {
         url: '/profile',
         templateUrl: 'main/views/user.forgot.password.tpl.html'

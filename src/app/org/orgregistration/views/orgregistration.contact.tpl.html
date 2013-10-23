@@ -1,20 +1,23 @@
-<div class="container">
-  <form name=" formOrgRegisterContact" class="css-form" ng-submit="" novalidate>
-    <center>
+<div id="prodo-contact-container" class="container">
+  <form id="prodo-form-contact" name=" formOrgRegisterContact" class="css-form" ng-submit="" novalidate>
+  
       <div class="control-group">
-        <label class="label-control">Contact</label><a href="" ng-click="addContact()" class="glyphicon glyphicon-plus-sign"></a><br> 
-        <div ng-repeat="contact in contacts">
-          <input name="contact" type="text" class="form-control" placeholder="Customer HelpLine" ng-model="org.value" autofocus required/>
-          <a href="" ng-click="removeContact(contact)" class="glyphicon glyphicon-remove"></a>
-            <div class="input-help">
-              <h4>Field Required!</h4>
-            </div> 
+        <label id="prodo-contact-label-control" class="label-control">Contact</label>  
+        
+          <input id="prodo-form-input-contact" name="contact" type="text" class="form-control" placeholder="Customer HelpLine" ng-model="org.helpline1" autofocus required/>
+
+          <input id="prodo-form-input-contact" name="contact" type="text" class="form-control" placeholder="Customer HelpLine" ng-model="org.helpline2" autofocus required/>
+
+          <input id="prodo-form-input-contact" name="contact" type="text" class="form-control" placeholder="Customer HelpLine" ng-model="org.helpline3" autofocus required/>
+
+          <input id="prodo-form-input-contact" name="contact" type="text" class="form-control" placeholder="Customer HelpLine" ng-model="org.helpline4" autofocus required/>
+            
         </div>
-      </div>
-    </center>
-    <center>
-      <button class="btn btn-md btn-primary" type="submit" ui-sref="subscription.address">Previous</button>
-      <button class="btn btn-md btn-primary" type="submit" ui-sref="subscription.groupuser">Next</button>
-    </center>
+     
+ 
+      <button id="prodo-form-contact-btn" class="btn btn-md btn-primary" type="submit" ui-sref="subscription.address">Previous</button>
+
+      <button id="prodo-form-contact-btn" class="btn btn-md btn-primary" type="submit" ui-sref="subscription.groupuser">Next</button>
+    
   </form>
 </div>

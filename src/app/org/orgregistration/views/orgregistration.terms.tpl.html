@@ -1,7 +1,8 @@
-<div class="container">
-	<div class="container">
-		<label class="label-control">Terms & Conditions</label><br>
- 				<div id="terms" style="overflow-y: scroll; height:400px;">
+<div id="prodo-term-container" class="container">
+
+	<label id="prodo-term-label-control" class="label-control">Terms & Conditions</label><br>
+
+ 		<div id="prodo-term" class="container">
 
 This Privacy Policy governs the manner in which Prodonus collects, uses, maintains and discloses information collected from users (each, a "User") of the www.prodonus.com website ("Site"). This privacy policy applies to the Site and all products and services offered by Prodonus.
 
@@ -119,18 +120,19 @@ If you have any questions about this Privacy Policy, the practices of this site,
  </div>
 
  
- 	 <form class="css-form" ng-submit="">
+ 	 <form id="prodo-form-term" class="css-form" ng-submit="">
  	 	<label>
-      		<input type="checkbox" ng-model="checkbx" required/> I Agree to the Terms & Conditions
-    	</label><br>
-    	<center>
-    		<button class="btn btn-md btn-primary" type="submit" ui-sref="subscription.groupuser">Previous</button>
-    	<button class="btn btn-md btn-primary" type="submit" ui-sref="subscription.finish">I Agree</button>
-    	</center>
- 	 </form>
+      		<input id="prodo-form-input-term" type="checkbox" ng-model="checkbx" required/> I Agree to the Terms & Conditions
+    </label><br>
+    
+    </form>
+    		<button id="prodo-form-term-btn" class="btn btn-md btn-primary" type="submit" ui-sref="subscription.groupuser">Previous</button>
+    	<button id="prodo-form-term-btn" class="btn btn-md btn-primary" type="submit" ui-sref="subscription.orgPayment">I Agree</button>
+ 
+ 	 
  	 	
  	   
-  </div>   
+   
      
 </div>
 
