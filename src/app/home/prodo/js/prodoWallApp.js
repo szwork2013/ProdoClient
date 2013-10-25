@@ -1,4 +1,4 @@
-angular.module('prodo.ProdoWallApp',['ui.router', 'ui.bootstrap'])
+angular.module('prodo.ProdoWallApp')
 	.directive('prodoComments', function () {
     return {
         restrict: 'A',

@@ -5,9 +5,9 @@
 */
 
 
-var app1 = angular.module("app.directives", [], function() {});
+angular.module("prodo.CommonApp")
 
-  app1.directive('prodonusPasswordCheck', function($parse) {
+  .directive('prodonusPasswordCheck', function($parse) {
   return {
     require: 'ngModel',
     link: function(scope, elem, attrs, ctrl) {
@@ -19,10 +19,8 @@ var app1 = angular.module("app.directives", [], function() {});
       });
     }
   };
-});
-
-//....................................code snippet for password validate directive........................
-  app1.directive('prodonusPasswordValidate', function() {
+})
+  .directive('prodonusPasswordValidate', function() {
     return {
         require: 'ngModel',
         link: function(scope, elm, attrs, ctrl) {
@@ -44,9 +42,9 @@ var app1 = angular.module("app.directives", [], function() {});
             });
         }
     };
-});
+})
 
-  app1.directive('prodonusMultiEmailValidate', function() {
+  .directive('prodonusMultiEmailValidate', function() {
     return {
         require: 'ngModel',
         link: function(scope, elm, attrs, ctrl) {
@@ -65,6 +63,65 @@ var app1 = angular.module("app.directives", [], function() {});
             });
         }
     };
-});
+})
 
-   
+   .directive('notification', function($timeout){
+  return {
+    restrict: 'E',
+    replace: true,
+    scope: {
+      ngModel: '='
+    },
+    template: '<div class="alert fade" bs-alert="ngModel"></div>',
+    link: function(scope, element, attrs) {
+      $timeout(function(){
+        element.hide();
+      }, 5000);
+    }
+  }
+})
+   .directive('ensureUnique', ['$http', function($http) {
+  return {
+    require: 'ngModel',
+    link: function(scope, ele, attrs, c) {
+      scope.$watch(attrs.ngModel, function() {
+        $http({
+          method: 'POST',
+          url: '/api/check/' + attrs.ensureUnique,
+          data: {'field': attrs.ensureUnique}
+        }).success(function(data, status, headers, cfg) {
+          c.$setValidity('unique', data.isUnique);
+        }).error(function(data, status, headers, cfg) {
+          c.$setValidity('unique', false);
+        });
+      });
+    }
+  }
+}]);
+////// ensureUnique with timeout
+
+//    app.directive('ensureUnique', ['$http', '$timeout', function($http, $timeout) {
+//   var checking = null;
+//   return {
+//     require: 'ngModel',
+//     link: function(scope, ele, attrs, c) {
+//       scope.$watch(attrs.ngModel, function(newVal) {
+//         if (!checking) {
+//           checking = $timeout(function() {
+//             $http({
+//               method: 'POST',
+//               url: '/api/check/' + attrs.ensureUnique,
+//               data: {'field': attrs.ensureUnique}
+//             }).success(function(data, status, headers, cfg) {
+//               c.$setValidity('unique', data.isUnique);
+//               checking = null;
+//             }).error(function(data, status, headers, cfg) {
+//               checking = null;
+//             });
+//           }, 500);
+//         }
+//       });
+//     }
+//   }
+// }]);
+    

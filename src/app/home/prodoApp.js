@@ -2,18 +2,19 @@
 * Prodonus main application modules
 *
 **/
+angular.module('prodo.CommonApp', []);
 angular.module('prodo.UserApp', []);
 angular.module('prodo.ProdoWallApp', []);
 angular.module('prodo.OrgApp', []);
 angular.module('prodo.ProductApp', []);
 angular.module('prodo.WarrantyApp', []);
 angular.module('prodo.DashboardApp', []);
-angular.module('prodo.CommonApp', []);
+
 angular.module('prodo.BlogApp', []);
 angular.module('prodo.AdApp', []);
 
-angular.module('prodo.ProdonusApp',['ui.router','prodo.UserApp', 'prodo.ProdoWallApp', 'prodo.OrgApp',
-  'prodo.ProductApp', 'prodo.WarrantyApp', 'prodo.DashboardApp','prodo.CommonApp', 
+angular.module('prodo.ProdonusApp',['ui.router', 'ui.bootstrap', 'prodo.UserApp', 'prodo.ProdoWallApp', 'prodo.OrgApp',
+  'prodo.ProductApp', 'prodo.WarrantyApp', 'prodo.DashboardApp','prodo.CommonApp', '$strap.directives',
   'prodo.BlogApp', 'prodo.AdApp'
   ])
 	.controller('ProdoMainController', ['$scope', '$state', function($scope, $state) {

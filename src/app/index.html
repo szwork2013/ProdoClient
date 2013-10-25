@@ -8,12 +8,12 @@
     <meta name="description" content="Prodonus is a warranty and social network platform for products that manages warranty and enables conversations between manufacturer and consumers, both individuals and companies">
     <meta name="robots" content="noodp, noydir" />
     <meta name="author" content="">
-    <!-- <link rel="shortcut icon" href="../../assets/ico/favicon.png"> Needs to be addressed letter-->
+    <!-- <link rel="shortcut icon" href="../../assets/ico/favicon.png"> Needs to be addressed letter -->
     <title>Prodonus</title>
-    
     <link rel=" stylesheet" href="../vendor/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="assets/css/prodonus001.css">
-
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" rel="stylesheet">
+    
   </head>
  
   <body id="body" ng-controller="ProdoMainController">
@@ -85,13 +85,13 @@
         <p id="prodo-copyright" >&copy; Prodonus 2013 | made in pune, india.</p>
 
     </div>
-
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="../vendor/angularjs/angular.min.js"></script>
     <script src="../vendor/angularjs/angular-resource.js"></script>
     <script src="../vendor/angularui/angular-ui-router.min.js"></script>
-    <script src="../vendor/ui-bootstrap/ui-bootstrap-custom-tpls-0.6.0.js"></script>
+    <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.6.0.js"></script>
     <script src="http://momentjs.com/downloads/moment.min.js"></script>
-    <script src="../vendor/bootstrap/assets/js/jquery.js"></script>
+    <script src="../vendor/angular-strap/angular-strap.min.js"></script>
     <script src="../vendor/bootstrap/dist/js/bootstrap.js"></script>
     <script src="home/prodoApp.js"> </script>
     <script src="home/prodoMainAppRoutes.js"> </script>
@@ -99,12 +99,13 @@
     <script src="home/prodo/js/prodoWallApp.js"> </script>
     <script src="home/prodo/js/prodoWallRoutes.js"> </script>
     <script src="user/js/UserSigninController.js"> </script>
+    <script src="common/CommonRoutes.js"> </script> 
+    <script src="user/userregistration/UserRegistrationController.js"> </script>
     <script src="user/js/UserRoutes.js"> </script>
     <script src="user/js/UserService.js"> </script>
-    <script src="user/js/UserModel.js"> </script>
+    <script src="common/directives/prodoDirective.js"></script>
     <script src="common/subscription/js/SubscriptionController.js"> </script>
-    <script src="common/CommonRoutes.js"> </script>
-     
+   
 
   </body>
 

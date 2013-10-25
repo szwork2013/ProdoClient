@@ -2,16 +2,16 @@
   <form id="prodo-form-company" name="formOrgRegisterCompany" class="css-form form-org-register" ng-submit=""  novalidate>
       <div class="control-group">
       <label id="prodo-company-label-control" class="label-control">Company</label><br>
-      <input id="prodo-form-input-company" name="companyname" type="text" class="form-control" ng-model="org.companyname" placeholder="Company Name" autofocus required/>
+
+      <select id="prodo-form-input-company" type="text" class="immediate-help form-control" ng-model="org" ng-options="org.name for org in orgs" required></select>
+          
+      <input id="prodo-form-input-company" name="companyname" type="text" class="immediate-help form-control" ng-model="org.companyname" placeholder="Company Name" required />
          
+      <textarea id="prodo-form-input-company" name="description" type="textarea" class="immediate-help form-control" ng-model="org.description" placeholder="Company Description" required /></textarea>
+          
  
-      <textarea id="prodo-form-input-company" name="description" type="textarea" class="form-control" ng-model="org.description" placeholder="Company Description" required/></textarea>
-           
- 
-      <select id="prodo-form-input-company" type="text" class="form-control" ng-model="org" ng-options="org.name for org in orgs" required></select>
+      <input id="prodo-form-input-company" name="contractid" type="text" class="immediate-help form-control" ng-model="org.contractid" placeholder="Contract Id" required />
          
- 
-      <input id="prodo-form-input-company" name="contractid" type="text" class="form-control" ng-model="org.contractid" placeholder="Contract Id" required/>
          
     </div>
 

@@ -1,36 +1,46 @@
 <!-- Prodonus SignUp View Template -->
-<div id="prodo-view-signup">
+<div id="prodo-view-signup" ng-controller="UserRegistrationController">
 
-  <form id="prodo-form-signup" name="signupForm" class="css-form" novalidate>
+  <form id="prodo-form-signup" name="signupForm" class="css-form" ng-submit="signup()" novalidate>
 
     <div class="control-group">
 
       <h4 id="prodo-signup-heading">Talk About Your Products</h4>
+       
 
-        <input id="prodo-form-input-signup" name="fullname" class="immediate-help form-control" type="text" placeholder="FullName" required ng-model="fullname" />
-          <div class="input-help">
-            <h4>Field Required</h4>
-          </div>
+        <input id="prodo-form-input-signup" name="fullname" class="form-control" type="text" placeholder="FullName" ng-model="fullname" required /><i class="fa fa-check" ng-show="signupForm.fullname.$dirty && signupForm.fullname.$valid" ></i>
+        <div class="error" 
+            ng-show="(signupForm.fullname.$dirty && signupForm.fullname.$invalid && signupForm.submitted) || (signupForm.fullname.$invalid && signupForm.submitted) || (signupForm.fullname.$dirty && signupForm.fullname.$error.required)">
+         
+            Your name is required.
+         
+        </div>
 
-        <input id="prodo-form-input-signup" name="email" class="immediate-help form-control" type="email" placeholder="Email" required ng-model="email" />  
-          <div class="input-help">
-            <h4>Enter valid email:abc@example.com</h4>
-          </div>
+        <input id="prodo-form-input-signup" name="email" class="form-control" type="email" placeholder="Email" required ng-model="email" /><i class="fa fa-check" ng-show="signupForm.email.$dirty && signupForm.email.$valid"></i>
+        <div class="error" 
+            ng-show="(signupForm.email.$dirty && signupForm.email.$invalid && signupForm.submitted) || 
+            (signupForm.email.$invalid && signupForm.submitted) || (signupForm.email.$dirty && signupForm.email.$error.required)">
+          Email is required.
+        </div>
+        <div class="error" 
+        ng-show="signupForm.email.$dirty && signupForm.email.$error.email">
+        Enter valid email!
+        </div>
       
-        <input id="prodo-form-input-signup" type="password" class="immediate-help form-control" id="password1" name="password1" placeholder="Password" ng-model="password" prodonus-password-validate required>
-          <div class="input-help">
-            <h4>Password must have:</h4>
-              <ul>
-                <li ng-class="pwdHasAlphabet">At least <strong>1 Alphabet</strong></li>
-                <li ng-class="pwdHasNumber">At least <strong>1 Number</strong></li>
-                <li ng-class="pwdHasSymbol">At least <strong>1 Special Symbol</strong></li>
-                <li ng-class="pwdValidLength">At least <strong>8 characters long</strong></li>
-              </ul>
-          </div>
+      
+        <input id="prodo-form-input-signup" type="password" class="form-control" id="password1" name="password" placeholder="Password" ng-model="password" prodonus-password-validate required><i class="fa fa-check" ng-show="signupForm.password.$dirty && signupForm.password.$valid" ></i>
+        <div class="error" 
+            ng-show="(signupForm.password.$dirty && signupForm.password.$invalid && signupForm.submitted) || (signupForm.password.$invalid && signupForm.submitted) || (signupForm.password.$dirty &&signupForm.password.$error.required)">
+            Password is required.
+         </div>
+        <div class="error" 
+        ng-show="signupForm.password.$dirty && !signupForm.password.$error.required && signupForm.password.$invalid">
+        Enter valid password!
+        </div>
 
     </div>  
-
-    <button id="prodo-form-button-signup" class="btn btn-sm btn-primary" ui-sref="subscription.plans" ng-click="save()"><span class=" glyphicon glyphicon-thumbs-up" ></span> Sign Up</button>
+ 
+    <button id="prodo-form-button-signup" class="btn btn-sm btn-primary"><span class=" glyphicon glyphicon-thumbs-up" ></span> Sign Up</button>
 
   </form>
 
