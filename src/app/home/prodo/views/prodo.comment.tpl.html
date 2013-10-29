@@ -14,7 +14,7 @@
  -->
 
 <ul class="media-list "  id="prodo-comment-media-list">
- <li  id="prodo-comment-media"  class="media" ng-repeat="comment in comments "  >
+ <li  id="prodo-comment-media"  class="media" ng-repeat="comment in comments "    >
    <a class="pull-left" href="#">
     <img class="media-object" id="img-user" ng-src="{{comment.dp}}" alt="User"/> </a>
 
@@ -27,9 +27,8 @@
 
        <div class="pull-right" >{{fromNow(comment.time)}}</div>	
 
-           <div class="pull-left"><a href=""> Reply</a> 
-              <a ng-click="deleteProductComment(comment)">   Delete    </a>
-           </div> 
+           <div class="pull-left"><a href=""> Reply</a> </div> 
+           <div class="pull-left"><a ng-click="deleteProductComment(comment)">&nbsp;&nbsp;Delete   <!--  <i class="icon-trash"></i> --> </a></div> 
 
      </div> 
      </li> 
