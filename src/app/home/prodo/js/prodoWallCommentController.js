@@ -21,6 +21,10 @@ angular.module('prodo.ProdoCommentApp')
         dp:"http://placehold.it/64x64",
         upvotecount:0
       }];
+    
+
+
+
 
     $scope.addProductComment = function () {
       if(!$scope.textField) return;

@@ -24,6 +24,13 @@ angular.module('prodo.ProdoCommentApp')
                 return scope.pagesSize*scope.pagesShown;
             }
             
+          scope.deleteProductComment = function (comment) {
+             console.log("deleting....");
+             var index = scope.comments.indexOf(comment);
+             if (index != -1)  scope.comments.splice(index, 1);
+             }
+
+
             scope.fromNow = function(time) {
               console.log(moment);
               return moment(time).fromNow();

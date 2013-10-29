@@ -21,11 +21,6 @@ angular.module('prodo.ProdoCommentApp')
       var maxlength = Number(attrs.commentLimit);
       function fromUser(text) {
 
-     
-
-
-    
-
 
        var txtComment=document.getElementById('prodo-comment-Textbox');
        txtComment.style.color="black";
@@ -34,16 +29,12 @@ angular.module('prodo.ProdoCommentApp')
               CommentController.$setViewValue(transformedInput);
               CommentController.$render();
             document.getElementById('prodo-comment-Textbox').style.color="red";
-
-
            
 /*txtComment.onpaste = function(e){
     //do some IE browser checking for e
     var max = test.getAttribute("maxlength");
     e.clipboardData.getData('text/plain').slice(0, maxlength)
 };*/
-
-            
            return transformedInput;
           } 
           return text;
