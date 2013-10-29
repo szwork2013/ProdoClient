@@ -22,7 +22,7 @@ angular.module('prodo.ProdoCommentApp')
         upvotecount:0
       }];
 
-    $scope.add = function () {
+    $scope.addProductComment = function () {
       if(!$scope.textField) return;
      
       $scope.comments.unshift({

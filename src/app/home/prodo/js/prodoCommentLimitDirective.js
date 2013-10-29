@@ -17,20 +17,38 @@ angular.module('prodo.ProdoCommentApp')
  .directive('commentLimit', function() {
   return {
     require: 'ngModel',
-    link: function (scope, element, attrs, CommentController) {
+    link: function (scope, element, attrs, ProdoCommentController) {
       var maxlength = Number(attrs.commentLimit);
       function fromUser(text) {
-         document.getElementById('prodo-comment-Textbox').style.color="black";
-          if (text.length > maxlength) {
-            var transformedInput = text.substring(0, maxlength);
-            CommentController.$setViewValue(transformedInput);
-            CommentController.$render();
+
+     
+
+
+    
+
+
+       var txtComment=document.getElementById('prodo-comment-Textbox');
+       txtComment.style.color="black";
+            if (text.length > maxlength) {
+              var transformedInput = text.substring(0, maxlength);
+              CommentController.$setViewValue(transformedInput);
+              CommentController.$render();
             document.getElementById('prodo-comment-Textbox').style.color="red";
-            return transformedInput;
+
+
+           
+/*txtComment.onpaste = function(e){
+    //do some IE browser checking for e
+    var max = test.getAttribute("maxlength");
+    e.clipboardData.getData('text/plain').slice(0, maxlength)
+};*/
+
+            
+           return transformedInput;
           } 
           return text;
          }
-      CommentController.$parsers.push(fromUser);
+      ProdoCommentController.$parsers.push(fromUser);
     }
   }; 
 })

@@ -16,7 +16,7 @@ angular.module('prodo.ProdoCommentApp')
 
 .directive('prodoComments', function () {
     return {
-        restrict: 'A', 'home/landing/views/home.signup.tpl.html'
+        restrict: 'A', 
         templateUrl: 'home/prodo/views/prodo.comment.tpl.html',
         scope: { comments: '=', pagesSize:'=', pagesShown:'=' },
         link: function(scope) {

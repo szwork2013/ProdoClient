@@ -1,4 +1,19 @@
-<ul class="media-list "  id="prodo-cpmment-media-list">
+<!-- /*
+* Overview: comment Template
+* Its a comment template which displays comments
+* Dated: 29/10/2013.
+* Author: Bhagyashri Jangam
+* Copyright: Prodonus Software Private Limited and GiantLeap Systems Private Limited 2013
+* Change History:
+*
+* date | author | description 
+*
+* 27-3/2013 | xyx | Add a new property
+* 
+*/
+ -->
+
+<ul class="media-list "  id="prodo-comment-media-list">
  <li  id="prodo-comment-media"  class="media" ng-repeat="comment in comments "  >
    <a class="pull-left" href="#">
     <img class="media-object" id="img-user" ng-src="{{comment.dp}}" alt="User"/> </a>
@@ -10,7 +25,7 @@
        <div class="pull-left">Tags: [  {{comment.tags}} ]</div>
        <div class="pull-right" >
 
-       <img  id="img-user"     src="http://www.iconhot.com/icon/png/web-design-creatives/16/wall-clock.png" alt="clock"/>
+
 
        {{fromNow(comment.time)}}</div>	
      </div> 

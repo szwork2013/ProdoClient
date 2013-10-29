@@ -1,32 +1,32 @@
 angular.module('prodo.ProdoWallApp')
-	.directive('prodoComments', function () {
-    return {
-        restrict: 'A',
-        templateUrl: 'home/prodo/views/template.html',
-        scope: { comments: '=', pagesSize:'=', pagesShown:'=' },
-        link: function(scope) {
-            scope.commentsLimit = function() {
-                return scope.pagesSize*scope.pagesShown;
-            }
+// 	.directive('prodoComments', function () {
+//     return {
+//         restrict: 'A',
+//         templateUrl: 'home/prodo/views/template.html',
+//         scope: { comments: '=', pagesSize:'=', pagesShown:'=' },
+//         link: function(scope) {
+//             scope.commentsLimit = function() {
+//                 return scope.pagesSize*scope.pagesShown;
+//             }
             
-            scope.fromNow = function(time) {
-              console.log(moment);
-              return moment(time).fromNow();
-            }
-        }
-    };
-})
-     .directive('whenScrolled', function() {
-    return function(scope, elm, attr) {
-        var raw = elm[0];
+//             scope.fromNow = function(time) {
+//               console.log(moment);
+//               return moment(time).fromNow();
+//             }
+//         }
+//     };
+// })
+//      .directive('whenScrolled', function() {
+//     return function(scope, elm, attr) {
+//         var raw = elm[0];
         
-        elm.bind('scroll', function() {
-            if (raw.scrollTop + raw.offsetHeight >= raw.scrollHeight) {
-                scope.$apply(attr.whenScrolled);
-            }
-        });
-    };
-})
+//         elm.bind('scroll', function() {
+//             if (raw.scrollTop + raw.offsetHeight >= raw.scrollHeight) {
+//                 scope.$apply(attr.whenScrolled);
+//             }
+//         });
+//     };
+// })
 	.controller('ProdoWallController', ['$scope', '$state', function($scope, $state) {
 
 		$state.transitionTo('prodo.wall');
@@ -79,7 +79,7 @@ angular.module('prodo.ProdoWallApp')
         text:"Prodonus is really cool :)"
       }];
 
-    $scope.add = function () {
+    $scope.addProductComment = function () {
       if(!$scope.textField) return;
      
       $scope.comments.unshift({
