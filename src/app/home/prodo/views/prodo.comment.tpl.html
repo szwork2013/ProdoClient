@@ -20,15 +20,61 @@
 
      <div class="media-body">
        <div class=" pull-left " id="prodo-comment-userName"  >{{comment.userName}}</div>
-       <div id="prodo-comment-companyName" class="pull-left"> @{{toCamelCase(comment.companyName)}}-{{comment.group}}</div> 
+       <div id="prodo-comment-companyName" class="pull-left"> @{{toCamelCase(comment.companyName)}}-{{comment.group}}</div>  <div class="pull-right" >{{fromNow(comment.time)}}</div> 
+
        <div class="pull-left" id="prodo-comment-row-fluid" > {{comment.text}} </div><br>
        <div class="pull-left" id="prodo-comment-tags" >Tags: [  {{comment.tags}} ]</div> <br><br>
    
+      
+ 
 
-       <div class="pull-right" >{{fromNow(comment.time)}}</div>	
 
-           <div class="pull-left"><a href=""> Reply</a> </div> 
-           <div class="pull-left"><a ng-click="deleteProductComment(comment)">&nbsp;&nbsp;Delete   <!--  <i class="icon-trash"></i> --> </a></div> 
+
+
+ <div class="prodo-comment-tabs" id="tabs"   >
+    <ul id="myTab" class="nav nav-pills" >
+        <li><a   ng-click="tab = 1">Tag</a></li>
+        <li><a    ng-click="tab = 2">Reply</a></li>
+        <li><a    ng-click="tab = 3">Recommend</a></li>
+        <li><a   ng-click="tab = 4">Remove</a></li>
+         
+    </ul>
+    <div class="tab-content">
+        <div id="Tag"   ng-show="tab == 1">
+            <p>Tags Here</p>
+        </div>
+
+
+<div id="Reply"   ng-show="tab == 2" >
+ 
+ <div id="prodo-comment-enterComment">
+       <form ng-submit="addProductComment()">
+         
+          <span class="label label-info   " >{{300 - textField.length}}</span>   
+        <input type="text"  required 
+        onKeyPress="return ( this.value.length < 300 );" class="form-control"
+         name="txtComment" placeholder="Product Conversation [max 300 charactes]" id="prodo-comment-Textbox"  ng-model="textField" comment-limit="300" autocomplete="off" />
+
+      
+        </form> </div>
+</div>
+            
+        </div>
+        <div id="Recommend"     ng-show="tab == 3">
+            <p>Recommend This Product</p>
+        </div>
+        <div id="Remove"   ng-show="tab == 4">
+            Are you sure to remove this comment??
+             <a ng-click="deleteProductComment(comment)">&nbsp; Yes </a>
+        </div>
+       
+    </div>
+
+</div>
+ 
+<!-- </div> -->
+
+
 
      </div> 
      </li> 

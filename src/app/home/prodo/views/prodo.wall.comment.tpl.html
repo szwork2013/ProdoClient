@@ -14,28 +14,40 @@
  -->
 
 
-<div id="prodo-comment-container" class="container" style="border: 1px solid #94d2f8; width: 80%; margin-left:64.5px;">
+<div id="prodo-comment-container" class="container" style="border: 1px solid #94d2f8; width: 80%; margin-left:64.5px; align:center;" >
 
  <div ng-controller="ProdoCommentController" id="prodo-comment-fixed" >
  <br>
-      <div align="center">
+      
      <!--   <div id="prodo-comment-textArea"> -->
-       <form ng-submit="addProductComment() ">
 
-        <input required 
-        onKeyPress="return ( this.value.length < 300 );"
- name="txtComment" type="text" placeholder="Product Conversation  [ You can enter max 300 charactes]" id="prodo-comment-Textbox"  ng-model="textField" comment-limit="300"  >  </input>   {{300 - textField.length}}  
-  </form>
+<!-- Directive -->
+
+     <div    id="prodo-comment-enterComment">
+       <form ng-submit="addProductComment() ">
+       <span class="label label-info   " >{{300 - textField.length}}</span>   
+        <input type="text"  required 
+        onKeyPress="return ( this.value.length < 300 );" class="form-control"
+ name="txtComment" placeholder="Product Conversation [max 300 charactes]" id="prodo-comment-Textbox"  ng-model="textField" comment-limit="300" autocomplete="off" />
+  </form> </div>
+<!-- Directive -->
+ 
+
+ <!-- call to directive -->
+<!-- <div prodo-getcomment id="getCommentDirective"  ></div> -->
+ <!-- call to directive -->
+
+
   <!--  <div id="prodo-comment-charLength">{{300 - textField.length}}</div> -->
   
        <!--  <button ng-click="addProductComment() " class="btn btn-default btn btn-info navbar-btn" id="prodo-comment-addButton" >Add</button><br> -->
 
        
-        </div>
-      <br>
+       
+    
       <div prodo-comments when-scrolled="loadMore()" comments="comments"  id="prodo-comment-commentContainer"  >
        </div>   
-      </div>
+      
 </div>
 
 </div>

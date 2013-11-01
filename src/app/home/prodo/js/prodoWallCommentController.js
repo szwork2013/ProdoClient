@@ -8,7 +8,7 @@ angular.module('prodo.ProdoCommentApp')
         time:Date.now(),
         text:"I like this web site",
         tags:"warranty",
-        group:"Developer",
+        group:"Support",
         dp:"http://placehold.it/64x64",
         upvotecount:0
       },{
@@ -17,11 +17,15 @@ angular.module('prodo.ProdoCommentApp')
         time:Date.now(),
         text:"Prodonus is really cool :)",
         tags:"Prodonus, warranty",
-        group:"Support",
+        group:"Developer",
         dp:"http://placehold.it/64x64",
         upvotecount:0
       }];
-    
+
+//    var btn = document.getElementsByTagId('Reply')[0];
+// btn.onclick = function(e){
+//   window.location.assign('prodo.wall.comment.tpl.html#prodo-comment-enterComment')
+// }
 
 
 

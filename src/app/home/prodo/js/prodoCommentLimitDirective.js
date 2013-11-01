@@ -31,13 +31,13 @@ angular.module('prodo.ProdoCommentApp')
             document.getElementById('prodo-comment-Textbox').style.color="red";
            
 /*txtComment.onpaste = function(e){
-    //do some IE browser checking for e
+  
     var max = test.getAttribute("maxlength");
     e.clipboardData.getData('text/plain').slice(0, maxlength)
 };*/
            return transformedInput;
           } 
-          return text;
+          return text;  
          }
       ProdoCommentController.$parsers.push(fromUser);
     }

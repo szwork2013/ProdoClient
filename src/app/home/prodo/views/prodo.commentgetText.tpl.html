@@ -1,0 +1,23 @@
+<!-- /*
+* Overview: getComment Template
+* Its takes comment input
+* Dated: 31/10/2013.
+* Author: Bhagyashri Jangam
+* Copyright: Prodonus Software Private Limited and GiantLeap Systems Private Limited 2013
+* Change History:
+*
+* date | author | description 
+*
+* 27-3/2013 | xyx | Add a new property
+* 
+*/
+ -->
+
+ <div id="prodo-comment-enterComment">
+    <form ng-submit="addProductComment() ">
+        <span class="label label-info">{{300 - textField.length}}</span>   
+        <input type="text"  required 
+             onKeyPress="return ( this.value.length < 300 );" class="form-control"
+             name="txtComment" placeholder="Product Conversation  [max 300 charactes]" id="prodo-comment-Textbox"  ng-model="textField" comment-limit="300" autocomplete="off" />
+    </form>
+ </div>

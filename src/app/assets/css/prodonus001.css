@@ -794,13 +794,17 @@ corresponding value from the list below*/
 
 
  /* Prodo-Comment-CSS*/
-
+li:hover{
+background-color:#CEE3F6;
+}
  ul {list-style-type: none; }
+}
 /*li:nth-child(odd) {background-color:#F2F2F2;}*/
 #prodo-comment-media-list{border:3px;font-family: Helvetica Neue;font-size:14px;}
-#prodo-comment-Textbox {height:40px;border-radius:6px;  box-shadow: 0 0 4px #000; width:500px;font-family: Helvetica Neue; background-color: white;/* box-shadow: inset 1px 1px rgba(0, 0, 0, 0.4), inset -1px -1px rgba(0, 0, 0, 0.4);  border: 1px outset;*/}
-#prodo-comment-fixed {overflow: auto;}
-#prodo-comment-media {margin-top: 0px; border-top: 1px outset; border-color:gray ;  padding:15px; border-radius:8px;width:520px;}
+#prodo-comment-Textbox {  height:40px;width:525px;font-family: Helvetica Neue; border: none; /* box-shadow: inset 1px 1px rgba(0, 0, 0, 0.4), inset -1px -1px rgba(0, 0, 0, 0.4);  border: 1px outset;*/}
+/*#prodo-comment-Textbox {height:40px;border-radius:6px;  box-shadow: 0 0 4px #000; width:520px;font-family: Helvetica Neue; background-color: white;/* box-shadow: inset 1px 1px rgba(0, 0, 0, 0.4), inset -1px -1px rgba(0, 0, 0, 0.4);  border: 1px outset;}*/
+#prodo-comment-fixed {overflow: auto; align:center;}
+#prodo-comment-media {margin-top: 0px; border-top: 1px outset; border-color:#CCC	 ;  padding:15px;  width:520px;}
 #prodo-comment-row-fluid {word-wrap: break-word;width:400px;text-align: left;}
 #prodo-comment-companyName{color: gray;word-spacing: -.5ex ;}
 #prodo-comment-userName{font-size:15px; font-weight:bold;}
@@ -810,6 +814,10 @@ corresponding value from the list below*/
 #prodo-comment-addButton{width:400px; }
 /*#prodo-comment-charLength{font-family: Helvetica Neue; height: 40px; width: 50px; vertical-align: right;}*/
 #prodo-comment-tags{ font-size:11px; font-family: Helvetica Neue; }
+#prodo-comment-tabs{
+height: 10px;
+
+}
 
  /* Prodo-Comment-CSS*/
 

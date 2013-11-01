@@ -23,7 +23,25 @@ angular.module('prodo.ProdoCommentApp')
             scope.commentsLimit = function() {
                 return scope.pagesSize*scope.pagesShown;
             }
-            
+
+         
+     scope.addProductComment = function () {
+      if(!scope.textField) return;
+     
+      scope.comments.unshift({
+       userName:"Shree",
+       companyName:"Srujan Systems",
+       time: Date.now(),
+       text: $scope.textField,
+       tags: "hiii",
+        group:"Admin",
+        dp:"http://placehold.it/64x64",
+        upvotecount:0
+      });
+       scope.textField = "";
+     
+    }
+ 
           scope.deleteProductComment = function (comment) {
              console.log("deleting....");
              var index = scope.comments.indexOf(comment);
