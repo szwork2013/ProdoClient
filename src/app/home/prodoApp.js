@@ -7,14 +7,15 @@ angular.module('prodo.UserApp', []);
 angular.module('prodo.ProdoWallApp', []);
 angular.module('prodo.OrgApp', []);
 angular.module('prodo.ProductApp', []);
+angular.module('prodo.ProdoCommentApp', []);
 angular.module('prodo.WarrantyApp', []);
 angular.module('prodo.DashboardApp', []);
 angular.module('prodo.ContentApp', []);
 angular.module('prodo.BlogApp', []);
 angular.module('prodo.AdApp', []);
 
-angular.module('prodo.ProdonusApp',['ui.router', 'ui.bootstrap', 'prodo.UserApp', 'prodo.ProdoWallApp', 'prodo.OrgApp',
-  'prodo.ProductApp', 'prodo.WarrantyApp', 'prodo.DashboardApp','prodo.ContentApp', 'prodo.CommonApp', '$strap.directives',
+angular.module('prodo.ProdonusApp',['ui.router', 'ui.bootstrap', '$strap.directives', 'prodo.UserApp', 'prodo.ProdoWallApp', 'prodo.OrgApp',
+  'prodo.ProductApp', 'prodo.ProdoCommentApp', 'prodo.WarrantyApp', 'prodo.DashboardApp','prodo.ContentApp', 'prodo.CommonApp',
   'prodo.BlogApp', 'prodo.AdApp'
   ])
 	.controller('ProdoMainController', ['$scope', '$state', function($scope, $state) {

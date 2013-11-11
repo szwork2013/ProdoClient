@@ -1,16 +1,54 @@
-<div id="prodo-comment-container" class="container" style="border: 1px solid #94d2f8; width: 80%; margin-left:64.5px; height: 300px;"><h4>Comments to display</h4></div>
-<!-- <div style="border: 1px solid #ddd; -webkit-border-radius: 20px; -moz-border-radius: 20px; border-radius: 20px;width: 80%; margin-left:64.5px;" id="fixed" >
-      <div align="center">
-        <textarea cols="30" required rows="5" type="text" placeholder="Add comment" class="commentTextbox" id="txtComment" ng-model="textField"></textarea>
-              <button class="btn btn-default" ng-click="add()">Add</button><br>
+<!-- /*
+* Overview: Comment container 
+* All comments block is defined here...
+* Dated: 29/10/2013.
+* Author: Bhagyashri Jangam
+* Copyright: Prodonus Software Private Limited and GiantLeap Systems Private Limited 2013
+* Change History:
+*
+* date | author | description 
+*
+* 27-3/2013 | xyx | Add a new property
+* 
+*/
+ -->
 
-<div style="padding-left:350px;" align="left" >   
-      <h2 >Comments</h2>
-</div><br>
 
-      <div prodo-comments when-scrolled="loadMore()" comments="comments" pages-size="pagesSize" pages-shown="pagesShown" style=" width:600px;">
-      </div>  
-        <img  id="spinner" style="alignment:center;" ng-class="searching && 'active' "                          ng-src="https://raw.github.com/ThomasBurleson/angularJS-TwitterSearch/master/webroot/assets/image/spinner2.gif" alt="Loading"  style="display:none;"  /> 
+<div id="prodo-comment-container" class="container" style="border: 1px solid #94d2f8; width: 80%; margin-left:64.5px; align:center;" >
 
-         </div>
-    </div> -->
+ <div ng-controller="ProdoCommentController" id="prodo-comment-fixed" >
+ <br>
+      
+     <!--   <div id="prodo-comment-textArea"> -->
+
+<!-- Directive -->
+
+     <div    id="prodo-comment-enterComment">
+       <form ng-submit="addProductComment() ">
+       <span class="label label-info   " >{{300 - textField.length}}</span>   
+        <input type="text"  required 
+        onKeyPress="return ( this.value.length < 300 );" class="form-control"
+ name="txtComment" placeholder="Product Conversation [max 300 charactes]" id="prodo-comment-Textbox"  ng-model="textField" comment-limit="300" autocomplete="off" />
+  </form> </div>
+<!-- Directive -->
+ 
+
+ <!-- call to directive -->
+<!-- <div prodo-getcomment id="getCommentDirective"  ></div> -->
+ <!-- call to directive -->
+
+
+  <!--  <div id="prodo-comment-charLength">{{300 - textField.length}}</div> -->
+  
+       <!--  <button ng-click="addProductComment() " class="btn btn-default btn btn-info navbar-btn" id="prodo-comment-addButton" >Add</button><br> -->
+
+       
+       
+    
+      <div prodo-comments when-scrolled="loadMore()" comments="comments"  id="prodo-comment-commentContainer"  >
+       </div>   
+      
+</div>
+
+</div>
+
