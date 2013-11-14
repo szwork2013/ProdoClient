@@ -8,7 +8,7 @@
       <h4 id="prodo-signup-heading">Talk About Your Products</h4>
        
 
-        <input id="prodo-form-input-signup" name="fullname" class="form-control" type="text" placeholder="FullName" ng-model="fullname" required /><i class="fa fa-check" ng-show="signupForm.fullname.$dirty && signupForm.fullname.$valid" ></i>
+        <input id="prodo-form-input-signup" name="fullname" class="form-control" type="text" placeholder="FullName (firstname lastname)" ng-model="user.fullname" required /><i class="fa fa-check" ng-show="signupForm.fullname.$dirty && signupForm.fullname.$valid" ></i>
         <div class="error" 
             ng-show="(signupForm.fullname.$dirty && signupForm.fullname.$invalid && signupForm.submitted) || (signupForm.fullname.$invalid && signupForm.submitted) || (signupForm.fullname.$dirty && signupForm.fullname.$error.required)">
          
@@ -16,7 +16,7 @@
          
         </div>
 
-        <input id="prodo-form-input-signup" name="email" class="form-control" type="email" placeholder="Email" required ng-model="email" /><i class="fa fa-check" ng-show="signupForm.email.$dirty && signupForm.email.$valid"></i>
+        <input id="prodo-form-input-signup" name="email" class="form-control" type="email" placeholder="Email" required ng-model="user.email" /><i class="fa fa-check" ng-show="signupForm.email.$dirty && signupForm.email.$valid"></i>
         <div class="error" 
             ng-show="(signupForm.email.$dirty && signupForm.email.$invalid && signupForm.submitted) || 
             (signupForm.email.$invalid && signupForm.submitted) || (signupForm.email.$dirty && signupForm.email.$error.required)">
@@ -28,7 +28,7 @@
         </div>
       
       
-        <input id="prodo-form-input-signup" type="password" class="form-control" id="password1" name="password" placeholder="Password" ng-model="password" prodonus-password-validate required><i class="fa fa-check" ng-show="signupForm.password.$dirty && signupForm.password.$valid" ></i>
+        <input id="prodo-form-input-signup" type="password" class="form-control" id="password1" name="password" placeholder="Password" ng-model="user.password" prodonus-password-validate required><i class="fa fa-check" ng-show="signupForm.password.$dirty && signupForm.password.$valid" ></i>
         <div class="error" 
             ng-show="(signupForm.password.$dirty && signupForm.password.$invalid && signupForm.submitted) || (signupForm.password.$invalid && signupForm.submitted) || (signupForm.password.$dirty &&signupForm.password.$error.required)">
             Password is required.

@@ -27,26 +27,31 @@ angular.module('prodo.CommonApp')
     .state('subscription.company', {
       url: '/company',
       templateUrl: 'org/orgregistration/views/orgregistration.company.tpl.html',
-      // controller: 'OrgRegistrationController'
+      controller: 'OrgRegistrationController'
     }) 
     .state('subscription.contact', {
         url: '/contact',
-        templateUrl:  'org/orgregistration/views/orgregistration.contact.tpl.html'
+        templateUrl:  'org/orgregistration/views/orgregistration.contact.tpl.html',
+        controller: 'OrgRegistrationController'
     })
     .state('subscription.address', {
         url: '/address',
-        templateUrl:  'org/orgregistration/views/orgregistration.address.tpl.html'
+        templateUrl:  'org/orgregistration/views/orgregistration.address.tpl.html',
+        controller: 'OrgRegistrationController'
     })
     .state('subscription.groupuser', {
         url: '/groupuser',
-        templateUrl: 'org/orgregistration/views/orgregistration.groupusers.tpl.html'
+        templateUrl: 'org/orgregistration/views/orgregistration.groupusers.tpl.html',
+        controller: 'OrgRegistrationController'
     })     
     .state('subscription.terms', {
         url: '/terms',
-        templateUrl: 'org/orgregistration/views/orgregistration.terms.tpl.html'
+        templateUrl: 'org/orgregistration/views/orgregistration.terms.tpl.html',
+        controller: 'OrgRegistrationController'
     })        
     .state('subscription.finish', {
         url: '/finish',
-        templateUrl: 'org/orgregistration/views/orgregistration.finish.tpl.html'
+        templateUrl: 'org/orgregistration/views/orgregistration.finish.tpl.html',
+        controller: 'OrgRegistrationController'
     })            
   }]);

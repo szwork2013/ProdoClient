@@ -72,14 +72,15 @@ angular.module("prodo.CommonApp")
     scope: {
       ngModel: '='
     },
-    template: '<div class="alert fade" bs-alert="ngModel"></div>',
+    template: '<div class="alert alert-info fade" bs-alert="ngModel"></div>',
     link: function(scope, element, attrs) {
       $timeout(function(){
         element.hide();
-      }, 5000);
+      }, 600000);
     }
   }
 })
+
    .directive('ensureUnique', ['$http', function($http) {
   return {
     require: 'ngModel',

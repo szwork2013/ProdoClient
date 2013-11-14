@@ -9,7 +9,7 @@
 	 			<tbody>
 		 			<tr  id="prodo-summary-datarow">
 		 				<td>Company Name</td>
-		 				<td>{{org.companyname}}</td>
+		 				<td>{{org.name}}</td>
 		 			</tr>
 		 			<tr id="prodo-summary-datarow">
 		 				<td>Company Description</td>
@@ -17,7 +17,7 @@
 		 			</tr>
 		 			<tr id="prodo-summary-datarow">
 		 				<td>Organization Type</td>
-		 				<td>{{org.name}}</td>
+		 				<td>{{org.orgtype}}</td>
 		 			</tr>
 		 			<tr id="prodo-summary-datarow">
 		 				<td>Contract Id</td>
@@ -55,7 +55,10 @@
 	 			<tbody>
 	 				<tr id="prodo-summary-datarow">
 	 					<td>Contact No.</td>
-	 					<td>{{org.value}}</td>
+	 					<td>{{org.contact_numbers.customerhelpline1}}</td>
+	 					<td>{{org.contact_numbers.customerhelpline2}}</td>
+	 					<td>{{org.contact_numbers.customerhelpline3}}</td>
+	 					<td>{{org.contact_numbers.customerhelpline4}}</td>
 	 				</tr>
 	 			</tbody>
 
@@ -64,29 +67,12 @@
 	 			<tbody>
 	 				<tr id="prodo-summary-datarow">
 	 					<td>Group Name</td>
-	 					<td>{{org.groupname}}</td>
-	 				</tr>
-	 				<tr id="prodo-summary-datarow">
-	 					<td>Domain Name</td>
-	 					<td>{{org.domain}}</td>
+	 					<td>{{org.grpname}}</td>
 	 				</tr>
 	 				<tr id="prodo-summary-datarow">
 	 					<td>Group Invites</td>
 	 					<td>{{org.invites}}</td>
 	 				</tr>
-	 			</tbody>
-	 			 
-	 		<thead id="prodo-summary-header" class="tbl-header">
-	 			<th>Subscription Details</th></thead>
-	 			<tbody>
-		 			<tr id="prodo-summary-datarow">
-		 				<td>Plan Id</td>
-		 				<td>{{org.planid}}</td>
-		 			</tr>
-		 			<tr id="prodo-summary-datarow">
-		 				<td>Plan Type</td>
-		 				<td>{{org.plantype}}</td>
-		 			</tr>
 	 			</tbody>
 		</table>
  	</div>

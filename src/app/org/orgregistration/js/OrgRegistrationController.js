@@ -3,7 +3,8 @@
 **/
 angular.module('prodo.OrgApp')
 	.controller('OrgRegistrationController', ['$scope', 'orgModel', function($scope, orgModel) {
-		$scope.user = orgModel;
+		$scope.org = orgModel;
+		 
 	}]);
 
 // /**

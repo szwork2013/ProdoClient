@@ -1,102 +1,290 @@
-/*.........................Layouts for prodonus..................................*/
+/**
+*	html body
+**/
 
- 
- 
-/*#body{
-      padding: 0;
-      background: url(../images/prodonus.jpg) no-repeat center center fixed; 
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover; 
-    height: 660px;
-    }*/
-.container-prd{
-  /*height: 640px;*/
+/*change the body style*/
+html,body{
+	height:100%;
 }
-.container-main{
-  padding: 0;
-  margin: 0;
-  height: 640px;
+
+#body{
+background-color: #3a92c8;
+background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
+
 }
-.signup-view {
-  border: 1px solid #ddd;
-  -webkit-border-radius: 20px;
-  -moz-border-radius: 20px;
-  border-radius: 20px; 
-  background-color: #E9E5Df;
-  width: 500px;
-  height: 500px;
-  margin-top: 15px;
+
+/**
+*	Navigation Bar
+**/
+
+/*change the navbar style*/
+#prodo-navbar {
+	min-height: 60px;
+	background-color: #000000;
+	background: -webkit-linear-gradient(#686868,#000000);
+  }
+
+
+
+
+
+
+/*change the navbar brand style*/
+#prodo-navbar-brand {
+	color: #ffffff;
+	font:italic bold 20px/30px Georgia,serif;
+  }
+
+/*change the navbar form style*/
+#prodo-navbar-form{
+	padding-top: 5px;
+}
+
+/*change the navbar form input textbox signin style*/
+#prodo-form-input-signin{
+	width: 150px;
+	height: 25px;
+	font-size: 13px;
+	border-radius: 12px;
+  }
+
+/*change the navbar form input button signin style*/
+#prodo-form-button-signin{
+	width: 60px;
+	height: 25px;
+	padding: 0px;
+	border-radius: 5px;
+	margin-left: 5px;
+	border-color: #495549;
+	background-color: #595C63
+  }
+
+/*change the navbar form forgot link style*/
+#prodo-form-forgot-link{
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+   font-size:10px;
+}
+
+/*change the main view container style(main-ui-view inside this view)*/
+#prodo-main-view {
+	min-height:100%;
+	padding-bottom: 50px;
+}
+
+/****
+** View: Main outer view containing parent view: home
+****/
+
+#prodo-row-main-view{
+	margin: 0;
+}
+/**
+* View: Marketing
+**/
+
+/*change the View: marketing div style*/
+#prodo-view-marketing{
+	margin-top: 150px;
+	margin-left: 60px;
+}
+
+/*change the View: marketing heading style*/
+#prodo-view-marketing-heading{
+	font-weight: bold;
+	font-size: 40px;
+}
+
+/*change the View: marketing text style*/
+#prodo-view-marketing-text{
+	font-weight: normal;
+	margin-left: 20px;
+	font-size: 30px;
+	line-height: 30px;
+}
+
+/*change the View: marketing button style*/
+#prodo-view-marketing-btn{
+	
+}
+
+/**
+* View: Signup
+**/
+
+/*change the View: signup div style*/
+#prodo-view-signup{
+  border: 1px solid #94d2f8;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px; 
+  background-color: #f3f5f3;
+  width: 350px;
+  min-height: 300px;
+  margin-top: 50px;
+  margin-left: 100px;
   padding-bottom: 20px;
 }
-.container-welcome-text{
-  height: 450px;
-  padding-top: 130px;
-  text-align: left;
-  margin-left: 150px;
-}
-.prd-text{
-  font-size: 30px;
-  font-style: italic;
-  color: #000000;
- }
-.row{
-  margin: 0;
-  height: 620px;
-}
-#footer{
-    height: 20px; 
-    padding-top: 3px;
-    background-color: #f1eee9;
-    position: relative;
-    /*bottom: 50px; */
-    font-size: 10px;
-}
-.link{
-  margin-left: 20px;
+/*change the View: signup form style*/
+#prodo-form-signup{
+	display: block;
+  margin: 0 auto;
   text-align: center;
 }
-.link-footer{
-  margin-left: 100px;
- }
- .navbar-text{
+/*change the View: signup form input style*/
+#prodo-form-input-signup{
+	width:250px;
+	height: 30px;
+	border-radius: 2px;
+	margin: 10px auto;
+	display: block;
+     
+}
 
-  margin-right: 25px;
-  padding-bottom: 10px;
+/*change the View: Signup form input button signup style*/
+#prodo-form-button-signup{
+	width:250px;
+	border-radius: 2px;
+	background-color: #3a92c6;
+	font-size: 15px;
+	position: relative;
+	display: block;
+  margin: 20px auto;
+	text-align: center;
+  }
+
+/*change the View: Signup form heading style*/  
+#prodo-signup-heading{
+	font-weight: normal;
+	font-size: 25px;
+	line-height: 20px;
+	padding: 10px;
+	color: #2b8dc0;
 }
-.navbar-brand{
-  padding-bottom: 10px;
-  font-style: italic;
+
+
+/**
+* View: Signin
+**/
+
+/*change the View: Signin form heading style*/  
+#prodo-signin-heading{
+	font-weight: normal;
+	font-size: 25px;
+	line-height: 20px;
+	padding: 10px;
+	color: #2b8dc0;
 }
-.navbar{
-  min-height: 1px;
-  max-height: 40px; 
+#prodo-signin-col-md-8{
+	padding: 0;
+	margin: 0;
+	position: relative; 
+	/*background-color: #649FF6;*/
+	min-height: 540px;
+	/*height: 620px;*/
+}
+#prodo-view-signin{
+	border: 1px solid #94d2f8;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px; 
+  background-color: #f3f5f3;
+  width: 400px;
+  height: 430px;
+  display: block;
+  margin: 50px auto;
+  text-align: center;
 }
  
+#prodo-form-signin{
+	display: block;
+    margin: 0 auto;
+    text-align: center;
+}
+/*change the View: signup form input style*/
+#prodo-input-signin{
+	width:250px;
+	height: 30px;
+	border-radius: 2px;
+	margin: 10px auto;
+	display: block;
+    text-align: center;
+     
+}
 
-/*...............................end......................................................*/
-/*...............................Layout for subscription......................................................*/
-.container-subscription{
-  height: 620px;
-  background-color: #ffffff;
-}
-.col-md-2{
- background-color: #f9f9f9;
- height: 620px;
-}
-.col-md-8{
- height: 620px;
-}
+/*change the View: Signup form input button signup style*/
+#prodo-button-signin{
+	width:250px;
+	border-radius: 2px;
+	background-color: #3a92c6;
+	font-size: 15px;
+	position: relative;
+	display: block;
+  	margin: 20px auto;
+	text-align: center;
+  }
  
-.subscription{
+/**
+*	Verification Message
+**/
+
+/*Change the Verification Panel style*/  
+#prodo-verification-panel{
+	margin-top: 50px;
+	 
+}
+
+/*Change the Verification Panel heading style*/  
+#prodo-verification-panel-heading{
+	 
+	font-weight: bold;
+	font-family: 20px;
+}
+
+
+
+
+
+/**
+*	Subscription
+**/
+
+/*change the Subscription row style*/
+ 
+
+#prodo-view-subscription{
+	/*height: 620px;*/
+  /*background-color: #ffffff;*/
+
+}
+#prodo-row-subscription{
+	margin: 0;
+
+}
+
+#prodo-subscription-col-md-2{
+	/*background-color: #f9f9f9;*/
+	/*height: 620px;*/
+}
+
+#prodo-subscription-col-md-8{
+	padding: 0;
+	margin: 0;
+	position: relative; 
+	background-color: #649FF6;
+	min-height: 540px;
+	/*height: 620px;*/
+}
+
+#prodo-subscription-heading{
+	text-align: center;
+  	margin: 0px;
+}
+
+#prodo-subscription{
   margin-top: 25px;
-  padding-left: 95px;
+  padding-left: 65px;
  }
- .page-header{
-  text-align: center;
-  margin: 0px;
-}
+
 .jumbotron-subscribe{
   width: 210px;
   float: left;
@@ -109,7 +297,11 @@
   border-radius: 10px;
  }
  
- .subscription-heading{
+#prodo-subscribe-plan-heading{
+	font-weight: normal;
+	/*margin-left: 20px;*/
+	font-size: 20px;
+	line-height: 20px;
   width: 210px;
   height:50px;
   background-color: #5E9489;
@@ -121,16 +313,11 @@
   border-bottom-right-radius: 0px; 
   text-transform: capitalize;
   padding: 10px;
-  font:bold 20px/30px Georgia,serif;
+  /*font:bold 20px/30px Georgia,serif;*/
 }
-.subscribe-text{
-  text-align: center;
-  color: #929C93;
-}
-
 section:hover{
-   transform: scale(1.05);
--webkit-transform: scale(1.05); /* Safari and Chrome */  
+  transform: scale(1.05);
+	-webkit-transform: scale(1.05); /* Safari and Chrome */  
   tranform-style:preserve-3d;
   background-color: #F8F0C8 ;
   position:relative;
@@ -139,27 +326,34 @@ section:hover{
   z-index:1;
 }
  
-section:hover #heading{
+section:hover #prodo-subscribe-plan-heading{
     
   background-color: #3E8960 ;
 }
 
- 
- hr{
+#prodo-subscribe-text{
+  text-align: center;
+  color: #929C93;
+}
+
+hr{
   width: 150px;
   border-top: 1px solid #D8D0D0;
   margin-top: 10px;
   margin-bottom: 10px;
  }
+
 .subscribe-feature-list{
   font-size: 12px;
   color: #404541; 
 }
-.btn-subscribe{
-    display: block;
-    margin: 0 auto;
-    text-align: center;
+
+#prodo-subscribe-btn{
+  display: block;
+  margin: 0 auto;
+  text-align: center;
 }
+
 p.price{
   padding: 10px;
   text-align: center;
@@ -171,303 +365,549 @@ p.price{
   font-size: 25px;
 }
 
-/*...............................end......................................................*/
-/*...............................css for all buttons......................................................*/
+/**
+*	Subscription.company
+**/
 
-.btn-layout-text{
-  margin-top: 25px;
-  margin-right: 5px;
-  width: 130px;
-  height: 40px;
-  font-size: 18px;
-  font-style: normal;
-}
-.btn-md{
-    margin-top: 30px;
-    margin-bottom: 5px;
-    position: relative;
-    width: 90px;
-    height: 25px;
-    text-align: center;
-    font-size: 15px;
-    padding-bottom: 25px;
-  }
-  .btn-lg {
-  margin-top: 20px;
-  margin-bottom: 5px;
-  margin-right: 5px;
-  max-width: 180px;
-  height: 40px;
-  font-size: 14px;
-  font-style: oblique;
-  
- }
- .btn-signin{
-  margin-top: 50px;
-}
- .glyphicon-thumbs-up {
-  margin-right: 3px;
- }
- .glyphicon-remove {
-  margin-left: -17px;
-}
- .glyphicon-plus-sign {  
-  margin-left: 10px;  
- }
-.glyphicon-plus-email {
-  
-  margin-left: 8px;
- }
-/*...............................end......................................................*/
-/*...............................css for tamplate views inside subscription layout......................................................*/
- 
-.container-org{
-  width:600px; 
+#prodo-company-container{
+	border: 1px solid #94d2f8;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px; 
+  background-color: #f3f5f3;
+  width: 400px;
+  height: 430px;
   display: block;
+  margin: 50px auto;
+  text-align: center;
+}
+ 
+#prodo-form-company{
+	display: block;
+    margin: 0 auto;
+    text-align: center;
+}
+/*change the View: signup form input style*/
+#prodo-form-input-company{
+	width:250px;
+	height: 30px;
+	border-radius: 2px;
+	margin: 10px auto;
+	display: block;
+     
+}
+
+/*change the View: Signup form input button signup style*/
+#prodo-form-company-btn{
+	width:250px;
+	border-radius: 2px;
+	background-color: #3a92c6;
+	font-size: 15px;
+	position: relative;
+	display: block;
+  margin: 20px auto;
+	text-align: center;
+  }
+
+/*change the View: Signup form heading style*/  
+#prodo-company-label-control{
+	font-weight: normal;
+	font-size: 25px;
+	line-height: 20px;
+	padding: 10px;
+	color: #2b8dc0;
+}
+
+/**
+*	Subscription.contact
+**/
+
+#prodo-contact-container{
+	border: 1px solid #94d2f8;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px; 
+  background-color: #f3f5f3;
+  width: 400px;
+  height: 430px;
+ 	display: block;
+  margin: 50px auto;
+  text-align: center;
+}
+ 
+#prodo-form-contact{
+	display: block;
   margin: 0 auto;
   text-align: center;
- }
- .container-terms{
-  text-align: left;
+}
+/*change the View: signup form input style*/
+#prodo-form-input-contact{
+	width:250px;
+	height: 30px;
+	border-radius: 2px;
+	margin: 10px auto;
+	display: block;
+     
+}
 
- }
- .container-display{
-  text-align: left;
-  height: 500px;
-  overflow-y: scroll;
+/*change the View: Signup form input button signup style*/
+#prodo-form-contact-btn{
+	width:122.5px;
+	border-radius: 2px;
+	background-color: #3a92c6;
+	font-size: 15px;
+	position: relative;
+	margin: 20px auto;
+	text-align: center;
+  }
+
+/*change the View: Signup form heading style*/  
+#prodo-contact-label-control{
+	font-weight: normal;
+	font-size: 25px;
+	line-height: 20px;
+	padding: 10px;
+	color: #2b8dc0;
+}
+
+/**
+*	Subscription.address
+**/
+
+#prodo-address-container{
+	border: 1px solid #94d2f8;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px; 
+  background-color: #f3f5f3;
+  width: 400px;
+  height: 430px;
+  display: block;
+  margin: 50px auto;
+  text-align: center;
+}
+ 
+#prodo-form-address{
+	display: block;
+  margin: 0 auto;
+  text-align: center;
+}
+/*change the View: signup form input style*/
+#prodo-form-input-address{
+	width:250px;
+	height: 30px;
+	border-radius: 2px;
+	margin: 10px auto;
+	display: block;
+     
+}
+
+/*change the View: Signup form input button signup style*/
+#prodo-form-address-btn{
+	width:122.5px;
+	border-radius: 2px;
+	background-color: #3a92c6;
+	font-size: 15px;
+	position: relative;
+  margin: 20px auto;
+	text-align: center;
+  }
+
+/*change the View: Signup form heading style*/  
+#prodo-address-label-control{
+	font-weight: normal;
+	font-size: 25px;
+	line-height: 20px;
+	padding: 10px;
+	color: #2b8dc0;
+}
+/**
+*	Subscription.groupuser
+**/
+
+#prodo-groupuser-container{
+	border: 1px solid #94d2f8;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px; 
+  background-color: #f3f5f3;
+  width: 400px;
+  height: 430px;
+  display: block;
+  margin: 50px auto;
+  text-align: center;
+}
+ 
+#prodo-form-groupuser{
+	display: block;
+  margin: 0 auto;
+  text-align: center;
+}
+/*change the View: signup form input style*/
+#prodo-form-input-groupuser{
+	width:250px;
+	height: 30px;
+	border-radius: 2px;
+	margin: 10px auto;
+	display: block;
+     
+}
+
+/*change the View: Signup form input button signup style*/
+#prodo-form-groupuser-btn{
+	width:122.5px;
+	border-radius: 2px;
+	background-color: #3a92c6;
+	font-size: 15px;
+	position: relative;
+  margin: 20px auto;
+	text-align: center;
+  }
+
+/*change the View: Signup form heading style*/  
+#prodo-groupuser-label-control{
+	font-weight: normal;
+	font-size: 25px;
+	line-height: 20px;
+	padding: 10px;
+	color: #2b8dc0;
+}
+/**
+*	Subscription.term
+**/
+
+#prodo-term-container{
+	border: 1px solid #94d2f8;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px; 
+  background-color: #f3f5f3;
+  width: 400px;
+  height: 430px;
+  display: block;
+  margin: 50px auto;
+  text-align: center;
   font-size: 12px;
- }
- .tbl-header{
-  font-size: 15px;
- }
- .form-control{
-    margin-top: 10px;
-    width: 350px;
-    display: inline-block;
-    position: relative;
-    margin-right: 25px;
-    font-size: 15px;
-  }
-  .control-group{
-    margin-top: 40px;
-  }
-  .label-control{
-    text-align: center;
-    margin-bottom: 10px;
-    font-style: italic;
-    font-size: 20px;
-  }
- .section
-  .para1{
-    text-align: center;
-    color: red;
-  }
- /*...............................end......................................................*/
-/*...............................css for comment......................................................*/
-  
-  .moreComments {
-    background-color:#EBF4FA;
-    bottom: -3rem;
-    left: 0;
-    font-size:13px;
-    font-family:Arial, Helvetica, sans-serif;
-    width: 100%;
-    text-align: center;
-    border: 1px outset;
-    color: black;
-    padding: .40rem;
-    box-shadow: inset 1px 1px rgba(0, 0, 0, 0.4), inset -1px -1px rgba(0, 0, 0, 0.4);
 }
-/*a:link {
-    COLOR:  #11B3A9;
-}
-a:visited {
-    COLOR: #E5E4E2;
-}
-a:hover {
-    COLOR: #95B9C7;
-}
-a:active {
-    COLOR: #CBFFCB;
-}*/
-.myComment {
-    font-size:13px;
-    font-family:Arial, Helvetica, sans-serif;
-    width: 100%;
-    border: 1px outset;
-    font-size:11px;
-    color: black;
-    padding: .40rem;
-    box-shadow: inset 1px 1px rgba(0, 0, 0, 0.4), inset -1px -1px rgba(0, 0, 0, 0.4);
-}
-ul {
-    list-style-type: none;
-}
-/*li:nth-child(odd) {
-    background-color: #EBF4FA;
-
-}*/
-.commentTextbox {
-    height:100px;
-    width:300px;
-    box-shadow: inset 1px 1px rgba(0, 0, 0, 0.4), inset -1px -1px rgba(0, 0, 0, 0.4);
-    border: 1px outset;
-}
-#fixed {
-  
-    overflow: auto;
-}
-.media, .media .media {
-    margin-top: 0px;
-}
- /*...............................end......................................................*/
-/*...........................................css for input help.............................*/
- .error{
-  color: red;
-  display: block;
  
- }
- .success{
-  color: green;
- }
- .css-form small.style{
+#prodo-form-term{
+	display: block;
+  margin: 0 auto;
+  text-align: left;
+   
+}
+#prodo-form-input-term{
+	margin-left: 15px;
+	text-align: left;
+}
+#prodo-term{
+	overflow-y: scroll; 
+	height:280px;
+	text-align: left;
+}
+/*change the View: Signup form input button signup style*/
+#prodo-form-term-btn{
+	width:122.5px;
+	border-radius: 2px;
+	background-color: #3a92c6;
+	font-size: 15px;
+	position: relative;
+  margin: 20px auto;
+	text-align: center;
+  }
+
+/*change the View: Signup form heading style*/  
+#prodo-term-label-control{
+	font-weight: normal;
+	font-size: 25px;
+	line-height: 20px;
+	padding: 10px;
+	color: #2b8dc0;
+}
+
+/**
+*	Subscription.payment
+**/
+
+#prodo-payment-container{
+	border: 1px solid #94d2f8;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px; 
+  background-color: #f3f5f3;
+  width: 400px;
+  height: 430px;
+	display: block;
+	margin: 50px auto;
+	text-align: center;
+	font-size: 12px;
+}
+ 
+#prodo-form-payment{
+	display: block;
+  margin: 0 auto;
+  text-align: center;
+   
+}
+
+#prodo-form-input-payment{
+	width:250px;
+	height: 30px;
+	border-radius: 2px;
+	margin: 10px auto;
+	display: block;
+}
+ 
+/*change the View: Signup form input button signup style*/
+#prodo-form-payment-btn{
+	width:122.5px;
+	border-radius: 2px;
+	background-color: #3a92c6;
+	font-size: 15px;
+	position: relative;
+  margin: 20px auto;
+	text-align: center;
+  }
+
+/*change the View: Signup form heading style*/  
+#prodo-payment-label-control{
+	font-weight: normal;
+	font-size: 25px;
+	line-height: 20px;
+	padding: 10px;
+	color: #2b8dc0;
+}
+
+/**
+*	Subscription.finish
+**/
+
+#prodo-summary-container{
+	border: 1px solid #94d2f8;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+  border-radius: 6px; 
+  background-color: #f3f5f3;
+  width: 400px;
+  height: 430px;
   display: block;
- }
+  margin: 50px auto;
+  text-align: center;
+  font-size: 12px;
+}
 
-.css-form input.ng-invalid.ng-dirty {
-        background-color:  #FAA6A6;
+#prodo-summary{
+	overflow-y: scroll; 
+	height:300px;
+	text-align: left;
+}
 
-      }
+#prodo-form-summary-table{
+	overflow-y: scroll; 
+	height:280px;
+}
+
+#prodo-form-summary-header{
+	 
+}
+
+#prodo-form-summary-datarow{
+	 
+}
+
+/*change the View: Signup form input button signup style*/
+#prodo-form-summary-btn{
+	width:122.5px;
+	border-radius: 2px;
+	background-color: #3a92c6;
+	font-size: 15px;
+	position: relative;
+  margin: 20px auto;
+	text-align: center;
+  }
+
+/*change the View: Subscription:summary heading style*/  
+#prodo-summary-label-control{
+	font-weight: normal;
+	font-size: 25px;
+	line-height: 20px;
+	padding: 10px;
+	color: #2b8dc0;
+}
+
+/**
+* Prodo Main View
+**/
+
+#prodo-row{
+   margin: 0;
+}
+ 
+#prodo-col-md-3{
+  padding: 0;
+  margin-right: 15px;
+}
+
+#prodo-col-md-8{
+  padding: 0;
+  background-color: #2C2D2E;
+  margin-right: 15px;
+  border-radius: 5px;
+}
+
+/* Prodo Main View: Sidebar*/
+#prodo-sidebar-list{
+  width: 75%; 
+  margin-left: 70px;
+}
+
+#prodo-sidebar-list-group-item:last-child {
+margin-bottom: 0;
+border-bottom-right-radius: 0px;
+border-bottom-left-radius: 0px;
+}
+
+/* Prodo Main View: Carousel*/
+#prodo-view-carousel{
+  margin-top: 20px;
+  width: 80%; 
+  margin-left:64.5px; 
+  height:330px;
+}
+ 
+#prodo-view-carousel-slide{
+  height: 290px; 
+}
+
+#prodo-view-carousel-nav{
+  background-color: #ffffff;
+
+}
+
+#prodo-carousel-nav-pills > li > a {
+  border-radius: 0px;
+  font-weight: bold;
+  color: #33373C;
+}
+
+#prodo-carousel-nav-pills > li.active > a {
+color: #ffffff;
+background-color: #BE7A3B;
+}
+/* Prodo Main View: Dashboard*/
+
+#prodo-dashboard-container{
+  background-color: #ffffff;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+/* Prodo Main View: Comments*/
+ #prodo-comment-container{
+  background-color: #ffffff;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  border-radius: 10px;
+}
+ 
+/**
+*	Footer
+**/
+
+/*change the footer div style*/
+#footer{
+	background-color: #000000;
+	background: -webkit-linear-gradient(circle,#333333,#000000);
+	padding: 1px;
+}
+
+/*change the footer row div style*/
+#prodo-row-footer{
+	margin: 0;
+}
+#footer-nav-heading{
+  color: #bdbdbd;
+}
+
+#prodo-copyright{
+  margin-left: 230px;
+  color: #bdbdbd;
+}
+
+ 
+/**
+*	Field and form validation: input-help
+**/
+.error{
+	border: 1px solid;
+	border-color: #000000;
+	width: 250px;
+	height: 25px;
+	margin-left: 50px;
+	text-align: center;
+	display: block;
+	background-color: #333333;
+	opacity: 0.85;
+	color: #ffffff;
+	border-radius: 5px;
+
+}
+
+.fa-check {
+    position: absolute;
+}
+ 
+/*replace the content value with the 
+corresponding value from the list below*/
+ 
+.fa-check:before{
+    content: "\f000"; 
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+/*--adjust as necessary--*/
+    color: green;
+    padding-right: 0.5em;
+    position: absolute;
+    top: -35px;
+    left: 140px;
+     
     
-.css-form input.ng-valid.ng-dirty {
-        background-color: #A2F08F;
-      }
+}
 
 
+ /* Prodo-Comment-CSS*/
+li:hover{
+background-color:#CEE3F6;
+}
+ ul {list-style-type: none; }
+}
+/*li:nth-child(odd) {background-color:#F2F2F2;}*/
+#prodo-comment-media-list{border:3px;font-family: Helvetica Neue;font-size:14px;}
+#prodo-comment-Textbox {  height:40px;width:525px;font-family: Helvetica Neue; border: none; /* box-shadow: inset 1px 1px rgba(0, 0, 0, 0.4), inset -1px -1px rgba(0, 0, 0, 0.4);  border: 1px outset;*/}
+/*#prodo-comment-Textbox {height:40px;border-radius:6px;  box-shadow: 0 0 4px #000; width:520px;font-family: Helvetica Neue; background-color: white;/* box-shadow: inset 1px 1px rgba(0, 0, 0, 0.4), inset -1px -1px rgba(0, 0, 0, 0.4);  border: 1px outset;}*/
+#prodo-comment-fixed {overflow: auto; align:center;}
+#prodo-comment-media {margin-top: 0px; border-top: 1px outset; border-color:#CCC	 ;  padding:15px;  width:520px;}
+#prodo-comment-row-fluid {word-wrap: break-word;width:400px;text-align: left;}
+#prodo-comment-companyName{color: gray;word-spacing: -.5ex ;}
+#prodo-comment-userName{font-size:15px; font-weight:bold;}
+/*#prodo-comment-textArea{background: -webkit-gradient(linear, left top, left bottom, color-stop(34%,#7d7e7d), color-stop(100%,#0e0e0e));background: linear-gradient(to bottom, #7d7e7d 34%,#0e0e0e 100%);;border: 1px solid gray;border-radius:15px;width:520px;padding:10px;}*/
+/*#prodo-comment-commentLabel{padding: 5px;border-radius:10px;width:520px; text-align: center; padding-left: 25px; background: rgb(0,158,195);background: -moz-linear-gradient(top, rgba(0,158,195,1) 6%, rgba(0,183,234,1) 54%);background: -webkit-gradient(linear, left top, left bottom, color-stop(6%,rgba(0,158,195,1)), color-stop(54%,rgba(0,183,234,1)));background: -webkit-linear-gradient(top, rgba(0,158,195,1) 6%,rgba(0,183,234,1) 54%);background: -o-linear-gradient(top, rgba(0,158,195,1) 6%,rgba(0,183,234,1) 54%);background: -ms-linear-gradient(top, rgba(0,158,195,1) 6%,rgba(0,183,234,1) 54%);background: linear-gradient(to bottom, rgba(0,158,195,1) 6%,rgba(0,183,234,1) 54%);filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#009ec3', endColorstr='#00b7ea',GradientType=0 );}*/
+#prodo-comment-commentContainer{ width:550px;}
+#prodo-comment-addButton{width:400px; }
+/*#prodo-comment-charLength{font-family: Helvetica Neue; height: 40px; width: 50px; vertical-align: right;}*/
+#prodo-comment-tags{ font-size:11px; font-family: Helvetica Neue; }
+#prodo-comment-tabs{
+height: 10px;
 
-.control-group.error .help-inline, 
-.control-group.error input {
+}
+
+ /* Prodo-Comment-CSS*/
+
  
-  color: #B94A48;
-}
 
- .input-help {
-  display: none;
-  position:absolute;
-  z-index: 100;
-  padding:10px;
-  background:#fefefe;
-  font-size:.875em;
-  border-radius:5px;
-  box-shadow:0 1px 3px #aaa;
-  border:1px solid #ddd;
-  opacity: 0.9;
-}
-.input-help::before {
-  content: "\25C0";
-  position: absolute;
-  top:10px;
-  left:-12px;
-  font-size:16px;
-  line-height:16px;
-  color:#ddd;
-  text-shadow:none;
-}
-.input-help h4 {
-  margin:0;
-  padding:0;
-  font-weight: normal;
-  font-size: 1.1em;
-}
+ 
+ 
 
-/* Always hide the input help when it's pristine */
-input.ng-pristine + .input-help {
-  display: none;
-}
-
-textarea.ng-pristine + .input-help {
-  display: none;
-}
-
-/* Hide the invalid box while the input has focus */
-.ng-invalid:focus + .input-help {
-  display: none;
-}
-
-/* Show a blue border while an input has focus, make sure it overrides everything else */
-/* Overriding Twitter Bootstrap cuz I don't agree we need to alarm the user while they're typing */
-input:focus {
-  color: black !important;
-  border-color: rgba(82, 168, 236, 0.8) !important;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6) !important;
-  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6) !important;
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6) !important;
-}
-
-
-/* Show green border when stuff has been typed in, and its valid */
-.ng-dirty.ng-valid {
-  border-color:#3a7d34;
-}
-
-/* Show red border when stuff has been typed in, but its invalid */
-.ng-dirty.ng-invalid {
-  border-color:#ec3f41;
-}
-
-/* Show the help box once it has focus */
-.immediate-help:focus + .input-help {
-  display: inline-block;
-}
-
-/* Immediate help should be red when pristine */
-.immediate-help.ng-pristine:focus + .input-help {
-  border-color:#ec3f41;
-}
-.immediate-help.ng-pristine:focus + .input-help::before {
-  color:#ec3f41;
-}
-
-/* Help hould be green when input is valid */
-.ng-valid + .input-help {
-  border-color:#3a7d34;
-  position: relative;
-}
-.ng-valid + .input-help::before {
-  color:#3a7d34;
-}
-
-/* Help should show and be red when invalid */
-.ng-invalid + .input-help {
-  display: inline-block;
-  border-color: #ec3f41;
-  position: relative;
-}
-.ng-invalid + .input-help::before {
-  color: #ec3f41;
-}
-
-/* Style input help requirement bullets */
-.input-help ul {
-  list-style: none;
-  margin: 10px 0 0 0;
-}
-
-/* Default each bullet to be invalid with a red cross and text */
-.input-help li {
-  padding-left: 22px;
-  line-height: 24px;
-  color:#ec3f41;
-  background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAA1CAYAAABIkmvkAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAAJwAAACcBKgmRTwAAABZ0RVh0Q3JlYXRpb24gVGltZQAxMC8wOS8xMlhq+BkAAAAcdEVYdFNvZnR3YXJlAEFkb2JlIEZpcmV3b3JrcyBDUzVxteM2AAAEA0lEQVRIie2WW2jbVRzHv//zT5rkn0ub61zaNdEiPqTC9EFRhtgJk63qg3Wr0806pswNiYgDUXxwyryCEB8UBevtaSCCDHQoboKyoVvVzfRmL2napU0mrdbl8s//dy4+dM1M28n64FsPnIdz+XzO75zfOXA0pRRWU7o/uS9FxOc+3/vlIQBgq4F3fHxvKuIPJ9cFwi9uTXU8BwDa1Uaw/aN7UusCkWRbPI5yxcTI2Bgy49kXrkrwwIedqYg/nGyLXwsJiYHBYWTGs7Cq5Kpt4cA3PXft+2rX40vhrt7OVLgplIzHYuBKoH9gCKMjGVE1LdfJl86YDAAOfN2ziZP4NODyv9/z2fanFuH7P9iWCjcFk/FYK4QSGLgEk0WeUy/3mQCgPXFs9xbBRW883NrssDvQN3hWcOLPEPGWiD94MBaPQymBoaERjI9mBSfu+fHwL+biItpjR3e6JFfloDeAaGQ9SpUycvlp6ExHJBKGYsDvgyMYH81KTsL90yuX4VoWdh3pMqSQpWBjAC3RZkgpYEkCFDA8NIqJ0UlFxI3Tr/5aB9elsau305BcloKBAFpjLeBSYGRwDBNjk4oTN06/dnYZXCcAgK1vbzYkl6VwOATihOzYlOLEjTOvn1sRXiYAgDsP32YIKUuWaXFOwtP3xrnqleAVBQBwy/M3GZy4+PnN3/4TvqJgNWVVj2lNsCZYE6wJ1gRrgv9dYAMAHHw2Bl2fUEpBVavtLPVW/78nVR/Zk4CupzVHA6zChSOK0yHv0S8GFyK4BMPhAJxOgLE03/9kYhE2dz+agKaldY8bDaEQ7D5ft7Roy+UIlCooy5LQdaZ5vVBEgGmmrT172yVxaIylmdcDm9cHc2oK1Zm8kETvLAo0pRRk8mmnEqKouVw68zVCzP8F/uccFHHoXi/sjT6Y53Mw83mhOHn8J7416wQAwPftd0ouiswwdJu/CRASkBKQAmYuBzNfWIC/O173W6llwfbeu6Yi8tDsrAQJYGICyGQAIWDO5KUkaxlcJwAASdSmaWAQHCACOAc4h6YzJi1qWymNNUHlwYcT0JDWXQbACYhGgeh6gHM4Ghuh2/R0YePNiaUCTSmFcvdDCY1paZvhht3nQ2VmGmahICSR5vQHmDt6DcozeZSnp2FdLLZHhwdq94SVd+xMaJqWtrkM2L1uVHILpy0t8igidymXExfHMzBCQbhCIdga7Onz8etqkdgkUYTZbYCSqORmULlQEIq4J3jyexMA8jdu9BRzuaKyLN3udkNjDEqICID+2hbm797Wwez24/T3vJTE3aFTP9Sd9vT1NziVEMUGr1c35+Y2b5jKnqgNKqWglMLspjs6/rj1dudie2mdao07J5s3dCzt/werJTyI1yYqpQAAAABJRU5ErkJggg==) no-repeat  2px -34px;
-}
-
-/* Set to green check and text when valid */
-.input-help li.valid {
-  color:#3a7d34;
-  background-position: 2px 6px;
-}
-
-
-  
 
  

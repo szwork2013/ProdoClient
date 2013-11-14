@@ -20,5 +20,24 @@ angular.module('prodo.ProdonusApp')
           templateUrl:  'home/landing/views/home.signup.tpl.html'
         }
       }
+    }) 
+    .state('emailverification', {
+      url: '',
+      templateUrl: 'home/landing/views/home.signup.verification.tpl.html',
+      controller: 'UserRegistrationController'
+    })  
+    .state('emailrejection', {
+      url: '',
+      templateUrl: 'home/landing/views/home.signup.rejection.tpl.html',
+      controller: 'UserRegistrationController'
+    }) 
+    .state('signin', {
+      url: '/signin',
+      templateUrl: 'home/landing/views/home.signin.tpl.html',
+      controller: 'UserSigninController'
+    })  
+    .state('admin', {
+      url: '',
+      templateUrl: 'home/admin/views/admin.tpl.html'
     })    
   }]);

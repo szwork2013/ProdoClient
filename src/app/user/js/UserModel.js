@@ -3,6 +3,16 @@
 **/
 
 angular.module('prodo.UserApp')
-	.factory('userModel', ['userService', function(userService) {
-	  return new UserModel(userService);
-	}]);
+.factory('userModel', function(){
+  return {
+          user:{
+          fullname:"",
+          email:"", 
+          password:"",
+        }
+    }
+});
+
+	// .factory('userModel', ['userService', function(userService) {
+	//   return new UserModel(userService);
+	// }]);
