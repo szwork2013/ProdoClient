@@ -80,6 +80,59 @@ angular.module("prodo.CommonApp")
     }
   }
 })
+   .directive('popdown', function() {
+    return {
+        restrict: 'E',
+        scope: {},
+        replace: true,
+        controller: function($scope, PopdownAPI) {
+            $scope.show = false;
+            $scope.api = PopdownAPI;
+            
+            $scope.$watch('api.status', toggledisplay)
+            $scope.$watch('api.message', toggledisplay)
+            
+            $scope.hide = function() {
+                $scope.show = false;
+                $scope.api.clear();
+            };
+            
+            function toggledisplay() {
+                $scope.show = !!($scope.api.status && $scope.api.message);               
+            }
+        },
+        template: '<div class="alert alert-{{api.status}}" ng-show="show">' +
+                  '  <button type="button" class="close" ng-click="hide()">&times;</button>' +
+                  '  {{api.message}}' +
+                  '</div>'
+    }
+})
+
+/* Directive to implement video
+<prodovideo video="//player.vimeo.com/video/23919731" height="181" width="200"></prodovideo>
+    <div prodovideo video="http://www.youtube.com/embed/JMl8cQjBfqk" width="560" height="315"></div>
+
+
+ **/   
+
+   .directive('prodovideo', function () {
+    return {
+        restrict: 'EA',
+        replace: true,
+        transclude: true,
+        scope: {
+            video: '@'
+        },
+        template: '<div class="prodovideo">' +
+                    '<iframe ng-src="{{ video }}"></iframe>' +
+                  '</div>',
+        link: function (scope, element, attrs) {
+            var ratio = (attrs.height / attrs.width) * 100;
+            element[0].style.paddingTop = ratio + '%';
+        }
+    };
+})
+
 
    .directive('ensureUnique', ['$http', function($http) {
   return {

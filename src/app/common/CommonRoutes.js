@@ -14,14 +14,14 @@ angular.module('prodo.CommonApp')
       templateUrl:  'common/subscription/views/subscription.plans.tpl.html',
       // controller: 'SubscriptionController'
     }) 
-    .state('subscription.orgPayment', {
-      url: '/orgPayment',
-      templateUrl:  'common/subscription/views/subscription.org.payment.tpl.html',
-      // controller: 'PaymentController'
-    })  
-    .state('subscription.userPayment', {
+    .state('subscription.plansexpired', {
+      url: '/plans',
+      templateUrl:  'common/subscription/views/subscription.plansexpired.tpl.html',
+      // controller: 'SubscriptionController'
+    }) 
+    .state('subscription.payment', {
       url: '/userPayment',
-      templateUrl:  'common/subscription/views/subscription.user.payment.tpl.html',
+      templateUrl:  'common/subscription/views/subscription.payment.tpl.html',
       // controller: 'PaymentController'
     })   
     .state('subscription.company', {

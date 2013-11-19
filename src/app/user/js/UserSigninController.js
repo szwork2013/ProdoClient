@@ -2,69 +2,69 @@
 *	User Signin Controller
 **/
 angular.module('prodo.UserApp')
-.factory('signinService', [ '$http', '$state', 'userModel', function($http, $state, userModel, $scope) {
-  var signinService= {};
-         
-  signinService.postUserData = function($scope) {
-	  var method = 'POST';
-	  var inserturl = 'http://localhost/api/signin'; // URL where the Node.js server is running
-	   
-	    var userFormData = { 
-                        'email' : $scope.user.email,
-                        'password' : $scope.user.password
-                         
-                      };
- 
+	.controller('UserSigninController', ['$scope', '$state', 'UserSigninService', function($scope, $state, UserSigninService) {
+		var user = 
+      {
+        'email' :  '',
+        'password' :  ''
+      };
+  
+  $scope.clearformData = function(){
+    $scope.user.email = '';
+    $scope.user.password = '';
+  }
+  $scope.jsonUserSigninData = function(){
+      var userSigninData = 
+    
+          {
+            'email' : $scope.user.email,
+            'password' : $scope.user.password
+          };
+      // console.log(userData);
+    return JSON.stringify(userSigninData); 
 
-		// $scope.fullname = '';
-		// $scope.email = '';
-		// $scope.password = '';
 
-		var userData = JSON.stringify(userFormData); 
+  }   
 
-
-		$http({ // Accessing the Angular $http Service to send data via REST Communication to Node Server.
-     method: method,
-     url: inserturl,
-     data:  userData ,
-     headers: {'Content-Type': 'application/json'},
-	 
-	   })
-	   .success(function(data) {
-        console.log("success"); 
-        console.log("This is my data: " + data);
-        console.log(data);
-        signinService.verifyUser(data);    
-	    })
-	  .error(function(data) {
-	  	console.log("error");  //Getting Error Response in Callback
-	   });
-	
-	return false;
-};   
-          
-	signinService.verifyUser = function(data){
+  $scope.submitted = false;
+  $scope.signin = function(){
+    if ($scope.signinForm.$valid) {
+      console.log('User Data entered successfully');
+        UserSigninService.signinUser($scope.jsonUserSigninData(), 
+        function(success){
+          console.log(success);
+          $scope.handleSigninResponse(success);
+    },
+        function(error){
+          console.log(error);
+      });
+      $scope.clearformData();
+    } else {
+      $scope.signupForm.submitted = true;
+    }
+  }
+  $scope.handleSigninResponse = function(data){
 		if (data.success) {
 		  $state.transitionTo('prodo.wall');
 		} else {
-			if (data.error.code= 'AU001') {
-					console.log("User does not exist");
+			if (data.error.code== 'AU001') {     // user does not exist
+					console.log(data.error.code + " " + data.error.message);
 					$state.transitionTo('home.start');
-			} else if (data.error.code='AU002') {
-					console.log("User password invalid");
+			} else if (data.error.code=='AU002') {  // user password invalid
+					console.log(data.error.code + " " + data.error.message);
 					$state.transitionTo('signin');
-			} else if (data.error.code='AU003') {
-					console.log("User not verified");
+			} else if (data.error.code=='AU003') {   // user has not verified
+					console.log(data.error.code + " " + data.error.message);
 					$state.transitionTo('emailverification');
-			} else if (data.error.code='AS001') {
-					console.log("User not subscribed");
+			} else if (data.error.code=='AS001') {   // user has not subscribed to any plan
+					console.log(data.error.code + " " + data.error.message);
 					$state.transitionTo('subscription.plans');
-			} else if (data.error.code='AS002') {
-					console.log("User subscription expired");
-					$state.transitionTo('subscription.plans');
-			}	else if (data.error.code='AP001') {
-					console.log("User payment pending");
-					$state.transitionTo('subscription.payments');
+			} else if (data.error.code=='AS002') { // user subscription expired
+					console.log(data.error.code + " " + data.error.message);
+					$state.transitionTo('subscription.plansexpired');
+			}	else if (data.error.code== 'AP001') {    // user has not done any payment
+					console.log(data.error.code + " " + data.error.message);
+					$state.transitionTo('subscription.payment');
 			}	else {
 					console.log(data.error.message);
 					$state.transitionTo('signin');
@@ -72,21 +72,7 @@ angular.module('prodo.UserApp')
 			}
 		}
 	};
-
-
-	return signinService;
-	}])
-	.controller('UserSigninController', ['$scope', function($scope, userModel) {
-		$scope.user = userModel;
-		$scope.signin = function(){
-          if ($scope.signinForm.$valid) {
-                console.log('User Data entered successfully');
-                signinService.postUserData($scope);
-                
-              } else {
-                $scope.signinForm.submitted = true;
-                Console.log('Please fill the required fields');
-              }
-             
-       }
-	}]);
+   
+   
+ }]);
+ 

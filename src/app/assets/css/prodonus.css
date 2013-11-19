@@ -875,6 +875,23 @@ corresponding value from the list below*/
     
 }
 
+/**
+*	Prodovideo Directive CSS
+**/
+
+.prodovideo {
+    width: 100%;
+    position: relative;
+}
+.prodovideo iframe {
+    border: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
 
  /* Prodo-Comment-CSS*/
 li:hover{

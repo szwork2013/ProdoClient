@@ -1,6 +1,7 @@
+<!-- Prodonus App Index File -->
+
 <!DOCTYPE html>
 <html ng-app="prodo.ProdonusApp" lang="en">
-
   <head>
 
     <meta charset="utf-8">
@@ -15,12 +16,10 @@
     <link rel="stylesheet" type="text/css" href="assets/css/prodonus.css">
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" rel="stylesheet">
     
-    
   </head>
  
   <body id="body" ng-controller="ProdoMainController">
    
-  
     <div id="prodo-navbar" class="navbar navbar-inverse navbar-static-top" role="navigation">
 
       <a id="prodo-navbar-brand" class="navbar-brand" ui-sref="prodo.wall">Prodonus</a>
@@ -30,14 +29,14 @@
       <form id="prodo-navbar-form" class="navbar-form navbar-right">
 
         <div class="form-group">
-          <input id="prodo-form-input-signin" type="text" placeholder="Email" class="form-control" required ng-model="signin.username">
+          <input id="prodo-form-input-signin" type="email" placeholder="Email" class="form-control" required ng-model="user.email">
         </div>
 
         <div class="form-group" ng-controller="UserSigninController">
-          <input id="prodo-form-input-signin" type="password" placeholder="Password" class="form-control" required ng-model="signin.password">
+          <input id="prodo-form-input-signin" type="password" placeholder="Password" class="form-control" required ng-model="user.password">
         </div>
 
-        <button id="prodo-form-button-signin" ui-sref="prodo.wall" type="submit" class="btn btn-success">Sign in</button><br>
+        <button id="prodo-form-button-signin" type="submit" class="btn btn-success" ng-click="signin()">Sign in</button><br>
 
         <a id="prodo-form-forgot-link" ui-sref="user.forgotPassword">Forgot password?</a>
 
@@ -46,12 +45,10 @@
     </div>  
 
     <div id="prodo-main-view" class="container">
-
       <div ui-view></div>
-
     </div>
     
-    <div id="footer" >
+    <div id="footer" >   
       <div id="prodo-row-footer" class="row">
         <div class="col-md-2 col-md-offset-2">
           <nav><h5 id="footer-nav-heading" class="">About</h5>
@@ -89,8 +86,8 @@
     </div>
  
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular-resource.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-resource.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.0/angular-ui-router.min.js"></script>
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
     <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.6.0.js"></script>
@@ -111,9 +108,8 @@
     <script src="user/js/UserSigninController.js"> </script>
     <script src="user/js/UserRoutes.js"> </script>
     <script src="user/js/UserService.js"> </script>
-    <script src="user/js/UserModel.js"> </script>
     <script src="org/orgregistration/js/OrgRegistrationController.js"></script>
-    <script src="org/orgregistration/js/OrgModel.js"></script>
+    <script src="org/orgregistration/js/OrgService.js"></script>
     <script src="common/subscription/js/SubscriptionController.js"> </script>
     <script src="common/CommonRoutes.js"> </script>
     <script src="common/directives/prodoDirective.js"> </script>

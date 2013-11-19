@@ -1,55 +1,46 @@
 /**
 *Org service to get the organization details from the REST service 
 **/
-
-angular.module('prodo.OrgApp')
-.factory('OrgService', ['$http', '$q', '$angularCacheFactory', 
-  function($http,$q,$angularCacheFactory) {
-    var _dataCache = $angularCacheFactory('dataCache', { 
-      maxAge: 3600000 // expire after an hour
+ angular.module('prodo.OrgApp')
+ .factory('OrgModel', function(){
+  return {
+          name:"",
+          description:"", 
+          orgtype:"",
+          contractid:"",
+          orginvites: [],
+          subscription: [],
+          grpname: "",
+          invites: "",
+          grpmembers: [],
+          address1:"",
+          address2:"",
+          address3:"",
+          country:"",
+          city:"",
+          state:"",
+          zipcode:"",
+          timezone : "",
+          region: "",
+          geo: {latitude: 2 , longitude: 1},
+          contact_numbers: {
+                           customerhelpline1 : "",
+                           customerhelpline2 : "",
+                           customerhelpline3 : "",
+                           customerhelpline4 : "" },
+          grpname:"",
+          invites:""  
+        }
+})
+.factory('OrgRegistrationService', function($resource) {
+  return $resource('/api/organization/:orgid',
+    {},
+    {
+        findAllOrgs: { method: 'GET', isArray: true },
+        findByOrgId: { method: 'GET', params: { orgid : '@orgid' }},
+        saveOrg: { method: 'POST'},
+        updateOrg: { method: 'PUT', params: { orgid: '@orgid' }, isArray: false},
+        deleteOrg: { method: 'DELETE', params: { orgid: '@orgid' }}
     });
     
-    var method = 'POST';
-    var url = 'http://localhost:3000'; 
-    function restService (method, url, data) {
-      $http({ // Accessing the Angular $http Service to send data via REST Communication to Node Server.
-          method: method,
-          url: url,
-          data: data ,
-          headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-      })
-      .success(function(response) {
-        status = response.data; //Org form data successfully submitted
-      })
-      .error(function(response) {
-        status = response.error; //Error please use the exception handler
-      });
-    }
-    /**
-     * @class orgService
-     */
-    return {
-        addOrg: function (OrgformData) {
-            // var jdata = 'mydata='+JSON.stringify(OrgformData); //check this code                   
-          return restService('POST', 'http://localhost:9000', OrgformData);
-        },
-
-        getOrg: function (id) {
-            var deferred = $q.defer();
-            if (_dataCache.get(id)) {
-                deferred.resolve(_dataCache.get(id));
-            } else {
-                // Get the data from the server and populate cache
-                //TBD more code to be added
-                restService('GET', 'http://localhost:9000', OrgformData); //only the orgid is send
-            }
-            return deferred.promise;
-        }
-        
-        closeOrg: function (id) {
-          return restService('POST', 'http://localhost:9000', OrgformData);
-        }
-      };
-  };
-}]);
- 
+}); 
