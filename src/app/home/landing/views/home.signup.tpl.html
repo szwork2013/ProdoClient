@@ -37,28 +37,15 @@
         ng-show="signupForm.password.$dirty && !signupForm.password.$error.required && signupForm.password.$invalid">
         Enter valid password!
         </div>
+        
+        <p id="prodo-general-terms">By clicking Sign Up, you agree to our <a ui-sref="staticContent.terms" id="prodo-general-terms-link" class="link">Terms</a>.</p>
 
     </div>  
  
     <button id="prodo-form-button-signup" class="btn btn-sm btn-primary"><span class=" glyphicon glyphicon-thumbs-up" ></span> Sign Up</button>
 
   </form>
-  <!-- <div class="container-fluid">
-    <div class="row-fluid">
-      
-      <div class="span10">
-       
-        <ul class="templates">
-          <li ng-repeat="template in templates">
-            {{template.templatetype}}
-            {{template.subject}}
-            {{template.description}}
-            
-          </li>
-        </ul>
 
-      </div>
-    </div>
-
-</div>    -->
 </div>
+
+ 

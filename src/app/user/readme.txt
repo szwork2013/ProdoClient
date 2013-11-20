@@ -1,69 +1,50 @@
-// UserModel.update($scope.jsonUserData());
-      // UserModel.saveUser({}, $scope.jsonUserData());
-      // UserModel.update({userid: 'u35'}, $scope.jsonUserData(), function(success){
-      //   console.log(success);
-      // }, function(error){
-      //   console.log(error);
-      // });
-      // $scope.clearformData();
-      // UserModel.saveUser($scope.jsonUserData(), function(success){
-      //   console.log(success);
-      // }, function(error){
-      //   console.log(error);
-      // });
-      // $scope.clearformData();
-//   $scope.user = userModel.;
-    //     $scope.message = [{
-    //       "type": "info",
-    //       "content": "Please check your email for verification link and activate your account with Prodonus."
-    // },{
-    //     "type": "danger",
-    //     "content": "User already exists. Please signup with a different user account."
-    // }];
+/*
+* Overview: Prodonus App User related files 
+* Prodonus App: user registeration, signin, manage user accounts.
+* Dated: 12/10/2013.
+* Author: Neha Singhal
+* Copyright: Prodonus Software Private Limited and GiantLeap Systems Private Limited 2013
+* Change History:
+*
+* date | author | description 
+*
+* 27-3/2013 | xyx | Add a new property
+* 
+*/
 
-// // .factory('signupService', ['$http', '$state', 'userModel', function( $http, $state, userModel, $scope) {
-//         var signupService= {};
+====
+User
+====
+1.User registration
+2.Signup users for registration
+3.Signin users
+5.Manage user accounts
+6.Subscribe to plans
 
-//         
-         
-//         signupService.postdata = function($scope) {
-//         var method = 'POST';
-//         var inserturl = 'http://localhost/api/signup'; // URL where the Node.js server is running
-//         // $scope.user=userModel;
-//         // console.log(userModel);
-//         var userFormData = {'fullname' : $scope.user.fullname,
-//                         'email' : $scope.user.email,
-//                         'password' : $scope.user.password
-                         
-//                       };
-//      //    $scope.fullname = '';
-//      // $scope.email = '';
-//      // $scope.password = '';
-     
-//       var userRegistrationData = JSON.stringify(userFormData); 
-      
+=====
+HTML
+=====
+user.tpl.html
+  purpose:
 
-//       $http({ // Accessing the Angular $http Service to send data via REST Communication to Node Server.
-//              method: method,
-//              url: inserturl,
-//              data:  userRegistrationData ,
-//              headers: {'Content-Type': 'application/json'},
-       
-//          }).
-//          success(function(data) {
-//                 console.log("success"); 
-//                 console.log("This is my data: " + data);
-//                 console.log(data);
-//                  signupService.verifyUser(data);// Getting Success Response in Callback
-                
-//           }).
-//         error(function(data) {
-//         console.log("error");  //Getting Error Response in Callback
+user.signin.forgotpassword.tpl.html
+  purpose:
 
-//          });
-          
-//           // customService.list($scope);// Calling the list function in Angular Controller to show all current data in HTML
-//          return false;
-//    };   
-//          return signupService;
-//   }])	
+user.signin.resetpassword.tpl.html
+  purpose:
+
+
+===
+JS
+===
+userRoutes.js
+  purpose:
+
+userService.js
+  purpose:
+
+userRegistrationController.js
+  purpose:
+
+userSigninController.js
+  purpose:

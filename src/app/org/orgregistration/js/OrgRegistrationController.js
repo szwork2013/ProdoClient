@@ -3,7 +3,10 @@
 **/
 angular.module('prodo.OrgApp')
 	.controller('OrgRegistrationController', ['$scope', 'OrgModel', '$state', 'OrgRegistrationService', function($scope, OrgModel, $state, OrgRegistrationService) {
-		$scope.org = OrgModel;
+		
+    $scope.org = OrgModel;   // assining OrgModel service to org to update org model data
+    
+    // function to clear org data on submit
     $scope.clearOrgData = function(){
       $scope.org.name = '';
       $scope.org.description = '';
@@ -22,70 +25,71 @@ angular.module('prodo.OrgApp')
       $scope.org.contact_numbers.customerhelpline4= '';
       $scope.org.grpname= '';
       $scope.org.invites= '';  
-  }
-
-		$scope.handleOrgResponse = function(data){
-            if (data.success) {
-                  console.log(data.success);
-                  $state.transitionTo('prodo.wall');
-                } 
-                else
-
-                {
-                $state.transitionTo('subscription.company');
-                console.log(data.error)
-
-              }
-          };
-  $scope.jsonOrgData = function(){
-      var orgData = 
-      {
-        organization:
-          {
-	          'name':$scope.org.name,
-	          'description':$scope.org.description, 
-	          'orgtype':$scope.org.orgtype,
-	          'contractid':$scope.org.contractid,
-	          'location': [ {
-              'address': {
-                'address1': $scope.org.address1,
-    	          'address2': $scope.org.address2,
-    	          'address3': $scope.org.address3,
-    	          'country': $scope.org.country,
-    	          'city': $scope.org.city,
-    	          'state': $scope.org.state,
-    	          'zipcode': $scope.org.zipcode } }],
-	          'contact_numbers': [ 
-	                           {'customerhelpline' : $scope.org.contact_numbers.customerhelpline1 },
-	                           {'customerhelpline' : $scope.org.contact_numbers.customerhelpline2 },
-	                           {'customerhelpline' : $scope.org.contact_numbers.customerhelpline3 },
-	                           {'customerhelpline' : $scope.org.contact_numbers.customerhelpline4 } ],
-	          'usergrp': [ {
-                'grpname': $scope.org.grpname,
-	              'invites': $scope.org.invites
-          } ],
-          'terms': true
-      }
-
     }
-      // console.log(userData);
-    return JSON.stringify(orgData); 
 
+    // function to handle server side responses on org resgistration submit
+		$scope.handleOrgResponse = function(data){
+      if (data.success) {
+        console.log(data.success);
+        $state.transitionTo('prodo.wall');
+      } 
+      else {
+        $state.transitionTo('subscription.company');
+        console.log(data.error)
+      }
+    };
 
-  }   
+    // function to send user data n stringify in json format
+    $scope.jsonOrgData = function() {
+      var orgData = 
+        {
+          organization:
+            {
+  	          'name':$scope.org.name,
+  	          'description':$scope.org.description, 
+  	          'orgtype':$scope.org.orgtype,
+  	          'contractid':$scope.org.contractid,
+  	          'location': 
+                [ {
+                'address': 
+                  {
+                  'address1': $scope.org.address1,
+      	          'address2': $scope.org.address2,
+      	          'address3': $scope.org.address3,
+      	          'country': $scope.org.country,
+      	          'city': $scope.org.city,
+      	          'state': $scope.org.state,
+      	          'zipcode': $scope.org.zipcode 
+                  } 
+                } ],
+  	          'contact_numbers': 
+                [ 
+                 {'customerhelpline' : $scope.org.contact_numbers.customerhelpline1 },
+                 {'customerhelpline' : $scope.org.contact_numbers.customerhelpline2 },
+                 {'customerhelpline' : $scope.org.contact_numbers.customerhelpline3 },
+                 {'customerhelpline' : $scope.org.contact_numbers.customerhelpline4 } 
+                ],
+  	          'usergrp': 
+                [ {
+                  'grpname': $scope.org.grpname,
+  	              'invites': $scope.org.invites
+                } ],
+              'terms': $scope.org.terms
+            }
+        }
+      return JSON.stringify(orgData); 
+    }   
   
-  $scope.registerOrg = function(){
-        OrgRegistrationService.saveOrg($scope.jsonOrgData(), 
+    // function to register Organisation on sumbit
+    $scope.registerOrg = function() {
+      OrgRegistrationService.saveOrg($scope.jsonOrgData(), // calling POST method REST APIs to save org data through OrgResgistrationService
         function(success){
           console.log(success);
-          $scope.handleOrgResponse(success);
-    	},
+          $scope.handleOrgResponse(success);    // calling function to handle server side response once POST is successful
+        },
         function(error){
           console.log(error);
       });
-        $scope.clearOrgData();
-      
-    
-  }
-
- }]);
+      $scope.clearOrgData();   // clears form data
+    }
+  }]);

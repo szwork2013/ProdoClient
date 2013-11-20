@@ -1,25 +1,31 @@
+<!-- Template for Organisation Address Details view wizard-->
 <div id="prodo-address-container" class="container">
-  <form id="prodo-form-address" name=" formOrgRegisterAddress" class="css-form" ng-submit="" novalidate>
-  		<div class="control-group">
-	      <label id="prodo-address-label-control" class="label-control">Location</label><br>    
-				<input id="prodo-form-input-address" name="address1"  type="text" class="form-control" placeholder="Address Line1" ng-model="org.address1" autofocus required>
-					 
-				<input name="address2"  type="text" id="prodo-form-input-address" class="form-control" placeholder="Address Line2" ng-model="org.address2">
 
-				<input name="address3"  type="text" id="prodo-form-input-address" class="form-control" placeholder="Address Line3" ng-model="org.address3">
+  <form id="prodo-form-address" name="prodoOrgAddressForm" class="css-form" ng-submit="" novalidate>
 
-				<input name="country"  type="text" id="prodo-form-input-address" class="form-control" placeholder="Country" ng-model="org.country" required>
+  	<div class="control-group">
+
+      <label id="prodo-address-label-control" class="label-control">Location</label><br>
+
+			<input id="prodo-form-input-address" name="address1"  type="text" class="form-control" placeholder="Address Line1" ng-model="org.address1" autofocus required />
+				 
+			<input name="address2"  type="text" id="prodo-form-input-address" class="form-control" placeholder="Address Line2" ng-model="org.address2" />
+
+			<input name="address3"  type="text" id="prodo-form-input-address" class="form-control" placeholder="Address Line3" ng-model="org.address3" />
+
+			<input name="country"  type="text" id="prodo-form-input-address" class="form-control" placeholder="Country" ng-model="org.country" required />
+				 
+			<input name="state"  type="text" id="prodo-form-input-address" class="form-control" placeholder="State" ng-model="org.state" required />
+
+			<input name="city"  type="text" id="prodo-form-input-address" class="form-control" placeholder="City" ng-model="org.city" required />
+		
+			<input name="zipcode" type="text" id="prodo-form-input-address" class="form-control" placeholder="Zip Code" ng-model="org.zipcode" required /> 
 					 
-				<input name="city"  type="text" id="prodo-form-input-address" class="form-control" placeholder="City" ng-model="org.city" required/>
-					 
-				<input name="state"  type="text" id="prodo-form-input-address" class="form-control" placeholder="State" ng-model="org.state" required/>
-			
-				<input name="zip" type="text" id="prodo-form-input-address" class="form-control" placeholder="Zip Code" ng-model="org.zipcode" required/> 
-					 
-			</div>
+		</div>	<!-- control group div -->
    
-      <button id="prodo-form-address-btn" class="btn btn-md btn-primary" type="submit" ui-sref="subscription.company">Previous</button>
-      <button id="prodo-form-address-btn" class="btn btn-md btn-primary" type="submit" ui-sref="subscription.contact">Next</button>
+    <button id="prodo-form-address-btn" class="btn btn-md btn-primary" type="submit" ui-sref="subscription.company">Previous</button>
+    <button id="prodo-form-address-btn" class="btn btn-md btn-primary" type="submit" ui-sref="subscription.contact">Next</button>
     
-   </form>
-</div>   
+  </form>		<!-- prodo-address-form -->
+
+</div>   <!-- prodo-address-container div -->

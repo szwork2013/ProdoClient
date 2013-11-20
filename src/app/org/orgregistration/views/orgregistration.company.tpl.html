@@ -1,23 +1,26 @@
+<!-- Template for Organisation Company Details view wizard-->
 <div id="prodo-company-container" class="container">
-  <form id="prodo-form-company" name="formOrgRegisterCompany" class="css-form form-org-register" ng-submit=""  novalidate>
-      <div class="control-group">
+
+  <form id="prodo-form-company" name="prodoOrgCompanyForm" class="css-form" ng-submit="" novalidate>
+
+    <div class="control-group">
+
       <label id="prodo-company-label-control" class="label-control">Company</label><br>
 
       <select id="prodo-form-input-company" type="text" class="form-control" ng-model="org.orgtype" required>
-      <option value="Manufacturers">Manufactures</option>
-      <option value="Company">Company</option></select>
+        <option value="Manufacturers">Manufactures</option>
+        <option value="Company">Company</option></select>
           
       <input id="prodo-form-input-company" name="companyname" type="text" class="form-control" ng-model="org.name" placeholder="Company Name" required />
          
-      <textarea id="prodo-form-input-company" name="description" type="textarea" class=" form-control" ng-model="org.description" placeholder="Company Description" required /></textarea>
+      <textarea id="prodo-form-input-company" name="description" type="textarea" class=" form-control" ng-model="org.description" placeholder="Company Description" required></textarea>
           
- 
-      <input id="prodo-form-input-company" name="contractid" type="text" class=" form-control" ng-model="org.contractid" placeholder="Contract Id" />
+      <input id="prodo-form-input-company" name="contractid" type="text" class=" form-control" ng-model="org.contractid" placeholder="Contract Id" required />
          
-         
-    </div>
+    </div>  <!-- control group div -->
 
     <button id="prodo-form-company-btn" class="btn btn-md btn-primary" ui-sref="subscription.address">Next</button>
 
-	</form>
-</div>
+  </form>   <!-- prodo-company-form -->
+
+</div>      <!-- prodo-company-container div -->

@@ -1,6 +1,7 @@
 /**
-* Main routing configuration
+* User templates related routing configuration
 **/
+
 angular.module('prodo.UserApp')
 .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {  
   $urlRouterProvider.otherwise('/user');
@@ -24,9 +25,8 @@ angular.module('prodo.UserApp')
         url: '/payment',
         templateUrl: 'main/views/user.forgot.password.tpl.html'
     }) 
-      
     .state('user.profile', {
         url: '/profile',
         templateUrl: 'main/views/user.forgot.password.tpl.html'
     })            
-  }]);
+}]);

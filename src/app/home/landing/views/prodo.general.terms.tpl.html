@@ -95,12 +95,11 @@
 
  		<form id="prodo-form-term" class="css-form" ng-submit="">
  	 		<label>
-      	<input id="prodo-form-input-term" type="checkbox" ng-model="org.terms" required/> I Agree to the Terms & Conditions
+      	<input id="prodo-form-input-term" type="checkbox" ng-disabled="user.terms" ng-model="user.terms" required/> I Agree to the Terms & Conditions
     	</label><br>
     </form>
-    	
-    	<button id="prodo-form-term-btn" class="btn btn-md btn-primary" type="submit" ui-sref="subscription.groupuser">Previous</button>
-    	<button id="prodo-form-term-btn" class="btn btn-md btn-primary" ng-disabled="!org.terms" type="submit" ui-sref="subscription.finish">I Agree</button>
+
+    <button id="prodo-form-term-btn" class="btn btn-md btn-primary" type="submit" ui-sref="home.start">Back</button>
 
 </div>
 

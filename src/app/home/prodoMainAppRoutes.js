@@ -36,8 +36,14 @@ angular.module('prodo.ProdonusApp')
       templateUrl: 'home/landing/views/home.signin.tpl.html',
       controller: 'UserSigninController'
     })  
-    .state('admin', {
+    .state('staticContent', {
       url: '',
-      templateUrl: 'home/admin/views/admin.tpl.html'
+      abstract: true,
+      templateUrl: 'home/landing/views/static.content.tpl.html'
+    })    
+    .state('staticContent.terms', {
+      url: '/prodoterms',
+      templateUrl: 'home/landing/views/prodo.general.terms.tpl.html',
+      controller: 'UserRegistrationController' 
     })    
   }]);

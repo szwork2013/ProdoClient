@@ -15,21 +15,19 @@ angular.module('prodo.BlogApp', []);
 angular.module('prodo.AdApp', []);
 angular.module('prodo.AdminApp', []);
 
-angular.module('prodo.ProdonusApp',['ui.router', 'ui.bootstrap', '$strap.directives', 'ngResource', 'prodo.UserApp', 'prodo.ProdoWallApp', 'prodo.OrgApp',
+angular.module('prodo.ProdonusApp',['ui.router', 'ui.bootstrap', '$strap.directives', 'ngResource', 'vcRecaptcha', 'prodo.UserApp', 'prodo.ProdoWallApp', 'prodo.OrgApp',
   'prodo.ProductApp', 'prodo.ProdoCommentApp', 'prodo.WarrantyApp', 'prodo.DashboardApp','prodo.ContentApp', 'prodo.CommonApp',
   'prodo.BlogApp', 'prodo.AdApp', 'prodo.AdminApp'
   ])
 	.controller('ProdoMainController', ['$scope', '$state', function($scope, $state) {
 
 		$state.transitionTo('home.start');
-// $state.transitionTo('home.prodo');
-		// somewhere else
 		$scope.$on('$stateNotFound', 
-		function(event, unfoundState, fromState, fromParams){ 
+			function(event, unfoundState, fromState, fromParams){ 
 		    console.log(unfoundState.to); // "lazy.state"
 		    console.log(unfoundState.toParams); // {a:1, b:2}
 		    console.log(unfoundState.options); // {inherit:false} + default options
-		});
+			});
 
 		$scope.$on('$stateChangeSuccess', 
 		function(event, toState, toParams, fromState, fromParams){ 

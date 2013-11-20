@@ -1,11 +1,12 @@
+<!-- Template for Organisation Summary view wizard-->
 <div id="prodo-summary-container" class="container">
  
 	<label id="prodo-summary-label-control" class="label-control">Organization Data Summary</label><br>
 	<div id="prodo-summary">
-		<table id="prodo-summary-table" class="table table-condensed table-hover table-striped">
 
-	 		<thead id="prodo-summary-header" class="tbl-header">
-	 			<th>Company Details</th></thead>
+		<table id="prodo-summary-table" name="prodoOrgSummaryTable" class="table table-condensed table-hover table-striped">
+
+	 		<thead id="prodo-summary-header" class="tbl-header"><th>Company Details</th></thead>
 	 			<tbody>
 		 			<tr  id="prodo-summary-datarow">
 		 				<td>Company Name</td>
@@ -25,8 +26,7 @@
 		 			</tr>
 	 			</tbody>
 
-			<thead id="prodo-summary-header" class="tbl-header">
-				<th>Address Details</th></thead>
+			<thead id="prodo-summary-header" class="tbl-header"><th>Address Details</th></thead>
 				<tbody>
 					<tr id="prodo-summary-datarow">
 						<td>Address</td>
@@ -50,8 +50,7 @@
 	 				</tr>
 	 			</tbody>
 
-	 		<thead id="prodo-summary-header" class="tbl-header">
-	 			<th>Contact Details</th></thead>
+	 		<thead id="prodo-summary-header" class="tbl-header"><th>Contact Details</th></thead>
 	 			<tbody>
 	 				<tr id="prodo-summary-datarow">
 	 					<td>Contact No.</td>
@@ -62,8 +61,7 @@
 	 				</tr>
 	 			</tbody>
 
-	 		<thead id="prodo-summary-header" class="tbl-header">
-	 			<th>Group User Details</th></thead>
+	 		<thead id="prodo-summary-header" class="tbl-header"><th>Group User Details</th></thead>
 	 			<tbody>
 	 				<tr id="prodo-summary-datarow">
 	 					<td>Group Name</td>
@@ -75,7 +73,9 @@
 	 				</tr>
 	 			</tbody>
 		</table>
+
  	</div>
+ 	
     <button id="prodo-form-summary-btn" class="btn btn-md btn-primary" type="submit" ui-sref="subscription.company">Edit</button>
     <button id="prodo-form-summary-btn" class="btn btn-md btn-primary" type="submit" ng-click="registerOrg()">Submit</button>
  

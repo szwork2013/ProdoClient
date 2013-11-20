@@ -25,10 +25,6 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
   }
 
 
-
-
-
-
 /*change the navbar brand style*/
 #prodo-navbar-brand {
 	color: #ffffff;
@@ -159,6 +155,16 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
 	line-height: 20px;
 	padding: 10px;
 	color: #2b8dc0;
+}
+
+/*change signup terms style*/  
+#prodo-general-terms{
+	font-weight: normal;
+	font-size: 10px;
+	line-height: 5px;
+	padding-top: 10px;
+	margin-right: 40px;
+	color: #595365;
 }
 
 
