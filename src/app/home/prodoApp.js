@@ -15,8 +15,9 @@ angular.module('prodo.BlogApp', []);
 angular.module('prodo.AdApp', []);
 angular.module('prodo.AdminApp', []);
 
-angular.module('prodo.ProdonusApp',['ui.router', 'ui.bootstrap', '$strap.directives', 'ngResource', 'vcRecaptcha', 'prodo.UserApp', 'prodo.ProdoWallApp', 'prodo.OrgApp',
-  'prodo.ProductApp', 'prodo.ProdoCommentApp', 'prodo.WarrantyApp', 'prodo.DashboardApp','prodo.ContentApp', 'prodo.CommonApp',
+angular.module('prodo.ProdonusApp',['ui.router', 'ui.bootstrap', '$strap.directives', 'ngResource', 'vcRecaptcha', 'tags-input', 
+	'prodo.UserApp', 'prodo.ProdoWallApp', 'prodo.OrgApp','prodo.ProductApp', 'prodo.ProdoCommentApp',
+	'prodo.WarrantyApp', 'prodo.DashboardApp','prodo.ContentApp', 'prodo.CommonApp',
   'prodo.BlogApp', 'prodo.AdApp', 'prodo.AdminApp'
   ])
 	.controller('ProdoMainController', ['$scope', '$state', function($scope, $state) {

@@ -1,4 +1,3 @@
-
 /*
 * Overview: commentScroll Directive
 * It will load previous comments when we scroll 
@@ -12,17 +11,17 @@
 * 27-3/2013 | xyx | Add a new property
 * 
 */
-
 angular.module('prodo.ProdoCommentApp')
-.directive('hboTabs', function() {
-    return {
-        restrict: 'A',
-        link: function(scope, elm, attrs) {
-        	for (var i = 0; i<comments.length ; i++) {
-        		 var jqueryElm = $(elm[i]);
-                s $(jqueryElm).tabs()
-        	};
-           
-        }
+ .directive('whenScrolled', function() {
+ 	 return function(scope, elm, attr) {
+        var raw = elm[0];
+        
+        elm.bind('scroll', function() {
+            if (raw.scrollTop + raw.offsetHeight >= raw.scrollHeight) {
+                scope.$apply(attr.whenScrolled);
+            }
+        });
     };
 })
+
+

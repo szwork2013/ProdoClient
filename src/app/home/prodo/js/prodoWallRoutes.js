@@ -34,7 +34,7 @@ angular.module('prodo.ProdoWallApp')
       }) 
     .state('prodo.wall.product', {
       url: '',
-       templateUrl:  'product/comments/views/prodo.wall.comment.tpl.html',
+       templateUrl:  'product/views/prodo.wall.comment.tpl.html',
       }) 
      .state('prodo.wall.warranty', {
       url: '',

@@ -13,7 +13,7 @@ angular.module('prodo.ContentApp')
     }) 
     .state('product', {
       url: '/product',
-      templateUrl:  'product/comments/views/prodo.wall.comment.tpl.html',
+      templateUrl:  'product/views/prodo.wall.comment.tpl.html',
       // controller: 'PaymentController'
     })  
     .state('warranty', {
