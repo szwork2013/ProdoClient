@@ -2,10 +2,10 @@
 *Registration Controller
 **/
 angular.module('prodo.UserApp')
-  .controller('UserRegistrationController', ['$scope', '$state', '$http', 'UserSignupService', 'vcRecaptchaService', function($scope, $state, $http, UserSignupService, vcRecaptchaService ) {
+  .controller('UserRegistrationController', ['$scope', '$state', '$http', 'UserSignupService', 'vcRecaptchaService', 'UserCaptchaService', function($scope, $state, $http, UserSignupService, vcRecaptchaService, UserCaptchaService ) {
     $scope.submitted = false;
     $scope.user = { terms : true };
-    $scope.messages = [
+    $scope.message = [
     {
       "type": "success",
       "content": "Please check your email for verification link and activate your account with Prodonus."
@@ -56,11 +56,12 @@ angular.module('prodo.UserApp')
     }  
   
     // function to signup to Prodonus App using REST APIs and performs form validation.
-    var inserturl = 'http://localhost/api/recaptcha';
-    var method = 'POST'; 
+    // var inserturl = 'http://localhost/api/recaptcha';
+    // var method = 'POST'; 
     $scope.signup = function(){
       if ($scope.signupForm.$valid) {
         console.log('User Data entered successfully');
+        UserCaptchaService.captchaValidate($scope);
         UserSignupService.saveUser($scope.jsonUserData(),    // calling function of UserSignupService to make POST method call to signup user.
           function(success){
             console.log(success);
@@ -69,17 +70,7 @@ angular.module('prodo.UserApp')
           function(error){
             console.log(error);
         });
-
-        // var captchadata = 
-        // { 
-        //   recaptcha: 
-        //           {
-        //           response:  Recaptcha.get_response(),
-        //           challenge: Recaptcha.get_challenge()
-        //           }
-        // };
-        // console.log(captchadata);
-        // var jdata = JSON.stringify(captchadata);
+        
         // $http({ 
         //      method: method,
         //      url: inserturl,
