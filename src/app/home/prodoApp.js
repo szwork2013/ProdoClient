@@ -7,7 +7,7 @@ angular.module('prodo.UserApp', []);
 angular.module('prodo.ProdoWallApp', []);
 angular.module('prodo.OrgApp', []);
 angular.module('prodo.ProductApp', []);
-angular.module('prodo.ProdoCommentApp', []);
+angular.module('prodo.ProdoCommentApp', ["ngAnimate"]);
 angular.module('prodo.WarrantyApp', []);
 angular.module('prodo.DashboardApp', []);
 angular.module('prodo.ContentApp', []);
@@ -18,7 +18,7 @@ angular.module('prodo.AdminApp', []);
 angular.module('prodo.ProdonusApp',['ui.router', 'ui.bootstrap', '$strap.directives', 'vcRecaptcha', 'ngResource', 'tags-input', 
 	'prodo.UserApp', 'prodo.ProdoWallApp', 'prodo.OrgApp','prodo.ProductApp', 'prodo.ProdoCommentApp',
 	'prodo.WarrantyApp', 'prodo.DashboardApp','prodo.ContentApp', 'prodo.CommonApp',
-  'prodo.BlogApp', 'prodo.AdApp', 'prodo.AdminApp'
+  'prodo.BlogApp', 'prodo.AdApp', 'prodo.AdminApp' ,'ngAnimate'
   ])
 	.controller('ProdoMainController', ['$scope', '$state', function($scope, $state) {
 
