@@ -1,23 +1,12 @@
- <div id="prodo-view-verification">
-
-  <div id="prodo-row-verification" class="row">
-
-    <div id="prodo-verification-col-md-3" class="col-md-3"></div>
-  
-    <div id="prodo-verification-col-md-6" class="col-md-6">
-     <div id="prodo-verification-panel" class="panel panel-default">
-  <div id="prodo-verification-panel-heading" class="panel-heading">Thanks for Signing Up with Prodonus</div>
-  	<div class="panel-body">
-    	<div>
-      		<notification ng-model="message[0]"></notification>
+<div id="prodo-view-verification">
+  <div id="prodo-verification-panel" class="panel panel-default">
+    <div id="prodo-verification-panel-heading" class="panel-heading">Thanks for Signing Up with Prodonus</div>
+  	 <div class="panel-body">
+    	<div ng-show="showmessage('alert-success', 'Please check your email for verification link and activate your account with Prodonus.')" class="success">
+    		<prodo-alert-message></prodo-alert-message>
     	</div>
+     </div>
   </div>
 </div>
-      
-    </div>
   
-    <div id="prodo-verification-col-md-3" class="col-md-3"></div>
- </div>
-
-</div>
      

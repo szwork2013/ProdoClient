@@ -2,7 +2,7 @@
 *	User Signin Controller
 **/
 angular.module('prodo.UserApp')
-	.controller('UserSigninController', ['$scope', '$state', 'UserSigninService', function($scope, $state, UserSigninService) {
+	.controller('UserSigninController', ['$scope', '$state', '$timeout', 'UserSigninService', function($scope, $state, $timeout, UserSigninService) {
 		
     $scope.submitted = false;  // form submit property is false
     var user = 
@@ -10,6 +10,39 @@ angular.module('prodo.UserApp')
         'email' :  '',
         'password' :  ''
       };
+
+
+    $scope.mainAlert = {
+       isShown: false
+      };
+
+    $scope.showAlert = function (alertType, message) {
+       $scope.mainAlert.message = message;
+       $scope.mainAlert.isShown = true;
+       $scope.mainAlert.alertType = alertType;
+      
+      // return $scope.mainAlert.message;
+    }   
+
+     $scope.closeAlert = function() {        
+       $scope.mainAlert.isShown = false;
+    };
+
+    $scope.showmessage = function(alertclass, msg) {
+        var alerttype=alertclass;
+        var alertmessage=msg;         
+       $scope.showAlert(alerttype, alertmessage);
+       return true;
+    };
+    
+    $scope.hideAlert = function() {
+       $scope.mainAlert.isShown = false;
+    }  
+
+    $timeout(function(){
+       $scope.hideAlert();
+      }, 50000);
+ 
 
     // function to clear form data on submit
     $scope.clearformData = function() 
@@ -34,12 +67,19 @@ angular.module('prodo.UserApp')
       if (data.success) {
         $state.transitionTo('prodo.wall');
       } else {
-        if (data.error.code== 'AU001') {     // user does not exist
+        if (data.error.code== 'AU005') {     // user does not exist
             console.log(data.error.code + " " + data.error.message);
-            $state.transitionTo('home.start');
+            $scope.showAlert('alert-danger', data.error.message + 'please signup first');
+            $state.transitionTo('signin');
         } else if (data.error.code=='AU002') {  // user password invalid
             console.log(data.error.code + " " + data.error.message);
             $state.transitionTo('signin');
+        } else if (data.error.code=='AV001') {  // enter valid data
+            console.log(data.error.code + " " + data.error.message);
+            $state.transitionTo('signin');
+        } else if (data.error.code=='AU006') {  // user signedin using OTP
+            console.log(data.error.code + " " + data.error.message);
+            $state.transitionTo('messageContent.resetPassword');
         } else if (data.error.code=='AU003') {   // user has not verified
             console.log(data.error.code + " " + data.error.message);
             $state.transitionTo('emailverification');

@@ -108,6 +108,17 @@ angular.module("prodo.CommonApp")
     }
 })
 
+  .directive('prodoAlertMessage', function($timeout) {
+  return {
+    restrict: 'EA',
+    replace: true,
+    template: '<div style="min-width:250px; text-align:center; margin: 0px auto;" class="alert {{mainAlert.alertType}}" ng-show="mainAlert.isShown">' +
+  '<button type="button" class="close" ng-click="closeAlert()" aria-hidden="true">&times;</button>' +
+  '{{mainAlert.message}}' +
+'</div>'
+    };
+})
+
 /* Directive to implement video
 <prodovideo video="//player.vimeo.com/video/23919731" height="181" width="200"></prodovideo>
     <div prodovideo video="http://www.youtube.com/embed/JMl8cQjBfqk" width="560" height="315"></div>

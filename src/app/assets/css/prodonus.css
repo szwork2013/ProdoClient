@@ -186,6 +186,8 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
 	/*display: block;*/
 	/*padding-top: 10px;*/
  }
+ 
+ 
 
 /**
 * View: Signin
@@ -199,14 +201,6 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
 	padding: 10px;
 	color: #2b8dc0;
 }
-#prodo-signin-col-md-8{
-	padding: 0;
-	margin: 0;
-	position: relative; 
-	/*background-color: #649FF6;*/
-	min-height: 540px;
-	/*height: 620px;*/
-}
 #prodo-view-signin{
 	border: 1px solid #94d2f8;
   -webkit-border-radius: 6px;
@@ -214,7 +208,7 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
   border-radius: 6px; 
   background-color: #f3f5f3;
   width: 400px;
-  height: 430px;
+  height: 330px;
   display: block;
   margin: 50px auto;
   text-align: center;
@@ -225,7 +219,7 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
     margin: 0 auto;
     text-align: center;
 }
-/*change the View: signup form input style*/
+/*change the View: signin form input style*/
 #prodo-input-signin{
 	width:250px;
 	height: 30px;
@@ -236,8 +230,112 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
      
 }
 
-/*change the View: Signup form input button signup style*/
+/*change the View: signin form input button signin style*/
 #prodo-button-signin{
+	width:250px;
+	border-radius: 2px;
+	background-color: #3a92c6;
+	font-size: 15px;
+	position: relative;
+	display: block;
+  	margin: 20px auto;
+	text-align: center;
+  }
+ 
+/**
+* View: Forgotpassword
+**/
+
+/*change the View: forgotPassword form heading style*/  
+#prodo-forgotPassword-heading{
+	font-weight: normal;
+	font-size: 25px;
+	line-height: 20px;
+	padding: 10px;
+	color: #2b8dc0;
+}
+#prodo-view-forgotPassword{
+	border: 1px solid #94d2f8;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px; 
+  background-color: #f3f5f3;
+  width: 400px;
+  height: 330px;
+  display: block;
+  margin: 50px auto;
+  text-align: center;
+}
+ 
+#prodo-form-forgotPassword{
+	display: block;
+    margin: 0 auto;
+    text-align: center;
+}
+#prodo-input-forgotPassword{
+	width:250px;
+	height: 30px;
+	border-radius: 2px;
+	margin: 10px auto;
+	display: block;
+    text-align: center;
+     
+}
+
+/*change the View: forgotPassword form input button forgotPassword style*/
+#prodo-button-forgotPassword{
+	width:250px;
+	border-radius: 2px;
+	background-color: #3a92c6;
+	font-size: 15px;
+	position: relative;
+	display: block;
+  	margin: 20px auto;
+	text-align: center;
+  }
+
+/**
+* View: Resetpassword
+**/
+
+/*change the View: resetPassword form heading style*/  
+#prodo-resetPassword-heading{
+	font-weight: normal;
+	font-size: 25px;
+	line-height: 20px;
+	padding: 10px;
+	color: #2b8dc0;
+}
+#prodo-view-resetPassword{
+	border: 1px solid #94d2f8;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px; 
+  background-color: #f3f5f3;
+  width: 400px;
+  height: 330px;
+  display: block;
+  margin: 50px auto;
+  text-align: center;
+}
+ 
+#prodo-form-resetPassword{
+	display: block;
+    margin: 0 auto;
+    text-align: center;
+}
+#prodo-input-resetPassword{
+	width:250px;
+	height: 30px;
+	border-radius: 2px;
+	margin: 10px auto;
+	display: block;
+    text-align: center;
+     
+}
+
+/*change the View: resetPassword form input button resetPassword style*/
+#prodo-button-resetPassword{
 	width:250px;
 	border-radius: 2px;
 	background-color: #3a92c6;
