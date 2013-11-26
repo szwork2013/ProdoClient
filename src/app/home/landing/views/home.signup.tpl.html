@@ -1,6 +1,5 @@
 <!-- Prodonus SignUp View Template -->
 <div id="prodo-view-signup" ng-controller="UserRegistrationController">
-
   <form id="prodo-form-signup" name="signupForm" class="css-form" ng-submit="signup()" novalidate>
 
     <div class="control-group">
@@ -37,12 +36,32 @@
         ng-show="signupForm.password.$dirty && !signupForm.password.$error.required && signupForm.password.$invalid">
         Enter valid password!
         </div>
-        
+
+       <!--  <div
+                vc-recaptcha
+                tabindex="3"
+                theme="custom"
+                key="6LdDj-oSAAAAAB8dXvPFoG9H9ygL_C-9l4V7lLP7"
+            ></div> -->
+
+        <div vc-recaptcha theme="custom" key="6LdDj-oSAAAAAB8dXvPFoG9H9ygL_C-9l4V7lLP7" id="recaptcha_container">
+          <div id="recaptcha_image"></div>
+          <div id="recaptcha_response_field-input-group" class="input-group">
+            <input type="text" id="recaptcha_response_field" placeholder="Enter above text" name="recaptcha_response_field" class="form-control">
+            <div class="input-group-btn">
+              <button type="button" class="btn btn-default" onclick="Recaptcha.reload()"><i class="fa fa-refresh"></i></button>
+              <button type="button" class="btn btn-default" onclick="Recaptcha.switch_type('audio')"><i class="fa fa-volume-up"></i></button>
+              <button type="button" class="btn btn-default" onclick="Recaptcha.switch_type('image')"><i class="fa fa-picture-o"></i></button>
+            </div><!-- /btn-group -->
+          </div><!-- /input-group -->
+          
+       </div>
+
         <p id="prodo-general-terms">By clicking Sign Up, you agree to our <a ui-sref="staticContent.terms" id="prodo-general-terms-link" class="link">Terms</a>.</p>
 
     </div>  
  
-    <button id="prodo-form-button-signup" class="btn btn-sm btn-primary"><span class=" glyphicon glyphicon-thumbs-up" ></span> Sign Up</button>
+    <button id="prodo-form-button-signup" class="btn btn-sm btn-primary">Sign Up</button>
 
   </form>
 

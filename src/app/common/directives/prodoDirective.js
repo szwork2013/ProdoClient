@@ -26,7 +26,7 @@ angular.module("prodo.CommonApp")
         link: function(scope, elm, attrs, ctrl) {
             ctrl.$parsers.unshift(function(viewValue) {
 
-                scope.pwdValidLength = (viewValue && viewValue.length >= 8 ? 'valid' : undefined);
+                scope.pwdValidLength = (viewValue && viewValue.length >= 6 ? 'valid' : undefined);
                 scope.pwdHasAlphabet = (viewValue && /[A-z]/.test(viewValue)) ? 'valid' : undefined;
                 scope.pwdHasNumber = (viewValue && /\d/.test(viewValue)) ? 'valid' : undefined;
                 scope.pwdHasSymbol = (viewValue && /(?=(?:.*[!@#$%^&*-]){1})/.test(viewValue)) ? 'valid' : undefined;

@@ -2,11 +2,10 @@
 *Registration Controller
 **/
 angular.module('prodo.UserApp')
-  .controller('UserRegistrationController', ['$scope', '$state', 'UserSignupService', function($scope, $state, UserSignupService) {
-	 
-   $scope.submitted = false;
-   $scope.user = { terms : true };
-   $scope.messages = [
+  .controller('UserRegistrationController', ['$scope', '$state', '$http', 'UserSignupService', 'vcRecaptchaService', 'UserCaptchaService', function($scope, $state, $http, UserSignupService, vcRecaptchaService, UserCaptchaService ) {
+    $scope.submitted = false;
+    $scope.user = { terms : true };
+    $scope.message = [
     {
       "type": "success",
       "content": "Please check your email for verification link and activate your account with Prodonus."
@@ -57,9 +56,12 @@ angular.module('prodo.UserApp')
     }  
   
     // function to signup to Prodonus App using REST APIs and performs form validation.
+    // var inserturl = 'http://localhost/api/recaptcha';
+    // var method = 'POST'; 
     $scope.signup = function(){
       if ($scope.signupForm.$valid) {
         console.log('User Data entered successfully');
+        UserCaptchaService.captchaValidate($scope);
         UserSignupService.saveUser($scope.jsonUserData(),    // calling function of UserSignupService to make POST method call to signup user.
           function(success){
             console.log(success);
@@ -68,6 +70,21 @@ angular.module('prodo.UserApp')
           function(error){
             console.log(error);
         });
+        
+        // $http({ 
+        //      method: method,
+        //      url: inserturl,
+        //      data:  jdata ,
+        //      headers: {'Content-Type': 'application/json'},
+        //     }).
+        //  success(function(response) {
+        //         console.log("success"); 
+        //         console.log(response);                       
+        //   }).
+        //  error(function(response) {
+        //       console.log('Failed validation'); 
+        //       vcRecaptchaService.reload(); 
+        //   });
         $scope.clearformData();     // calling function to clear form data once user has signup
       } else {
         $scope.signupForm.submitted = true;
