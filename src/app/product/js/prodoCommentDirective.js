@@ -27,6 +27,10 @@ angular.module('prodo.ProdoCommentApp')
 
                             $(this).height(75);
                         });
+                       $('#prodo-comment-Textbox').blur(function() {
+
+                            $(this).height(30);
+                        });
 
                     });
 
@@ -48,8 +52,8 @@ angular.module('prodo.ProdoCommentApp')
                                 text: "I like this web site",
                                 tags: ['great', 'some', 'cool', 'bad'],
                                 group: "Support",
-                                dp: "http://placehold.it/64x64",
-                                upvotecount: 0
+                                dp: "http://placehold.it/64x64"
+                                
                             }, {
                                 userName: "Neha",
                                 companyName: "Giant Leap Systems",
@@ -57,8 +61,8 @@ angular.module('prodo.ProdoCommentApp')
                                 text: "Prodonus is really cool :)",
                                 tags: ['great', 'bad'],
                                 group: "Developer",
-                                dp: "http://placehold.it/64x64",
-                                upvotecount: 0
+                                dp: "http://placehold.it/64x64"
+                                 
                             }]
                     };
 
