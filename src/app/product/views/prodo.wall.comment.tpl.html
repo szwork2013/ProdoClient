@@ -20,8 +20,7 @@
 
         <div id="prodo-comment-enterComment" >
             <span class="label label-info   "  >{{300 - commenttextField.textFieldc.length}}</span>   
-            <textarea  type="text" required onKeyPress="return (this.value.length < 300);
-                       "  class="form-control" name="txtComment" placeholder="Product Conversation [max 300 characters]" id="prodo-comment-Textbox" col="40"  ng-model="commenttextField.textFieldc" comment-limit="300" ng-enter="addProductComment()" ></textarea> 
+            <textarea  type="text" class="form-control" name="txtComment" placeholder="Product Conversation [max 300 characters]" id="prodo-comment-Textbox" col="40"  ng-model="commenttextField.textFieldc" comment-limit="300" ng-enter="addProductComment()" ></textarea> 
         </div>
         <ul class="media-list "  id="prodo-comment-media-list">
 
