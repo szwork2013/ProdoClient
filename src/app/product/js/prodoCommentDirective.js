@@ -36,8 +36,8 @@ angular.module('prodo.ProdoCommentApp')
 
 
                     $scope.mytags;
-                    $scope.replytextField = {textF: ''};
-                    $scope.commenttextField = {textF: ''};
+                    
+                    $scope.commenttextField = {textFieldc: ''};
                     $scope.pretags = ['addition', 'aggregate', 'all', 'bad news', 'budget', 'cost', 'damage', 'entirety',
                         'expense', 'extent', 'list', 'lot', 'net', 'outlay', 'output', 'price tag', 'product', 'quantum', 'score',
                         'set-back', 'sum', 'tab', 'tidy sum', 'whole', 'article', 'asset', 'belonging', 'chattel', 'goods', 'line',
@@ -69,7 +69,7 @@ angular.module('prodo.ProdoCommentApp')
                     $scope.getTagsFromCommentText = function($scope) {
 
                         //get tags from comment text and compare with predefined tags and add to tags
-                        var commenttext = $scope.commenttextField.textF;
+                        var commenttext = $scope.commenttextField.textFieldc;
                         $scope.mytags = $scope.pretags;
                         var new_arr = [];
                         var commenttextTags = commenttext.split(" ");
@@ -85,22 +85,18 @@ angular.module('prodo.ProdoCommentApp')
                     };
 
                     $scope.addProductComment = function() {
-
                         $scope.getTagsFromCommentText($scope);
-
                         $scope.productComments.comments.unshift({
                             userName: "Shree",
                             companyName: "Srujan Systems",
                             time: Date.now(),
-                            text: $scope.commenttextField.textF,
+                            text: $scope.commenttextField.textFieldc,
                             tags: $scope.mytags,
                             group: "Admin",
                             dp: "http://placehold.it/64x64",
                             upvotecount: 0
-
                         });
-
-                        $scope.commenttextField.textF = "";
+                        $scope.commenttextField.textFieldc = "";
                     };
 
 
@@ -112,19 +108,7 @@ angular.module('prodo.ProdoCommentApp')
                     };
 
 
-                    $scope.replyProductComment = function() {
-                        $scope.productComments.comments.push({
-                            userName: "Shree",
-                            companyName: "Srujan Systems",
-                            time: Date.now(),
-                            text: $scope.replytextField.textF,
-                            tags: "hiii",
-                            group: "Admin",
-                            dp: "http://placehold.it/64x64",
-                            upvotecount: 0
-                        });
-                        $scope.replytextField.textF = "";
-                    }
+                     
 
                 },
                 link: function(scope, element, attrs, ngModel, controller) {
