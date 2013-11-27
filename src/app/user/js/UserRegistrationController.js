@@ -2,18 +2,10 @@
 *Registration Controller
 **/
 angular.module('prodo.UserApp')
-  .controller('UserRegistrationController', ['$scope', '$state', '$http', 'UserSignupService', 'vcRecaptchaService', 'UserCaptchaService', function($scope, $state, $http, UserSignupService, vcRecaptchaService, UserCaptchaService ) {
+  .controller('UserRegistrationController', ['$scope', '$state', '$http', '$timeout', 'UserSignupService', 'vcRecaptchaService', 'UserRecaptchaService', 'UserRegenerateTokenService', function($scope, $state, $http, $timeout, UserSignupService, vcRecaptchaService, UserRecaptchaService, UserRegenerateTokenService ) {
     $scope.submitted = false;
     $scope.user = { terms : true };
-    $scope.message = [
-    {
-      "type": "success",
-      "content": "Please check your email for verification link and activate your account with Prodonus."
-    },        
-    {
-      "type": "danger",
-      "content": "User already exists. Please signup with a different user account."
-    } ];
+     
 
     var user = 
       {
@@ -22,6 +14,38 @@ angular.module('prodo.UserApp')
         'password' :  '',
         'terms' : '',
       };
+
+    $scope.mainAlert = {
+       isShown: false
+      };
+
+    $scope.showAlert = function (alertType, message) {
+       $scope.mainAlert.message = message;
+       $scope.mainAlert.isShown = true;
+       $scope.mainAlert.alertType = alertType;
+      
+      // return $scope.mainAlert.message;
+    }   
+
+     $scope.closeAlert = function() {        
+       $scope.mainAlert.isShown = false;
+    };
+
+    $scope.showmessage = function(alertclass, msg) {
+        var alerttype=alertclass;
+        var alertmessage=msg;         
+       $scope.showAlert(alerttype, alertmessage);
+       return true;
+    };
+    
+    $scope.hideAlert = function() {
+       $scope.mainAlert.isShown = false;
+    }  
+
+    $timeout(function(){
+       $scope.hideAlert();
+      }, 50000);
+ 
 
     // function to clear form data on submit
     $scope.clearformData = function() {
@@ -48,45 +72,47 @@ angular.module('prodo.UserApp')
     // function to handle server side responses
     $scope.handleSignupResponse = function(data){
       if (data.success) {
-        $state.transitionTo('emailverification');   // on successfull signup transition occurs to verification page 
-      } 
-      else {
-        $state.transitionTo('emailrejection');    // on error in signup transition occurs to error notification page
+        $state.transitionTo('messageContent.emailverification');
+        $scope.clearformData();    // on successfull signup transition occurs to verification page 
+      } else {
+        if (data.error.code== 'AU001') {     // user already exist
+            console.log(data.error.code + " " + data.error.message);
+            $scope.showAlert('alert-danger', data.error.message);
+            $state.transitionTo('home.start'); 
+        } else if (data.error.code=='AV001') {  // user data invalid
+            console.log(data.error.code + " " + data.error.message);
+            $scope.showAlert('alert-danger', data.error.message);
+            $state.transitionTo('home.start');
+        } else if (data.error.code=='AT001') {   // user has not verified
+            console.log(data.error.code + " " + data.error.message);
+            $state.transitionTo('messageContent.resetGenerateToken');
+        } else {
+            console.log(data.error.message);
+            $scope.showAlert('alert-danger', 'Prodonus Database Server error. Please wait for some time.');
+        }
       }
-    }  
+    };
   
-    // function to signup to Prodonus App using REST APIs and performs form validation.
-    // var inserturl = 'http://localhost/api/recaptcha';
-    // var method = 'POST'; 
     $scope.signup = function(){
       if ($scope.signupForm.$valid) {
+        // $scope.showAlert('alert-success', 'message');
+        var jsondata=$scope.jsonUserData();
         console.log('User Data entered successfully');
-        UserCaptchaService.captchaValidate($scope);
-        UserSignupService.saveUser($scope.jsonUserData(),    // calling function of UserSignupService to make POST method call to signup user.
+        UserRecaptchaService.validate($scope);
+        $scope.$on("recaptchaNotDone", function(event, message){
+          $scope.showAlert('alert-danger', 'Recaptcha failed, please try again');
+        });
+        $scope.$on("recaptchaDone", function(event, message){
+          UserSignupService.saveUser(jsondata,    // calling function of UserSignupService to make POST method call to signup user.
           function(success){
             console.log(success);
             $scope.handleSignupResponse(success);      // calling function to handle success and error responses from server side on POST method success.
           },
           function(error){
             console.log(error);
-        });
-        
-        // $http({ 
-        //      method: method,
-        //      url: inserturl,
-        //      data:  jdata ,
-        //      headers: {'Content-Type': 'application/json'},
-        //     }).
-        //  success(function(response) {
-        //         console.log("success"); 
-        //         console.log(response);                       
-        //   }).
-        //  error(function(response) {
-        //       console.log('Failed validation'); 
-        //       vcRecaptchaService.reload(); 
-        //   });
-        $scope.clearformData();     // calling function to clear form data once user has signup
-      } else {
+        });  
+  });
+              } else {
         $scope.signupForm.submitted = true;
       }
     }
