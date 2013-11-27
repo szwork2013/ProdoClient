@@ -18,15 +18,29 @@ angular.module('prodo.UserApp')
   return $resource('/api/user/signin', {},
     {
       signinUser: { method: 'POST'}
-
-      // Services needs to be addressed later:
-      // findAllUsers: { method: 'GET', isArray: true },
-      // findByUserId: { method: 'GET', params: { userId : 'id' }},
-      // updateUser: { method: 'PUT', params: { userid: '@userid' }, isArray: false},
-      // deleteUser: { method: 'DELETE', params: { userid: '@userid' }}
   });
 }])
 
+.factory('UserForgotPasswordService', ['$resource', function($resource) {
+  return $resource('/api/forgotpassword', {},
+    {
+      forgotPassword: { method: 'POST'}
+  });
+}])
+
+.factory('UserRegenerateTokenService', ['$resource', function($resource) {
+  return $resource('/api/regenerateverificationtoken', {},
+    {
+      regenerateToken: { method: 'POST'}
+  });
+}])
+
+.factory('UserResetPasswordService', ['$resource', function($resource) {
+  return $resource('/api/resetpassword/:userid', {},
+    {
+      resetPassword: { method: 'PUT', params: { userid: '@userid' }, isArray: false}
+  });
+}])
 .factory('UserRecaptchaService', ['$http', 'vcRecaptchaService', function($http, vcRecaptchaService) {
   var recaptchaService= {};
      

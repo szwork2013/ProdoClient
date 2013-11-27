@@ -2,7 +2,7 @@
 *	User Signin Controller
 **/
 angular.module('prodo.UserApp')
-	.controller('UserSigninController', ['$scope', '$state', '$timeout', 'UserSigninService', function($scope, $state, $timeout, UserSigninService) {
+	.controller('UserSigninController', ['$scope', '$state', '$timeout', 'UserSigninService', 'UserForgotPasswordService', function($scope, $state, $timeout, UserSigninService, UserForgotPasswordService, ) {
 		
     $scope.submitted = false;  // form submit property is false
     var user = 
