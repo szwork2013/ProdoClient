@@ -1,37 +1,7 @@
 angular.module('prodo.ProdoWallApp')
-// 	.directive('prodoComments', function () {
-//     return {
-//         restrict: 'A',
-//         templateUrl: 'home/prodo/views/template.html',
-//         scope: { comments: '=', pagesSize:'=', pagesShown:'=' },
-//         link: function(scope) {
-//             scope.commentsLimit = function() {
-//                 return scope.pagesSize*scope.pagesShown;
-//             }
-            
-//             scope.fromNow = function(time) {
-//               console.log(moment);
-//               return moment(time).fromNow();
-//             }
-//         }
-//     };
-// })
-//      .directive('whenScrolled', function() {
-//     return function(scope, elm, attr) {
-//         var raw = elm[0];
-        
-//         elm.bind('scroll', function() {
-//             if (raw.scrollTop + raw.offsetHeight >= raw.scrollHeight) {
-//                 scope.$apply(attr.whenScrolled);
-//             }
-//         });
-//     };
-// })
 	.controller('ProdoWallController', ['$scope', '$state', function($scope, $state) {
 
 		$state.transitionTo('prodo.wall');
- 
-	$scope.comments;
     $scope.slides = [
             {image: 'http://placekitten.com/605/350'},
             {image: 'http://placekitten.com/601/350'},
@@ -39,14 +9,14 @@ angular.module('prodo.ProdoWallApp')
             {image: 'http://placekitten.com/603/350'},
             {image: 'http://placekitten.com/604/350'}
         ];
-        $scope.listorgs = [
-            {orgname: 'Samsung'},
-            {orgname: 'Sony'},
-            {orgname: 'Videocon'},
-            {orgname: 'LG'},
-            {orgname: 'Motorola'}
+        $scope.TrendingProducts = [
+            {productname: 'Samsung'},
+            {productname: 'Sony'},
+            {productname: 'Videocon'},
+            {productname: 'LG'},
+            {productname: 'Motorola'}
         ];
-        $scope.listproducts = [
+        $scope.FollowedProducts = [
             {productname: 'Samsung Galaxy 4'},
             {productname: 'Samsung Note II'},
             {productname: 'Samsung Washing Machine'},
@@ -67,30 +37,4 @@ angular.module('prodo.ProdoWallApp')
         $scope.isCurrentListIndex = function (index) {
             return $scope.currentIndex === index;
         };
-
-        
-  
-    $scope.comments = [
-      {
-        time:Date.now(),
-        text:"I like this web site"
-      },{
-        time:Date.now(),
-        text:"Prodonus is really cool :)"
-      }];
-
-    $scope.addProductComment = function () {
-      if(!$scope.textField) return;
-     
-      $scope.comments.unshift({
-       time: Date.now(),
-       text: $scope.textField
-      });
-       $scope.textField = "";
-     
-    }
-
-
- 
-		
 	}]);
