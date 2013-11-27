@@ -27,7 +27,7 @@ angular.module('prodo.ProdoCommentApp')
                             var transformedInput = text.substring(0, maxlength);
                             CommentController.$setViewValue(transformedInput);
                             CommentController.$render();
-//                            txtComment.style.color = "red";
+                            txtComment.style.color = "red";
 
                             return transformedInput;
                         }
