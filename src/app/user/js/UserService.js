@@ -22,7 +22,7 @@ angular.module('prodo.UserApp')
 }])
 
 .factory('UserForgotPasswordService', ['$resource', function($resource) {
-  return $resource('/api/forgotpassword', {},
+  return $resource('/api/user/forgotpassword', {},
     {
       forgotPassword: { method: 'POST'}
   });
@@ -36,11 +36,12 @@ angular.module('prodo.UserApp')
 }])
 
 .factory('UserResetPasswordService', ['$resource', function($resource) {
-  return $resource('/api/resetpassword/:userid', {},
+  return $resource('/api/user/resetpassword/:userid', {},
     {
       resetPassword: { method: 'PUT', params: { userid: '@userid' }, isArray: false}
   });
 }])
+
 .factory('UserRecaptchaService', ['$http', 'vcRecaptchaService', function($http, vcRecaptchaService) {
   var recaptchaService= {};
      

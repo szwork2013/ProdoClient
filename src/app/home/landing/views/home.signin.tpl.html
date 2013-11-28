@@ -7,28 +7,10 @@
 
       <h4 id="prodo-signin-heading">Signin</h4>
         <div prodo-alert-message></div>
-        <input id="prodo-input-signin" name="email" class="form-control" type="email" placeholder="Email" required ng-model="user.email" /><i class="fa fa-check" ng-show="signinForm.email.$dirty && signinForm.email.$valid"></i>
-        <div class="error" 
-            ng-show="(signinForm.email.$dirty && signinForm.email.$invalid && signinForm.submitted) || 
-            (signinForm.email.$invalid && signinForm.submitted) || (signinForm.email.$dirty && signinForm.email.$error.required)">
-          Email is required.
-        </div>
-        <div class="error" 
-        ng-show="signinForm.email.$dirty && signinForm.email.$error.email">
-        Enter valid email!
-        </div>
+        <input id="prodo-input-signin" name="email" class="form-control" type="email" placeholder="Email" required ng-model="user.email" /> 
       
       
-        <input id="prodo-input-signin" type="password" class="form-control" id="password1" name="password" placeholder="Password" ng-model="user.password" prodonus-password-validate required><i class="fa fa-check" ng-show="signinForm.password.$dirty && signinForm.password.$valid" ></i>
-        <div class="error" 
-            ng-show="(signinForm.password.$dirty && signinForm.password.$invalid && signinForm.submitted) || (signinForm.password.$invalid && signinForm.submitted) || (signinForm.password.$dirty &&signinForm.password.$error.required)">
-            Password is required.
-         </div>
-        <div class="error" 
-        ng-show="signinForm.password.$dirty && !signinForm.password.$error.required && signinForm.password.$invalid">
-        Enter valid password!
-        </div>
-
+        <input id="prodo-input-signin" type="password" class="form-control" id="password1" name="password" placeholder="Password" ng-model="user.password" required>
   </div>  
 
   <button id="prodo-button-signin" class="btn btn-sm btn-primary">Sign In</button>
