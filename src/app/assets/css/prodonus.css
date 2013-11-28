@@ -1024,7 +1024,7 @@ corresponding value from the list below*/
 
 
 /* Prodo-Comment-CSS*/
-li:hover{background-color:#CEE3F6;}
+#prodo-comment-media:hover{background-color:#CEE3F6;}
 ul {list-style-type: none; }
 /*li:nth-child(odd) {background-color:#F2F2F2;}*/
 #prodo-comment-media-list{border:3px;font-family: Helvetica ;font-size:14px;}
@@ -1039,6 +1039,7 @@ ul {list-style-type: none; }
 #prodo-comment-tags{ font-size:11px; font-family: Helvetica ; }
 #prodo-comment-tabs{height: 10px;}
 #prodo-comment-timePosted{font-size:10px; }
+#fa-removeComment:hover{}
 .list-animate-item {-webkit-transition: color 0.6s, background-color 0.3s;-moz-transition: color 0.6s, background-color 0.3s;-ms-transition: color 0.6s, background-color 0.3s; transition: color 0.6s, background-color 0.3s; }
 .list-animate-item.ng-enter {-webkit-animation: fadeIn 1s;-moz-animation: fadeIn 1s;-ms-animation: fadeIn 1s;animation: fadeIn 1s;} 
 .list-animate-item.ng-leave {-webkit-animation: fadeOut 1s;-moz-animation: fadeOut 1s;-ms-animation: fadeOut 1s;animation: fadeOut 1s;}
@@ -1099,7 +1100,8 @@ ul {list-style-type: none; }
 	background-color:#CEE3F6;
 }
 .ProductFeatureTable tr:nth-child(odd){ background-color:#e5e5e5; }
-.ProductFeatureTable tr:nth-child(even)    { background-color:#ffffff; }.ProductFeatureTable td{
+.ProductFeatureTable tr:nth-child(even)    { background-color:#ffffff; }
+.ProductFeatureTable td{
 	vertical-align:middle;
 	
 	
@@ -1144,6 +1146,17 @@ ul {list-style-type: none; }
 }
 .ProductFeatureTable tr:first-child td:last-child{
 	border-width:0px 0px 1px 1px;
+}
+.ProductFeatureTable td:first-child{
+	font-size:12px;
+        font-weight: bold;
+        width: 20%;
+}
+
+.table tr:nth-child(odd){ background-color:#f5f5f5; }
+.table tr:nth-child(even)    { background-color:#ffffff; }
+.table  :hover  tr{
+	background-color:#f5f5f5;
 }
  /* Prodo-ProductFeature-CSS*/ 
 

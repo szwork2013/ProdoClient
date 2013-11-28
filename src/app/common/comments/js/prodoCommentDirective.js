@@ -12,14 +12,14 @@
  * 
  */
 
-angular.module('prodo.ProdoCommentApp')
+angular.module('prodo.CommonApp')
 
         .directive('prodoComments', function() {
             return {
                 restrict: 'A',
-               // require: '?ngModel',
-                templateUrl: 'product/views/prodo.comment.tpl.html',
-              //  scope: {comments: '=', pagesSize: '=', pagesShown: '='},
+                // require: '?ngModel',
+                templateUrl: 'common/comments/views/prodo.comment.tpl.html',
+              //  scope: {productComments_l: '=info', pagesSize: '=', pagesShown: '='},
                 controller: function($scope)
                 {
                     $(document).ready(function() {
@@ -27,45 +27,35 @@ angular.module('prodo.ProdoCommentApp')
 
                             $(this).height(75);
                         });
-                       $('#prodo-comment-Textbox').blur(function() {
+                        $('#prodo-comment-Textbox').blur(function() {
 
                             $(this).height(30);
                         });
+                        $('#fa-removeComment').hover(
+                                function() {
+                                    $('#fa-removeComment').css(background - color, red);
+                                    $(this).addClass('fa fa-trash-o' );
+                                    $(this).addClass(' fa-trash-o ');
+                                    $(this).addClass(' fa-3x');
+
+                                },
+                                function() {
+                                    $(this).removeClass('fa-3x');
+                                }
+                        );
+
+//                        $("#fa-removeComment").on({
+//                            mouseenter: function() {
+//                                $(this).addClass("fa-3x");
+//                            },
+//                            mouseleave: function() {
+//                                $(this).removeClass("fa-3x");
+//                            },
+//                        
+//                        });
 
                     });
-
-
-                    $scope.mytags;
-                    
-                    $scope.commenttextField = {textFieldc: ''};
-                    $scope.pretags = ['addition', 'aggregate', 'all', 'bad news', 'budget', 'cost', 'damage', 'entirety',
-                        'expense', 'extent', 'list', 'lot', 'net', 'outlay', 'output', 'price tag', 'product', 'quantum', 'score',
-                        'set-back', 'sum', 'tab', 'tidy sum', 'whole', 'article', 'asset', 'belonging', 'chattel', 'goods', 'line',
-                        'material', 'object', 'produce', 'property', 'specialty', 'stock', 'thing', 'ware', 'good'];
-
-
-                    $scope.productComments = {
-                        comments: [{
-                                userName: "Bhagyashri",
-                                companyName: "Giant Leap Systems",
-                                time: Date.now(),
-                                text: "I like this web site",
-                                tags: ['great', 'some', 'cool', 'bad'],
-                                group: "Support",
-                                dp: "http://placehold.it/64x64"
-                                
-                            }, {
-                                userName: "Neha",
-                                companyName: "Giant Leap Systems",
-                                time: Date.now(),
-                                text: "Prodonus is really cool :)",
-                                tags: ['great', 'bad'],
-                                group: "Developer",
-                                dp: "http://placehold.it/64x64"
-                                 
-                            }]
-                    };
-
+                   
                     $scope.getTagsFromCommentText = function($scope) {
 
                         //get tags from comment text and compare with predefined tags and add to tags
@@ -83,21 +73,26 @@ angular.module('prodo.ProdoCommentApp')
 
                         $scope.mytags = new_arr;
                     };
-
                     $scope.addProductComment = function() {
-                        $scope.getTagsFromCommentText($scope);
-                        $scope.productComments.comments.unshift({
-                            userName: "Shree",
-                            companyName: "Srujan Systems",
-                            time: Date.now(),
-                            text: $scope.commenttextField.textFieldc,
-                            tags: $scope.mytags,
-                            group: "Admin",
-                            dp: "http://placehold.it/64x64",
-                            upvotecount: 0
-                        });
-                        $scope.commenttextField.textFieldc = "";
-                    };
+                        if ($scope.commenttextField.textFieldc != "")
+                        {
+                            $scope.getTagsFromCommentText($scope);
+                            $scope.productComments.comments.unshift({
+                                userName: "Shree",
+                                companyName: "Srujan Systems",
+                                time: Date.now(),
+                                text: $scope.commenttextField.textFieldc,
+                                tags: $scope.mytags,
+                                group: "Admin",
+                                dp: "http://placehold.it/64x64",
+                                upvotecount: 0
+                            });
+                            $scope.commenttextField.textFieldc = "";
+                        }
+                        else {
+
+                        }
+                    }
 
 
                     $scope.deleteProductComment = function(comment) {
@@ -106,10 +101,6 @@ angular.module('prodo.ProdoCommentApp')
                         if (index != -1)
                             $scope.productComments.comments.splice(index, 1);
                     };
-
-
-                     
-
                 },
                 link: function(scope, element, attrs, ngModel, controller) {
 
@@ -126,11 +117,9 @@ angular.module('prodo.ProdoCommentApp')
                     scope.toCamelCase = function(s) {
 
                         s = s.replace(/([^a-zA-Z0-9_\- ])|^[_0-9]+/g, "").trim().toLowerCase();
-
                         s = s.replace(/([ -]+)([a-zA-Z0-9])/g, function(a, b, c) {
                             return c.toUpperCase();
                         });
-
                         s = s.replace(/([0-9]+)([a-zA-Z])/g, function(a, b, c) {
                             return b + c.toUpperCase();
                         });

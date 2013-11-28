@@ -7,7 +7,8 @@ angular.module('prodo.CommonApp')
   $stateProvider
     .state('subscription', {
       url: '/subscription',
-      templateUrl: 'common/subscription/views/subscription.tpl.html'
+      templateUrl: 'common/subscription/views/subscription.tpl.html',
+      abstract: true
     })
     .state('subscription.plans', {
       url: '/plans',
