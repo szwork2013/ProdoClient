@@ -7,7 +7,7 @@ angular.module('prodo.UserApp', []);
 angular.module('prodo.ProdoWallApp', []);
 angular.module('prodo.OrgApp', []);
 angular.module('prodo.ProductApp', []);
-angular.module('prodo.ProdoCommentApp', ["ngAnimate"]);
+angular.module('prodo.ProdoCommentApp', []);
 angular.module('prodo.WarrantyApp', []);
 angular.module('prodo.DashboardApp', []);
 angular.module('prodo.ContentApp', []);

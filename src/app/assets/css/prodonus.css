@@ -1024,57 +1024,141 @@ corresponding value from the list below*/
 
 
 /* Prodo-Comment-CSS*/
-li:hover{
-background-color:#CEE3F6;
-}
- ul {list-style-type: none; }
-
+#prodo-comment-media:hover{background-color:#CEE3F6;}
+ul {list-style-type: none; }
 /*li:nth-child(odd) {background-color:#F2F2F2;}*/
-#prodo-comment-media-list{border:3px;font-family: Helvetica Neue;font-size:14px;}
-#prodo-comment-Textbox {  height:40px;width:518px;border-radius:10px;font-size:12px; /*white-space:nowrap;*/
-     /*  overflow: visible;*//*line-height 40px;*/ font-family: Helvetica Neue; border: none; }
-#prodo-comment-ReplyTextbox {  height:40px;width:400px;border-radius:10px;font-size:12px;font-family: Helvetica Neue; border: none; }
+#prodo-comment-media-list{border:3px;font-family: Helvetica ;font-size:14px;}
+#prodo-comment-Textbox {  height:40px;width:518px;border-radius:10px;font-size:12px; font-family: Helvetica ; border: none; max-height: 75;max-width: 518;resize: none;}
 #prodo-comment-fixed { margin-left:17px;}
-#prodo-comment-media {margin-top: 0px;border-radius:10px;  border-top: 1px outset; border-color:#CCC;padding:5px;  width:518px;}
+#prodo-comment-media {margin-top: 0px;  border-top: 1px outset; border-color:#CCC;padding:5px;  width:518px;}
 #prodo-comment-row-fluid {word-wrap: break-word;width:400px;text-align: left;font-size:12	px;}
 #prodo-comment-companyName{color: gray;word-spacing: -.5ex ;}
 #prodo-comment-userName{font-size:15px; font-weight:bold;}
 #prodo-comment-commentContainer{ width:550px;}
 #prodo-comment-addButton{width:400px; }
-#prodo-comment-tags{ font-size:11px; font-family: Helvetica Neue; }
+#prodo-comment-tags{ font-size:11px; font-family: Helvetica ; }
 #prodo-comment-tabs{height: 10px;}
 #prodo-comment-timePosted{font-size:10px; }
- 
- .list-animate-item {
-  -webkit-transition: color 0.6s, background-color 0.3s;
-  -moz-transition: color 0.6s, background-color 0.3s;
-  -ms-transition: color 0.6s, background-color 0.3s;
-  transition: color 0.6s, background-color 0.3s; 
-  }
- 
-  
-  .list-animate-item.ng-enter {
-    -webkit-animation: fadeIn 1s;
-    -moz-animation: fadeIn 1s;
-    -ms-animation: fadeIn 1s;
-    animation: fadeIn 1s;
-  } 
-  
- .list-animate-item.ng-leave {
-    -webkit-animation: fadeOut 1s;
-    -moz-animation: fadeOut 1s;
-    -ms-animation: fadeOut 1s;
-    animation: fadeOut 1s;
-  }
-
-
+#fa-removeComment:hover{}
+.list-animate-item {-webkit-transition: color 0.6s, background-color 0.3s;-moz-transition: color 0.6s, background-color 0.3s;-ms-transition: color 0.6s, background-color 0.3s; transition: color 0.6s, background-color 0.3s; }
+.list-animate-item.ng-enter {-webkit-animation: fadeIn 1s;-moz-animation: fadeIn 1s;-ms-animation: fadeIn 1s;animation: fadeIn 1s;} 
+.list-animate-item.ng-leave {-webkit-animation: fadeOut 1s;-moz-animation: fadeOut 1s;-ms-animation: fadeOut 1s;animation: fadeOut 1s;}
 
  /* Prodo-Comment-CSS*/
 
  
+ 
+  /* Prodo-ProductFeature-CSS*/
+ #prodo-productFeature-Container{ width:550px;}
+ #prodo-productFeature-fixed{ margin-left:17px;}
+ .ProductFeatureTable {
+	margin:0px;padding:0px;
+	width:100%;
+	box-shadow: 10px 10px 5px #888888;
+	border:1px solid #000000;
+	
+	-moz-border-radius-bottomleft:7px;
+	-webkit-border-bottom-left-radius:7px;
+	border-bottom-left-radius:7px;
+	
+	-moz-border-radius-bottomright:7px;
+	-webkit-border-bottom-right-radius:7px;
+	border-bottom-right-radius:7px;
+	
+	-moz-border-radius-topright:7px;
+	-webkit-border-top-right-radius:7px;
+	border-top-right-radius:7px;
+	
+	-moz-border-radius-topleft:7px;
+	-webkit-border-top-left-radius:7px;
+	border-top-left-radius:7px;
+}.ProductFeatureTable table{
+    border-collapse: collapse;
+        border-spacing: 0;
+	width:100%;
+	height:100%;
+	margin:0px;padding:0px;
+}.ProductFeatureTable tr:last-child td:last-child {
+	-moz-border-radius-bottomright:7px;
+	-webkit-border-bottom-right-radius:7px;
+	border-bottom-right-radius:7px;
+}
+.ProductFeatureTable table tr:first-child td:first-child {
+	-moz-border-radius-topleft:7px;
+	-webkit-border-top-left-radius:7px;
+	border-top-left-radius:7px;
+}
+.ProductFeatureTable table tr:first-child td:last-child {
+	-moz-border-radius-topright:7px;
+	-webkit-border-top-right-radius:7px;
+	border-top-right-radius:7px;
+}.ProductFeatureTable tr:last-child td:first-child{
+	-moz-border-radius-bottomleft:7px;
+	-webkit-border-bottom-left-radius:7px;
+	border-bottom-left-radius:7px;
+}.ProductFeatureTable tr:hover td{
+	background-color:#CEE3F6;
+}
+.ProductFeatureTable tr:nth-child(odd){ background-color:#e5e5e5; }
+.ProductFeatureTable tr:nth-child(even)    { background-color:#ffffff; }
+.ProductFeatureTable td{
+	vertical-align:middle;
+	
+	
+	border:1px solid #000000;
+	border-width:0px 1px 1px 0px;
+	text-align:center;
+	padding:5px;
+	font-size:11px;
+	font-family:Helvetica;
+	font-weight:normal;
+	color:#000000;
+}.ProductFeatureTable tr:last-child td{
+	border-width:0px 1px 0px 0px;
+}.ProductFeatureTable tr td:last-child{
+	border-width:0px 0px 1px 0px;
+}.ProductFeatureTable tr:last-child td:last-child{
+	border-width:0px 0px 0px 0px;
+}
+.ProductFeatureTable tr:first-child td{
+		background:-o-linear-gradient(bottom, #dbdbdb 5%, #b2b2b2 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dbdbdb), color-stop(1, #b2b2b2) );
+	background:-moz-linear-gradient( center top, #dbdbdb 5%, #b2b2b2 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#dbdbdb", endColorstr="#b2b2b2");	background: -o-linear-gradient(top,#dbdbdb,b2b2b2);
 
- 
- 
+	background-color:#dbdbdb;
+	border:0px solid #000000;
+	text-align:center;
+	border-width:0px 0px 1px 1px;
+	font-size:14px;
+	font-family:Arial;
+	font-weight:bold;
+	color:#000000;
+}
+.ProductFeatureTable tr:first-child:hover td{
+	background:-o-linear-gradient(bottom, #dbdbdb 5%, #b2b2b2 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dbdbdb), color-stop(1, #b2b2b2) );
+	background:-moz-linear-gradient( center top, #dbdbdb 5%, #b2b2b2 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#dbdbdb", endColorstr="#b2b2b2");	background: -o-linear-gradient(top,#dbdbdb,b2b2b2);
+
+	background-color:#dbdbdb;
+}
+.ProductFeatureTable tr:first-child td:first-child{
+	border-width:0px 0px 1px 0px;
+}
+.ProductFeatureTable tr:first-child td:last-child{
+	border-width:0px 0px 1px 1px;
+}
+.ProductFeatureTable td:first-child{
+	font-size:12px;
+        font-weight: bold;
+        width: 20%;
+}
+
+.table tr:nth-child(odd){ background-color:#f5f5f5; }
+.table tr:nth-child(even)    { background-color:#ffffff; }
+.table  :hover  tr{
+	background-color:#f5f5f5;
+}
+ /* Prodo-ProductFeature-CSS*/ 
 
 
  
