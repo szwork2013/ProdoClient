@@ -2,126 +2,128 @@
 
 <!DOCTYPE html>
 <html ng-app="prodo.ProdonusApp" lang="en">
-  <head>
+    <head>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Prodonus is a warranty and social network platform for products that manages warranty and enables conversations between manufacturer and consumers, both individuals and companies">
-    <meta name="robots" content="noodp, noydir" />
-    <meta name="author" content="">
-    <!-- <link rel="shortcut icon" href="../../assets/ico/favicon.png"> Needs to be addressed later -->
-    <title>Prodonus</title>
-  <!--   <link rel="stylesheet" href="//djyhxgczejc94.cloudfront.net/frameworks/bootstrap/3.0.0/themes/white-plum/bootstrap.min.css"> -->
-     <link rel=" stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"> 
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/2.0/animate.min.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/prodonus.css">
-    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="vendor/tags/ng-tags-input.css">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Prodonus is a warranty and social network platform for products that manages warranty and enables conversations between manufacturer and consumers, both individuals and companies">
+        <meta name="robots" content="noodp, noydir" />
+        <meta name="author" content="">
+        <!-- <link rel="shortcut icon" href="../../assets/ico/favicon.png"> Needs to be addressed later -->
+        <title>Prodonus</title>
+        <!--   <link rel="stylesheet" href="//djyhxgczejc94.cloudfront.net/frameworks/bootstrap/3.0.0/themes/white-plum/bootstrap.min.css"> -->
+        <link rel=" stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"> 
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/2.0/animate.min.css">
+        <link rel="stylesheet" type="text/css" href="assets/css/prodonus.css">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="vendor/tags/ng-tags-input.css">
 
-  </head>
-  <body id="body" ng-controller="ProdoMainController">
-   
-    <div id="prodo-navbar" class="navbar navbar-inverse navbar-static-top" role="navigation">
+    </head>
+    <body id="body" ng-controller="ProdoMainController">
 
-      <a id="prodo-navbar-brand" class="navbar-brand" ui-sref="prodo.wall">Prodonus</a>
+        <div id="prodo-navbar" class="navbar navbar-inverse navbar-static-top" role="navigation">
 
-      <p class="navbar-text pull-right">
+            <a id="prodo-navbar-brand" class="navbar-brand" ui-sref="prodo.wall">Prodonus</a>
 
-      <form id="prodo-navbar-form" class="navbar-form navbar-right">
+            <p class="navbar-text pull-right">
 
-        <div class="form-group">
-          <input id="prodo-form-input-signin" type="email" placeholder="Email" class="form-control" required ng-model="user.email">
+            <form id="prodo-navbar-form" class="navbar-form navbar-right">
+
+                <div class="form-group">
+                    <input id="prodo-form-input-signin" type="email" placeholder="Email" class="form-control" required ng-model="user.email">
+                </div>
+
+                <div class="form-group" ng-controller="UserSigninController">
+                    <input id="prodo-form-input-signin" type="password" placeholder="Password" class="form-control" required ng-model="user.password">
+                </div>
+
+                <button id="prodo-form-button-signin" type="submit" class="btn btn-success" ng-click="signin()">Sign in</button><br>
+
+                <a id="prodo-form-forgot-link" ui-sref="user.forgotPassword">Forgot password?</a>
+
+            </form>
+
+        </div>  
+
+        <div id="prodo-main-view" class="container">
+            <div ui-view></div>
         </div>
 
-        <div class="form-group" ng-controller="UserSigninController">
-          <input id="prodo-form-input-signin" type="password" placeholder="Password" class="form-control" required ng-model="user.password">
-        </div>
+        <div id="footer" >   
+            <div id="prodo-row-footer" class="row">
+                <div class="col-md-2 col-md-offset-2">
+                    <nav><h5 id="footer-nav-heading" class="">About</h5>
+                        <ul>
+                            <li><a class="" href="/aboutus">About Us</a></li>
+                            <li><a class="" href="/privacy">Privacy</a></li>
+                            <li><a class="" ui-sref="staticContent.terms">Terms</a></li>                
+                        </ul>
+                    </nav>
+                </div>
 
-        <button id="prodo-form-button-signin" type="submit" class="btn btn-success" ng-click="signin()">Sign in</button><br>
+                <div class="col-md-2">
+                    <nav><h5 id="footer-nav-heading" class="">Connect With Us</h5>
+                        <ul>
+                            <li><a class="" href="/business">Business</a></li>
+                            <li><a class="" href="/advertising">Advertising</a></li>
+                            <li><a class="" href="/advertising">Author-Application</a></li>
+                        </ul>
+                    </nav>
+                </div> 
 
-        <a id="prodo-form-forgot-link" ui-sref="user.forgotPassword">Forgot password?</a>
+                <div class="col-md-2">
+                    <nav><h5 id="footer-nav-heading" class="">Help</h5>
+                        <ul>
+                            <li><a class="" href="/support">Support</a></li>
+                            <li><a class="" href="/contact">Contact Us</a></li>
+                        </ul>
+                    </nav>
+                </div> 
 
-      </form>
+            </div>
 
-    </div>  
-
-    <div id="prodo-main-view" class="container">
-      <div ui-view></div>
-    </div>
-    
-    <div id="footer" >   
-      <div id="prodo-row-footer" class="row">
-        <div class="col-md-2 col-md-offset-2">
-          <nav><h5 id="footer-nav-heading" class="">About</h5>
-            <ul>
-              <li><a class="" href="/aboutus">About Us</a></li>
-              <li><a class="" href="/privacy">Privacy</a></li>
-              <li><a class="" ui-sref="staticContent.terms">Terms</a></li>                
-            </ul>
-          </nav>
-        </div>
-
-        <div class="col-md-2">
-          <nav><h5 id="footer-nav-heading" class="">Connect With Us</h5>
-            <ul>
-              <li><a class="" href="/business">Business</a></li>
-              <li><a class="" href="/advertising">Advertising</a></li>
-              <li><a class="" href="/advertising">Author-Application</a></li>
-            </ul>
-          </nav>
-        </div> 
-
-        <div class="col-md-2">
-          <nav><h5 id="footer-nav-heading" class="">Help</h5>
-            <ul>
-              <li><a class="" href="/support">Support</a></li>
-              <li><a class="" href="/contact">Contact Us</a></li>
-            </ul>
-          </nav>
-        </div> 
+            <p id="prodo-copyright" >&copy; Prodonus 2013 | made in pune, india.</p>
 
         </div>
 
-        <p id="prodo-copyright" >&copy; Prodonus 2013 | made in pune, india.</p>
-
-    </div>
- 
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
-    <script src="http://code.angularjs.org/1.2.1/angular-animate.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
+        <script src="http://code.angularjs.org/1.2.1/angular-animate.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-resource.min.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.0/angular-ui-router.min.js"></script>
-    <script type="text/javascript" src="//www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script>
-    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-    <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.6.0.js"></script>
-    <script src="http://momentjs.com/downloads/moment.min.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/angular-strap/0.7.2/angular-strap.min.js"></script>
-    <script type="text/javascript" src="vendor/tags/ng-tags-input.js"></script>
-    <!-- // <script src="../vendor/angularjs/angular.min.js"></script> -->
-    <!-- // <script src="../vendor/angularjs/angular-resource.js"></script> -->
-    <!-- // <script src="../vendor/angularui/angular-ui-router.min.js"></script> -->
-    <!-- // <script src="../vendor/angular-strap/angular-strap.min.js"></script> -->
-    <!-- <script src="../vendor/bootstrap/dist/js/bootstrap.js"></script> -->
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.0/angular-ui-router.min.js"></script>
+        <script type="text/javascript" src="//www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script>
+        <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+        <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.6.0.js"></script>
+        <script src="http://momentjs.com/downloads/moment.min.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/angular-strap/0.7.2/angular-strap.min.js"></script>
+        <script type="text/javascript" src="vendor/tags/ng-tags-input.js"></script>
+        <!-- // <script src="../vendor/angularjs/angular.min.js"></script> -->
+        <!-- // <script src="../vendor/angularjs/angular-resource.js"></script> -->
+        <!-- // <script src="../vendor/angularui/angular-ui-router.min.js"></script> -->
+        <!-- // <script src="../vendor/angular-strap/angular-strap.min.js"></script> -->
+        <!-- <script src="../vendor/bootstrap/dist/js/bootstrap.js"></script> -->
 
-    <script src="home/prodoApp.js"> </script>
-    <script src="home/prodoMainAppRoutes.js"> </script>
-    <script src="home/landing/js/landingRoutes.js"> </script>
-    <script src="home/prodo/js/prodoWallApp.js"> </script>
-    <script src="user/js/UserRegistrationController.js"> </script> 
-    <script src="home/prodo/js/prodoWallRoutes.js"> </script>
-    <script src="user/js/UserSigninController.js"> </script>
-    <script src="vendor/angular-recaptcha/angular-recaptcha.min.js"></script>
-    <script src="user/js/UserRoutes.js"> </script>
-    <script src="user/js/UserService.js"> </script>
-    <script src="org/orgregistration/js/OrgRegistrationController.js"></script>
-    <script src="org/orgregistration/js/OrgService.js"></script>
-    <script src="common/subscription/js/SubscriptionController.js"> </script>
-    <script src="common/CommonRoutes.js"> </script>
-    <script src="common/directives/prodoDirective.js"> </script>
-    <script src="product/js/prodoCommentDirective.js"> </script>
-    <script src="product/js/prodoCommentLimitDirective.js"> </script>
-    <script src="product/js/prodoCommentScrollDirective.js"> </script>
-     <script src="product/js/prodoCommentEnterKeyDirective.js"> </script>
-  </body>
+        <script src="home/prodoApp.js"></script>
+        <script src="home/prodoMainAppRoutes.js"></script>
+        <script src="home/landing/js/landingRoutes.js"></script>
+        <script src="home/prodo/js/prodoWallApp.js"></script>
+        <script src="user/js/UserRegistrationController.js"></script> 
+        <script src="home/prodo/js/prodoWallRoutes.js"></script>
+        <script src="user/js/UserSigninController.js"></script>
+        <script src="vendor/angular-recaptcha/angular-recaptcha.min.js"></script>
+        <script src="user/js/UserRoutes.js"></script>
+        <script src="user/js/UserService.js"></script>
+        <script src="org/orgregistration/js/OrgRegistrationController.js"></script>
+        <script src="org/orgregistration/js/OrgService.js"></script>
+        <script src="common/subscription/js/SubscriptionController.js"></script>
+        <script src="common/CommonRoutes.js"></script>
+        <script src="product/js/ProductController.js"></script>
+        <script src="common/directives/prodoDirective.js"></script>
+        <script src="common/comments/js/prodoCommentDirective.js"></script>
+        <script src="common/comments/js/prodoCommentLimitDirective.js"></script>
+        <script src="common/comments/js/prodoCommentScrollDirective.js"></script>
+        <script src="common/comments/js/prodoCommentEnterKeyDirective.js"></script>
+        <script src="warranty/js/WarrantyController.js"></script>
+    </body>
 
 </html>

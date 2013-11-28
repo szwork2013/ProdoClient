@@ -23,11 +23,11 @@
         <div class="pull-left" id="prodo-comment-row-fluid" > {{comment.text}}</div><br>
         <div class="prodo-comment-tabs" id="tabs"   >
             <ul id="myTab" class="nav nav-pills" ng-init="tabCommentTags = false;
-                            tabCommentRemove = false" >
-                <li><a  class="fa fa-tags"    ng-click="tabCommentTags = tabCommentTags === false ? true : false;
-                            tabCommentRemove = false;"></a></li>
-                <li><a   class="fa fa-trash-o"    ng-click="tabCommentRemove = tabCommentRemove === false ? true : false;
-                            tabCommentTags = false;"></a></li>
+                        tabCommentRemove = false" >
+                <li><a     ng-click="tabCommentTags = tabCommentTags === false ? true : false;
+                        tabCommentRemove = false;"><div id="fa-tagsComment" class="fa fa-tags"  ></div></a></li>
+                <li  ><a      ng-click="tabCommentRemove = tabCommentRemove === false ? true : false;
+                        tabCommentTags = false;"><div id="fa-removeComment" class="fa fa-trash-o" ></div></a></li>
             </ul>
             <div class="tab-content">
                 <div id="Tag" ng-show="tabCommentTags == 1" >
@@ -39,7 +39,7 @@
                     </form>
                 </div>
 
-                <div id="Remove" ng-show="tabCommentRemove == 1"  > Are you sure to remove this comment??
+                <div id="Remove" ng-show="tabCommentRemove == 1"  > Are you sure to remove this comment?
                     <a ng-click="deleteProductComment(comment)">&nbsp; Yes </a>
                 </div>      
             </div>

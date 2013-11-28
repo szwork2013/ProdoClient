@@ -1,5 +1,15 @@
 <!-- Prodonus App Warranty Template -->
 
-<div id="prodo-comment-container" class="container" style="border: 1px solid #94d2f8; width: 80%; margin-left:64.5px; height: 300px;">
-	<h4>Warranty</h4>
+<div id="prodo-comment-container" class="container" style="border: 1px solid #94d2f8; width: 80%; margin-left:64.5px; " ng-controller="WarrantyController">
+    <div id="prodo-comment-fixed" style="" >
+        <br>
+        <div id="prodo-comment-enterComment" >
+            <span class="label label-info   "  >{{300 - commenttextField.textFieldc.length}}</span>   
+            <textarea  type="text" class="form-control" name="txtComment" placeholder="Warranty Conversation [max 300 characters]" id="prodo-comment-Textbox" col="40"  ng-model="commenttextField.textFieldc" comment-limit="300" ng-enter="addProductComment()" required ></textarea> 
+        </div>
+        <ul class="media-list "  id="prodo-comment-media-list">
+            <div prodo-comments when-scrolled="loadMore()" comments="comments"  id="prodo-comment-commentContainer"  >
+            </div>  
+        </ul>
+    </div>
 </div>

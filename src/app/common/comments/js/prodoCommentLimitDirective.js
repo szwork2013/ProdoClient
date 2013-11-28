@@ -21,13 +21,13 @@ angular.module('prodo.ProdoCommentApp')
                     var maxlength = Number(attrs.commentLimit);
                     function fromUser(text) {
                         var txtComment = document.getElementById('prodo-comment-Textbox');
-                        txtComment.style.color = "black";
+                       // txtComment.style.color = "black";
 
                         if (text.length > maxlength) {
                             var transformedInput = text.substring(0, maxlength);
                             CommentController.$setViewValue(transformedInput);
                             CommentController.$render();
-                            txtComment.style.color = "red";
+                           // txtComment.style.color = "red";
 
                             return transformedInput;
                         }
