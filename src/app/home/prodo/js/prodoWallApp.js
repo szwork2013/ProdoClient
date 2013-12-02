@@ -9,6 +9,20 @@ angular.module('prodo.ProdoWallApp')
             {image: 'http://placekitten.com/603/350'},
             {image: 'http://placekitten.com/604/350'}
         ];
+
+
+            // $(document).ready(function(){
+            //         alert("Slideri");
+            //     $('#layerslider').layerSlider({
+            //         skinsPath : '../../../vendor/layerslider/skins/',
+            //         skin : 'glass',
+            //         thumbnailNavigation : 'hover',
+            //         hoverPrevNext : false,
+            //         autoPlayVideos : false
+            //     });
+            // }); 
+
+
         $scope.TrendingProducts = [
             {productname: 'Samsung'},
             {productname: 'Sony'},
@@ -27,7 +41,8 @@ angular.module('prodo.ProdoWallApp')
             {value: 'Organisation'},
             {value: 'Product'},
             {value: 'Warranty'},
-            {value: 'Blog'} 
+            {value: 'Blog'},
+            {value: 'Dashboard'}
         ];
         $scope.currentIndex = 0;
         $scope.isCurrentTabIndex = function (index) {
