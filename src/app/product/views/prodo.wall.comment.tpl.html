@@ -19,13 +19,13 @@
         <br>
 
         <div id="prodo-comment-enterComment" >
-            <span class="label label-info   "  >{{300 - commenttextField.textFieldc.length}}</span>   
+            <span class="label label-info   "  >{{300 - commenttextField.userComment.length}}</span>   
             <textarea  type="text" class="form-control" name="txtComment" placeholder="Product Conversation [max 300 characters]" id="prodo-comment-Textbox" col="40"  ng-model="commenttextField.textFieldc" comment-limit="300" ng-enter="addProductComment()" required ></textarea> 
         </div>
         <ul class="media-list "  id="prodo-comment-media-list">
 
             <div prodo-comments when-scrolled="loadMore()"    id="prodo-comment-commentContainer"  >
-           
+
             </div>  
         </ul>
     </div>

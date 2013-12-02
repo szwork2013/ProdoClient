@@ -1025,6 +1025,8 @@ corresponding value from the list below*/
 
 /* Prodo-Comment-CSS*/
 #prodo-comment-media:hover{background-color:#CEE3F6;}
+#fa-tagsComment:hover{zoom:1.2;-webkit-transform: scale( 1.2); -moz-transform: scale( 1.2);}
+#fa-removeComment:hover{zoom:1.2;-webkit-transform: scale( 1.2); -moz-transform: scale( 1.2);}
 ul {list-style-type: none; }
 /*li:nth-child(odd) {background-color:#F2F2F2;}*/
 #prodo-comment-media-list{border:3px;font-family: Helvetica ;font-size:14px;}
