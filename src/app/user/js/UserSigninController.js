@@ -2,20 +2,27 @@
 *	User Signin Controller
 **/
 angular.module('prodo.UserApp')
-	.controller('UserSigninController', ['$scope', '$state', '$timeout', 'UserSigninService', 'UserForgotPasswordService', 'UserResetPasswordService', function($scope, $state, $timeout, UserSigninService, UserForgotPasswordService, UserResetPasswordService) {
+	.controller('UserSigninController', ['$scope', '$state', '$timeout', '$stateParams', 'UserSigninService', 'UserForgotPasswordService', 'UserResetPasswordService', function($scope, $state, $timeout, $stateParams, UserSigninService, UserForgotPasswordService, UserResetPasswordService) {
 		
     $scope.submitted = false;  // form submit property is false
     var user = 
       {
         'email' :  '',
         'password' :  ''
+
       };
 
-
-    $scope.mainAlert = {
+      $scope.mainAlert = {
        isShown: false
       };
 
+      // to check data emitted..
+      $scope.$on('OTPReset', function(event, data) {
+        console.log(data);
+      })
+    
+
+      
     $scope.showAlert = function (alertType, message) {
        $scope.mainAlert.message = message;
        $scope.mainAlert.isShown = true;
@@ -70,19 +77,21 @@ angular.module('prodo.UserApp')
         if (data.error.code== 'AU005') {     // user does not exist
             console.log(data.error.code + " " + data.error.message);
             $scope.showAlert('alert-danger', 'You are not a registered user, please signup first');
-            $state.transitionTo('signin');
+             
         } else if (data.error.code=='AU002') {  // user password invalid
             console.log(data.error.code + " " + data.error.message);
-            $state.transitionTo('signin');
+            $scope.showAlert('alert-danger', data.error.message);
+
         } else if (data.error.code=='AV001') {  // enter valid data
             console.log(data.error.code + " " + data.error.message);
-            $state.transitionTo('signin');
+            $scope.showAlert('alert-danger', data.error.message);
         } else if (data.error.code=='AU006') {  // user signedin using OTP
             console.log(data.error.code + " " + data.error.message);
+            $scope.$emit("OTPReset", data.error.user.userid);
             $state.transitionTo('messageContent.resetPassword');
         } else if (data.error.code=='AU003') {   // user has not verified
             console.log(data.error.code + " " + data.error.message);
-            $state.transitionTo('emailverification');
+            $state.transitionTo('messageContent.emailverification');
         } else if (data.error.code=='AS001') {   // user has not subscribed to any plan
             console.log(data.error.code + " " + data.error.message);
             $state.transitionTo('subscription.plans');
@@ -94,15 +103,12 @@ angular.module('prodo.UserApp')
             $state.transitionTo('subscription.payment');
         } else {
             console.log(data.error.message);
-            $state.transitionTo('signin');
         }
       }
     };  
 
     // function to signin to Prodonus App using REST APIs and performs form validation.
     $scope.signin = function() {
-      if ($scope.signinForm.$valid) {                          
-        console.log('User Data entered successfully');
           UserSigninService.signinUser($scope.jsonUserSigninData(),     // calling function of UserSigninService to make POST method call to signin user.
           function(success){
             console.log(success);
@@ -112,9 +118,7 @@ angular.module('prodo.UserApp')
             console.log(error);
           });
           $scope.clearformData();       // calling function to clear form data once user has signin 
-      } else {
-        $scope.signupForm.submitted = true;
-      }
+       
     }
 
     // function to send and stringify user signin data to Rest APIs
@@ -122,7 +126,10 @@ angular.module('prodo.UserApp')
       {
         var userData = 
           {
-            'email' : $scope.user.email
+            user:
+            {
+             'email' : $scope.user.email 
+            }
           };
         return JSON.stringify(userData); 
       }
@@ -131,7 +138,7 @@ angular.module('prodo.UserApp')
     $scope.handleForgotPasswordResponse = function(data){
       if (data.success) {
         $scope.showAlert('alert-info', 'Your temporary password has been sent. Please check your email, and signin again.');
-        $state.transitionTo('signin');
+        // $state.transitionTo('messageContent.signin');
       } else {
         if (data.error.code== 'AV001') {     // enter valid data
             console.log(data.error.code + " " + data.error.message);
@@ -151,8 +158,6 @@ angular.module('prodo.UserApp')
 
     // function for forgotpassword to Prodonus App using REST APIs and performs form validation.
     $scope.forgotpassword = function() {
-      if ($scope.forgotPasswordForm.$valid) {                          
-        console.log('User Data entered successfully');
           UserForgotPasswordService.forgotPassword($scope.jsonForgotPasswordData(),     // calling function of UserSigninService to make POST method call to signin user.
           function(success){
             console.log(success);
@@ -162,9 +167,55 @@ angular.module('prodo.UserApp')
             console.log(error);
           });
           $scope.clearformData();       // calling function to clear form data once user has signin 
-      } else {
-        $scope.forgotPasswordForm.submitted = true;
+       
+    }
+
+    // function to send and stringify user reset password data to Rest APIs
+    $scope.jsonResetPasswordData = function()
+      {
+        var userData = 
+          {
+            user:
+            {
+             'currentpassword' : $scope.user.currentpassword,
+             'newpassword' : $scope.user.newpassword
+            }
+          };
+        return JSON.stringify(userData); 
       }
+     
+
+    // function to handle server side responses
+    $scope.handleResetPasswordResponse = function(data){
+      if (data.success) {
+        // $scope.showAlert('alert-info', 'Your temporary password has been sent. Please check your email, and signin again.');
+        $state.transitionTo('prodo.wall');
+      } else {
+        if (data.error.code== 'AV001') {     // enter valid data
+            console.log(data.error.code + " " + data.error.message);
+            $scope.showAlert('alert-danger', data.error.message);
+        } else {
+            console.log(data.error.message);
+            $scope.showAlert('alert-danger', data.error.message);
+        }
+      }
+    };  
+
+    // function for resetpassword to Prodonus App using REST APIs and performs form validation.
+    $scope.resetpassword = function() {
+          console.log($scope.jsonResetPasswordData());    
+          UserResetPasswordService.resetPassword({userid: 'ugJcpIxvcH'}, $scope.jsonResetPasswordData(),     // calling function of UserSigninService to make POST method call to signin user.
+            function(success){
+              console.log(success);
+              $scope.handleResetPasswordResponse(success);       // calling function to handle success and error responses from server side on POST method success.
+            },
+            function(error){
+              console.log(error);
+            });
+          
+          
+          $scope.clearformData();       // calling function to clear form data once user has signin 
+       
     }
  }]);
  

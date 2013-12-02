@@ -890,36 +890,36 @@ border-bottom-right-radius: 0px;
 border-bottom-left-radius: 0px;
 }
 
-/* Prodo Main View: Carousel*/
-#prodo-view-carousel{
+/* Prodo Main View: Slider*/
+#prodo-view-slider{
   margin-top: 20px;
   width: 80%; 
   margin-left:64.5px; 
    
 }
  
-#prodo-view-carousel-slide{
+#prodo-view-slider-slide{
   height: 290px; 
 }
 
-#prodo-view-carousel-nav{
+#prodo-view-slider-nav{
   background-color: #ffffff;
 
 }
 
-#prodo-carousel-nav-pills > li > a {
+#prodo-slider-nav-pills > li > a {
   border-radius: 0px;
   font-weight: bold;
   color: #33373C;
 }
 
-#prodo-carousel-nav-pills > li.active > a {
+#prodo-slider-nav-pills > li.active > a {
 color: #ffffff;
 background-color: #BE7A3B;
 }
 
 /* Prodo Main View: navtabs*/
-#prodo-view-carousel-navtabs{
+#prodo-view-slider-navtabs{
   background-color: #ffffff;
   border-radius: 10px;
   margin-top: 10px;
