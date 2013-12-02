@@ -13,9 +13,8 @@
  */
 
 angular.module('prodo.CommonApp')
-
-        .directive('prodoComments', function() {
-            return {
+  .directive('prodoComments', function() {
+    return {
                 restrict: 'A',
                 // require: '?ngModel',
                 templateUrl: 'common/comments/views/prodo.comment.tpl.html',
@@ -77,15 +76,12 @@ angular.module('prodo.CommonApp')
                         if ($scope.commenttextField.textFieldc != "")
                         {
                             $scope.getTagsFromCommentText($scope);
-                            $scope.productComments.comments.unshift({
-                                userName: "Shree",
-                                companyName: "Srujan Systems",
+                            $scope.productComments.unshift({
                                 time: Date.now(),
-                                text: $scope.commenttextField.textFieldc,
+                                commenttext: $scope.commenttextField.textFieldc,
                                 tags: $scope.mytags,
-                                group: "Admin",
-                                dp: "http://placehold.it/64x64",
-                                upvotecount: 0
+                                user: $scope.user,
+                                avatar_url: "http://placehold.it/64x64",
                             });
                             $scope.commenttextField.textFieldc = "";
                         }
@@ -97,9 +93,9 @@ angular.module('prodo.CommonApp')
 
                     $scope.deleteProductComment = function(comment) {
                         // console.log("deleting....");
-                        var index = $scope.productComments.comments.indexOf(comment);
+                        var index = $scope.productComments.indexOf(comment);
                         if (index != -1)
-                            $scope.productComments.comments.splice(index, 1);
+                            $scope.productComments.splice(index, 1);
                     };
                 },
                 link: function(scope, element, attrs, ngModel, controller) {
@@ -114,17 +110,17 @@ angular.module('prodo.CommonApp')
                         return moment(time).calendar();
                     }
 
-                    scope.toCamelCase = function(s) {
+                    // scope.toCamelCase = function(s) {
 
-                        s = s.replace(/([^a-zA-Z0-9_\- ])|^[_0-9]+/g, "").trim().toLowerCase();
-                        s = s.replace(/([ -]+)([a-zA-Z0-9])/g, function(a, b, c) {
-                            return c.toUpperCase();
-                        });
-                        s = s.replace(/([0-9]+)([a-zA-Z])/g, function(a, b, c) {
-                            return b + c.toUpperCase();
-                        });
-                        return s;
-                    }
+                    //     s = s.replace(/([^a-zA-Z0-9_\- ])|^[_0-9]+/g, "").trim().toLowerCase();
+                    //     s = s.replace(/([ -]+)([a-zA-Z0-9])/g, function(a, b, c) {
+                    //         return c.toUpperCase();
+                    //     });
+                    //     s = s.replace(/([0-9]+)([a-zA-Z])/g, function(a, b, c) {
+                    //         return b + c.toUpperCase();
+                    //     });
+                    //     return s;
+                    // }
 
                 }
             };
