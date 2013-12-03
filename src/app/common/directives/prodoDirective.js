@@ -143,7 +143,15 @@ angular.module("prodo.CommonApp")
         }
     };
 })
-
+.directive ('prodslider', function() {
+    var sliderdef = {
+        restrict: 'A',
+        link: function(scope, ele, attrs, c) {
+           $(ele).layerSlider();
+        }
+    };
+    return sliderdef;
+})
 
    .directive('ensureUnique', ['$http', function($http) {
   return {

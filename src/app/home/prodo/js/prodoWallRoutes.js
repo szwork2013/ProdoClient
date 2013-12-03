@@ -14,7 +14,7 @@ angular.module('prodo.ProdoWallApp')
           templateUrl:  'home/prodo/views/prodo.wall.sidebar.tpl.html'
         },
         'productwall' : {
-          templateUrl:  'home/prodo/views/prodo.wall.carousel.tpl.html'
+          templateUrl:  'common/slider/views/prodo.wall.slider.tpl.html'
         },
         'prodonavbar' : {
           templateUrl:  'home/prodo/views/prodo.wall.navbar.tpl.html'
@@ -34,7 +34,7 @@ angular.module('prodo.ProdoWallApp')
       }) 
     .state('prodo.wall.product', {
       url: '',
-       templateUrl:  'product/views/prodo.wall.comment.tpl.html',
+       templateUrl:  'product/views/prodo.wall.productTabs.tpl.html',
       }) 
      .state('prodo.wall.warranty', {
       url: '',

@@ -1,5 +1,5 @@
 /**
-* Main routing configuration
+* Products routing configuration
 **/
 
 angular.module('prodo.ProductApp')
