@@ -15,13 +15,6 @@ angular.module('prodo.UserApp')
       $scope.mainAlert = {
        isShown: false
       };
-
-      // to check data emitted..
-      $scope.$on('OTPReset', function(event, data) {
-        console.log(data);
-      })
-    
-
       
     $scope.showAlert = function (alertType, message) {
        $scope.mainAlert.message = message;
