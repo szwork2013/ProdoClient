@@ -51,4 +51,12 @@ angular.module('prodo.ProductApp')
 
                 //         }]
                 // };
-            }]);
+                
+                
+                 $(document).ready(function() {
+                //Product Tabs code
+                $("#tabComments").load("product/views/prodo.wall.comment.tpl.html");
+                $("#tabProductFeatures").load("product/views/prodo.wall.productFeatures.tpl.html");
+                //Product Tabs code
+                });
+      }]);

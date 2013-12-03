@@ -10,81 +10,192 @@
 *
 */
 -->
-<html>
-    <head>
-        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" rel="stylesheet">
-        <link rel=" stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"> 
-        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/2.0/animate.min.css">
-        <link rel="stylesheet" type="text/css" href="/assets/css/prodonus.css">
-    </head>
-    <body>
 
 
-        <div id="prodo-productFeature-container" class="container" style="border: 1px solid #94d2f8; width: 80%; margin-left:64.5px; " >
-            <div id="prodo-productFeature-fixed" style=" border:1px solid red; padding: 20px;float:left; width: 85%;" >
-
-
-
-
-                <div   style="width:80%; ">
+<div ng-controller="ProductController">
+<div id="prodo-productFeature-fixed"   >
+<!--                <div   style="width:80%; ">-->
                     <!-- Default panel contents -->
                     <div style="font-weight: bold" >Product Features</div>
-                    <table class="table">
+
+
+<!--                    <div class="parent" ng-class="{closed: isClosed}">
+                        <button ng-click="isClosed = !isClosed">Toggle</button>
+                        <p class="child">Conditionally displayed content</p>
+                    </div>-->
+
+
+                    <table class="table" id="prodo-ProductFeatureTable">
                         <tr>
-                        <th> head1</th>
-                        <th>head2</th>
+                            <td> Property</td>
+                            <td>Description</td>
                         </tr>
-                        <tbody>
+
                         <tr>
-                        <td>
-                            feature1
-                        </td>
-                        <td>
-                            feature1 description....
-                        </tr>
-                        <tr>
-                        <td>
-                            feature1
-                        </td>
-                        <td>
-                            feature1 description...
-                        </td>
+                            <td>
+                                prodle
+                            </td>
+                            <td>
+                                feature1 description....
                         </tr>
                         <tr>
-                        <td>
-                            feature1
-                        </td>
-                        <td>
-                            feature1 description...
-                        </td>
+                            <td>
+                                orgprodid
+                            </td>
+                            <td>
+                                feature2 description...
+                            </td>
                         </tr>
-                        </tbody>
+                        <tr>
+                            <td>
+                                name
+                            </td>
+                            <td>
+                                feature3 description...
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                display_name
+                            </td>
+                            <td>
+                                feature4 description...
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                model_no
+                            </td>
+                            <td>
+                                feature5 description...
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                model_name
+                            </td>
+                            <td>
+                                feature6 description...
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                serial_no
+                            </td>
+                            <td>
+                                feature7 description...
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                description
+                            </td>
+                            <td>
+                                feature8 description...
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                introduction_dat
+                            </td>
+                            <td>
+                                feature9 description...
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                sale_discontinuation_date
+                            </td>
+                            <td>
+                                feature10 description...
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                support_discontinuation_date
+                            </td>
+                            <td>
+                                feature11 description...
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                banneddate
+                            </td>
+                            <td>
+                                feature12 description...
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                features
+                            </td>
+                            <td>
+                                feature13 description...
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                substitutes
+                            </td>
+                            <td>
+                                feature14 description...
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                incompatability
+                            </td>
+                            <td>
+                                feature15 description...
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                status
+                            </td>
+                            <td>
+                                feature16 description...
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                createddate
+                            </td>
+                            <td>
+                                feature17 description...
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                pricingpricingSchema
+                            </td>
+                            <td>
+                                feature18 description...
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                pricinghistorypricingHistorySchema
+                            </td>
+                            <td>
+                                feature19 description...
+                            </td>
+                        </tr>
+
                     </table>
 
-                </div>
-              
-
+<!--                </div>-->
 
 
 
             </div>
 
-            <div style="width: 10% ;padding: 20px; border:1px solid red;float:right">
+            <div style="width: 10% ;padding: 0px; float:right">
+                <br>
                 <a href="">  <i class="fa fa-plus-circle fa-5x"></i></a>
                 <a href="">   <i class="fa fa-minus-circle fa-5x"></i> </a>
             </div>
-        </div>
 
 
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
-        <script src="http://code.angularjs.org/1.2.1/angular-animate.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-resource.min.js"></script>
-        <script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.0/angular-ui-router.min.js"></script>
-        <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-        <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.6.0.js"></script>
-        <script src="http://cdnjs.cloudflare.com/ajax/libs/angular-strap/0.7.2/angular-strap.min.js"></script>
-
-    </body>
-
-</html>
+</div>
