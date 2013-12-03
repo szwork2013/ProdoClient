@@ -14,16 +14,16 @@
 
 <div ng-app="prodo.ProductApp" id="prodo-comment-container" class="container" style="border: 1px solid #94d2f8; width: 80%; margin-left:64.5px; "  ng-controller="ProductController">
 
-    <ul class="nav nav-tabs">
+     <ul class="nav nav-tabs">
         <li class="active"><a href="#tabComments" data-toggle="tab">Product Comments</a></li>
         <li class=""><a href="#tabProductFeatures" data-toggle="tab">Product Features</a></li>
 
     </ul>
     <div class="tab-content" style="padding-bottom: 9px; border-bottom: 1px solid #ddd;">
-        <div class="tab-pane active" id="tabComments">
+        <div class="tab-pane active" id="tabComments" ng-include="'product/views/prodo.wall.comment.tpl.html'">
             <p>comments</p>
         </div>
-        <div class="tab-pane" id="tabProductFeatures">
+        <div class="tab-pane" id="tabProductFeatures" ng-include="'product/views/prodo.wall.productFeatures.tpl.html'">
             <p>product-features</p>
         </div>
     </div>

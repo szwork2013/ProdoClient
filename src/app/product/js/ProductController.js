@@ -1,15 +1,15 @@
 /* Overview: Product Controller 
-* Controller for product comments,product features etc
-* Dated: 25/11/2013.
-* Author: Bhagyashri Jangam
-* Copyright: Prodonus Software Private Limited and GiantLeap Systems Private Limited 2013
-* Change History:
-*
-* date | author | description 
-*
-* 27-3/2013 | xyx | Add a new property
-* 
-*/
+ * Controller for product comments,product features etc
+ * Dated: 25/11/2013.
+ * Author: Bhagyashri Jangam
+ * Copyright: Prodonus Software Private Limited and GiantLeap Systems Private Limited 2013
+ * Change History:
+ *
+ * date | author | description 
+ *
+ * 27-3/2013 | xyx | Add a new property
+ * 
+ */
 angular.module('prodo.ProductApp')
         .controller('ProductController', ['$scope', 'ProductService', function($scope, ProductService) {
                 $scope.productComments = {comments: [{}]};
@@ -23,7 +23,7 @@ angular.module('prodo.ProductApp')
                             console.log(error);
                         });
 
-                // console.log(ProductService.getProduct({prodle: 'xkWw_RNsr'}));
+                console.log(ProductService.getProduct({prodle: 'xkWw_RNsr'}));
                 $scope.mytags;
                 $scope.commenttextField = {userComment: ''};
                 $scope.pretags = ['addition', 'aggregate', 'all', 'bad news', 'budget', 'cost', 'damage', 'entirety',
@@ -51,12 +51,9 @@ angular.module('prodo.ProductApp')
 
                 //         }]
                 // };
-                
-                
-                 $(document).ready(function() {
-                //Product Tabs code
-                $("#tabComments").load("product/views/prodo.wall.comment.tpl.html");
-                $("#tabProductFeatures").load("product/views/prodo.wall.productFeatures.tpl.html");
-                //Product Tabs code
-                });
-      }]);
+
+
+ 
+            }])
+
+        
