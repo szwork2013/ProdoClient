@@ -2,7 +2,7 @@
 *Registration Controller
 **/
 angular.module('prodo.UserApp')
-  .controller('UserRegistrationController', ['$scope', '$state', '$http', '$timeout', 'UserSignupService', 'vcRecaptchaService', 'UserRecaptchaService', 'UserRegenerateTokenService', function($scope, $state, $http, $timeout, UserSignupService, vcRecaptchaService, UserRecaptchaService, UserRegenerateTokenService ) {
+  .controller('UserRegistrationController', ['$scope', '$state', '$http', '$timeout', '$sce', 'UserSignupService', 'vcRecaptchaService', 'UserRecaptchaService', 'UserRegenerateTokenService', function($scope, $state, $http, $timeout, $sce, UserSignupService, vcRecaptchaService, UserRecaptchaService, UserRegenerateTokenService ) {
     $scope.submitted = false;
     $scope.user = { terms : true };
      
@@ -19,9 +19,11 @@ angular.module('prodo.UserApp')
        isShown: false
       };
 
-    $scope.showAlert = function (alertType, message) {
+    $scope.showAlert = function (alertType, message, linkpage, linkmessage ) {
        $scope.mainAlert.message = message;
        $scope.mainAlert.isShown = true;
+       $scope.mainAlert.linkpage = linkpage;
+       $scope.mainAlert.linkmessage = linkmessage;
        $scope.mainAlert.alertType = alertType;
       
       // return $scope.mainAlert.message;
@@ -31,11 +33,13 @@ angular.module('prodo.UserApp')
        $scope.mainAlert.isShown = false;
     };
 
-    $scope.showmessage = function(alertclass, msg) {
+    $scope.showmessage = function(alertclass, msg,  alertlink, linkmsg ) {
         var alerttype=alertclass;
-        var alertmessage=msg;         
-       $scope.showAlert(alerttype, alertmessage);
-       return true;
+        var alertmessage=msg; 
+        var link = alertlink; 
+        var linkmessage= linkmsg;      
+        $scope.showAlert(alerttype, alertmessage, link, linkmessage);
+        return true;
     };
     
     $scope.hideAlert = function() {
