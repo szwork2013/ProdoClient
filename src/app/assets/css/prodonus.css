@@ -226,7 +226,7 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
 	border-radius: 2px;
 	margin: 10px auto;
 	display: block;
-    text-align: center;
+  
      
 }
 
@@ -235,10 +235,11 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
 	width:250px;
 	border-radius: 2px;
 	background-color: #3a92c6;
-	font-size: 15px;
+	font-size: 20px;
+	font: bold;
 	position: relative;
 	display: block;
-  	margin: 20px auto;
+  margin: 20px auto;
 	text-align: center;
   }
  
@@ -343,6 +344,32 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
 	position: relative;
 	display: block;
   	margin: 20px auto;
+	text-align: center;
+  }
+
+  /**
+* View: regeneratetoken
+**/
+
+ 
+#prodo-input-regeneratetoken{
+	width:250px;
+	height: 30px;
+	border-radius: 2px;
+	margin: 10px auto;
+	display: block;
+     
+}
+
+/*change the View: resetPassword form input button resetPassword style*/
+#prodo-button-regeneratetoken{
+	width:250px;
+	border-radius: 2px;
+	background-color: #3a92c6;
+	font-size: 15px;
+	position: relative;
+	display: block;
+  margin: 10px auto;
 	text-align: center;
   }
  

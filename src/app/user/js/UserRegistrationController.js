@@ -2,7 +2,7 @@
 *Registration Controller
 **/
 angular.module('prodo.UserApp')
-  .controller('UserRegistrationController', ['$scope', '$state', '$http', '$timeout', 'UserSignupService', 'vcRecaptchaService', 'UserRecaptchaService', 'UserRegenerateTokenService', function($scope, $state, $http, $timeout, UserSignupService, vcRecaptchaService, UserRecaptchaService, UserRegenerateTokenService ) {
+  .controller('UserRegistrationController', ['$scope', '$state', '$http', '$timeout', '$sce', 'UserSignupService', 'vcRecaptchaService', 'UserRecaptchaService', 'UserRegenerateTokenService', function($scope, $state, $http, $timeout, $sce, UserSignupService, vcRecaptchaService, UserRecaptchaService, UserRegenerateTokenService ) {
     $scope.submitted = false;
     $scope.user = { terms : true };
      
@@ -19,9 +19,11 @@ angular.module('prodo.UserApp')
        isShown: false
       };
 
-    $scope.showAlert = function (alertType, message) {
+    $scope.showAlert = function (alertType, message, linkpage, linkmessage ) {
        $scope.mainAlert.message = message;
        $scope.mainAlert.isShown = true;
+       $scope.mainAlert.linkpage = linkpage;
+       $scope.mainAlert.linkmessage = linkmessage;
        $scope.mainAlert.alertType = alertType;
       
       // return $scope.mainAlert.message;
@@ -31,11 +33,13 @@ angular.module('prodo.UserApp')
        $scope.mainAlert.isShown = false;
     };
 
-    $scope.showmessage = function(alertclass, msg) {
+    $scope.showmessage = function(alertclass, msg,  alertlink, linkmsg ) {
         var alerttype=alertclass;
-        var alertmessage=msg;         
-       $scope.showAlert(alerttype, alertmessage);
-       return true;
+        var alertmessage=msg; 
+        var link = alertlink; 
+        var linkmessage= linkmsg;      
+        $scope.showAlert(alerttype, alertmessage, link, linkmessage);
+        return true;
     };
     
     $scope.hideAlert = function() {
@@ -115,6 +119,46 @@ angular.module('prodo.UserApp')
               } else {
         $scope.signupForm.submitted = true;
       }
+    }
+
+    // function to send and stringify user email to Rest APIs for token regenerate
+    $scope.jsonRegenerateTokenData = function()
+      {
+        var userData = 
+          {
+            'email' : $scope.user.email
+          };
+        return JSON.stringify(userData); 
+      }
+     
+
+    // function to handle server side responses
+    $scope.handleRegenerateTokenResponse = function(data){
+      if (data.success) {
+        $state.transitionTo('messageContent.emailverification');
+        $scope.clearformData();    
+      } else {
+        if (data.error.code== 'AU004') {     // enter valid data
+            console.log(data.error.code + " " + data.error.message);
+            $scope.showAlert('alert-danger', data.error.message);
+        } else {
+            // console.log(data.error.message);
+            $scope.showAlert('alert-danger', data.error.message);
+        }
+      }
+    };  
+
+    // function for resetpassword to Prodonus App using REST APIs and performs form validation.
+    $scope.regeneratetoken = function() {
+          UserRegenerateTokenService.regenerateToken($scope.jsonRegenerateTokenData(),     // calling function of UserSigninService to make POST method call to signin user.
+            function(success){
+              console.log(success);
+              $scope.handleRegenerateTokenResponse(success);       // calling function to handle success and error responses from server side on POST method success.
+            },
+            function(error){
+              console.log(error);
+            });
+        
     }
   }]);
  

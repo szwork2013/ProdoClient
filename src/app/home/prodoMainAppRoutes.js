@@ -36,9 +36,9 @@ angular.module('prodo.ProdonusApp')
       templateUrl: 'home/landing/views/home.signup.verification.tpl.html',
       controller: 'UserRegistrationController'
     })  
-    .state('messageContent.emailrejection', {
-      url: '',
-      templateUrl: 'home/landing/views/home.signup.rejection.tpl.html',
+    .state('messageContent.activateaccount', {
+      url: '/activateaccount',
+      templateUrl: 'home/landing/views/home.signup.activateaccount.tpl.html',
       controller: 'UserRegistrationController'
     }) 
     .state('messageContent.resetGenerateToken', {
