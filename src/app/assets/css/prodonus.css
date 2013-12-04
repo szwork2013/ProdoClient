@@ -1053,11 +1053,104 @@ ul {list-style-type: none; }
  
     /* Prodo-ProductFeature-CSS*/
  #prodo-productFeature-Container{  width: 80%; margin-left:64.5px; }
- #prodo-productFeature-fixed{font-family: Helvetica ; margin-left:17px;  padding: 20px;float:left; width: 85%;}
-.table tr:nth-child(odd){ background-color:#f5f5f5; }
-.table tr:nth-child(even)    { background-color:white; }
+/* #prodo-productFeature-fixed{font-family: Helvetica ; margin-left:17px;  padding: 20px;float:left; width: 85%;}*/
+.table tr:nth-child(odd){ background-color:#f5f5f5; font-size: 12px; }
+.table tr:nth-child(even)    { background-color:white; font-size: 12px;  }
+.table{border: 3px;}
 /*.table  :hover  tr{background-color:#f5f5f5;}*/
-.table tr:first-child{background-color:black; color: wheat; font-size: 16px;}
+/*.table tr:first-child{background-color:black; color: wheat; font-size: 16px;}*/
+
+
+
+/*.prodo-product-general.closed button {color: red;}   stand-in for showing an up/down arrow or something*/
+.prodo-product-general.closedPG .child { display:none; }
+.prodo-product-general.closedCnF .child { display:none; }
+.prodo-product-general.closedSb .child { display:none; }
+.prodo-product-general.closedPr .child { display:none; }
+#prodo-product-productgeneralbtn{text-align: left; height: 37px; width: 560px; background-color: #f3f5f3; color: black; font-size: 16px;box-shadow: 5px 5px 3px #888888;}
+#prodo-product-productgeneralbtn:hover{ background-color: activeborder;}
+
+.collapsed2 div{
+display:none;
+}
+ 
+
+.collapsed2:hover:after{
+    content: " Click here to follow";
+    
+}
+
+/* starting animations */
+ 
+
+.closedPG{   -webkit-transition : linear 1s;
+  -moz-transition: linear 1s;
+  -ms-transition: linear 1s;
+  -o-transition: linear 1s;
+  transition: linear 1s;
+}
+ 
+.closedPG.ng-enter{
+  opacity: 0;
+}
+ 
+.closedPG.ng-enter-active{
+  opacity: 1;
+}
+ 
+.closedPG.ng-leave{
+  opacity: 1;
+}
+ 
+.closedPG.ng-leave-active{
+  opacity: 0;
+}
+
+.closedCnF{   -webkit-transition : linear 1s;
+  -moz-transition: linear 1s;
+  -ms-transition: linear 1s;
+  -o-transition: linear 1s;
+  transition: linear 1s;
+}
+ 
+.closedCnF.ng-enter{
+  opacity: 0;
+}
+ 
+.closedCnF.ng-enter-active{
+  opacity: 1;
+}
+ 
+.closedCnF.ng-leave{
+  opacity: 1;
+}
+ 
+.closedCnF.ng-leave-active{
+  opacity: 0;
+}
+
+.closedCnF{   -webkit-transition : linear 1s;
+  -moz-transition: linear 1s;
+  -ms-transition: linear 1s;
+  -o-transition: linear 1s;
+  transition: linear 1s;
+}
+ 
+.closedCnF.ng-enter{
+  opacity: 0;
+}
+ 
+.closedCnF.ng-enter-active{
+  opacity: 1;
+}
+ 
+.closedCnF.ng-leave{
+  opacity: 1;
+}
+ 
+.closedCnF.ng-leave-active{
+  opacity: 0;
+}
  /* Prodo-ProductFeature-CSS*/ 
 
 

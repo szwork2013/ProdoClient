@@ -13,19 +13,127 @@
 
 
 <div ng-controller="ProductController">
-<div id="prodo-productFeature-fixed"   >
-<!--                <div   style="width:80%; ">-->
-                    <!-- Default panel contents -->
-                    <div style="font-weight: bold" >Product Features</div>
+    <div id="prodo-productFeature-fixed"   >
+
+        <div style="   float:right">
+            <a href="">  <i class="fa fa-plus-circle fa-3x"></i></a>
+            <a href="">   <i class="fa fa-minus-circle fa-3x"></i> </a>
+        </div><br>
+
+    
+    
+        
+        
+        <div class="prodo-product-general " ng-class="{closedPG: 
+                }"  >
+            <button id="prodo-product-productgeneralbtn" ng-click="isClosedPG = !isClosedPG" >
+                <i class="fa fa-plus-square "></i> &nbsp;&nbsp; Product General
+            </button><br><br>
+
+            <table class="table child closedPG" id="prodo-ProductFeatureTable" ng-if="isClosedPG">
+                <tr style=" background-color: #FFBABA;">
+                    <td  >Product Discontinued : <span >&nbsp; 12/09/2009</span></td>
+
+                    <td  >Support Discontinued : <span  >&nbsp;12/03/2012</span></td>
+                </tr>
+                <tr>
+                    <td  >Product Banned on : <span>&nbsp; 03/12/2011</span></td>
+
+                    <td  >Product Status : <span style="color:green">&nbsp;Active</span></td>
+
+                </tr>
+
+                <tr>
+                    <td  colspan="2">Product Name :
+                        <span>&nbsp; Samsung Duos SDRFGFDF </span>
+                        <span style="color:brown" class="collapsed2" style="cursor:pointer" onclick="this.className = this.className == 'collapsed2' ? 'expanded' : 'collapsed2'">
+                            <a onclick=""> [ 00123456432444 ]</a>
+                        </span>
+                    </td>
+
+                </tr>
+
+                <tr>
+                    <td  >Organization ProductID : <span>&nbsp; SMG3004344444545</span></td>
+
+                    <td  >Serial No : <span  >&nbsp;56756673534534</span></td>
+                </tr>
+                <tr>
+                    <td  >Model No : <span>&nbsp; 232343422457574645</span></td>
+
+                    <td  >Model Name : <span  >&nbsp;Samsung Duos SDRFG</span></td>
+                </tr>
+                <tr>
+                    <td  >Model No : <span>&nbsp; 232343422457574645</span></td>
+
+                    <td  >Model Name : <span  >&nbsp;Samsung Duos SDRFG</span></td>
+                </tr>
+                <tr>
+                    <td  colspan="2">Description    : <span>&nbsp; Mobile Phones – Compare, buy best latest mobile handsets and Smartphones in India. Advanced Technology with Unique Designs in Android Phone</span></td>
 
 
-<!--                    <div class="parent" ng-class="{closed: isClosed}">
-                        <button ng-click="isClosed = !isClosed">Toggle</button>
-                        <p class="child">Conditionally displayed content</p>
-                    </div>-->
+                </tr>
 
 
-                    <table class="table" id="prodo-ProductFeatureTable">
+            </table>
+
+
+
+        </div>
+
+        <!--        Category and features-->
+        <div class="prodo-product-general" ng-class="{closedCnF: !isClosedCnF}">
+            <button id="prodo-product-productgeneralbtn" ng-click="isClosedCnF = !isClosedCnF" >
+                <i class="fa fa-plus-square "></i> &nbsp;&nbsp; Category and Features 
+            </button><br><br>
+            <table class="table child closedCnF:" id="prodo-ProductFeatureTable" ng-if="isClosedCnF">
+                <tr>
+                    <td  >Category <span>&nbsp; category here</span></td>
+                    <td  >Description <span  >description here</span></td>
+                </tr>
+            </table>
+        </div>
+        <!--        Category and features-->
+        
+        <!--   Substitutes-->
+        
+        <div class="prodo-product-general" ng-class="{closedSb: !isClosedSb}">
+            <button id="prodo-product-productgeneralbtn" ng-click="isClosedSb = !isClosedSb" >
+                <i class="fa fa-plus-square "></i> &nbsp;&nbsp; Substitutes 
+            </button><br><br>
+            <table class="table child" id="prodo-ProductFeatureTable">
+                <tr>
+                    <td  >substitutes <span>&nbsp; substitutes data here</span></td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+        <!--  Substitutes-->
+        
+         <!--  Pricing-->
+        
+         <div class="prodo-product-general" ng-class="{closedPr: !isClosedPr}">
+            <button id="prodo-product-productgeneralbtn" ng-click="isClosedPr = !isClosedPr" >
+                <i class="fa fa-plus-square "></i> &nbsp;&nbsp; Pricing
+            </button><br><br>
+            <table class="table child closedPr:" id="prodo-ProductFeatureTable" ng-if="isClosedPr">
+                <tr>
+                    <td  >Pricing details <span>&nbsp; Pricing details here</span></td>
+                    
+                </tr>
+            </table>
+        </div>
+         
+          <!--  Pricing-->
+          
+          
+    </div>
+</div>
+
+
+
+<!--  <table class="table child" id="prodo-ProductFeatureTable">
                         <tr>
                             <td> Property</td>
                             <td>Description</td>
@@ -183,19 +291,4 @@
                             </td>
                         </tr>
 
-                    </table>
-
-<!--                </div>-->
-
-
-
-            </div>
-
-            <div style="width: 10% ;padding: 0px; float:right">
-                <br>
-                <a href="">  <i class="fa fa-plus-circle fa-3x"></i></a>
-                <a href="">   <i class="fa fa-minus-circle fa-3x"></i> </a>
-            </div>
-
-
-</div>
+                    </table>-->

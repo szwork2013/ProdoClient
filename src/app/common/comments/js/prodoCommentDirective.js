@@ -88,7 +88,7 @@ angular.module('prodo.CommonApp')
                             $scope.commenttextField.userComment = "";
                         }
                         else {
-
+                                    //add code if validation failed
                         }
                     };
 
