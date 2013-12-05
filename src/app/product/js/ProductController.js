@@ -11,7 +11,7 @@
  * 
  */
 angular.module('prodo.ProductApp')
-        .controller('ProductController', ['$scope', 'ProductService', function($scope, ProductService) {
+        .controller('ProductController', ['$scope', 'ProductService','CommentServicesave', function($scope, ProductService,CommentServicesave) {
                 $scope.productComments = {comments: [{}]};
 
                 ProductService.getProduct({prodle: 'xkWw_RNsr'},

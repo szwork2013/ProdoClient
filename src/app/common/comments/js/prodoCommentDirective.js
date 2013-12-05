@@ -19,7 +19,7 @@ angular.module('prodo.CommonApp')
                 // require: '?ngModel',
                 templateUrl: 'common/comments/views/prodo.comment.tpl.html',
                 //  scope: {productComments_l: '=info', pagesSize: '=', pagesShown: '='},
-                controller: function($scope)
+                controller: function($scope,ProductService,CommentServicesave)
                 {
                     $(document).ready(function() {
                         $('#prodo-comment-Textbox').focus(function() {
@@ -73,19 +73,25 @@ angular.module('prodo.CommonApp')
 
                         $scope.mytags = new_arr;
                     };
-
-                    $scope.addProductComment = function() {
-                        if ($scope.commenttextField.textFieldc != "")
-                        {
-                            $scope.getTagsFromCommentText($scope);
-                            $scope.productComments.unshift({
+                     
+                    $scope.newProductComment={
+                                prodle:'xkWw_RNsr',
                                 time: Date.now(),
                                 commenttext: $scope.commenttextField.userComment,
                                 tags: $scope.mytags,
                                 user: $scope.user,
                                 avatar_url: "http://placehold.it/64x64",
-                            });
+                            };
+                    
+                    
+                    $scope.addProductComment = function() {
+                        if ($scope.commenttextField.textFieldc != "")
+                        {
+                            $scope.getTagsFromCommentText($scope);
+                            $scope.productComments.unshift($scope.newProductComment);
                             $scope.commenttextField.userComment = "";
+                            
+                            CommentServicesave.saveProduct($scope.newProductComment);
                         }
                         else {
                                     //add code if validation failed

@@ -1156,26 +1156,48 @@ display:none;
   opacity: 0;
 }
 
-.closedCnF{   -webkit-transition : linear 1s;
+.closedSb{   -webkit-transition : linear 1s;
   -moz-transition: linear 1s;
   -ms-transition: linear 1s;
   -o-transition: linear 1s;
   transition: linear 1s;
 }
  
-.closedCnF.ng-enter{
+.closedSb.ng-enter{
   opacity: 0;
 }
  
-.closedCnF.ng-enter-active{
+.closedSb.ng-enter-active{
   opacity: 1;
 }
  
-.closedCnF.ng-leave{
+.closedSb.ng-leave{
   opacity: 1;
 }
  
-.closedCnF.ng-leave-active{
+.closedSb.ng-leave-active{
+  opacity: 0;
+}
+.closedPr{   -webkit-transition : linear 1s;
+  -moz-transition: linear 1s;
+  -ms-transition: linear 1s;
+  -o-transition: linear 1s;
+  transition: linear 1s;
+}
+ 
+.closedPr.ng-enter{
+  opacity: 0;
+}
+ 
+.closedPr.ng-enter-active{
+  opacity: 1;
+}
+ 
+.closedPr.ng-leave{
+  opacity: 1;
+}
+ 
+.closedPr.ng-leave-active{
   opacity: 0;
 }
  /* Prodo-ProductFeature-CSS*/ 
