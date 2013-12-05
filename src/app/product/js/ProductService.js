@@ -14,7 +14,7 @@ angular.module('prodo.ProductApp')
             }])
         
               .factory('CommentServicesave', ['$resource', function($resource) {
-                return $resource('/api/product/addcomment/xkWw_RNsr1', {},
+                return $resource('/api/product/addcomment/xkWw_RNsr', {},
                         {
                             saveProduct: {method: 'POST'},
 //                            getProduct: {method: 'GET', params: {prodle: 'id'}},

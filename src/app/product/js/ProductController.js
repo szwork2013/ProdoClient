@@ -13,9 +13,11 @@
 angular.module('prodo.ProductApp')
         .controller('ProductController', ['$scope', 'ProductService','CommentServicesave', function($scope, ProductService,CommentServicesave) {
                 $scope.productComments = {comments: [{}]};
+     
 
                 ProductService.getProduct({prodle: 'xkWw_RNsr'},
                 function(successData) {
+                    console.log(successData.error);
                     console.log(successData.success.product.product_comments);
                     $scope.productComments = successData.success.product.product_comments;
                 },
@@ -23,7 +25,7 @@ angular.module('prodo.ProductApp')
                             console.log(error);
                         });
 
-                console.log(ProductService.getProduct({prodle: 'xkWw_RNsr'}));
+                   console.log(ProductService.getProduct({prodle: 'xkWw_RNsr'}));
                 $scope.mytags;
                 $scope.commenttextField = {userComment: ''};
                 $scope.pretags = ['addition', 'aggregate', 'all', 'bad news', 'budget', 'cost', 'damage', 'entirety',

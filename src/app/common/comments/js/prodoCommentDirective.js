@@ -75,12 +75,10 @@ angular.module('prodo.CommonApp')
                     };
                      
                     $scope.newProductComment={
-                                prodle:'xkWw_RNsr',
-                                time: Date.now(),
-                                commenttext: $scope.commenttextField.userComment,
-                                tags: $scope.mytags,
-                                user: $scope.user,
-                                avatar_url: "http://placehold.it/64x64",
+                                user:{userid:"uxkfzVj7or",fullname:"Bhagyashri"}, 
+                         
+                                commenttext: $scope.commenttextField.userComment
+                           
                             };
                     
                     
@@ -90,7 +88,7 @@ angular.module('prodo.CommonApp')
                             $scope.getTagsFromCommentText($scope);
                             $scope.productComments.unshift($scope.newProductComment);
                             $scope.commenttextField.userComment = "";
-                            
+                           // var jsonDataComment=JSON.stringify($scope.newProductComment)
                             CommentServicesave.saveProduct($scope.newProductComment);
                         }
                         else {
