@@ -80,10 +80,10 @@ angular.module('prodo.CommonApp')
                             commenttext: $scope.commenttextField.userComment
                         }};
 
-
+                  var socket;
                     function connectSocket()
                     {
-                        var socket = io.connect('http://ec2-54-254-210-45.ap-southeast-1.compute.amazonaws.com:8000');
+                         socket = io.connect('http://ec2-54-254-210-45.ap-southeast-1.compute.amazonaws.com:8000');
                         socket.on("commentResponse", function(result) {
                             if (result.error) {
                                 document.getElementById('CommentErr').innerHTML = result.error.message;
