@@ -90,7 +90,7 @@ angular.module('prodo.CommonApp')
                             } else {
                                 document.getElementById('CommentErr').innerHTML = result.success.message;
                             }
-                        })
+                        })  
                     }
 
                     $scope.addProductComment = function() {
