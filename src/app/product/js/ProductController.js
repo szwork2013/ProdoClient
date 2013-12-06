@@ -14,13 +14,17 @@ angular.module('prodo.ProductApp')
         .controller('ProductController', ['$scope', 'ProductService', 'CommentServicesave', function($scope, ProductService, CommentServicesave) {
       
                 $scope.productComments = {comments: [{}]};
-                $scope.product  = [{ }];
+
+                $scope.product = [{}];
+
 
                 ProductService.getProduct({prodle: 'xkWw_RNsr'},
                 function(successData) {
 
                     console.log(successData.success.product.product_comments);
-                    $scope.product=successData.success.product;
+
+                    $scope.product = successData.success.product;
+
                     $scope.productComments = successData.success.product.product_comments;
                 },
                         function(error) {
@@ -55,8 +59,21 @@ angular.module('prodo.ProductApp')
 
                 //         }]
                 // };
-
-
+                
+                //Product discontinued visibility 
+//                if (($scope.product !== undefined) || ($scope.product !== ""))
+//                {
+//                    $scope.status = "deactive";
+//                    if ($scope.status == "deactive")
+//                    {
+//
+//                        document.getElementById("prodo-productDiscontinued").style.display = "block";
+//                    }
+//                    else
+//                    {
+//                        document.getElementById("prodo-productDiscontinued").style.display = "none";
+//                    }
+//                }
 
             }])
 
