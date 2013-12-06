@@ -19,7 +19,7 @@ angular.module('prodo.CommonApp')
                 // require: '?ngModel',
                 templateUrl: 'common/comments/views/prodo.comment.tpl.html',
                 //  scope: {productComments_l: '=info', pagesSize: '=', pagesShown: '='},
-                controller: function($scope)
+                controller: function($scope, ProductService)
                 {
                     $(document).ready(function() {
                         $('#prodo-comment-Textbox').focus(function() {
@@ -28,7 +28,7 @@ angular.module('prodo.CommonApp')
                         $('#prodo-comment-Textbox').blur(function() {
                             $(this).height(30);
                         });
-                    
+
 
                     });
 
@@ -74,21 +74,48 @@ angular.module('prodo.CommonApp')
                         $scope.mytags = new_arr;
                     };
 
+                    $scope.newProductComment = {
+                        product_comment: {
+                            user: {userid: "uxkfzVj7or", fullname: "Bhagyashri"},
+                            commenttext: $scope.commenttextField.userComment
+                        }};
+
+                  var socket;
+                    function connectSocket()
+                    {
+                         socket = io.connect('http://ec2-54-254-210-45.ap-southeast-1.compute.amazonaws.com:8000');
+                        socket.on("commentResponse", function(result) {
+                            if (result.error) {
+                                document.getElementById('CommentErr').innerHTML = result.error.message;
+                            } else {
+                                document.getElementById('CommentErr').innerHTML = result.success.message;
+                            }
+                        })  
+                    }
+
                     $scope.addProductComment = function() {
-                        if ($scope.commenttextField.textFieldc != "")
-                        {
+                        connectSocket();
+
+                        if ($scope.commenttextField.textFieldc !== "")
+                        {   
                             $scope.getTagsFromCommentText($scope);
-                            $scope.productComments.unshift({
-                                time: Date.now(),
-                                commenttext: $scope.commenttextField.userComment,
-                                tags: $scope.mytags,
-                                user: $scope.user,
-                                avatar_url: "http://placehold.it/64x64",
-                            });
+                            $scope.productComments.unshift($scope.newProductComment.product_comment);
+
+                            // var jsonDataComment=JSON.stringify($scope.newProductComment)
+
+//                            var commentdata = {product_comment:
+//                                        {user: {userid: "ulksGOKEoS", fullname: "Sunil More"},
+//                                            commenttext: "Transcend provides good customer servicertrtyrty",
+//                                        }
+//                            }
+                            socket.emit('addComment', "xkWw_RNsr", $scope.newProductComment);
+                            alert("comment saved to server..");
+
+
                             $scope.commenttextField.userComment = "";
                         }
                         else {
-                                    //add code if validation failed
+                            //add code if validation failed
                         }
                     };
 
@@ -100,7 +127,5 @@ angular.module('prodo.CommonApp')
                             $scope.productComments.splice(index, 1);
                     };
                 },
-//                link: function(scope, element, attrs, ngModel, controller) {
-//                }
             };
         })
