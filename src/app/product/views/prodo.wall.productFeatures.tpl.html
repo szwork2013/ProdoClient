@@ -16,6 +16,7 @@
     <div id="prodo-productFeature-fixed"    >
 
         <div style="   float:right">
+            <span style="color:green">   {{product.status}}&nbsp;&nbsp;&nbsp; </span>
             <a href="">  <i class="fa fa-upload fa-3x"></i></a>
             <a href="">  <i class="fa fa-plus-circle fa-3x"></i></a>
             <a href="">   <i class="fa fa-minus-circle fa-3x"></i> </a>
@@ -29,12 +30,12 @@
 
             <table class="table child closedPG" id="prodo-ProductFeatureTable" ng-if="isClosedPG">
                 <tr id="prodo-productbnd" style="background-color: white" >
-                    <td  >Product Banned on : <span>&nbsp; </span></td>
+                    <td  colspan="2">Product Banned on : <span>&nbsp; </span></td>
 
-                    <td  >Product Status : <span style="color:green">&nbsp; {{product.status}} </span></td>
+               
 
                 </tr>
-                <tr style=" background-color: #FFBABA; " id="prodo-productDiscontinued"  >
+                <tr style=" background-color: #FFBABA; display: none" id="prodo-productDiscontinued"  >
                     <td  >Product Discontinued : <span >&nbsp;  </span></td>
 
                     <td  >Support Discontinued : <span  >&nbsp; </span></td>

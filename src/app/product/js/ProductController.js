@@ -54,18 +54,20 @@ angular.module('prodo.ProductApp')
 
                 //         }]
                 // };
+                
+                //Product discontinued visibility 
 //                if (($scope.product !== undefined) || ($scope.product !== ""))
 //                {
-                    $scope.status = "deactive";
-                    if ($scope.status == 'deactive')
-                    {
-
-                        document.getElementById("prodo-productDiscontinued").style.display = "block";
-                    }
-                    else
-                    {
-                        document.getElementById("prodo-productDiscontinued").style.display = "none";
-                    }
+//                    $scope.status = "deactive";
+//                    if ($scope.status == "deactive")
+//                    {
+//
+//                        document.getElementById("prodo-productDiscontinued").style.display = "block";
+//                    }
+//                    else
+//                    {
+//                        document.getElementById("prodo-productDiscontinued").style.display = "none";
+//                    }
 //                }
 
             }])
