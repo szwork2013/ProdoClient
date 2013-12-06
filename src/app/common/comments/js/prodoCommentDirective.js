@@ -96,8 +96,8 @@ angular.module('prodo.CommonApp')
                     $scope.addProductComment = function() {
                         connectSocket();
 
-                        if ($scope.commenttextField.textFieldc != "")
-                        {
+                        if ($scope.commenttextField.textFieldc !== "")
+                        {   
                             $scope.getTagsFromCommentText($scope);
                             $scope.productComments.unshift($scope.newProductComment.product_comment);
 
