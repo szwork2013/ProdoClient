@@ -24,8 +24,7 @@
     
         
         
-        <div class="prodo-product-general " ng-class="{closedPG: 
-                }"  >
+        <div class="prodo-product-general " ng-class="closedPG "  >
             <button id="prodo-product-productgeneralbtn" ng-click="isClosedPG = !isClosedPG" >
                 <i class="fa fa-plus-square "></i> &nbsp;&nbsp; Product General
             </button><br><br>
@@ -82,11 +81,11 @@
         </div>
 
         <!--        Category and features-->
-        <div class="prodo-product-general" ng-class="{closedCnF: !isClosedCnF}">
+        <div class="prodo-product-CF" ng-class="closedCnF ">
             <button id="prodo-product-productgeneralbtn" ng-click="isClosedCnF = !isClosedCnF" >
                 <i class="fa fa-plus-square "></i> &nbsp;&nbsp; Category and Features 
             </button><br><br>
-            <table class="table child closedCnF:" id="prodo-ProductFeatureTable" ng-if="isClosedCnF">
+            <table class="table child closedCnF" id="prodo-ProductFeatureTable" ng-if="isClosedCnF">
                 <tr>
                     <td  >Category <span>&nbsp; category here</span></td>
                     <td  >Description <span  >description here</span></td>
@@ -97,11 +96,11 @@
         
         <!--   Substitutes-->
         
-        <div class="prodo-product-general" ng-class="{closedSb: !isClosedSb}">
+        <div class="prodo-product-Sb" ng-class="closedSb ">
             <button id="prodo-product-productgeneralbtn" ng-click="isClosedSb = !isClosedSb" >
                 <i class="fa fa-plus-square "></i> &nbsp;&nbsp; Substitutes 
             </button><br><br>
-            <table class="table child" id="prodo-ProductFeatureTable">
+            <table class="table child closedSb" id="prodo-ProductFeatureTable" ng-if="isClosedSb">
                 <tr>
                     <td  >substitutes <span>&nbsp; substitutes data here</span></td>
                     
@@ -113,11 +112,11 @@
         
          <!--  Pricing-->
         
-         <div class="prodo-product-general" ng-class="{closedPr: !isClosedPr}">
+         <div class="prodo-product-Pr" ng-class="closedPr">
             <button id="prodo-product-productgeneralbtn" ng-click="isClosedPr = !isClosedPr" >
                 <i class="fa fa-plus-square "></i> &nbsp;&nbsp; Pricing
             </button><br><br>
-            <table class="table child closedPr:" id="prodo-ProductFeatureTable" ng-if="isClosedPr">
+            <table class="table child closedPr" id="prodo-ProductFeatureTable" ng-if="isClosedPr">
                 <tr>
                     <td  >Pricing details <span>&nbsp; Pricing details here</span></td>
                     
