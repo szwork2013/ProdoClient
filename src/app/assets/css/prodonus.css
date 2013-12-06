@@ -1109,11 +1109,11 @@ display:none;
 /* starting animations */
  
 
-.closedPG{   -webkit-transition : linear 1s;
-  -moz-transition: linear 1s;
-  -ms-transition: linear 1s;
-  -o-transition: linear 1s;
-  transition: linear 1s;
+.closedPG{   -webkit-transition : ease-in 1s;
+  -moz-transition: ease-in 1s;
+  -ms-transition: ease-in 1s;
+  -o-transition: ease-in 1s;
+  transition: ease-in 1s;
 }
  
 .closedPG.ng-enter{
