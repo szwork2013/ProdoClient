@@ -54,8 +54,19 @@ angular.module('prodo.ProductApp')
 
                 //         }]
                 // };
+//                if (($scope.product !== undefined) || ($scope.product !== ""))
+//                {
+                    $scope.status = "deactive";
+                    if ($scope.status == 'deactive')
+                    {
 
-
+                        document.getElementById("prodo-productDiscontinued").style.display = "block";
+                    }
+                    else
+                    {
+                        document.getElementById("prodo-productDiscontinued").style.display = "none";
+                    }
+//                }
 
             }])
 
