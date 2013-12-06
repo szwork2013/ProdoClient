@@ -13,10 +13,13 @@
 angular.module('prodo.ProductApp')
         .controller('ProductController', ['$scope', 'ProductService', function($scope, ProductService) {
                 $scope.productComments = {comments: [{}]};
+                $scope.product = [{}];
 
                 ProductService.getProduct({prodle: 'xkWw_RNsr'},
                 function(successData) {
+
                     console.log(successData.success.product.product_comments);
+                    $scope.product = successData.success.product;
                     $scope.productComments = successData.success.product.product_comments;
                 },
                         function(error) {
@@ -53,7 +56,7 @@ angular.module('prodo.ProductApp')
                 // };
 
 
- 
+
             }])
 
         
