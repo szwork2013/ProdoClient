@@ -1,0 +1,52 @@
+==========
+Objective:
+==========
+To maintain user session and routing based on user loggedin status.
+
+====================
+Tasks to accomplish:
+====================
+
+Note:
+===== 
+Create a service making call(GET) to server api where user logged in is checked, this call requires a userid to be passed in order to get the status of the specific user. Now check the response if it is true allow user and if no redirect to Login page.
+
+
+============
+1. Create service: userSessionService
+2. Single service containing all the $resource call to different URLs
+3. 
+
+============
+1. Run block: 
+============
+Similar to main methods. Use to inject instances and constants.
+Need to create variables that can be accessed throughout the application.
+isLoggedin, isloggedout, userid.
+
+
+===============
+2. Config block
+===============
+in config block set roles and access parameters. and according to user roles redirect to different routes.
+
+========================
+3. Maintain user session
+========================
+At user signin capture userid and set user loggedin status to true using services. Then access user variable before changing any route or routing based on these variables checking
+
+========================================
+4. Check user role and route accordingly
+========================================
+
+
+
+======================================
+5. Control url routing in config block
+======================================
+
+
+
+=====================
+6. Intercept handlers
+=====================

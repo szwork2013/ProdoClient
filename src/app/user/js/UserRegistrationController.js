@@ -2,12 +2,12 @@
 *Registration Controller
 **/
 angular.module('prodo.UserApp')
-  .controller('UserRegistrationController', ['$scope', '$state', '$http', '$timeout', '$sce', 'UserSignupService', 'vcRecaptchaService', 'UserRecaptchaService', 'UserRegenerateTokenService', function($scope, $state, $http, $timeout, $sce, UserSignupService, vcRecaptchaService, UserRecaptchaService, UserRegenerateTokenService ) {
+  .controller('UserRegistrationController', ['$scope', '$state', '$http', '$timeout', '$sce', 'UserSessionService', 'UserSignupService', 'vcRecaptchaService', 'UserRecaptchaService', function($scope, $state, $http, $timeout, $sce, UserSessionService, UserSignupService, vcRecaptchaService, UserRecaptchaService) {
     $scope.submitted = false;
     $scope.user = { terms : true };
      
 
-    var user = 
+    $scope.user = 
       {
         'fullname' : '',
         'email' :  '',
@@ -114,9 +114,9 @@ angular.module('prodo.UserApp')
           },
           function(error){
             console.log(error);
-        });  
-  });
-              } else {
+          });  
+        });
+      } else {
         $scope.signupForm.submitted = true;
       }
     }
@@ -142,7 +142,7 @@ angular.module('prodo.UserApp')
             console.log(data.error.code + " " + data.error.message);
             $scope.showAlert('alert-danger', data.error.message);
         } else {
-            // console.log(data.error.message);
+            console.log(data.error.message);
             $scope.showAlert('alert-danger', data.error.message);
         }
       }
@@ -150,15 +150,11 @@ angular.module('prodo.UserApp')
 
     // function for resetpassword to Prodonus App using REST APIs and performs form validation.
     $scope.regeneratetoken = function() {
-          UserRegenerateTokenService.regenerateToken($scope.jsonRegenerateTokenData(),     // calling function of UserSigninService to make POST method call to signin user.
-            function(success){
-              console.log(success);
-              $scope.handleRegenerateTokenResponse(success);       // calling function to handle success and error responses from server side on POST method success.
-            },
-            function(error){
-              console.log(error);
-            });
-        
+      UserSessionService.regenerateTokenUser($scope.jsonRegenerateTokenData());
+      $scope.$on("regenerateTokenDone", function(event, message){
+        $scope.handleRegenerateTokenResponse(message);   
+      });
+  
     }
   }]);
  

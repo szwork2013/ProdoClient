@@ -8,15 +8,15 @@
        
         <div prodo-alert-message></div>
         <input id="prodo-form-input-signup" name="fullname" class="form-control" type="text" placeholder="FullName (firstname lastname)" ng-model="user.fullname" required /><i class="fa fa-check" ng-show="signupForm.fullname.$dirty && signupForm.fullname.$valid" ></i>
-        <div class="error" 
+        <!-- <div class="error" 
             ng-show="(signupForm.fullname.$dirty && signupForm.fullname.$invalid && signupForm.submitted) || (signupForm.fullname.$invalid && signupForm.submitted) || (signupForm.fullname.$dirty && signupForm.fullname.$error.required)">
          
             Your name is required.
          
-        </div>
+        </div> -->
 
         <input id="prodo-form-input-signup" name="email" class="form-control" type="email" placeholder="Email" required ng-model="user.email" /><i class="fa fa-check" ng-show="signupForm.email.$dirty && signupForm.email.$valid"></i>
-        <div class="error" 
+        <!-- <div class="error" 
             ng-show="(signupForm.email.$dirty && signupForm.email.$invalid && signupForm.submitted) || 
             (signupForm.email.$invalid && signupForm.submitted) || (signupForm.email.$dirty && signupForm.email.$error.required)">
           Email is required.
@@ -24,18 +24,18 @@
         <div class="error" 
         ng-show="signupForm.email.$dirty && signupForm.email.$error.email">
         Enter valid email!
-        </div>
+        </div> -->
       
       
         <input id="prodo-form-input-signup" type="password" class="form-control" id="password1" name="password" placeholder="Password" ng-model="user.password" prodonus-password-validate required><i class="fa fa-check" ng-show="signupForm.password.$dirty && signupForm.password.$valid" ></i>
-        <div class="error" 
+        <!-- <div class="error" 
             ng-show="(signupForm.password.$dirty && signupForm.password.$invalid && signupForm.submitted) || (signupForm.password.$invalid && signupForm.submitted) || (signupForm.password.$dirty &&signupForm.password.$error.required)">
             Password is required.
         </div>
         <div class="error" 
         ng-show="signupForm.password.$dirty && !signupForm.password.$error.required && signupForm.password.$invalid">
         Enter valid password!
-        </div>
+        </div> -->
  
 
         <div vc-recaptcha theme="custom" key="6LdDj-oSAAAAAB8dXvPFoG9H9ygL_C-9l4V7lLP7" id="recaptcha_container">
@@ -53,6 +53,15 @@
         <p id="prodo-general-terms">By clicking Sign Up, you agree to our <a ui-sref="messageContent.terms" id="prodo-general-terms-link" class="link">Terms</a>.</p>
 
     </div>  
+    <div ng-show="(signupForm.$invalid && signupForm.$dirty) || (signupForm.$invalid && signupForm.submitted)" style="width:250px;
+    border-radius: 2px; margin: 10px auto; display: block;" class="alert alert-danger">
+      <ul style="list-style-type: disc;">
+        <li ng-show="(signupForm.fullname.$dirty && signupForm.fullname.$invalid && signupForm.submitted) || (signupForm.fullname.$invalid && signupForm.submitted) || (signupForm.fullname.$dirty && signupForm.fullname.$error.required)">Fullname is required</li>
+        <li ng-show="(signupForm.email.$dirty && signupForm.email.$invalid && signupForm.submitted) || (signupForm.email.$invalid && signupForm.submitted) || (signupForm.email.$dirty && signupForm.email.$error.required)">Email is required</li>
+        <li ng-show="signupForm.email.$error.email && signupForm.email.$dirty">Enter valid emailid</li>
+        <li ng-show="signupForm.password.$dirty && signupForm.password.$error.required && signupForm.password.$invalid">Password should contain atleast 1 character, number and special symbol</li>
+      </ul>
+    </div>
  
     <button id="prodo-form-button-signup" class="btn btn-sm btn-primary">Sign Up</button>
 
