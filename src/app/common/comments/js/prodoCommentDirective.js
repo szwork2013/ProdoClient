@@ -74,42 +74,40 @@ angular.module('prodo.CommonApp')
                         $scope.mytags = new_arr;
                     };
 
-                    $scope.newProductComment = {
-                        product_comment: {
-                            user: {userid: "uxkfzVj7or", fullname: "Bhagyashri"},
-                            commenttext: $scope.commenttextField.userComment
-                        }};
+                  
 
-                  var socket;
+                    var socket;
                     function connectSocket()
                     {
                          socket = io.connect('http://ec2-54-254-210-45.ap-southeast-1.compute.amazonaws.com:8000');
+                        
                         socket.on("commentResponse", function(result) {
                             if (result.error) {
                                 document.getElementById('CommentErr').innerHTML = result.error.message;
                             } else {
                                 document.getElementById('CommentErr').innerHTML = result.success.message;
                             }
-                        })  
+                        })
                     }
 
                     $scope.addProductComment = function() {
-                        connectSocket();
-
+                          $scope.newProductComment = {
+                        product_comment: {
+                            user: {userid: "uxkfzVj7or", fullname: "Bhagyashri"},
+                            commenttext: $scope.commenttextField.userComment
+                        }};
+                       // connectSocket();
+                       socket = io.connect('http://ec2-54-254-210-45.ap-southeast-1.compute.amazonaws.com:8000');
                         if ($scope.commenttextField.textFieldc !== "")
-                        {   
+                        {
                             $scope.getTagsFromCommentText($scope);
                             $scope.productComments.unshift($scope.newProductComment.product_comment);
 
                             // var jsonDataComment=JSON.stringify($scope.newProductComment)
 
-//                            var commentdata = {product_comment:
-//                                        {user: {userid: "ulksGOKEoS", fullname: "Sunil More"},
-//                                            commenttext: "Transcend provides good customer servicertrtyrty",
-//                                        }
-//                            }
-                            socket.emit('addComment', "xkWw_RNsr", $scope.newProductComment);
-                            alert("comment saved to server..");
+
+                            socket.emit('addComment', "xkWw_RNsr", $scope.newProductComment.product_comment);
+                            alert($scope.newProductComment.product_comment);
 
 
                             $scope.commenttextField.userComment = "";
