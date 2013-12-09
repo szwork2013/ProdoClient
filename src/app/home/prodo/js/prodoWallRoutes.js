@@ -38,7 +38,7 @@ angular.module('prodo.ProdoWallApp')
       }) 
      .state('prodo.wall.warranty', {
       url: '',
-       templateUrl:  'warranty/views/prodo.wall.warranty.tpl.html',
+       templateUrl:  'warranty/views/prodo.wall.warrantyTabs.tpl.html',
       }) 
     .state('prodo.wall.blog', {
       url: '',
