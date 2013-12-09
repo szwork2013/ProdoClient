@@ -17,111 +17,219 @@
 
         <div style="   float:right">
             <span style="color:green">   {{product.status}}&nbsp;&nbsp;&nbsp; </span>
-            <a href="">  <i class="fa fa-upload fa-3x"></i></a>
+            <a   ng-click="$parent.isEditing=true">  <i class="fa fa-upload fa-3x" ></i></a>
             <a href="">  <i class="fa fa-plus-circle fa-3x"></i></a>
             <a href="">   <i class="fa fa-minus-circle fa-3x"></i> </a>
         </div><br>
+        <div ng-switch="isEditing"  >
+            
+              <form ng-switch-when="true">
+                  
+                   <div class="prodo-product-general " ng-class="closedPG"  >
+                <button id="prodo-product-productgeneralbtn" ng-click="isClosedPG = !isClosedPG" >
+                    <i class="fa fa-plus-square "></i> &nbsp;&nbsp; Product General
+                </button><br><br>
 
-
-        <div class="prodo-product-general " ng-class="closedPG"  >
-            <button id="prodo-product-productgeneralbtn" ng-click="isClosedPG = !isClosedPG" >
-                <i class="fa fa-plus-square "></i> &nbsp;&nbsp; Product General
-            </button><br><br>
-
-            <table class="table child closedPG" id="prodo-ProductFeatureTable" ng-if="isClosedPG">
-                <tr id="prodo-productbnd" style="background-color: white" >
-                    <td  colspan="2">Product Banned on : <span>&nbsp; </span></td>
-
-               
-
-                </tr>
-                <tr style=" background-color: #FFBABA; display: none" id="prodo-productDiscontinued"  >
-                    <td  >Product Discontinued : <span >&nbsp;  </span></td>
-
-                    <td  >Support Discontinued : <span  >&nbsp; </span></td>
-                </tr>
-
-
-                <tr>
-                    <td  colspan="2">Product Name :
-                        <span>&nbsp;{{product.display_name}} </span>
-                        <span style="color:brown" class="collapsed2" style="cursor:pointer" onclick="this.className = this.className == 'collapsed2' ? 'expanded' : 'collapsed2'">
-                            <a onclick="">[ {{product.prodle}} ]</a>
-                        </span>
-                    </td>
-
-                </tr>
-
-                <tr>
-                    <td  >Organization ProductID : <span>&nbsp;{{product.orgid}}  </span></td>
-
-                    <td  >Serial No : <span  >&nbsp; {{product.serial_no}} </span></td>
-                </tr>
-                <tr>
-                    <td  >Model No : <span>&nbsp;{{product.model_no}} </span></td>
-
-                    <td  >Model Name : <span  >&nbsp;{{product.name}} </span></td>
-                </tr>
-
-                <tr>
-                    <td  colspan="2">Description : <span>&nbsp; {{product.description}}</span></td>
-
-
-                </tr>
-
-
-            </table>
+                <table class="table child closedPG" id="prodo-ProductFeatureTable" ng-if="isClosedPG">
+                    <tr id="prodo-productbnd" style="background-color: white" >
+                        <td  colspan="2">Product Banned on :  <input type="text" ng-model="product.banned" /></td>
 
 
 
+                    </tr>
+                    <tr style=" background-color: #FFBABA; display: none" id="prodo-productDiscontinued"  >
+                        <td  >Product Discontinued :  <input type="text" ng-model="product.prodDis" /></td>
+
+                        <td  >Support Discontinued :  <input type="text" ng-model="product.supDis" /></td>
+                    </tr>
+
+
+                    <tr>
+                        <td  colspan="2">Product Name :
+                             <input type="text" ng-model="product.display_name" /> Prodle:
+                             <input type="text" ng-model="product.prodle" />
+                        </td>
+
+                    </tr>
+
+                    <tr>
+                        <td  >Organization ProductID :  <input type="text" ng-model="product.orgid" /></td>
+
+                        <td  >Serial No :  <input type="text" ng-model="product.serial_no" /></td>
+                    </tr>
+                    <tr>
+                        <td  >Model No :  <input type="text" ng-model="product.model_no" /></td>
+
+                        <td  >Model Name :  <input type="text" ng-model="product.name" /></td>
+                    </tr>
+
+                    <tr>
+                        <td  colspan="2">Description :  <input type="text" ng-model="product.description" /></td>
+
+
+                    </tr>
+
+
+                </table>
+
+
+
+            </div>
+
+            <!--        Category and features-->
+            <div class="prodo-product-CF" ng-class="closedCnF">
+                <button id="prodo-product-productgeneralbtn" ng-click="isClosedCnF = !isClosedCnF" >
+                    <i class="fa fa-plus-square "></i> &nbsp;&nbsp; Category and Features 
+                </button><br><br>
+                <table class="table child closedCnF" id="prodo-ProductFeatureTable" ng-if="isClosedCnF">
+                    <tr>
+                        <td  >Category <span>&nbsp; category here</span></td>
+                        <td  >Description <span  > description here</span></td>
+                    </tr>
+                </table>
+            </div>
+            <!--        Category and features-->
+
+            <!--   Substitutes-->
+
+            <div class="prodo-product-Sb" ng-class="closedSb">
+                <button id="prodo-product-productgeneralbtn" ng-click="isClosedSb = !isClosedSb" >
+                    <i class="fa fa-plus-square "></i> &nbsp;&nbsp;  Substitutes 
+                </button><br><br>
+                <table class="table child closedSb" id="prodo-ProductFeatureTable" ng-if="isClosedSb">
+                    <tr>
+                        <td  >substitutes <span>&nbsp;  substitutes data here</span></td>
+
+                    </tr>
+                </table>
+            </div>
+
+            <!--  Substitutes-->
+
+            <!--  Pricing-->
+
+            <div class="prodo-product-Pr" ng-class="closedPr">
+                <button id="prodo-product-productgeneralbtn" ng-click="isClosedPr = !isClosedPr" >
+                    <i class="fa fa-plus-square "></i> &nbsp;&nbsp; Pricing
+                </button><br><br>
+                <table class="table child closedPr" id="prodo-ProductFeatureTable" ng-if="isClosedPr">
+                    <tr>
+                        <td  >Pricing details <span>&nbsp;  Pricing details here</span></td>
+
+                    </tr>
+                </table>
+            </div>
+
+            <!--  Pricing-->
+           
+            <br /><button ng-click="$parent.isEditing=false">Save</button>
+      </form>
+            
+            
+        <div ng-switch-default><!-- Switch to edit    --> 
+            
+            <div class="prodo-product-general " ng-class="closedPG"  >
+                <button id="prodo-product-productgeneralbtn" ng-click="isClosedPG = !isClosedPG" >
+                    <i class="fa fa-plus-square "></i> &nbsp;&nbsp; Product General
+                </button><br><br>
+
+                <table class="table child closedPG" id="prodo-ProductFeatureTable" ng-if="isClosedPG">
+                    <tr id="prodo-productbnd" style="background-color: white" >
+                        <td  colspan="2">Product Banned on : <span>&nbsp; </span></td>
+
+
+
+                    </tr>
+                    <tr style=" background-color: #FFBABA; display: none" id="prodo-productDiscontinued"  >
+                        <td  >Product Discontinued : <span >&nbsp;  </span></td>
+
+                        <td  >Support Discontinued : <span  >&nbsp; </span></td>
+                    </tr>
+
+
+                    <tr>
+                        <td  colspan="2">Product Name :
+                            <span>&nbsp;{{product.display_name}} </span>
+                            <span style="color:brown" class="collapsed2" style="cursor:pointer" onclick="this.className = this.className == 'collapsed2' ? 'expanded' : 'collapsed2'">
+                                <a onclick="">[ {{product.prodle}} ]</a>
+                            </span>
+                        </td>
+
+                    </tr>
+
+                    <tr>
+                        <td  >Organization ProductID : <span>&nbsp;{{product.orgid}}  </span></td>
+
+                        <td  >Serial No : <span  >&nbsp; {{product.serial_no}} </span></td>
+                    </tr>
+                    <tr>
+                        <td  >Model No : <span>&nbsp;{{product.model_no}} </span></td>
+
+                        <td  >Model Name : <span  >&nbsp;{{product.name}} </span></td>
+                    </tr>
+
+                    <tr>
+                        <td  colspan="2">Description : <span>&nbsp; {{product.description}}</span></td>
+
+
+                    </tr>
+
+
+                </table>
+
+
+
+            </div>
+
+            <!--        Category and features-->
+            <div class="prodo-product-CF" ng-class="closedCnF">
+                <button id="prodo-product-productgeneralbtn" ng-click="isClosedCnF = !isClosedCnF" >
+                    <i class="fa fa-plus-square "></i> &nbsp;&nbsp; Category and Features 
+                </button><br><br>
+                <table class="table child closedCnF" id="prodo-ProductFeatureTable" ng-if="isClosedCnF">
+                    <tr>
+                        <td  >Category <span>&nbsp; category here</span></td>
+                        <td  >Description <span  > description here</span></td>
+                    </tr>
+                </table>
+            </div>
+            <!--        Category and features-->
+
+            <!--   Substitutes-->
+
+            <div class="prodo-product-Sb" ng-class="closedSb">
+                <button id="prodo-product-productgeneralbtn" ng-click="isClosedSb = !isClosedSb" >
+                    <i class="fa fa-plus-square "></i> &nbsp;&nbsp;  Substitutes 
+                </button><br><br>
+                <table class="table child closedSb" id="prodo-ProductFeatureTable" ng-if="isClosedSb">
+                    <tr>
+                        <td  >substitutes <span>&nbsp;  substitutes data here</span></td>
+
+                    </tr>
+                </table>
+            </div>
+
+            <!--  Substitutes-->
+
+            <!--  Pricing-->
+
+            <div class="prodo-product-Pr" ng-class="closedPr">
+                <button id="prodo-product-productgeneralbtn" ng-click="isClosedPr = !isClosedPr" >
+                    <i class="fa fa-plus-square "></i> &nbsp;&nbsp; Pricing
+                </button><br><br>
+                <table class="table child closedPr" id="prodo-ProductFeatureTable" ng-if="isClosedPr">
+                    <tr>
+                        <td  >Pricing details <span>&nbsp;  Pricing details here</span></td>
+
+                    </tr>
+                </table>
+            </div>
+
+            <!--  Pricing-->
+             
         </div>
-
-        <!--        Category and features-->
-        <div class="prodo-product-CF" ng-class="closedCnF">
-            <button id="prodo-product-productgeneralbtn" ng-click="isClosedCnF = !isClosedCnF" >
-                <i class="fa fa-plus-square "></i> &nbsp;&nbsp; Category and Features 
-            </button><br><br>
-            <table class="table child closedCnF" id="prodo-ProductFeatureTable" ng-if="isClosedCnF">
-                <tr>
-                    <td  >Category <span>&nbsp; category here</span></td>
-                    <td  >Description <span  > description here</span></td>
-                </tr>
-            </table>
-        </div>
-        <!--        Category and features-->
-
-        <!--   Substitutes-->
-
-        <div class="prodo-product-Sb" ng-class="closedSb">
-            <button id="prodo-product-productgeneralbtn" ng-click="isClosedSb = !isClosedSb" >
-                <i class="fa fa-plus-square "></i> &nbsp;&nbsp;  Substitutes 
-            </button><br><br>
-            <table class="table child closedSb" id="prodo-ProductFeatureTable" ng-if="isClosedSb">
-                <tr>
-                    <td  >substitutes <span>&nbsp;  substitutes data here</span></td>
-
-                </tr>
-            </table>
-        </div>
-
-        <!--  Substitutes-->
-
-        <!--  Pricing-->
-
-        <div class="prodo-product-Pr" ng-class="closedPr">
-            <button id="prodo-product-productgeneralbtn" ng-click="isClosedPr = !isClosedPr" >
-                <i class="fa fa-plus-square "></i> &nbsp;&nbsp; Pricing
-            </button><br><br>
-            <table class="table child closedPr" id="prodo-ProductFeatureTable" ng-if="isClosedPr">
-                <tr>
-                    <td  >Pricing details <span>&nbsp;  Pricing details here</span></td>
-
-                </tr>
-            </table>
-        </div>
-
-        <!--  Pricing-->
-
-
+          
+            
+            </div>
     </div>
 </div>
