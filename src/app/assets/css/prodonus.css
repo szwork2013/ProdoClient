@@ -1066,6 +1066,8 @@ ul {list-style-type: none; }
 .prodo-product-general.closedCnF .child { display:none; }
 .prodo-product-general.closedSb .child { display:none; }
 .prodo-product-general.closedPr .child { display:none; }
+#prodo-product-features_textfield{width: 160px; height: 30PX; font-size: 12PX; display:inline-block;}
+#prodo-product-featuresDescription_textfield{ font-size: 12PX;}
 #prodo-product-productgeneralbtn{text-align: left; height: 37px; width: 560px; background-color: #f3f5f3; color: black; font-size: 16px;box-shadow: 5px 5px 3px #888888;}
 #prodo-product-productgeneralbtn:hover{ background-color: activeborder;}
 
