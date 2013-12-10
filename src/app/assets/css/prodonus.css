@@ -526,7 +526,7 @@ p.price{
   border-radius: 6px; 
   background-color: #f3f5f3;
   width: 400px;
-  height: 430px;
+  min-height: 430px;
   display: block;
   margin: 50px auto;
   text-align: center;
@@ -545,6 +545,21 @@ p.price{
 	margin: 10px auto;
 	display: block;
      
+}
+
+#prodo-form-company-addressbtn{
+	text-align: left; 
+	height: 30px;
+	width: 250px; 
+	background-color: #f3f5f3; 
+	color: black; 
+	margin: 10px auto;
+	font-size: 16px;
+	box-shadow: 5px 5px 3px #888888;
+}
+
+#prodo-form-company-addressbtn:hover{
+ background-color: activeborder;
 }
 
 /*change the View: Signup form input button signup style*/
@@ -568,58 +583,7 @@ p.price{
 	color: #2b8dc0;
 }
 
-/**
-*	Subscription.contact
-**/
-
-#prodo-contact-container{
-	border: 1px solid #94d2f8;
-  -webkit-border-radius: 6px;
-  -moz-border-radius: 6px;
-  border-radius: 6px; 
-  background-color: #f3f5f3;
-  width: 400px;
-  height: 430px;
- 	display: block;
-  margin: 50px auto;
-  text-align: center;
-}
  
-#prodo-form-contact{
-	display: block;
-  margin: 0 auto;
-  text-align: center;
-}
-/*change the View: signup form input style*/
-#prodo-form-input-contact{
-	width:250px;
-	height: 30px;
-	border-radius: 2px;
-	margin: 10px auto;
-	display: block;
-     
-}
-
-/*change the View: Signup form input button signup style*/
-#prodo-form-contact-btn{
-	width:122.5px;
-	border-radius: 2px;
-	background-color: #3a92c6;
-	font-size: 15px;
-	position: relative;
-	margin: 20px auto;
-	text-align: center;
-  }
-
-/*change the View: Signup form heading style*/  
-#prodo-contact-label-control{
-	font-weight: normal;
-	font-size: 25px;
-	line-height: 20px;
-	padding: 10px;
-	color: #2b8dc0;
-}
-
 /**
 *	Subscription.address
 **/
@@ -631,11 +595,28 @@ p.price{
   border-radius: 6px; 
   background-color: #f3f5f3;
   width: 400px;
-  height: 430px;
+  min-height: 430px;
   display: block;
   margin: 50px auto;
   text-align: center;
 }
+
+#prodo-form-addressbtn{
+	text-align: left; 
+	height: 30px;
+	width: 250px; 
+	background-color: #f3f5f3; 
+	color: black; 
+	margin: 10px auto;
+	font-size: 16px;
+	box-shadow: 5px 5px 3px #888888;
+}
+
+#prodo-form-addressbtn:hover{
+ background-color: activeborder;
+}
+
+
  
 #prodo-form-address{
 	display: block;
@@ -650,6 +631,15 @@ p.price{
 	margin: 10px auto;
 	display: block;
      
+}
+
+#prodo-address-text{
+	font-weight: normal;
+	font-size: 10px;
+	line-height: 5px;
+	padding-top: 10px;
+	margin-right: 40px;
+	color: #595365;
 }
 
 /*change the View: Signup form input button signup style*/
@@ -682,7 +672,7 @@ p.price{
   border-radius: 6px; 
   background-color: #f3f5f3;
   width: 400px;
-  height: 430px;
+  min-height: 430px;
   display: block;
   margin: 50px auto;
   text-align: center;

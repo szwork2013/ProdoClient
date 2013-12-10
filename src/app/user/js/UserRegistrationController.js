@@ -12,7 +12,7 @@ angular.module('prodo.UserApp')
         'fullname' : '',
         'email' :  '',
         'password' :  '',
-        'terms' : '',
+        'terms' : true,
       };
 
     $scope.mainAlert = {

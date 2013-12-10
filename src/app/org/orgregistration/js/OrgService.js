@@ -15,6 +15,7 @@ angular.module('prodo.OrgApp')
       grpname: "",
       invites: "",
       grpmembers: [],
+      orgaddresstype:"",
       address1:"",
       address2:"",
       address3:"",
@@ -28,8 +29,7 @@ angular.module('prodo.OrgApp')
       contact_numbers: {
                        customerhelpline1 : "",
                        customerhelpline2 : "",
-                       customerhelpline3 : "",
-                       customerhelpline4 : "" },
+                       customerhelpline3 : ""},
       grpname:"",
       invites:"",
       terms: "" 
@@ -37,13 +37,31 @@ angular.module('prodo.OrgApp')
   })
  
 // factory service to make call to REST APIs using $resource
- .factory('OrgRegistrationService', function($resource) {
-    return $resource('/api/organization/:orgid', {},
+ .factory('OrgRegistrationService', ['$rootScope', '$resource', function($rootScope, $resource) {
+    var OrgService = 
       {
-        findAllOrgs: { method: 'GET', isArray: true },
-        findByOrgId: { method: 'GET', params: { orgid : '@orgid' }},
-        saveOrg: { method: 'POST'},
-        updateOrg: { method: 'PUT', params: { orgid: '@orgid' }, isArray: false},
-        deleteOrg: { method: 'DELETE', params: { orgid: '@orgid' }}
-    });
-  }); 
+        OrgRegistration: $resource('/api/organization/:orgid', {},
+        {
+          findAllOrgs: { method: 'GET', isArray: true },
+          findByOrgId: { method: 'GET', params: { orgid : '@orgid' }},
+          saveOrg: { method: 'POST'},
+          updateOrg: { method: 'PUT', params: { orgid: '@orgid' }, isArray: false},
+          deleteOrg: { method: 'DELETE', params: { orgid: '@orgid' }}
+        })
+      }
+
+    var organization = {};
+
+    organization.RegisterOrg= function (userdata) {
+        OrgService.OrgRegistration.saveOrg(userdata,     // calling function of UserSigninService to make POST method call to signin user.
+        function(success){
+          console.log(success);
+          $rootScope.$broadcast("orgRegistrationDone", success);
+        },
+        function(error){
+          console.log(error);
+        });
+      }
+
+    return organization;
+  }]); 
