@@ -19,9 +19,8 @@
 
         <div style="   float:right">
             <span style="color:green">   {{product.status}}&nbsp;&nbsp;&nbsp; </span>
-            <a  href=""  ng-click="$parent.isEditing = true;
-                    product = ''"  >  <i class="fa fa-upload fa-3x" ></i></a>
-            <a href="">  <i class="fa fa-plus-circle fa-3x"></i></a>
+            <a  href=""  >  <i class="fa fa-upload fa-3x" ></i></a>
+            <a href=""  ng-click="$parent.isEditing = true; product = ''"  >  <i class="fa fa-plus-circle fa-3x"></i></a>
             <a href="">   <i class="fa fa-minus-circle fa-3x"></i> </a>
         </div><br>
         <div ng-switch="isEditing"  >
@@ -76,7 +75,8 @@
                            
                         </tr>
                         <tr ><td colspan="2">
-                                <button class="btn btn-info" style="width: 550px;" ng-click=" addProduct() ;$parent.isEditing = false">Save</button>
+                               <button class="btn btn-info" style="width: 550px;" ng-click=" addProduct() ;$parent.isEditing = false">Save</button>
+
                         </td>
                         </tr>
 

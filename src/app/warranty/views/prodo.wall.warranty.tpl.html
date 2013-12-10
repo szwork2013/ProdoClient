@@ -14,8 +14,42 @@
 
 
 <div id="prodo-comment-fixed" style="" >
- Warranty 
-     
-     
-     
- </div>
+    <br>
+
+    <table  id="prodo-ProductFeatureTable"  >
+        <tr id="prodo-productbnd" style="background-color: white" >
+            <td  >Model No </td>
+            <td><input id="prodo-product-features_textfield" class="form-control"  type="text" ng-model="warranty.modelno"   style="float: right" /></td>
+
+            <td  >Serial No</td>
+            <td><input id="prodo-product-features_textfield" type="text" class="form-control" ng-model="warranty.serialno" style="float: right" /></td>
+
+        </tr>
+        <tr>
+            <td  >Date of purchase</td>
+            <td><input  id="prodo-product-features_textfield" placeholder="Date"  ng-model="date" ui-date  class="form-control" ng-model="warranty.dateofpurchase" style="float: right" /></td>
+
+            <td  >Invoice no</td>
+            <td><input id="prodo-product-features_textfield" type="text" class="form-control" ng-model="warranty.innvoiceno" style="float: right" /></td>
+        </tr>
+        <tr ><td colspan="4">
+                <br>
+                <button class="btn btn-info" style="width: 550px;" ng-click=" ">Save</button>
+            </td>
+        </tr>
+    </table>
+
+<!--    <div class="input-group">
+        <input id="date-picker-2" type="text" class="date-picker form-control" />
+        <label id="date-picker-2" class="input-group-addon btn"><i class="glyphicon glyphicon-calendar"></i>
+
+        </label>
+    </div>-->
+
+
+<!--    <div class="form-horizontal">
+        <input type="text" datepicker-popup="dd-MMMM-yyyy" ng-model="dt" is-open="opened" min="minDate" max="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" />
+        <button class="btn" ng-click="open()"><i class="icon-calendar"></i></button>
+    </div>-->
+
+</div>

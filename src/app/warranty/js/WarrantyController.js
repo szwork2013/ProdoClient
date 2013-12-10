@@ -42,6 +42,8 @@ angular.module('prodo.WarrantyApp')
 
                         }]
                 };
+                
+//                $(".date-picker").datepicker();
 
 
             }]);
