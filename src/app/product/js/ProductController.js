@@ -11,12 +11,21 @@
  * 
  */
 angular.module('prodo.ProductApp')
-        .controller('ProductController', ['$scope', 'ProductService', function($scope, ProductService) {
+        .controller('ProductController', ['$scope', 'ProductService', 'CommentServicesave', function($scope, ProductService, CommentServicesave) {
+      
                 $scope.productComments = {comments: [{}]};
+ 
+                $scope.product = {product:[{}]};
+ 
+
 
                 ProductService.getProduct({prodle: 'xkWw_RNsr'},
                 function(successData) {
+
                     console.log(successData.success.product.product_comments);
+
+                    $scope.product = successData.success.product;
+
                     $scope.productComments = successData.success.product.product_comments;
                 },
                         function(error) {
@@ -30,6 +39,27 @@ angular.module('prodo.ProductApp')
                     'expense', 'extent', 'list', 'lot', 'net', 'outlay', 'output', 'price tag', 'product', 'quantum', 'score',
                     'set-back', 'sum', 'tab', 'tidy sum', 'whole', 'article', 'asset', 'belonging', 'chattel', 'goods', 'line',
                     'material', 'object', 'produce', 'property', 'specialty', 'stock', 'thing', 'ware', 'good'];
+
+                $scope.addProduct = function($scope)
+                {
+
+                    $scope.newProduct = {product:{_id:" 001",
+                            prodle: product.prodle,
+                            display_name: product.display_name,
+                            orgid: product.orgid,
+                            serial_no: product.serial_no,
+                            model_no: product.model_no,
+                            name: product.name,
+                            description: product.description}};
+
+                    $scope.product.push($scope.newProduct.product);
+                    ProductService.saveProduct($scope.newProduct.product);
+
+
+
+                    alert('added');
+
+                }
                 // $scope.productComments = {
                 //     comments: [{
                 //             userName: "Bhagyashri",
@@ -52,8 +82,21 @@ angular.module('prodo.ProductApp')
                 //         }]
                 // };
 
+                //Product discontinued visibility 
+//                if (($scope.product !== undefined) || ($scope.product !== ""))
+//                {
+//                    $scope.status = "deactive";
+//                    if ($scope.status == "deactive")
+//                    {
+//
+//                        document.getElementById("prodo-productDiscontinued").style.display = "block";
+//                    }
+//                    else
+//                    {
+//                        document.getElementById("prodo-productDiscontinued").style.display = "none";
+//                    }
+//                }
 
- 
             }])
 
         
