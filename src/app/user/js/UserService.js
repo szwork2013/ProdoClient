@@ -99,7 +99,7 @@ angular.module('prodo.UserApp')
           session.currentUser = userData;
           console.log(userData);
           session.isLoggedIn = true;
-      });
+   
         }
 
         session.authfailed = function(){

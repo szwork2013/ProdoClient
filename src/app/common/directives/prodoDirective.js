@@ -153,6 +153,22 @@ angular.module("prodo.CommonApp")
     return sliderdef;
 })
 
+.directive ('prodoNav', function() {
+    var nav = {
+        restrict: 'A',
+        link: function(scope, ele, attrs, c) {
+          $('document').ready(function(){
+            $('ul.nav.nav-pills li a').click(function() {           
+            $(this).parent().addClass('active').siblings().removeClass('active');
+            });
+          }); 
+        }
+    };
+    return nav;
+})
+
+ 
+
    .directive('ensureUnique', ['$http', function($http) {
   return {
     require: 'ngModel',
