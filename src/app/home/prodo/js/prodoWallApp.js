@@ -3,11 +3,11 @@ angular.module('prodo.ProdoWallApp')
 
 		$state.transitionTo('prodo.wall');
     $scope.slides = [
-            {image: 'http://placekitten.com/605/350'},
-            {image: 'http://placekitten.com/601/350'},
-            {image: 'http://placekitten.com/602/350'},
-            {image: 'http://placekitten.com/603/350'},
-            {image: 'http://placekitten.com/604/350'}
+            {image: '/common/slider/gallery/bg1.jpg'},
+            {image: '/common/slider/gallery/bg2.jpg'},
+            {image: '/common/slider/gallery/bg3.jpg'},
+            {image: '/common/slider/gallery/bg5.jpg'},
+            {image: '/common/slider/gallery/bbb-bg.jpg'}
         ];
 
 

@@ -16,6 +16,25 @@
       <textarea id="prodo-form-input-company" name="description" type="textarea" class=" form-control" ng-model="org.description" placeholder="Company Description" required></textarea>
           
       <input id="prodo-form-input-company" name="contractid" type="text" class=" form-control" ng-model="org.contractid" placeholder="Contract Id" required />
+
+      <button id="prodo-form-company-addressbtn" ng-click="toggleAddress = !toggleAddress"><i class="fa fa-plus-square "></i> &nbsp;&nbsp; Address</button>
+      <div class="control-group" ng-if="toggleAddress">
+
+      <input id="prodo-form-input-company" name="address1"  type="text" class="form-control" placeholder="Address Line1" ng-model="org.address1"  required />
+         
+      <input name="address2"  type="text" id="prodo-form-input-company" class="form-control" placeholder="Address Line2" ng-model="org.address2" />
+
+      <input name="address3"  type="text" id="prodo-form-input-company" class="form-control" placeholder="Address Line3" ng-model="org.address3" />
+
+      <input name="country"  type="text" id="prodo-form-input-company" class="form-control" placeholder="Country" ng-model="org.country" required />
+         
+      <input name="state"  type="text" id="prodo-form-input-company" class="form-control" placeholder="State" ng-model="org.state" required />
+
+      <input name="city"  type="text" id="prodo-form-input-company" class="form-control" placeholder="City" ng-model="org.city" required />
+    
+      <input name="zipcode" type="text" id="prodo-form-input-company" class="form-control" placeholder="Zip Code" ng-model="org.zipcode" required />
+      
+      </div> 
          
     </div>  <!-- control group div -->
 

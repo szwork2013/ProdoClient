@@ -2,16 +2,18 @@
 *	User Signin Controller
 **/
 angular.module('prodo.UserApp')
-	.controller('UserSigninController', ['$scope', '$state', '$timeout', '$stateParams', 'UserSigninService', 'UserForgotPasswordService', 'UserResetPasswordService', function($scope, $state, $timeout, $stateParams, UserSigninService, UserForgotPasswordService, UserResetPasswordService) {
-		
+	// .controller('UserSigninController', ['$scope', '$rootScope', '$state', '$timeout', '$stateParams', 'UserSessionService', 'UserForgotPasswordService', 'UserResetPasswordService', function($scope, $rootScope, $state, $timeout, $stateParams, UserSessionService, UserForgotPasswordService, UserResetPasswordService) {
+	 .controller('UserSigninController', ['$scope', '$rootScope', '$state', '$timeout', '$stateParams', 'UserSessionService', function($scope, $rootScope, $state, $timeout, $stateParams, UserSessionService) {
     $scope.submitted = false;  // form submit property is false
-    var user = 
+    $scope.user = 
       {
         'email' :  '',
-        'password' :  ''
+        'password' :  '',
+        'currentpassword': '',
+        'newpassword': ''
 
       };
-
+   
       $scope.mainAlert = {
        isShown: false
       };
@@ -80,7 +82,6 @@ angular.module('prodo.UserApp')
             $scope.showAlert('alert-danger', data.error.message);
         } else if (data.error.code=='AU006') {  // user signedin using OTP
             console.log(data.error.code + " " + data.error.message);
-            $scope.$emit("OTPReset", data.error.user.userid);
             $state.transitionTo('messageContent.resetPassword');
         } else if (data.error.code=='AU003') {   // user has not verified
             console.log(data.error.code + " " + data.error.message);
@@ -100,19 +101,17 @@ angular.module('prodo.UserApp')
       }
     };  
 
+     
     // function to signin to Prodonus App using REST APIs and performs form validation.
     $scope.signin = function() {
-          UserSigninService.signinUser($scope.jsonUserSigninData(),     // calling function of UserSigninService to make POST method call to signin user.
-          function(success){
-            console.log(success);
-            $scope.handleSigninResponse(success);       // calling function to handle success and error responses from server side on POST method success.
-          },
-          function(error){
-            console.log(error);
-          });
-          $scope.clearformData();       // calling function to clear form data once user has signin 
-       
+      UserSessionService.signinUser($scope.jsonUserSigninData());
+      $scope.$on("signinDone", function(event, message){
+        $scope.handleSigninResponse(message); 
+
+      });
     }
+
+     
 
     // function to send and stringify user signin data to Rest APIs
     $scope.jsonForgotPasswordData = function()
@@ -151,16 +150,10 @@ angular.module('prodo.UserApp')
 
     // function for forgotpassword to Prodonus App using REST APIs and performs form validation.
     $scope.forgotpassword = function() {
-          UserForgotPasswordService.forgotPassword($scope.jsonForgotPasswordData(),     // calling function of UserSigninService to make POST method call to signin user.
-          function(success){
-            console.log(success);
-            $scope.handleForgotPasswordResponse(success);       // calling function to handle success and error responses from server side on POST method success.
-          },
-          function(error){
-            console.log(error);
-          });
-          $scope.clearformData();       // calling function to clear form data once user has signin 
-       
+      UserSessionService.forgotPasswordUser($scope.jsonForgotPasswordData());
+      $scope.$on("forgotPasswordDone", function(event, message){
+        $scope.handleForgotPasswordResponse(message);   
+      });
     }
 
     // function to send and stringify user reset password data to Rest APIs
@@ -192,23 +185,15 @@ angular.module('prodo.UserApp')
             $scope.showAlert('alert-danger', data.error.message);
         }
       }
-    };  
+    };
 
     // function for resetpassword to Prodonus App using REST APIs and performs form validation.
     $scope.resetpassword = function() {
-          console.log($scope.jsonResetPasswordData());    
-          UserResetPasswordService.resetPassword({userid: 'ugJcpIxvcH'}, $scope.jsonResetPasswordData(),     // calling function of UserSigninService to make POST method call to signin user.
-            function(success){
-              console.log(success);
-              $scope.handleResetPasswordResponse(success);       // calling function to handle success and error responses from server side on POST method success.
-            },
-            function(error){
-              console.log(error);
-            });
-          
-          
-          $scope.clearformData();       // calling function to clear form data once user has signin 
-       
+      UserSessionService.resetPasswordUser({userid: userid}, $scope.jsonResetPasswordData());
+      $scope.$on("resetPasswordDone", function(event, message){
+        $scope.handleResetPasswordResponse(message);   
+      });
     }
- }]);
+
+}]);
  

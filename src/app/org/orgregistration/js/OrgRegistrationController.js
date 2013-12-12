@@ -6,6 +6,8 @@ angular.module('prodo.OrgApp')
 		
     $scope.org = OrgModel;   // assining OrgModel service to org to update org model data
     
+    $scope.countries = [ 'Afghanistan','Albania','Algeria','American Samoa','Andorra','Angola' ,'Anguilla' ,'Antigua and Barbuda', 'Argentina ca','Armenia','Aruba ','Austria','Azerbaijan','Bahamas' ,'Bahrain', 'India']
+
     // function to clear org data on submit
     $scope.clearOrgData = function(){
       $scope.org.name = '';
@@ -51,6 +53,7 @@ angular.module('prodo.OrgApp')
   	          'contractid':$scope.org.contractid,
   	          'location': 
                 [ {
+                'locationtype': $scope.org.orgaddresstype,
                 'address': 
                   {
                   'address1': $scope.org.address1,
@@ -60,15 +63,14 @@ angular.module('prodo.OrgApp')
       	          'city': $scope.org.city,
       	          'state': $scope.org.state,
       	          'zipcode': $scope.org.zipcode 
-                  } 
-                } ],
-  	          'contact_numbers': 
+                  }, 
+                'contacts': 
                 [ 
-                 {'customerhelpline' : $scope.org.contact_numbers.customerhelpline1 },
-                 {'customerhelpline' : $scope.org.contact_numbers.customerhelpline2 },
-                 {'customerhelpline' : $scope.org.contact_numbers.customerhelpline3 },
-                 {'customerhelpline' : $scope.org.contact_numbers.customerhelpline4 } 
-                ],
+                 {'customerhelpline' : $scope.org.contact.customerhelpline1 },
+                 {'customerhelpline' : $scope.org.contact.customerhelpline2 },
+                 {'customerhelpline' : $scope.org.contact.customerhelpline3 }
+                ]
+              } ],
   	          'usergrp': 
                 [ {
                   'grpname': $scope.org.grpname,
@@ -82,14 +84,9 @@ angular.module('prodo.OrgApp')
   
     // function to register Organisation on sumbit
     $scope.registerOrg = function() {
-      OrgRegistrationService.saveOrg($scope.jsonOrgData(), // calling POST method REST APIs to save org data through OrgResgistrationService
-        function(success){
-          console.log(success);
-          $scope.handleOrgResponse(success);    // calling function to handle server side response once POST is successful
-        },
-        function(error){
-          console.log(error);
-      });
-      $scope.clearOrgData();   // clears form data
+      OrgRegistrationService.RegisterOrg($scope.jsonOrgData()); // calling POST method REST APIs to save org data through OrgResgistrationService
+        $scope.$on("orgRegistrationDone", function(event, message){
+        $scope.handleOrgResponse(message);   
+      }); // clears form data
     }
   }]);
