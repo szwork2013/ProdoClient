@@ -22,4 +22,14 @@ angular.module('prodo.ProductApp')
 //                            deleteProduct: {method: 'DELETE', params: {prodle: '@userid'}}
                         });
             }])
+        
+        
+        .factory('GetLoginService', ['$resource', function($resource) {
+                return $resource('/api/isLogin', {},
+                        {
+                           
+                            checkLogin: {method: 'GET'},
+                          
+                        });
+            }])
 
