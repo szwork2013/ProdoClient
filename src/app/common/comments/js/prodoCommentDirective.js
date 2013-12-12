@@ -19,7 +19,7 @@ angular.module('prodo.CommonApp')
                 // require: '?ngModel',
                 templateUrl: 'common/comments/views/prodo.comment.tpl.html',
                 //  scope: {productComments_l: '=info', pagesSize: '=', pagesShown: '='},
-                controller: function($scope, ProductService)
+                controller: function($scope, ProductService, GetLoginService)
                 {
                     $(document).ready(function() {
                         $('#prodo-comment-Textbox').focus(function() {
@@ -74,47 +74,57 @@ angular.module('prodo.CommonApp')
                         $scope.mytags = new_arr;
                     };
 
-                  
+
 
                     var socket;
-                    function connectSocket()
-                    {
-                         socket = io.connect('http://ec2-54-254-210-45.ap-southeast-1.compute.amazonaws.com:8000');
-                        
-                        socket.on("commentResponse", function(result) {
-                            if (result.error) {
-                                document.getElementById('CommentErr').innerHTML = result.error.message;
-                            } else {
-                                document.getElementById('CommentErr').innerHTML = result.success.message;
-                            }
-                        })
-                    }
-
+//                    function connectSocket()
+//                    {
+//                        socket = io.connect('http://ec2-54-254-210-45.ap-southeast-1.compute.amazonaws.com:8000');
+//
+//                        socket.on("commentResponse", function(result) {
+//                            if (result.error) {
+//                                document.getElementById('CommentErr').innerHTML = result.error.message;
+//                            } else {
+//                                document.getElementById('CommentErr').innerHTML = result.success.message;
+//                            }
+//                        })
+//                    }
+                    $scope.sid;
                     $scope.addProductComment = function() {
-                          $scope.newProductComment = {
-                        product_comment: {
-                            user: {userid: "uxkfzVj7or", fullname: "Bhagyashri"},
-                            commenttext: $scope.commenttextField.userComment
-                        }};
-                       // connectSocket();
-                       socket = io.connect('http://ec2-54-254-210-45.ap-southeast-1.compute.amazonaws.com:8000');
+
+                        $scope.logindata = GetLoginService.checkLogin(
+                                function(successData) {
+
+                                    console.log("sessionid" + successData.sessionid);
+                                    alert($scope.logindata);
+                                    alert(successData)
+//                                   $scope.sid = successData.sessionid;
+                                           localStorage.sid=successData.sessionid;
+                                
+                                },
+                                function(error) {
+                                    console.log(error);
+                                });
+
+
+                        $scope.newProductComment = {
+                            product_comment: {
+                                user: {userid: "uxkfzVj7or", fullname: "Bhagyashri"},
+                                commenttext: $scope.commenttextField.userComment
+                            }};
+                         
+                        alert( localStorage.sid);
+                        socket = io.connect('http://ec2-54-254-210-45.ap-southeast-1.compute.amazonaws.com:8000', {
+                            query: 'session_id=' +  localStorage.sid
+                        });
                         if ($scope.commenttextField.textFieldc !== "")
                         {
-                            $scope.getTagsFromCommentText($scope);
-                            $scope.productComments.unshift($scope.newProductComment.product_comment);
-
-                            // var jsonDataComment=JSON.stringify($scope.newProductComment)
-
-
-                            socket.emit('addComment', "xkWw_RNsr", $scope.newProductComment.product_comment);
-                            alert($scope.newProductComment.product_comment);
-
-
-                            $scope.commenttextField.userComment = "";
+                        $scope.getTagsFromCommentText($scope);
+                        $scope.productComments.unshift($scope.newProductComment.product_comment);
+                        socket.emit('addComment', "xkWw_RNsr", $scope.newProductComment.product_comment);
+                        $scope.commenttextField.userComment = "";
                         }
-                        else {
-                            //add code if validation failed
-                        }
+
                     };
 
 
