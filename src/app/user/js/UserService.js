@@ -3,7 +3,7 @@
 **/
 angular.module('prodo.UserApp')
 
-.factory('UserSessionService', ['$rootScope', '$resource', '$http', function($rootScope, $resource, $http) {
+.factory('UserSessionService', ['$rootScope', '$resource', '$http', '$state', function($rootScope, $resource, $http, $state) {
 
     var UserService = 
       {
@@ -27,9 +27,13 @@ angular.module('prodo.UserApp')
       {
         regenerateToken: { method: 'POST'}
       }),
-      IsUserLoggedin:  $resource('/api/isLogin', {},
+      IsUserLoggedin:  $resource('/api/isloggedin', {},
       {
         checkUserSession: { method: 'GET'}
+      }),
+      Logout:  $resource('/api/logout', {},
+      {
+        logoutUser: { method: 'GET'}
       }),
     };
       
@@ -59,7 +63,7 @@ angular.module('prodo.UserApp')
       }
 
       session.resetPasswordUser= function (userdata) {
-        UserService.ResetPassword.resetPassword({userid: session.currentUser}, userdata,     // calling function of UserSigninService to make POST method call to signin user.
+        UserService.ResetPassword.resetPassword({userid: session.currentUser.userid}, userdata,     // calling function of UserSigninService to make POST method call to signin user.
         function(success){
           console.log(success);
           $rootScope.$broadcast("resetPasswordDone", success);        },
@@ -87,17 +91,23 @@ angular.module('prodo.UserApp')
           session.isLoggedIn = false
         }
 
-        // session.logout = function(){
-        //   var scope = this;
-        //   $http.delete('/auth').success(function() {
-        //     scope.resetSession();
-        //     $rootScope.$broadcast("session-changed");
-        //   });
-        // }
+        session.logout = function(){
+          UserService.Logout.logoutUser(     // calling function of UserSigninService to make POST method call to signin user.
+            function(success){
+              console.log(success);
+              session.resetSession();
+              $state.transitionTo('home.start');
+            },
+            function(error){
+              console.log(error);
+            });
+            
+            // $rootScope.$broadcast("session-changed");
+        }
 
         session.authSuccess = function(userData, $scope){
           session.currentUser = userData;
-          console.log(userData);
+          console.log(session.currentUser.userid);
           session.isLoggedIn = true;
    
         }

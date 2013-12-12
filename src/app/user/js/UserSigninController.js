@@ -83,7 +83,7 @@ angular.module('prodo.UserApp')
             $scope.showAlert('alert-danger', data.error.message);
         } else if (data.error.code=='AU006') {  // user signedin using OTP
             console.log(data.error.code + " " + data.error.message);
-            UserSessionService.authSuccess(data.error.user.userid);
+            UserSessionService.authSuccess(data.error.user);
             $state.transitionTo('messageContent.resetPassword');
         } else if (data.error.code=='AU003') {   // user has not verified
             console.log(data.error.code + " " + data.error.message);
