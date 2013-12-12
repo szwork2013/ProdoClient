@@ -99,8 +99,8 @@ angular.module('prodo.CommonApp')
                                     alert($scope.logindata);
                                     alert(successData)
 //                                   $scope.sid = successData.sessionid;
-                                           localStorage.sid=successData.sessionid;
-                                
+                                    localStorage.sid = successData.sessionid;
+
                                 },
                                 function(error) {
                                     console.log(error);
@@ -109,20 +109,30 @@ angular.module('prodo.CommonApp')
 
                         $scope.newProductComment = {
                             product_comment: {
-                                user: {userid: "uxkfzVj7or", fullname: "Bhagyashri"},
+//                                user: {userid: "uxkfzVj7or", fullname: "Bhagyashri"},
+                                user: {userid: "ulyCJMISNL", fullname: "Neha Singhal"},
                                 commenttext: $scope.commenttextField.userComment
                             }};
-                         
-                        alert( localStorage.sid);
+
+                        alert(localStorage.sid);
                         socket = io.connect('http://ec2-54-254-210-45.ap-southeast-1.compute.amazonaws.com:8000', {
-                            query: 'session_id=' +  localStorage.sid
+                            query: 'session_id=' + localStorage.sid
                         });
+                        socket.on("commentResponse", function(result, a) {
+                            if (result.error) {
+                                console.log(result.error.message);
+                            } else {
+                                console.log(result.success.message);
+                                // console.log(result.success.product_comments);
+
+                            }
+                        })
                         if ($scope.commenttextField.textFieldc !== "")
                         {
-                        $scope.getTagsFromCommentText($scope);
-                        $scope.productComments.unshift($scope.newProductComment.product_comment);
-                        socket.emit('addComment', "xkWw_RNsr", $scope.newProductComment.product_comment);
-                        $scope.commenttextField.userComment = "";
+                            $scope.getTagsFromCommentText($scope);
+                            $scope.productComments.unshift($scope.newProductComment.product_comment);
+                            socket.emit('addComment', "xkWw_RNsr", $scope.newProductComment.product_comment);
+                            $scope.commenttextField.userComment = "";
                         }
 
                     };
