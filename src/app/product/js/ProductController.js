@@ -11,10 +11,10 @@
  * 
  */
 angular.module('prodo.ProductApp')
-        .controller('ProductController', ['$scope', 'ProductService', function($scope, ProductService) {
+        .controller('ProductController', ['$scope', 'ProductService', 'ProductSaveService', function($scope, ProductService, ProductSaveService) {
                 $scope.productComments = {comments: [{}]};
-                $scope.product = {product:[{}]};
-
+                $scope.product = {product: [{}]};
+                $scope.newProduct = {};
                 ProductService.getProduct({prodle: 'xkWw_RNsr'},
                 function(successData) {
 
@@ -34,24 +34,50 @@ angular.module('prodo.ProductApp')
                     'set-back', 'sum', 'tab', 'tidy sum', 'whole', 'article', 'asset', 'belonging', 'chattel', 'goods', 'line',
                     'material', 'object', 'produce', 'property', 'specialty', 'stock', 'thing', 'ware', 'good'];
 
-                $scope.addProduct = function($scope)
+
+
+                $scope.handleSaveProductResponse = function(data) {
+                    if (data.success) {
+                        alert(data.success.message);
+
+                    } else {
+                        if (data.error.code == 'AV001') {     // user already exist
+                            console.log(data.error.code + " " + data.error.message);
+                            alert(data.error.message);
+                        } else if (data.error.code == 'AP001') {  // user data invalid
+                            console.log(data.error.code + " " + data.error.message);
+                            alert(data.error.message);
+                        } else {
+                            console.log(data.error.message);
+                            alert(data.error.message);
+                        }
+                    }
+                };
+
+
+                $scope.addProduct = function( )
                 {
 
-                    $scope.newProduct = {product:{_id:" 001",
-                            prodle: product.prodle,
-                            display_name: product.display_name,
-                            orgid: product.orgid,
-                            serial_no: product.serial_no,
-                            model_no: product.model_no,
-                            name: product.name,
-                            description: product.description}};
-
-                    $scope.product.push($scope.newProduct.product);
-                    ProductService.saveProduct($scope.newProduct.product);
-
-
-
-                    alert('added');
+                    $scope.newProduct = {
+//                            
+                        display_name: $scope.product.display_name,
+                        orgid: $scope.product.orgid,
+                        serial_no: $scope.product.serial_no,
+                        model_no: $scope.product.model_no,
+                        name: $scope.product.name,
+                        description: $scope.product.description
+                    };
+                    alert($scope.product.display_name);
+                    // $scope.product.push($scope.newProduct );
+                    ProductSaveService.saveProduct($scope.newProduct,
+                            function(success) {
+                                console.log(success);
+                                $scope.handleSaveProductResponse(success);      // calling function to handle success and error responses from server side on POST method success.
+                            },
+                            function(error) {
+                                console.log(error);
+                            });
+                    alert($scope.product.display_name)
 
                 }
                 // $scope.productComments = {

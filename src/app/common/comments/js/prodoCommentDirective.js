@@ -75,7 +75,7 @@ angular.module('prodo.CommonApp')
                     };
 
                     $scope.addProductComment = function() {
-                        if ($scope.commenttextField.textFieldc != "")
+                        if ($scope.commenttextField.userComment != "")
                         {
                             $scope.getTagsFromCommentText($scope);
                             $scope.productComments.unshift({
