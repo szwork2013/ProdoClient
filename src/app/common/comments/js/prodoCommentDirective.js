@@ -91,6 +91,7 @@ angular.module('prodo.CommonApp')
 //                    }
                     $scope.sid;
                     $scope.addProductComment = function() {
+ 
 
                         $scope.logindata = GetLoginService.checkLogin(
                                 function(successData) {
@@ -118,6 +119,7 @@ angular.module('prodo.CommonApp')
                             query: 'session_id=' +  localStorage.sid
                         });
                         if ($scope.commenttextField.textFieldc !== "")
+ 
                         {
                         $scope.getTagsFromCommentText($scope);
                         $scope.productComments.unshift($scope.newProductComment.product_comment);
