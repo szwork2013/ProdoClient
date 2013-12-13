@@ -20,6 +20,11 @@ angular.module('prodo.ProdonusApp',['ui.router', 'ui.bootstrap', '$strap.directi
 	'prodo.WarrantyApp', 'prodo.DashboardApp','prodo.ContentApp', 'prodo.CommonApp',
   'prodo.BlogApp', 'prodo.AdApp', 'prodo.AdminApp' ,'ngAnimate'
   ])
+	
+	.run(['$rootScope', 'UserSessionService', function ($rootScope, UserSessionService) {
+    $rootScope.usersession = UserSessionService;
+	}])
+
 	.controller('ProdoMainController', ['$scope', '$state', function($scope, $state) {
 
 		$state.transitionTo('home.start');

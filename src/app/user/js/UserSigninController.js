@@ -67,7 +67,8 @@ angular.module('prodo.UserApp')
     // function to handle server side responses
     $scope.handleSigninResponse = function(data){
       if (data.success) {
-        $state.transitionTo('prodo.wall');
+        UserSessionService.authSuccess(data.success.user);
+        // $state.transitionTo('prodo.wall');
       } else {
         if (data.error.code== 'AU005') {     // user does not exist
             console.log(data.error.code + " " + data.error.message);
@@ -82,6 +83,7 @@ angular.module('prodo.UserApp')
             $scope.showAlert('alert-danger', data.error.message);
         } else if (data.error.code=='AU006') {  // user signedin using OTP
             console.log(data.error.code + " " + data.error.message);
+            UserSessionService.authSuccess(data.error.user);
             $state.transitionTo('messageContent.resetPassword');
         } else if (data.error.code=='AU003') {   // user has not verified
             console.log(data.error.code + " " + data.error.message);
@@ -91,6 +93,7 @@ angular.module('prodo.UserApp')
             $state.transitionTo('subscription.plans');
         } else if (data.error.code=='AS002') { // user subscription expired
             console.log(data.error.code + " " + data.error.message);
+            UserSessionService.authSuccess(data.error.user);
             $state.transitionTo('subscription.plansexpired');
         } else if (data.error.code== 'AP001') {    // user has not done any payment
             console.log(data.error.code + " " + data.error.message);
@@ -189,7 +192,7 @@ angular.module('prodo.UserApp')
 
     // function for resetpassword to Prodonus App using REST APIs and performs form validation.
     $scope.resetpassword = function() {
-      UserSessionService.resetPasswordUser({userid: userid}, $scope.jsonResetPasswordData());
+      UserSessionService.resetPasswordUser($scope.jsonResetPasswordData());
       $scope.$on("resetPasswordDone", function(event, message){
         $scope.handleResetPasswordResponse(message);   
       });

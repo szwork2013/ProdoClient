@@ -2,7 +2,8 @@
 *User services to address user details from the REST service 
 **/
 angular.module('prodo.UserApp')
-.factory('UserSessionService', ['$rootScope', '$resource', '$http', function($rootScope, $resource, $http) {
+
+.factory('UserSessionService', ['$rootScope', '$resource', '$http', '$state', function($rootScope, $resource, $http, $state) {
 
     var UserService = 
       {
@@ -26,9 +27,19 @@ angular.module('prodo.UserApp')
       {
         regenerateToken: { method: 'POST'}
       }),
+      IsUserLoggedin:  $resource('/api/isloggedin', {},
+      {
+        checkUserSession: { method: 'GET'}
+      }),
+      Logout:  $resource('/api/logout', {},
+      {
+        logoutUser: { method: 'GET'}
+      }),
     };
       
     var session = {};
+    session.isLogged = 0;
+    session.currentUser = 0;
 
       session.signinUser= function (userdata) {
         UserService.Signin.signinUser(userdata,     // calling function of UserSigninService to make POST method call to signin user.
@@ -52,7 +63,7 @@ angular.module('prodo.UserApp')
       }
 
       session.resetPasswordUser= function (userdata) {
-        UserService.ResetPassword.resetPassword(userdata,     // calling function of UserSigninService to make POST method call to signin user.
+        UserService.ResetPassword.resetPassword({userid: session.currentUser.userid}, userdata,     // calling function of UserSigninService to make POST method call to signin user.
         function(success){
           console.log(success);
           $rootScope.$broadcast("resetPasswordDone", success);        },
@@ -71,31 +82,51 @@ angular.module('prodo.UserApp')
         });
       }
 
+      session.init = function () {
+          session.resetSession();
+        }
+        
+        session.resetSession = function() {
+          session.currentUser = null;
+          session.isLoggedIn = false
+        }
 
-        // init: function () {
-        //     this.resetSession();
-        // },
-        // resetSession: function() {
-        //     this.currentUser = null;
-        //     this.isLoggedIn = false;
-        // },
-        // logout: function() {
-        //     var scope = this;
-        //     $http.delete('/auth').success(function() {
-        //         scope.resetSession();
-        //         $rootScope.$emit('session-changed');
-        //     });
-        // },
-        // authSuccess: function(userData) {
-        //     this.currentUser = userData;
-        //     this.isLoggedIn = true;
-        //     $rootScope.$emit('session-changed');
-        // },
-        // authFailed: function() {
-        //     this.resetSession();
-        //     alert('Authentication failed');
-        // }
-     
+        session.logout = function(){
+          UserService.Logout.logoutUser(     // calling function of UserSigninService to make POST method call to signin user.
+            function(success){
+              console.log(success);
+              session.resetSession();
+              $state.transitionTo('home.start');
+            },
+            function(error){
+              console.log(error);
+            });
+            
+            // $rootScope.$broadcast("session-changed");
+        }
+
+        session.authSuccess = function(userData, $scope){
+          session.currentUser = userData;
+          console.log(session.currentUser.userid);
+          session.isLoggedIn = true;
+   
+        }
+
+        session.authfailed = function(){
+          session.resetSession();
+        }
+
+        session.checkUser= function () {
+        UserService.IsUserLoggedin.checkUserSession(     // calling function of UserSigninService to make POST method call to signin user.
+        function(success){
+          console.log(success);
+          $rootScope.$broadcast("session-changed", success);        },
+        function(error){
+          console.log(error);
+        });
+      }
+
+           
     return session;
 }])
 
@@ -166,5 +197,17 @@ angular.module('prodo.UserApp')
   return recaptchaService;
 }]);
      
-    
-    
+ 
+// function UserController($scope, UserService) {
+//   $scope.user = {};
+
+//   $scope.$watch('userSession', function() {
+//     UserService.addUserSession($scope.user);
+//   });
+
+//   $scope.$on('session-changed', function() {
+//     $scope.user = UserService.;getUserSEssion();
+//   });
+// }
+
+
