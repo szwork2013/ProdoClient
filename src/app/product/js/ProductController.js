@@ -14,7 +14,8 @@ angular.module('prodo.ProductApp')
         .controller('ProductController', ['$scope', 'ProductService', 'ProductSaveService', function($scope, ProductService, ProductSaveService) {
                 $scope.productComments = {comments: [{}]};
                 $scope.product = {product: [{}]};
-                $scope.newProduct = {};
+                $scope.newProduct = {product: [{}]};
+
                 ProductService.getProduct({prodle: 'xkWw_RNsr'},
                 function(successData) {
 
@@ -55,20 +56,20 @@ angular.module('prodo.ProductApp')
                 };
 
 
-                $scope.addProduct = function( )
+                $scope.addProduct = function()
                 {
 
-                    $scope.newProduct = {
+                    $scope.newProduct = {product: {
 //                            
-                        display_name: $scope.product.display_name,
-                        orgid: $scope.product.orgid,
-                        serial_no: $scope.product.serial_no,
-                        model_no: $scope.product.model_no,
-                        name: $scope.product.name,
-                        description: $scope.product.description
-                    };
-                    alert($scope.product.display_name);
-                    // $scope.product.push($scope.newProduct );
+                            display_name: $scope.display_name,
+//                            orgid: $scope.product.orgid,
+                            serial_no: $scope.product.serial_no,
+                            model_no: $scope.product.model_no,
+                            name: $scope.product.name,
+                            description: $scope.product.description
+                        }};
+
+
                     ProductSaveService.saveProduct($scope.newProduct,
                             function(success) {
                                 console.log(success);
@@ -77,7 +78,7 @@ angular.module('prodo.ProductApp')
                             function(error) {
                                 console.log(error);
                             });
-                    alert($scope.product.display_name)
+
 
                 }
                 // $scope.productComments = {
