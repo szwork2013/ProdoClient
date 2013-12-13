@@ -118,7 +118,8 @@ angular.module('prodo.CommonApp')
                         socket = io.connect('http://ec2-54-254-210-45.ap-southeast-1.compute.amazonaws.com:8000', {
                             query: 'session_id=' +  localStorage.sid
                         });
-                        if ($scope.commenttextField.textFieldc !== "")
+                       
+                        if ($scope.commenttextField.userComment != "")
  
                         {
                         $scope.getTagsFromCommentText($scope);
