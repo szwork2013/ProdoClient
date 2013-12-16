@@ -15,8 +15,30 @@ angular.module('prodo.ProductApp')
                 $scope.productComments = {comments: [{}]};
                 $scope.product = {product: [{}]};
                 $scope.newProduct = {product: [{}]};
+                $scope.type="product";
+                
+                
+                //code to get no of count for new comments
+                  socket = io.connect('http://ec2-54-254-210-45.ap-southeast-1.compute.amazonaws.com:8000', {
+                            query: 'session_id=' + localStorage.sid
+                        });
+ 
+                        socket.on("commentResponse", function(error, result) {
+                            if (error) {
+                                console.log(error.error.message);
+                            } else if(result){
+                               // console.log(result.success.message);
+                                 console.log("comment response success"+result.success.product_comment);
 
-                ProductService.getProduct({prodle: 'xkWw_RNsr'},
+                            }
+                        })
+                $scope.pendingCommentCount =03;
+                
+                
+                $scope.getProductFunction=function()
+                {
+                    
+                       ProductService.getProduct({prodle: 'eyYHSKVtL'},
                 function(successData) {
 
                     console.log(successData.success.product.product_comments);
@@ -26,8 +48,12 @@ angular.module('prodo.ProductApp')
                         function(error) {
                             console.log(error);
                         });
-
-                console.log(ProductService.getProduct({prodle: 'xkWw_RNsr'}));
+                }
+             
+                        
+                 $scope.getProductFunction();
+                 
+                console.log(ProductService.getProduct({prodle: 'eyYHSKVtL'}));
                 $scope.mytags;
                 $scope.commenttextField = {userComment: ''};
                 $scope.pretags = ['addition', 'aggregate', 'all', 'bad news', 'budget', 'cost', 'damage', 'entirety',
@@ -36,7 +62,15 @@ angular.module('prodo.ProductApp')
                     'material', 'object', 'produce', 'property', 'specialty', 'stock', 'thing', 'ware', 'good'];
 
 
-
+                $scope.getLatestComments=function(){
+                     
+                     $scope.getProductFunction();
+                     
+                    //code to get latest comments
+                }
+                
+                
+                
                 $scope.handleSaveProductResponse = function(data) {
                     if (data.success) {
                         alert(data.success.message);

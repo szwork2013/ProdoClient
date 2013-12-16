@@ -14,7 +14,7 @@ angular.module('prodo.ProductApp')
             }])
 
         .factory('CommentServicesave', ['$resource', function($resource) {
-                return $resource('/api/product/addcomment/xkWw_RNsr', {},
+                return $resource('/api/product/addcomment/eyYHSKVtL', {},
                         {
                             saveProduct: {method: 'POST'},
 //                            getProduct: {method: 'GET', params: {prodle: 'id'}},
@@ -25,7 +25,7 @@ angular.module('prodo.ProductApp')
 
 
         .factory('GetLoginService', ['$resource', function($resource) {
-                return $resource('/api/isLogin', {},
+                return $resource('/api/isloggedin', {},
                         {
                             checkLogin: {method: 'GET'},
                         });

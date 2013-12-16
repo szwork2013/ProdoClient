@@ -97,8 +97,8 @@ angular.module('prodo.CommonApp')
                                 function(successData) {
 
                                     console.log("sessionid" + successData.sessionid);
-                                    alert($scope.logindata);
-                                    alert(successData)
+                                   // alert($scope.logindata);
+                               //     alert(successData.sessionid);
 //                                   $scope.sid = successData.sessionid;
                                     localStorage.sid = successData.sessionid;
 
@@ -107,25 +107,26 @@ angular.module('prodo.CommonApp')
                                     console.log(error);
                                 });
 
-
+                           
                         $scope.newProductComment = {
                             product_comment: {
-//                                user: {userid: "uxkfzVj7or", fullname: "Bhagyashri"},
-                                user: {userid: "ulyCJMISNL", fullname: "Neha Singhal"},
+                                 user: {userid: "uxkfzVj7or", fullname: "Bhagyashri"},
+//                                user: {userid: "ulyCJMISNL", fullname: "Neha Singhal"},
+                                type:$scope.type,
                                 commenttext: $scope.commenttextField.userComment
                             }};
 
-                        alert(localStorage.sid);
+                       // alert("sid="+localStorage.sid);
                         socket = io.connect('http://ec2-54-254-210-45.ap-southeast-1.compute.amazonaws.com:8000', {
                             query: 'session_id=' + localStorage.sid
                         });
  
-                        socket.on("commentResponse", function(result, a) {
-                            if (result.error) {
-                                console.log(result.error.message);
-                            } else {
-                                console.log(result.success.message);
-                                // console.log(result.success.product_comments);
+                        socket.on("commentResponse", function(error, result) {
+                            if (error) {
+                                console.log(error.error.message);
+                            } else if(result){
+                               // console.log(result.success.message);
+                                 console.log("comment response success"+result.success.product_comment);
 
                             }
                         })
@@ -134,7 +135,7 @@ angular.module('prodo.CommonApp')
                         {
                             $scope.getTagsFromCommentText($scope);
                             $scope.productComments.unshift($scope.newProductComment.product_comment);
-                            socket.emit('addComment', "xkWw_RNsr", $scope.newProductComment.product_comment);
+                            socket.emit('addComment', "eyYHSKVtL", $scope.newProductComment.product_comment);
                             $scope.commenttextField.userComment = "";
                         }
 
