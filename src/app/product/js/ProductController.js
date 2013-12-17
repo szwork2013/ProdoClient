@@ -23,12 +23,24 @@ angular.module('prodo.ProductApp')
                             query: 'session_id=' + localStorage.sid
                         });
  
-                        socket.on("commentResponse", function(error, result) {
+                        socket.on("addproductcommentResponse", function(error, result) {
+                            if (error) {
+                                console.log(error.error.message);
+                                //retry code
+                            } else if(result){
+                               // console.log(result.success.message);
+                                 console.log("addproductcommentResponse success"+result.success.product_comment);
+
+                            }
+                        })
+                         
+ 
+                        socket.on("productcommentResponse", function(error, result) {
                             if (error) {
                                 console.log(error.error.message);
                             } else if(result){
                                // console.log(result.success.message);
-                                 console.log("comment response success"+result.success.product_comment);
+                                 console.log("productcommentResponse success"+result.success.product_comment);
 
                             }
                         })

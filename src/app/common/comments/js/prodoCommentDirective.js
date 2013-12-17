@@ -95,13 +95,8 @@ angular.module('prodo.CommonApp')
 
                         $scope.logindata = GetLoginService.checkLogin(
                                 function(successData) {
-
                                     console.log("sessionid" + successData.sessionid);
-                                   // alert($scope.logindata);
-                               //     alert(successData.sessionid);
-//                                   $scope.sid = successData.sessionid;
                                     localStorage.sid = successData.sessionid;
-
                                 },
                                 function(error) {
                                     console.log(error);
