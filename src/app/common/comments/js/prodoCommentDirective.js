@@ -14,135 +14,121 @@
 
 angular.module('prodo.CommonApp')
         .directive('prodoComments', function() {
-            return {
-                restrict: 'A',
-                // require: '?ngModel',
-                templateUrl: 'common/comments/views/prodo.comment.tpl.html',
-                //  scope: {productComments_l: '=info', pagesSize: '=', pagesShown: '='},
-                controller: function($scope, ProductService, GetLoginService)
-                {
-                    $(document).ready(function() {
-                        $('#prodo-comment-Textbox').focus(function() {
-                            $(this).height(75);
-                        });
-                        $('#prodo-comment-Textbox').blur(function() {
-                            $(this).height(30);
-                        });
+          return {
+            restrict: 'A',
+            // require: '?ngModel',
+            templateUrl: 'common/comments/views/prodo.comment.tpl.html',
+            //  scope: {productComments_l: '=info', pagesSize: '=', pagesShown: '='},
+            controller: function($scope, ProductService, GetLoginService,CommentService)
+            {
+
+              $(document).ready(function() {
+                //comment textbox increase height and decrease whe focus( toggle)
+                $('#prodo-comment-Textbox').focus(function() {
+                  $(this).height(75);
+                });
+                $('#prodo-comment-Textbox').blur(function() {
+                  $(this).height(30);
+                });
+                  //comment textbox increase height and decrease whe focus( toggle)
+
+              });
+
+              //on  scroll event in testing phase
+              $scope.commentsLimit = function() {
+                return $scope.pagesSize * $scope.pagesShown;
+              };
+              //on  scroll event in testing phase
+
+              //function to convert time format for comment added  
+              $scope.fromNow = function(time) {
+                if (time != undefined) {
+                  return moment(time).calendar();
+                }
+              };
+              //function to convert time format for comment added  
 
 
-                    });
-
-                    $scope.commentsLimit = function() {
-                        return $scope.pagesSize * $scope.pagesShown;
-                    };
-                    $scope.fromNow = function(time) {
-                        if (time != undefined) {
-                            return moment(time).calendar();
-                        }
-                    };
-                    $scope.toCamelCase = function(s) {
-                        if (s != undefined) {
-
-                            s = s.replace(/([^a-zA-Z0-9_\- ])|^[_0-9]+/g, "").trim().toLowerCase();
-                            s = s.replace(/([ -]+)([a-zA-Z0-9])/g, function(a, b, c) {
-                                return c.toUpperCase();
-                            });
-                            s = s.replace(/([0-9]+)([a-zA-Z])/g, function(a, b, c) {
-                                return b + c.toUpperCase();
-                            });
-                            return s;
-                        }
-
-                    };
-
-
-                    $scope.getTagsFromCommentText = function($scope) {
-
-                        //get tags from comment text and compare with predefined tags and add to tags
-                        var commenttext = $scope.commenttextField.userComment;
-                        $scope.mytags = $scope.pretags;
-                        var new_arr = [];
-                        var commenttextTags = commenttext.split(" ");
-                        for (var i = 0; i < commenttextTags.length; i++) {
-                            for (var j = 0; j < $scope.mytags.length; j++) {
-                                if (commenttextTags[i] == $scope.mytags[j]) {
-                                    new_arr.push(commenttextTags[i]);
-                                }
-                            }
-                        }
-
-                        $scope.mytags = new_arr;
-                    };
-
-
-
-                    var socket;
-//                    function connectSocket()
-//                    {
-//                        socket = io.connect('http://ec2-54-254-210-45.ap-southeast-1.compute.amazonaws.com:8000');
+              //group name in camelCase function
+//              $scope.toCamelCase = function(s) {
+//                if ((s !== undefined )|| (s!=="")) {
 //
-//                        socket.on("commentResponse", function(result) {
-//                            if (result.error) {
-//                                document.getElementById('CommentErr').innerHTML = result.error.message;
-//                            } else {
-//                                document.getElementById('CommentErr').innerHTML = result.success.message;
-//                            }
-//                        })
-//                    }
-                    $scope.sid;
-                    $scope.addProductComment = function() {
- 
+//                  s = s.replace(/([^a-zA-Z0-9_\- ])|^[_0-9]+/g, "").trim().toLowerCase();
+//                  s = s.replace(/([ -]+)([a-zA-Z0-9])/g, function(a, b, c) {
+//                    return c.toUpperCase();
+//                  });
+//                  s = s.replace(/([0-9]+)([a-zA-Z])/g, function(a, b, c) {
+//                    return b + c.toUpperCase();
+//                  });
+//                  return s;
+//                }
+//
+//              };
+              //group name in camelCase function
 
-                        $scope.logindata = GetLoginService.checkLogin(
-                                function(successData) {
-                                    console.log("sessionid" + successData.sessionid);
-                                    localStorage.sid = successData.sessionid;
-                                },
-                                function(error) {
-                                    console.log(error);
-                                });
+              //get tags from comment
+              $scope.getTagsFromCommentText = function($scope) {
 
-                           
-                        $scope.newProductComment = {
-                            product_comment: {
-                                 user: {userid: "uxkfzVj7or", fullname: "Bhagyashri"},
-//                                user: {userid: "ulyCJMISNL", fullname: "Neha Singhal"},
-                                type:$scope.type,
-                                commenttext: $scope.commenttextField.userComment
-                            }};
+                //get tags from comment text and compare with predefined tags and add to tags
+                var commenttext = $scope.commenttextField.userComment;
+                $scope.mytags = $scope.pretags;
+                var new_arr = [];
+                var commenttextTags = commenttext.split(" ");
+                for (var i = 0; i < commenttextTags.length; i++) {
+                  for (var j = 0; j < $scope.mytags.length; j++) {
+                    if (commenttextTags[i] == $scope.mytags[j]) {
+                      new_arr.push(commenttextTags[i]);
+                    }
+                  }
+                }
 
-                       // alert("sid="+localStorage.sid);
-                        socket = io.connect('http://ec2-54-254-210-45.ap-southeast-1.compute.amazonaws.com:8000', {
-                            query: 'session_id=' + localStorage.sid
-                        });
- 
-                        socket.on("commentResponse", function(error, result) {
-                            if (error) {
-                                console.log(error.error.message);
-                            } else if(result){
-                               // console.log(result.success.message);
-                                 console.log("comment response success"+result.success.product_comment);
+                $scope.mytags = new_arr;
+              };
+              //get tags from comment
 
-                            }
-                        })
-                        if ($scope.commenttextField.userComment !== "")
- 
-                        {
-                            $scope.getTagsFromCommentText($scope);
-                            $scope.productComments.unshift($scope.newProductComment.product_comment);
-                            socket.emit('addComment', "eyYHSKVtL", $scope.newProductComment.product_comment);
-                            $scope.commenttextField.userComment = "";
-                        }
+              //Add comment function
+              $scope.addProductComment = function() {
 
-                    };
+                $scope.newProductComment = {
+                  product_comment: {
+                    user: {userid: $scope.userIDFromSession,
+                      fullname: $scope.userFullnameFromSession
+                    },
+                    type: $scope.type,
+                    commenttext: $scope.commenttextField.userComment
+                  }};
 
+                if ($scope.commenttextField.userComment !== "")
 
-                    $scope.deleteProductComment = function(comment) {
-                        // console.log("deleting....");
-                        var index = $scope.productComments.indexOf(comment);
-                        if (index != -1)
-                            $scope.productComments.splice(index, 1);
-                    };
-                },
-            };
+                {
+                  $scope.getTagsFromCommentText($scope);
+                  $scope.productComments.unshift($scope.newProductComment.product_comment);
+                  $scope.socket.emit('addComment', "eyYHSKVtL", $scope.newProductComment.product_comment);
+                  $scope.commenttextField.userComment = "";
+                }
+
+              };
+              //Add comment function
+
+              //delete comment function
+              $scope.deleteProductComment = function(comment) {
+                // console.log("deleting....");
+                 if(comment.user.fullname== $scope.userFullnameFromSession)
+                {
+                var index = $scope.productComments.indexOf(comment);
+                if (index != -1)
+                  $scope.productComments.splice(index, 1);
+               
+                  
+//                 CommentService.deleteComment(comment.commentid);
+                 console.log(comment.commentid+" comment deleted ...")
+                }
+                else{
+                  alert("You dont have access to delete this comment..");
+                }
+               
+              };
+              //delete comment function
+            },
+          };
         })

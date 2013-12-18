@@ -16,20 +16,19 @@
 
 <!--<div id="prodo-comment-container" class="container" style="border: 1px solid #94d2f8; width: 80%; margin-left:64.5px; " ng-controller="ProductController">-->
 <div id="prodo-comment-fixed" style="">
-  
-           
-    <div id="prodo-comment-enterComment" >
-        <span class="label label-info   "  >{{300 - commenttextField.userComment.length}}</span>  
-        <a href="" ng-click="getLatestComments()" >   <span class="label label-info  pull-right "  >{{pendingCommentCount}} new comments</span>  </a>
-        <textarea  type="text" class="form-control" name="txtComment" placeholder="Product Conversation [max 300 characters]" id="prodo-comment-Textbox" col="40"  ng-model="commenttextField.userComment" comment-limit="300" ng-enter="addProductComment()" required ></textarea> 
- 
-    </div>
-    <ul class="media-list "  id="prodo-comment-media-list">
+  <div id="prodo-comment-enterComment" >
+    <span class="label label-info   "  >{{300 - commenttextField.userComment.length}}</span> 
+    <div class="label label-info "     > <label id="responseComment" ></label></div>
+    <a href="" ng-click="getLatestComments()" >   <span class="label label-info  pull-right "  >{{pendingCommentCount}} new comments</span>  </a>
+    <textarea  type="text" class="form-control" name="txtComment" placeholder="Product Conversation [max 300 characters]" id="prodo-comment-Textbox" col="40"  ng-model="commenttextField.userComment" comment-limit="300" ng-enter="addProductComment()" required ></textarea> 
 
-        <div prodo-comments when-scrolled="loadMore()"   id="prodo-comment-commentContainer"  >
+  </div>
+  <ul class="media-list "  id="prodo-comment-media-list">
 
-        </div>  
-    </ul>
+    <div prodo-comments when-scrolled="loadMore()"   id="prodo-comment-commentContainer"  >
+
+    </div>  
+  </ul>
 </div>
 <!--</div>-->
 

@@ -4,41 +4,51 @@
 
 angular.module('prodo.ProductApp')
         .factory('ProductService', ['$resource', function($resource) {
-                return $resource('/api/product/:prodle', {},
-                        {
-                            
-                            getProduct: {method: 'GET', params: {prodle: 'id'}},
+            return $resource('/api/product/:prodle', {},
+                    {
+                      getProduct: {method: 'GET', params: {prodle: 'id'}},
 //                            updateProduct: {method: 'PUT', params: {prodle: '@userid'}, isArray: false},
-//                            deleteProduct: {method: 'DELETE', params: {prodle: '@userid'}}
-                        });
-            }])
+                      deleteProduct: {method: 'DELETE', params: {prodle: 'id'}}
+                    });
+          }])
+        
+        
+        .factory('CommentService', ['$resource', function($resource) {
+            return $resource('/api/comment/:prodle', {},
+                    {
+                     deleteComment: {method: 'DELETE', params: {commentid: 'id'}}
+                    });
+          }])
+        
 
         .factory('CommentServicesave', ['$resource', function($resource) {
-                return $resource('/api/product/addcomment/eyYHSKVtL', {},
-                        {
-                            saveProduct: {method: 'POST'},
+            return $resource('/api/product/addcomment/eyYHSKVtL', {},
+                    {
+                      saveProduct: {method: 'POST'},
 //                            getProduct: {method: 'GET', params: {prodle: 'id'}},
 //                            updateProduct: {method: 'PUT', params: {prodle: '@userid'}, isArray: false},
 //                            deleteProduct: {method: 'DELETE', params: {prodle: '@userid'}}
-                        });
-            }])
+                    });
+          }])
+
 
 
         .factory('GetLoginService', ['$resource', function($resource) {
-                return $resource('/api/isloggedin', {},
-                        {
-                            checkLogin: {method: 'GET'},
-                        });
-            }])
+            return $resource('/api/isloggedin', {},
+                    {
+                      checkLogin: {method: 'GET'},
+                    });
+          }])
+
 
 
         .factory('ProductSaveService', ['$resource', function($resource) {
-                return $resource('/api/product/:orgid', {},
-                        {
-                            saveProduct: {method: 'POST', params: {orgid: 'orge1LSosNiS'}},
-                            //getProduct: {method: 'GET', params: {prodle: 'id'}},
-                            //    updateProduct: {method: 'PUT', params: {prodle: '@userid'}, isArray: false},
-                            //     deleteProduct: {method: 'DELETE', params: {prodle: '@userid'}}
-                        });
-            }])
+            return $resource('/api/product/:orgid', {},
+                    {
+                      saveProduct: {method: 'POST', params: {orgid: 'orge1LSosNiS'}},
+                      //getProduct: {method: 'GET', params: {prodle: 'id'}},
+                      //    updateProduct: {method: 'PUT', params: {prodle: '@userid'}, isArray: false},
+                      //     deleteProduct: {method: 'DELETE', params: {prodle: '@userid'}}
+                    });
+          }])
 

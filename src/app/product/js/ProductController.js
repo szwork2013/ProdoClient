@@ -11,145 +11,198 @@
  * 
  */
 angular.module('prodo.ProductApp')
-        .controller('ProductController', ['$scope', 'ProductService', 'ProductSaveService', function($scope, ProductService, ProductSaveService) {
-                $scope.productComments = {comments: [{}]};
-                $scope.product = {product: [{}]};
-                $scope.newProduct = {product: [{}]};
-                $scope.type="product";
-                
-                
-                //code to get no of count for new comments
-                  socket = io.connect('http://ec2-54-254-210-45.ap-southeast-1.compute.amazonaws.com:8000', {
-                            query: 'session_id=' + localStorage.sid
-                        });
- 
-                        socket.on("addproductcommentResponse", function(error, result) {
-                            if (error) {
-                                console.log(error.error.message);
-                                //retry code
-                            } else if(result){
-                               // console.log(result.success.message);
-                                 console.log("addproductcommentResponse success"+result.success.product_comment);
+        .controller('ProductController', ['$scope', 'ProductService', 'ProductSaveService', 'GetLoginService', function($scope, ProductService, ProductSaveService, GetLoginService) {
+            //var global declaration
+            $scope.productComments = {comments: [{}]};
+            $scope.newProductComment = [];
+            $scope.product = {product: [{}]};
+            $scope.newProduct = {product: [{}]};
+            $scope.type = "product";
+            $scope.productCommentResponsearray = [];
+            $scope.userIDFromSession;
+            $scope.userFullnameFromSession;
+            $scope.socket;
+            $scope.pendingCommentCount = 03;
+            $scope.mytags;
+            $scope.product_prodle;
+            $scope.commenttextField = {userComment: ''};
+            $scope.pretags = ['addition', 'aggregate', 'all', 'bad news', 'budget', 'cost', 'damage', 'entirety',
+              'expense', 'extent', 'list', 'lot', 'net', 'outlay', 'output', 'price tag', 'product', 'quantum', 'score',
+              'set-back', 'sum', 'tab', 'tidy sum', 'whole', 'article', 'asset', 'belonging', 'chattel', 'goods', 'line',
+              'material', 'object', 'produce', 'property', 'specialty', 'stock', 'thing', 'ware', 'good'];
 
-                            }
-                        })
-                         
- 
-                        socket.on("productcommentResponse", function(error, result) {
-                            if (error) {
-                                console.log(error.error.message);
-                            } else if(result){
-                               // console.log(result.success.message);
-                                 console.log("productcommentResponse success"+result.success.product_comment);
+            //get login details
+            $scope.logindata = GetLoginService.checkLogin(
+                    function(successData) {
+                      console.log("session" + JSON.stringify(successData));
+                      localStorage.sid = successData.sessionid;
+                      $scope.userIDFromSession = successData.userid;
+                      $scope.userFullnameFromSession = successData.fullname;
+                    },
+                    function(error) {
+                      console.log(error);
+                    });
+            //get login details
 
-                            }
-                        })
-                $scope.pendingCommentCount =03;
-                
-                
-                $scope.getProductFunction=function()
-                {
-                    
-                       ProductService.getProduct({prodle: 'eyYHSKVtL'},
-                function(successData) {
+            //socket connect
+            $scope.socket = io.connect('http://ec2-54-254-210-45.ap-southeast-1.compute.amazonaws.com:8000', {
+              query: 'session_id=' + localStorage.sid
+            });
+            //socket connect
 
-                    console.log(successData.success.product.product_comments);
-                    $scope.product = successData.success.product;
-                    $scope.productComments = successData.success.product.product_comments;
-                },
-                        function(error) {
-                            console.log(error);
-                        });
+
+            //socket response when for add comment
+            $scope.socket.on("addcommentResponse", function(error, result) {
+              if (error) {
+                console.log(error.error.message);
+                //retry code
+              } else if (result) {
+                // console.log(result.success.message);
+                console.log("addcommentResponse success" + result.success.product_comment);
+
+              }
+              $scope.socket.removeAllListeners();
+            })
+            //socket response when for add comment
+
+
+            //productComment response
+
+//                socket.on("productcommentResponse", function(error, result) {
+//                    if (error) {
+//                        console.log(error.error.message);
+//                    } else if (result) {
+//                        console.log("productcomment  Response success" + result.success.product_comment);
+//                        //  $scope.productCommentResponsearray.push(result.success.product_comment);
+//                        alert(JSON.stringify(result.success.product_comment).length);
+////                        var a= document.getElementById(responseComment);
+////                        if(a) a.textContent(JSON.stringify(result.success.product_comment).length+" new comments")
+//                    }
+//                })
+            //productComment response 
+
+
+
+
+            //get product function declaration
+            $scope.getProductFunction = function()
+            {
+
+              ProductService.getProduct({prodle: 'eyYHSKVtL'},
+              function(successData) {
+
+                console.log(successData.success.product.product_comments);
+                $scope.product = successData.success.product;
+                 $scope.product_prodle=successData.success.product.prodle;
+                $scope.productComments = successData.success.product.product_comments;
+              },
+                      function(error) {
+                        console.log(error);
+                      });
+            }
+            //get product function declaration  
+
+
+            $scope.getProductFunction();
+
+            //   console.log(ProductService.getProduct({prodle: 'eyYHSKVtL'}));
+
+
+
+            //testing
+            $scope.getLatestComments = function() {
+
+              $scope.getProductFunction();
+
+              //code to get latest comments
+            };
+            //testing
+
+
+            //error handling for add product
+            $scope.handleSaveProductResponse = function(data) {
+              if (data.success) {
+                alert(data.success.message);
+
+              } else {
+                if (data.error.code == 'AV001') {     // user already exist
+                  console.log(data.error.code + " " + data.error.message);
+                  alert(data.error.message);
+                } else if (data.error.code == 'AP001') {  // user data invalid
+                  console.log(data.error.code + " " + data.error.message);
+                  alert(data.error.message);
+                } else {
+                  console.log(data.error.message);
+                  alert(data.error.message);
                 }
-             
-                        
-                 $scope.getProductFunction();
-                 
-                console.log(ProductService.getProduct({prodle: 'eyYHSKVtL'}));
-                $scope.mytags;
-                $scope.commenttextField = {userComment: ''};
-                $scope.pretags = ['addition', 'aggregate', 'all', 'bad news', 'budget', 'cost', 'damage', 'entirety',
-                    'expense', 'extent', 'list', 'lot', 'net', 'outlay', 'output', 'price tag', 'product', 'quantum', 'score',
-                    'set-back', 'sum', 'tab', 'tidy sum', 'whole', 'article', 'asset', 'belonging', 'chattel', 'goods', 'line',
-                    'material', 'object', 'produce', 'property', 'specialty', 'stock', 'thing', 'ware', 'good'];
+              }
+            };
+            //error handling for add product
 
 
-                $scope.getLatestComments=function(){
-                     
-                     $scope.getProductFunction();
-                     
-                    //code to get latest comments
-                }
-                
-                
-                
-                $scope.handleSaveProductResponse = function(data) {
-                    if (data.success) {
-                        alert(data.success.message);
 
-                    } else {
-                        if (data.error.code == 'AV001') {     // user already exist
-                            console.log(data.error.code + " " + data.error.message);
-                            alert(data.error.message);
-                        } else if (data.error.code == 'AP001') {  // user data invalid
-                            console.log(data.error.code + " " + data.error.message);
-                            alert(data.error.message);
-                        } else {
-                            console.log(data.error.message);
-                            alert(data.error.message);
-                        }
-                    }
-                };
+            //add product
+            $scope.addProduct = function()
+            {
 
-
-                $scope.addProduct = function()
-                {
-
-                    $scope.newProduct = {product: {
+              $scope.newProduct = {product: {
 //                            
-                            display_name: $scope.display_name,
+                  display_name: $scope.display_name,
 //                            orgid: $scope.product.orgid,
-                            serial_no: $scope.product.serial_no,
-                            model_no: $scope.product.model_no,
-                            name: $scope.product.name,
-                            description: $scope.product.description
-                        }};
+                  serial_no: $scope.product.serial_no,
+                  model_no: $scope.product.model_no,
+                  name: $scope.product.name,
+                  description: $scope.product.description
+                }};
+              ProductSaveService.saveProduct($scope.newProduct,
+                      function(success) {
+                        console.log(success);
+                        $scope.handleSaveProductResponse(success);      // calling function to handle success and error responses from server side on POST method success.
+                      },
+                      function(error) {
+                        console.log(error);
+                      });
+            };
+            
+            
+            //delete product
+            $scope.deleteProduct= function()
+            {
+             // if(user has product organization account)
+             // ProductService.deleteProduct($scope.product_prodle);
+              //else alert("You dont have access to delete this product");
+            }
+            
+           
+           
+            //add product
 
 
-                    ProductSaveService.saveProduct($scope.newProduct,
-                            function(success) {
-                                console.log(success);
-                                $scope.handleSaveProductResponse(success);      // calling function to handle success and error responses from server side on POST method success.
-                            },
-                            function(error) {
-                                console.log(error);
-                            });
+            // $scope.productComments = {
+            //     comments: [{
+            //             userName: "Bhagyashri",
+            //             companyName: "Giant Leap Systemsss",
+            //             time: Date.now(),
+            //             text: "I like this web site",
+            //             tags: ['great', 'some', 'cool', 'bad'],
+            //             group: "Support",
+            //             dp: "http://placehold.it/64x64"
+
+            //         }, {
+            //             userName: "Neha",
+            //             companyName: "Giant Leap Systems",
+            //             time: Date.now(),
+            //             text: "Prodonus is really cool :)",
+            //             tags: ['great', 'bad'],
+            //             group: "Developer",
+            //             dp: "http://placehold.it/64x64"
+
+            //         }]
+            // };
 
 
-                }
-                // $scope.productComments = {
-                //     comments: [{
-                //             userName: "Bhagyashri",
-                //             companyName: "Giant Leap Systemsss",
-                //             time: Date.now(),
-                //             text: "I like this web site",
-                //             tags: ['great', 'some', 'cool', 'bad'],
-                //             group: "Support",
-                //             dp: "http://placehold.it/64x64"
 
-                //         }, {
-                //             userName: "Neha",
-                //             companyName: "Giant Leap Systems",
-                //             time: Date.now(),
-                //             text: "Prodonus is really cool :)",
-                //             tags: ['great', 'bad'],
-                //             group: "Developer",
-                //             dp: "http://placehold.it/64x64"
-
-                //         }]
-                // };
-
-                //Product discontinued visibility 
+            //Product discontinued visibility testing
 //                if (($scope.product !== undefined) || ($scope.product !== ""))
 //                {
 //                    $scope.status = "deactive";
@@ -163,7 +216,10 @@ angular.module('prodo.ProductApp')
 //                        document.getElementById("prodo-productDiscontinued").style.display = "none";
 //                    }
 //                }
+            //Product discontinued visibility testing
 
-            }])
+
+
+          }])
 
         
