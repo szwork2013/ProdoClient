@@ -32,7 +32,16 @@ angular.module('prodo.ProductApp')
               'material', 'object', 'produce', 'property', 'specialty', 'stock', 'thing', 'ware', 'good'];
 
 
-            //dont display delete option if that user is not loggedin user
+            $scope.showErrorIfCommentNotAdded = function( ) {
+              var retry = document.getElementById("responseComment");
+              retry.style.display = 'inline';
+              retry.innerHTML = 'Error adding comment please try again..';
+            }
+
+            $scope.showRetryIconIfCommentNotAdded = function( ) {
+              var retryIcon = document.getElementById("retryIcon");
+              retryIcon.style.display = 'inline';
+            }
 
 
 
@@ -56,25 +65,17 @@ angular.module('prodo.ProductApp')
             //socket connect
 
 
+
             //socket response when for add comment
             $scope.socket.on("addcommentResponse", function(error, result) {
               if (error) {
                 console.log(error.error.message);
-                //retry code
-                $(document).ready(function() {
-                  var retry = document.getElementById("responseComment");
-                  retry.style.display = 'inline';
-                  retry.innerHTML = 'Error adding comment please try again..';
-
-                });
-                //retry code
-
-
-
-
+                $scope.showErrorIfCommentNotAdded();
+                $scope.showRetryIconIfCommentNotAdded();
                 // if(retry) retry.textContent("Error posting comment.. Please try again");
               } else if (result) {
                 // console.log(result.success.message);
+                $scope.ifErrorAddingComment = false;
                 console.log("addcommentResponse success" + result.success.product_comment);
               }
               $scope.socket.removeAllListeners();
@@ -189,9 +190,9 @@ angular.module('prodo.ProductApp')
             //delete product
 
 
-            $scope.hideIfNotUser = function( fullname) {
-              if ( fullname) {
-                if ( fullname !== $scope.userFullnameFromSession) {
+            $scope.hideIfNotUser = function(fullname) {
+              if (fullname) {
+                if (fullname !== $scope.userFullnameFromSession) {
                   return {
                     display: "none"
                   }

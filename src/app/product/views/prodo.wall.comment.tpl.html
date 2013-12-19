@@ -18,7 +18,7 @@
 <div id="prodo-comment-fixed" style="">
   <div id="prodo-comment-enterComment" >
     <span class="label label-info   "  >{{300 - commenttextField.userComment.length}}</span> 
-    <div class="label label-info "  id="responseComment"  style="display: none">  </div>
+<!--    <div class="label label-info "  id="responseComment"  style="display: none">  </div>-->
     <a href="" ng-click="getLatestComments()" >   <span class="label label-info  pull-right "  >{{pendingCommentCount}} new comments</span>  </a>
     <textarea  type="text" class="form-control" name="txtComment" placeholder="Product Conversation [max 300 characters]" id="prodo-comment-Textbox" col="40"  ng-model="commenttextField.userComment" comment-limit="300" ng-enter="addProductComment()" required ></textarea> 
 

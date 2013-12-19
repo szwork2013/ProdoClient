@@ -19,7 +19,7 @@ angular.module('prodo.CommonApp')
             // require: '?ngModel',
             templateUrl: 'common/comments/views/prodo.comment.tpl.html',
             //  scope: {productComments_l: '=info', pagesSize: '=', pagesShown: '='},
-            controller: function($scope, ProductService, GetLoginService,CommentService)
+            controller: function($scope, ProductService, GetLoginService, CommentService)
             {
 
               $(document).ready(function() {
@@ -30,7 +30,7 @@ angular.module('prodo.CommonApp')
                 $('#prodo-comment-Textbox').blur(function() {
                   $(this).height(30);
                 });
-                  //comment textbox increase height and decrease whe focus( toggle)
+                //comment textbox increase height and decrease whe focus( toggle)
 
               });
 
@@ -88,10 +88,9 @@ angular.module('prodo.CommonApp')
 
               //Add comment function
               $scope.addProductComment = function() {
-
                 $scope.newProductComment = {
                   product_comment: {
-                    user: {userid:$scope.userIDFromSession,
+                    user: {userid: $scope.userIDFromSession,
                       fullname: $scope.userFullnameFromSession
                     },
                     type: $scope.type,
@@ -103,7 +102,7 @@ angular.module('prodo.CommonApp')
                 {
                   $scope.getTagsFromCommentText($scope);
                   $scope.socket.emit('addComment', "xk7i99lj8", $scope.newProductComment.product_comment);
-                  
+
                   $scope.productComments.unshift($scope.newProductComment.product_comment);
                   $scope.commenttextField.userComment = "";
                 }
@@ -111,20 +110,20 @@ angular.module('prodo.CommonApp')
               };
               //Add comment function
 
-                
+
               //delete comment function
               $scope.deleteProductComment = function(comment) {
                 // console.log("deleting....");
-                 if(comment.user.fullname== $scope.userFullnameFromSession)
+                if (comment.user.fullname == $scope.userFullnameFromSession)
                 {
-                var index = $scope.productComments.indexOf(comment);
-                if (index != -1)
-                  $scope.productComments.splice(index, 1);
-                  CommentService.deleteComment({commentid:comment.commentid});
-                 console.log(comment.commentid );
+                  var index = $scope.productComments.indexOf(comment);
+                  if (index != -1)
+                    $scope.productComments.splice(index, 1);
+                  CommentService.deleteComment({commentid: comment.commentid});
+                  console.log(comment.commentid);
                 }
-      
-               
+
+
               };
               //delete comment function
             },
