@@ -91,7 +91,7 @@ angular.module('prodo.CommonApp')
 
                 $scope.newProductComment = {
                   product_comment: {
-                    user: {userid: $scope.userIDFromSession,
+                    user: {userid:$scope.userIDFromSession,
                       fullname: $scope.userFullnameFromSession
                     },
                     type: $scope.type,
@@ -102,14 +102,16 @@ angular.module('prodo.CommonApp')
 
                 {
                   $scope.getTagsFromCommentText($scope);
+                  $scope.socket.emit('addComment', "xk7i99lj8", $scope.newProductComment.product_comment);
+                  
                   $scope.productComments.unshift($scope.newProductComment.product_comment);
-                  $scope.socket.emit('addComment', "eyYHSKVtL", $scope.newProductComment.product_comment);
                   $scope.commenttextField.userComment = "";
                 }
 
               };
               //Add comment function
 
+                
               //delete comment function
               $scope.deleteProductComment = function(comment) {
                 // console.log("deleting....");
@@ -118,14 +120,10 @@ angular.module('prodo.CommonApp')
                 var index = $scope.productComments.indexOf(comment);
                 if (index != -1)
                   $scope.productComments.splice(index, 1);
-               
-                  
-//                 CommentService.deleteComment(comment.commentid);
-                 console.log(comment.commentid+" comment deleted ...")
+                  CommentService.deleteComment({commentid:comment.commentid});
+                 console.log(comment.commentid );
                 }
-                else{
-                  alert("You dont have access to delete this comment..");
-                }
+      
                
               };
               //delete comment function

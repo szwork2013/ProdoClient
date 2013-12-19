@@ -8,21 +8,21 @@ angular.module('prodo.ProductApp')
                     {
                       getProduct: {method: 'GET', params: {prodle: 'id'}},
 //                            updateProduct: {method: 'PUT', params: {prodle: '@userid'}, isArray: false},
-                      deleteProduct: {method: 'DELETE', params: {prodle: 'id'}}
+                    //  deleteProduct: {method: 'DELETE', params: {prodle: 'id'}}
                     });
           }])
         
         
         .factory('CommentService', ['$resource', function($resource) {
-            return $resource('/api/comment/:prodle', {},
+            return $resource('/api/comment/:commentid', {},
                     {
-                     deleteComment: {method: 'DELETE', params: {commentid: 'id'}}
+                     deleteComment: {method: 'DELETE', params: {commentid: "id"}}
                     });
           }])
         
 
         .factory('CommentServicesave', ['$resource', function($resource) {
-            return $resource('/api/product/addcomment/eyYHSKVtL', {},
+            return $resource('/api/product/addcomment/xk7i99lj8', {},
                     {
                       saveProduct: {method: 'POST'},
 //                            getProduct: {method: 'GET', params: {prodle: 'id'}},

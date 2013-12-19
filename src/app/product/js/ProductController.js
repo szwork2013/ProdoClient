@@ -31,6 +31,17 @@ angular.module('prodo.ProductApp')
               'set-back', 'sum', 'tab', 'tidy sum', 'whole', 'article', 'asset', 'belonging', 'chattel', 'goods', 'line',
               'material', 'object', 'produce', 'property', 'specialty', 'stock', 'thing', 'ware', 'good'];
 
+
+             //dont display delete option if that user is not loggedin user
+            $scope.hideIfNotUSer = function(comment) {
+              if (comment.user.fullname !== $scope.userFullnameFromSession) {
+                return {
+                  display: "none"
+                }
+              }
+            }
+
+
             //get login details
             $scope.logindata = GetLoginService.checkLogin(
                     function(successData) {
@@ -56,10 +67,21 @@ angular.module('prodo.ProductApp')
               if (error) {
                 console.log(error.error.message);
                 //retry code
+                $(document).ready(function() {
+                  var retry = document.getElementById("responseComment");
+                  retry.style.display = 'inline';
+                  retry.innerHTML = 'Error adding comment please try again..';
+
+                });
+                //retry code
+
+
+
+
+                // if(retry) retry.textContent("Error posting comment.. Please try again");
               } else if (result) {
                 // console.log(result.success.message);
                 console.log("addcommentResponse success" + result.success.product_comment);
-
               }
               $scope.socket.removeAllListeners();
             })
@@ -88,12 +110,12 @@ angular.module('prodo.ProductApp')
             $scope.getProductFunction = function()
             {
 
-              ProductService.getProduct({prodle: 'eyYHSKVtL'},
+              ProductService.getProduct({prodle: 'xk7i99lj8'},
               function(successData) {
 
                 console.log(successData.success.product.product_comments);
                 $scope.product = successData.success.product;
-                 $scope.product_prodle=successData.success.product.prodle;
+                $scope.product_prodle = successData.success.product.prodle;
                 $scope.productComments = successData.success.product.product_comments;
               },
                       function(error) {
@@ -104,7 +126,6 @@ angular.module('prodo.ProductApp')
 
 
             $scope.getProductFunction();
-
             //   console.log(ProductService.getProduct({prodle: 'eyYHSKVtL'}));
 
 
@@ -113,7 +134,6 @@ angular.module('prodo.ProductApp')
             $scope.getLatestComments = function() {
 
               $scope.getProductFunction();
-
               //code to get latest comments
             };
             //testing
@@ -123,7 +143,6 @@ angular.module('prodo.ProductApp')
             $scope.handleSaveProductResponse = function(data) {
               if (data.success) {
                 alert(data.success.message);
-
               } else {
                 if (data.error.code == 'AV001') {     // user already exist
                   console.log(data.error.code + " " + data.error.message);
@@ -157,24 +176,22 @@ angular.module('prodo.ProductApp')
               ProductSaveService.saveProduct($scope.newProduct,
                       function(success) {
                         console.log(success);
-                        $scope.handleSaveProductResponse(success);      // calling function to handle success and error responses from server side on POST method success.
+                        $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
                       },
                       function(error) {
                         console.log(error);
                       });
             };
-            
-            
             //delete product
-            $scope.deleteProduct= function()
+            $scope.deleteProduct = function()
             {
-             // if(user has product organization account)
-             // ProductService.deleteProduct($scope.product_prodle);
+              // if(user has product organization account)
+              // ProductService.deleteProduct(({prodle:$scope.product_prodle });
               //else alert("You dont have access to delete this product");
             }
-            
-           
-           
+
+
+
             //add product
 
 
