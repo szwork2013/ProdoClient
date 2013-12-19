@@ -78,24 +78,28 @@ angular.module('prodo.ProductApp')
                 $scope.ifErrorAddingComment = false;
                 console.log("addcommentResponse success" + result.success.product_comment);
               }
-              $scope.socket.removeAllListeners();
+           //   $scope.socket.removeAllListeners();
             })
             //socket response when for add comment
 
 
             //productComment response
 
-//                socket.on("productcommentResponse", function(error, result) {
-//                    if (error) {
-//                        console.log(error.error.message);
-//                    } else if (result) {
-//                        console.log("productcomment  Response success" + result.success.product_comment);
-//                        //  $scope.productCommentResponsearray.push(result.success.product_comment);
-//                        alert(JSON.stringify(result.success.product_comment).length);
-////                        var a= document.getElementById(responseComment);
-////                        if(a) a.textContent(JSON.stringify(result.success.product_comment).length+" new comments")
-//                    }
-//                })
+            $scope.socket.on("productcommentResponse", function(error, result) {
+              if (error) {
+                console.log(error.error.message);
+              } else if (result) {
+                console.log("productcomment  Response success" + result.success.product_comment);
+                  $scope.productCommentResponsearray.push(result.success.product_comment);
+                var count=$scope.productCommentResponsearray.length;
+                console.log(count);
+                var a = document.getElementById("responseComment");
+                a.style.display = 'inline';
+                 a.innerHTML =count+ ' new comments';
+                 // a.textContent(JSON.stringify(result.success.product_comment).length + " new comments")
+              }
+             // $scope.socket.removeAllListeners();
+            })
             //productComment response 
 
 
@@ -129,6 +133,9 @@ angular.module('prodo.ProductApp')
             $scope.getLatestComments = function() {
 
               $scope.getProductFunction();
+              var a = document.getElementById("responseComment");
+                a.style.display = 'none';
+                 a.innerHTML ="";
               //code to get latest comments
             };
             //testing
