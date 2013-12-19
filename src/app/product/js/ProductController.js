@@ -32,14 +32,8 @@ angular.module('prodo.ProductApp')
               'material', 'object', 'produce', 'property', 'specialty', 'stock', 'thing', 'ware', 'good'];
 
 
-             //dont display delete option if that user is not loggedin user
-            $scope.hideIfNotUSer = function(comment) {
-              if (comment.user.fullname !== $scope.userFullnameFromSession) {
-                return {
-                  display: "none"
-                }
-              }
-            }
+            //dont display delete option if that user is not loggedin user
+
 
 
             //get login details
@@ -192,7 +186,19 @@ angular.module('prodo.ProductApp')
 
 
 
-            //add product
+            //delete product
+
+
+            $scope.hideIfNotUser = function( fullname) {
+              if ( fullname) {
+                if ( fullname !== $scope.userFullnameFromSession) {
+                  return {
+                    display: "none"
+                  }
+                }
+              }
+            }
+
 
 
             // $scope.productComments = {

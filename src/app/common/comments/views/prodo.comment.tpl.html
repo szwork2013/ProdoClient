@@ -26,8 +26,8 @@
                         tabCommentRemove = false" >
                 <li><a     ng-click="tabCommentTags = tabCommentTags === false ? true : false;
                         tabCommentRemove = false;"><div id="fa-tagsComment" class="fa fa-tags"  ></div></a></li>
-                <li  ><a     ng-click="tabCommentRemove = tabCommentRemove === false ? true : false;
-                        tabCommentTags = false;"><div ng-style="hideIfNotUSer(comment)" id=" fa-removeComment" name="rm" class=" fa fa-trash-o  "  ></div></a></li>
+                <li ng-style="hideIfNotUser(comment.user.fullname)" ><a     ng-click="tabCommentRemove = tabCommentRemove === false ? true : false;
+                        tabCommentTags = false;"><div  id=" fa-removeComment" name="rm" class=" fa fa-trash-o  "  ></div></a></li>
                 </ul> 
             <div class="tab-content">
                 <div id="Tag" ng-show="tabCommentTags == 1" >
