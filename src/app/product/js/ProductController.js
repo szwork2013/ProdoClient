@@ -187,9 +187,9 @@ angular.module('prodo.ProductApp')
             //delete product
             $scope.deleteProduct = function()
             {
-              // if(user has product organization account)
-              // ProductService.deleteProduct(({prodle:$scope.product_prodle });
-              //else alert("You dont have access to delete this product");
+             // if(user has product organization account)
+               ProductService.deleteProduct({prodle:$scope.product_prodle });
+             // else alert("You dont have access to delete this product");
             }
 
 
