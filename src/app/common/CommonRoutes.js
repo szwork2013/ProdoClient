@@ -54,5 +54,37 @@ angular.module('prodo.CommonApp')
         url: '/finish',
         templateUrl: 'org/orgregistration/views/orgregistration.finish.tpl.html',
         controller: 'OrgRegistrationController'
+    }) 
+    .state('account', {
+      url: '/account',
+      templateUrl: 'common/accounts/views/account.settings.tpl.html',
+      controller: 'ManageAccountController'
+    })    
+    .state('account.user', {
+      url: '/user',
+      views: {
+        'account-navigation' : {
+          templateUrl:  'user/views/user.account.settings.nav.tpl.html',
+          controller: 'ManageAccountController'
+          
+        },
+        'account-settings' : {
+          templateUrl:  'user/views/user.account.settings.tpl.html',
+          controller: 'ManageAccountController'
+        }
+      }
+    })   
+    .state('account.org', {
+      url: '/org',
+      views: {
+        'account-navigation' : {
+          templateUrl:  'org/views/org.account.settings.nav.tpl.html',
+          controller: 'ManageAccountController'
+        },
+        'account-settings' : {
+          templateUrl:  'org/views/org.account.settings.tpl.html',
+          controller: 'ManageAccountController'
+        }
+      }
     })            
   }]);

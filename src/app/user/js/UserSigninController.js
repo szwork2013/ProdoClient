@@ -84,6 +84,10 @@ angular.module('prodo.UserApp')
         } else if (data.error.code=='AU006') {  // user signedin using OTP
             console.log(data.error.code + " " + data.error.message);
             UserSessionService.authSuccess(data.error.user);
+             $scope.$on("session", function(event, message){
+              console.log($rootScope.usersession.currentUser.fullname);
+            });
+            
             $state.transitionTo('messageContent.resetPassword');
         } else if (data.error.code=='AU003') {   // user has not verified
             console.log(data.error.code + " " + data.error.message);
