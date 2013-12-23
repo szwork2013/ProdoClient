@@ -1,15 +1,67 @@
-<!-- Prodonus App Warranty Template -->
+<!-- /*
+* Overview: Warranty  Screen 
+* Warranty contents will be here...
+* Dated: 09/12/2013.
+* Author: Bhagyashri Jangam
+* Copyright: Prodonus Software Private Limited and GiantLeap Systems Private Limited 2013
+* Change History:
+*
+* date | author | description 
+*
+* 27-3/2013 | xyx | Add a new property
+* 
+*/--> 
 
-<div id="prodo-comment-container" class="container" style="border: 1px solid #94d2f8; width: 80%; margin-left:64.5px; " ng-controller="WarrantyController">
-    <div id="prodo-comment-fixed" style="" >
-        <br>
-        <div id="prodo-comment-enterComment" >
-            <span class="label label-info   "  >{{300 - commenttextField.textFieldc.length}}</span>   
-            <textarea  type="text" class="form-control" name="txtComment" placeholder="Warranty Conversation [max 300 characters]" id="prodo-comment-Textbox" col="40"  ng-model="commenttextField.textFieldc" comment-limit="300" ng-enter="addProductComment()" required ></textarea> 
-        </div>
-        <ul class="media-list "  id="prodo-comment-media-list">
-            <div prodo-comments when-scrolled="loadMore()" comments="comments"  id="prodo-comment-commentContainer"  >
-            </div>  
-        </ul>
-    </div>
+
+<div id="prodo-comment-fixed" style="" >
+    <br>
+ 
+    <table  id="prodo-ProductFeatureTable"  >
+        <tr id="prodo-productbnd" style="background-color: white" >
+            <td  >Model No </td>
+            <td><input name="PF_modelno" id="prodo-product-features_textfield" class="form-control" required type="text" ng-model="warranty.modelno"   style="float: right ; "  /></td>
+<!--             <span class="error" ng-show=" warrantyForm.PF_modelno.$error.required">
+            Required!</span>-->
+
+        <td  >Serial No</td>
+        <td><input id="prodo-product-features_textfield" type="text" class="form-control" ng-model="warranty.serialno" style="float: right" /></td>
+
+        </tr>
+        <tr>
+            <td  >Date of purchase</td>
+
+            <td> 
+                <form name="tstest">
+                    <a href="javascript:show_calendar('document.tstest.timestamp', document.tstest.timestamp.value);">
+                        <input type="text" id="prodo-product-features_textfield"  class="form-control" ng-model="warranty.dateofpurchase" style="float: right;background-image:url('vendor/calender/cal.gif');
+                               background-repeat:no-repeat;
+                               padding-right: 20px; background-position:right; " placeholder="Date" name="timestamp" value="">
+                    </a>
+                </form>
+                <!--<input  id="prodo-product-features_textfield" placeholder="Date"   class="form-control" ng-model="warranty.dateofpurchase" style="float: right" /></td>-->
+
+            <td  >Invoice no</td>
+            <td><input id="prodo-product-features_textfield" type="text" class="form-control" ng-model="warranty.innvoiceno" style="float: right" /></td>
+        </tr>
+        <tr ><td colspan="4">
+                <br>
+                <button class="btn btn-info" style="width: 550px;" ng-click=" ">Save</button>
+            </td>
+        </tr>
+    </table>
+ 
+
+    <!--    <div class="input-group">
+            <input id="date-picker-2" type="text" class="date-picker form-control" />
+            <label id="date-picker-2" class="input-group-addon btn"><i class="glyphicon glyphicon-calendar"></i>
+    
+            </label>
+        </div>-->
+
+
+    <!--    <div class="form-horizontal">
+            <input type="text" datepicker-popup="dd-MMMM-yyyy" ng-model="dt" is-open="opened" min="minDate" max="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" />
+            <button class="btn" ng-click="open()"><i class="icon-calendar"></i></button>
+        </div>-->
+
 </div>
