@@ -34,18 +34,19 @@
           <td><input id="prodo-product-features_textfield" type="text" class="form-control" required ng-model="$parent.$parent.warranty.serialno" style="float: right" /></td>
 
         </tr>
-        <tr >
+        <tr  >
           <td style="padding-top: 10px;" >Date of purchase</td>
 
           <td style="padding-top: 10px;"> 
 
             <input  id="prodo-product-features_textfield" type="text"  class="form-control" required ng-model="$parent.$parent.warranty.dateofpurchase" style="float: right" /></td> 
-          <td  style="padding-left:  10px; padding-top: 10px;"   >Invoice no</td>
-          <td style="padding-top: 10px;"><input id="prodo-product-features_textfield" type="text" class="form-control" required ng-model="$parent.$parent.warranty.invoiceno" style="float: right" /></td>
+          <td  style="padding-left:  10px; padding-top: 10px;"   ><button>upload Invoice</button></td>
+          <td style="padding-top: 10px;"><input id="prodo-product-features_textfield" type="text" class="form-control" required ng-model="$parent.$parent.warranty.invoiceno" style="float: right" /> </td>
         </tr>
-        <tr ><td colspan="4">
-            <br>
-            <button class="btn btn-info" style="width: 550px;"  ng-click=" addWarranty() ;$parent.isEditingWarranty = false ">Save</button>
+       
+        <tr ><td colspan="4"  style="padding-top: 10px;" >
+              
+            <button class="btn btn-info" style="width: 550px; "  ng-click=" addWarranty() ;$parent.isEditingWarranty = false ">Save</button>
           </td>
         </tr>
       </table>
@@ -54,11 +55,11 @@
     <div    >
       
       <ul ng-repeat="warranty in productWarranty.warranty"  class="list-group list-animate-item-warranty" >
-        <li class="list-group-item  " >  <a href="" ng-click="deleteWarranty(warranty);" >   <i class="fa fa-minus-circle fa-2x  "  ></i></a>  Warranty No : {{warranty.warrantyno}}  </li> 
+        <li class="list-group-item  active" style="background-color: antiquewhite; color: black;">  Warranty No : {{warranty.warrantyno}}  <a href="" ng-click="deleteWarranty(warranty);" >   <i class="fa fa-minus-circle fa-2x pull-right "  ></i></a>  </li> 
         <li class="list-group-item "> Model No : {{warranty.modelno}}</li>
         <li class="list-group-item "> Serial No : {{warranty.serialno}}</li>
         <li class="list-group-item" > Date of purchase : {{warranty.dateofpurchase}}</li>
-        <li class="list-group-item "> Invoice no : {{warranty.invoiceno}}</li>
+        <li class="list-group-item "> Invoice no : {{warranty.invoiceno}} <a href="" >view invoice </a></li>
         
       </ul>
       
