@@ -1124,13 +1124,7 @@ display:none;
   opacity: 1;
 }
  
-.closedPG.ng-leave{
-  opacity: 1;
-}
- 
-.closedPG.ng-leave-active{
-  opacity: 0;
-}
+
 
 .closedCnF{   -webkit-transition : linear 1s;
   -moz-transition: linear 1s;
@@ -1147,13 +1141,7 @@ display:none;
   opacity: 1;
 }
  
-.closedCnF.ng-leave{
-  opacity: 1;
-}
  
-.closedCnF.ng-leave-active{
-  opacity: 0;
-}
 
 .closedSb{   -webkit-transition : linear 1s;
   -moz-transition: linear 1s;
@@ -1170,13 +1158,7 @@ display:none;
   opacity: 1;
 }
  
-.closedSb.ng-leave{
-  opacity: 1;
-}
  
-.closedSb.ng-leave-active{
-  opacity: 0;
-}
 .closedPr{   -webkit-transition : linear 1s;
   -moz-transition: linear 1s;
   -ms-transition: linear 1s;
@@ -1192,13 +1174,7 @@ display:none;
   opacity: 1;
 }
  
-.closedPr.ng-leave{
-  opacity: 1;
-}
  
-.closedPr.ng-leave-active{
-  opacity: 0;
-}
  /* Prodo-ProductFeature-CSS*/ 
 
 
