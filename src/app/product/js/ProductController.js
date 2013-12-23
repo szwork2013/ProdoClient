@@ -78,7 +78,7 @@ angular.module('prodo.ProductApp')
                 $scope.ifErrorAddingComment = false;
                 console.log("addcommentResponse success" + result.success.product_comment);
               }
-           //   $scope.socket.removeAllListeners();
+              //   $scope.socket.removeAllListeners();
             })
             //socket response when for add comment
 
@@ -90,15 +90,15 @@ angular.module('prodo.ProductApp')
                 console.log(error.error.message);
               } else if (result) {
                 console.log("productcomment  Response success" + result.success.product_comment);
-                  $scope.productCommentResponsearray.push(result.success.product_comment);
-                var count=$scope.productCommentResponsearray.length;
+                $scope.productCommentResponsearray.push(result.success.product_comment);
+                var count = $scope.productCommentResponsearray.length;
                 console.log(count);
                 var a = document.getElementById("responseComment");
                 a.style.display = 'inline';
-                 a.innerHTML =count+ ' new comments';
-                 // a.textContent(JSON.stringify(result.success.product_comment).length + " new comments")
+                a.innerHTML = count + ' new comments';
+                // a.textContent(JSON.stringify(result.success.product_comment).length + " new comments")
               }
-             // $scope.socket.removeAllListeners();
+              // $scope.socket.removeAllListeners();
             })
             //productComment response 
 
@@ -134,8 +134,8 @@ angular.module('prodo.ProductApp')
 
               $scope.getProductFunction();
               var a = document.getElementById("responseComment");
-                a.style.display = 'none';
-                 a.innerHTML ="";
+              a.style.display = 'none';
+              a.innerHTML = "";
               //code to get latest comments
             };
             //testing
@@ -167,9 +167,9 @@ angular.module('prodo.ProductApp')
             {
 
               $scope.newProduct = {product: {
-//                            
+                           
                   display_name: $scope.display_name,
-//                            orgid: $scope.product.orgid,
+ 
                   serial_no: $scope.product.serial_no,
                   model_no: $scope.product.model_no,
                   name: $scope.product.name,
@@ -187,9 +187,9 @@ angular.module('prodo.ProductApp')
             //delete product
             $scope.deleteProduct = function()
             {
-             // if(user has product organization account)
-               ProductService.deleteProduct({prodle:$scope.product_prodle });
-             // else alert("You dont have access to delete this product");
+              // if(user has product organization account)
+              ProductService.deleteProduct({prodle: $scope.product_prodle});
+              // else alert("You dont have access to delete this product");
             }
 
 
@@ -208,6 +208,8 @@ angular.module('prodo.ProductApp')
             }
 
 
+             
+          
 
             // $scope.productComments = {
             //     comments: [{
