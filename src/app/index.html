@@ -63,7 +63,8 @@
             </form>
             <p class="navbar-text navbar-right">
             <span ng-show="usersession.isLoggedIn" style="color:#DDE1F0; font-size: 12px;" ng-bind="'Welcome ' + usersession.currentUser.fullname"></span>
-            <button id="prodo-form-button-signin" ng-show="usersession.isLoggedIn" class="btn btn-default navbar-btn" ng-click="usersession.logout()">Logout</button>
+            <button id="prodo-form-button-signin" ng-show="usersession.isLoggedIn" class="btn btn-success" ng-click="usersession.logout()">Logout</button><a ng-show="usersession.isLoggedIn" ui-sref="account.user"><i class="fa fa-cog fa-2x"></i></a>           
+            </p>
 
         </div>  
 
@@ -143,6 +144,7 @@
         <script src="org/orgregistration/js/OrgService.js"></script>
         <script src="common/subscription/js/SubscriptionController.js"></script>
         <script src="common/CommonRoutes.js"></script>
+        <script src="common/accounts/js/ManageAccountController.js"></script>
         <script src="product/js/ProductController.js"></script>
         <script src="product/js/ProductService.js"></script>
         <script src="common/directives/prodoDirective.js"></script>

@@ -1,6 +1,5 @@
 angular.module('prodo.ProdoWallApp')
 	.controller('ProdoWallController', ['$scope', '$state', function($scope, $state) {
-
 		$state.transitionTo('prodo.wall');
     $scope.slides = [
             {image: '/common/slider/gallery/bg1.jpg'},

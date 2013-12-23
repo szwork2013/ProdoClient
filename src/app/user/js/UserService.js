@@ -109,6 +109,7 @@ angular.module('prodo.UserApp')
           session.currentUser = userData;
           console.log(session.currentUser.userid);
           session.isLoggedIn = true;
+          $rootScope.$broadcast("session", userData);
    
         }
 

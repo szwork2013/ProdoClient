@@ -25,7 +25,7 @@ angular.module('prodo.ProdonusApp',['ui.router', 'ui.bootstrap', '$strap.directi
     $rootScope.usersession = UserSessionService;
 	}])
 
-	.controller('ProdoMainController', ['$scope', '$state', function($scope, $state) {
+	.controller('ProdoMainController', ['$scope', '$rootScope', '$state', function($scope, $rootScope, $state) {
 
 		$state.transitionTo('home.start');
 		$scope.$on('$stateNotFound', 
@@ -35,9 +35,18 @@ angular.module('prodo.ProdonusApp',['ui.router', 'ui.bootstrap', '$strap.directi
 		    console.log(unfoundState.options); // {inherit:false} + default options
 			});
 
-		$scope.$on('$stateChangeSuccess', 
-		function(event, toState, toParams, fromState, fromParams){ 
-		});
+		// $scope.$on('$stateChangeStart', 
+		// function(event, toState, toParams, fromState, fromParams){ 
+		// 	if (!$rootScope.usersession.isLoggedIn) {
+		// 		event.preventDefault();
+		// 		// $state.transitionTo('messageContent.signin')
+		// 	} else {
+
+		// 	}
+
+			
+
+		// });
 
 		$scope.$on('$stateChangeError', 
 		function(event, toState, toParams, fromState, fromParams, error){ 
