@@ -19,7 +19,7 @@ angular.module('prodo.CommonApp')
             // require: '?ngModel',
             templateUrl: 'common/comments/views/prodo.comment.tpl.html',
             //  scope: {productComments_l: '=info', pagesSize: '=', pagesShown: '='},
-            controller: function($scope, ProductService, GetLoginService, CommentService)
+            controller: function($scope, ProductService, $rootScope, UserSessionService, CommentService)
             {
 
               $(document).ready(function() {
@@ -50,20 +50,24 @@ angular.module('prodo.CommonApp')
 
 
               //group name in camelCase function
-//              $scope.toCamelCase = function(s) {
-//                if ((s !== undefined )|| (s!=="")) {
-//
-//                  s = s.replace(/([^a-zA-Z0-9_\- ])|^[_0-9]+/g, "").trim().toLowerCase();
-//                  s = s.replace(/([ -]+)([a-zA-Z0-9])/g, function(a, b, c) {
-//                    return c.toUpperCase();
-//                  });
-//                  s = s.replace(/([0-9]+)([a-zA-Z])/g, function(a, b, c) {
-//                    return b + c.toUpperCase();
-//                  });
-//                  return s;
-//                }
-//
-//              };
+              $scope.toCamelCase = function(s) {
+                if ((s == undefined) || (s == "") || (s == null)) {
+
+                  s = "  ";
+
+                }
+                else {
+
+                  s = s.replace(/([^a-zA-Z0-9_\- ])|^[_0-9]+/g, "").trim().toLowerCase();
+                  s = s.replace(/([ -]+)([a-zA-Z0-9])/g, function(a, b, c) {
+                    return c.toUpperCase();
+                  });
+                  s = s.replace(/([0-9]+)([a-zA-Z])/g, function(a, b, c) {
+                    return b + c.toUpperCase();
+                  });
+                }
+                return s;
+              };
               //group name in camelCase function
 
               //get tags from comment
@@ -91,7 +95,9 @@ angular.module('prodo.CommonApp')
                 $scope.newProductComment = {
                   product_comment: {
                     user: {userid: $scope.userIDFromSession,
-                      fullname: $scope.userFullnameFromSession
+                      fullname: $scope.userFullnameFromSession,
+                      orgname: $scope.orgnameFromSession,
+                      grpname: $scope.grpnameFromSession
                     },
                     type: $scope.type,
                     commenttext: $scope.commenttextField.userComment
