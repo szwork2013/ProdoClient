@@ -2,8 +2,24 @@
 *	User Signin Controller
 **/
 angular.module('prodo.UserApp')
-	// .controller('UserSigninController', ['$scope', '$rootScope', '$state', '$timeout', '$stateParams', 'UserSessionService', 'UserForgotPasswordService', 'UserResetPasswordService', function($scope, $rootScope, $state, $timeout, $stateParams, UserSessionService, UserForgotPasswordService, UserResetPasswordService) {
-	 .controller('UserSigninController', ['$scope', '$rootScope', '$state', '$timeout', '$stateParams', 'UserSessionService', function($scope, $rootScope, $state, $timeout, $stateParams, UserSessionService) {
+
+ .run(['$rootScope', 'UserSessionService', '$state', function ($rootScope, UserSessionService, $state) {
+  
+      // console.log($state.current.url);
+       $rootScope.$on("session", function(event, message){
+         
+
+        if (!message.isSubscribed && !message.isPaymentDone) {
+           
+                $state.transitionTo('subscription.plans');
+              } else {
+                $state.transitionTo('prodo.wall');
+                // $state.transitionTo('subscription.plans');
+              } 
+ 
+    })
+  }])
+ 	 .controller('UserSigninController', ['$scope', '$rootScope', '$state', '$timeout', '$stateParams', 'UserSessionService', function($scope, $rootScope, $state, $timeout, $stateParams, UserSessionService) {
     $scope.submitted = false;  // form submit property is false
     $scope.user = 
       {
@@ -68,7 +84,7 @@ angular.module('prodo.UserApp')
     $scope.handleSigninResponse = function(data){
       if (data.success) {
         UserSessionService.authSuccess(data.success.user);
-        // $state.transitionTo('prodo.wall');
+        $state.transitionTo('prodo.wall');
       } else {
         if (data.error.code== 'AU005') {     // user does not exist
             console.log(data.error.code + " " + data.error.message);
@@ -85,22 +101,32 @@ angular.module('prodo.UserApp')
             console.log(data.error.code + " " + data.error.message);
             UserSessionService.authSuccess(data.error.user);
              $scope.$on("session", function(event, message){
-              console.log($rootScope.usersession.currentUser.fullname);
+
             });
-            
             $state.transitionTo('messageContent.resetPassword');
         } else if (data.error.code=='AU003') {   // user has not verified
             console.log(data.error.code + " " + data.error.message);
             $state.transitionTo('messageContent.emailverification');
         } else if (data.error.code=='AS001') {   // user has not subscribed to any plan
             console.log(data.error.code + " " + data.error.message);
+            UserSessionService.authSuccess(data.error.user);
+            $scope.$on("session", function(event, message){
+
+            });
+
             $state.transitionTo('subscription.plans');
         } else if (data.error.code=='AS002') { // user subscription expired
             console.log(data.error.code + " " + data.error.message);
+            data.error.user.isSubscribed=false;
+            data.error.user.isPaymentDone=false;
             UserSessionService.authSuccess(data.error.user);
-            $state.transitionTo('subscription.plansexpired');
+              
         } else if (data.error.code== 'AP001') {    // user has not done any payment
             console.log(data.error.code + " " + data.error.message);
+            UserSessionService.authSuccess(data.error.user);
+            $scope.$on("session", function(event, message){
+              
+            });
             $state.transitionTo('subscription.payment');
         } else {
             console.log(data.error.message);
@@ -108,6 +134,8 @@ angular.module('prodo.UserApp')
       }
     };  
 
+      
+           
      
     // function to signin to Prodonus App using REST APIs and performs form validation.
     $scope.signin = function() {

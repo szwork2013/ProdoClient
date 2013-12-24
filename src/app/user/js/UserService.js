@@ -38,8 +38,8 @@ angular.module('prodo.UserApp')
     };
       
     var session = {};
-    session.isLogged = 0;
-    session.currentUser = 0;
+    session.isLoggedIn = false;
+    session.currentUser = null;
 
       session.signinUser= function (userdata) {
         UserService.Signin.signinUser(userdata,     // calling function of UserSigninService to make POST method call to signin user.
@@ -107,10 +107,8 @@ angular.module('prodo.UserApp')
 
         session.authSuccess = function(userData, $scope){
           session.currentUser = userData;
-          console.log(session.currentUser.userid);
           session.isLoggedIn = true;
           $rootScope.$broadcast("session", userData);
-   
         }
 
         session.authfailed = function(){
@@ -126,8 +124,6 @@ angular.module('prodo.UserApp')
           console.log(error);
         });
       }
-
-           
     return session;
 }])
 

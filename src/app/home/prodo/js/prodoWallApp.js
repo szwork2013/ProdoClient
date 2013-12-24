@@ -1,12 +1,14 @@
 angular.module('prodo.ProdoWallApp')
 	.controller('ProdoWallController', ['$scope', '$state', function($scope, $state) {
-		$state.transitionTo('prodo.wall');
+		
+    // $state.transitionTo('prodo.wall');
+    
     $scope.slides = [
-            {image: '/common/slider/gallery/bg1.jpg'},
-            {image: '/common/slider/gallery/bg2.jpg'},
-            {image: '/common/slider/gallery/bg3.jpg'},
-            {image: '/common/slider/gallery/bg5.jpg'},
-            {image: '/common/slider/gallery/bbb-bg.jpg'}
+      {image: '/common/slider/gallery/bg1.jpg'},
+      {image: '/common/slider/gallery/bg2.jpg'},
+      {image: '/common/slider/gallery/bg3.jpg'},
+      {image: '/common/slider/gallery/bg5.jpg'},
+      {image: '/common/slider/gallery/bbb-bg.jpg'}
         ];
 
 
