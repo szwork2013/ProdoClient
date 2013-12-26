@@ -2,23 +2,6 @@
 *	User Signin Controller
 **/
 angular.module('prodo.UserApp')
-
- .run(['$rootScope', 'UserSessionService', '$state', function ($rootScope, UserSessionService, $state) {
-  
-      // console.log($state.current.url);
-       $rootScope.$on("session", function(event, message){
-         
-
-        if (!message.isSubscribed && !message.isPaymentDone) {
-           
-                $state.transitionTo('subscription.plans');
-              } else {
-                $state.transitionTo('prodo.wall');
-                // $state.transitionTo('subscription.plans');
-              } 
- 
-    })
-  }])
  	 .controller('UserSigninController', ['$scope', '$rootScope', '$state', '$timeout', '$stateParams', 'UserSessionService', function($scope, $rootScope, $state, $timeout, $stateParams, UserSessionService) {
     $scope.submitted = false;  // form submit property is false
     $scope.user = 
@@ -67,6 +50,8 @@ angular.module('prodo.UserApp')
       {
         $scope.user.email = '';
         $scope.user.password = '';
+        $scope.user.currentpassword = '';
+        $scope.user.newpassword = '';
       }
 
     // function to send and stringify user signin data to Rest APIs
@@ -100,10 +85,6 @@ angular.module('prodo.UserApp')
         } else if (data.error.code=='AU006') {  // user signedin using OTP
             console.log(data.error.code + " " + data.error.message);
             UserSessionService.authSuccess(data.error.user);
-             $scope.$on("session", function(event, message){
-
-            });
-            $state.transitionTo('messageContent.resetPassword');
         } else if (data.error.code=='AU003') {   // user has not verified
             console.log(data.error.code + " " + data.error.message);
             $state.transitionTo('messageContent.emailverification');
@@ -134,6 +115,15 @@ angular.module('prodo.UserApp')
       }
     };  
 
+    $rootScope.$on("session", function(event, message){
+      if (!message.isOtpPassword && !message.isSubscribed && !message.isPaymentDone) {
+        $state.transitionTo('subscription.plans');
+      } else if (message.isOtpPassword && !message.isSubscribed && !message.isPaymentDone) {
+        $state.transitionTo('messageContent.resetPassword');
+      } else {
+        $state.transitionTo('prodo.wall');
+      }
+    })
       
            
      
@@ -141,6 +131,7 @@ angular.module('prodo.UserApp')
     $scope.signin = function() {
       UserSessionService.signinUser($scope.jsonUserSigninData());
       $scope.$on("signinDone", function(event, message){
+        $scope.clearformData();
         $scope.handleSigninResponse(message); 
 
       });
@@ -165,7 +156,7 @@ angular.module('prodo.UserApp')
     $scope.handleForgotPasswordResponse = function(data){
       if (data.success) {
         $scope.showAlert('alert-info', 'Your temporary password has been sent. Please check your email, and signin again.');
-        // $state.transitionTo('messageContent.signin');
+        $state.transitionTo('messageContent.signin');
       } else {
         if (data.error.code== 'AV001') {     // enter valid data
             console.log(data.error.code + " " + data.error.message);
@@ -187,6 +178,7 @@ angular.module('prodo.UserApp')
     $scope.forgotpassword = function() {
       UserSessionService.forgotPasswordUser($scope.jsonForgotPasswordData());
       $scope.$on("forgotPasswordDone", function(event, message){
+        $scope.clearformData();
         $scope.handleForgotPasswordResponse(message);   
       });
     }
@@ -209,8 +201,11 @@ angular.module('prodo.UserApp')
     // function to handle server side responses
     $scope.handleResetPasswordResponse = function(data){
       if (data.success) {
-        // $scope.showAlert('alert-info', 'Your temporary password has been sent. Please check your email, and signin again.');
-        $state.transitionTo('prodo.wall');
+        if (data.success.isSubscribed && data.success.isPaymentDone) {
+          $state.transitionTo('prodo.wall');
+        } else if (!data.success.isSubscribed) {
+          $state.transitionTo('subscription.plans');
+        };
       } else {
         if (data.error.code== 'AV001') {     // enter valid data
             console.log(data.error.code + " " + data.error.message);
@@ -226,6 +221,7 @@ angular.module('prodo.UserApp')
     $scope.resetpassword = function() {
       UserSessionService.resetPasswordUser($scope.jsonResetPasswordData());
       $scope.$on("resetPasswordDone", function(event, message){
+        $scope.clearformData();
         $scope.handleResetPasswordResponse(message);   
       });
     }
