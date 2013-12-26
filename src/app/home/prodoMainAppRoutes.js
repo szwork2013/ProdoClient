@@ -61,4 +61,4 @@ angular.module('prodo.ProdonusApp')
       templateUrl: 'user/views/user.signin.resetpassword.tpl.html',
       controller: 'UserSigninController'
     })      
-  }]);
+  }])
