@@ -32,7 +32,9 @@ angular.module('prodo.ProductApp')
               'set-back', 'sum', 'tab', 'tidy sum', 'whole', 'article', 'asset', 'belonging', 'chattel', 'goods', 'line',
               'material', 'object', 'produce', 'property', 'specialty', 'stock', 'thing', 'ware', 'good'];
 
-
+             
+             
+             
             $scope.showErrorIfCommentNotAdded = function( ) {
               var retry = document.getElementById("responseComment");
               retry.style.display = 'inline';
@@ -60,7 +62,7 @@ angular.module('prodo.ProductApp')
             $scope.userIDFromSession = $rootScope.usersession.currentUser.userid;
             $scope.userFullnameFromSession = $rootScope.usersession.currentUser.fullname;
             //get login details
-
+            localStorage.sid=$rootScope.usersession.currentUser.sessionid;
             //socket connect
             $scope.socket = io.connect('http://ec2-54-254-210-45.ap-southeast-1.compute.amazonaws.com:8000', {
               query: 'session_id=' + localStorage.sid
@@ -131,7 +133,7 @@ angular.module('prodo.ProductApp')
             //   console.log(ProductService.getProduct({prodle: 'eyYHSKVtL'}));
 
 
-
+             
             //get latest comments posted by others
             $scope.getLatestComments = function() {
 
@@ -207,9 +209,8 @@ angular.module('prodo.ProductApp')
               }
             }
 
-
-
-
+ 
+          
 
             // $scope.productComments = {
             //     comments: [{

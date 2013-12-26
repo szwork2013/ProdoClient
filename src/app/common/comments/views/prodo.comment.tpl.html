@@ -18,7 +18,7 @@
     </a>
     <div class="media-body">
         <div class=" pull-left " id="prodo-comment-userName"  >{{comment.user.fullname}}</div>
-        <div id="prodo-comment-companyName" class="pull-left"> @{{toCamelCase(comment.user.orgname)}}-{{comment.user.grpname}}</div>  
+        <div id="prodo-comment-companyName" class="pull-left" style="display: none;"> @{{toCamelCase(comment.user.orgname)}}-{{comment.user.grpname}}</div>  
         <div class="pull-right" id="prodo-comment-timePosted" >{{fromNow(comment.datecreated)}}</div> 
         <div class="pull-left" id="prodo-comment-row-fluid" > {{comment.commenttext}}</div><br>
             <div class="label label-warning"   id="responseComment"  style="display: none">  </div>
