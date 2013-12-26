@@ -31,7 +31,7 @@ angular.module('prodo.CommonApp')
                   $(this).height(30);
                 });
                 //comment textbox increase height and decrease whe focus( toggle)
-
+                
               });
 
               //on  scroll event in testing phase
@@ -51,13 +51,15 @@ angular.module('prodo.CommonApp')
 
               //group name in camelCase function
               $scope.toCamelCase = function(s) {
+                
                 if ((s == undefined) || (s == "") || (s == null)) {
 
                   s = "  ";
+                 
 
                 }
                 else {
-
+                  
                   s = s.replace(/([^a-zA-Z0-9_\- ])|^[_0-9]+/g, "").trim().toLowerCase();
                   s = s.replace(/([ -]+)([a-zA-Z0-9])/g, function(a, b, c) {
                     return c.toUpperCase();

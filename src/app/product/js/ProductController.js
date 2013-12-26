@@ -25,6 +25,7 @@ angular.module('prodo.ProductApp')
             $scope.orgnameFromSession;
             $scope.socket;
             $scope.mytags;
+            $scope.count = 0;
             $scope.product_prodle;
             $scope.commenttextField = {userComment: ''};
             $scope.pretags = ['addition', 'aggregate', 'all', 'bad news', 'budget', 'cost', 'damage', 'entirety',
@@ -32,9 +33,9 @@ angular.module('prodo.ProductApp')
               'set-back', 'sum', 'tab', 'tidy sum', 'whole', 'article', 'asset', 'belonging', 'chattel', 'goods', 'line',
               'material', 'object', 'produce', 'property', 'specialty', 'stock', 'thing', 'ware', 'good'];
 
-             
-             
-             
+
+
+
             $scope.showErrorIfCommentNotAdded = function( ) {
               var retry = document.getElementById("responseComment");
               retry.style.display = 'inline';
@@ -51,18 +52,18 @@ angular.module('prodo.ProductApp')
             //get login details
             if ($rootScope.usersession.currentUser.grpname)
               $scope.grpnameFromSession = $rootScope.usersession.currentUser.grpname;
-            else
-              $scope.orgnameFromSession = " ";
+            //   else
+            //  $scope.orgnameFromSession = "";
             if ($rootScope.usersession.currentUser.orgname)
               $scope.orgnameFromSession = $rootScope.usersession.currentUser.orgname;
-            else
-              $scope.grpnameFromSession = " ";
-            
+            //  else
+            //  $scope.grpnameFromSession = "";
+
             $scope.orgnameFromSession;
             $scope.userIDFromSession = $rootScope.usersession.currentUser.userid;
             $scope.userFullnameFromSession = $rootScope.usersession.currentUser.fullname;
             //get login details
-            localStorage.sid=$rootScope.usersession.currentUser.sessionid;
+            localStorage.sid = $rootScope.usersession.currentUser.sessionid;
             //socket connect
             $scope.socket = io.connect('http://ec2-54-254-210-45.ap-southeast-1.compute.amazonaws.com:8000', {
               query: 'session_id=' + localStorage.sid
@@ -96,11 +97,11 @@ angular.module('prodo.ProductApp')
               } else if (result) {
                 console.log("productcomment  Response success" + result.success.product_comment);
                 $scope.productCommentResponsearray.push(result.success.product_comment);
-                var count = $scope.productCommentResponsearray.length;
-                console.log(count);
+                $scope.count = $scope.productCommentResponsearray.length;
+                console.log($scope.count);
                 var a = document.getElementById("responseComment");
                 a.style.display = 'inline';
-                a.innerHTML = count + ' new comments';
+                a.innerHTML = $scope.count + ' new comments';
                 // a.textContent(JSON.stringify(result.success.product_comment).length + " new comments")
               }
               // $scope.socket.removeAllListeners();
@@ -133,7 +134,7 @@ angular.module('prodo.ProductApp')
             //   console.log(ProductService.getProduct({prodle: 'eyYHSKVtL'}));
 
 
-             
+
             //get latest comments posted by others
             $scope.getLatestComments = function() {
 
@@ -141,6 +142,8 @@ angular.module('prodo.ProductApp')
               var a = document.getElementById("responseComment");
               a.style.display = 'none';
               a.innerHTML = "";
+              $scope.productCommentResponsearray;
+              $scope.count = 0;
               //code to get latest comments
             };
             //get latest comments posted by others
@@ -202,15 +205,24 @@ angular.module('prodo.ProductApp')
             $scope.hideIfNotUser = function(fullname) {
               if (fullname) {
                 if (fullname !== $scope.userFullnameFromSession) {
-                  return {
-                    display: "none"
-                  }
+                  return { display: "none" }
                 }
               }
             }
 
- 
-          
+            $scope.hideIfNoOrg = function(orgname) {
+              if ((orgname == "") || (orgname == " ") || (orgname == undefined) || (orgname == null)) {
+                return{display: "none"}
+              }
+            }
+
+
+
+
+
+
+
+
 
             // $scope.productComments = {
             //     comments: [{
