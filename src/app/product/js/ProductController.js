@@ -11,7 +11,7 @@
  * 
  */
 angular.module('prodo.ProductApp')
-        .controller('ProductController', ['$scope', 'ProductService', 'ProductSaveService', 'GetLoginService', function($scope, ProductService, ProductSaveService, GetLoginService) {
+        .controller('ProductController', ['$scope', '$rootScope', 'ProductService', 'ProductSaveService', 'UserSessionService', function($scope, $rootScope, ProductService, ProductSaveService, UserSessionService) {
             //var global declaration
             $scope.productComments = {comments: [{}]};
             $scope.newProductComment = [];
@@ -21,8 +21,9 @@ angular.module('prodo.ProductApp')
             $scope.productCommentResponsearray = [];
             $scope.userIDFromSession;
             $scope.userFullnameFromSession;
+            $scope.grpnameFromSession;
+            $scope.orgnameFromSession;
             $scope.socket;
-            $scope.pendingCommentCount = 03;
             $scope.mytags;
             $scope.product_prodle;
             $scope.commenttextField = {userComment: ''};
@@ -31,7 +32,9 @@ angular.module('prodo.ProductApp')
               'set-back', 'sum', 'tab', 'tidy sum', 'whole', 'article', 'asset', 'belonging', 'chattel', 'goods', 'line',
               'material', 'object', 'produce', 'property', 'specialty', 'stock', 'thing', 'ware', 'good'];
 
-
+             
+             
+             
             $scope.showErrorIfCommentNotAdded = function( ) {
               var retry = document.getElementById("responseComment");
               retry.style.display = 'inline';
@@ -46,18 +49,20 @@ angular.module('prodo.ProductApp')
 
 
             //get login details
-            $scope.logindata = GetLoginService.checkLogin(
-                    function(successData) {
-                      console.log("session" + JSON.stringify(successData));
-                      localStorage.sid = successData.sessionid;
-                      $scope.userIDFromSession = successData.userid;
-                      $scope.userFullnameFromSession = successData.fullname;
-                    },
-                    function(error) {
-                      console.log(error);
-                    });
+            if ($rootScope.usersession.currentUser.grpname)
+              $scope.grpnameFromSession = $rootScope.usersession.currentUser.grpname;
+            else
+              $scope.orgnameFromSession = " ";
+            if ($rootScope.usersession.currentUser.orgname)
+              $scope.orgnameFromSession = $rootScope.usersession.currentUser.orgname;
+            else
+              $scope.grpnameFromSession = " ";
+            
+            $scope.orgnameFromSession;
+            $scope.userIDFromSession = $rootScope.usersession.currentUser.userid;
+            $scope.userFullnameFromSession = $rootScope.usersession.currentUser.fullname;
             //get login details
-
+            localStorage.sid=$rootScope.usersession.currentUser.sessionid;
             //socket connect
             $scope.socket = io.connect('http://ec2-54-254-210-45.ap-southeast-1.compute.amazonaws.com:8000', {
               query: 'session_id=' + localStorage.sid
@@ -128,8 +133,8 @@ angular.module('prodo.ProductApp')
             //   console.log(ProductService.getProduct({prodle: 'eyYHSKVtL'}));
 
 
-
-            //testing
+             
+            //get latest comments posted by others
             $scope.getLatestComments = function() {
 
               $scope.getProductFunction();
@@ -138,8 +143,7 @@ angular.module('prodo.ProductApp')
               a.innerHTML = "";
               //code to get latest comments
             };
-            //testing
-
+            //get latest comments posted by others
 
             //error handling for add product
             $scope.handleSaveProductResponse = function(data) {
@@ -167,9 +171,7 @@ angular.module('prodo.ProductApp')
             {
 
               $scope.newProduct = {product: {
-                           
                   display_name: $scope.display_name,
- 
                   serial_no: $scope.product.serial_no,
                   model_no: $scope.product.model_no,
                   name: $scope.product.name,
@@ -207,8 +209,7 @@ angular.module('prodo.ProductApp')
               }
             }
 
-
-             
+ 
           
 
             // $scope.productComments = {

@@ -1,6 +1,16 @@
-/**
- *Product services to get product and comments( top 5)
- **/
+/* Overview:Product services  
+ * Product services to get product and comments( top 5)
+ * Dated: 29/11/2013.
+ * Author: Bhagyashri Jangam
+ * Copyright: Prodonus Software Private Limited and GiantLeap Systems Private Limited 2013
+ * Change History:
+ *
+ * date | author | description 
+ *
+ * 27-3/2013 | xyx | Add a new property
+ * 
+ */
+ 
 
 angular.module('prodo.ProductApp')
         .factory('ProductService', ['$resource', function($resource) {
@@ -30,16 +40,6 @@ angular.module('prodo.ProductApp')
 //                            deleteProduct: {method: 'DELETE', params: {prodle: '@userid'}}
                     });
           }])
-
-
-
-        .factory('GetLoginService', ['$resource', function($resource) {
-            return $resource('/api/isloggedin', {},
-                    {
-                      checkLogin: {method: 'GET'},
-                    });
-          }])
-
 
 
         .factory('ProductSaveService', ['$resource', function($resource) {
