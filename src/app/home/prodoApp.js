@@ -23,9 +23,11 @@ angular.module('prodo.ProdonusApp',['ui.router', 'ui.bootstrap', '$strap.directi
 	
 	.run(['$rootScope', 'UserSessionService', function ($rootScope, UserSessionService) {
     $rootScope.usersession = UserSessionService;
+    UserSessionService.checkUser();
+
 	}])
 
-	.controller('ProdoMainController', ['$scope', '$rootScope', '$state', function($scope, $rootScope, $state) {
+	.controller('ProdoMainController', ['$scope', '$rootScope', '$state', 'UserSessionService', function($scope, $rootScope, $state, UserSessionService) {
 
 		$state.transitionTo('home.start');
 		$scope.$on('$stateNotFound', 
@@ -35,18 +37,18 @@ angular.module('prodo.ProdonusApp',['ui.router', 'ui.bootstrap', '$strap.directi
 		    console.log(unfoundState.options); // {inherit:false} + default options
 			});
 
-		// $scope.$on('$stateChangeStart', 
-		// function(event, toState, toParams, fromState, fromParams){ 
-		// 	if (!$rootScope.usersession.isLoggedIn) {
-		// 		event.preventDefault();
-		// 		// $state.transitionTo('messageContent.signin')
-		// 	} else {
+		$rootScope.$on("session-changed", function(event, message){
+			console.log(message);   
+			if (message.status) {
+				UserSessionService.authSuccess(message);
+			} 
+			else {
+				UserSessionService.authfailed();
+				$state.transitionTo('home.start');
 
-		// 	}
-
-			
-
-		// });
+			};
+       
+      });
 
 		$scope.$on('$stateChangeError', 
 		function(event, toState, toParams, fromState, fromParams, error){ 
