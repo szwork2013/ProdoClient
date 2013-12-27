@@ -20,9 +20,8 @@ angular.module('prodo.ProdoCommentApp')
             link: function(scope, element, attrs, CommentController) {
               var maxlength = Number(attrs.commentLimit);
               function fromUser(text) {
-                if ((text  !== undefined)||(text!==null)||(text!=="") ) {
-                }
-                else{
+                
+                if(text){
                   if (text.length > maxlength) {
                     var transformedInput = text.substring(0, maxlength);
                     CommentController.$setViewValue(transformedInput);

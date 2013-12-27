@@ -11,30 +11,32 @@
  * 
  */
 angular.module('prodo.ProductApp')
-        .controller('ProductController', ['$scope'   ,'$rootScope', 'ProductService', 'ProductSaveService', 'UserSessionService', function($scope, $rootScope, ProductService, ProductSaveService, UserSessionService) {
-            
-         
+        .controller('ProductController', ['$scope', '$rootScope', 'ProductService', 'ProductSaveService', 'UserSessionService', function($scope, $rootScope, ProductService, ProductSaveService, UserSessionService) {
+
+            //comments
             $scope.productComments = {comments: [{}]};
             $scope.newProductComment = [];
-            $scope.product = {product: [{}]};
-            $scope.newProduct = {product: [{}]};
-            $scope.type = "product";
             $scope.productCommentResponsearray = [];
-            $scope.userIDFromSession;
-            $scope.userFullnameFromSession;
-            $scope.grpnameFromSession;
-            $scope.orgnameFromSession;
-            $scope.socket;
             $scope.mytags;
             $scope.count = 0;
-            $scope.product_prodle;
             $scope.commenttextField = {userComment: ''};
             $scope.pretags = ['addition', 'aggregate', 'all', 'bad news', 'budget', 'cost', 'damage', 'entirety',
               'expense', 'extent', 'list', 'lot', 'net', 'outlay', 'output', 'price tag', 'product', 'quantum', 'score',
               'set-back', 'sum', 'tab', 'tidy sum', 'whole', 'article', 'asset', 'belonging', 'chattel', 'goods', 'line',
               'material', 'object', 'produce', 'property', 'specialty', 'stock', 'thing', 'ware', 'good'];
 
+            //product
+            $scope.product = {product: [{}]};
+            $scope.newProduct = {product: [{}]};
+            $scope.type = "product";
+            $scope.product_prodle;
 
+            //user
+            $scope.userIDFromSession;
+            $scope.userFullnameFromSession;
+            $scope.grpnameFromSession;
+            $scope.orgnameFromSession;
+            $scope.socket;
 
 
             $scope.showErrorIfCommentNotAdded = function( ) {
@@ -51,30 +53,31 @@ angular.module('prodo.ProductApp')
 
 
             //get login details
-            if ($rootScope.usersession.currentUser.grpname)
-              $scope.grpnameFromSession = $rootScope.usersession.currentUser.grpname;
-               else
-              $scope.grpnameFromSession = "";
-            if ($rootScope.usersession.currentUser.orgname)
-              $scope.orgnameFromSession = $rootScope.usersession.currentUser.orgname;
-               else
-              $scope.orgnameFromSession = "";
+            $scope.getUserDetails = function( ) {
+              if ($rootScope.usersession.currentUser.grpname)
+                $scope.grpnameFromSession = $rootScope.usersession.currentUser.grpname;
+              else
+                $scope.grpnameFromSession = "";
+              if ($rootScope.usersession.currentUser.orgname)
+                $scope.orgnameFromSession = $rootScope.usersession.currentUser.orgname;
+              else
+                $scope.orgnameFromSession = "";
 
-            $scope.orgnameFromSession;
-            $scope.userIDFromSession = $rootScope.usersession.currentUser.userid;
-            $scope.userFullnameFromSession = $rootScope.usersession.currentUser.fullname;
+              $scope.orgnameFromSession;
+              $scope.userIDFromSession = $rootScope.usersession.currentUser.userid;
+              $scope.userFullnameFromSession = $rootScope.usersession.currentUser.fullname;
+            }
+            $scope.getUserDetails();
+
             //get login details
-            
-            
+ 
             localStorage.sid = $rootScope.usersession.currentUser.sessionid;
             //socket connect
             $scope.socket = io.connect('http://ec2-54-254-210-45.ap-southeast-1.compute.amazonaws.com:8000', {
               query: 'session_id=' + localStorage.sid
             });
             //socket connect
-
-
-              
+ 
             //socket response when for add comment
             $scope.socket.on("addcommentResponse", function(error, result) {
               if (error) {
@@ -93,7 +96,6 @@ angular.module('prodo.ProductApp')
 
 
             //productComment response
-
             $scope.socket.on("productcommentResponse", function(error, result) {
               if (error) {
                 console.log(error.error.message);
@@ -112,32 +114,30 @@ angular.module('prodo.ProductApp')
             //productComment response 
 
             //Add comment function
-              $scope.addProductComment = function() {
-                $scope.newProductComment = {
-                  product_comment: {
-                    user: {userid: $scope.userIDFromSession,
-                      fullname: $scope.userFullnameFromSession,
-                      orgname: $scope.orgnameFromSession,
-                      grpname: $scope.grpnameFromSession
-                    },
-                    type: $scope.type,
-                    commenttext: $scope.commenttextField.userComment
-                  }};
+            $scope.addProductComment = function() {
+              $scope.newProductComment = {
+                product_comment: {
+                  user: {userid: $scope.userIDFromSession,
+                    fullname: $scope.userFullnameFromSession,
+                    orgname: $scope.orgnameFromSession,
+                    grpname: $scope.grpnameFromSession
+                  },
+                  type: $scope.type,
+                  commenttext: $scope.commenttextField.userComment
+                }};
 
-                if ($scope.commenttextField.userComment !== "")
+              if ($scope.commenttextField.userComment !== "")
 
-                {
+              {
                 //  $scope.getTagsFromCommentText($scope);
-                  $scope.socket.emit('addComment', "xk7i99lj8", $scope.newProductComment.product_comment);
+                $scope.socket.emit('addComment', "xk7i99lj8", $scope.newProductComment.product_comment);
 
-                  $scope.productComments.unshift($scope.newProductComment.product_comment);
-                  $scope.commenttextField.userComment = "";
-                }
+                $scope.productComments.unshift($scope.newProductComment.product_comment);
+                $scope.commenttextField.userComment = "";
+              }
 
-              };
-              //Add comment function
-
-
+            };
+            //Add comment function
 
             //get product function declaration
             $scope.getProductFunction = function()
@@ -157,21 +157,18 @@ angular.module('prodo.ProductApp')
             }
             //get product function declaration  
 
-
             $scope.getProductFunction();
             //   console.log(ProductService.getProduct({prodle: 'eyYHSKVtL'}));
 
-
-
             //get latest comments posted by others
             $scope.getLatestComments = function() {
-              $scope.reversecomments_l=$scope.productCommentResponsearray.reverse();
-              $scope.productComments=  $scope.revercecomments_l.concat($scope.productComments);
+              $scope.reversecomments_l = $scope.productCommentResponsearray.reverse();
+              $scope.productComments = $scope.revercecomments_l.concat($scope.productComments);
               var a = document.getElementById("responseComment");
               a.style.display = 'none';
               a.innerHTML = "";
-              $scope.productCommentResponsearray.length=0;
-              $scope.reversecomments_l.length=0;
+              $scope.productCommentResponsearray.length = 0;
+              $scope.reversecomments_l.length = 0;
               $scope.count = 0;
               //code to get latest comments
             };
@@ -195,8 +192,6 @@ angular.module('prodo.ProductApp')
               }
             };
             //error handling for add product
-
-
 
             //add product
             $scope.addProduct = function()
@@ -225,16 +220,13 @@ angular.module('prodo.ProductApp')
               ProductService.deleteProduct({prodle: $scope.product_prodle});
               // else alert("You dont have access to delete this product");
             }
-
-
-
             //delete product
 
 
             $scope.hideIfNotUser = function(fullname) {
               if (fullname) {
                 if (fullname !== $scope.userFullnameFromSession) {
-                  return { display: "none" }
+                  return {display: "none"}
                 }
               }
             }
@@ -244,43 +236,11 @@ angular.module('prodo.ProductApp')
                 return{display: "none"}
               }
             }
-               $scope.hideIfNogrp = function(grpname) {
+            $scope.hideIfNogrp = function(grpname) {
               if ((grpname == "") || (grpname == " ") || (grpname == undefined) || (grpname == null)) {
                 return{display: "none"}
               }
             }
-
-
-
-
-
-
-
-
-
-            // $scope.productComments = {
-            //     comments: [{
-            //             userName: "Bhagyashri",
-            //             companyName: "Giant Leap Systemsss",
-            //             time: Date.now(),
-            //             text: "I like this web site",
-            //             tags: ['great', 'some', 'cool', 'bad'],
-            //             group: "Support",
-            //             dp: "http://placehold.it/64x64"
-
-            //         }, {
-            //             userName: "Neha",
-            //             companyName: "Giant Leap Systems",
-            //             time: Date.now(),
-            //             text: "Prodonus is really cool :)",
-            //             tags: ['great', 'bad'],
-            //             group: "Developer",
-            //             dp: "http://placehold.it/64x64"
-
-            //         }]
-            // };
-
-
 
             //Product discontinued visibility testing
 //                if (($scope.product !== undefined) || ($scope.product !== ""))
