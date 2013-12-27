@@ -12,38 +12,6 @@ angular.module('prodo.UserApp')
         'newpassword': ''
 
       };
-   
-      $scope.mainAlert = {
-       isShown: false
-      };
-      
-    $scope.showAlert = function (alertType, message) {
-       $scope.mainAlert.message = message;
-       $scope.mainAlert.isShown = true;
-       $scope.mainAlert.alertType = alertType;
-      
-      // return $scope.mainAlert.message;
-    }   
-
-     $scope.closeAlert = function() {        
-       $scope.mainAlert.isShown = false;
-    };
-
-    $scope.showmessage = function(alertclass, msg) {
-        var alerttype=alertclass;
-        var alertmessage=msg;         
-       $scope.showAlert(alerttype, alertmessage);
-       return true;
-    };
-    
-    $scope.hideAlert = function() {
-       $scope.mainAlert.isShown = false;
-    }  
-
-    $timeout(function(){
-       $scope.hideAlert();
-      }, 50000);
- 
 
     // function to clear form data on submit
     $scope.clearformData = function() 
@@ -52,6 +20,7 @@ angular.module('prodo.UserApp')
         $scope.user.password = '';
         $scope.user.currentpassword = '';
         $scope.user.newpassword = '';
+        $scope.user.confirmnewpassword = '';
       }
 
     // function to send and stringify user signin data to Rest APIs
@@ -98,17 +67,11 @@ angular.module('prodo.UserApp')
             $state.transitionTo('subscription.plans');
         } else if (data.error.code=='AS002') { // user subscription expired
             console.log(data.error.code + " " + data.error.message);
-            data.error.user.isSubscribed=false;
-            data.error.user.isPaymentDone=false;
             UserSessionService.authSuccess(data.error.user);
               
         } else if (data.error.code== 'AP001') {    // user has not done any payment
             console.log(data.error.code + " " + data.error.message);
             UserSessionService.authSuccess(data.error.user);
-            $scope.$on("session", function(event, message){
-              
-            });
-            $state.transitionTo('subscription.payment');
         } else {
             console.log(data.error.message);
         }
@@ -116,10 +79,14 @@ angular.module('prodo.UserApp')
     };  
 
     $rootScope.$on("session", function(event, message){
-      if (!message.isOtpPassword && !message.isSubscribed && !message.isPaymentDone) {
+      if (!message.isOtpPassword && !message.isSubscribed) {
         $state.transitionTo('subscription.plans');
-      } else if (message.isOtpPassword && !message.isSubscribed && !message.isPaymentDone) {
+      } else if (message.isOtpPassword) {
         $state.transitionTo('messageContent.resetPassword');
+      } else if (message.isSubscribed && !message.subscriptionExpired) {
+        $state.transitionTo('subscription.payment');
+      } else if (message.isSubscribed && message.subscriptionExpired && message.hasDonePayment) {
+        $state.transitionTo('subscription.payment');
       } else {
         $state.transitionTo('prodo.wall');
       }
@@ -201,7 +168,7 @@ angular.module('prodo.UserApp')
     // function to handle server side responses
     $scope.handleResetPasswordResponse = function(data){
       if (data.success) {
-        if (data.success.isSubscribed && data.success.isPaymentDone) {
+        if (data.success.isSubscribed && data.success.subscriptionExpired && data.success.hasDonePayment) {
           $state.transitionTo('prodo.wall');
         } else if (!data.success.isSubscribed) {
           $state.transitionTo('subscription.plans');

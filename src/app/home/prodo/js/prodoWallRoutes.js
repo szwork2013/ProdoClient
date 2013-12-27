@@ -57,7 +57,7 @@ angular.module('prodo.ProdoWallApp')
       if (toState.name == 'prodo.wall' && !$rootScope.usersession.isLoggedIn) {
         event.preventDefault();
 
-      } else if (toState.name=='prodo.wall' && $rootScope.usersession.isLoggedIn && !$rootScope.usersession.isSubscribed && !$rootScope.usersession.isPaymentDone ) {
+      } else if (toState.name=='home.start' && $rootScope.usersession.isLoggedIn) {
         event.preventDefault();
       }  
     })

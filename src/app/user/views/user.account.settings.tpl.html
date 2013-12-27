@@ -1,6 +1,7 @@
 <!--Template for User Account settings-->
 <div style="background-color:white;" id="prodo-user-settings-container" class="container">
 	<h4>General Account Settings</h4>
+	<div prodo-alert-message></div>
 	<ul class="list-group">
 	  <li class="list-group-item">
 	  	Full Name: {{usersession.currentUser.fullname}}
@@ -16,7 +17,7 @@
 	        	<input id="prodo-input-signin" type="password" class="form-control" id="password1" name="password" placeholder="Password" ng-model="user.password" required>
 	  				</div>  
 
-	  				<button id="prodo-button" class="btn btn-sm btn-primary">Save Changes</button>
+	  				<button id="prodo-button" class="btn btn-sm btn-primary" ng-click="updateUserAccount()">Save Changes</button>
 	  				<button id="prodo-button" class="btn btn-sm btn-primary" data-toggle="collapse" data-target="#demo">Cancel</button>
 	  			</form>
 				</div>
@@ -26,6 +27,7 @@
 	  <li class="list-group-item">Porta ac consectetur ac</li>
 	  <li class="list-group-item">Vestibulum at eros</li>
 	</ul>
+	<button id="prodo-button" class="btn btn-sm btn-primary" ng-click="deleteUserAccount()">Delete Account</button>
 		<!-- <button type="button" class="btn btn-default" data-toggle="collapse" data-target="#demo">
   		Full Name: {{usersession.currentUser.fullname}}
 		</button>

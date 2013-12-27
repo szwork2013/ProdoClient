@@ -15,6 +15,12 @@ angular.module('prodo.UserApp')
       {
         signinUser: { method: 'POST'}
       }),
+      ManageUser: $resource('/api/user/:userid', {},
+      {
+        getUserSettings: { method: 'GET', params: { userid: '@userid' }, isArray: false},
+        updateUserSettings: { method: 'PUT', params: { userid: '@userid' }, isArray: false},
+        deleteUserSettings: { method: 'DELETE', params: { userid: '@userid' }}
+      }),
       ForgotPassword:  $resource('/api/user/forgotpassword', {},
       {
         forgotPassword: { method: 'POST'}
@@ -46,6 +52,28 @@ angular.module('prodo.UserApp')
         function(success){
           console.log(success);
           $rootScope.$broadcast("signinDone", success);
+        },
+        function(error){
+          console.log(error);
+        });
+      }
+
+      session.saveUserSettings= function (userdata) {
+        UserService.ManageUser.updateUserSettings({userid: session.currentUser.userid}, userdata,     // calling function of UserSigninService to make POST method call to signin user.
+        function(success){
+          console.log(success);
+          $rootScope.$broadcast("updateUserDone", success);
+        },
+        function(error){
+          console.log(error);
+        });
+      }
+
+      session.removeUserSettings= function () {
+        UserService.ManageUser.deleteUserSettings({userid: session.currentUser.userid},     // calling function of UserSigninService to make POST method call to signin user.
+        function(success){
+          console.log(success);
+          $rootScope.$broadcast("deleteUserDone", success);
         },
         function(error){
           console.log(error);
@@ -88,7 +116,7 @@ angular.module('prodo.UserApp')
         
         session.resetSession = function() {
           session.currentUser = null;
-          session.isLoggedIn = false
+          session.isLoggedIn = false;
         }
 
         session.logout = function(){

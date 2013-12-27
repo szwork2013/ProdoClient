@@ -30,35 +30,19 @@ angular.module('prodo.ProdonusApp',['ui.router', 'ui.bootstrap', '$strap.directi
 	.controller('ProdoMainController', ['$scope', '$rootScope', '$state', 'UserSessionService', function($scope, $rootScope, $state, UserSessionService) {
 
 		$state.transitionTo('home.start');
-		$scope.$on('$stateNotFound', 
-			function(event, unfoundState, fromState, fromParams){ 
-		    console.log(unfoundState.to); // "lazy.state"
-		    console.log(unfoundState.toParams); // {a:1, b:2}
-		    console.log(unfoundState.options); // {inherit:false} + default options
-			});
 
 		$rootScope.$on("session-changed", function(event, message){
 			console.log(message);   
-			if (message.status) {
-				UserSessionService.authSuccess(message);
-			} 
-			else {
+			if (message.error.code == "AL001") {
 				UserSessionService.authfailed();
-				$state.transitionTo('home.start');
-
+				// $state.transitionTo('home.start');
+			} 
+			else  {
+				UserSessionService.authSuccess(message);
+				// $state.transitionTo($state.current.url);
 			};
        
       });
 
-		$scope.$on('$stateChangeError', 
-		function(event, toState, toParams, fromState, fromParams, error){ 
-		});
-
-		$scope.$on('$viewContentLoading', 
-		function(event, viewConfig){ 
-		    // Access to all the view config properties.
-		    // and one special property 'targetView'
-		    // viewConfig.targetView 
-		});
-		
+		 
 	}]);

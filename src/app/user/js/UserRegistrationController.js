@@ -15,42 +15,6 @@ angular.module('prodo.UserApp')
         'terms' : true,
       };
 
-    $scope.mainAlert = {
-       isShown: false
-      };
-
-    $scope.showAlert = function (alertType, message, linkpage, linkmessage ) {
-       $scope.mainAlert.message = message;
-       $scope.mainAlert.isShown = true;
-       $scope.mainAlert.linkpage = linkpage;
-       $scope.mainAlert.linkmessage = linkmessage;
-       $scope.mainAlert.alertType = alertType;
-      
-      // return $scope.mainAlert.message;
-    }   
-
-     $scope.closeAlert = function() {        
-       $scope.mainAlert.isShown = false;
-    };
-
-    $scope.showmessage = function(alertclass, msg,  alertlink, linkmsg ) {
-        var alerttype=alertclass;
-        var alertmessage=msg; 
-        var link = alertlink; 
-        var linkmessage= linkmsg;      
-        $scope.showAlert(alerttype, alertmessage, link, linkmessage);
-        return true;
-    };
-    
-    $scope.hideAlert = function() {
-       $scope.mainAlert.isShown = false;
-    }  
-
-    $timeout(function(){
-       $scope.hideAlert();
-      }, 50000);
- 
-
     // function to clear form data on submit
     $scope.clearformData = function() {
       $scope.user.fullname = '';
@@ -99,7 +63,7 @@ angular.module('prodo.UserApp')
   
     $scope.signup = function(){
       if ($scope.signupForm.$valid) {
-        // $scope.showAlert('alert-success', 'message');
+        $scope.showSpinner();
         var jsondata=$scope.jsonUserData();
         console.log('User Data entered successfully');
         UserRecaptchaService.validate($scope);
@@ -109,10 +73,12 @@ angular.module('prodo.UserApp')
         $scope.$on("recaptchaDone", function(event, message){
           UserSignupService.saveUser(jsondata,    // calling function of UserSignupService to make POST method call to signup user.
           function(success){
+            $scope.hideSpinner();
             console.log(success);
             $scope.handleSignupResponse(success);      // calling function to handle success and error responses from server side on POST method success.
           },
           function(error){
+            $scope.hideSpinner();
             console.log(error);
           });  
         });
