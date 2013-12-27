@@ -50,7 +50,7 @@ angular.module('prodo.ProdoWallApp')
        templateUrl:  'blog/views/prodo.wall.blog.tpl.html',
       }) 
   }])
-.run(['$rootScope', 'UserSessionService', '$state', function ($rootScope, UserSessionService, $state) {
+ .run(['$rootScope', 'UserSessionService', '$state', function ($rootScope, UserSessionService, $state) {
   
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState){
       // console.log($state.current.url);
@@ -62,3 +62,4 @@ angular.module('prodo.ProdoWallApp')
       }  
     })
   }]);
+ 

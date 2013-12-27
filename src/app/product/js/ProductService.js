@@ -29,26 +29,13 @@ angular.module('prodo.ProductApp')
                      deleteComment: {method: 'DELETE', params: {commentid: "id"}}
                     });
           }])
-        
-
-        .factory('CommentServicesave', ['$resource', function($resource) {
-            return $resource('/api/product/addcomment/xk7i99lj8', {},
-                    {
-                      saveProduct: {method: 'POST'},
-//                            getProduct: {method: 'GET', params: {prodle: 'id'}},
-//                            updateProduct: {method: 'PUT', params: {prodle: '@userid'}, isArray: false},
-//                            deleteProduct: {method: 'DELETE', params: {prodle: '@userid'}}
-                    });
-          }])
-
-
+  
         .factory('ProductSaveService', ['$resource', function($resource) {
             return $resource('/api/product/:orgid', {},
                     {
                       saveProduct: {method: 'POST', params: {orgid: 'orge1LSosNiS'}},
-                      //getProduct: {method: 'GET', params: {prodle: 'id'}},
-                      //    updateProduct: {method: 'PUT', params: {prodle: '@userid'}, isArray: false},
-                      //     deleteProduct: {method: 'DELETE', params: {prodle: '@userid'}}
+                   
                     });
           }])
+ 
 

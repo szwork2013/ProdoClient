@@ -18,7 +18,7 @@ angular.module('prodo.AdminApp', []);
 angular.module('prodo.ProdonusApp',['ui.router', 'ui.bootstrap', '$strap.directives', 'vcRecaptcha', 'ngResource', 'tags-input', 
 	'prodo.UserApp', 'prodo.ProdoWallApp', 'prodo.OrgApp','prodo.ProductApp', 'prodo.ProdoCommentApp',
 	'prodo.WarrantyApp', 'prodo.DashboardApp','prodo.ContentApp', 'prodo.CommonApp',
-  'prodo.BlogApp', 'prodo.AdApp', 'prodo.AdminApp' ,'ngAnimate'
+  'prodo.BlogApp', 'prodo.AdApp', 'prodo.AdminApp' ,'ngAnimate' 
   ])
 	
 	.run(['$rootScope', 'UserSessionService', function ($rootScope, UserSessionService) {

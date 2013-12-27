@@ -87,7 +87,7 @@ angular.module('prodo.CommonApp')
         }
       }
     })            
-  }])
+  }]) 
 .run(['$rootScope', 'UserSessionService', '$state', function ($rootScope, UserSessionService, $state) {
   
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState){
@@ -99,3 +99,4 @@ angular.module('prodo.CommonApp')
         event.preventDefault();
       };      })
   }]);
+ 

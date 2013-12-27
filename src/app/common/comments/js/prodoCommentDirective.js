@@ -21,7 +21,6 @@ angular.module('prodo.CommonApp')
             //  scope: {productComments_l: '=info', pagesSize: '=', pagesShown: '='},
             controller: function($scope, ProductService, $rootScope, UserSessionService, CommentService)
             {
-
               $(document).ready(function() {
                 //comment textbox increase height and decrease whe focus( toggle)
                 $('#prodo-comment-Textbox').focus(function() {
@@ -31,7 +30,6 @@ angular.module('prodo.CommonApp')
                   $(this).height(30);
                 });
                 //comment textbox increase height and decrease whe focus( toggle)
-
               });
 
               //on  scroll event in testing phase
@@ -48,16 +46,12 @@ angular.module('prodo.CommonApp')
               };
               //function to convert time format for comment added  
 
-
               //group name in camelCase function
               $scope.toCamelCase = function(s) {
                 if ((s == undefined) || (s == "") || (s == null)) {
-
                   s = "  ";
-
                 }
                 else {
-
                   s = s.replace(/([^a-zA-Z0-9_\- ])|^[_0-9]+/g, "").trim().toLowerCase();
                   s = s.replace(/([ -]+)([a-zA-Z0-9])/g, function(a, b, c) {
                     return c.toUpperCase();
@@ -72,7 +66,6 @@ angular.module('prodo.CommonApp')
 
               //get tags from comment
               $scope.getTagsFromCommentText = function($scope) {
-
                 //get tags from comment text and compare with predefined tags and add to tags
                 var commenttext = $scope.commenttextField.userComment;
                 $scope.mytags = $scope.pretags;
@@ -85,37 +78,9 @@ angular.module('prodo.CommonApp')
                     }
                   }
                 }
-
                 $scope.mytags = new_arr;
               };
               //get tags from comment
-
-              //Add comment function
-              $scope.addProductComment = function() {
-                $scope.newProductComment = {
-                  product_comment: {
-                    user: {userid: $scope.userIDFromSession,
-                      fullname: $scope.userFullnameFromSession,
-                      orgname: $scope.orgnameFromSession,
-                      grpname: $scope.grpnameFromSession
-                    },
-                    type: $scope.type,
-                    commenttext: $scope.commenttextField.userComment
-                  }};
-
-                if ($scope.commenttextField.userComment !== "")
-
-                {
-                  $scope.getTagsFromCommentText($scope);
-                  $scope.socket.emit('addComment', "xk7i99lj8", $scope.newProductComment.product_comment);
-
-                  $scope.productComments.unshift($scope.newProductComment.product_comment);
-                  $scope.commenttextField.userComment = "";
-                }
-
-              };
-              //Add comment function
-
 
               //delete comment function
               $scope.deleteProductComment = function(comment) {
@@ -128,8 +93,6 @@ angular.module('prodo.CommonApp')
                   CommentService.deleteComment({commentid: comment.commentid});
                   console.log(comment.commentid);
                 }
-
-
               };
               //delete comment function
             },

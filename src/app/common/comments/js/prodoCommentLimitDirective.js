@@ -15,26 +15,24 @@
  */
 angular.module('prodo.ProdoCommentApp')
         .directive('commentLimit', function() {
-            return {
-                require: 'ngModel',
-                link: function(scope, element, attrs, CommentController) {
-                    var maxlength = Number(attrs.commentLimit);
-                    function fromUser(text) {
-                        var txtComment = document.getElementById('prodo-comment-Textbox');
-                       // txtComment.style.color = "black";
-
-                        if (text.length > maxlength) {
-                            var transformedInput = text.substring(0, maxlength);
-                            CommentController.$setViewValue(transformedInput);
-                            CommentController.$render();
-                           // txtComment.style.color = "red";
-
-                            return transformedInput;
-                        }
-                        return text;
-                    }
-                    CommentController.$parsers.push(fromUser);
+          return {
+            require: 'ngModel',
+            link: function(scope, element, attrs, CommentController) {
+              var maxlength = Number(attrs.commentLimit);
+              function fromUser(text) {
+                
+                if(text){
+                  if (text.length > maxlength) {
+                    var transformedInput = text.substring(0, maxlength);
+                    CommentController.$setViewValue(transformedInput);
+                    CommentController.$render();
+                    return transformedInput;
+                  }
+                  return text;
                 }
-            };
+              }
+              CommentController.$parsers.push(fromUser);
+            }
+          };
         })
 
