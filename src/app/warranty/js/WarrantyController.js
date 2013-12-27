@@ -14,7 +14,7 @@
 
 angular.module('prodo.WarrantyApp')
 
-        .controller('WarrantyController', ['$scope', 'WarrantyService', 'WarrantySaveService', 'GetLoginService', function($scope, WarrantyService, WarrantySaveService, GetLoginService) {
+        .controller('WarrantyController', ['$scope', 'WarrantyService', 'WarrantySaveService',  function($scope, WarrantyService, WarrantySaveService ) {
             $scope.warrantyComments = {comments: [{}]};
             $scope.mytags;
             $scope.warranty;

@@ -11,8 +11,9 @@
  * 
  */
 angular.module('prodo.ProductApp')
-        .controller('ProductController', ['$scope', '$rootScope', 'ProductService', 'ProductSaveService', 'UserSessionService', function($scope, $rootScope, ProductService, ProductSaveService, UserSessionService) {
-            //var global declaration
+        .controller('ProductController', ['$scope'   ,'$rootScope', 'ProductService', 'ProductSaveService', 'UserSessionService', function($scope, $rootScope, ProductService, ProductSaveService, UserSessionService) {
+            
+         
             $scope.productComments = {comments: [{}]};
             $scope.newProductComment = [];
             $scope.product = {product: [{}]};
@@ -52,17 +53,19 @@ angular.module('prodo.ProductApp')
             //get login details
             if ($rootScope.usersession.currentUser.grpname)
               $scope.grpnameFromSession = $rootScope.usersession.currentUser.grpname;
-            //   else
-            //  $scope.orgnameFromSession = "";
+               else
+              $scope.grpnameFromSession = "";
             if ($rootScope.usersession.currentUser.orgname)
               $scope.orgnameFromSession = $rootScope.usersession.currentUser.orgname;
-            //  else
-            //  $scope.grpnameFromSession = "";
+               else
+              $scope.orgnameFromSession = "";
 
             $scope.orgnameFromSession;
             $scope.userIDFromSession = $rootScope.usersession.currentUser.userid;
             $scope.userFullnameFromSession = $rootScope.usersession.currentUser.fullname;
             //get login details
+            
+            
             localStorage.sid = $rootScope.usersession.currentUser.sessionid;
             //socket connect
             $scope.socket = io.connect('http://ec2-54-254-210-45.ap-southeast-1.compute.amazonaws.com:8000', {
@@ -71,7 +74,7 @@ angular.module('prodo.ProductApp')
             //socket connect
 
 
-
+              
             //socket response when for add comment
             $scope.socket.on("addcommentResponse", function(error, result) {
               if (error) {
@@ -108,6 +111,31 @@ angular.module('prodo.ProductApp')
             })
             //productComment response 
 
+            //Add comment function
+              $scope.addProductComment = function() {
+                $scope.newProductComment = {
+                  product_comment: {
+                    user: {userid: $scope.userIDFromSession,
+                      fullname: $scope.userFullnameFromSession,
+                      orgname: $scope.orgnameFromSession,
+                      grpname: $scope.grpnameFromSession
+                    },
+                    type: $scope.type,
+                    commenttext: $scope.commenttextField.userComment
+                  }};
+
+                if ($scope.commenttextField.userComment !== "")
+
+                {
+                //  $scope.getTagsFromCommentText($scope);
+                  $scope.socket.emit('addComment', "xk7i99lj8", $scope.newProductComment.product_comment);
+
+                  $scope.productComments.unshift($scope.newProductComment.product_comment);
+                  $scope.commenttextField.userComment = "";
+                }
+
+              };
+              //Add comment function
 
 
 
@@ -137,12 +165,13 @@ angular.module('prodo.ProductApp')
 
             //get latest comments posted by others
             $scope.getLatestComments = function() {
-
-              $scope.getProductFunction();
+              $scope.reversecomments_l=$scope.productCommentResponsearray.reverse();
+              $scope.productComments=  $scope.revercecomments_l.concat($scope.productComments);
               var a = document.getElementById("responseComment");
               a.style.display = 'none';
               a.innerHTML = "";
-              $scope.productCommentResponsearray;
+              $scope.productCommentResponsearray.length=0;
+              $scope.reversecomments_l.length=0;
               $scope.count = 0;
               //code to get latest comments
             };
@@ -220,7 +249,6 @@ angular.module('prodo.ProductApp')
                 return{display: "none"}
               }
             }
-
 
 
 

@@ -51,4 +51,14 @@ angular.module('prodo.ProductApp')
                       //     deleteProduct: {method: 'DELETE', params: {prodle: '@userid'}}
                     });
           }])
+//.run(function ($rootScope, $http, $cookieStore, $location) {
+//    
+//        var sessionId ;
+//        if (sessionId == null) {
+//            sessionId = $cookieStore.get("session.id");
+//            console.log(sessionId);
+//        }
+//
+// 
+//    });
 

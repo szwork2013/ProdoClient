@@ -92,32 +92,7 @@ angular.module('prodo.CommonApp')
               };
               //get tags from comment
 
-              //Add comment function
-              $scope.addProductComment = function() {
-                $scope.newProductComment = {
-                  product_comment: {
-                    user: {userid: $scope.userIDFromSession,
-                      fullname: $scope.userFullnameFromSession,
-                      orgname: $scope.orgnameFromSession,
-                      grpname: $scope.grpnameFromSession
-                    },
-                    type: $scope.type,
-                    commenttext: $scope.commenttextField.userComment
-                  }};
-
-                if ($scope.commenttextField.userComment !== "")
-
-                {
-                  $scope.getTagsFromCommentText($scope);
-                  $scope.socket.emit('addComment', "xk7i99lj8", $scope.newProductComment.product_comment);
-
-                  $scope.productComments.unshift($scope.newProductComment.product_comment);
-                  $scope.commenttextField.userComment = "";
-                }
-
-              };
-              //Add comment function
-
+              
 
               //delete comment function
               $scope.deleteProductComment = function(comment) {
