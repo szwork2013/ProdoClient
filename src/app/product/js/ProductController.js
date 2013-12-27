@@ -215,6 +215,12 @@ angular.module('prodo.ProductApp')
                 return{display: "none"}
               }
             }
+               $scope.hideIfNogrp = function(grpname) {
+              if ((grpname == "") || (grpname == " ") || (grpname == undefined) || (grpname == null)) {
+                return{display: "none"}
+              }
+            }
+
 
 
 
