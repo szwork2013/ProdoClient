@@ -1,0 +1,82 @@
+<!--Template for User location Account settings-->
+<div style="background-color:white;" id="prodo-user-location-settings-container" class="container">
+	<h4>Location Account Settings</h4>
+	<div prodo-alert-message></div>
+	<ul class="list-group">
+	  <li class="list-group-item">
+	  	Location
+	  	<a href="" data-toggle="collapse" data-target="#location" class="pull-right">Edit</a>
+	  	<p style="margin-top: 10px; font-size: 10px;">To add address please click here.
+	  	<a href="" data-toggle="collapse" data-target="#Editlocation" class="pull-right"><i class="fa fa-plus-square fa-lg pull-right"></i></a></p>
+
+	  	<div id="Editlocation" class="collapse">
+
+		  		<form id="prodo-form-signin" name="signinForm" class="css-form" ng-submit="" novalidate>
+
+	    			<div class="control-group">
+
+	    				<ul><li>
+	        		<label class="label-control" style="width: 120px; text-align:left; float: left; display: inline-block;">Address Line 1</label>
+		        	<input id="prodo-form-input-address" name="address1"  type="text" class="form-control" placeholder="Address Line1" ng-model="org.address1"  required /></li>
+							 
+							<li>
+	        		<label class="label-control" style="width: 120px; text-align:left; float: left; display: inline-block;">Address Line 2</label>
+							<input name="address2"  type="text" id="prodo-form-input-address" class="form-control" placeholder="Address Line2" ng-model="org.address2" /></li>
+
+							<li>
+	        		<label class="label-control" style="width: 120px; text-align:left; float: left; display: inline-block;">Address Line 3</label>
+							<input name="address3"  type="text" id="prodo-form-input-address" class="form-control" placeholder="Address Line3" ng-model="org.address3" /></li>
+
+							<li>
+	        		<label class="label-control" style="width: 120px; text-align:left; float: left; display: inline-block;">Country</label>
+							<input name="country" typeahead="country for country in countries | filter:$viewValue | limitTo:8"  type="text" id="prodo-form-input-address" class="form-control" placeholder="Country" ng-model="org.country" required /></li>
+								 
+							<li>
+	        		<label class="label-control" style="width: 120px; text-align:left; float: left; display: inline-block;">State</label>
+							<input name="state"  type="text" id="prodo-form-input-address" class="form-control" placeholder="State" ng-model="org.state" required /></li>
+
+							<li>
+	        		<label class="label-control" style="width: 120px; text-align:left; float: left; display: inline-block;">City</label>
+							<input name="city"  type="text" id="prodo-form-input-address" class="form-control" placeholder="City" ng-model="org.city" required /></li>
+						
+							<li>
+	        		<label class="label-control" style="width: 120px; text-align:left; float: left; display: inline-block;">Zipcode</label>
+							<input name="zipcode" type="text" id="prodo-form-input-address" class="form-control" placeholder="Zip Code" ng-model="org.zipcode" required /></li>
+							</ul>
+
+	  				</div>  
+
+	  				<button id="prodo-button" class="btn btn-sm btn-primary" ng-click="updateOrgAccount()">Save Changes</button>
+	  				<button id="prodo-button" class="btn btn-sm btn-primary" data-toggle="collapse" data-target="#Editlocation">Cancel</button>
+	  			</form>
+
+				</div>
+				<br>
+	  		<div id="location" class="collapse">
+
+	  			<table class="table table-striped">
+						<thead>
+						  <tr>
+							<th>Address</th>
+							<th>Country</th>
+							<th>State</th>
+							<th>City</th>
+							<th>Zipcode</th>
+						  </tr>
+						</thead>
+						<tbody>
+						  <tr ng-repeat="location in organizationData.currentOrgData.location">
+							<td>{{location.address.address1}}, {{location.address.address2}}, {{location.address.address3}}</td>
+							<td>{{location.address.country}}</td>
+							<td>{{location.address.state}}</td>
+							<td>{{location.address.city}}</td>
+							<td>{{location.address.zipcode}}</td>
+							<td><button class="btn btn-sm" data-toggle="collapse" data-target="#Editlocation">Edit</button></td>
+						  </tr>
+						</tbody>
+		  		</table>
+				</div>
+			</li>
+	  </ul>
+	</div>
+</div>

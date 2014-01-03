@@ -112,7 +112,7 @@ angular.module("prodo.CommonApp")
   return {
     restrict: 'EA',
     replace: true,
-    template: '<div style="min-width:250px; text-align:left; margin: 0px auto;" class="alert {{mainAlert.alertType}}" ng-show="mainAlert.isShown">' +
+    template: '<div style="min-width:250px; text-align:left; margin: 5px auto;" class="alert {{mainAlert.alertType}}" ng-show="mainAlert.isShown">' +
   '<button type="button" class="close" ng-click="closeAlert()" aria-hidden="true">&times;</button>' +
   '{{mainAlert.message}}' + '<a href="#/{{mainAlert.linkpage}}" class="alert-link"> {{mainAlert.linkmessage}}</a>' +
 '</div>',
@@ -150,11 +150,6 @@ angular.module("prodo.CommonApp")
        $scope.mainAlert.isShown = false;
     }  
 
-    $timeout(function(){
-       $scope.hideAlert();
-      }, 50000);
- 
-
     }
     };
 })
@@ -163,7 +158,7 @@ angular.module("prodo.CommonApp")
   return {
     restrict: 'EA',
     replace: true,
-    template: '<div ng-show="spinner.isShown">' + '<img src="assets/images/spinner.gif">' + '</div>',
+    template: '<span ng-show="spinner.isShown">' + '<i style="color:blue;" class="fa fa-spinner fa-spin fa-2x">' + '</i>' + '</span>',
     controller: function($scope, $rootScope){
       $scope.spinner ={ isShown: false};
 

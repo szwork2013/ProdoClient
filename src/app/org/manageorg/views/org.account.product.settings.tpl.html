@@ -1,0 +1,58 @@
+<!--Template for User product Account settings-->
+<div style="background-color:white;" id="prodo-user-product-settings-container" class="container">
+	<h4>Product Account Settings</h4>
+	<div prodo-alert-message></div>
+	<ul class="list-group">
+	  <li class="list-group-item">
+	  	Product Followed
+	  	<a href="" data-toggle="collapse" data-target="#productfollowed" class="pull-right">Edit</a>
+	  	<br>
+	  		<div id="productfollowed" class="collapse">
+
+	  			<table class="table table-striped">
+						<thead>
+						  <tr>
+							<th>Prodle</th>
+							<th>Product Name</th>
+							<th>Unfollow</th>
+						  </tr>
+						</thead>
+						<tbody>
+						  <tr ng-repeat="products_followed in usersession.currentUserData.products_followed">
+							<td>{{products_followed.prodle}}</td>
+							<td>{{products_followed.productname}}</td>
+							<td><button class="btn btn-sm">Unfollow</button></td>
+						  </tr>
+						</tbody>
+		  		</table>
+				</div>
+			</li>
+			<li class="list-group-item">
+	  	Product Recommended
+	  	<a href="" data-toggle="collapse" data-target="#productrecommended" class="pull-right">Edit</a>
+	  	<br>
+	  		<div id="productrecommended" class="collapse">
+
+	  			<table class="table table-striped">
+						<thead>
+						  <tr>
+							<th>Prodle</th>
+							<th>Product Name</th>
+							<th>Recommendation</th>
+						  </tr>
+						</thead>
+						<tbody>
+						  <tr ng-repeat="products_recommends in usersession.currentUserData.products_recommends">
+							<td>{{products_recommends.prodle}}</td>
+							<td>{{product_recommends.productname}}</td>
+							<td>{{product_recommends.recommendation}}</td>
+						  </tr>
+						</tbody>
+		  		</table>
+				</div>
+			</li>
+			 
+	</ul>
+	</div>
+
+ 

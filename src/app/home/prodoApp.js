@@ -21,8 +21,9 @@ angular.module('prodo.ProdonusApp',['ui.router', 'ui.bootstrap', '$strap.directi
   'prodo.BlogApp', 'prodo.AdApp', 'prodo.AdminApp' ,'ngAnimate' 
   ])
 	
-	.run(['$rootScope', 'UserSessionService', function ($rootScope, UserSessionService) {
+	.run(['$rootScope', 'UserSessionService', 'OrgRegistrationService', function ($rootScope, UserSessionService, OrgRegistrationService) {
     $rootScope.usersession = UserSessionService;
+    $rootScope.organizationData = OrgRegistrationService;
     UserSessionService.checkUser();
 
 	}])
@@ -33,16 +34,34 @@ angular.module('prodo.ProdonusApp',['ui.router', 'ui.bootstrap', '$strap.directi
 
 		$rootScope.$on("session-changed", function(event, message){
 			console.log(message);   
-			if (message.error.code == "AL001") {
-				UserSessionService.authfailed();
-				// $state.transitionTo('home.start');
+				if (message.success) {
+					UserSessionService.authSuccess(message.success.user)
+					// $state.transitionTo($state.current.url);
+				
 			} 
-			else  {
-				UserSessionService.authSuccess(message);
-				// $state.transitionTo($state.current.url);
+			else {
+				UserSessionService.authfailed();
+				$state.transitionTo('home.start');
+				
 			};
        
       });
+
+		$scope.logout = function() {
+			// $scope.showSpinner();
+			UserSessionService.logoutUser();
+			$scope.$on("logoutDone", function(event, message){
+				// $scope.hideSpinner();
+        $state.transitionTo('home.start');
+        $scope.showAlert('alert-success', message);
+
+      });
+      $scope.$on("logoutNotDone", function(event, message){
+      	// $scope.hideSpinner();
+        $scope.showAlert('alert-danger', "Server Error:" + message);
+
+      });
+		};
 
 		 
 	}]);

@@ -42,18 +42,18 @@ angular.module('prodo.OrgApp')
       {
         OrgRegistration: $resource('/api/organization/:orgid', {},
         {
-          findAllOrgs: { method: 'GET', isArray: true },
-          findByOrgId: { method: 'GET', params: { orgid : '@orgid' }},
+          getAllOrgs: { method: 'GET', isArray: true },
+          getOrgSettings: { method: 'GET', params: { orgid : '@orgid' }},
           saveOrg: { method: 'POST'},
-          updateOrg: { method: 'PUT', params: { orgid: '@orgid' }, isArray: false},
-          deleteOrg: { method: 'DELETE', params: { orgid: '@orgid' }}
+          updateOrgSettings: { method: 'PUT', params: { orgid: '@orgid' }, isArray: false},
+          deleteOrgSettings: { method: 'DELETE', params: { orgid: '@orgid' }}
         })
       }
 
     var organization = {};
 
-    organization.RegisterOrg= function (userdata) {
-        OrgService.OrgRegistration.saveOrg(userdata,     // calling function of UserSigninService to make POST method call to signin user.
+    organization.RegisterOrg= function (orgData) {
+        OrgService.OrgRegistration.saveOrg(orgData,     // calling function of UserSigninService to make POST method call to signin user.
         function(success){
           console.log(success);
           $rootScope.$broadcast("orgRegistrationDone", success);
@@ -62,6 +62,60 @@ angular.module('prodo.OrgApp')
           console.log(error);
         });
       }
+
+    organization.saveOrgSettings= function (orgData) {
+        OrgService.OrgRegistration.updateOrgSettings({orgid: $rootScope.usersession.currentUser.orgid}, userdata,     // calling function of UserSigninService to make POST method call to signin user.
+        function(success){
+          console.log(success);
+          $rootScope.$broadcast("updateOrgDone", success);
+        },
+        function(error){
+          console.log(error);
+        });
+      }
+
+      organization.removeOrgSettings= function () {
+        OrgService.OrgRegistration.deleteOrgSettings({orgid: $rootScope.usersession.currentUser.orgid},     // calling function of UserSigninService to make POST method call to signin user.
+        function(success){
+          console.log(success);
+          $rootScope.$broadcast("deleteOrgDone", success);
+        },
+        function(error){
+          console.log(error);
+        });
+      }
+
+      organization.getOrgDetailSettings= function () {
+        OrgService.OrgRegistration.getOrgSettings({orgid: $rootScope.usersession.currentUser.orgid},     // calling function of UserSigninService to make POST method call to signin user.
+        function(success){
+          console.log(success);
+          $rootScope.$broadcast("getOrgDone", success);
+        },
+        function(error){
+          console.log(error);
+        });
+      }
+
+      organization.updateOrgData = function(orgData, $scope){
+          organization.currentOrgData = orgData;
+          console.log(organization.currentOrgData.location[0].address)
+        }
+
+      // function to handle server side responses
+      organization.handleGetOrgResponse = function(data){
+      if (data.success) {
+        organization.updateOrgData(data.success.organization);
+        // $scope.showAlert('alert-success', data.success.message);   
+      } else {
+            console.log(data.error.message);
+            $scope.showAlert('alert-danger', data.error.message);
+        }
+    };
+
+      $rootScope.$on("getOrgDone", function(event, message){
+        organization.handleGetOrgResponse(message);   
+      });
+
 
     return organization;
   }]); 

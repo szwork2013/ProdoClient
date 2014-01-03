@@ -22,6 +22,10 @@ angular.module('prodo.UserApp')
       $scope.user.password = '';
     }
   
+    $timeout(function(){
+       $scope.hideAlert();
+      }, 50000);
+
      // function to send and stringify user registration data to Rest APIs
     $scope.jsonUserData = function(){
       var userData = 
@@ -68,7 +72,12 @@ angular.module('prodo.UserApp')
         console.log('User Data entered successfully');
         UserRecaptchaService.validate($scope);
         $scope.$on("recaptchaNotDone", function(event, message){
+          $scope.hideSpinner();
           $scope.showAlert('alert-danger', 'Recaptcha failed, please try again');
+        });
+        $scope.$on("recaptchaFailure", function(event, message){
+          $scope.hideSpinner();
+          $scope.showAlert('alert-danger', "Server is not responding. Error:" + message);
         });
         $scope.$on("recaptchaDone", function(event, message){
           UserSignupService.saveUser(jsondata,    // calling function of UserSignupService to make POST method call to signup user.
@@ -80,6 +89,8 @@ angular.module('prodo.UserApp')
           function(error){
             $scope.hideSpinner();
             console.log(error);
+            $scope.showAlert('alert-danger', "Server Error:" + message);
+
           });  
         });
       } else {
@@ -116,9 +127,16 @@ angular.module('prodo.UserApp')
 
     // function for resetpassword to Prodonus App using REST APIs and performs form validation.
     $scope.regeneratetoken = function() {
+      $scope.showSpinner();
       UserSessionService.regenerateTokenUser($scope.jsonRegenerateTokenData());
       $scope.$on("regenerateTokenDone", function(event, message){
+        $scope.clearformData();
+        $scope.hideSpinner();
         $scope.handleRegenerateTokenResponse(message);   
+      });
+      $scope.$on("regenerateTokenNotDone", function(event, message){
+      $scope.clearformData();
+      $scope.hideSpinner();  
       });
   
     }
