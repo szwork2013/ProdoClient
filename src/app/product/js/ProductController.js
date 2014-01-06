@@ -144,7 +144,7 @@ angular.module('prodo.ProductApp')
             //Add comment function
 
             //get product function declaration
-            $scope.getProduct  = function()
+            $scope.getProduct = function()
             {
 
               ProductService.getProduct({prodle: 'xk7i99lj8'},
@@ -161,7 +161,7 @@ angular.module('prodo.ProductApp')
             }
             //get product function declaration  
 
-            $scope.getProduct ();
+            $scope.getProduct();
             //   console.log(ProductService.getProduct({prodle: 'eyYHSKVtL'}));
 
             //get latest comments posted by others
@@ -220,10 +220,12 @@ angular.module('prodo.ProductApp')
             //delete product
             $scope.deleteProduct = function()
             {
-              // if($rootScope.usersession.currentUser.isAdmin){
-              //alert("deleting");
-              //ProductService.deleteProduct({prodle: $scope.product_prodle});
-             }
+              if ($rootScope.usersession.currentUser.isAdmin) {
+                alert("deleting");
+                ProductService.deleteProduct({prodle: $scope.product_prodle});
+              }
+              else alert("You dont have rights to delete this product...");
+            }
             //delete product
 
 

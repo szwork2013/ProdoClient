@@ -18,7 +18,7 @@ angular.module('prodo.ProductApp')
                     {
                       getProduct: {method: 'GET', params: {prodle: 'id'}},
 //                            updateProduct: {method: 'PUT', params: {prodle: '@userid'}, isArray: false},
-                    //  deleteProduct: {method: 'DELETE', params: {prodle: 'id'}}
+                       deleteProduct: {method: 'DELETE', params: {prodle: 'id'}}
                     });
           }])
         
