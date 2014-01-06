@@ -208,14 +208,16 @@ angular.module('prodo.ProductApp')
                   name: $scope.product.name,
                   description: $scope.product.description
                 }};
-              ProductSaveService.saveProduct($scope.newProduct,
-                      function(success) {
-                        console.log(success);
-                        $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
-                      },
-                      function(error) {
-                        console.log(error);
-                      });
+ 
+                ProductSaveService.saveProduct($scope.newProduct,
+                        function(success) {
+                          console.log(success);
+                          $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
+                        },
+                        function(error) {
+                          console.log(error);
+                        });
+ 
             };
             //delete product
             $scope.deleteProduct = function()
@@ -224,7 +226,8 @@ angular.module('prodo.ProductApp')
                 alert("deleting");
                 ProductService.deleteProduct({prodle: $scope.product_prodle});
               }
-              else alert("You dont have rights to delete this product...");
+              else
+                alert("You dont have rights to delete this product...");
             }
             //delete product
 
