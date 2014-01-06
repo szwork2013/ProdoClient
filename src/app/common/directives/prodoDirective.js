@@ -240,7 +240,97 @@ angular.module("prodo.CommonApp")
       });
     }
   }
-}]);
+}])
+
+  .directive('prodoBarchart',function() {
+    var barchart = {
+      restrict:'EA',
+      link : function(scope,element,a) {
+        nv.addGraph(function() {
+          var chart = nv.models.discreteBarChart()
+           .x(function(d) { return d.label })
+           .y(function(d) { return d.value })
+            .staggerLabels(true)
+            .tooltips(true)
+            .showValues(true);
+    
+          d3.select('#chart')
+             .datum(example())
+             .transition().duration(50)
+             .call(chart);
+   
+          nv.utils.windowResize(chart.update);
+          return chart;
+        });
+
+        function example() {
+          return  [ {
+             key: "Product Ratings",
+             values: [
+               { 
+                 "label" : "Awsome " ,
+                 "value" : 300
+               } , 
+               { 
+                 "label" : "Average" , 
+                 "value" : 600
+               } , 
+               { 
+                 "label" : "Good" , 
+                 "value" : 200
+               } , 
+               { 
+                 "label" : "Bad" , 
+                 "value" : 400
+               } , 
+               { 
+                 "label" : "Worst" ,
+                 "value" : 10
+               } , 
+               { 
+                 "label" : "Complaints" , 
+                 "value" : 20
+               } 
+              
+             ]
+           }
+          ];
+        }
+    }};
+
+    return barchart;
+ })
+
+  .directive('prodoPiechart',function() {
+    var piechart = {
+      restrict : 'EA',
+      link : function(scope,elem,attrs) {
+                 
+        nv.addGraph(function() {
+          var width = 500,
+          height = 500;
+          
+           var chart = nv.models.pieChart()
+          .x(function(d) { return d.key })
+          .y(function(d) { return d.y })
+          .color(d3.scale.category10().range())
+          .width(width)
+          .height(height);
+          d3.select("#test1")
+          .datum(scope.data)
+          .transition().duration(1200)
+          .attr('width', width)
+          .attr('height', height)
+          .call(chart);
+          
+          chart.dispatch.on('stateChange', function(e) { nv.log('New State:', JSON.stringify(e)); });
+            
+          return chart;
+        });
+      }
+    };
+    return piechart;
+  });
 ////// ensureUnique with timeout
 
 //    app.directive('ensureUnique', ['$http', '$timeout', function($http, $timeout) {

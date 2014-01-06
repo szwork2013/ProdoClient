@@ -2,6 +2,32 @@
 *	html body
 **/
 
+/**
+*Dashboard
+**/
+
+/*Barchart*/
+
+text {
+  font: 12px sans-serif;
+}
+
+.mybarchart {
+  width: 500px;
+  border: 2px;
+}
+
+/*Piechart*/
+
+text {
+  font: 12px sans-serif;
+}
+
+.mypiechart {
+  width: 500px;
+  border: 2px;
+}
+
 /*change the body style*/
 html,body{
 	height:100%;

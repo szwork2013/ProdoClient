@@ -24,9 +24,6 @@ angular.module('prodo.ProdoWallApp')
         'prodonavbar' : {
           templateUrl:  'home/prodo/views/prodo.wall.navbar.tpl.html'
         },
-        'dashboard' : {
-          templateUrl:  'home/prodo/views/prodo.wall.dashboard.tpl.html'
-        },
         'content' : {
           templateUrl:  'home/prodo/views/prodo.wall.content.tpl.html'
         }
@@ -48,6 +45,11 @@ angular.module('prodo.ProdoWallApp')
     .state('prodo.wall.blog', {
       url: '',
        templateUrl:  'blog/views/prodo.wall.blog.tpl.html',
+      }) 
+    .state('prodo.wall.dashboard', {
+      url: '',
+       templateUrl:  'dashboard/views/prodo.wall.dashboard.tpl.html',
+       controller: 'ProdoDashboardController'
       }) 
   }])
  .run(['$rootScope', 'UserSessionService', '$state', function ($rootScope, UserSessionService, $state) {
