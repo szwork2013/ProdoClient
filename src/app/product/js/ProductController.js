@@ -11,7 +11,7 @@
  * 
  */
 angular.module('prodo.ProductApp')
-        .controller('ProductController', ['$scope', '$rootScope', 'ProductService', 'ProductSaveService', 'UserSessionService', function($scope, $rootScope, ProductService, ProductSaveService, UserSessionService) {
+        .controller('ProductController', ['$scope', '$rootScope', 'ProductService', 'ProductSaveService', 'UserSessionService', function($scope, $rootScope, ProductService, ProductSaveService, UserSessionService, UploadService) {
 
             //comments
             $scope.productComments = {comments: [{}]};
@@ -37,6 +37,10 @@ angular.module('prodo.ProductApp')
             $scope.grpnameFromSession;
             $scope.orgnameFromSession;
             $scope.socket;
+
+
+
+
 
 
             $scope.showErrorIfCommentNotAdded = function( ) {
@@ -70,14 +74,14 @@ angular.module('prodo.ProductApp')
             $scope.getUserDetails();
 
             //get login details
- 
+
             localStorage.sid = $rootScope.usersession.currentUser.sessionid;
             //socket connect
             $scope.socket = io.connect('http://ec2-54-254-210-45.ap-southeast-1.compute.amazonaws.com:8000', {
               query: 'session_id=' + localStorage.sid
             });
             //socket connect
- 
+
             //socket response when for add comment
             $scope.socket.on("addcommentResponse", function(error, result) {
               if (error) {
@@ -140,7 +144,7 @@ angular.module('prodo.ProductApp')
             //Add comment function
 
             //get product function declaration
-            $scope.getProductFunction = function()
+            $scope.getProduct  = function()
             {
 
               ProductService.getProduct({prodle: 'xk7i99lj8'},
@@ -157,7 +161,7 @@ angular.module('prodo.ProductApp')
             }
             //get product function declaration  
 
-            $scope.getProductFunction();
+            $scope.getProduct ();
             //   console.log(ProductService.getProduct({prodle: 'eyYHSKVtL'}));
 
             //get latest comments posted by others
@@ -216,10 +220,10 @@ angular.module('prodo.ProductApp')
             //delete product
             $scope.deleteProduct = function()
             {
-              // if(user has product organization account)
-              ProductService.deleteProduct({prodle: $scope.product_prodle});
-              // else alert("You dont have access to delete this product");
-            }
+              // if($rootScope.usersession.currentUser.isAdmin){
+              //alert("deleting");
+              //ProductService.deleteProduct({prodle: $scope.product_prodle});
+             }
             //delete product
 
 
@@ -257,6 +261,8 @@ angular.module('prodo.ProductApp')
 //                    }
 //                }
             //Product discontinued visibility testing
+
+
 
 
 
