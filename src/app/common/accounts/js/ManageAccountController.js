@@ -67,8 +67,44 @@ angular.module('prodo.CommonApp')
           {
             org:
             {
-            'fullname' : $scope.user.fullname,
-            'password' : $scope.user.password
+            'name' : $scope.org.name,
+            'description' : $scope.org.description,
+            'subscription': {
+                            'planid': '' , 
+                            'planstartdate': '' , 
+                            'planexpirydateate': ''
+                            },
+            'org_images': [{
+
+                        'image' : $scope.org.image
+
+                        }],
+            'location': [{
+                          'locationtype': $scope.org.orgaddresstype,
+                          'address': 
+                            {
+                            'address1': $scope.org.address1,
+                            'address2': $scope.org.address2,
+                            'address3': $scope.org.address3,
+                            'country': $scope.org.country,
+                            'city': $scope.org.city,
+                            'state': $scope.org.state,
+                            'zipcode': $scope.org.zipcode 
+                            }, 
+                          'contacts': 
+                            [ 
+                             {'customerhelpline' : $scope.org.contact.customerhelpline1 },
+                             {'customerhelpline' : $scope.org.contact.customerhelpline2 },
+                             {'customerhelpline' : $scope.org.contact.customerhelpline3 }
+                            ]
+                        }],
+            'usergrp': [{
+                          'grpname': $scope.org.grpname,
+                          'grpmembers': [{
+                                          typetring
+                                        }]   
+                       }],
+            'orginvites': $scope.org.invites 
             }
           };
         return JSON.stringify(orgData); 

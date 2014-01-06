@@ -37,9 +37,8 @@ angular.module('prodo.ProdonusApp',['ui.router', 'ui.bootstrap', '$strap.directi
 				if (message.success) {
 					UserSessionService.authSuccess(message.success.user)
 					// $state.transitionTo($state.current.url);
-				
-			} 
-			else {
+				} 
+				else {
 				UserSessionService.authfailed();
 				$state.transitionTo('home.start');
 				
