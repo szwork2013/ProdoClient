@@ -15,33 +15,36 @@
 
 	    			<div class="control-group">
 
-	    				<ul><li>
-	        		<label class="label-control" style="width: 120px; text-align:left; float: left; display: inline-block;">Address Line 1</label>
-		        	<input id="prodo-form-input-address" name="address1"  type="text" class="form-control" placeholder="Address Line1" ng-model="org.address1"  required /></li>
-							 
-							<li>
-	        		<label class="label-control" style="width: 120px; text-align:left; float: left; display: inline-block;">Address Line 2</label>
-							<input name="address2"  type="text" id="prodo-form-input-address" class="form-control" placeholder="Address Line2" ng-model="org.address2" /></li>
+	    				<ul>
 
-							<li>
-	        		<label class="label-control" style="width: 120px; text-align:left; float: left; display: inline-block;">Address Line 3</label>
-							<input name="address3"  type="text" id="prodo-form-input-address" class="form-control" placeholder="Address Line3" ng-model="org.address3" /></li>
-
-							<li>
-	        		<label class="label-control" style="width: 120px; text-align:left; float: left; display: inline-block;">Country</label>
-							<input name="country" typeahead="country for country in countries | filter:$viewValue | limitTo:8"  type="text" id="prodo-form-input-address" class="form-control" placeholder="Country" ng-model="org.country" required /></li>
+		    				<li>
+		        		<label class="label-control" style="width: 120px; text-align:left; float: left; display: inline-block;">Address Line 1</label>
+			        	<input id="prodo-form-input-address" name="address1"  type="text" class="form-control" placeholder="Address Line1" ng-model="org.address1"  required /></li>
 								 
-							<li>
-	        		<label class="label-control" style="width: 120px; text-align:left; float: left; display: inline-block;">State</label>
-							<input name="state"  type="text" id="prodo-form-input-address" class="form-control" placeholder="State" ng-model="org.state" required /></li>
+								<li>
+		        		<label class="label-control" style="width: 120px; text-align:left; float: left; display: inline-block;">Address Line 2</label>
+								<input name="address2"  type="text" id="prodo-form-input-address" class="form-control" placeholder="Address Line2" ng-model="org.address2" /></li>
 
-							<li>
-	        		<label class="label-control" style="width: 120px; text-align:left; float: left; display: inline-block;">City</label>
-							<input name="city"  type="text" id="prodo-form-input-address" class="form-control" placeholder="City" ng-model="org.city" required /></li>
-						
-							<li>
-	        		<label class="label-control" style="width: 120px; text-align:left; float: left; display: inline-block;">Zipcode</label>
-							<input name="zipcode" type="text" id="prodo-form-input-address" class="form-control" placeholder="Zip Code" ng-model="org.zipcode" required /></li>
+								<li>
+		        		<label class="label-control" style="width: 120px; text-align:left; float: left; display: inline-block;">Address Line 3</label>
+								<input name="address3"  type="text" id="prodo-form-input-address" class="form-control" placeholder="Address Line3" ng-model="org.address3" /></li>
+
+								<li>
+		        		<label class="label-control" style="width: 120px; text-align:left; float: left; display: inline-block;">Country</label>
+								<input name="country" typeahead="country for country in countries | filter:$viewValue | limitTo:8"  type="text" id="prodo-form-input-address" class="form-control" placeholder="Country" ng-model="org.country" required /></li>
+									 
+								<li>
+		        		<label class="label-control" style="width: 120px; text-align:left; float: left; display: inline-block;">State</label>
+								<input name="state"  type="text" id="prodo-form-input-address" class="form-control" placeholder="State" ng-model="org.state" required /></li>
+
+								<li>
+		        		<label class="label-control" style="width: 120px; text-align:left; float: left; display: inline-block;">City</label>
+								<input name="city"  type="text" id="prodo-form-input-address" class="form-control" placeholder="City" ng-model="org.city" required /></li>
+							
+								<li>
+		        		<label class="label-control" style="width: 120px; text-align:left; float: left; display: inline-block;">Zipcode</label>
+								<input name="zipcode" type="text" id="prodo-form-input-address" class="form-control" placeholder="Zip Code" ng-model="org.zipcode" required /></li>
+
 							</ul>
 
 	  				</div>  
@@ -57,6 +60,7 @@
 	  			<table class="table table-striped">
 						<thead>
 						  <tr>
+						  <th>Location</th>
 							<th>Address</th>
 							<th>Country</th>
 							<th>State</th>
@@ -66,12 +70,14 @@
 						</thead>
 						<tbody>
 						  <tr ng-repeat="location in organizationData.currentOrgData.location">
+						  <td>{{location.locationtype}}</td>
 							<td>{{location.address.address1}}, {{location.address.address2}}, {{location.address.address3}}</td>
 							<td>{{location.address.country}}</td>
 							<td>{{location.address.state}}</td>
 							<td>{{location.address.city}}</td>
 							<td>{{location.address.zipcode}}</td>
 							<td><button class="btn btn-sm" data-toggle="collapse" data-target="#Editlocation">Edit</button></td>
+							<td><button class="btn btn-sm" ng-click="deleteOrgAddress()">Delete</button></td>
 						  </tr>
 						</tbody>
 		  		</table>

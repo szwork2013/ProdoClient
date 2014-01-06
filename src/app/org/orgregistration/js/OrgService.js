@@ -98,7 +98,6 @@ angular.module('prodo.OrgApp')
 
       organization.updateOrgData = function(orgData, $scope){
           organization.currentOrgData = orgData;
-          console.log(organization.currentOrgData.location[0].address)
         }
 
       // function to handle server side responses

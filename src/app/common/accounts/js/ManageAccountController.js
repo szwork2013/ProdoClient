@@ -8,16 +8,46 @@ angular.module('prodo.CommonApp')
       {
         var userData = 
           {
-          	user:
+            user:
             {
             'fullname' : $scope.user.fullname,
-            'password' : $scope.user.password
-          	}
+            'firstname' : $scope.user.firstname,
+            'lastname' : $scope.user.lastname,
+            'dob' : $scope.user.dob,
+            'gender' : $scope.user.gender,
+            'phone' : $scope.user.phone_number,
+            'mobile' : $scope.user.mobile_number,
+            'email' : $scope.user.email,
+            'password' : $scope.user.password,
+            'currentpassword' : $scope.user.currentpassword,
+            'newpassword' : $scope.user.newpassword,
+            'address':{
+                        'address1':$scope.user.address1,
+                        'address2':$scope.user.address2,
+                        'address3':$scope.user.address3,
+                        'city':$scope.user.city,
+                        'state':$scope.user.state,
+                        'country':$scope.user.country,
+                        'zipcode':$scope.user.zipcode
+                      },
+            'subscription':{
+                              'planid':$scope.user.planid  ,
+                              'planstartdate':$scope.user.planexpirydate , 
+                              'planexpirydate':$scope.user.planstartdate
+                           },
+            'payment':{
+                        'paymentid': ''
+                      },
+            'payment_history':{
+                                'paymentid': ''
+                              },
+            'profile_pic':$scope.user.profile_pic
+            
+            }
           };
+
         return JSON.stringify(userData); 
       }
-     
-
     // function to handle server side responses
     $scope.handleUpdateUserResponse = function(data){
       if (data.success) {
@@ -99,10 +129,7 @@ angular.module('prodo.CommonApp')
                             ]
                         }],
             'usergrp': [{
-                          'grpname': $scope.org.grpname,
-                          'grpmembers': [{
-                                          typetring
-                                        }]   
+                          'grpname': $scope.org.grpname  
                        }],
             'orginvites': $scope.org.invites 
             }
