@@ -157,6 +157,8 @@ angular.module('prodo.ProductApp')
               },
                       function(error) {
                         console.log(error);
+                         $scope.showAlert('alert-danger', "Server Error:" + error.status);
+
                       });
             }
             //get product function declaration  
