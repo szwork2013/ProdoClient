@@ -24,7 +24,7 @@ angular.module('prodo.ProdonusApp',['ui.router', 'ui.bootstrap', '$strap.directi
 	.run(['$rootScope', 'UserSessionService', 'OrgRegistrationService', function ($rootScope, UserSessionService, OrgRegistrationService) {
     $rootScope.usersession = UserSessionService;
     $rootScope.organizationData = OrgRegistrationService;
-    UserSessionService.checkUser();
+    UserSessionService.checkUser()
 
 	}])
 

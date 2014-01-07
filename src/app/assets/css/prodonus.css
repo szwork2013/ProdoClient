@@ -1,31 +1,8 @@
 /**
 *	html body
 **/
-
-/**
-*Dashboard
-**/
-
-/*Barchart*/
-
-text {
-  font: 12px sans-serif;
-}
-
-.mybarchart {
-  width: 500px;
-  border: 2px;
-}
-
-/*Piechart*/
-
-text {
-  font: 12px sans-serif;
-}
-
-.mypiechart {
-  width: 500px;
-  border: 2px;
+.modal {
+  display: block; 
 }
 
 /*change the body style*/
@@ -972,12 +949,38 @@ border-radius: 30px;
   margin-top: 10px;
 }
 
-/* Prodo Main View: Dashboard*/
+/**
+*Dashboard
+**/
+
 #prodo-dashboard-container{
   background-color: #ffffff;
   border-radius: 10px;
   margin-top: 10px;
 }
+
+/*Barchart*/
+
+text {
+  font: 12px sans-serif;
+}
+
+.mybarchart {
+  width: 500px;
+  border: 2px;
+}
+
+/*Piechart*/
+
+text {
+  font: 12px sans-serif;
+}
+
+.mypiechart {
+  width: 500px;
+  border: 2px;
+}
+
 /* Prodo Main View: Comments*/
  #prodo-comment-container{
   background-color: #ffffff;
