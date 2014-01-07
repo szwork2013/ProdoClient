@@ -169,7 +169,7 @@ angular.module('prodo.ProductApp')
             //get latest comments posted by others
             $scope.getLatestComments = function() {
               $scope.reversecomments_l = $scope.productCommentResponsearray.reverse();
-              $scope.productComments = $scope.revercecomments_l.concat($scope.productComments);
+              $scope.productComments = $scope.reversecomments_l.concat($scope.productComments);
               var a = document.getElementById("responseComment");
               a.style.display = 'none';
               a.innerHTML = "";
