@@ -60,5 +60,10 @@ angular.module('prodo.ProdonusApp')
       url: '/resetPassword',
       templateUrl: 'user/views/user.signin.resetpassword.tpl.html',
       controller: 'UserSigninController'
-    })      
+    })
+    .state('dialog', {
+      url: '',
+      templateUrl: 'user/views/user.account.dialog.tpl.html',
+      controller: 'ManageAccountController'
+    })       
   }])

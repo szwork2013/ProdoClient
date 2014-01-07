@@ -12,38 +12,6 @@ angular.module('prodo.UserApp')
         'newpassword': ''
 
       };
-   
-      $scope.mainAlert = {
-       isShown: false
-      };
-      
-    $scope.showAlert = function (alertType, message) {
-       $scope.mainAlert.message = message;
-       $scope.mainAlert.isShown = true;
-       $scope.mainAlert.alertType = alertType;
-      
-      // return $scope.mainAlert.message;
-    }   
-
-     $scope.closeAlert = function() {        
-       $scope.mainAlert.isShown = false;
-    };
-
-    $scope.showmessage = function(alertclass, msg) {
-        var alerttype=alertclass;
-        var alertmessage=msg;         
-       $scope.showAlert(alerttype, alertmessage);
-       return true;
-    };
-    
-    $scope.hideAlert = function() {
-       $scope.mainAlert.isShown = false;
-    }  
-
-    $timeout(function(){
-       $scope.hideAlert();
-      }, 50000);
- 
 
     // function to clear form data on submit
     $scope.clearformData = function() 
@@ -52,7 +20,12 @@ angular.module('prodo.UserApp')
         $scope.user.password = '';
         $scope.user.currentpassword = '';
         $scope.user.newpassword = '';
+        $scope.user.confirmnewpassword = '';
       }
+
+    $timeout(function(){
+       $scope.hideAlert();
+      }, 50000);
 
     // function to send and stringify user signin data to Rest APIs
     $scope.jsonUserSigninData = function()
@@ -70,6 +43,8 @@ angular.module('prodo.UserApp')
       if (data.success) {
         UserSessionService.authSuccess(data.success.user);
         $state.transitionTo('prodo.wall');
+        $scope.showAlert('alert-success', 'Welcome to Prodonus, you have successfully signed up.');
+
       } else {
         if (data.error.code== 'AU005') {     // user does not exist
             console.log(data.error.code + " " + data.error.message);
@@ -91,35 +66,34 @@ angular.module('prodo.UserApp')
         } else if (data.error.code=='AS001') {   // user has not subscribed to any plan
             console.log(data.error.code + " " + data.error.message);
             UserSessionService.authSuccess(data.error.user);
-            $scope.$on("session", function(event, message){
-
-            });
-
             $state.transitionTo('subscription.plans');
+            $scope.showAlert('alert-danger', data.error.message);
         } else if (data.error.code=='AS002') { // user subscription expired
             console.log(data.error.code + " " + data.error.message);
-            data.error.user.isSubscribed=false;
-            data.error.user.isPaymentDone=false;
             UserSessionService.authSuccess(data.error.user);
               
         } else if (data.error.code== 'AP001') {    // user has not done any payment
             console.log(data.error.code + " " + data.error.message);
             UserSessionService.authSuccess(data.error.user);
-            $scope.$on("session", function(event, message){
-              
-            });
-            $state.transitionTo('subscription.payment');
+            $scope.showAlert('alert-danger', data.error.message);
+
         } else {
             console.log(data.error.message);
+            $scope.showAlert('alert-danger', data.error.message);
+
         }
       }
     };  
 
     $rootScope.$on("session", function(event, message){
-      if (!message.isOtpPassword && !message.isSubscribed && !message.isPaymentDone) {
+      if (!message.isOtpPassword && !message.isSubscribed) {
         $state.transitionTo('subscription.plans');
-      } else if (message.isOtpPassword && !message.isSubscribed && !message.isPaymentDone) {
+      } else if (message.isOtpPassword) {
         $state.transitionTo('messageContent.resetPassword');
+      } else if (message.isSubscribed && !message.subscriptionExpired) {
+        $state.transitionTo('subscription.payment');
+      } else if (message.isSubscribed && message.subscriptionExpired && message.hasDonePayment) {
+        $state.transitionTo('subscription.payment');
       } else {
         $state.transitionTo('prodo.wall');
       }
@@ -129,10 +103,18 @@ angular.module('prodo.UserApp')
      
     // function to signin to Prodonus App using REST APIs and performs form validation.
     $scope.signin = function() {
+      $scope.showSpinner();
       UserSessionService.signinUser($scope.jsonUserSigninData());
       $scope.$on("signinDone", function(event, message){
         $scope.clearformData();
+        $scope.hideSpinner();
         $scope.handleSigninResponse(message); 
+
+      });
+      $scope.$on("signinNotDone", function(event, message){
+        $scope.clearformData();
+        $scope.hideSpinner();
+        $scope.showAlert('alert-danger', "Server Error:" + message);
 
       });
     }
@@ -155,8 +137,9 @@ angular.module('prodo.UserApp')
     // function to handle server side responses
     $scope.handleForgotPasswordResponse = function(data){
       if (data.success) {
+        $state.transitionTo('messageContent.signin');   
         $scope.showAlert('alert-info', 'Your temporary password has been sent. Please check your email, and signin again.');
-        $state.transitionTo('messageContent.signin');
+
       } else {
         if (data.error.code== 'AV001') {     // enter valid data
             console.log(data.error.code + " " + data.error.message);
@@ -176,10 +159,18 @@ angular.module('prodo.UserApp')
 
     // function for forgotpassword to Prodonus App using REST APIs and performs form validation.
     $scope.forgotpassword = function() {
+      $scope.showSpinner();
       UserSessionService.forgotPasswordUser($scope.jsonForgotPasswordData());
       $scope.$on("forgotPasswordDone", function(event, message){
         $scope.clearformData();
+        $scope.hideSpinner();
         $scope.handleForgotPasswordResponse(message);   
+      });
+      $scope.$on("forgotPasswordNotDone", function(event, message){
+        $scope.clearformData();
+        $scope.hideSpinner();
+        $scope.showAlert('alert-danger', "Server Error:" + message);
+
       });
     }
 
@@ -201,7 +192,7 @@ angular.module('prodo.UserApp')
     // function to handle server side responses
     $scope.handleResetPasswordResponse = function(data){
       if (data.success) {
-        if (data.success.isSubscribed && data.success.isPaymentDone) {
+        if (data.success.isSubscribed && data.success.subscriptionExpired && data.success.hasDonePayment) {
           $state.transitionTo('prodo.wall');
         } else if (!data.success.isSubscribed) {
           $state.transitionTo('subscription.plans');
@@ -219,10 +210,18 @@ angular.module('prodo.UserApp')
 
     // function for resetpassword to Prodonus App using REST APIs and performs form validation.
     $scope.resetpassword = function() {
+      $scope.showSpinner();
       UserSessionService.resetPasswordUser($scope.jsonResetPasswordData());
       $scope.$on("resetPasswordDone", function(event, message){
         $scope.clearformData();
+        $scope.hideSpinner();
         $scope.handleResetPasswordResponse(message);   
+      });
+      $scope.$on("resetPasswordNotDone", function(event, message){
+        $scope.clearformData();
+        $scope.hideSpinner();
+        $scope.showAlert('alert-danger', "Server Error:" + message);
+
       });
     }
 

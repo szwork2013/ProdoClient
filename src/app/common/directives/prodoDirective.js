@@ -112,10 +112,66 @@ angular.module("prodo.CommonApp")
   return {
     restrict: 'EA',
     replace: true,
-    template: '<div style="min-width:250px; text-align:left; margin: 0px auto;" class="alert {{mainAlert.alertType}}" ng-show="mainAlert.isShown">' +
+    template: '<div style="min-width:250px; text-align:left; margin: 5px auto;" class="alert {{mainAlert.alertType}}" ng-show="mainAlert.isShown">' +
   '<button type="button" class="close" ng-click="closeAlert()" aria-hidden="true">&times;</button>' +
   '{{mainAlert.message}}' + '<a href="#/{{mainAlert.linkpage}}" class="alert-link"> {{mainAlert.linkmessage}}</a>' +
-'</div>'
+'</div>',
+    controller: function($scope, $rootScope){
+      $scope.mainAlert = {
+       isShown: false
+      };
+
+    $scope.showAlert = function (alertType, message, linkpage, linkmessage ) {
+       $scope.mainAlert.message = message;
+       $scope.mainAlert.isShown = true;
+       $scope.mainAlert.linkpage = linkpage;
+       $scope.mainAlert.linkmessage = linkmessage;
+       $scope.mainAlert.alertType = alertType;
+      
+      // return $scope.mainAlert.message;
+    }   
+
+    
+    $scope.showmessage = function(alertclass, msg,  alertlink, linkmsg ) {
+        var alerttype=alertclass;
+        var alertmessage=msg; 
+        var link = alertlink; 
+        var linkmessage= linkmsg;      
+        $scope.showAlert(alerttype, alertmessage, link, linkmessage);
+        return true;
+    };
+     
+    
+     $scope.closeAlert = function() {        
+       $scope.mainAlert.isShown = false;
+    };
+    
+    $scope.hideAlert = function() {
+       $scope.mainAlert.isShown = false;
+    }  
+
+    }
+    };
+})
+
+.directive('prodoSpinner', function($timeout) {
+  return {
+    restrict: 'EA',
+    replace: true,
+    template: '<span ng-show="spinner.isShown">' + '<i style="color:blue;" class="fa fa-spinner fa-spin fa-2x">' + '</i>' + '</span>',
+    controller: function($scope, $rootScope){
+      $scope.spinner ={ isShown: false};
+
+      $scope.showSpinner = function() {
+        $scope.spinner.isShown = true;
+      }
+
+      $scope.hideSpinner = function() {
+        $scope.spinner.isShown = false;
+      }
+  
+    }
+
     };
 })
 
@@ -166,8 +222,6 @@ angular.module("prodo.CommonApp")
     };
     return nav;
 })
-
- 
 
    .directive('ensureUnique', ['$http', function($http) {
   return {

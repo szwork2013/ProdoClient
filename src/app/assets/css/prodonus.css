@@ -269,17 +269,15 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
  
 #prodo-form-forgotPassword{
 	display: block;
-    margin: 0 auto;
-    text-align: center;
+  margin: 0 auto;
+  text-align: center;
 }
 #prodo-input-forgotPassword{
 	width:250px;
 	height: 30px;
 	border-radius: 2px;
 	margin: 10px auto;
-	display: block;
-    text-align: center;
-     
+	display: block;  
 }
 
 /*change the View: forgotPassword form input button forgotPassword style*/
@@ -290,7 +288,7 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
 	font-size: 15px;
 	position: relative;
 	display: block;
-  	margin: 20px auto;
+  margin: 20px auto;
 	text-align: center;
   }
 
@@ -321,8 +319,8 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
  
 #prodo-form-resetPassword{
 	display: block;
-    margin: 0 auto;
-    text-align: center;
+  margin: 0 auto;
+  text-align: center;
 }
 #prodo-input-resetPassword{
 	width:250px;
@@ -330,7 +328,6 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
 	border-radius: 2px;
 	margin: 10px auto;
 	display: block;
-    text-align: center;
      
 }
 
@@ -342,7 +339,7 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
 	font-size: 15px;
 	position: relative;
 	display: block;
-  	margin: 20px auto;
+  margin: 20px auto;
 	text-align: center;
   }
 

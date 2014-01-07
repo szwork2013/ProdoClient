@@ -22,9 +22,11 @@ angular.module('prodo.ProdonusApp',['ui.router', 'ui.bootstrap', '$strap.directi
   'prodo.BlogApp', 'prodo.AdApp', 'prodo.AdminApp' ,'ngAnimate','upload' 
   ])
 	
-	.run(['$rootScope', 'UserSessionService', function ($rootScope, UserSessionService,UploadService) {
+ 
+	.run(['$rootScope', 'UserSessionService', 'OrgRegistrationService', function ($rootScope, UserSessionService, OrgRegistrationService) {
     $rootScope.usersession = UserSessionService;
-    $rootScope.UploadUI=UploadService;
+    $rootScope.organizationData = OrgRegistrationService;
+ 
     UserSessionService.checkUser();
 
 	}])
@@ -32,35 +34,37 @@ angular.module('prodo.ProdonusApp',['ui.router', 'ui.bootstrap', '$strap.directi
 	.controller('ProdoMainController', ['$scope', '$rootScope', '$state', 'UserSessionService', function($scope, $rootScope, $state, UserSessionService) {
 
 		$state.transitionTo('home.start');
-		$scope.$on('$stateNotFound', 
-			function(event, unfoundState, fromState, fromParams){ 
-		    console.log(unfoundState.to); // "lazy.state"
-		    console.log(unfoundState.toParams); // {a:1, b:2}
-		    console.log(unfoundState.options); // {inherit:false} + default options
-			});
 
 		$rootScope.$on("session-changed", function(event, message){
 			console.log(message);   
-			if (message.status) {
-				UserSessionService.authSuccess(message);
+				if (message.success) {
+					UserSessionService.authSuccess(message.success.user)
+					// $state.transitionTo($state.current.url);
+				
 			} 
 			else {
 				UserSessionService.authfailed();
 				$state.transitionTo('home.start');
-
+				
 			};
        
       });
 
-		$scope.$on('$stateChangeError', 
-		function(event, toState, toParams, fromState, fromParams, error){ 
-		});
+		$scope.logout = function() {
+			// $scope.showSpinner();
+			UserSessionService.logoutUser();
+			$scope.$on("logoutDone", function(event, message){
+				// $scope.hideSpinner();
+        $state.transitionTo('home.start');
+        $scope.showAlert('alert-success', message);
 
-		$scope.$on('$viewContentLoading', 
-		function(event, viewConfig){ 
-		    // Access to all the view config properties.
-		    // and one special property 'targetView'
-		    // viewConfig.targetView 
-		});
-		
+      });
+      $scope.$on("logoutNotDone", function(event, message){
+      	// $scope.hideSpinner();
+        $scope.showAlert('alert-danger', "Server Error:" + message);
+
+      });
+		};
+
+		 
 	}]);

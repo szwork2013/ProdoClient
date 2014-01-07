@@ -15,6 +15,13 @@ angular.module('prodo.UserApp')
       {
         signinUser: { method: 'POST'}
       }),
+      ManageUser: $resource('/api/user/:userid', {},
+      {
+        getAllUsers: { method: 'GET', isArray: true },
+        getUserSettings: { method: 'GET', params: { userid: '@userid' }, isArray: false},
+        updateUserSettings: { method: 'PUT', params: { userid: '@userid' }, isArray: false},
+        deleteUserSettings: { method: 'DELETE', params: { userid: '@userid' }}
+      }),
       ForgotPassword:  $resource('/api/user/forgotpassword', {},
       {
         forgotPassword: { method: 'POST'}
@@ -49,8 +56,61 @@ angular.module('prodo.UserApp')
         },
         function(error){
           console.log(error);
+          $rootScope.$broadcast("signinNotDone", error.status);
+          
         });
       }
+
+      session.saveUserSettings= function (userdata) {
+        UserService.ManageUser.updateUserSettings({userid: session.currentUser.userid}, userdata,     // calling function of UserSigninService to make POST method call to signin user.
+        function(success){
+          console.log(success);
+          $rootScope.$broadcast("updateUserDone", success);
+        },
+        function(error){
+          console.log(error);
+        });
+      }
+
+      session.removeUserSettings= function () {
+        UserService.ManageUser.deleteUserSettings({userid: session.currentUser.userid},     // calling function of UserSigninService to make POST method call to signin user.
+        function(success){
+          console.log(success);
+          $rootScope.$broadcast("deleteUserDone", success);
+        },
+        function(error){
+          console.log(error);
+        });
+      }
+
+      session.getUserDetailSettings= function () {
+        UserService.ManageUser.getUserSettings({userid: session.currentUser.userid},     // calling function of UserSigninService to make POST method call to signin user.
+        function(success){
+          console.log(success);
+          $rootScope.$broadcast("getUserDone", success);
+        },
+        function(error){
+          console.log(error);
+        });
+      }
+
+      session.updateUserData = function(userData, $scope){
+          session.currentUserData = userData;
+        }
+
+      // function to handle server side responses
+      session.handleGetUserResponse = function(data){
+      if (data.success) {
+        session.updateUserData(data.success.user);
+        // $scope.showAlert('alert-success', data.success.message);   
+      } else {
+            console.log(data.error.message);
+        }
+    };
+
+      $rootScope.$on("getUserDone", function(event, message){
+        session.handleGetUserResponse(message);   
+      });
 
       session.forgotPasswordUser= function (userdata) {
         UserService.ForgotPassword.forgotPassword(userdata,     // calling function of UserSigninService to make POST method call to signin user.
@@ -59,6 +119,7 @@ angular.module('prodo.UserApp')
           $rootScope.$broadcast("forgotPasswordDone", success);        },
         function(error){
           console.log(error);
+          $rootScope.$broadcast("forgotPasswordNotDone", error.status);
         });
       }
 
@@ -69,6 +130,7 @@ angular.module('prodo.UserApp')
           $rootScope.$broadcast("resetPasswordDone", success);        },
         function(error){
           console.log(error);
+          $rootScope.$broadcast("resetPasswordNotDone", error.status);
         });
       }
 
@@ -79,6 +141,7 @@ angular.module('prodo.UserApp')
           $rootScope.$broadcast("regenerateTokenDone", success);        },
         function(error){
           console.log(error);
+          $rootScope.$broadcast("regenerateTokenNotDone", error.status);
         });
       }
 
@@ -88,18 +151,19 @@ angular.module('prodo.UserApp')
         
         session.resetSession = function() {
           session.currentUser = null;
-          session.isLoggedIn = false
+          session.isLoggedIn = false;
         }
 
-        session.logout = function(){
+        session.logoutUser = function(){
           UserService.Logout.logoutUser(     // calling function of UserSigninService to make POST method call to signin user.
             function(success){
-              console.log(success);
+              console.log(success.success.message);
               session.resetSession();
-              $state.transitionTo('home.start');
+              $rootScope.$broadcast("logoutDone", success.success.message); 
             },
             function(error){
               console.log(error);
+              $rootScope.$broadcast("logoutNotDone", error.status);
             });
             
             // $rootScope.$broadcast("session-changed");
@@ -122,6 +186,9 @@ angular.module('prodo.UserApp')
           $rootScope.$broadcast("session-changed", success);        },
         function(error){
           console.log(error);
+          session.authfailed();
+          $state.transitionTo('home.start');
+
         });
       }
     return session;
@@ -161,13 +228,14 @@ angular.module('prodo.UserApp')
            data:  jdata ,
            headers: {'Content-Type': 'application/json'},
           }).
-       success(function(data) {
+       success(function(data, status) {
               console.log("success"); 
               console.log(data); 
               recaptchaService.handleRecaptchaResponse($scope, data);                      
         }).
-       error(function(data) {
-            console.log('Failed validation'); 
+       error(function(data, status) {
+            console.log(status);
+            $scope.$broadcast("recaptchaFailure", status); 
             vcRecaptchaService.reload(); 
         });
   }; 

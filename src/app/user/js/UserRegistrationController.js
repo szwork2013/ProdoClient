@@ -15,42 +15,6 @@ angular.module('prodo.UserApp')
         'terms' : true,
       };
 
-    $scope.mainAlert = {
-       isShown: false
-      };
-
-    $scope.showAlert = function (alertType, message, linkpage, linkmessage ) {
-       $scope.mainAlert.message = message;
-       $scope.mainAlert.isShown = true;
-       $scope.mainAlert.linkpage = linkpage;
-       $scope.mainAlert.linkmessage = linkmessage;
-       $scope.mainAlert.alertType = alertType;
-      
-      // return $scope.mainAlert.message;
-    }   
-
-     $scope.closeAlert = function() {        
-       $scope.mainAlert.isShown = false;
-    };
-
-    $scope.showmessage = function(alertclass, msg,  alertlink, linkmsg ) {
-        var alerttype=alertclass;
-        var alertmessage=msg; 
-        var link = alertlink; 
-        var linkmessage= linkmsg;      
-        $scope.showAlert(alerttype, alertmessage, link, linkmessage);
-        return true;
-    };
-    
-    $scope.hideAlert = function() {
-       $scope.mainAlert.isShown = false;
-    }  
-
-    $timeout(function(){
-       $scope.hideAlert();
-      }, 50000);
- 
-
     // function to clear form data on submit
     $scope.clearformData = function() {
       $scope.user.fullname = '';
@@ -58,6 +22,10 @@ angular.module('prodo.UserApp')
       $scope.user.password = '';
     }
   
+    $timeout(function(){
+       $scope.hideAlert();
+      }, 50000);
+
      // function to send and stringify user registration data to Rest APIs
     $scope.jsonUserData = function(){
       var userData = 
@@ -99,21 +67,30 @@ angular.module('prodo.UserApp')
   
     $scope.signup = function(){
       if ($scope.signupForm.$valid) {
-        // $scope.showAlert('alert-success', 'message');
+        $scope.showSpinner();
         var jsondata=$scope.jsonUserData();
         console.log('User Data entered successfully');
         UserRecaptchaService.validate($scope);
         $scope.$on("recaptchaNotDone", function(event, message){
+          $scope.hideSpinner();
           $scope.showAlert('alert-danger', 'Recaptcha failed, please try again');
+        });
+        $scope.$on("recaptchaFailure", function(event, message){
+          $scope.hideSpinner();
+          $scope.showAlert('alert-danger', "Server is not responding. Error:" + message);
         });
         $scope.$on("recaptchaDone", function(event, message){
           UserSignupService.saveUser(jsondata,    // calling function of UserSignupService to make POST method call to signup user.
           function(success){
+            $scope.hideSpinner();
             console.log(success);
             $scope.handleSignupResponse(success);      // calling function to handle success and error responses from server side on POST method success.
           },
           function(error){
+            $scope.hideSpinner();
             console.log(error);
+            $scope.showAlert('alert-danger', "Server Error:" + message);
+
           });  
         });
       } else {
@@ -150,9 +127,16 @@ angular.module('prodo.UserApp')
 
     // function for resetpassword to Prodonus App using REST APIs and performs form validation.
     $scope.regeneratetoken = function() {
+      $scope.showSpinner();
       UserSessionService.regenerateTokenUser($scope.jsonRegenerateTokenData());
       $scope.$on("regenerateTokenDone", function(event, message){
+        $scope.clearformData();
+        $scope.hideSpinner();
         $scope.handleRegenerateTokenResponse(message);   
+      });
+      $scope.$on("regenerateTokenNotDone", function(event, message){
+      $scope.clearformData();
+      $scope.hideSpinner();  
       });
   
     }

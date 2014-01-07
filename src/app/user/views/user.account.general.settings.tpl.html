@@ -1,0 +1,104 @@
+<!--Template for User Account General settings-->
+<div style="background-color:white;" id="prodo-user-general-settings-container" class="container">
+	<p style="margin-top: 10px;"><strong>General Account Settings</strong><a ng-click="deleteUserAccount()"><i class="fa fa-trash-o fa-2x pull-right"></i></a></p>
+	<div prodo-alert-message></div>
+	<ul class="list-group">
+	  <li class="list-group-item">
+	  	Username: {{usersession.currentUserData.fullname}}
+	  	<a href="" data-toggle="collapse" data-target="#username" class="pull-right">Edit</a>
+	  		<div id="username" class="collapse">
+		  		<form id="prodo-form-signin" name="signinForm" class="css-form" ng-submit="" novalidate>
+
+	    			<div class="control-group">
+
+	        	<input id="prodo-input-signin" name="fullname" class="form-control" type="text" placeholder="{{usersession.currentUser.fullname}}" required ng-model="user.fullname" /> 
+	      
+	      
+	        	<input id="prodo-input-signin" type="password" class="form-control" id="password1" name="password" placeholder="Password" ng-model="user.password" required>
+	  				</div>  
+
+	  				<button id="prodo-button" class="btn btn-sm btn-primary" ng-click="updateUserAccount()">Save Changes</button>
+	  				<button id="prodo-button" class="btn btn-sm btn-primary" data-toggle="collapse" data-target="#username">Cancel</button>
+	  			</form>
+				</div>
+			</li>
+			<li class="list-group-item">
+	  	Email: {{usersession.currentUserData.email}}
+	  	<a href="" data-toggle="collapse" data-target="#emailid" class="pull-right">Edit</a>
+	  		<div id="emailid" class="collapse">
+		  		<form id="prodo-form-signin" name="signinForm" class="css-form" ng-submit="" novalidate>
+
+	    			<div class="control-group">
+
+	        		<input id="prodo-input-signin" name="email" class="form-control" type="text" placeholder="{{usersession.currentUser.email}}" required ng-model="user.email" />
+
+	        		<input id="prodo-input-signin" type="password" class="form-control" id="password1" name="password" placeholder="Password" ng-model="user.password" required> 
+	       
+	  				</div>  
+
+	  				<button id="prodo-button" class="btn btn-sm btn-primary" ng-click="updateUserAccount()">Save Changes</button>
+	  				<button id="prodo-button" class="btn btn-sm btn-primary" data-toggle="collapse" data-target="#emailid">Cancel</button>
+	  			</form>
+				</div>
+			</li>
+			<li class="list-group-item">
+	  	Password: Change password settings
+	  	<a href="" data-toggle="collapse" data-target="#password" class="pull-right">Edit</a>
+	  		<div id="password" class="collapse">
+		  		<form id="prodo-form-signin" name="signinForm" class="css-form" ng-submit="" novalidate>
+
+	    			<div class="control-group">
+
+	        		<input id="prodo-input-signin" type="password" class="form-control" id="password" name="currentpassword" placeholder="Current Password" ng-model="user.currentpassword" required>
+
+	        		<input id="prodo-input-signin" type="password" class="form-control" id="password" name="newpassword" placeholder="New Password" ng-model="user.newpassword" required>
+
+	        		<input id="prodo-input-signin" type="password" class="form-control" id="password" name="confirmnewpassword" placeholder="Confirm Password" ng-model="user.confirmnewpassword" required> 
+	       
+	  				</div>  
+
+	  				<button id="prodo-button" class="btn btn-sm btn-primary" ng-click="updateUserAccount()">Save Changes</button>
+	  				<button id="prodo-button" class="btn btn-sm btn-primary" data-toggle="collapse" data-target="#password">Cancel</button>
+	  			</form>
+				</div>
+			</li>
+
+			<li class="list-group-item">
+	  	Other Settings
+	  	<a href="" data-toggle="collapse" data-target="#othersettings" class="pull-right">Edit</a>
+	  		<div id="othersettings" class="collapse">
+		  		<form id="prodo-form-signin" name="signinForm" class="css-form" ng-submit="" novalidate>
+
+	    			<div class="control-group">
+	    				<ul>
+	    				<li>
+	        		<label class="label-control" style="width: 100px; text-align:left; float: left; display: inline-block;">Firstname</label>
+	        		<input id="prodo-input-signin" name="firstname" class="form-control" type="text" placeholder="Firstname" required ng-model="user.firstname" /></li>
+
+	        		<li>
+	        		<label class="label-control" style="width: 100px; text-align:left; float: left; display: inline-block;">Lastname</label>
+	        		<input id="prodo-input-signin" name="lastname" class="form-control" type="text" placeholder="Lastname" required ng-model="user.lastname" /></li>
+
+	        		<li><label class="label-control" style="width: 100px; text-align:left; float: left; display: inline-block;">Date Of Birth</label>
+	        		<input id="prodo-input-signin" name="DOB" class="form-control" type="date" placeholder="Date of birth" required ng-model="user.DOB" /></li>
+
+	        		<li><label class="label-control" style="width: 100px; text-align:left; float: left; display: inline-block;">Gender</label>
+	        		<input type="radio" ng-model="color" value="Male"> Male  
+      				<input type="radio" ng-model="color" value="Female"> Female</li>
+
+	        		<li><label class="label-control" style="width: 100px; text-align:left; float: left; display: inline-block;">Contact No.</label>
+	        		<input id="prodo-input-signin" name="contact_number" class="form-control" type="text" placeholder="Contact No." required ng-model="user.contact_number" /></li>
+
+	        		<li ng-show="usersession.currentUser.orgname"><label class="label-control" style="width: 100px; text-align:left; float: left; display: inline-block;">Organization Name</label><input id="prodo-input-signin" name="orgname" class="form-control" type="text" placeholder="Organization Name" required ng-model="org.orgname" /></li>
+
+	       		</ul>
+	  				</div>  
+
+	  				<button id="prodo-button" class="btn btn-sm btn-primary" ng-click="updateUserAccount()">Save Changes</button>
+	  				<button id="prodo-button" class="btn btn-sm btn-primary" data-toggle="collapse" data-target="#othersettings">Cancel</button>
+	  			</form></div>
+			</li>
+			 
+	</ul>
+	</div>
+</div>
