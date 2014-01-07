@@ -56,7 +56,10 @@
 				</div>
 				<br>
 	  		<div id="location" class="collapse">
-
+	  			<div class="bar">
+						<!-- Create a binding between the searchString model and the text field -->
+						<input type="text" class="form-control" ng-model="searchAddress" placeholder="Enter your search terms" />
+					</div>
 	  			<table class="table table-striped">
 						<thead>
 						  <tr>
@@ -69,7 +72,7 @@
 						  </tr>
 						</thead>
 						<tbody>
-						  <tr ng-repeat="location in organizationData.currentOrgData.location">
+						  <tr ng-repeat="location in organizationData.currentOrgData.location | filter:searchAddress">
 						  <td>{{location.locationtype}}</td>
 							<td>{{location.address.address1}}, {{location.address.address2}}, {{location.address.address3}}</td>
 							<td>{{location.address.country}}</td>
