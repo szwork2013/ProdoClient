@@ -11,7 +11,7 @@
  * 
  */
 angular.module('prodo.ProductApp')
-        .controller('ProductController', ['$scope', '$rootScope', 'ProductService', 'ProductSaveService', 'UserSessionService', function($scope, $rootScope, ProductService, ProductSaveService, UserSessionService, UploadService) {
+        .controller('ProductController', ['$scope', '$rootScope', 'ProductService', 'UserSessionService', function($scope, $rootScope, ProductService, UserSessionService, UploadService) {
 
             //comments
             $scope.productComments = {comments: [{}]};
@@ -36,6 +36,7 @@ angular.module('prodo.ProductApp')
             $scope.userFullnameFromSession;
             $scope.grpnameFromSession;
             $scope.orgnameFromSession;
+            $scope.orgidFromSession;
             $scope.socket;
 
 
@@ -62,8 +63,10 @@ angular.module('prodo.ProductApp')
                 $scope.grpnameFromSession = $rootScope.usersession.currentUser.grpname;
               else
                 $scope.grpnameFromSession = "";
-              if ($rootScope.usersession.currentUser.orgname)
+              if ($rootScope.usersession.currentUser.orgname) {
+                $scope.orgidFromSession = $rootScope.usersession.currentUser.orgid;
                 $scope.orgnameFromSession = $rootScope.usersession.currentUser.orgname;
+              }
               else
                 $scope.orgnameFromSession = "";
 
@@ -147,7 +150,7 @@ angular.module('prodo.ProductApp')
             $scope.getProduct = function()
             {
 
-              ProductService.getProduct({prodle: 'xk7i99lj8'},
+              ProductService.getProduct({orgid: $scope.orgidFromSession, prodle: 'xk7i99lj8'},
               function(successData) {
 
                 console.log(successData.success.product.product_comments);
@@ -157,7 +160,7 @@ angular.module('prodo.ProductApp')
               },
                       function(error) {
                         console.log(error);
-                         $scope.showAlert('alert-danger', "Server Error:" + error.status);
+                        $scope.showAlert('alert-danger', "Server Error:" + error.status);
 
                       });
             }
@@ -210,23 +213,23 @@ angular.module('prodo.ProductApp')
                   name: $scope.product.name,
                   description: $scope.product.description
                 }};
- 
-                ProductSaveService.saveProduct($scope.newProduct,
-                        function(success) {
-                          console.log(success);
-                          $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
-                        },
-                        function(error) {
-                          console.log(error);
-                        });
- 
+
+              ProductService.saveProduct({orgid: $scope.orgidFromSession},$scope.newProduct,
+                      function(success) {
+                        console.log(success);
+                        $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
+                      },
+                      function(error) {
+                        console.log(error);
+                      });
+
             };
             //delete product
             $scope.deleteProduct = function()
             {
               if ($rootScope.usersession.currentUser.isAdmin) {
                 alert("deleting");
-                ProductService.deleteProduct({prodle: $scope.product_prodle});
+                ProductService.deleteProduct({orgid: $scope.orgidFromSession,prodle: $scope.product_prodle});
               }
               else
                 alert("You dont have rights to delete this product...");
