@@ -87,6 +87,7 @@ angular.module('prodo.ProductApp')
             //socket connect
 
             //socket response when for add comment
+             $scope.socket.removeAllListeners('addcommentResponse');
             $scope.socket.on("addcommentResponse", function(error, result) {
               if (error) {
                 console.log(error.error.message);
@@ -104,6 +105,7 @@ angular.module('prodo.ProductApp')
 
 
             //productComment response
+            $scope.socket.removeAllListeners('productcommentResponse');
             $scope.socket.on("productcommentResponse", function(error, result) {
               if (error) {
                 console.log(error.error.message);
@@ -151,7 +153,7 @@ angular.module('prodo.ProductApp')
             $scope.getProduct = function()
             {
 
-              ProductService.getProduct({orgid: $scope.orgidFromSession, prodle: 'g1DGN0vqP'},
+              ProductService.getProduct({orgid: $scope.orgidFromSession, prodle: 'ly8KrAwqP'},
               function(successData) {
                  if(successData.success==undefined)
                  {
@@ -171,7 +173,7 @@ angular.module('prodo.ProductApp')
                       });
             }
             //get product function declaration  
-
+ 
             $scope.getProduct();
             //   console.log(ProductService.getProduct({prodle: 'eyYHSKVtL'}));
 
@@ -234,7 +236,7 @@ angular.module('prodo.ProductApp')
             $scope.deleteProduct = function()
             {
               if ($rootScope.usersession.currentUser.isAdmin) {
-                alert("deleting");
+                
                 ProductService.deleteProduct({orgid: $scope.orgidFromSession,prodle: $scope.product_prodle});
               }
               else
