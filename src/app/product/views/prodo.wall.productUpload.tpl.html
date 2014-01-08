@@ -6,7 +6,7 @@
 
 
   <!--<input id="input-files" type="file" name="files[]" data-url="/upload" multiple="multiple"/>-->
-  <form   >
+  <form  ng-app="upload" ng-controller="UploadController"  >
     <br>
     <center>  
       <!--            <div class="control-group">
@@ -19,10 +19,10 @@
                   </div>-->
       <div class="control-group">
         <div class="controls">
-          <span class="btn btn-default fileinput-button">
-            <i class="fa fa-plus-square"></i>
-            <input multiple  type="file" name="file" ng-file-select="onFileSelect($files)"
-                   ><span>Select Files</span>
+          <span class="btn btn-success fileinput-button">
+            <i class="glyphicon glyphicon-upload"></i>
+            <input   type="file" name="file" ng-file-select="onFileSelect($files)" multiple ng-click=" uploadSrc='product';">
+            <span>Select Files</span>
           </span>
         </div>
       </div>

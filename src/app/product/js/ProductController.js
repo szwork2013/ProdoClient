@@ -11,7 +11,7 @@
  * 
  */
 angular.module('prodo.ProductApp')
-        .controller('ProductController', ['$scope', '$rootScope', 'ProductService', 'UserSessionService', function($scope, $rootScope, ProductService, UserSessionService, UploadService) {
+        .controller('ProductController', ['$scope', '$rootScope', 'ProductService', 'UserSessionService', function($scope, $rootScope, ProductService, UserSessionService  ) {
 
             //comments
             $scope.productComments = {comments: [{}]};
@@ -30,6 +30,7 @@ angular.module('prodo.ProductApp')
             $scope.newProduct = {product: [{}]};
             $scope.type = "product";
             $scope.product_prodle;
+           // $scope.uploadSrc="product";
 
             //user
             $scope.userIDFromSession;
@@ -145,19 +146,24 @@ angular.module('prodo.ProductApp')
 
             };
             //Add comment function
-
+           
             //get product function declaration
             $scope.getProduct = function()
             {
 
-              ProductService.getProduct({orgid: $scope.orgidFromSession, prodle: 'xk7i99lj8'},
+              ProductService.getProduct({orgid: $scope.orgidFromSession, prodle: 'g1DGN0vqP'},
               function(successData) {
-
-                console.log(successData.success.product.product_comments);
+                 if(successData.success==undefined)
+                 {
+                  $scope.showAlert('alert-danger', "Not getting Product..."  );  
+                 }
+                 else{
+                console.log(successData.success.product);
+//                console.log("success    "+successData);
                 $scope.product = successData.success.product;
                 $scope.product_prodle = successData.success.product.prodle;
                 $scope.productComments = successData.success.product.product_comments;
-              },
+              }},
                       function(error) {
                         console.log(error);
                         $scope.showAlert('alert-danger', "Server Error:" + error.status);
