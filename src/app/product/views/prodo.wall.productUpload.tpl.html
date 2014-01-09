@@ -1,3 +1,46 @@
- 
-        <div>Product upload code here</div>
- 
+
+
+<br>
+<div id="prodo-productFeature-fixed"   ng-app="prodo.CommonApp"  >
+
+
+
+  <!--<input id="input-files" type="file" name="files[]" data-url="/upload" multiple="multiple"/>-->
+  <form   >
+    <br>
+    <center>  
+      <!--            <div class="control-group">
+                    <div class="controls">
+                      <span class="btn btn-default fileinput-button">
+                        <i class="fa fa-plus-square"></i>
+                        <input type="file" id="input-files" name="files[]"   data-url="/upload" multiple="multiple" ><span>Add photo</span>
+                      </span>
+                    </div>
+                  </div>-->
+      <div class="control-group">
+        <div class="controls">
+          <span class="btn btn-default fileinput-button">
+            <i class="fa fa-plus-square"></i>
+            <input multiple  type="file" name="file" ng-file-select="onFileSelect($files)"
+                   ><span>Select Files</span>
+          </span>
+        </div>
+      </div>
+      
+<!--     <button type="button" class="btn btn-success  " ng-click=" getFile();" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
+      <span class="glyphicon glyphicon-upload"></span> Upload
+    </button>-->
+    </center>
+  </form>
+
+  <br>
+  <!--<center> <img style="width:200px; height:280px; " ng-src="{{imageSrc}}"  alt="User Profile"></center>-->
+  <!--<button id="send-file" class="btn btn-info" >Send</button>-->
+  <br>
+  <br>
+  <div id='imgshow'></div>
+
+
+</div>
+<br>
+

@@ -1,10 +1,25 @@
 <div class="row">
   <div class="col-md-12">
     <div class="thumbnail">
-      <img style="width:100px; height:80px; " src="../../assets/images/001.pixel.jpg" alt="...">
+      <div ng-app="upload" ng-controller="UploadController">
+        <center> <img style="width:100px; height:80px; " ng-src="{{imageSrc}}"  alt="User Profile"></center>
+        <form>
+          <br>
+          <center>  
+            <div class="control-group">
+              <div class="controls">
+                <span class="btn btn-default fileinput-button">
+                  <i class="fa fa-plus-square"></i>
+                  <input type="file" name="file" ng-file-select="onFileSelect($files)"
+                         ><span>Add photo</span>
+                </span>
+              </div>
+            </div>
+          </center>
+        </form>
+       </div>
       <div class="caption">
         <center><h4>{{usersession.currentUser.fullname}}</h4></center>
-        <p><center><a href="#" class="btn btn-default" role="button">Browse</a></center></p>
       </div>
     </div>
     <ul prodo-nav  style="margin-top:10px; background-color:white;" class="nav nav-pills nav-stacked">

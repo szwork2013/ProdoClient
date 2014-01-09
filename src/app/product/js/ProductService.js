@@ -10,32 +10,26 @@
  * 27-3/2013 | xyx | Add a new property
  * 
  */
- 
+
 
 angular.module('prodo.ProductApp')
         .factory('ProductService', ['$resource', function($resource) {
-            return $resource('/api/product/:prodle', {},
+            return $resource('/api/product/:orgid/:prodle', {},
                     {
-                      getProduct: {method: 'GET', params: {prodle: 'id'}},
-//                            updateProduct: {method: 'PUT', params: {prodle: '@userid'}, isArray: false},
-                    //  deleteProduct: {method: 'DELETE', params: {prodle: 'id'}}
+                      getProduct: {method: 'GET', params: {orgid: 'id', prodle: 'id'}},
+                      updateProduct: {method: 'PUT', params: {orgid: 'id', prodle: 'id'}, isArray: false},
+                      deleteProduct: {method: 'DELETE', params: {orgid: 'id', prodle: 'id'}},
+                      saveProduct: {method: 'POST', params: {orgid: 'id'}}
                     });
           }])
-        
-        
+
+
         .factory('CommentService', ['$resource', function($resource) {
             return $resource('/api/comment/:commentid', {},
                     {
-                     deleteComment: {method: 'DELETE', params: {commentid: "id"}}
+                      deleteComment: {method: 'DELETE', params: {commentid: "id"}}
                     });
           }])
-  
-        .factory('ProductSaveService', ['$resource', function($resource) {
-            return $resource('/api/product/:orgid', {},
-                    {
-                      saveProduct: {method: 'POST', params: {orgid: 'orge1LSosNiS'}},
-                   
-                    });
-          }])
+
  
 

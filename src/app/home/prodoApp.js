@@ -14,11 +14,12 @@ angular.module('prodo.ContentApp', []);
 angular.module('prodo.BlogApp', []);
 angular.module('prodo.AdApp', []);
 angular.module('prodo.AdminApp', []);
+ angular.module('upload', []);
 
 angular.module('prodo.ProdonusApp',['ui.router', 'ui.bootstrap', '$strap.directives', 'vcRecaptcha', 'ngResource', 'tags-input', 
 	'prodo.UserApp', 'prodo.ProdoWallApp', 'prodo.OrgApp','prodo.ProductApp', 'prodo.ProdoCommentApp',
 	'prodo.WarrantyApp', 'prodo.DashboardApp','prodo.ContentApp', 'prodo.CommonApp',
-  'prodo.BlogApp', 'prodo.AdApp', 'prodo.AdminApp' ,'ngAnimate' 
+  'prodo.BlogApp', 'prodo.AdApp', 'prodo.AdminApp' ,'ngAnimate','upload' 
   ])
 
 	.config(function($logProvider)	{
@@ -30,8 +31,7 @@ angular.module('prodo.ProdonusApp',['ui.router', 'ui.bootstrap', '$strap.directi
     $rootScope.usersession = UserSessionService;
     $rootScope.organizationData = OrgRegistrationService;
     $rootScope.$log = $log;
-    
-
+	 
 	}])
 
 	.controller('ProdoMainController', ['$scope', '$rootScope', '$state', '$log', 'UserSessionService', function($scope, $rootScope, $state, $log, UserSessionService) {

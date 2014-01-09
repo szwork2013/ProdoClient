@@ -12,12 +12,12 @@
  * 
  */-->
 
-<div ng-app="prodo.ProductApp" id="prodo-comment-container" class="container" style="border: 1px solid #94d2f8; width: 80%; margin-left:64.5px; "  ng-controller="ProductController">
+<div ng-app="prodo.ProductApp" id="prodo-comment-container" class="container" style="border: 1px solid #94d2f8; width: 100%;"  ng-controller="ProductController">
 
      <ul class="nav nav-tabs">
         <li class="active"><a href="#tabComments" data-toggle="tab">Product Comments</a></li>
         <li class=""><a href="#tabProductFeatures" data-toggle="tab">Product Features</a></li>
-        <li class=""><a href="#tabProductUpload" data-toggle="tab">Product Upload</a></li>
+        <li class=""><a href="#tabProductUpload" data-toggle="tab"   id="Upload-clck"  >Product Upload</a></li>
 
     </ul>
     <div class="tab-content" style="padding-bottom: 9px; border-bottom: 1px solid #ddd;">
@@ -27,7 +27,7 @@
         <div class="tab-pane" id="tabProductFeatures" ng-include="'product/views/prodo.wall.productFeatures.tpl.html'">
             <p>product-features</p>
         </div>
-        <div class="tab-pane" id="tabProductUpload" ng-include="'product/views/prodo.wall.productUpload.tpl.html'">
+      <div class="tab-pane"  id="tabProductUpload" ng-include="'product/views/prodo.wall.productUpload.tpl.html'"  >
             <p>product Upload here</p>
         </div>
     </div>

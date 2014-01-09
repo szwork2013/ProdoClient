@@ -11,7 +11,7 @@
  * 
  */
 angular.module('prodo.ProductApp')
-        .controller('ProductController', ['$scope', '$rootScope', 'ProductService', 'ProductSaveService', 'UserSessionService', function($scope, $rootScope, ProductService, ProductSaveService, UserSessionService) {
+        .controller('ProductController', ['$scope', '$rootScope', 'ProductService', 'UserSessionService', function($scope, $rootScope, ProductService, UserSessionService, UploadService) {
 
             //comments
             $scope.productComments = {comments: [{}]};
@@ -36,7 +36,12 @@ angular.module('prodo.ProductApp')
             $scope.userFullnameFromSession;
             $scope.grpnameFromSession;
             $scope.orgnameFromSession;
+            $scope.orgidFromSession;
             $scope.socket;
+
+
+
+
 
 
             $scope.showErrorIfCommentNotAdded = function( ) {
@@ -58,8 +63,10 @@ angular.module('prodo.ProductApp')
                 $scope.grpnameFromSession = $rootScope.usersession.currentUser.grpname;
               else
                 $scope.grpnameFromSession = "";
-              if ($rootScope.usersession.currentUser.orgname)
+              if ($rootScope.usersession.currentUser.orgname) {
+                $scope.orgidFromSession = $rootScope.usersession.currentUser.orgid;
                 $scope.orgnameFromSession = $rootScope.usersession.currentUser.orgname;
+              }
               else
                 $scope.orgnameFromSession = "";
 
@@ -70,14 +77,14 @@ angular.module('prodo.ProductApp')
             $scope.getUserDetails();
 
             //get login details
- 
+
             localStorage.sid = $rootScope.usersession.currentUser.sessionid;
             //socket connect
             $scope.socket = io.connect('http://ec2-54-254-210-45.ap-southeast-1.compute.amazonaws.com:8000', {
               query: 'session_id=' + localStorage.sid
             });
             //socket connect
- 
+
             //socket response when for add comment
             $scope.socket.on("addcommentResponse", function(error, result) {
               if (error) {
@@ -140,10 +147,10 @@ angular.module('prodo.ProductApp')
             //Add comment function
 
             //get product function declaration
-            $scope.getProductFunction = function()
+            $scope.getProduct = function()
             {
 
-              ProductService.getProduct({prodle: 'xk7i99lj8'},
+              ProductService.getProduct({orgid: $scope.orgidFromSession, prodle: 'xk7i99lj8'},
               function(successData) {
 
                 console.log(successData.success.product.product_comments);
@@ -153,17 +160,19 @@ angular.module('prodo.ProductApp')
               },
                       function(error) {
                         console.log(error);
+                        $scope.showAlert('alert-danger', "Server Error:" + error.status);
+
                       });
             }
             //get product function declaration  
 
-            $scope.getProductFunction();
+            $scope.getProduct();
             //   console.log(ProductService.getProduct({prodle: 'eyYHSKVtL'}));
 
             //get latest comments posted by others
             $scope.getLatestComments = function() {
               $scope.reversecomments_l = $scope.productCommentResponsearray.reverse();
-              $scope.productComments = $scope.revercecomments_l.concat($scope.productComments);
+              $scope.productComments = $scope.reversecomments_l.concat($scope.productComments);
               var a = document.getElementById("responseComment");
               a.style.display = 'none';
               a.innerHTML = "";
@@ -204,7 +213,8 @@ angular.module('prodo.ProductApp')
                   name: $scope.product.name,
                   description: $scope.product.description
                 }};
-              ProductSaveService.saveProduct($scope.newProduct,
+
+              ProductService.saveProduct({orgid: $scope.orgidFromSession},$scope.newProduct,
                       function(success) {
                         console.log(success);
                         $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
@@ -212,13 +222,17 @@ angular.module('prodo.ProductApp')
                       function(error) {
                         console.log(error);
                       });
+
             };
             //delete product
             $scope.deleteProduct = function()
             {
-              // if(user has product organization account)
-              ProductService.deleteProduct({prodle: $scope.product_prodle});
-              // else alert("You dont have access to delete this product");
+              if ($rootScope.usersession.currentUser.isAdmin) {
+                alert("deleting");
+                ProductService.deleteProduct({orgid: $scope.orgidFromSession,prodle: $scope.product_prodle});
+              }
+              else
+                alert("You dont have rights to delete this product...");
             }
             //delete product
 
@@ -257,6 +271,8 @@ angular.module('prodo.ProductApp')
 //                    }
 //                }
             //Product discontinued visibility testing
+
+
 
 
 
