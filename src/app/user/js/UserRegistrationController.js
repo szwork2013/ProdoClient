@@ -2,7 +2,7 @@
 *Registration Controller
 **/
 angular.module('prodo.UserApp')
-  .controller('UserRegistrationController', ['$scope', '$state', '$http', '$timeout', '$sce', 'UserSessionService', 'UserSignupService', 'vcRecaptchaService', 'UserRecaptchaService', function($scope, $state, $http, $timeout, $sce, UserSessionService, UserSignupService, vcRecaptchaService, UserRecaptchaService) {
+  .controller('UserRegistrationController', ['$scope', '$state', '$http', '$timeout', '$sce', '$log', 'UserSessionService', 'UserSignupService', 'vcRecaptchaService', 'UserRecaptchaService', function($scope, $state, $http, $timeout, $sce, $log, UserSessionService, UserSignupService, vcRecaptchaService, UserRecaptchaService) {
     $scope.submitted = false;
     $scope.user = { terms : true };
      
@@ -48,18 +48,18 @@ angular.module('prodo.UserApp')
         $scope.clearformData();    // on successfull signup transition occurs to verification page 
       } else {
         if (data.error.code== 'AU001') {     // user already exist
-            console.log(data.error.code + " " + data.error.message);
+            $log.debug(data.error.code + " " + data.error.message);
             $scope.showAlert('alert-danger', data.error.message);
             $state.transitionTo('home.start'); 
         } else if (data.error.code=='AV001') {  // user data invalid
-            console.log(data.error.code + " " + data.error.message);
+            $log.debug(data.error.code + " " + data.error.message);
             $scope.showAlert('alert-danger', data.error.message);
             $state.transitionTo('home.start');
         } else if (data.error.code=='AT001') {   // user has not verified
-            console.log(data.error.code + " " + data.error.message);
+            $log.debug(data.error.code + " " + data.error.message);
             $state.transitionTo('messageContent.resetGenerateToken');
         } else {
-            console.log(data.error.message);
+            $log.debug(data.error.message);
             $scope.showAlert('alert-danger', 'Prodonus Database Server error. Please wait for some time.');
         }
       }
@@ -69,7 +69,7 @@ angular.module('prodo.UserApp')
       if ($scope.signupForm.$valid) {
         $scope.showSpinner();
         var jsondata=$scope.jsonUserData();
-        console.log('User Data entered successfully');
+        $log.debug('User Data entered successfully');
         UserRecaptchaService.validate($scope);
         $scope.$on("recaptchaNotDone", function(event, message){
           $scope.hideSpinner();
@@ -83,12 +83,12 @@ angular.module('prodo.UserApp')
           UserSignupService.saveUser(jsondata,    // calling function of UserSignupService to make POST method call to signup user.
           function(success){
             $scope.hideSpinner();
-            console.log(success);
+            $log.debug(success);
             $scope.handleSignupResponse(success);      // calling function to handle success and error responses from server side on POST method success.
           },
           function(error){
             $scope.hideSpinner();
-            console.log(error);
+            $log.debug(error);
             $scope.showAlert('alert-danger', "Server Error:" + message);
 
           });  
@@ -116,10 +116,10 @@ angular.module('prodo.UserApp')
         $scope.clearformData();    
       } else {
         if (data.error.code== 'AU004') {     // enter valid data
-            console.log(data.error.code + " " + data.error.message);
+            $log.debug(data.error.code + " " + data.error.message);
             $scope.showAlert('alert-danger', data.error.message);
         } else {
-            console.log(data.error.message);
+            $log.debug(data.error.message);
             $scope.showAlert('alert-danger', data.error.message);
         }
       }

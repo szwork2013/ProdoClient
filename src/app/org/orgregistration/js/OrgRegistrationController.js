@@ -2,7 +2,7 @@
 *	Org Registration Controller
 **/
 angular.module('prodo.OrgApp')
-	.controller('OrgRegistrationController', ['$scope', 'OrgModel', '$state', 'OrgRegistrationService', function($scope, OrgModel, $state, OrgRegistrationService) {
+	.controller('OrgRegistrationController', ['$scope', 'OrgModel', '$state', '$log', 'OrgRegistrationService', function($scope, OrgModel, $state, $log, OrgRegistrationService) {
 		
     $scope.org = OrgModel;   // assining OrgModel service to org to update org model data
     
@@ -32,12 +32,13 @@ angular.module('prodo.OrgApp')
     // function to handle server side responses on org resgistration submit
 		$scope.handleOrgResponse = function(data){
       if (data.success) {
-        console.log(data.success);
+        $log.debug(data.success);      
         $state.transitionTo('prodo.wall');
+        $scope.showAlert('alert-success', data.success.message);
       } 
       else {
-        $state.transitionTo('subscription.company');
-        console.log(data.error)
+        $log.debug(data.error);
+        $scope.showAlert('alert-danger', data.error.message);
       }
     };
 
@@ -87,6 +88,9 @@ angular.module('prodo.OrgApp')
       OrgRegistrationService.RegisterOrg($scope.jsonOrgData()); // calling POST method REST APIs to save org data through OrgResgistrationService
         $scope.$on("orgRegistrationDone", function(event, message){
         $scope.handleOrgResponse(message);   
-      }); // clears form data
+      });
+      $scope.$on("orgRegistrationNotDone", function(event, message){
+        $scope.showAlert('alert-danger', "Server Error:" + message);      
+      }); 
     }
   }]);

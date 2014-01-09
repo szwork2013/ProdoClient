@@ -20,20 +20,25 @@ angular.module('prodo.ProdonusApp',['ui.router', 'ui.bootstrap', '$strap.directi
 	'prodo.WarrantyApp', 'prodo.DashboardApp','prodo.ContentApp', 'prodo.CommonApp',
   'prodo.BlogApp', 'prodo.AdApp', 'prodo.AdminApp' ,'ngAnimate' 
   ])
+
+	.config(function($logProvider)	{
+  	$logProvider.debugEnabled(true);
+	})
 	
-	.run(['$rootScope', 'UserSessionService', 'OrgRegistrationService', function ($rootScope, UserSessionService, OrgRegistrationService) {
+	.run(['$rootScope', 'UserSessionService', 'OrgRegistrationService', '$log', function ($rootScope, UserSessionService, OrgRegistrationService, $log) {
     $rootScope.usersession = UserSessionService;
     $rootScope.organizationData = OrgRegistrationService;
+    $rootScope.$log = $log;
     UserSessionService.checkUser()
 
 	}])
 
-	.controller('ProdoMainController', ['$scope', '$rootScope', '$state', 'UserSessionService', function($scope, $rootScope, $state, UserSessionService) {
+	.controller('ProdoMainController', ['$scope', '$rootScope', '$state', '$log', 'UserSessionService', function($scope, $rootScope, $state, $log, UserSessionService) {
 
 		$state.transitionTo('home.start');
 
 		$rootScope.$on("session-changed", function(event, message){
-			console.log(message);   
+			$log.debug(message);   
 				if (message.success) {
 					UserSessionService.authSuccess(message.success.user)
 					// $state.transitionTo($state.current.url);
@@ -45,6 +50,14 @@ angular.module('prodo.ProdonusApp',['ui.router', 'ui.bootstrap', '$strap.directi
 			};
        
       });
+
+		$rootScope.$on("session-changed-failure", function(event, message){
+			 UserSessionService.authfailed();
+       $state.transitionTo('home.start');
+			 $scope.showAlert('alert-danger', "Server Error: " + message);
+       
+      });
+
 
 		$scope.logout = function() {
 			// $scope.showSpinner();

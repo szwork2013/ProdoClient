@@ -1,8 +1,8 @@
   <div id="prodo-view-regeneratetoken">
   <div id="prodo-regeneratetoken-panel" class="panel panel-default">
-    <div id="prodo-regeneratetoken-panel-heading" class="panel-heading">Token Expired</div>
+    <div id="prodo-regeneratetoken-panel-heading" class="panel-heading">Regenerate Verification Token</div>
      <div class="panel-body">
-      <div ng-show="showmessage('alert-info', ' Your token is expired. Please enter your emailid to regenerate verification token.')" >
+      <div ng-show="showmessage('alert-info', ' Your token is expired or error sending verification email. Please enter your emailid to regenerate verification token.')" >
         <prodo-alert-message></prodo-alert-message>
         
         <input id="prodo-input-regeneratetoken" name="email" class="form-control" type="email" placeholder="enter email address" required ng-model="user.email" /> 

@@ -52,10 +52,10 @@ angular.module('prodo.ProdoWallApp')
        controller: 'ProdoDashboardController'
       }) 
   }])
- .run(['$rootScope', 'UserSessionService', '$state', function ($rootScope, UserSessionService, $state) {
+ .run(['$rootScope', 'UserSessionService', '$state', '$log', function ($rootScope, UserSessionService, $state, $log) {
   
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState){
-      // console.log($state.current.url);
+      // $log.debug($state.current.url);
       if (toState.name == 'prodo.wall' && !$rootScope.usersession.isLoggedIn) {
         event.preventDefault();
 

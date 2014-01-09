@@ -1,5 +1,5 @@
 angular.module('prodo.ProdoWallApp')
-	.controller('ProdoWallController', ['$scope', '$state', function($scope, $state) {
+	.controller('ProdoWallController', ['$scope', '$state', '$log', function($scope, $state, $log) {
 		
     // $state.transitionTo('prodo.wall');
     

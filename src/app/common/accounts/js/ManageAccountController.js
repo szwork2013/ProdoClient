@@ -1,5 +1,5 @@
 angular.module('prodo.CommonApp')
- .controller('ManageAccountController', ['$scope', '$rootScope', '$state', '$http', '$timeout', 'UserSessionService', 'OrgRegistrationService', function($scope, $rootScope, $state, $http, $timeout, $modal, UserSessionService, OrgRegistrationService) {
+ .controller('ManageAccountController', ['$scope', '$rootScope', '$state', '$http', '$timeout', 'UserSessionService', 'OrgRegistrationService', function($scope, $rootScope, $state, $http, $timeout, UserSessionService, OrgRegistrationService) {
 
     
 		// function to send and stringify user email to Rest APIs for user account update
@@ -54,10 +54,10 @@ angular.module('prodo.CommonApp')
         $scope.showAlert('alert-success', data.success.message);   
       } else {
         if (data.error.code== 'AU004') {     // enter valid data
-            console.log(data.error.code + " " + data.error.message);
+            $log.debug(data.error.code + " " + data.error.message);
             $scope.showAlert('alert-danger', data.error.message);
         } else {
-            console.log(data.error.message);
+            $log.debug(data.error.message);
             $scope.showAlert('alert-danger', data.error.message);
         }
       }
@@ -68,33 +68,75 @@ angular.module('prodo.CommonApp')
       $scope.$on("updateUserDone", function(event, message){
         $scope.handleUpdateUserResponse(message);   
       });
+
+      $scope.$on("updateUserNotDone", function(event, message){
+        $scope.hideSpinner();
+        $scope.showAlert('alert-danger', "Server Error:" + message);
+
+      });
   
     }
 
     // function to handle server side responses
     $scope.handleDeleteUserResponse = function(data){
       if (data.success) {
+        UserSessionService.logoutUser();
+        $scope.$on("logoutDone", function(event, message){
+        $state.transitionTo('home.start');
+        $scope.showAlert('alert-success', message);
+
+      });
         $scope.showAlert('alert-success', data.success.message);   
       } else {
-            console.log(data.error.message);
+            $log.debug(data.error.message);
             $scope.showAlert('alert-danger', data.error.message);
         }
     };
 
     $scope.deleteUserAccount = function() {
+
       UserSessionService.removeUserSettings();
       $scope.$on("deleteUserDone", function(event, message){
         $scope.handleDeleteUserResponse(message);   
       });
+      $scope.$on("deleteUserNotDone", function(event, message){
+        $scope.hideSpinner();
+        $scope.showAlert('alert-danger', "Server Error:" + message);
+
+      });
   
     }
 
+    // function to handle server side responses
+    $scope.handleGetUserResponse = function(data){
+    if (data.success) {
+        UserSessionService.updateUserData(data.success.user);
+        $scope.showAlert('alert-success', data.success.message);   
+    } else {
+        $log.debug(data.error.message);
+        $scope.showAlert('alert-success', data.success.message);  
+      }
+  };
+
+    $rootScope.$on("getUserDone", function(event, message){
+      $scope.handleGetUserResponse(message);   
+    });
+
+    $rootScope.$on("getUserNotDone", function(event, message){
+      scope.showAlert('alert-danger', "Server Error:" + message);
+    });
+
+
+
+    /***
     // Organisation Manage Account Settings
+    ***/
+
     $scope.jsonOrgAccountData = function()
       {
         var orgData = 
           {
-            org:
+            organization:
             {
             'name' : $scope.org.name,
             'description' : $scope.org.description,
@@ -107,25 +149,6 @@ angular.module('prodo.CommonApp')
 
                         'image' : $scope.org.image
 
-                        }],
-            'location': [{
-                          'locationtype': $scope.org.orgaddresstype,
-                          'address': 
-                            {
-                            'address1': $scope.org.address1,
-                            'address2': $scope.org.address2,
-                            'address3': $scope.org.address3,
-                            'country': $scope.org.country,
-                            'city': $scope.org.city,
-                            'state': $scope.org.state,
-                            'zipcode': $scope.org.zipcode 
-                            }, 
-                          'contacts': 
-                            [ 
-                             {'customerhelpline' : $scope.org.contact.customerhelpline1 },
-                             {'customerhelpline' : $scope.org.contact.customerhelpline2 },
-                             {'customerhelpline' : $scope.org.contact.customerhelpline3 }
-                            ]
                         }],
             'usergrp': [{
                           'grpname': $scope.org.grpname  
@@ -144,10 +167,10 @@ angular.module('prodo.CommonApp')
         $scope.showAlert('alert-success', data.success.message);   
       } else {
         if (data.error.code== 'AU004') {     // enter valid data
-            console.log(data.error.code + " " + data.error.message);
+            $log.debug(data.error.code + " " + data.error.message);
             $scope.showAlert('alert-danger', data.error.message);
         } else {
-            console.log(data.error.message);
+            $log.debug(data.error.message);
             $scope.showAlert('alert-danger', data.error.message);
         }
       }
@@ -158,6 +181,118 @@ angular.module('prodo.CommonApp')
       $scope.$on("updateOrgDone", function(event, message){
         $scope.handleUpdateOrgResponse(message);   
       });
+      $scope.$on("updateOrgNotDone", function(event, message){
+        $scope.showAlert('alert-danger', "Server Error:" + message);      
+      });
+  
+    }
+
+    // function to handle server side responses
+    $scope.handleOrgAddressResponse = function(data){
+      if (data.success) {
+        OrgRegistrationService.updateOrgAdd(data.success.orgaddress);
+        $scope.showAlert('alert-success', data.success.message);   
+      } else {
+        if (data.error.code== 'AU004') {     // enter valid data
+            $log.debug(data.error.code + " " + data.error.message);
+            $scope.showAlert('alert-danger', data.error.message);
+        } else {
+            $log.debug(data.error.message);
+            $scope.showAlert('alert-danger', data.error.message);
+        }
+      }
+    };  
+
+
+
+    $scope.getOrgAddress = function() {
+      OrgRegistrationService.getAllOrgAddress();
+      $scope.$on("getOrgAddressDone", function(event, message){
+        $scope.handleOrgAddressResponse(message);   
+      });
+      $scope.$on("getOrgAddressNotDone", function(event, message){
+        $scope.showAlert('alert-danger', "Server Error:" + message);      
+      });
+  
+    }
+
+    // function to handle server side responses
+    $scope.handleUpdateOrgAddressResponse = function(data){
+      if (data.success) {
+
+        $scope.showAlert('alert-success', data.success.message);   
+      } else {
+        if (data.error.code== 'AU004') {     // enter valid data
+            $log.debug(data.error.code + " " + data.error.message);
+            $scope.showAlert('alert-danger', data.error.message);
+        } else {
+            $log.debug(data.error.message);
+            $scope.showAlert('alert-danger', data.error.message);
+        }
+      }
+    };  
+
+
+    $scope.jsonOrgAddressData = function()
+      {
+        var orgAddData = 
+          {
+            location:
+            {
+             'address': 
+                    {
+                    'address1': $scope.org.address1,
+                    'address2': $scope.org.address2,
+                    'address3': $scope.org.address3,
+                    'country': $scope.org.country,
+                    'city': $scope.org.city,
+                    'state': $scope.org.state,
+                    'zipcode': $scope.org.zipcode 
+                    }, 
+              'contacts': 
+                    [ 
+                      {'customerhelpline' : $scope.org.contact.customerhelpline1 },
+                      {'customerhelpline' : $scope.org.contact.customerhelpline2 },
+                      {'customerhelpline' : $scope.org.contact.customerhelpline3 }
+                    ],
+              'locationtype': $scope.org.orgaddresstype
+            }
+          }
+        return JSON.stringify(orgAddData); 
+      }
+
+
+    // function to handle server side responses
+    $scope.handleAddOrgAddressResponse = function(data){
+      if (data.success) {
+
+        $scope.showAlert('alert-success', data.success.message);   
+      } else {
+        if (data.error.code== 'AU004') {     // enter valid data
+            $log.debug(data.error.code + " " + data.error.message);
+            $scope.showAlert('alert-danger', data.error.message);
+        } else {
+            $log.debug(data.error.message);
+            $scope.showAlert('alert-danger', data.error.message);
+        }
+      }
+    };  
+
+
+    $scope.addOrgAddress = function() {
+      OrgRegistrationService.saveOrgAddress($scope.jsonOrgAddressData());
+      $scope.$on("updateOrgAddressDone", function(event, message){
+        $scope.handleUpdateOrgAddressResponse(message);   
+      });
+      $scope.$on("updateOrgAddressNotDone", function(event, message){
+        $scope.showAlert('alert-danger', "Server Error:" + message);      
+      });
+      $scope.$on("addOrgAddressDone", function(event, message){
+        $scope.handleAddOrgAddressResponse(message);   
+      });
+      $scope.$on("addOrgAddressNotDone", function(event, message){
+        $scope.showAlert('alert-danger', "Server Error:" + message);      
+      });
   
     }
 
@@ -166,8 +301,8 @@ angular.module('prodo.CommonApp')
       if (data.success) {
         $scope.showAlert('alert-success', data.success.message);   
       } else {
-            console.log(data.error.message);
-            $scope.showAlert('alert-danger', data.error.message);
+          $log.debug(data.error.message);
+          $scope.showAlert('alert-danger', data.error.message);
         }
     };
 
@@ -176,25 +311,52 @@ angular.module('prodo.CommonApp')
       $scope.$on("deleteOrgDone", function(event, message){
         $scope.handleDeleteOrgResponse(message);   
       });
+      $scope.$on("deleteOrgNotDone", function(event, message){
+        $scope.showAlert('alert-danger', "Server Error:" + message);   
+      });
   
     }
 
-    // // function to handle server side responses
-    // $scope.handleGetUserResponse = function(data){
-    //   if (data.success) {
-    //     UserSessionService.updateUserData(data.success.user);
-    //     // $scope.showAlert('alert-success', data.success.message);   
-    //   } else {
-    //         console.log(data.error.message);
-    //         $scope.showAlert('alert-danger', data.error.message);
-    //     }
-    // };
+    // function to handle server side responses
+    $scope.handleDeleteOrgAddressResponse = function(data){
+      if (data.success) {
+        $scope.showAlert('alert-success', data.success.message);   
+      } else {
+          $log.debug(data.error.message);
+          $scope.showAlert('alert-danger', data.error.message);
+        }
+    };
 
-    // $scope.getUserAccountData = function() {
-    //   UserSessionService.getUserDetailSettings();
-    //   $scope.$on("getUserDone", function(event, message){
-    //     $scope.handleGetUserResponse(message);   
-    //   });
+    $scope.deleteOrgAddress = function() {
+      OrgRegistrationService.removeOrgAddress();
+      $scope.$on("deleteOrgAddressDone", function(event, message){
+        $scope.handleDeleteOrgResponse(message);   
+      });
+      $scope.$on("deleteOrgAddressNotDone", function(event, message){
+        $scope.showAlert('alert-danger', "Server Error:" + message);   
+      });
   
-    // }
-	}])
+    }
+
+    // function to handle server side responses
+    $scope.handleGetOrgResponse = function(data){
+      if (data.success) {
+        OrgRegistrationService.updateOrgData(data.success.organization);
+        $scope.showAlert('alert-success', data.success.message);   
+      } else {
+        $log.debug(data.error.message);
+        $scope.showAlert('alert-danger', data.error.message);
+        }
+    };
+
+      $rootScope.$on("getOrgDone", function(event, message){
+        $scope.handleGetOrgResponse(message);   
+      });
+
+      $rootScope.$on("getOrgNotDone", function(event, message){
+        $scope.showAlert('alert-danger', "Server Error:" + message);   
+      });
+
+
+}]);
+ 
