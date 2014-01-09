@@ -330,7 +330,247 @@ angular.module("prodo.CommonApp")
       }
     };
     return piechart;
-  });
+  })
+
+.directive("prodoProductchart",function(){
+  
+  var screenchart={
+    restrict : "EA",
+    link : function(scope,element,attr)
+    {
+
+    var z = d3.select("#product-screen")
+    .style("background-position","top")
+    .style( "background-image" , "url(http://www.digitaltrends.com/wp-content/uploads/2010/06/apple-iphone-4-91.jpg) ")
+    .style("background-repeat", "no-repeat")
+    ;
+      
+    var zz=z.append("svg"); 
+   var i; 
+ /////////////////////////////////////    Testing Area    ///////////////////////////////////////////////   
+   var l=  zz.append("circle")
+     .attr("cx",161)
+     .attr("cy",80)
+     .attr("r",5)
+     .style("fill","blue");
+     
+     
+     ////////////////////////////// under construction///
+     l.on("mouseenter",function()
+     {
+        l.attr("r",10)
+        .style("fill", "none")
+        .style("stroke", "red")
+        .style("stroke-opacity", 1e-6)
+        .style("stroke-width", 3)
+        .transition()
+        .duration(500)
+        .attr("r", 5)
+        .style("fill","blue")
+        .style("stroke-opacity", 2);
+        tooltip.text("Front 12 Megapixel Camera");
+   
+       })
+     .on("mouseout",function()
+     {
+       
+       l.attr("r",5).style("stroke","none");
+       tooltip.style("opacity",0);
+     }
+     );
+                        
+/////////////////////////////////////////////////////////////////////////////////////////////////////////// 
+
+
+ l2=zz.append("circle")
+     .attr("cx",128)
+     .attr("cy",129)
+     .attr("r",8)
+     .style("fill","blue")
+     .on("mouseover",function()
+     {
+        l2.attr("r",12)
+         .style("fill", "none")
+        .style("stroke", "red")
+        .style("stroke-opacity", 1e-6)
+        .style("stroke-width", 3)
+        .transition()
+        .duration(500)
+        .attr("r", 8)
+        .style("fill","blue")
+        .style("stroke-opacity", 2);
+        
+        tooltip.text("Screen").style("opacity",2);
+   
+       })
+     .on("mouseout",function()
+     {
+       l2.attr("r",8).style("stroke","none");
+       tooltip.style("opacity",0);
+     }
+     );  
+              
+   l3=zz.append("circle")
+     .attr("cx",159+45)
+     .attr("cy",90)
+     .attr("r",5)
+     .style("fill","blue")
+     
+     .on("mouseover",function()
+     {
+       l3.attr("r",10) .style("fill", "none")
+        .style("stroke", "red")
+        .style("stroke-opacity", 1e-6)
+        .style("stroke-width", 3)
+        .transition()
+        .duration(500)
+        .attr("r", 5)
+        .style("fill","blue")
+        .style("stroke-opacity", 2)
+        
+    ;
+        tooltip.text("Speaker").style("opacity",2);
+     
+       })
+     .on("mouseout",function()
+     {
+        l3.attr("r",5).style("stroke","none");
+       tooltip.style("opacity",0);
+     }
+     );  
+ 
+     
+   
+   var tooltip = d3.select("#product-screen")
+  .append("div")
+  .attr("class", "tooltip")
+  .style("opacity", 0);
+   
+   l4=zz.append("circle")
+     .attr("cx",159)
+     .attr("cy",180)
+     .attr("r",34)
+     .style("fill","blue")
+     .on("mouseover",function()
+     {
+       
+        l4.attr("r",50) .style("fill", "none")
+        .style("stroke", "red")
+        .style("stroke-opacity", 1e-6)
+        .style("stroke-width", 3)
+        .transition()
+        .duration(500)
+        .attr("r", 4)
+        .style("fill","blue")
+        .style("stroke-opacity", 2);
+        
+    
+         tooltip.text("Home Button").style("opacity",2);
+     
+       }).on("mouseout",function()
+     {
+        l4.attr("r",4).style("stroke","none");
+       tooltip.style("opacity",0);
+     }
+     ); 
+  
+   l5=zz.append("circle")
+   //  .attr("class","tooltip")
+     .attr("cx",360)
+     .attr("cy",90)
+     .attr("r",4)
+     .style("fill","blue")
+     .on("mouseover",function()
+     {
+       
+        l5.attr("r",10) .style("fill", "none")
+        .style("stroke", "red")
+        .style("stroke-opacity", 1e-6)
+        .style("stroke-width", 3)
+        .transition()
+        .duration(500)
+        .attr("r", 4)
+        .style("fill","blue")
+        .style("stroke-opacity", 2);
+        
+    
+     
+         tooltip.text("Rear Main Camera").style("opacity",2).style("left", (d3.event.pageX+5) + "px")
+            .style("top", (d3.event.pageY+5) + "px");
+     
+       }).on("mouseout",function()
+     {
+        l5.attr("r",4).style("stroke","none");
+       tooltip.style("opacity",0);
+     }
+     ); 
+  
+  
+   l6=zz.append("circle")
+   //  .attr("class","tooltip")
+     .attr("cx",385)
+     .attr("cy",67)
+     .attr("r",4)
+     .style("fill","blue")
+     .on("mouseover",function()
+     {
+       
+        l6.attr("r",7) .style("fill", "none")
+        .style("stroke", "red")
+        .style("stroke-opacity", 1e-6)
+        .style("stroke-width", 3)
+        .transition()
+        .duration(500)
+        .attr("r", 4)
+        .style("fill","blue")
+        .style("stroke-opacity", 2);
+         
+     
+       
+         tooltip.text("Flash").style("opacity",2);
+     
+       }).on("mouseout",function()
+     {
+        l6.attr("r",2).style("stroke","none");
+       tooltip.style("opacity",0);
+     }
+     ); 
+  
+  l7= zz.append("circle")
+   //  .attr("class","tooltip")
+     .attr("cx",568)
+     .attr("cy",140)
+     .attr("r",4)
+     .style("fill","blue")
+     .on("mouseover",function()
+     {
+       
+        l7.attr("r",10) .style("fill", "none")
+        .style("stroke", "red")
+        .style("stroke-opacity", 1e-6)
+        .style("stroke-width", 3)
+        .transition()
+        .duration(500)
+        .attr("r", 5)
+        .style("fill","blue")
+        .style("stroke-opacity", 2);
+        
+    
+         tooltip.text("Volume Keys");
+     
+       }).on("mouseout",function()
+     {
+        l7.attr("r",4).style("stroke","none");
+       tooltip.style("opacity",0);
+     }
+     ); 
+    
+    }
+    
+  };
+  return screenchart;
+});
+
 ////// ensureUnique with timeout
 
 //    app.directive('ensureUnique', ['$http', '$timeout', function($http, $timeout) {

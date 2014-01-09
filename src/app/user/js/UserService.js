@@ -192,7 +192,7 @@ angular.module('prodo.UserApp')
   });
 }])
 
-.factory('UserRecaptchaService', ['$http', 'vcRecaptchaService', function($http, vcRecaptchaService) {
+.factory('UserRecaptchaService', ['$http', 'vcRecaptchaService', '$log', function($http, vcRecaptchaService, $log) {
   var recaptchaService= {};
      
   recaptchaService.validate = function($scope) {

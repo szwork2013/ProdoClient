@@ -992,6 +992,28 @@ text {
   margin-top: 10px;
   border-radius: 10px;
 }
+
+/*Scree Chart*/
+
+ 
+/*.prodo-tooltip {
+  position: relative;
+  background: rgba(200,200,200,0.75);
+  border: 1px solid #ddd;
+  padding: 5px 12px;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px rgba(120,120,120,0.55);
+  text-shadow: 0 1px 0 #eee;
+}
+*/
+
+
+#product-screen
+{ 
+  
+   min-width:700px; 
+   min-height:500px; 
+} 
  
 /**
 *	Footer
