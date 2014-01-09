@@ -112,7 +112,7 @@ angular.module("prodo.CommonApp")
   return {
     restrict: 'EA',
     replace: true,
-    template: '<div style="min-width:250px; text-align:left; margin: 5px auto;" class="alert {{mainAlert.alertType}}" ng-show="mainAlert.isShown">' +
+    template: '<div style="max-width:750px; text-align:left; margin: 5px auto;" class="alert {{mainAlert.alertType}}" ng-show="mainAlert.isShown">' +
   '<button type="button" class="close" ng-click="closeAlert()" aria-hidden="true">&times;</button>' +
   '{{mainAlert.message}}' + '<a href="#/{{mainAlert.linkpage}}" class="alert-link"> {{mainAlert.linkmessage}}</a>' +
 '</div>',

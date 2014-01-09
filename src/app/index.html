@@ -47,10 +47,10 @@
 
         <p class="navbar-text pull-right">
 
-        <form ng-hide="usersession.isLoggedIn" id="prodo-navbar-form" class="navbar-form navbar-right" ng-submit="signin()" ng-controller="UserSigninController">
+        <form ng-hide="usersession.isLoggedIn" id="prodo-navbar-form" class="navbar-form navbar-right" ng-submit="signin()" ng-controller="UserSigninController" non-validate>
 
           <div class="form-group">
-              <input id="prodo-form-input-signin" type="email" placeholder="Email" class="form-control" required ng-model="user.email">
+              <input id="prodo-form-input-signin" type="email" placeholder="Email" class="form-control"  ng-model="user.email" required>
           </div>
 
           <div class="form-group">
@@ -68,7 +68,7 @@
           <span ng-show="usersession.isLoggedIn" style="color:#DDE1F0; font-size: 12px;" ng-bind="'Welcome ' + usersession.currentUser.fullname"></span>
           <button id="prodo-form-button-signin" ng-cloak ng-show="usersession.isLoggedIn" class="btn btn-success" ng-click="logout()">Logout</button>
           <button style="background:transparent; border: none;" ng-cloak ng-show="usersession.isLoggedIn" class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cogs fa-lg"></i></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog fa-lg"></i></a>
               <ul style="text-align: left;" class="dropdown-menu">
               <li><a ng-click="usersession.getUserDetailSettings()" ui-sref="account.user.general">User Account Settings</a></li>
               <li><a ng-show="usersession.currentUser.orgid" ng-click="organizationData.getOrgDetailSettings()" ui-sref="account.org.general">Organization Account Settings</a></li>
@@ -88,37 +88,37 @@
 
         <div id="footer" >   
           <div id="prodo-row-footer" class="row">
-            <div class="col-md-2 col-md-offset-2">
+            <div id="footer-col-md-2" class="col-md-2 col-md-offset-2">
               <nav><h5 id="footer-nav-heading" class="">About</h5>
-                <ul>
-                  <li><a class="" href="/aboutus">About Us</a></li>
-                  <li><a class="" href="/privacy">Privacy</a></li>
+                <ul id="footer-nav-list">
+                  <li><a  class="" ui-sref="messageContent.aboutus">About Us</a></li>
+                  <li><a class="" ui-sref="messageContent.privacy">Privacy</a></li>
                   <li><a class="" ui-sref="messageContent.terms">Terms</a></li></ul>
               </nav>
             </div>
 
             <div class="col-md-2">
                 <nav><h5 id="footer-nav-heading" class="">Connect With Us</h5>
-                    <ul>
-                        <li><a class="" href="/business">Business</a></li>
-                        <li><a class="" href="/advertising">Advertising</a></li>
-                        <li><a class="" href="/advertising">Author-Application</a></li>
+                    <ul id="footer-nav-list">
+                        <li><a class="" ui-sref="messageContent.business"Business</a></li>
+                        <li><a class="" ui-sref="messageContent.advertising">Advertising</a></li>
+                        <li><a class="" ui-sref="messageContent.application">Author-Application</a></li>
                     </ul>
                 </nav>
             </div> 
 
             <div class="col-md-2">
                 <nav><h5 id="footer-nav-heading" class="">Help</h5>
-                    <ul>
-                        <li><a class="" href="/support">Support</a></li>
-                        <li><a class="" href="/contact">Contact Us</a></li>
+                    <ul id="footer-nav-list">
+                        <li><a class="" ui-sref="messageContent.support">Support</a></li>
+                        <li><a class="" ui-sref="messageContent.contactus">Contact Us</a></li>
                     </ul>
                 </nav>
             </div> 
 
           </div>
 
-            <p id="prodo-copyright" >&copy; Prodonus 2013 | made in pune, india.</p>
+            <p id="prodo-copyright" >&copy; Prodonus Software Private Limited, 2014 | made in pune, India.</p>
 
         </div>
 

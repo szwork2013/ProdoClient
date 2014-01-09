@@ -20,7 +20,7 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
 /*change the navbar style*/
 #prodo-navbar {
 	min-height: 60px;
-	background: -webkit-linear-gradient(#686868,#000000);
+	background: -webkit-linear-gradient(#424040,#000000);
   }
 
 
@@ -40,7 +40,7 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
 	width: 150px;
 	height: 25px;
 	font-size: 13px;
-	border-radius: 12px;
+	border-radius: 2px;
   }
 
 /*change the navbar form input button signin style*/
@@ -48,16 +48,23 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
 	width: 60px;
 	height: 25px;
 	padding: 0px;
+	font-weight: bold;
 	border-radius: 5px;
 	margin-left: 5px;
 	border-color: #495549;
-	background-color: #595C63
+	background-color: white;
+	color: black;
   }
+
+#prodo-form-button-signin:hover{
+	background-color:rgb(212, 208, 208);
+}
 
 /*change the navbar form forgot link style*/
 #prodo-form-forgot-link{
    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
-   font-size:10px;
+   font-size:12px;
+   color: white;
 }
 
 /*change the main view container style(main-ui-view inside this view)*/
@@ -1003,6 +1010,19 @@ text {
 }
 #footer-nav-heading{
   color: #bdbdbd;
+  background-color:rgb(25, 32, 26);
+  border-radius: 5px;
+  width: 75%; 
+  text-align: center;
+  font-weight: bold;
+  font-size: 12px;
+  padding:2px;
+}
+
+#footer-nav-list{
+list-style-type:none;
+padding:0px;
+margin:0px;
 }
 
 #prodo-copyright{
