@@ -27,7 +27,7 @@ var UploadController = function($scope, fileReader) {
 
               $scope.socket.emit('uploadFiles', file_data, action);
               console.log("pic emitted");
-//              $scope.uploadSrc = "";
+              $scope.uploadSrc = "";
 
             });
 //            fileReader.readAsBinaryString($scope.file[a], $scope);
@@ -68,7 +68,8 @@ angular.module('upload')
                   $scope.fileLength = (e.srcElement || e.target).files;
                   console.log("counter= " + $scope.counter);
                   $scope.file = (e.srcElement || e.target).files;
-//                  $scope.getFile($scope.counter);
+                  
+                 if($scope.uploadSrc=="user") $scope.getFile($scope.file[0]);
 
 
 
@@ -94,7 +95,7 @@ angular.module('upload')
                     var element = document.createElement("button");
                     //Assign different attributes to the element. 
                     element.type = 'button';
-                    var t = document.createTextNode("  " + i.name + "  ");
+                    var t = document.createTextNode(" Upload  ");
                     element.appendChild(t);
                     //   element.value =  $scope.counter; // Really? You want the default value to be the type string?
                     element.name = 'button';  // And the name too?
@@ -122,18 +123,18 @@ angular.module('upload')
 
 
 
-                  $scope.$watch(function() {
-//                    for (i=0;i<$scope.fileLength;i++){
-                    addUploads($scope.file[0]);
-                    addUploads($scope.file[1]);
+//                  $scope.$watch(function() {
+                    for (var i=0; i<= $scope.file.length ;i++){
+                    addUploads($scope.file[i]);
+//                    addUploads($scope.file[1]);
 
 
 
-//                    }                    
+                    }                    
 
 
 
-                  }, true);
+//                  }, true);
 
                 })
               }
