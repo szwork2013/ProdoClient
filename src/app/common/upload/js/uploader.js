@@ -100,7 +100,10 @@ angular.module('upload')
                     //   element.value =  $scope.counter; // Really? You want the default value to be the type string?
                     element.name = 'button';  // And the name too?
                     element.onclick = function() { // Note this is a function
+//                     for (var i=0; i<= $scope.file.length ;i++){ //upload all
                       $scope.getFile(i);
+//                      $scope.getFile($scope.file[i]);//upload all
+//                    }//upload all
                     };
 
 
