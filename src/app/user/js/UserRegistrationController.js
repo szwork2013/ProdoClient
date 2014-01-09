@@ -89,7 +89,7 @@ angular.module('prodo.UserApp')
           function(error){
             $scope.hideSpinner();
             $log.debug(error);
-            $scope.showAlert('alert-danger', "Server Error:" + message);
+            $scope.showAlert('alert-danger', "Server Error:" + error.status);
 
           });  
         });
