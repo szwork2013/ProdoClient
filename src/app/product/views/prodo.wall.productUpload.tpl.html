@@ -1,12 +1,9 @@
 
 
 <br>
-<div id="prodo-productFeature-fixed"   ng-app="prodo.CommonApp"  >
+<div id="prodo-productFeature-fixed"   ng-app="upload" ng-controller="UploadController"  >
 
-
-
-  <!--<input id="input-files" type="file" name="files[]" data-url="/upload" multiple="multiple"/>-->
-  <form  ng-app="upload" ng-controller="UploadController"  >
+  <form    >
     <br>
     <center>  
       <!--            <div class="control-group">
@@ -27,19 +24,27 @@
         </div>
       </div>
       
-<!--     <button type="button" class="btn btn-success  " ng-click=" getFile();" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
+<!--     <button type="button" class="btn btn-success  "  ng-click=" getFile(0,$files);" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
+      <span class="glyphicon glyphicon-upload"></span> Upload
+    </button>-->
+<!--       <button type="button" class="btn btn-success  "   ng-click=" getFile(1,$files);" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
       <span class="glyphicon glyphicon-upload"></span> Upload
     </button>-->
     </center>
   </form>
+  <div id="FileName"> </div>
+  <div id="uploadButtons"> </div>
+  <br>
+  <br>
+<!--    <b>Preview:</b>-->
+  <br />
+<!--  <i ng-hide="imageSrc"> </i>-->
+  <img ng-src="{{imageSrc}}" />
+  <br/>
+  <!--<b>Progress:</b>-->
+<!--  <progress value="{{progressbar}}"> </progress>-->
 
-  <br>
-  <!--<center> <img style="width:200px; height:280px; " ng-src="{{imageSrc}}"  alt="User Profile"></center>-->
-  <!--<button id="send-file" class="btn btn-info" >Send</button>-->
-  <br>
-  <br>
-  <div id='imgshow'></div>
-
+  
 
 </div>
 <br>
