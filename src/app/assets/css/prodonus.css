@@ -52,13 +52,9 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
 	border-radius: 5px;
 	margin-left: 5px;
 	border-color: #495549;
-	background-color: white;
+	background-color: rgb(212, 208, 208);
 	color: black;
   }
-
-#prodo-form-button-signin:hover{
-	background-color:rgb(212, 208, 208);
-}
 
 /*change the navbar form forgot link style*/
 #prodo-form-forgot-link{
@@ -1117,21 +1113,22 @@ text {
   background-color:rgb(25, 32, 26);
   border-radius: 5px;
   width: 75%; 
-  text-align: center;
+  /*text-align: center;*/
   font-weight: bold;
-  font-size: 12px;
+  font-size: 14px;
   padding:2px;
 }
 
 #footer-nav-list{
 list-style-type:none;
-padding:0px;
-margin:0px;
+padding:5px;
+margin:2px;
 }
 
 #prodo-copyright{
   margin-left: 230px;
   color: #bdbdbd;
+  font-size: 13px;
 }
 
  
