@@ -1,6 +1,6 @@
 var UploadController = function($scope, fileReader) {
 
-  $scope.socket = io.connect('http://ec2-54-254-210-45.ap-southeast-1.compute.amazonaws.com:8000', {
+  $scope.socket = io.connect('http://ec2-54-254-210-45.ap-southeast-1.compute.amazonaws.com:8000/prodoupload', {
     query: 'session_id=' + localStorage.sid
   });
   //socket connect 
@@ -19,7 +19,7 @@ var UploadController = function($scope, fileReader) {
               $scope.imageBfr = result;
               $scope.file = a;
               var file_data = {filetype: $scope.file.type, filename: $scope.file.name, filebuffer: $scope.imageBfr};
-              //var action={user:{userid:"uxkfzVj7or" }};
+              var action={user:{userid:"uxkfzVj7or" }};
               if ($scope.uploadSrc == "user")//it should be user
                 var action = {org: {userid: "uxkfzVj7or", orgid: "orge1LSosNiS"}};
               else if ($scope.uploadSrc == "product")
@@ -27,15 +27,47 @@ var UploadController = function($scope, fileReader) {
 
               $scope.socket.emit('uploadFiles', file_data, action);
               console.log("pic emitted");
-              $scope.uploadSrc = "";
+            //  $scope.uploadSrc = "";
 
             });
 //            fileReader.readAsBinaryString($scope.file[a], $scope);
 
 
   };
-  $scope.socket.removeAllListeners('uploadFileResponse');
-  $scope.socket.on('uploadFileResponse', function(imagelocation) {
+//  $scope.socket.removeAllListeners('productUploadResponse');
+  $scope.socket.on('productUploadResponse', function(error, imagelocation) {
+    if (error) {
+      console.log("Error " + error);
+    }
+    else {
+      console.log("getting response for product upload  " + imagelocation);
+      $scope.imageSrc = imagelocation;
+      $scope.counter++;
+      console.log($scope.counter);
+      if ($scope.counter < $scope.fileLength) {
+        console.log("emitting image " + $scope.counter);
+//    $scope.getFile($scope.counter);
+      }
+      else
+        $scope.counter = 0;
+    }
+  });
+  $scope.socket.removeAllListeners('orgUploadResponse');
+  $scope.socket.on('orgUploadResponse', function(imagelocation) {
+    console.log("getting response for product upload  " + imagelocation);
+    $scope.imageSrc = imagelocation;
+    $scope.counter++;
+    console.log($scope.counter);
+    if ($scope.counter < $scope.fileLength) {
+      console.log("emitting image " + $scope.counter);
+//    $scope.getFile($scope.counter);
+    }
+    else
+      $scope.counter = 0;
+    ;
+  });
+  $scope.socket.removeAllListeners('userUploadResponse');
+  $scope.socket.on('userUploadResponse', function(imagelocation) {
     console.log("getting response for product upload  " + imagelocation);
     $scope.imageSrc = imagelocation;
     $scope.counter++;
@@ -50,9 +82,11 @@ var UploadController = function($scope, fileReader) {
   });
 
 
-
+//  var cleanupEventFileProgress=
   $scope.$on("fileProgress", function(e, progress) {
+
     $scope.progressbar = progress.loaded / progress.total;
+    // cleanupEventFileProgress();
   });
 
 
@@ -68,8 +102,9 @@ angular.module('upload')
                   $scope.fileLength = (e.srcElement || e.target).files;
                   console.log("counter= " + $scope.counter);
                   $scope.file = (e.srcElement || e.target).files;
-                  
-                 if($scope.uploadSrc=="user") $scope.getFile($scope.file[0]);
+
+                  if ($scope.uploadSrc == "user")
+                    $scope.getFile($scope.file[0]);
 
 
 
@@ -83,8 +118,7 @@ angular.module('upload')
                     FileName.appendChild(t);
 //                       element.text =  i; // Really? You want the default value to be the type string?
                     FileName.name = 'label';  // And the name too?
-
-                    //  var foo = document.getElementById("FileName");
+                    var foo = document.getElementById("FileName");
                     //Append the element in page (in span).  
 
 
@@ -92,19 +126,19 @@ angular.module('upload')
 
 
                     //Create an input type dynamically.   
-                    var element = document.createElement("button");
+                  //  var element = document.createElement("button");
                     //Assign different attributes to the element. 
-                    element.type = 'button';
-                    var t = document.createTextNode(" Upload  ");
-                    element.appendChild(t);
+                  //  element.type = 'button';
+                  //  var t = document.createTextNode(" Upload  ");
+                 //   element.appendChild(t);
                     //   element.value =  $scope.counter; // Really? You want the default value to be the type string?
-                    element.name = 'button';  // And the name too?
-                    element.onclick = function() { // Note this is a function
+                  //  element.name = 'button';  // And the name too?
+              //      element.onclick = function() { // Note this is a function
 //                     for (var i=0; i<= $scope.file.length ;i++){ //upload all
-                      $scope.getFile(i);
+                 //     $scope.getFile(i);
 //                      $scope.getFile($scope.file[i]);//upload all
 //                    }//upload all
-                    };
+              //      };
 
 
 //                    var img = document.createElement("img");
@@ -118,25 +152,19 @@ angular.module('upload')
                     var foo = document.getElementById("uploadButtons");
                     //Append the element in page (in span). 
                     foo.appendChild(FileName);
-                    foo.appendChild(element);
-                //     foo.appendChild(img);
-                    
+                  //  foo.appendChild(element);
+                    //     foo.appendChild(img);
+
                     foo.appendChild(newline);
                   }
 
 
 
 //                  $scope.$watch(function() {
-                    for (var i=0; i<= $scope.file.length ;i++){
-                    addUploads($scope.file[i]);
-//                    addUploads($scope.file[1]);
-
-
-
-                    }                    
-
-
-
+                  for (var i = 0; i <= $scope.file.length; i++) {
+                     addUploads($scope.file[i]);
+                     $scope.getFile($scope.file[i]);
+                  }
 //                  }, true);
 
                 })
@@ -162,6 +190,7 @@ angular.module('upload')
     };
     var onProgress = function(reader, scope) {
       return function(event) {
+
         scope.$broadcast("fileProgress",
                 {
                   total: event.total,
