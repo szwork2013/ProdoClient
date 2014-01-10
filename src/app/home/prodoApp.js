@@ -38,43 +38,46 @@ angular.module('prodo.ProdonusApp',['ui.router', 'ui.bootstrap', '$strap.directi
 
 		$state.transitionTo('home.start');
 
-		$rootScope.$on("session-changed", function(event, message){
+		var cleanupEventSession_Changed = $scope.$on("session-changed", function(event, message){
 			$log.debug(message);   
 				if (message.success) {
 					UserSessionService.authSuccess(message.success.user)
+					cleanupEventSession_Changed();
 					// $state.transitionTo($state.current.url);
 				} 
 				else {
 				UserSessionService.authfailed();
 				$state.transitionTo('home.start');
+				cleanupEventSession_Changed();
 				
 			};
        
       });
 
-		$rootScope.$on("session-changed-failure", function(event, message){
+		var cleanupEventSession_Changed_Failure = $scope.$on("session-changed-failure", function(event, message){
 			 UserSessionService.authfailed();
        $state.transitionTo('home.start');
 			 $scope.showAlert('alert-danger', "Server Error: " + message);
-       
+       cleanupEventSession_Changed_Failure();
       });
 
 
 		$scope.logout = function() {
 			// $scope.showSpinner();
 			UserSessionService.logoutUser();
-			$scope.$on("logoutDone", function(event, message){
+			var cleanupEventLogoutDone = $scope.$on("logoutDone", function(event, message){
 				// $scope.hideSpinner();
         $state.transitionTo('home.start');
         $scope.showAlert('alert-success', message);
+        cleanupEventLogoutDone();
 
       });
-      $scope.$on("logoutNotDone", function(event, message){
+      var cleanupEventLogoutNotDone = $scope.$on("logoutNotDone", function(event, message){
       	// $scope.hideSpinner();
         $scope.showAlert('alert-danger', "Server Error:" + message);
+        cleanupEventLogoutNotDone();
 
       });
 		};
-
-		 
+		
 	}]);

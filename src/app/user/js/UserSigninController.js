@@ -109,18 +109,21 @@ angular.module('prodo.UserApp')
     // function to signin to Prodonus App using REST APIs and performs form validation.
     $scope.signin = function() {
       $scope.showSpinner();
+
       UserSessionService.signinUser($scope.jsonUserSigninData());
-      $scope.$on("signinDone", function(event, message){
-      $scope.clearformData();
-      $scope.hideSpinner();
-      $scope.handleSigninResponse(message); 
 
+      var cleanupEventSigninDone = $scope.$on("signinDone", function(event, message){
+        $scope.clearformData();
+        $scope.hideSpinner();
+        $scope.handleSigninResponse(message);
+        cleanupEventSigninDone(); 
       });
-      $scope.$on("signinNotDone", function(event, message){
-      $scope.clearformData();
-      $scope.hideSpinner();
-      $scope.showAlert('alert-danger', "Server Error:" + message);
 
+      var cleanupEventSigninNotDone = $scope.$on("signinNotDone", function(event, message){
+        $scope.clearformData();
+        $scope.hideSpinner();
+        $scope.showAlert('alert-danger', "Server Error:" + message);
+        cleanupEventSigninNotDone();
       });
     }
 
@@ -137,7 +140,7 @@ angular.module('prodo.UserApp')
             }
           };
         return JSON.stringify(userData); 
-      }
+    }
 
     // function to handle server side responses
     $scope.handleForgotPasswordResponse = function(data){
@@ -166,15 +169,17 @@ angular.module('prodo.UserApp')
     $scope.forgotpassword = function() {
       $scope.showSpinner();
       UserSessionService.forgotPasswordUser($scope.jsonForgotPasswordData());
-      $scope.$on("forgotPasswordDone", function(event, message){
+      var cleanupEventForgotPasswordDone = $scope.$on("forgotPasswordDone", function(event, message){
         $scope.clearformData();
         $scope.hideSpinner();
-        $scope.handleForgotPasswordResponse(message);   
+        $scope.handleForgotPasswordResponse(message);
+        cleanupEventForgotPasswordDone();   
       });
-      $scope.$on("forgotPasswordNotDone", function(event, message){
+      var cleanupEventForgotPasswordNotDone = $scope.$on("forgotPasswordNotDone", function(event, message){
         $scope.clearformData();
         $scope.hideSpinner();
         $scope.showAlert('alert-danger', "Server Error:" + message);
+        cleanupEventForgotPasswordNotDone();
 
       });
     }
@@ -217,15 +222,17 @@ angular.module('prodo.UserApp')
     $scope.resetpassword = function() {
       $scope.showSpinner();
       UserSessionService.resetPasswordUser($scope.jsonResetPasswordData());
-      $scope.$on("resetPasswordDone", function(event, message){
+      var cleanupEventResetPasswordDone = $scope.$on("resetPasswordDone", function(event, message){
         $scope.clearformData();
         $scope.hideSpinner();
-        $scope.handleResetPasswordResponse(message);   
+        $scope.handleResetPasswordResponse(message);  
+        cleanupEventResetPasswordDone(); 
       });
-      $scope.$on("resetPasswordNotDone", function(event, message){
+      var cleanupEventResetPasswordNotDone = $scope.$on("resetPasswordNotDone", function(event, message){
         $scope.clearformData();
         $scope.hideSpinner();
         $scope.showAlert('alert-danger', "Server Error:" + message);
+        cleanupEventResetPasswordNotDone();
 
       });
     }

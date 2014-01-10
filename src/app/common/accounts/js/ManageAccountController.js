@@ -65,13 +65,15 @@ angular.module('prodo.CommonApp')
 
     $scope.updateUserAccount = function() {
       UserSessionService.saveUserSettings($scope.jsonUserAccountData());
-      $scope.$on("updateUserDone", function(event, message){
-        $scope.handleUpdateUserResponse(message);   
-      });
+      var cleanupEventUpdateUserDone = $scope.$on("updateUserDone", function(event, message){
+        $scope.handleUpdateUserResponse(message); 
+        UpdateUserDone();     
+    });
 
-      $scope.$on("updateUserNotDone", function(event, message){
+      var cleanupEventUpdateUserNotDone = $scope.$on("updateUserNotDone", function(event, message){
         $scope.hideSpinner();
         $scope.showAlert('alert-danger', "Server Error:" + message);
+        UpdateUserNotDone();
 
       });
   
@@ -81,9 +83,10 @@ angular.module('prodo.CommonApp')
     $scope.handleDeleteUserResponse = function(data){
       if (data.success) {
         UserSessionService.logoutUser();
-        $scope.$on("logoutDone", function(event, message){
+        var cleanupEventLogoutDone = $scope.$on("logoutDone", function(event, message){
         $state.transitionTo('home.start');
         $scope.showAlert('alert-success', message);
+        cleanupEventLogoutDone();
 
       });
         $scope.showAlert('alert-success', data.success.message);   
@@ -96,12 +99,14 @@ angular.module('prodo.CommonApp')
     $scope.deleteUserAccount = function() {
 
       UserSessionService.removeUserSettings();
-      $scope.$on("deleteUserDone", function(event, message){
-        $scope.handleDeleteUserResponse(message);   
+      var cleanupEventDeleteUserDone = $scope.$on("deleteUserDone", function(event, message){
+        $scope.handleDeleteUserResponse(message);
+        DeleteUserDone();   
       });
-      $scope.$on("deleteUserNotDone", function(event, message){
+      var cleanupEventDeleteUserNotDone = $scope.$on("deleteUserNotDone", function(event, message){
         $scope.hideSpinner();
         $scope.showAlert('alert-danger', "Server Error:" + message);
+        DeleteUserNotDone();
 
       });
   
@@ -118,12 +123,14 @@ angular.module('prodo.CommonApp')
       }
   };
 
-    $rootScope.$on("getUserDone", function(event, message){
-      $scope.handleGetUserResponse(message);   
+    var cleanupEventGetUserDone = $rootScope.$on("getUserDone", function(event, message){
+      $scope.handleGetUserResponse(message); 
+      GetUserDone();  
     });
 
-    $rootScope.$on("getUserNotDone", function(event, message){
+    var cleanupEventGetUserNotDone = $rootScope.$on("getUserNotDone", function(event, message){
       scope.showAlert('alert-danger', "Server Error:" + message);
+      GetUserNotDone();
     });
 
 
@@ -178,11 +185,13 @@ angular.module('prodo.CommonApp')
 
     $scope.updateOrgAccount = function() {
       OrgRegistrationService.saveOrgSettings($scope.jsonOrgAccountData());
-      $scope.$on("updateOrgDone", function(event, message){
-        $scope.handleUpdateOrgResponse(message);   
+      var cleanupEventUpdateOrgDone = $scope.$on("updateOrgDone", function(event, message){
+        $scope.handleUpdateOrgResponse(message);
+        UpdateOrgDone();  
       });
-      $scope.$on("updateOrgNotDone", function(event, message){
-        $scope.showAlert('alert-danger', "Server Error:" + message);      
+      var cleanupEventUpdateOrgNotDone = $scope.$on("updateOrgNotDone", function(event, message){
+        $scope.showAlert('alert-danger', "Server Error:" + message);
+        UpdateOrgNotDone();     
       });
   
     }
@@ -207,11 +216,13 @@ angular.module('prodo.CommonApp')
 
     $scope.getOrgAddress = function() {
       OrgRegistrationService.getAllOrgAddress();
-      $scope.$on("getOrgAddressDone", function(event, message){
-        $scope.handleOrgAddressResponse(message);   
+      var cleanupEventGetOrgAddressDone = $scope.$on("getOrgAddressDone", function(event, message){
+        $scope.handleOrgAddressResponse(message);
+        GetOrgAddressDone();   
       });
-      $scope.$on("getOrgAddressNotDone", function(event, message){
-        $scope.showAlert('alert-danger', "Server Error:" + message);      
+      var cleanupEventGetOrgAddressNotDone = $scope.$on("getOrgAddressNotDone", function(event, message){
+        $scope.showAlert('alert-danger', "Server Error:" + message);
+        GetOrgAddressNotDone();      
       });
   
     }
@@ -281,17 +292,21 @@ angular.module('prodo.CommonApp')
 
     $scope.addOrgAddress = function() {
       OrgRegistrationService.saveOrgAddress($scope.jsonOrgAddressData());
-      $scope.$on("updateOrgAddressDone", function(event, message){
-        $scope.handleUpdateOrgAddressResponse(message);   
+      var cleanupEventUpdateOrgAddressDone = $scope.$on("updateOrgAddressDone", function(event, message){
+        $scope.handleUpdateOrgAddressResponse(message); 
+        UpdateOrgAddressDone();  
       });
-      $scope.$on("updateOrgAddressNotDone", function(event, message){
-        $scope.showAlert('alert-danger', "Server Error:" + message);      
+      var cleanupEventUpdateOrgAddressNotDone = $scope.$on("updateOrgAddressNotDone", function(event, message){
+        $scope.showAlert('alert-danger', "Server Error:" + message); 
+        UpdateOrgAddressNotDone();     
       });
-      $scope.$on("addOrgAddressDone", function(event, message){
-        $scope.handleAddOrgAddressResponse(message);   
+      var cleanupEventAddOrgAddressDone = $scope.$on("addOrgAddressDone", function(event, message){
+        $scope.handleAddOrgAddressResponse(message);
+        AddOrgAddressDone();   
       });
-      $scope.$on("addOrgAddressNotDone", function(event, message){
-        $scope.showAlert('alert-danger', "Server Error:" + message);      
+      var cleanupEventAddOrgAddressNotDone = $scope.$on("addOrgAddressNotDone", function(event, message){
+        $scope.showAlert('alert-danger', "Server Error:" + message);
+        AddOrgAddressNotDone();      
       });
   
     }
@@ -308,11 +323,13 @@ angular.module('prodo.CommonApp')
 
     $scope.deleteOrgAccount = function() {
       OrgRegistrationService.removeOrgSettings();
-      $scope.$on("deleteOrgDone", function(event, message){
-        $scope.handleDeleteOrgResponse(message);   
+      var cleanupEventDeleteOrgDone = $scope.$on("deleteOrgDone", function(event, message){
+        $scope.handleDeleteOrgResponse(message);
+        DeleteOrgDone();   
       });
-      $scope.$on("deleteOrgNotDone", function(event, message){
-        $scope.showAlert('alert-danger', "Server Error:" + message);   
+      var cleanupEventDeleteOrgNotDone = $scope.$on("deleteOrgNotDone", function(event, message){
+        $scope.showAlert('alert-danger', "Server Error:" + message);
+        DeleteOrgNotDone();  
       });
   
     }
@@ -329,11 +346,13 @@ angular.module('prodo.CommonApp')
 
     $scope.deleteOrgAddress = function() {
       OrgRegistrationService.removeOrgAddress();
-      $scope.$on("deleteOrgAddressDone", function(event, message){
+      var cleanupEventDeleteOrgAddressDone = $scope.$on("deleteOrgAddressDone", function(event, message){
         $scope.handleDeleteOrgResponse(message);   
+        DeleteOrgAddressDone();
       });
-      $scope.$on("deleteOrgAddressNotDone", function(event, message){
+      var cleanupEventDeleteOrgAddressNotDone = $scope.$on("deleteOrgAddressNotDone", function(event, message){
         $scope.showAlert('alert-danger', "Server Error:" + message);   
+        DeleteOrgAddressNotDone();
       });
   
     }
@@ -349,12 +368,14 @@ angular.module('prodo.CommonApp')
         }
     };
 
-      $rootScope.$on("getOrgDone", function(event, message){
-        $scope.handleGetOrgResponse(message);   
+      var cleanupEventGetOrgDone = $rootScope.$on("getOrgDone", function(event, message){
+        $scope.handleGetOrgResponse(message); 
+        cleanupEventGetOrgDone();  
       });
 
-      $rootScope.$on("getOrgNotDone", function(event, message){
-        $scope.showAlert('alert-danger', "Server Error:" + message);   
+      var cleanupEventGetOrgNotDone = $rootScope.$on("getOrgNotDone", function(event, message){
+        $scope.showAlert('alert-danger', "Server Error:" + message); 
+        cleanupEventGetOrgNotDone();  
       });
 
 

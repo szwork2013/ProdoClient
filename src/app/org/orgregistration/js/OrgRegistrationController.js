@@ -86,11 +86,13 @@ angular.module('prodo.OrgApp')
     // function to register Organisation on sumbit
     $scope.registerOrg = function() {
       OrgRegistrationService.RegisterOrg($scope.jsonOrgData()); // calling POST method REST APIs to save org data through OrgResgistrationService
-        $scope.$on("orgRegistrationDone", function(event, message){
-        $scope.handleOrgResponse(message);   
+        var cleanupEventOrgRegistrationDone = $scope.$on("orgRegistrationDone", function(event, message){
+        $scope.handleOrgResponse(message);
+        cleanupEventOrgRegistrationDone();   
       });
-      $scope.$on("orgRegistrationNotDone", function(event, message){
-        $scope.showAlert('alert-danger', "Server Error:" + message);      
+      var cleanupEventOrgRegistrationNotDone = $scope.$on("orgRegistrationNotDone", function(event, message){
+        $scope.showAlert('alert-danger', "Server Error:" + message); 
+        cleanupEventOrgRegistrationNotDone();     
       }); 
     }
   }]);
