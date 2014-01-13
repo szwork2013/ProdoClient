@@ -14,38 +14,35 @@
                       </span>
                     </div>
                   </div>-->
-      <div class="control-group">
-        <div class="controls">
-          <span class="btn btn-success fileinput-button">
-            <i class="glyphicon glyphicon-upload"></i>
-            <input   type="file" name="file" ng-file-select="onFileSelect($files)" multiple ng-click=" uploadSrc='product';">
+      <div class="control-group"  >Select files to upload <br>
+        <div class="controls" > 
+          <span class="btn btn-info fileinput-button" style="width: 400px;" >
+            <i class="glyphicon glyphicon-upload "></i>
+            <input   type="file" name="file" ng-file-select="onFileSelect($files)" multiple ng-click="uploadSrc = 'product';">
             <span>Select Files</span>
           </span>
         </div>
       </div>
-      
-<!--     <button type="button" class="btn btn-success  "  ng-click=" getFile(0,$files);" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
-      <span class="glyphicon glyphicon-upload"></span> Upload
-    </button>-->
-<!--       <button type="button" class="btn btn-success  "   ng-click=" getFile(1,$files);" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
-      <span class="glyphicon glyphicon-upload"></span> Upload
-    </button>-->
-    </center>
-  </form>
-  <div id="FileName"> </div>
-  <div id="uploadButtons"> </div>
-  <br>
-  <br>
-<!--    <b>Preview:</b>-->
-  <br />
-<!--  <i ng-hide="imageSrc"> </i>-->
-  <img ng-src="{{imageSrc}}" />
-  <br/>
-  <!--<b>Progress:</b>-->
- 
- <progress value="{{progressbar}}"> </progress>
-  
 
+      <!--     <button type="button" class="btn btn-success  "  ng-click=" getFile(0,$files);" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
+            <span class="glyphicon glyphicon-upload"></span> Upload
+          </button>-->
+      <!--       <button type="button" class="btn btn-success  "   ng-click=" getFile(1,$files);" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
+            <span class="glyphicon glyphicon-upload"></span> Upload
+          </button>-->
+    </center>
+  </form><br><br>
+  <center>
+    <div id="FileName" style="width: 400px;  "> 
+    </div>
+  
+ </center>
+
+
+  
+  
+  <br>
+  <br>
 </div>
 <br>
 

@@ -19,7 +19,7 @@ var UploadController = function($scope, fileReader) {
               $scope.imageBfr = result;
               $scope.file = a;
               var file_data = {filetype: $scope.file.type, filename: $scope.file.name, filebuffer: $scope.imageBfr};
-              var action={user:{userid:"uxkfzVj7or" }};
+              var action = {user: {userid: "uxkfzVj7or"}};
               if ($scope.uploadSrc == "user")//it should be user
                 var action = {org: {userid: "uxkfzVj7or", orgid: "orge1LSosNiS"}};
               else if ($scope.uploadSrc == "product")
@@ -27,7 +27,7 @@ var UploadController = function($scope, fileReader) {
 
               $scope.socket.emit('uploadFiles', file_data, action);
               console.log("pic emitted");
-            //  $scope.uploadSrc = "";
+              //  $scope.uploadSrc = "";
 
             });
 //            fileReader.readAsBinaryString($scope.file[a], $scope);
@@ -89,7 +89,21 @@ var UploadController = function($scope, fileReader) {
     // cleanupEventFileProgress();
   });
 
+  $(document).ready(function() {
 
+    var progress = setInterval(function() {
+      var $bar = $('.bar');
+
+      if ($bar.width() == 400) {
+        clearInterval(progress);
+
+      } else {
+        $bar.width($bar.width() + 40);
+      }
+      $bar.text($bar.width() / 4 + "%");
+    }, 800);
+
+  });
 
 };
 angular.module('upload')
@@ -112,58 +126,43 @@ angular.module('upload')
 
                     //Create an input type dynamically.   
                     var FileName = document.createElement("label");
-                    //Assign different attributes to the element. 
+
                     FileName.type = 'label';
-                    var t = document.createTextNode("File " + i.name);
-                    FileName.appendChild(t);
+                    var title = document.createTextNode("File " + i.name);
+                    FileName.appendChild(title);
 //                       element.text =  i; // Really? You want the default value to be the type string?
                     FileName.name = 'label';  // And the name too?
-                    var foo = document.getElementById("FileName");
-                    //Append the element in page (in span).  
+                    FileName.setAttribute("style", "text-align:left");
+                    var fn = document.getElementById("FileName");
+                    fn.appendChild(FileName);
 
+                    var progressbarc = document.createElement("div");
+                    progressbarc.className = ' progress progress-info progress-striped active';
+                    progressbarc.id = "a2" + i.name;
+                    fn.appendChild(progressbarc);
 
+                    var progressbar = document.createElement("div");
+                    progressbar.className = 'bar';
+                    var a = document.getElementById("a2" + i.name);
+                    a.appendChild(progressbar);
 
+                  FileName="";
+                  title="";
+                  fn="";
+                  progressbarc="";
+                  progressbar="";
+                  a="";
 
-
-                    //Create an input type dynamically.   
-                  //  var element = document.createElement("button");
-                    //Assign different attributes to the element. 
-                  //  element.type = 'button';
-                  //  var t = document.createTextNode(" Upload  ");
-                 //   element.appendChild(t);
-                    //   element.value =  $scope.counter; // Really? You want the default value to be the type string?
-                  //  element.name = 'button';  // And the name too?
-              //      element.onclick = function() { // Note this is a function
-//                     for (var i=0; i<= $scope.file.length ;i++){ //upload all
-                 //     $scope.getFile(i);
-//                      $scope.getFile($scope.file[i]);//upload all
-//                    }//upload all
-              //      };
-
-
-//                    var img = document.createElement("img");
-//                    img.src =  imageSrc;
-//                    img.setAttribute("height", "50");
-//                    img.setAttribute("width", "50");
-//                    img.setAttribute("alt",  i.name);
-
-
-                    var newline = document.createElement("br");
-                    var foo = document.getElementById("uploadButtons");
-                    //Append the element in page (in span). 
-                    foo.appendChild(FileName);
-                  //  foo.appendChild(element);
-                    //     foo.appendChild(img);
-
-                    foo.appendChild(newline);
+                    
+                   
                   }
 
 
 
 //                  $scope.$watch(function() {
                   for (var i = 0; i <= $scope.file.length; i++) {
-                     addUploads($scope.file[i]);
-                     $scope.getFile($scope.file[i]);
+                    addUploads($scope.file[i]);
+                    $scope.getFile($scope.file[i]);
                   }
 //                  }, true);
 
