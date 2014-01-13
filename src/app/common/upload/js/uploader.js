@@ -19,8 +19,9 @@ var UploadController = function($scope, fileReader) {
               $scope.imageBfr = result;
               $scope.file = a;
               var file_data = {filetype: $scope.file.type, filename: $scope.file.name, filebuffer: $scope.imageBfr};
+              //  if ($scope.uploadSrc == "user")//it should be user
               var action = {user: {userid: "uxkfzVj7or"}};
-              if ($scope.uploadSrc == "user")//it should be user
+              if ($scope.uploadSrc == "user")//it should be org
                 var action = {org: {userid: "uxkfzVj7or", orgid: "orge1LSosNiS"}};
               else if ($scope.uploadSrc == "product")
                 var action = {product: {userid: $scope.userIDFromSession, orgid: $scope.orgidFromSession, prodle: $scope.product_prodle}};
@@ -52,33 +53,43 @@ var UploadController = function($scope, fileReader) {
         $scope.counter = 0;
     }
   });
+
   $scope.socket.removeAllListeners('orgUploadResponse');
-  $scope.socket.on('orgUploadResponse', function(imagelocation) {
-    console.log("getting response for product upload  " + imagelocation);
-    $scope.imageSrc = imagelocation;
-    $scope.counter++;
-    console.log($scope.counter);
-    if ($scope.counter < $scope.fileLength) {
-      console.log("emitting image " + $scope.counter);
-//    $scope.getFile($scope.counter);
+  $scope.socket.on('orgUploadResponse', function(error, imagelocation) {
+    if (error) {
+      console.log("Error " + error);
     }
-    else
-      $scope.counter = 0;
-    ;
+    else {
+      console.log("getting response for product upload  " + imagelocation);
+      $scope.imageSrc = imagelocation;
+      $scope.counter++;
+      console.log($scope.counter);
+      if ($scope.counter < $scope.fileLength) {
+        console.log("emitting image " + $scope.counter);
+//    $scope.getFile($scope.counter);
+      }
+      else
+        $scope.counter = 0;
+    }
   });
+
   $scope.socket.removeAllListeners('userUploadResponse');
-  $scope.socket.on('userUploadResponse', function(imagelocation) {
-    console.log("getting response for product upload  " + imagelocation);
-    $scope.imageSrc = imagelocation;
-    $scope.counter++;
-    console.log($scope.counter);
-    if ($scope.counter < $scope.fileLength) {
-      console.log("emitting image " + $scope.counter);
-//    $scope.getFile($scope.counter);
+  $scope.socket.on('userUploadResponse', function(error, imagelocation) {
+    if (error) {
+      console.log("Error " + error);
     }
-    else
-      $scope.counter = 0;
-    ;
+    else {
+      console.log("getting response for product upload  " + imagelocation);
+      $scope.imageSrc = imagelocation;
+      $scope.counter++;
+      console.log($scope.counter);
+      if ($scope.counter < $scope.fileLength) {
+        console.log("emitting image " + $scope.counter);
+//    $scope.getFile($scope.counter);
+      }
+      else
+        $scope.counter = 0;
+    }
   });
 
 
@@ -125,14 +136,14 @@ angular.module('upload')
                     var progressbarc = document.createElement("div");
                     progressbarc.className = ' progress progress-info progress-striped active';
                     progressbarc.id = "a2" + i.name;
-                     progressbarc.style.textAlign = "left";
+                    progressbarc.style.textAlign = "left";
                     fn.appendChild(progressbarc);
 
                     var progressbar = document.createElement("div");
                     progressbar.className = 'bar';
                     var a = document.getElementById("a2" + i.name);
-                           progressbar.style.width = '300px';
-                   
+                    progressbar.style.width = '300px';
+
                     a.appendChild(progressbar);
 
 
@@ -146,12 +157,10 @@ angular.module('upload')
                       } else {
                         $bar.width($bar.width() + 40);
                       }
-                  //    $bar.text($bar.width() / 4 + "%");
+                      //    $bar.text($bar.width() / 4 + "%");
 
                     }, 800);
 
-
-                   
 
                     FileName = "";
                     title = "";
@@ -161,9 +170,7 @@ angular.module('upload')
                     progress = "";
                     a = "";
 
-
                   }
-
 
 
 //                  $scope.$watch(function() {
