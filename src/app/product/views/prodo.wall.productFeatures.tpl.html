@@ -22,26 +22,26 @@
           product = ''"  >  <i class="fa fa-plus-circle fa-3x"></i></a>
       <a href="" data-toggle="modal" data-target="#myModal">   <i class="fa fa-minus-circle fa-3x"></i> </a>
     </div><br>
-     
 
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Delete Product</h4>
-      </div>
-      <div class="modal-body">
-        Are you sure you want to delete ?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary" ng-click="deleteProduct();" data-dismiss="modal" >Delete Product</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">Delete Product</h4>
+          </div>
+          <div class="modal-body">
+            Are you sure you want to delete ?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary" ng-click="deleteProduct();" data-dismiss="modal" >Delete Product</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
     <div ng-switch="isEditing"  >
       <form ng-switch-when="true" name="productForm" ng-submit="addProduct();">
         <div class="prodo-product-general " ng-class="closedPG"  >
@@ -190,6 +190,38 @@
           </table>
         </div>
         <!--  Pricing-->
+        <!--  Product Images-->
+        <div class="prodo-product-Pr" ng-class="closedPimgs">
+          <button id="prodo-product-productgeneralbtn" ng-click="isClosedPimgs = !isClosedPimgs" onclick=" $('#toggleIconPimgs').toggleClass('fa-minus-square');" >
+            <i id="toggleIconPimgs" class="fa fa-plus-square "></i> &nbsp;&nbsp;Product images
+          </button><br><br>
+          <div class="table child closedPr" id="prodo-ProductFeatureTable" ng-if="isClosedPimgs">
+
+
+            <div class="checkboxFilter" style="padding: 10px;">
+              <!--              <div id="showHideAll">Show/Hide All
+                              <input type="checkbox" id="allCheck" name="pinSet ">
+                            </div>-->
+              <br />
+              <div class="thumb" ng-repeat="img in product.product_images">
+                <img class="img" style="width: 150px; height: 150px;"  ng-src="{{img.image}}" />
+                <input type="checkbox" id="{{product.product_images.id}}" name="pinSet" class="pinToggles"  >
+              </div>
+<!--              <div class="thumb">
+                <img class="img" src="http://s5.tinypic.com/2youavb_th.jp" id="img2" />
+                <input type="checkbox" id="opt2Check" name="pinSet" class="pinToggles"  >
+              </div>-->
+
+              
+            </div>
+            
+
+
+
+
+          </div>
+        </div>
+        <!--  Product Images-->
 
       </div>
     </div>

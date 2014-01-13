@@ -11,7 +11,7 @@
  * 
  */
 angular.module('prodo.ProductApp')
-        .controller('ProductController', ['$scope', '$rootScope', 'ProductService', 'UserSessionService', function($scope, $rootScope, ProductService, UserSessionService  ) {
+        .controller('ProductController', ['$scope', '$rootScope', 'ProductService', 'UserSessionService', function($scope, $rootScope, ProductService, UserSessionService) {
 
             //comments
             $scope.productComments = {comments: [{}]};
@@ -30,7 +30,7 @@ angular.module('prodo.ProductApp')
             $scope.newProduct = {product: [{}]};
             $scope.type = "product";
             $scope.product_prodle;
-           // $scope.uploadSrc="product";
+            // $scope.uploadSrc="product";
 
             //user
             $scope.userIDFromSession;
@@ -40,11 +40,7 @@ angular.module('prodo.ProductApp')
             $scope.orgidFromSession;
             $scope.socket;
 
-
-
-
-
-
+  
             $scope.showErrorIfCommentNotAdded = function( ) {
               var retry = document.getElementById("responseComment");
               retry.style.display = 'inline';
@@ -87,7 +83,7 @@ angular.module('prodo.ProductApp')
             //socket connect
 
             //socket response when for add comment
-             $scope.socket.removeAllListeners('addcommentResponse');
+            $scope.socket.removeAllListeners('addcommentResponse');
             $scope.socket.on("addcommentResponse", function(error, result) {
               if (error) {
                 console.log(error.error.message);
@@ -148,24 +144,25 @@ angular.module('prodo.ProductApp')
 
             };
             //Add comment function
-           
+
             //get product function declaration
             $scope.getProduct = function()
             {
 
               ProductService.getProduct({orgid: $scope.orgidFromSession, prodle: 'ly8KrAwqP'},
               function(successData) {
-                 if(successData.success==undefined)
-                 {
-                  $scope.showAlert('alert-danger', "Not getting Product..."  );  
-                 }
-                 else{
-                console.log(successData.success.product);
+                if (successData.success == undefined)
+                {
+                  $scope.showAlert('alert-danger', "Not getting Product...");
+                }
+                else {
+                  console.log(successData.success.product);
 //                console.log("success    "+successData);
-                $scope.product = successData.success.product;
-                $scope.product_prodle = successData.success.product.prodle;
-                $scope.productComments = successData.success.product.product_comments;
-              }},
+                  $scope.product = successData.success.product;
+                  $scope.product_prodle = successData.success.product.prodle;
+                  $scope.productComments = successData.success.product.product_comments;
+                }
+              },
                       function(error) {
                         console.log(error);
                         $scope.showAlert('alert-danger', "Server Error:" + error.status);
@@ -173,7 +170,7 @@ angular.module('prodo.ProductApp')
                       });
             }
             //get product function declaration  
- 
+
             $scope.getProduct();
             //   console.log(ProductService.getProduct({prodle: 'eyYHSKVtL'}));
 
@@ -222,7 +219,7 @@ angular.module('prodo.ProductApp')
                   description: $scope.product.description
                 }};
 
-              ProductService.saveProduct({orgid: $scope.orgidFromSession},$scope.newProduct,
+              ProductService.saveProduct({orgid: $scope.orgidFromSession}, $scope.newProduct,
                       function(success) {
                         console.log(success);
                         $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
@@ -236,8 +233,8 @@ angular.module('prodo.ProductApp')
             $scope.deleteProduct = function()
             {
               if ($rootScope.usersession.currentUser.isAdmin) {
-                
-                ProductService.deleteProduct({orgid: $scope.orgidFromSession,prodle: $scope.product_prodle});
+
+                ProductService.deleteProduct({orgid: $scope.orgidFromSession, prodle: $scope.product_prodle});
               }
               else
                 alert("You dont have rights to delete this product...");
@@ -280,8 +277,18 @@ angular.module('prodo.ProductApp')
 //                }
             //Product discontinued visibility testing
 
+$( document ).ready(function() {
+$('#showHideAll').on('change', 'input[type=checkbox]', function () {
+  alert("sdfsdf");
+    if ($('.pinToggles').is(':checked')) {
+        $('.pinToggles').prop('checked', false)
+    } else {
+        $('.pinToggles').prop('checked', true)
+    }
 
 
+});
+});
 
 
           }])
