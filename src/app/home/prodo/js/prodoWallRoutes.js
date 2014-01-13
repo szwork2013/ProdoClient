@@ -50,16 +50,16 @@ angular.module('prodo.ProdoWallApp')
        templateUrl:  'blog/views/prodo.wall.blog.tpl.html',
       }) 
   }])
-// .run(['$rootScope', 'UserSessionService', '$state', function ($rootScope, UserSessionService, $state) {
-//  
-//    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState){
-//      // console.log($state.current.url);
-//      if (toState.name == 'prodo.wall' && !$rootScope.usersession.isLoggedIn) {
-//        event.preventDefault();
-//
-//      } else if (toState.name=='home.start' && $rootScope.usersession.isLoggedIn) {
-//        event.preventDefault();
-//      }  
-//    })
-//  }]);
+ .run(['$rootScope', 'UserSessionService', '$state', function ($rootScope, UserSessionService, $state) {
+  
+    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState){
+      // console.log($state.current.url);
+      if (toState.name == 'prodo.wall' && !$rootScope.usersession.isLoggedIn) {
+        event.preventDefault();
+
+      } else if (toState.name=='home.start' && $rootScope.usersession.isLoggedIn) {
+        event.preventDefault();
+      }  
+    })
+  }]);
  
