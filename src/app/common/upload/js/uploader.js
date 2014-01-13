@@ -85,25 +85,11 @@ var UploadController = function($scope, fileReader) {
 //  var cleanupEventFileProgress=
   $scope.$on("fileProgress", function(e, progress) {
 
-    $scope.progressbar = progress.loaded / progress.total;
+    //  $scope.progressbar = progress.loaded / progress.total;
     // cleanupEventFileProgress();
   });
 
-  $(document).ready(function() {
 
-    var progress = setInterval(function() {
-      var $bar = $('.bar');
-
-      if ($bar.width() == 400) {
-        clearInterval(progress);
-
-      } else {
-        $bar.width($bar.width() + 40);
-      }
-      $bar.text($bar.width() / 4 + "%");
-    }, 800);
-
-  });
 
 };
 angular.module('upload')
@@ -124,37 +110,58 @@ angular.module('upload')
 
                   var addUploads = function(i) {
 
-                    //Create an input type dynamically.   
-                    var FileName = document.createElement("label");
 
+                    var FileName = document.createElement("label");
                     FileName.type = 'label';
                     var title = document.createTextNode("File " + i.name);
                     FileName.appendChild(title);
-//                       element.text =  i; // Really? You want the default value to be the type string?
-                    FileName.name = 'label';  // And the name too?
+                    FileName.name = 'label';
                     FileName.setAttribute("style", "text-align:left");
                     var fn = document.getElementById("FileName");
                     fn.appendChild(FileName);
 
+                    fn.style.width = '400px';
+
                     var progressbarc = document.createElement("div");
                     progressbarc.className = ' progress progress-info progress-striped active';
                     progressbarc.id = "a2" + i.name;
+                     progressbarc.style.textAlign = "left";
                     fn.appendChild(progressbarc);
 
                     var progressbar = document.createElement("div");
                     progressbar.className = 'bar';
                     var a = document.getElementById("a2" + i.name);
+                    //       progressbar.style.width = '400px';
+                   
                     a.appendChild(progressbar);
 
-                  FileName="";
-                  title="";
-                  fn="";
-                  progressbarc="";
-                  progressbar="";
-                  a="";
 
-                    
+
+                    var progress = setInterval(function() {
+                      var $bar = $('.bar');
+
+                      if ($bar.width() == 400) {
+                        clearInterval(progress);
+                        $('.progress').removeClass('active');
+                      } else {
+                        $bar.width($bar.width() + 40);
+                      }
+                      $bar.text($bar.width() / 4 + "%");
+
+                    }, 800);
+
+
                    
+
+                    FileName = "";
+                    title = "";
+                    fn = "";
+                    progressbarc = "";
+                    progressbar = "";
+                    progress = "";
+                    a = "";
+
+
                   }
 
 
