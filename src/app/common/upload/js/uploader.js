@@ -131,7 +131,7 @@ angular.module('upload')
                     var progressbar = document.createElement("div");
                     progressbar.className = 'bar';
                     var a = document.getElementById("a2" + i.name);
-                    //       progressbar.style.width = '400px';
+                           progressbar.style.width = '300px';
                    
                     a.appendChild(progressbar);
 
@@ -146,7 +146,7 @@ angular.module('upload')
                       } else {
                         $bar.width($bar.width() + 40);
                       }
-                      $bar.text($bar.width() / 4 + "%");
+                  //    $bar.text($bar.width() / 4 + "%");
 
                     }, 800);
 
