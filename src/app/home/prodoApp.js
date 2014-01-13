@@ -21,50 +21,63 @@ angular.module('prodo.ProdonusApp',['ui.router', 'ui.bootstrap', '$strap.directi
 	'prodo.WarrantyApp', 'prodo.DashboardApp','prodo.ContentApp', 'prodo.CommonApp',
   'prodo.BlogApp', 'prodo.AdApp', 'prodo.AdminApp' ,'ngAnimate','upload' 
   ])
+
+	.config(function($logProvider)	{
+  	$logProvider.debugEnabled(true);
+	})
 	
- 
-	.run(['$rootScope', 'UserSessionService', 'OrgRegistrationService', function ($rootScope, UserSessionService, OrgRegistrationService) {
+	.run(['$rootScope', 'UserSessionService', 'OrgRegistrationService', '$log', function ($rootScope, UserSessionService, OrgRegistrationService, $log) {
+    UserSessionService.checkUser();
     $rootScope.usersession = UserSessionService;
     $rootScope.organizationData = OrgRegistrationService;
- 
-    UserSessionService.checkUser();
-
+    $rootScope.$log = $log;
+	 
 	}])
 
-	.controller('ProdoMainController', ['$scope', '$rootScope', '$state', 'UserSessionService', function($scope, $rootScope, $state, UserSessionService) {
+	.controller('ProdoMainController', ['$scope', '$rootScope', '$state', '$log', 'UserSessionService', function($scope, $rootScope, $state, $log, UserSessionService) {
 
 		$state.transitionTo('home.start');
 
-		$rootScope.$on("session-changed", function(event, message){
-			console.log(message);   
+		var cleanupEventSession_Changed = $scope.$on("session-changed", function(event, message){
+			$log.debug(message);   
 				if (message.success) {
 					UserSessionService.authSuccess(message.success.user)
+					cleanupEventSession_Changed();
 					// $state.transitionTo($state.current.url);
-				
-			} 
-			else {
+				} 
+				else {
 				UserSessionService.authfailed();
 				$state.transitionTo('home.start');
+				cleanupEventSession_Changed();
 				
 			};
        
       });
 
+		var cleanupEventSession_Changed_Failure = $scope.$on("session-changed-failure", function(event, message){
+			 UserSessionService.authfailed();
+       $state.transitionTo('home.start');
+			 $scope.showAlert('alert-danger', "Server Error: " + message);
+       cleanupEventSession_Changed_Failure();
+      });
+
+
 		$scope.logout = function() {
 			// $scope.showSpinner();
 			UserSessionService.logoutUser();
-			$scope.$on("logoutDone", function(event, message){
+			var cleanupEventLogoutDone = $scope.$on("logoutDone", function(event, message){
 				// $scope.hideSpinner();
         $state.transitionTo('home.start');
         $scope.showAlert('alert-success', message);
+        cleanupEventLogoutDone();
 
       });
-      $scope.$on("logoutNotDone", function(event, message){
+      var cleanupEventLogoutNotDone = $scope.$on("logoutNotDone", function(event, message){
       	// $scope.hideSpinner();
         $scope.showAlert('alert-danger', "Server Error:" + message);
+        cleanupEventLogoutNotDone();
 
       });
 		};
-
-		 
+		
 	}]);

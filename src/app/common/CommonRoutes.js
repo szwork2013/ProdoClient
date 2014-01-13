@@ -126,31 +126,43 @@ angular.module('prodo.CommonApp')
     })  
     .state('account.org.location', {
       url: '/location',
-      templateUrl: 'org/manageorg/views/org.account.location.settings.tpl.html' 
-    })  
-    .state('account.org.invites', {
+      templateUrl: 'org/manageorg/views/org.account.location.settings.tpl.html',
+      controller: 'ManageAccountController'  
+    })
+    .state('account.org.groupinvites', {
       url: '/invites',
-      templateUrl: 'org/manageorg/views/org.account.invites.settings.tpl.html' 
+      templateUrl: 'org/manageorg/views/org.account.groupinvites.settings.tpl.html',
+      controller: 'ManageAccountController'  
+    })    
+    .state('account.org.otherinvites', {
+      url: '/invites',
+      templateUrl: 'org/manageorg/views/org.account.invites.settings.tpl.html',
+      controller: 'ManageAccountController'  
     })  
     .state('account.org.product', {
       url: '/product',
-      templateUrl: 'org/manageorg/views/org.account.product.settings.tpl.html' 
+      templateUrl: 'org/manageorg/views/org.account.product.settings.tpl.html',
+      controller: 'ManageAccountController'  
     })  
     .state('account.org.subscription', {
       url: '/subscription',
-      templateUrl: 'org/manageorg/views/org.account.subscription.settings.tpl.html' 
+      templateUrl: 'org/manageorg/views/org.account.subscription.settings.tpl.html',
+      controller: 'ManageAccountController'  
     }) 
     .state('account.org.payment', {
       url: '/payment',
-      templateUrl: 'org/manageorg/views/org.account.payment.settings.tpl.html' 
+      templateUrl: 'org/manageorg/views/org.account.payment.settings.tpl.html',
+      controller: 'ManageAccountController'  
     }) 
     .state('account.org.paymenthistory', {
       url: '/paymenthistory',
-      templateUrl: 'org/manageorg/views/org.account.paymenthistory.settings.tpl.html' 
+      templateUrl: 'org/manageorg/views/org.account.paymenthistory.settings.tpl.html',
+      controller: 'ManageAccountController' 
     })                
   }]) 
-.run(['$rootScope', 'UserSessionService', '$state', function ($rootScope, UserSessionService, $state) {
-  
+ 
+.run(['$rootScope', 'UserSessionService', '$state', '$log', function ($rootScope, UserSessionService, $state, $log) {
+ 
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState){
    
       if ((toState.name == 'prodo.wall' || toState.name == 'account.user') && $rootScope.usersession.isLoggedIn && !$rootScope.usersession.isSubscribed && !$rootScope.usersession.isPaymentDone ) {

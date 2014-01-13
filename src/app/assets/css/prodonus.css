@@ -20,7 +20,7 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
 /*change the navbar style*/
 #prodo-navbar {
 	min-height: 60px;
-	background: -webkit-linear-gradient(#686868,#000000);
+	background: -webkit-linear-gradient(#424040,#000000);
   }
 
 
@@ -40,7 +40,7 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
 	width: 150px;
 	height: 25px;
 	font-size: 13px;
-	border-radius: 12px;
+	border-radius: 2px;
   }
 
 /*change the navbar form input button signin style*/
@@ -48,16 +48,19 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
 	width: 60px;
 	height: 25px;
 	padding: 0px;
+	font-weight: bold;
 	border-radius: 5px;
 	margin-left: 5px;
 	border-color: #495549;
-	background-color: #595C63
+	background-color: rgb(212, 208, 208);
+	color: black;
   }
 
 /*change the navbar form forgot link style*/
 #prodo-form-forgot-link{
    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
-   font-size:10px;
+   font-size:12px;
+   color: white;
 }
 
 /*change the main view container style(main-ui-view inside this view)*/
@@ -946,12 +949,38 @@ border-radius: 30px;
   margin-top: 10px;
 }
 
-/* Prodo Main View: Dashboard*/
+/**
+*Dashboard
+**/
+
 #prodo-dashboard-container{
   background-color: #ffffff;
   border-radius: 10px;
   margin-top: 10px;
 }
+
+/*Barchart*/
+
+text {
+  font: 12px sans-serif;
+}
+
+.mybarchart {
+  width: 500px;
+  border: 2px;
+}
+
+/*Piechart*/
+
+text {
+  font: 12px sans-serif;
+}
+
+.mypiechart {
+  width: 500px;
+  border: 2px;
+}
+
 /* Prodo Main View: Comments*/
  #prodo-comment-container{
   background-color: #ffffff;
@@ -959,6 +988,110 @@ border-radius: 30px;
   margin-top: 10px;
   border-radius: 10px;
 }
+
+/*Screen Chart*/
+
+.abc {
+  position: absolute;
+  background: rgba(200,200,200,0.75);
+  border: 1px solid #ddd;
+  padding: 5px 12px;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px rgba(120,120,120,0.55);
+  text-shadow: 0 1px 0 #eee;
+}
+
+
+#a
+{ 
+  width:540px; 
+  height:500px; 
+  display: inline-block;
+  /*position : fixed ;*/
+  background-position:top;
+} 
+
+/*India Chart*/
+                     
+#ireland {
+     fill: #008000;
+     opacity: .8;
+     stroke: #FFFFFF;
+     stroke-width: .7;
+}
+/*
+
+.Blues .q0-9{fill : rgb(247,251,255)}
+
+.Blues .q1-9{fill : rgb(222,235,247)}
+
+.Blues .q2-9{fill:rgb(198,219,239)}
+
+.Blues .q3-9 { fill : blue }
+
+.Blues .q4-9{fill:rgb(107,174,214)}
+
+.Blues .q5-9{fill:rgb(66,146,198)}
+
+.Blues .q6-9{fill:rgb(33,113,181)}
+
+.Blues .q7-9{fill:rgb(8,81,156)}
+
+.Blues .q8-9{fill:rgb(8,48,107)}
+
+
+
+  
+*/
+.abctooltip {
+  position: absolute;
+  background: rgba(200,200,200,0.75);
+  border: 1px solid #ddd;
+  padding: 5px 12px;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px rgba(120,120,120,0.55);
+  text-shadow: 0 1px 0 #eee;
+}
+#vis {
+    min-height: 550px;
+}
+
+
+
+.maps
+{
+  min-height: 300px;    
+    width: 600px;
+    fill : #EDC9AF;
+}
+
+
+ #map path:hover {
+		fill: #5eab1f;
+		fill: #567;
+		cursor: pointer;    
+		pointer-events: all;
+	}
+
+#subtitle {
+      width : 100;
+	    height: 40px;
+	    border-top: 0px solid #e2e2e2;
+	    padding: 15px;   
+		font-family: 'Bevan', serif;
+	    font-size: 1.0em;
+ }
+	
+#subblurb {
+    height: 40px;
+    left : 20;
+    border-top: 0px solid #e2e2e2;
+    padding: 15px;   
+	  font-family: 'Bevan', serif;
+    font-size: 1.0em;   
+    vertical-align:top;
+}
+
  
 /**
 *	Footer
@@ -977,11 +1110,25 @@ border-radius: 30px;
 }
 #footer-nav-heading{
   color: #bdbdbd;
+  background-color:rgb(25, 32, 26);
+  border-radius: 5px;
+  width: 75%; 
+  /*text-align: center;*/
+  font-weight: bold;
+  font-size: 14px;
+  padding:2px;
+}
+
+#footer-nav-list{
+list-style-type:none;
+padding:5px;
+margin:2px;
 }
 
 #prodo-copyright{
   margin-left: 230px;
   color: #bdbdbd;
+  font-size: 13px;
 }
 
  

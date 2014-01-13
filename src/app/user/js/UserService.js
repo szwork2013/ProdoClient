@@ -3,7 +3,7 @@
 **/
 angular.module('prodo.UserApp')
 
-.factory('UserSessionService', ['$rootScope', '$resource', '$http', '$state', function($rootScope, $resource, $http, $state) {
+.factory('UserSessionService', ['$rootScope', '$resource', '$http', '$state', '$log', function($rootScope, $resource, $http, $state, $log) {
 
     var UserService = 
       {
@@ -48,149 +48,136 @@ angular.module('prodo.UserApp')
     session.isLoggedIn = false;
     session.currentUser = null;
 
-      session.signinUser= function (userdata) {
-        UserService.Signin.signinUser(userdata,     // calling function of UserSigninService to make POST method call to signin user.
-        function(success){
-          console.log(success);
-          $rootScope.$broadcast("signinDone", success);
-        },
-        function(error){
-          console.log(error);
-          $rootScope.$broadcast("signinNotDone", error.status);
-          
-        });
-      }
-
-      session.saveUserSettings= function (userdata) {
-        UserService.ManageUser.updateUserSettings({userid: session.currentUser.userid}, userdata,     // calling function of UserSigninService to make POST method call to signin user.
-        function(success){
-          console.log(success);
-          $rootScope.$broadcast("updateUserDone", success);
-        },
-        function(error){
-          console.log(error);
-        });
-      }
-
-      session.removeUserSettings= function () {
-        UserService.ManageUser.deleteUserSettings({userid: session.currentUser.userid},     // calling function of UserSigninService to make POST method call to signin user.
-        function(success){
-          console.log(success);
-          $rootScope.$broadcast("deleteUserDone", success);
-        },
-        function(error){
-          console.log(error);
-        });
-      }
-
-      session.getUserDetailSettings= function () {
-        UserService.ManageUser.getUserSettings({userid: session.currentUser.userid},     // calling function of UserSigninService to make POST method call to signin user.
-        function(success){
-          console.log(success);
-          $rootScope.$broadcast("getUserDone", success);
-        },
-        function(error){
-          console.log(error);
-        });
-      }
-
-      session.updateUserData = function(userData, $scope){
-          session.currentUserData = userData;
-        }
-
-      // function to handle server side responses
-      session.handleGetUserResponse = function(data){
-      if (data.success) {
-        session.updateUserData(data.success.user);
-        // $scope.showAlert('alert-success', data.success.message);   
-      } else {
-            console.log(data.error.message);
-        }
-    };
-
-      $rootScope.$on("getUserDone", function(event, message){
-        session.handleGetUserResponse(message);   
-      });
-
-      session.forgotPasswordUser= function (userdata) {
-        UserService.ForgotPassword.forgotPassword(userdata,     // calling function of UserSigninService to make POST method call to signin user.
-        function(success){
-          console.log(success);
-          $rootScope.$broadcast("forgotPasswordDone", success);        },
-        function(error){
-          console.log(error);
-          $rootScope.$broadcast("forgotPasswordNotDone", error.status);
-        });
-      }
-
-      session.resetPasswordUser= function (userdata) {
-        UserService.ResetPassword.resetPassword({userid: session.currentUser.userid}, userdata,     // calling function of UserSigninService to make POST method call to signin user.
-        function(success){
-          console.log(success);
-          $rootScope.$broadcast("resetPasswordDone", success);        },
-        function(error){
-          console.log(error);
-          $rootScope.$broadcast("resetPasswordNotDone", error.status);
-        });
-      }
-
-      session.regenerateTokenUser= function (userdata) {
-        UserService.RegenerateToken.regenerateToken(userdata,     // calling function of UserSigninService to make POST method call to signin user.
-        function(success){
-          console.log(success);
-          $rootScope.$broadcast("regenerateTokenDone", success);        },
-        function(error){
-          console.log(error);
-          $rootScope.$broadcast("regenerateTokenNotDone", error.status);
-        });
-      }
-
-      session.init = function () {
-          session.resetSession();
-        }
+    session.signinUser= function (userdata) {
+      UserService.Signin.signinUser(userdata,     // calling function of UserSigninService to make POST method call to signin user.
+      function(success){
+        $log.debug(success);
+        $rootScope.$broadcast("signinDone", success);
+      },
+      function(error){
+        $log.debug(error);
+        $rootScope.$broadcast("signinNotDone", error.status);
         
-        session.resetSession = function() {
-          session.currentUser = null;
-          session.isLoggedIn = false;
-        }
+      });
+    }
 
-        session.logoutUser = function(){
-          UserService.Logout.logoutUser(     // calling function of UserSigninService to make POST method call to signin user.
-            function(success){
-              console.log(success.success.message);
-              session.resetSession();
-              $rootScope.$broadcast("logoutDone", success.success.message); 
-            },
-            function(error){
-              console.log(error);
-              $rootScope.$broadcast("logoutNotDone", error.status);
-            });
-            
-            // $rootScope.$broadcast("session-changed");
-        }
+    session.saveUserSettings= function (userdata) {
+      UserService.ManageUser.updateUserSettings({userid: session.currentUser.userid}, userdata,     // calling function of UserSigninService to make POST method call to signin user.
+      function(success){
+        $log.debug(success);
+        $rootScope.$broadcast("updateUserDone", success);
+      },
+      function(error){
+        $log.debug(error);
+        $rootScope.$broadcast("updateUserNotDone", error.status);
+      });
+    }
 
-        session.authSuccess = function(userData, $scope){
-          session.currentUser = userData;
-          session.isLoggedIn = true;
-          $rootScope.$broadcast("session", userData);
-        }
+    session.removeUserSettings= function () {
+      UserService.ManageUser.deleteUserSettings({userid: session.currentUser.userid},     // calling function of UserSigninService to make POST method call to signin user.
+      function(success){
+        $log.debug(success);
+        $rootScope.$broadcast("deleteUserDone", success);
+      },
+      function(error){
+        $log.debug(error);
+        $rootScope.$broadcast("daleteUserNotDone", error.status);
+      });
+    }
 
-        session.authfailed = function(){
-          session.resetSession();
-        }
+    session.getUserDetailSettings= function () {
+      UserService.ManageUser.getUserSettings({userid: session.currentUser.userid},     // calling function of UserSigninService to make POST method call to signin user.
+      function(success){
+        $log.debug(success);
+        $rootScope.$broadcast("getUserDone", success);
+      },
+      function(error){
+        $log.debug(error);
+        $rootScope.$broadcast("getUserNotDone", error.status);
+      });
+    }
 
-        session.checkUser= function () {
-        UserService.IsUserLoggedin.checkUserSession(     // calling function of UserSigninService to make POST method call to signin user.
-        function(success){
-          console.log(success);
-          $rootScope.$broadcast("session-changed", success);        },
-        function(error){
-          console.log(error);
-          session.authfailed();
-          $state.transitionTo('home.start');
-
-        });
+    session.updateUserData = function(userData, $scope){
+        session.currentUserData = userData;
       }
+
+    session.forgotPasswordUser= function (userdata) {
+      UserService.ForgotPassword.forgotPassword(userdata,     // calling function of UserSigninService to make POST method call to signin user.
+      function(success){
+        $log.debug(success);
+        $rootScope.$broadcast("forgotPasswordDone", success);        },
+      function(error){
+        $log.debug(error);
+        $rootScope.$broadcast("forgotPasswordNotDone", error.status);
+      });
+    }
+
+    session.resetPasswordUser= function (userdata) {
+      UserService.ResetPassword.resetPassword({userid: session.currentUser.userid}, userdata,     // calling function of UserSigninService to make POST method call to signin user.
+      function(success){
+        $log.debug(success);
+        $rootScope.$broadcast("resetPasswordDone", success);        },
+      function(error){
+        $log.debug(error);
+        $rootScope.$broadcast("resetPasswordNotDone", error.status);
+      });
+    }
+
+    session.regenerateTokenUser= function (userdata) {
+      UserService.RegenerateToken.regenerateToken(userdata,     // calling function of UserSigninService to make POST method call to signin user.
+      function(success){
+        $log.debug(success);
+        $rootScope.$broadcast("regenerateTokenDone", success);        },
+      function(error){
+        $log.debug(error);
+        $rootScope.$broadcast("regenerateTokenNotDone", error.status);
+      });
+    }
+
+    session.init = function () {
+        session.resetSession();
+      }
+      
+      session.resetSession = function() {
+        session.currentUser = null;
+        session.isLoggedIn = false;
+      }
+
+      session.logoutUser = function(){
+        UserService.Logout.logoutUser(     // calling function of UserSigninService to make POST method call to signin user.
+          function(success){
+            $log.debug(success.success.message);
+            session.resetSession();
+            $rootScope.$broadcast("logoutDone", success.success.message); 
+          },
+          function(error){
+            $log.debug(error);
+            $rootScope.$broadcast("logoutNotDone", error.status);
+          });
+          
+          // $rootScope.$broadcast("session-changed");
+      }
+
+      session.authSuccess = function(userData, $scope){
+        session.currentUser = userData;
+        session.isLoggedIn = true;
+        $rootScope.$broadcast("session", userData);
+      }
+
+      session.authfailed = function(){
+        session.resetSession();
+      }
+
+      session.checkUser= function () {
+      UserService.IsUserLoggedin.checkUserSession(     // calling function of UserSigninService to make POST method call to signin user.
+      function(success){
+        $log.debug(success);
+        $rootScope.$broadcast("session-changed", success);        },
+      function(error){
+        $log.debug(error);
+        $rootScope.$broadcast("session-changed-failure", error.status);
+      });
+    }
     return session;
 }])
 
@@ -205,7 +192,7 @@ angular.module('prodo.UserApp')
   });
 }])
 
-.factory('UserRecaptchaService', ['$http', 'vcRecaptchaService', function($http, vcRecaptchaService) {
+.factory('UserRecaptchaService', ['$http', 'vcRecaptchaService', '$log', function($http, vcRecaptchaService, $log) {
   var recaptchaService= {};
      
   recaptchaService.validate = function($scope) {
@@ -229,12 +216,12 @@ angular.module('prodo.UserApp')
            headers: {'Content-Type': 'application/json'},
           }).
        success(function(data, status) {
-              console.log("success"); 
-              console.log(data); 
+              $log.debug("success"); 
+              $log.debug(data); 
               recaptchaService.handleRecaptchaResponse($scope, data);                      
         }).
        error(function(data, status) {
-            console.log(status);
+            $log.debug(status);
             $scope.$broadcast("recaptchaFailure", status); 
             vcRecaptchaService.reload(); 
         });
@@ -242,16 +229,16 @@ angular.module('prodo.UserApp')
   
   recaptchaService.handleRecaptchaResponse = function($scope, data){
     if (data.success) {
-      console.log(data.success);
+      $log.debug(data.success);
       $scope.$emit("recaptchaDone", "Success");
     } else {
         if (data.error.code== 'AR001') {     // Google recaptcha server down
-          console.log(data.error.code + " " + data.error.message);
+          $log.debug(data.error.code + " " + data.error.message);
 
           $state.transitionTo('home.start');
         }
         else {
-        console.log(data.error.message);
+        $log.debug(data.error.message);
          $scope.$emit("recaptchaNotDone", "Failure");
         vcRecaptchaService.reload(); 
         }
@@ -261,18 +248,3 @@ angular.module('prodo.UserApp')
   
   return recaptchaService;
 }]);
-     
- 
-// function UserController($scope, UserService) {
-//   $scope.user = {};
-
-//   $scope.$watch('userSession', function() {
-//     UserService.addUserSession($scope.user);
-//   });
-
-//   $scope.$on('session-changed', function() {
-//     $scope.user = UserService.;getUserSEssion();
-//   });
-// }
-
-

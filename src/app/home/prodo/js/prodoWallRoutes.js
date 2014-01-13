@@ -24,9 +24,6 @@ angular.module('prodo.ProdoWallApp')
         'prodonavbar' : {
           templateUrl:  'home/prodo/views/prodo.wall.navbar.tpl.html'
         },
-        'dashboard' : {
-          templateUrl:  'home/prodo/views/prodo.wall.dashboard.tpl.html'
-        },
         'content' : {
           templateUrl:  'home/prodo/views/prodo.wall.content.tpl.html'
         }
@@ -49,11 +46,18 @@ angular.module('prodo.ProdoWallApp')
       url: '',
        templateUrl:  'blog/views/prodo.wall.blog.tpl.html',
       }) 
+    .state('prodo.wall.dashboard', {
+      url: '',
+       templateUrl:  'dashboard/views/prodo.wall.dashboard.tpl.html',
+       controller: 'ProdoDashboardController'
+      }) 
   }])
- .run(['$rootScope', 'UserSessionService', '$state', function ($rootScope, UserSessionService, $state) {
+
+ .run(['$rootScope', 'UserSessionService', '$state', '$log', function ($rootScope, UserSessionService, $state, $log) {
   
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState){
-      // console.log($state.current.url);
+      // $log.debug($state.current.url);
+
       if (toState.name == 'prodo.wall' && !$rootScope.usersession.isLoggedIn) {
         event.preventDefault();
 

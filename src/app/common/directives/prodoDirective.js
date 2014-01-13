@@ -112,7 +112,7 @@ angular.module("prodo.CommonApp")
   return {
     restrict: 'EA',
     replace: true,
-    template: '<div style="min-width:250px; text-align:left; margin: 5px auto;" class="alert {{mainAlert.alertType}}" ng-show="mainAlert.isShown">' +
+    template: '<div style="max-width:750px; text-align:left; margin: 5px auto;" class="alert {{mainAlert.alertType}}" ng-show="mainAlert.isShown">' +
   '<button type="button" class="close" ng-click="closeAlert()" aria-hidden="true">&times;</button>' +
   '{{mainAlert.message}}' + '<a href="#/{{mainAlert.linkpage}}" class="alert-link"> {{mainAlert.linkmessage}}</a>' +
 '</div>',
@@ -240,7 +240,350 @@ angular.module("prodo.CommonApp")
       });
     }
   }
-}]);
+}])
+
+  .directive('prodoBarchart',function() {
+    var barchart = {
+      restrict:'EA',
+      link : function(scope,element,a) {
+        nv.addGraph(function() {
+          var chart = nv.models.discreteBarChart()
+           .x(function(d) { return d.label })
+           .y(function(d) { return d.value })
+            .staggerLabels(true)
+            .tooltips(true)
+            .showValues(true);
+    
+          d3.select('#chart')
+             .datum(example())
+             .transition().duration(50)
+             .call(chart);
+   
+          nv.utils.windowResize(chart.update);
+          return chart;
+        });
+
+        function example() {
+          return  [ {
+             key: "Product Ratings",
+             values: [
+               { 
+                 "label" : "Awsome " ,
+                 "value" : 300
+               } , 
+               { 
+                 "label" : "Average" , 
+                 "value" : 600
+               } , 
+               { 
+                 "label" : "Good" , 
+                 "value" : 200
+               } , 
+               { 
+                 "label" : "Bad" , 
+                 "value" : 400
+               } , 
+               { 
+                 "label" : "Worst" ,
+                 "value" : 10
+               } , 
+               { 
+                 "label" : "Complaints" , 
+                 "value" : 20
+               } 
+              
+             ]
+           }
+          ];
+        }
+    }};
+
+    return barchart;
+ })
+
+  .directive('prodoPiechart',function() {
+    var piechart = {
+      restrict : 'EA',
+      link : function(scope,elem,attrs) {
+                 
+        nv.addGraph(function() {
+          var width = 500,
+          height = 500;
+          
+           var chart = nv.models.pieChart()
+          .x(function(d) { return d.key })
+          .y(function(d) { return d.y })
+          .color(d3.scale.category10().range())
+          .width(width)
+          .height(height);
+          d3.select("#test1")
+          .datum(scope.data)
+          .transition().duration(1200)
+          .attr('width', width)
+          .attr('height', height)
+          .call(chart);
+          
+          chart.dispatch.on('stateChange', function(e) { nv.log('New State:', JSON.stringify(e)); });
+            
+          return chart;
+        });
+      }
+    };
+    return piechart;
+  })
+
+.directive('prodoProductChart', function() {
+  
+  var g={
+    restrict : "EA",
+    link : function(scope,element,attr) {
+      var tooltip = d3.select("#a")
+                   .append("div")
+                   .attr("class", "abc")
+                   .style("opacity", 0);
+
+      var z = d3.select("#a")
+      .style( "background-image" , "url(http://www.digitaltrends.com/wp-content/uploads/2010/06/apple-iphone-4-91.jpg) ")
+      .style("background-repeat", "no-repeat");
+              
+      var zz=z.append("svg"); 
+
+      var l=  zz.append("circle")
+               .attr("cx",70+9)
+               .attr("cy",80)
+               .attr("r",5)
+               .style("fill","blue");
+               l.on("mouseenter",function()
+                 {
+                    l.attr("r",10)
+                    .style("fill", "none")
+                    .style("stroke", "red")
+                    .style("stroke-opacity", 1e-6)
+                    .style("stroke-width", 3)
+                    .transition()
+                    .duration(500)
+                    .attr("r", 5)
+                    .style("fill","blue")
+                    .style("stroke-opacity", 2);
+                     tooltip.text("Front 12 Megapixel Camera").style("opacity",2).style("left", (d3.event.pageX+5) + "px")
+                    .style("top", (d3.event.pageY+5) + "px");
+                }).on("mouseout",function() {
+                    l.attr("r",5).style("stroke","none");
+                    tooltip.style("opacity",0);
+                  });
+
+          l2  = zz.append("circle")
+                 .attr("cx",52)
+                 .attr("cy",99+4+134)
+                 .attr("r",8)
+                 .style("fill","blue").on("mouseover",function() {
+                    l2.attr("r",12)
+                     .style("fill", "none")
+                    .style("stroke", "red")
+                    .style("stroke-opacity", 1e-6)
+                    .style("stroke-width", 3)
+                    .transition()
+                    .duration(500)
+                    .attr("r", 8)
+                    .style("fill","blue")
+                    .style("stroke-opacity", 2);
+                        
+                    tooltip.text("Screen").style("opacity",2).style("left", (d3.event.pageX+5) + "px")
+                    .style("top", (d3.event.pageY+5) + "px");
+                  }).on("mouseout",function() {
+                       l2.attr("r",8).style("stroke","none");
+                       tooltip.style("opacity",0);
+                     });  
+                                    
+          l3  = zz.append("circle")
+                 .attr("cx",120)
+                 .attr("cy",90)
+                 .attr("r",5)
+                 .style("fill","blue").on("mouseover",function() {
+                    l3.attr("r",10) .style("fill", "none")
+                      .style("stroke", "red")
+                      .style("stroke-opacity", 1e-6)
+                      .style("stroke-width", 3)
+                      .transition()
+                      .duration(500)
+                      .attr("r", 5)
+                      .style("fill","blue")
+                      .style("stroke-opacity", 2);
+                  tooltip.text("Speaker").style("opacity",2).style("left", (d3.event.pageX+5) + "px")
+                  .style("top", (d3.event.pageY+5) + "px");
+                }).on("mouseout",function() {
+                  l3.attr("r",5).style("stroke","none");
+                  tooltip.style("opacity",0);
+               });  
+           
+          l4  = zz.append("circle")
+                 .attr("cx",100)
+                 .attr("cy",370)
+                 .attr("r",4)
+                 .style("fill","blue")
+                 .on("mouseover",function() {
+                    l4.attr("r",10) .style("fill", "none")
+                    .style("stroke", "red")
+                    .style("stroke-opacity", 1e-6)
+                    .style("stroke-width", 3)
+                    .transition()
+                    .duration(500)
+                    .attr("r", 4)
+                    .style("fill","blue")
+                    .style("stroke-opacity", 2);
+                     tooltip.text("Home Button").style("opacity",2).style("left", (d3.event.pageX+5) + "px")
+                        .style("top", (d3.event.pageY+5) + "px");
+                  }).on("mouseout",function() {
+                      l4.attr("r",4).style("stroke","none");
+                     tooltip.style("opacity",0);
+                  }); 
+                
+          l5 = zz.append("circle")
+                .attr("cx",280)
+                 .attr("cy",90)
+                 .attr("r",4)
+                 .style("fill","blue")
+                 .on("mouseover",function() {
+                    l5.attr("r",10) .style("fill", "none")
+                      .style("stroke", "red")
+                      .style("stroke-opacity", 1e-6)
+                      .style("stroke-width", 3)
+                      .transition()
+                      .duration(500)
+                      .attr("r", 4)
+                      .style("fill","blue")
+                      .style("stroke-opacity", 2);
+                      
+                      tooltip.text("Rear Main Camera").style("opacity",2).style("left", (d3.event.pageX+5) + "px")
+                        .style("top", (d3.event.pageY+5) + "px");
+                    }).on("mouseout",function() {
+                      l5.attr("r",4).style("stroke","none");
+                      tooltip.style("opacity",0);
+                    }); 
+                
+          l6 = zz.append("circle")
+               .attr("cx",305)
+               .attr("cy",67)
+               .attr("r",4)
+               .style("fill","blue")
+               .on("mouseover",function() {
+                  l6.attr("r",7) .style("fill", "none")
+                  .style("stroke", "red")
+                  .style("stroke-opacity", 1e-6)
+                  .style("stroke-width", 3)
+                  .transition()
+                  .duration(500)
+                  .attr("r", 4)
+                  .style("fill","blue")
+                  .style("stroke-opacity", 2);
+                  tooltip.text("Flash").style("opacity",2).style("left", (d3.event.pageX+5) + "px")
+                    .style("top", (d3.event.pageY+5) + "px");
+                  }).on("mouseout",function() {
+                      l6.attr("r",2).style("stroke","none");
+                      tooltip.style("opacity",0);
+                   }); 
+                
+          l7 = zz.append("circle")
+                  .attr("cx",488)
+                 .attr("cy",140)
+                 .attr("r",4)
+                 .style("fill","blue")
+                 .on("mouseover",function() {
+                     
+                    l7.attr("r",10) .style("fill", "none")
+                    .style("stroke", "red")
+                    .style("stroke-opacity", 1e-6)
+                    .style("stroke-width", 3)
+                    .transition()
+                    .duration(500)
+                    .attr("r", 5)
+                    .style("fill","blue")
+                    .style("stroke-opacity", 2);
+                    tooltip.text("Volume Keys").style("opacity",4).style("left", (d3.event.pageX+5) + "px")
+                    .style("top", (d3.event.pageY+5) + "px");
+
+                }).on("mouseout",function() {
+                    l7.attr("r",4).style("stroke","none");
+                    tooltip.style("opacity",0);
+                  }); 
+           }
+          }; 
+  return g;
+})
+
+.directive("prodoIndia",function(){
+  var indiaData={
+    restrict : "EA" ,
+    
+    link : function(scope,element,attr)
+    {
+      var proj = d3.geo.mercator();
+      var path = d3.geo.path().projection(proj);
+      var map = d3.select("#map")
+                  .append("svg:svg")
+                  .attr("class","maps")
+                  .attr("width", 600)
+                  .attr("height", 800)
+                  .call(initialize);
+      var india = map.append("svg:g")
+                  .attr("id", "india");
+            
+      var tooltip = d3.select("#map")
+                   .append("div")
+                   .attr("class", "abctooltip") 
+                   .style("opacity", 0);
+      var data;  
+      d3.json("../../dashboard/json/IndiaData.json", function (json) {
+                    india.selectAll("path")
+                    .data(json.features)
+                    .enter().append("path")
+                    .attr("d", path);          
+      });
+      d3.json("../../dashboard/json/Counties.json", function(json) {   //this works
+       data = json.reduce(function(result, county) {
+       result[county.id] = county;
+       return result;
+        }, {});
+        india.selectAll("path").style("fill", function a(d) {                         
+          if(d.amount<2)
+          return "rgb(247,251,255)";
+
+          else if (d.amount>1 && d.amount<3)
+          return "rgb(8,48,107)";
+
+          else if(d.amount>2 && d.amount< 4)
+          return "rgb(8,81,156)";
+
+          else if(d.amount>3 && d.amount<5)
+          return "rgb(8,81,156)";
+
+          else
+          return "rgb(8,48,107)";
+        }).attr("d", path).on("mouseover", function(d) {
+            var title = d3.select("#subtitle").text(d.id);
+            tooltip.text("State: "+d.id + "  " + "Number of Customers: " +(d.amount*100000)).style("opacity",4).style("left", (d3.event.pageX+5) + "px")
+            .style("top", (d3.event.pageY+5) + "px");
+            var subblurb = d3.select("#subblurb").text(d.comment);
+            console.log("The amount is " + d.amount);
+          })
+        .on("mouseout",function(d){tooltip.style("opacity",0)})
+        .on("click",function(){});
+      });
+      
+      function initialize() {
+         proj.scale(6700);
+         proj.translate([-1240, 720]);
+      }
+                  
+      function quantize(d) {
+         console.log("q" + Math.min(8, ~~(d.amount * 9 / 12)) + "-9");
+        return "q" + Math.min(8, ~~(d.amount * 9 / 12)) + "-9";
+      }   
+    }
+  };
+  return indiaData;  
+});
+
 ////// ensureUnique with timeout
 
 //    app.directive('ensureUnique', ['$http', '$timeout', function($http, $timeout) {

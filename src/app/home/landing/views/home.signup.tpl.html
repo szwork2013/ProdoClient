@@ -6,7 +6,7 @@
 
       <h4 id="prodo-signup-heading">Talk About Your Products</h4>
        
-        <input id="prodo-form-input-signup" name="fullname" class="form-control" type="text" placeholder="FullName (firstname lastname)" ng-model="user.fullname" required /><i class="fa fa-check" ng-show="signupForm.fullname.$dirty && signupForm.fullname.$valid" ></i>
+        <input id="prodo-form-input-signup" name="fullname" class="form-control" type="text" placeholder="UserName" ng-model="user.fullname" required /><i class="fa fa-check" ng-show="signupForm.fullname.$dirty && signupForm.fullname.$valid" ></i>
 
         <input id="prodo-form-input-signup" name="email" class="form-control" type="email" placeholder="Email" required ng-model="user.email" /><i class="fa fa-check" ng-show="signupForm.email.$dirty && signupForm.email.$valid"></i>
       
@@ -17,9 +17,9 @@
           <div id="recaptcha_response_field-input-group" class="input-group">
             <input type="text" id="recaptcha_response_field" placeholder="Enter above text" name="recaptcha_response_field" class="form-control" required />
             <div class="input-group-btn">
-              <button type="button" class="btn btn-default" onclick="Recaptcha.reload()"><i class="fa fa-refresh fa-spin"></i></button>
-              <button type="button" class="btn btn-default" onclick="Recaptcha.switch_type('audio')"><i class="fa fa-volume-up"></i></button>
-              <button type="button" class="btn btn-default" onclick="Recaptcha.switch_type('image')"><i class="fa fa-picture-o"></i></button>
+              <button type="button" tooltip="Refresh" tooltip-placement="bottom" class="btn btn-default" onclick="Recaptcha.reload()"><i class="fa fa-refresh fa-spin"></i></button>
+              <button type="button" tooltip="Play Audio" tooltip-placement="bottom" class="btn btn-default" onclick="Recaptcha.switch_type('audio')"><i class="fa fa-volume-up"></i></button>
+              <button type="button" tooltip="Captcha image" tooltip-placement="bottom" class="btn btn-default" onclick="Recaptcha.switch_type('image')"><i class="fa fa-picture-o"></i></button>
             </div><!-- /btn-group -->
           </div><!-- /input-group -->
         </div>

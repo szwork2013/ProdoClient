@@ -26,9 +26,44 @@ angular.module('prodo.ProdonusApp')
       abstract: true,
       templateUrl: 'home/landing/views/message.content.tpl.html'
     })    
+    .state('messageContent.aboutus', {
+      url: '/prodo-aboutus',
+      templateUrl: 'home/landing/views/prodo.aboutus.tpl.html',
+      controller: 'UserRegistrationController' 
+    })
     .state('messageContent.terms', {
-      url: '/prodoterms',
+      url: '/prodo-terms',
       templateUrl: 'home/landing/views/prodo.general.terms.tpl.html',
+      controller: 'UserRegistrationController' 
+    })
+    .state('messageContent.privacy', {
+      url: '/prodo-privacy',
+      templateUrl: 'home/landing/views/prodo.privacy.tpl.html',
+      controller: 'UserRegistrationController' 
+    })
+    .state('messageContent.business', {
+      url: '/prodo-business',
+      templateUrl: 'home/landing/views/prodo.business.tpl.html',
+      controller: 'UserRegistrationController' 
+    })
+    .state('messageContent.advertising', {
+      url: '/prodo-advertising',
+      templateUrl: 'home/landing/views/prodo.advertising.tpl.html',
+      controller: 'UserRegistrationController' 
+    })
+    .state('messageContent.application', {
+      url: '/prodo-application',
+      templateUrl: 'home/landing/views/prodo.application.tpl.html',
+      controller: 'UserRegistrationController' 
+    })
+    .state('messageContent.support', {
+      url: '/prodo-support',
+      templateUrl: 'home/landing/views/prodo.support.tpl.html',
+      controller: 'UserRegistrationController' 
+    })
+    .state('messageContent.contactus', {
+      url: '/prodo-contactus',
+      templateUrl: 'home/landing/views/prodo.contactus.tpl.html',
       controller: 'UserRegistrationController' 
     })
     .state('messageContent.emailverification', {
@@ -60,10 +95,5 @@ angular.module('prodo.ProdonusApp')
       url: '/resetPassword',
       templateUrl: 'user/views/user.signin.resetpassword.tpl.html',
       controller: 'UserSigninController'
-    })
-    .state('dialog', {
-      url: '',
-      templateUrl: 'user/views/user.account.dialog.tpl.html',
-      controller: 'ManageAccountController'
-    })       
+    })  
   }])
