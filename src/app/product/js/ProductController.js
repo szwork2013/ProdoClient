@@ -42,6 +42,9 @@ angular.module('prodo.ProductApp')
             $scope.socket;
 
 
+
+
+
             $scope.showErrorIfCommentNotAdded = function( ) {
               var retry = document.getElementById("responseComment");
               retry.style.display = 'inline';
@@ -57,7 +60,7 @@ angular.module('prodo.ProductApp')
 
             //get login details
             $scope.getUserDetails = function( ) {
-              if ($rootScope.usersession.currentUser.org.orgid) {
+              if ($rootScope.usersession.currentUser.org) {
                 $scope.grpnameFromSession = $rootScope.usersession.currentUser.org.grpname;
                 $scope.orgidFromSession = $rootScope.usersession.currentUser.org.orgid;
                 $scope.orgnameFromSession = $rootScope.usersession.currentUser.org.orgname;
@@ -153,7 +156,7 @@ angular.module('prodo.ProductApp')
               function(successData) {
                 if (successData.success == undefined)
                 {
-                  $scope.showAlert('alert-danger', "Not getting Product...");
+                  $scope.showAlert('alert-danger', " Product not available ...");
                 }
                 else {
                   console.log(successData.success.product);
@@ -169,6 +172,7 @@ angular.module('prodo.ProductApp')
                         $scope.showAlert('alert-danger', "Server Error:" + error.status);
 
                       });
+
             }
             //get product function declaration  
 
@@ -262,6 +266,8 @@ angular.module('prodo.ProductApp')
               }
             }
 
+
+
             //Product discontinued visibility testing
 //                if (($scope.product !== undefined) || ($scope.product !== ""))
 //                {
@@ -306,6 +312,15 @@ angular.module('prodo.ProductApp')
 
             }
 
+
+            $scope.checkAdmin = function() {
+              if ($rootScope.usersession.currentUser.org.isAdmin) {
+                alert("admin");
+
+                var adminPanel = document.getElementById("prodo.productAdmin");
+                adminPanel.style.display = 'inline';
+              }
+            }
 
           }])
 
