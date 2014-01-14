@@ -1232,7 +1232,8 @@ background-color: transparent;
 
 /*.prodo-product-general.closed button {color: red;}   stand-in for showing an up/down arrow or something*/
 .prodo-product-general.closedPG .child { display:none; }
-.prodo-product-general.closedCnF .child { display:none; }
+.prodo-product-general.closedF .child { display:none; }
+.prodo-product-general.closedC .child { display:none; }
 .prodo-product-general.closedSb .child { display:none; }
 .prodo-product-general.closedPr .child { display:none; }
 .prodo-product-general.closedPimgs .child { display:none; }
@@ -1271,21 +1272,35 @@ display:none;
  
 
 
-.closedCnF{   -webkit-transition : linear 1s;
+.closedC{   -webkit-transition : linear 1s;
   -moz-transition: linear 1s;
   -ms-transition: linear 1s;
   -o-transition: linear 1s;
   transition: linear 1s;
 }
  
-.closedCnF.ng-enter{
+.closedC.ng-enter{
   opacity: 0;
 }
  
-.closedCnF.ng-enter-active{
+.closedC.ng-enter-active{
   opacity: 1;
 }
+.closedF{   -webkit-transition : linear 1s;
+  -moz-transition: linear 1s;
+  -ms-transition: linear 1s;
+  -o-transition: linear 1s;
+  transition: linear 1s;
+}
  
+.closedF.ng-enter{
+  opacity: 0;
+}
+ 
+.closedF.ng-enter-active{
+  opacity: 1;
+}
+  
  
 
 .closedSb{   -webkit-transition : linear 1s;

@@ -139,7 +139,7 @@ angular.module('prodo.ProductApp')
 
               {
                 //  $scope.getTagsFromCommentText($scope);
-                $scope.socket.emit('addComment', "xk7i99lj8", $scope.newProductComment.product_comment);
+                $scope.socket.emit('addComment', "gk3BLA4Zd", $scope.newProductComment.product_comment);
 
                 $scope.productComments.unshift($scope.newProductComment.product_comment);
                 $scope.commenttextField.userComment = "";
@@ -152,7 +152,7 @@ angular.module('prodo.ProductApp')
             $scope.getProduct = function()
             {
 
-              ProductService.getProduct({orgid: $scope.orgidFromSession, prodle: 'ly8KrAwqP'},
+              ProductService.getProduct({orgid: $scope.orgidFromSession, prodle: 'gk3BLA4Zd'},
               function(successData) {
                 if (successData.success == undefined)
                 {
@@ -315,8 +315,6 @@ angular.module('prodo.ProductApp')
 
             $scope.checkAdmin = function() {
               if ($rootScope.usersession.currentUser.org.isAdmin) {
-                alert("admin");
-
                 var adminPanel = document.getElementById("prodo.productAdmin");
                 adminPanel.style.display = 'inline';
               }

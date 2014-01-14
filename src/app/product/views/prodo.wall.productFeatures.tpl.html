@@ -72,21 +72,34 @@
           </table>
 
         </div>
-        <!--        Category and features-->
-        <div class="prodo-product-CF" ng-class="closedCnF">
-          <button id="prodo-product-productgeneralbtn" ng-click="isClosedCnF = !isClosedCnF" onclick=" $('#toggleIconCnFE').toggleClass('fa-minus-square');" >
-            <i id="toggleIconCnFE" class="fa fa-plus-square "></i> &nbsp;&nbsp; Category and Features 
+                <!--Category  >-->
+        <div class="prodo-product-C" ng-class="closedC ">
+          <button id="prodo-product-productgeneralbtn" ng-click="isClosedC  = !isClosedC " onclick=" $('#toggleIconCE').toggleClass('fa-minus-square');" >
+            <i id="toggleIconCE" class="fa fa-plus-square "></i> &nbsp;&nbsp; Category  
           </button><br><br>
-          <table class="table child closedCnF" id="prodo-ProductFeatureTable" ng-if="isClosedCnF">
+          <table class="table child closedC " id="prodo-ProductFeatureTable" ng-if="isClosedC ">
             <tr>
               <td  >Category <span>&nbsp; category here</span></td>
               <td  >Description <span  > description here</span></td>
             </tr>
           </table>
         </div>
-        <!--        Category and features-->
+                <!--Category-->  
+                <!--features-->  
+        <div class="prodo-product-F" ng-class="closedF">
+          <button id="prodo-product-productgeneralbtn" ng-click="isClosedF = !isClosedF" onclick=" $('#toggleIconFE').toggleClass('fa-minus-square');" >
+            <i id="toggleIconFE" class="fa fa-plus-square "></i> &nbsp;&nbsp;   Features 
+          </button><br><br>
+          <table class="table child closedF" id="prodo-ProductFeatureTable" ng-if="isClosedF">
+            <tr>
+              <td  >Category <span>&nbsp; category here</span></td>
+              <td  >Description <span  > description here</span></td>
+            </tr>
+          </table>
+        </div>
+                 <!--features-->  
 
-        <!--   Substitutes-->
+           <!--Substitutes-->
 
         <div class="prodo-product-Sb" ng-class="closedSb">
           <button id="prodo-product-productgeneralbtn" ng-click="isClosedSb = !isClosedSb" onclick=" $('#toggleIconSbE').toggleClass('fa-minus-square');" >
@@ -99,9 +112,9 @@
           </table>
         </div>
 
-        <!--  Substitutes-->
+          <!--Substitutes-->
 
-        <!--  Pricing-->
+          <!--Pricing-->
 
         <div class="prodo-product-Pr" ng-class="closedPr">
           <button id="prodo-product-productgeneralbtn" ng-click="isClosedPr = !isClosedPr" onclick=" $('#toggleIconPrE').toggleClass('fa-minus-square');" >
@@ -113,11 +126,11 @@
             </tr>
           </table>
         </div>
-        <!--  Pricing-->
+          <!--Pricing-->
       </form>
 
 
-      <div ng-switch-default><!-- Switch to edit    --> 
+      <div ng-switch-default><!-- Switch to edit     
         <div class="prodo-product-general " ng-class="closedPG"  >
           <button id="prodo-product-productgeneralbtn" ng-click="isClosedPG = !isClosedPG" onclick=" $('#toggleIconPG').toggleClass('fa-minus-square');" >
             <i id="toggleIconPG" class="fa fa-plus-square "></i> &nbsp;&nbsp; Product General
@@ -151,19 +164,32 @@
             </tr>
           </table>
         </div>
-        <!--        Category and features-->
-        <div class="prodo-product-CF" ng-class="closedCnF">
-          <button id="prodo-product-productgeneralbtn" ng-click="isClosedCnF = !isClosedCnF" onclick=" $('#toggleIconCnF').toggleClass('fa-minus-square');" >
-            <i id="toggleIconCnF" class="fa fa-plus-square "></i> &nbsp;&nbsp; Category and Features 
+        <!--        Category  -->
+        <div class="prodo-product-C" ng-class="closedC">
+          <button id="prodo-product-productgeneralbtn" ng-click="isClosedC = !isClosedC" onclick=" $('#toggleIconC').toggleClass('fa-minus-square');" >
+            <i id="toggleIconC" class="fa fa-plus-square "></i> &nbsp;&nbsp; Category  
           </button><br><br>
-          <table class="table child closedCnF" id="prodo-ProductFeatureTable" ng-if="isClosedCnF">
+          <table class="table child closedC" id="prodo-ProductFeatureTable" ng-if="isClosedC">
             <tr>
               <td  >Category <span>&nbsp; category here</span></td>
               <td  >Description <span  > description here</span></td>
             </tr>
           </table>
         </div>
-        <!--        Category and features-->
+        <!--        Category  -->
+          <!--         features-->
+        <div class="prodo-product-F" ng-class="closedF">
+          <button id="prodo-product-productgeneralbtn" ng-click="isClosedF = !isClosedF" onclick=" $('#toggleIconF').toggleClass('fa-minus-square');" >
+            <i id="toggleIconF" class="fa fa-plus-square "></i> &nbsp;&nbsp;   Features 
+          </button><br><br>
+          <table class="table child closedF" id="prodo-ProductFeatureTable" ng-if="isClosedF">
+            <tr>
+              <td  >Feature <span>&nbsp; Feature here</span></td>
+              <td  >Description <span  > description here</span></td>
+            </tr>
+          </table>
+        </div>
+        <!--         features-->
 
         <!--   Substitutes-->
         <div class="prodo-product-Sb" ng-class="closedSb">
