@@ -42,9 +42,15 @@ angular.module('prodo.ProductApp')
             $scope.socket;
 
 
-
-
-
+            //Generate GUID
+            function S4() {
+              return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+            }
+            function guid() {
+              return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
+            }
+            //Generate GUID
+            
             $scope.showErrorIfCommentNotAdded = function( ) {
               var retry = document.getElementById("responseComment");
               retry.style.display = 'inline';
@@ -131,7 +137,9 @@ angular.module('prodo.ProductApp')
                     orgname: $scope.orgnameFromSession,
                     grpname: $scope.grpnameFromSession
                   },
+                  commentid: guid(),
                   type: $scope.type,
+                  datecreated: Date.now(),
                   commenttext: $scope.commenttextField.userComment
                 }};
 
