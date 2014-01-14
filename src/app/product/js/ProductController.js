@@ -30,6 +30,7 @@ angular.module('prodo.ProductApp')
             $scope.newProduct = {product: [{}]};
             $scope.type = "product";
             $scope.product_prodle;
+            $scope.pImages_l = {product_images: [{}]};
             // $scope.uploadSrc="product";
 
             //user
@@ -40,7 +41,7 @@ angular.module('prodo.ProductApp')
             $scope.orgidFromSession;
             $scope.socket;
 
-  
+
             $scope.showErrorIfCommentNotAdded = function( ) {
               var retry = document.getElementById("responseComment");
               retry.style.display = 'inline';
@@ -56,18 +57,17 @@ angular.module('prodo.ProductApp')
 
             //get login details
             $scope.getUserDetails = function( ) {
-              if ($rootScope.usersession.currentUser.grpname)
-                $scope.grpnameFromSession = $rootScope.usersession.currentUser.grpname;
-              else
-                $scope.grpnameFromSession = "";
-              if ($rootScope.usersession.currentUser.orgname) {
-                $scope.orgidFromSession = $rootScope.usersession.currentUser.orgid;
-                $scope.orgnameFromSession = $rootScope.usersession.currentUser.orgname;
-              }
-              else
-                $scope.orgnameFromSession = "";
+              if ($rootScope.usersession.currentUser.org.orgid) {
+                $scope.grpnameFromSession = $rootScope.usersession.currentUser.org.grpname;
+                $scope.orgidFromSession = $rootScope.usersession.currentUser.org.orgid;
+                $scope.orgnameFromSession = $rootScope.usersession.currentUser.org.orgname;
 
-              $scope.orgnameFromSession;
+              }
+              else {
+                $scope.grpnameFromSession = "";
+                $scope.orgnameFromSession = "";
+                $scope.orgidFromSession = "";
+              }
               $scope.userIDFromSession = $rootScope.usersession.currentUser.userid;
               $scope.userFullnameFromSession = $rootScope.usersession.currentUser.fullname;
             }
@@ -77,7 +77,7 @@ angular.module('prodo.ProductApp')
 
             localStorage.sid = $rootScope.usersession.currentUser.sessionid;
             //socket connect
-            $scope.socket = io.connect('http://ec2-54-254-210-45.ap-southeast-1.compute.amazonaws.com:8000', {
+            $scope.socket = io.connect('http://ec2-54-254-210-45.ap-southeast-1.compute.amazonaws.com:8000/prodoapp', {
               query: 'session_id=' + localStorage.sid
             });
             //socket connect
@@ -161,6 +161,7 @@ angular.module('prodo.ProductApp')
                   $scope.product = successData.success.product;
                   $scope.product_prodle = successData.success.product.prodle;
                   $scope.productComments = successData.success.product.product_comments;
+                  $scope.pImages_l = successData.success.product.product_images;
                 }
               },
                       function(error) {
@@ -277,18 +278,33 @@ angular.module('prodo.ProductApp')
 //                }
             //Product discontinued visibility testing
 
-$( document ).ready(function() {
-$('#showHideAll').on('change', 'input[type=checkbox]', function () {
-  alert("sdfsdf");
-    if ($('.pinToggles').is(':checked')) {
-        $('.pinToggles').prop('checked', false)
-    } else {
-        $('.pinToggles').prop('checked', true)
-    }
+
+            $scope.masterChange = function() {
+//                $(this).closest('div').find('.thumb :checkbox').prop("checked", this.checked);
+              if ($('.imgToggles').is(':checked')) {
+                $('.imgToggles').prop('checked', false)
+              } else {
+                $('.imgToggles').prop('checked', true)
+              }
+            };
+
+            $scope.deleteProductImages = function() {
+              //get selected ids to delete images
+              var imgIds = [];
+              $(':checkbox:checked').each(function(i) {
+                imgIds[i] = $(this).val();
+
+//                var index = $scope.pImages_l.indexOf($(this).val());
+//                if (index != -1)
+//                  $scope.pImages_l.splice(index, 1);
+
+              });
+              console.log(imgIds);
+              //get selected ids to delete images
+              //delete image code here.. Call delete api function
 
 
-});
-});
+            }
 
 
           }])
