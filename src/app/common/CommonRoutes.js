@@ -161,15 +161,15 @@ angular.module('prodo.CommonApp')
     })                
   }]) 
  
-//.run(['$rootScope', 'UserSessionService', '$state', '$log', function ($rootScope, UserSessionService, $state, $log) {
-// 
-//    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState){
-//   
-//      if ((toState.name == 'prodo.wall' || toState.name == 'account.user') && $rootScope.usersession.isLoggedIn && !$rootScope.usersession.isSubscribed && !$rootScope.usersession.isPaymentDone ) {
-//      // if ((toState.name == 'prodo.wall') && $rootScope.usersession.isLoggedIn && !$rootScope.usersession.isSubscribed && !$rootScope.usersession.isPaymentDone ) {
-//        event.preventDefault();
-//      } else if (toState.name == 'prodo.wall' && $rootScope.usersession.isOtpPassword ) {
-//        event.preventDefault();
-//      };      })
-//  }]);
-// 
+.run(['$rootScope', 'UserSessionService', '$state', '$log', function ($rootScope, UserSessionService, $state, $log) {
+ 
+    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState){
+   
+      if ((toState.name == 'prodo.wall' || toState.name == 'account.user') && $rootScope.usersession.isLoggedIn && !$rootScope.usersession.isSubscribed && !$rootScope.usersession.isPaymentDone ) {
+      // if ((toState.name == 'prodo.wall') && $rootScope.usersession.isLoggedIn && !$rootScope.usersession.isSubscribed && !$rootScope.usersession.isPaymentDone ) {
+        event.preventDefault();
+      } else if (toState.name == 'prodo.wall' && $rootScope.usersession.isOtpPassword ) {
+        event.preventDefault();
+      };      })
+  }]);
+ 
