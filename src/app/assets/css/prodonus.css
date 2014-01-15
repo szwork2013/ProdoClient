@@ -1189,7 +1189,45 @@ corresponding value from the list below*/
     width: 100%;
     height: 100%;
 }
+/*Product Comment drag images*/
+#holder
+{ 
+//border: 3px dashed #ccc; 
+width:600px;
+min-width: 100px; 
+max-height: 100px; 
+height:300px; 
+margin: 2px auto; position:absolute;
+}
 
+.tc
+{
+
+}
+
+.hz
+{
+top:0; 
+left:0;
+
+} 
+.holderx { 
+border:0px;
+width:600px;
+min-width: 100px; 
+max-height: 100px; 
+height:300px; 
+margin: 2px auto; position:absolute; } 
+
+/*#a { border: 3px dashed #ccc; min-width: 100px; max-height: 100px; height:300px; margin: 2px auto; position:absolute;} */
+#holder.hover { border: 3px dashed #0c0; max-height:100px;} 
+#holder img { display: inline; margin: 10px auto; max-height:90px; max-width:90px;} 
+#holder p { margin: 10px; font-size: 14px; max-height:300px;}
+
+.fail { background: #c00; padding: 2px; color: #fff;max-height:300px; }
+.hidden { display: none !important;max-height:300px;}
+
+/*Product Comment drag images*/
 
 /* Prodo-Comment-CSS*/
 #prodo-comment-media:hover{background-color:#CEE3F6;}
