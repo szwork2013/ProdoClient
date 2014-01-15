@@ -103,7 +103,7 @@ var UploadController = function($scope, fileReader) {
 
 
 };
-angular.module('upload')
+angular.module('prodo.UploadApp')
         .directive('ngFileSelect', ['fileReader', function( ) {
             return {
               link: function($scope, el) {
@@ -231,4 +231,4 @@ angular.module('upload')
   };
   module.factory("fileReader",
           ["$q", "$log", fileReader]);
-}(angular.module("upload")));
+}(angular.module("prodo.UploadApp")));

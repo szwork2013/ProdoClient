@@ -47,7 +47,7 @@ angular.module('prodo.ProductApp')
               return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
             }
             function guid() {
-              return ( Date.now().toString()+"-"+ S4() + "-" + S4() );
+              return (  S4() + "-" + S4() +"-"+Date.now().toString());
             }
             //Generate GUID
             
