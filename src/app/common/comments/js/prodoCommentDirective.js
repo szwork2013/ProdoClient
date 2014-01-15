@@ -19,7 +19,7 @@ angular.module('prodo.CommonApp')
             // require: '?ngModel',
             templateUrl: 'common/comments/views/prodo.comment.tpl.html',
             //  scope: {productComments_l: '=info', pagesSize: '=', pagesShown: '='},
-            controller: function($scope, ProductService, $rootScope, UserSessionService, CommentService)
+            controller: function($scope,$log ,ProductService, $rootScope, UserSessionService, CommentService)
             {
               $(document).ready(function() {
                 //comment textbox increase height and decrease whe focus( toggle)
@@ -84,14 +84,14 @@ angular.module('prodo.CommonApp')
 
               //delete comment function
               $scope.deleteProductComment = function(comment) {
-                // console.log("deleting....");
+                // $log.debug("deleting....");
                 if (comment.user.fullname == $scope.userFullnameFromSession)
                 {
                   var index = $scope.productComments.indexOf(comment);
                   if (index != -1)
                     $scope.productComments.splice(index, 1);
                   CommentService.deleteComment({commentid: comment.commentid});
-                  console.log(comment.commentid);
+                  $log.debug(comment.commentid);
                 }
               };
               //delete comment function

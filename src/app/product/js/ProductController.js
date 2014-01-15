@@ -11,7 +11,7 @@
  * 
  */
 angular.module('prodo.ProductApp')
-        .controller('ProductController', ['$scope', '$rootScope', 'ProductService', 'UserSessionService', function($scope, $rootScope, ProductService, UserSessionService) {
+        .controller('ProductController', ['$scope','$log', '$rootScope', 'ProductService', 'UserSessionService', function($scope, $log,$rootScope, ProductService, UserSessionService) {
 
             //comments
             $scope.productComments = {comments: [{}]};
@@ -95,14 +95,14 @@ angular.module('prodo.ProductApp')
             $scope.socket.removeAllListeners('addcommentResponse');
             $scope.socket.on("addcommentResponse", function(error, result) {
               if (error) {
-                console.log(error.error.message);
+                $log.debug(error.error.message);
                 $scope.showErrorIfCommentNotAdded();
                 $scope.showRetryIconIfCommentNotAdded();
                 // if(retry) retry.textContent("Error posting comment.. Please try again");
               } else if (result) {
-                // console.log(result.success.message);
+                // $log.debug(result.success.message);
                 $scope.ifErrorAddingComment = false;
-                console.log("addcommentResponse success" + result.success.product_comment);
+                $log.debug("addcommentResponse success" + result.success.product_comment);
               }
               //   $scope.socket.removeAllListeners();
             })
@@ -113,12 +113,12 @@ angular.module('prodo.ProductApp')
             $scope.socket.removeAllListeners('productcommentResponse');
             $scope.socket.on("productcommentResponse", function(error, result) {
               if (error) {
-                console.log(error.error.message);
+                $log.debug(error.error.message);
               } else if (result) {
-                console.log("productcomment  Response success" + result.success.product_comment);
+                $log.debug("productcomment  Response success" + result.success.product_comment);
                 $scope.productCommentResponsearray.push(result.success.product_comment);
                 $scope.count = $scope.productCommentResponsearray.length;
-                console.log($scope.count);
+                $log.debug($scope.count);
                 var a = document.getElementById("responseComment");
                 a.style.display = 'inline';
                 a.innerHTML = $scope.count + ' new comments';
@@ -167,8 +167,8 @@ angular.module('prodo.ProductApp')
                   $scope.showAlert('alert-danger', " Product not available ...");
                 }
                 else {
-                  console.log(successData.success.product);
-//                console.log("success    "+successData);
+                  $log.debug(successData.success.product);
+//                $log.debug("success    "+successData);
                   $scope.product = successData.success.product;
                   $scope.product_prodle = successData.success.product.prodle;
                   $scope.productComments = successData.success.product.product_comments;
@@ -176,7 +176,7 @@ angular.module('prodo.ProductApp')
                 }
               },
                       function(error) {
-                        console.log(error);
+                        $log.debug(error);
                         $scope.showAlert('alert-danger', "Server Error:" + error.status);
 
                       });
@@ -185,7 +185,7 @@ angular.module('prodo.ProductApp')
             //get product function declaration  
 
             $scope.getProduct();
-            //   console.log(ProductService.getProduct({prodle: 'eyYHSKVtL'}));
+            //   $log.debug(ProductService.getProduct({prodle: 'eyYHSKVtL'}));
 
             //get latest comments posted by others
             $scope.getLatestComments = function() {
@@ -207,13 +207,13 @@ angular.module('prodo.ProductApp')
                 alert(data.success.message);
               } else {
                 if (data.error.code == 'AV001') {     // user already exist
-                  console.log(data.error.code + " " + data.error.message);
+                  $log.debug(data.error.code + " " + data.error.message);
                   alert(data.error.message);
                 } else if (data.error.code == 'AP001') {  // user data invalid
-                  console.log(data.error.code + " " + data.error.message);
+                  $log.debug(data.error.code + " " + data.error.message);
                   alert(data.error.message);
                 } else {
-                  console.log(data.error.message);
+                  $log.debug(data.error.message);
                   alert(data.error.message);
                 }
               }
@@ -234,11 +234,11 @@ angular.module('prodo.ProductApp')
 
               ProductService.saveProduct({orgid: $scope.orgidFromSession}, $scope.newProduct,
                       function(success) {
-                        console.log(success);
+                        $log.debug(success);
                         $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
                       },
                       function(error) {
-                        console.log(error);
+                        $log.debug(error);
                       });
 
             };
@@ -313,7 +313,7 @@ angular.module('prodo.ProductApp')
 //                  $scope.pImages_l.splice(index, 1);
 
               });
-              console.log(imgIds);
+              $log.debug(imgIds);
               //get selected ids to delete images
               //delete image code here.. Call delete api function
 
@@ -390,7 +390,7 @@ angular.module('prodo.ProductApp')
      {
         if (tests.formdata) formData.append('file', files[i]);
         previewfile(files[i]);
-        console.log(files[i].name);
+        $log.debug(files[i].name);
     }
     }
 
