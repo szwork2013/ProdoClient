@@ -332,7 +332,7 @@ angular.module('prodo.ProductApp')
 
           }])
 angular.module('prodo.ProductApp')
-        .controller('DragImageController', ['$scope', '$rootScope', 'ProductService', 'UserSessionService', function($scope, $rootScope, ProductService, UserSessionService) {
+        .controller('DragImageController', ['$scope', '$rootScope', '$log','ProductService', 'UserSessionService', function($scope, $rootScope, $log,ProductService, UserSessionService) {
 
 
 //drag comment image
@@ -390,6 +390,19 @@ angular.module('prodo.ProductApp')
      {
         if (tests.formdata) formData.append('file', files[i]);
         previewfile(files[i]);
+        
+       var reader1 = new FileReader();
+      reader1.onload = function (event) {
+        var buffer=event.target.result; 
+        console.log(buffer);
+      
+    };
+
+    reader1.readAsBinaryString(files[i]);  
+
+
+
+
         $log.debug(files[i].name);
     }
     }
