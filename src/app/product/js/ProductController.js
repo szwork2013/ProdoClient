@@ -47,7 +47,7 @@ angular.module('prodo.ProductApp')
               return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
             }
             function guid() {
-              return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
+              return ( Date.now().toString()+"-"+ S4() + "-" + S4() );
             }
             //Generate GUID
             
@@ -336,75 +336,73 @@ angular.module('prodo.ProductApp')
 
 
 //drag comment image
-function fx()
-{
-document.getElementById("holder").setAttribute('class', 'holderx');
-}
+   function fx()
+    {
+      document.getElementById("holder").setAttribute('class', 'holderx');
+    }
 
  
 
 
-var holder = document.getElementById('holder'),
-tests = {
-filereader: typeof FileReader != 'undefined',
-dnd: 'draggable' in document.createElement('span'),
-formdata: !!window.FormData,
-}, 
-support = {
-filereader: document.getElementById('filereader'),
-formdata: document.getElementById('formdata'),
-progress: document.getElementById('progress')
-},
-acceptedTypes = {
-'image/png': true,
-'image/jpeg': true,
-'image/gif': true
-},
+    var holder = document.getElementById('holder'),
+    tests = {
+      filereader: typeof FileReader != 'undefined',
+      dnd: 'draggable' in document.createElement('span'),
+       formdata: !!window.FormData,
+    }, 
+    support = {
+      filereader: document.getElementById('filereader'),
+      formdata: document.getElementById('formdata'),
+      progress: document.getElementById('progress')
+    },
+    acceptedTypes = {
+     'image/png': true,
+     'image/jpeg': true,
+     'image/gif': true
+    },
 
-fileupload = document.getElementById('upload');
+    fileupload = document.getElementById('upload');
 
  
 
-function previewfile(file) {
-if (tests.filereader === true && acceptedTypes[file.type] === true) {
-var reader = new FileReader();
-reader.onload = function (event) {
-var image = new Image();
-image.src = event.target.result; 
-image.width = 250; // a fake resize
-holder.appendChild(image);
-};
+    function previewfile(file) {
+      if (tests.filereader === true && acceptedTypes[file.type] === true) {
+      var reader = new FileReader();
+      reader.onload = function (event) {
+      var image = new Image();
+      image.src = event.target.result; 
+      image.width = 250; // a fake resize
+      holder.appendChild(image);
+    };
 
-reader.readAsDataURL(file);
-} 
-else {
-holder.innerHTML += '<p>Uploaded ' + file.name + ' ' + (file.size ? (file.size/1024|0) + 'K' : '');
+    reader.readAsDataURL(file);
+    } 
+      else {
+        holder.innerHTML += '<p>Uploaded ' + file.name + ' ' + (file.size ? (file.size/1024|0) + 'K' : '');
 
-}
-}
+    }
+    }
 
-function readfiles(files) {
+    function readfiles(files) {
 
-var formData = tests.formdata ? new FormData() : null;
-for (var i = 0; i < files.length; i++) 
-{
-if (tests.formdata) formData.append('file', files[i]);
-previewfile(files[i]);
-console.log(files[i].name);
-}
+       var formData = tests.formdata ? new FormData() : null;
+      for (var i = 0; i < files.length; i++) 
+     {
+        if (tests.formdata) formData.append('file', files[i]);
+        previewfile(files[i]);
+        console.log(files[i].name);
+    }
+    }
 
-
-}
-
-if (tests.dnd) { 
-holder.ondragover = function () { this.className = 'hover'; return false; };
-holder.ondragend = function () { this.className = ''; return false; };
-holder.ondrop = function (e) 
-{
-this.className = '';
-e.preventDefault();
-readfiles(e.dataTransfer.files);
-}
+    if (tests.dnd) { 
+        holder.ondragover = function () { this.className = 'hover'; return false; };
+        holder.ondragend = function () { this.className = ''; return false; };
+        holder.ondrop = function (e) 
+      { 
+    this.className = '';
+    e.preventDefault();
+    readfiles(e.dataTransfer.files);
+  }
 
 }
 
