@@ -11,7 +11,7 @@
  * 
  */
 angular.module('prodo.ProductApp')
-        .controller('ProductController', ['$scope','$log', '$rootScope', 'ProductService', 'UserSessionService','ProductImageService', function($scope, $log,$rootScope, ProductService, UserSessionService,ProductImageService) {
+        .controller('ProductController', ['$scope','$log', '$rootScope', 'ProductService', 'UserSessionService','ProductImageService','$http', function($scope, $log,$rootScope, ProductService, UserSessionService,ProductImageService,$http) {
 
             //comments
             $scope.productComments = {comments: [{}]};
@@ -213,7 +213,7 @@ angular.module('prodo.ProductApp')
                 $scope.productComments.unshift(                                $scope.newProductComment_image.product_comment                        
                           );
                 $scope.commenttextField.userComment = "";
-                document.getElementById('holder').innerHTML="";
+                // document.getElementById('holder').innerHTML="";
               }
 
             };
@@ -387,16 +387,27 @@ angular.module('prodo.ProductApp')
                //        function(error) {
                //          $log.debug(error);
                //        });
-             
+          
 
- ProductImageService.deleteProductImages({orgid: $scope.orgidFromSession, prodle: $scope.product_prodle }, "$scope.temp",
-                      function(success) {
-                        $log.debug(success);
+ // ProductImageService.deleteProductImages({orgid: $scope.orgidFromSession, prodle: $scope.product_prodle }, $scope.temp,
+ //                      function(success) {
+ //                        $log.debug(success);
                         
-                      },
-                      function(error) {
-                        $log.debug(error);
-                      });
+ //                      },
+ //                      function(error) {
+ //                        $log.debug(error);
+ //                      });
+
+
+                 $http({
+                    method: 'DELETE',
+                    url: 'http://localhost/api/image/product/' + $scope.orgidFromSession + '/' + $scope.product_prodle ,
+                    data: {'prodleimageids': $scope.imgIds}
+                  }).success(function(data, status, headers, cfg) {
+                      $log.debug(data);
+                    }).error(function(data, status, headers, cfg) {
+                       $log.debug(status);
+                    });
              
 
 

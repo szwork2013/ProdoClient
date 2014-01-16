@@ -26,7 +26,7 @@ angular.module('prodo.ProductApp')
             return $resource('/api/image/product/:orgid/:prodle', {},
                     {
                       
-                      deleteProductImages: {method: 'DELETE', params: {orgid: 'id', prodle: 'id'}},
+                      deleteProductImages: {method: 'DELETE', params: {orgid: 'id', prodle: 'id'} }
                   
                     });
           }])
