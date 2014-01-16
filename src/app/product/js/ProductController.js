@@ -213,6 +213,7 @@ angular.module('prodo.ProductApp')
                 $scope.productComments.unshift(                                $scope.newProductComment_image.product_comment                        
                           );
                 $scope.commenttextField.userComment = "";
+                document.getElementById('holder').innerHTML="";
               }
 
             };
