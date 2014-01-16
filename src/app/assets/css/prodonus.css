@@ -1221,7 +1221,7 @@ margin: 2px auto; position:absolute; }
 
 /*#a { border: 3px dashed #ccc; min-width: 100px; max-height: 100px; height:300px; margin: 2px auto; position:absolute;} */
 #holder.hover { border: 3px dashed #0c0; max-height:100px;} 
-#holder img { display: inline; margin: 10px auto; max-height:90px; max-width:90px;} 
+#holder img { display: inline; margin: 10px auto; max-height:60px; max-width:60px;} 
 #holder p { margin: 10px; font-size: 14px; max-height:300px;}
 
 .fail { background: #c00; padding: 2px; color: #fff;max-height:300px; }
@@ -1390,7 +1390,7 @@ display:none;
 
 
  
-//warranty
+/*warranty*/
 .list-animate-item-warranty {-webkit-transition: color 0.6s, background-color 0.3s;-moz-transition: color 0.6s, background-color 0.3s;-ms-transition: color 0.6s, background-color 0.3s; transition: color 0.6s, background-color 0.3s; }
 list-animate-item-warranty.new-item {-webkit-animation: fadeIn 1s;-moz-animation: fadeIn 1s;-ms-animation: fadeIn 1s;animation: fadeIn 1s;} 
 list-animate-item-warranty.removed-item {-webkit-animation: fadeOut 1s;-moz-animation: fadeOut 1s;-ms-animation: fadeOut 1s;animation: fadeOut 1s;}
@@ -1433,7 +1433,7 @@ list-animate-item-warranty {
 	direction: ltr;
 	cursor: pointer;
 }
-//Uploads
+/*Uploads*/
  
  
 .progress {
@@ -1550,4 +1550,4 @@ list-animate-item-warranty {
 
 
 .control-group{font-family: Helvetica ;font-size:12px;}
-//Uploads
+/*Uploads*/

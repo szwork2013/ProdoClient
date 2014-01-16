@@ -11,7 +11,7 @@
  * 
  */
 angular.module('prodo.ProductApp')
-        .controller('ProductController', ['$scope','$log', '$rootScope', 'ProductService', 'UserSessionService', function($scope, $log,$rootScope, ProductService, UserSessionService) {
+        .controller('ProductController', ['$scope','$log', '$rootScope', 'ProductService', 'UserSessionService','ProductImageService', function($scope, $log,$rootScope, ProductService, UserSessionService,ProductImageService) {
 
             //comments
             $scope.productComments = {comments: [{}]};
@@ -130,7 +130,11 @@ angular.module('prodo.ProductApp')
 
             //Add comment function
             $scope.addProductComment = function() {
-              $scope.newProductComment = {
+              $log.debug($rootScope.file_data);
+               $log.debug($rootScope.comment_image_l);
+              if($rootScope.file_data==undefined){
+
+               $scope.newProductComment = {
                 product_comment: {
                   user: {userid: $scope.userIDFromSession,
                     fullname: $scope.userFullnameFromSession,
@@ -141,15 +145,73 @@ angular.module('prodo.ProductApp')
                   type: $scope.type,
                   datecreated: Date.now(),
                   commenttext: $scope.commenttextField.userComment
+                   
                 }};
+                
+                $scope.newProductComment_image = {
+                product_comment: {
+                  user: {userid: $scope.userIDFromSession,
+                    fullname: $scope.userFullnameFromSession,
+                    orgname: $scope.orgnameFromSession,
+                    grpname: $scope.grpnameFromSession
+                  },
+                  commentid: guid(),
+                  type: $scope.type,
+                  datecreated: Date.now(),
+                  commenttext: $scope.commenttextField.userComment
+                 
+                }};
+              
 
+              }
+              
+              
+              else {
+
+
+                $scope.newProductComment = {
+                product_comment: {
+                  user: {userid: $scope.userIDFromSession,
+                    fullname: $scope.userFullnameFromSession,
+                    orgname: $scope.orgnameFromSession,
+                    grpname: $scope.grpnameFromSession
+                  },
+                  commentid: guid(),
+                  type: $scope.type,
+                  datecreated: Date.now(),
+                  commenttext: $scope.commenttextField.userComment,
+                  comment_image:$rootScope.file_data
+                }};
+                
+                $scope.newProductComment_image = {
+                product_comment: {
+                  user: {userid: $scope.userIDFromSession,
+                    fullname: $scope.userFullnameFromSession,
+                    orgname: $scope.orgnameFromSession,
+                    grpname: $scope.grpnameFromSession
+                  },
+                  commentid: guid(),
+                  type: $scope.type,
+                  datecreated: Date.now(),
+                  commenttext: $scope.commenttextField.userComment,
+                  comment_image:$rootScope.comment_image_l
+                }};
+              
+              }
+                $log.debug($scope.newProductComment);
+             
+              // var action = {product: {userid: $scope.userIDFromSession, orgid: $scope.orgidFromSession, prodle: $scope.product_prodle}};
+             
               if ($scope.commenttextField.userComment !== "")
 
               {
                 //  $scope.getTagsFromCommentText($scope);
                 $scope.socket.emit('addComment', "gk3BLA4Zd", $scope.newProductComment.product_comment);
+                
 
-                $scope.productComments.unshift($scope.newProductComment.product_comment);
+
+                $scope.productComments.unshift(                                $scope.newProductComment_image.product_comment                        
+                          );
                 $scope.commenttextField.userComment = "";
               }
 
@@ -304,21 +366,44 @@ angular.module('prodo.ProductApp')
 
             $scope.deleteProductImages = function() {
               //get selected ids to delete images
-              var imgIds = [];
+              $scope.imgIds = [];
               $(':checkbox:checked').each(function(i) {
-                imgIds[i] = $(this).val();
+                $scope.imgIds[i] = $(this).val();
+
 
 //                var index = $scope.pImages_l.indexOf($(this).val());
 //                if (index != -1)
 //                  $scope.pImages_l.splice(index, 1);
 
               });
-              $log.debug(imgIds);
+              $scope.temp={prodleimageids:$scope.imgIds}
+                 $log.debug($scope.imgIds);
+               // ProductImageService.deleteProductImages(  {orgid: $scope.orgidFromSession, prodle: $scope.product_prodle }, $scope.temp,
+               //        function(success) {
+               //          $log.debug(success);
+                        
+               //        },
+               //        function(error) {
+               //          $log.debug(error);
+               //        });
+             
+
+ ProductImageService.deleteProductImages({orgid: $scope.orgidFromSession, prodle: $scope.product_prodle }, "$scope.temp",
+                      function(success) {
+                        $log.debug(success);
+                        
+                      },
+                      function(error) {
+                        $log.debug(error);
+                      });
+             
+
+
               //get selected ids to delete images
               //delete image code here.. Call delete api function
 
 
-            }
+            };
 
 
             $scope.checkAdmin = function() {
@@ -334,12 +419,12 @@ angular.module('prodo.ProductApp')
 angular.module('prodo.ProductApp')
         .controller('DragImageController', ['$scope', '$rootScope', '$log','ProductService', 'UserSessionService', function($scope, $rootScope, $log,ProductService, UserSessionService) {
 
-
+// $scope.file_data;
 //drag comment image
    function fx()
     {
       document.getElementById("holder").setAttribute('class', 'holderx');
-    }
+    };
 
  
 
@@ -371,6 +456,7 @@ angular.module('prodo.ProductApp')
       reader.onload = function (event) {
       var image = new Image();
       image.src = event.target.result; 
+       $rootScope.comment_image_l= image.src;
       image.width = 250; // a fake resize
       holder.appendChild(image);
     };
@@ -381,25 +467,67 @@ angular.module('prodo.ProductApp')
         holder.innerHTML += '<p>Uploaded ' + file.name + ' ' + (file.size ? (file.size/1024|0) + 'K' : '');
 
     }
-    }
 
-    function readfiles(files) {
 
-       var formData = tests.formdata ? new FormData() : null;
-      for (var i = 0; i < files.length; i++) 
-     {
-        if (tests.formdata) formData.append('file', files[i]);
-        previewfile(files[i]);
-        
+     //get buffer
        var reader1 = new FileReader();
       reader1.onload = function (event) {
         var buffer=event.target.result; 
         console.log(buffer);
+
+        
+ // $scope.socket = io.connect('http://ec2-54-254-210-45.ap-southeast-1.compute.amazonaws.com:8000/prodoupload', {
+ //    query: 'session_id=' + localStorage.sid
+ //  });
+
+ $rootScope.file_data = {filetype: file.type, filename: file.name, filebuffer: buffer};
+ // var action = {product: {userid: $scope.userIDFromSession, orgid: $scope.orgidFromSession, prodle: $scope.product_prodle}};
+
+ //              $scope.socket.emit('uploadFiles', file_data, action);
+
+
+
       
     };
 
-    reader1.readAsBinaryString(files[i]);  
+    reader1.readAsBinaryString(file);  
+//getbuffer
+    }
 
+    function readfiles(files) {
+
+
+        var formData = tests.formdata ? new FormData() : null;
+        
+      for (var i = 0; i < files.length; i++) 
+     {
+        if (tests.formdata) formData.append('file', files[i]);
+        previewfile(files[i]);
+
+
+//         //get buffer
+//        var reader1 = new FileReader();
+//       reader1.onload = function (event) {
+//         var buffer=event.target.result; 
+//         console.log(buffer);
+
+        
+//  $scope.socket = io.connect('http://ec2-54-254-210-45.ap-southeast-1.compute.amazonaws.com:8000/prodoupload', {
+//     query: 'session_id=' + localStorage.sid
+//   });
+
+//  var file_data = {filetype: files[i].type, filename: files[i].name, filebuffer: buffer};
+//  var action = {product: {userid: $scope.userIDFromSession, orgid: $scope.orgidFromSession, prodle: $scope.product_prodle}};
+
+//               $scope.socket.emit('uploadFiles', file_data, action);
+
+
+
+      
+//     };
+
+//     reader1.readAsBinaryString(files[i]);  
+// //getbuffer
 
 
 
