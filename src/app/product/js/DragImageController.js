@@ -1,7 +1,7 @@
 angular.module('prodo.ProductApp')
         .controller('DragImageController', ['$scope', '$rootScope', '$log', function($scope, $rootScope, $log) {
 
-   function fx()
+   var fx=function()
     {
       document.getElementById("holder").setAttribute('class', 'holderx');
     };
