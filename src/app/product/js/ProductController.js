@@ -468,7 +468,9 @@ angular.module('prodo.ProductApp')
       reader.onload = function (event) {
       var image = new Image();
       image.src = event.target.result; 
-       $rootScope.comment_image_l= image.src;
+       // $scope.productComments = {comments: [{}]};
+       // $rootScope.comment_image_l=[imageid:{''},image:{ image.src}];
+        $rootScope.comment_image_l=[{image:image.src}];
       image.width = 250; // a fake resize
       holder.appendChild(image);
     };

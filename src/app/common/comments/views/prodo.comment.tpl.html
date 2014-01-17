@@ -48,11 +48,9 @@
                     <a ng-click="deleteProductComment(comment)">&nbsp; Yes </a>
                 </div>  
                  <div id="Remove" ng-show="tabCommentImg == 1"   >
-                 <div id="img1">
-                 <img ng-src="{{comment.comment_image}}" style="width:50px; height:50px;" onload="document.getElementById('img2').style.display='none';" />
-                 </div>
+
                  <div id="img2">
-                  <img style="width:50px; height:50px;"  id="img-user" ng-src="{{comment.comment_image[0].image}}" onload="document.getElementById('img1').style.display='none';" /> 
+                  <img style="width:50px; height:50px;"  id="img-user" ng-src="{{comment.comment_image[0].image}}"   /> 
                 
                 </div>      
             </div>
