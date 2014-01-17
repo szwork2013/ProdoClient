@@ -207,13 +207,10 @@ angular.module('prodo.ProductApp')
               {
                 //  $scope.getTagsFromCommentText($scope);
                 $scope.socket.emit('addComment', "gk3BLA4Zd", $scope.newProductComment.product_comment);
-                
-
-
-                $scope.productComments.unshift(                                $scope.newProductComment_image.product_comment                        
-                          );
+                $scope.productComments.unshift($scope.newProductComment_image.product_comment);
                 $scope.commenttextField.userComment = "";
-                // document.getElementById('holder').innerHTML="";
+                var element=document.getElementById('holder');
+                element.removeChild(element.childNodes[ element.childNodes.length - 1 ]);
               }
 
             };
@@ -379,15 +376,7 @@ angular.module('prodo.ProductApp')
               });
               $scope.temp={prodleimageids:$scope.imgIds}
                  $log.debug($scope.imgIds);
-               // ProductImageService.deleteProductImages(  {orgid: $scope.orgidFromSession, prodle: $scope.product_prodle }, $scope.temp,
-               //        function(success) {
-               //          $log.debug(success);
-                        
-               //        },
-               //        function(error) {
-               //          $log.debug(error);
-               //        });
-          
+             
 
  // ProductImageService.deleteProductImages({orgid: $scope.orgidFromSession, prodle: $scope.product_prodle }, $scope.temp,
  //                      function(success) {
@@ -407,15 +396,9 @@ angular.module('prodo.ProductApp')
                       $log.debug(data);
                     }).error(function(data, status, headers, cfg) {
                        $log.debug(status);
-                    });
+                   });
              
-
-
-              //get selected ids to delete images
-              //delete image code here.. Call delete api function
-
-
-            };
+           };
 
 
             $scope.checkAdmin = function() {
@@ -425,146 +408,9 @@ angular.module('prodo.ProductApp')
               }
             }
 
-
-
           }])
-angular.module('prodo.ProductApp')
-        .controller('DragImageController', ['$scope', '$rootScope', '$log','ProductService', 'UserSessionService', function($scope, $rootScope, $log,ProductService, UserSessionService) {
-
-// $scope.file_data;
-//drag comment image
-   function fx()
-    {
-      document.getElementById("holder").setAttribute('class', 'holderx');
-    };
-
- 
-
-
-    var holder = document.getElementById('holder'),
-    tests = {
-      filereader: typeof FileReader != 'undefined',
-      dnd: 'draggable' in document.createElement('span'),
-       formdata: !!window.FormData,
-    }, 
-    support = {
-      filereader: document.getElementById('filereader'),
-      formdata: document.getElementById('formdata'),
-      progress: document.getElementById('progress')
-    },
-    acceptedTypes = {
-     'image/png': true,
-     'image/jpeg': true,
-     'image/gif': true
-    },
-
-    fileupload = document.getElementById('upload');
-
- 
-
-    function previewfile(file) {
-      if (tests.filereader === true && acceptedTypes[file.type] === true) {
-      var reader = new FileReader();
-      reader.onload = function (event) {
-      var image = new Image();
-      image.src = event.target.result; 
-       // $scope.productComments = {comments: [{}]};
-       // $rootScope.comment_image_l=[imageid:{''},image:{ image.src}];
-        $rootScope.comment_image_l=[{image:image.src}];
-      image.width = 250; // a fake resize
-      holder.appendChild(image);
-    };
-
-    reader.readAsDataURL(file);
-    } 
-      else {
-        holder.innerHTML += '<p>Uploaded ' + file.name + ' ' + (file.size ? (file.size/1024|0) + 'K' : '');
-
-    }
-
-
-     //get buffer
-       var reader1 = new FileReader();
-      reader1.onload = function (event) {
-        var buffer=event.target.result; 
-        console.log(buffer);
-
-        
- // $scope.socket = io.connect('http://ec2-54-254-210-45.ap-southeast-1.compute.amazonaws.com:8000/prodoupload', {
- //    query: 'session_id=' + localStorage.sid
- //  });
-
- $rootScope.file_data = {filetype: file.type, filename: file.name, filebuffer: buffer};
- // var action = {product: {userid: $scope.userIDFromSession, orgid: $scope.orgidFromSession, prodle: $scope.product_prodle}};
-
- //              $scope.socket.emit('uploadFiles', file_data, action);
 
 
 
-      
-    };
-
-    reader1.readAsBinaryString(file);  
-//getbuffer
-    }
-
-    function readfiles(files) {
-
-
-        var formData = tests.formdata ? new FormData() : null;
-        
-      for (var i = 0; i < files.length; i++) 
-     {
-        if (tests.formdata) formData.append('file', files[i]);
-        previewfile(files[i]);
-
-
-//         //get buffer
-//        var reader1 = new FileReader();
-//       reader1.onload = function (event) {
-//         var buffer=event.target.result; 
-//         console.log(buffer);
-
-        
-//  $scope.socket = io.connect('http://ec2-54-254-210-45.ap-southeast-1.compute.amazonaws.com:8000/prodoupload', {
-//     query: 'session_id=' + localStorage.sid
-//   });
-
-//  var file_data = {filetype: files[i].type, filename: files[i].name, filebuffer: buffer};
-//  var action = {product: {userid: $scope.userIDFromSession, orgid: $scope.orgidFromSession, prodle: $scope.product_prodle}};
-
-//               $scope.socket.emit('uploadFiles', file_data, action);
-
-
-
-      
-//     };
-
-//     reader1.readAsBinaryString(files[i]);  
-// //getbuffer
-
-
-
-        $log.debug(files[i].name);
-    }
-    }
-
-    if (tests.dnd) { 
-        holder.ondragover = function () { this.className = 'hover'; return false; };
-        holder.ondragend = function () { this.className = ''; return false; };
-        holder.ondrop = function (e) 
-      { 
-    this.className = '';
-    e.preventDefault();
-    readfiles(e.dataTransfer.files);
-  }
-
-}
-
-//drag comment image
-
-
-
-}])
 
         
