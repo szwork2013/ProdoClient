@@ -16,11 +16,11 @@
   <div id="prodo-productFeature-fixed"    >
     <div style="float:right; display: none" id="prodo.productAdmin">
       <span style="color:green">   {{product.status}}&nbsp;&nbsp;&nbsp; </span>
-      <a  href=""  ><i class="fa fa-shopping-cart fa-3x"></i></a>
-      <a  href=""  >  <i class="fa fa-upload fa-3x" ></i></a>
+      <a  href=""  ><i class="fa fa-shopping-cart fa-2x"></i></a>
+      <a  href=""  >  <i class="fa fa-upload fa-2x" ></i></a>
       <a href=""  ng-click="$parent.isEditing = $parent.isEditing === true ? false : true;
-          product = ''"  >  <i class="fa fa-plus-circle fa-3x"></i></a>
-      <a href="" data-toggle="modal" data-target="#myModal">   <i class="fa fa-minus-circle fa-3x"></i> </a>
+          product = ''"  >  <i class="fa fa-plus-circle fa-2x"></i></a>
+      <a href="" data-toggle="modal" data-target="#myModal">   <i class="fa fa-minus-circle fa-2x"></i> </a>
     </div><br>
 
 
@@ -223,39 +223,25 @@
             <i id="toggleIconPimgs" class="fa fa-plus-square "></i> &nbsp;&nbsp;Product images
           </button><br><br>
           <div class="table child closedPr" id="prodo-ProductFeatureTable" ng-if="isClosedPimgs">
-
             <form   name="ProductImg">
               <div class="checkboxFilter" style="padding: 10px;">
-
                 Show/Hide All
                 <input id="showHideAllchk"  type="checkbox" ng-click="masterChange();"  name="pinSet ">
                 &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;            
-                <button type="button" class="btn btn-success  "  ng-click="deleteProductImages();"  >
+                <button type="button" class="btn btn-success  "  ng-click="deleteProductImages($index);"  >
                   <span class="glyphicon glyphicon-trash"></span> Delete images
                 </button> 
                 <br>
                 <br />
                 <div class="thumb" ng-repeat="img in pImages_l"  >
                   <img class="img" style="width: 150px; height: 150px;"  ng-src="{{img.image}}" />
-                  <input type="checkbox" value="{{img.imageid}}" name="imgSet" class="imgToggles"  >
+                  <input type="checkbox" value="{{img.imageid}}" name="imgSet" class="imgToggles"  ng-click="checkedIndex(img)">
                 </div>
-                <!--              <div class="thumb">
-                                <img class="img" src="http://s5.tinypic.com/2youavb_th.jp" id="img2" />
-                                <input type="checkbox" id="opt2Check" name="pinSet" class="pinToggles"  >
-                              </div>-->
-
-
               </div>
             </form>
-
-
-
-
-
           </div>
         </div>
         <!--  Product Images-->
-
       </div>
     </div>
   </div>

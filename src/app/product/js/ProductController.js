@@ -11,7 +11,7 @@
  * 
  */
 angular.module('prodo.ProductApp')
-        .controller('ProductController', ['$scope','$log', '$rootScope', 'ProductService', 'UserSessionService','ProductImageService','$http', function($scope, $log,$rootScope, ProductService, UserSessionService,ProductImageService,$http) {
+        .controller('ProductController', ['$scope','$log', '$rootScope', 'ProductService', 'UserSessionService','$http', function($scope, $log,$rootScope, ProductService, UserSessionService,$http) {
 
             //comments
             $scope.productComments = {comments: [{}]};
@@ -334,8 +334,6 @@ angular.module('prodo.ProductApp')
               }
             }
 
-
-
             //Product discontinued visibility testing
 //                if (($scope.product !== undefined) || ($scope.product !== ""))
 //                {
@@ -353,7 +351,7 @@ angular.module('prodo.ProductApp')
             //Product discontinued visibility testing
 
 
-            $scope.masterChange = function() {
+            $scope.masterChange = function() { //toggle to select all product iamges
 //                $(this).closest('div').find('.thumb :checkbox').prop("checked", this.checked);
               if ($('.imgToggles').is(':checked')) {
                 $('.imgToggles').prop('checked', false)
@@ -361,21 +359,40 @@ angular.module('prodo.ProductApp')
                 $('.imgToggles').prop('checked', true)
               }
             };
+             
+           $scope.chckedIndexs=[];
+           $scope.checkedIndex = function (img) {
+               if ($scope.chckedIndexs.indexOf(img) === -1) {
+                   $scope.chckedIndexs.push(img);
+               }
+               else {
+                   $scope.chckedIndexs.splice($scope.chckedIndexs.indexOf(img), 1);
+               }
+               $log.debug($scope.chckedIndexs);
+           }
 
-            $scope.deleteProductImages = function() {
+            $scope.deleteProductImages = function(index) {
               //get selected ids to delete images
-              $scope.imgIds = [];
+              $scope.imgIds = [{}];
+              $scope.ids;
+               
               $(':checkbox:checked').each(function(i) {
+
                 $scope.imgIds[i] = $(this).val();
-
-
-//                var index = $scope.pImages_l.indexOf($(this).val());
-//                if (index != -1)
-//                  $scope.pImages_l.splice(index, 1);
-
+                  $scope.ids=  $(this).val();               
               });
+              
+               
+                angular.forEach($scope.chckedIndexs, function (value, index) {
+                $log.debug("value= "+value);
+                            var index = $scope.pImages_l.indexOf(value);
+                            $scope.pImages_l.splice($scope.pImages_l.indexOf(value), 1);
+                        });
+                $scope.chckedIndexs = [];
+                           
+                  
               $scope.temp={prodleimageids:$scope.imgIds}
-                 $log.debug($scope.imgIds);
+                 // $log.debug($scope.imgIds);
              
 
  // ProductImageService.deleteProductImages({orgid: $scope.orgidFromSession, prodle: $scope.product_prodle }, $scope.temp,
@@ -386,12 +403,12 @@ angular.module('prodo.ProductApp')
  //                      function(error) {
  //                        $log.debug(error);
  //                      });
-
+ 
 
                  $http({
                     method: 'DELETE',
-                    url: 'http://localhost/api/image/product/' + $scope.orgidFromSession + '/' + $scope.product_prodle ,
-                    data: {'prodleimageids': $scope.imgIds}
+                    url: 'http://localhost/api/image/product/' + $scope.orgidFromSession + '/' + $scope.product_prodle +'?prodleimageids='+$scope.imgIds ,
+                    // data: {'prodleimageids':[ $scope.imgIdsJson]}
                   }).success(function(data, status, headers, cfg) {
                       $log.debug(data);
                     }).error(function(data, status, headers, cfg) {
