@@ -1,4 +1,4 @@
-var UploadController = function($scope,$log, fileReader) {
+var UploadController = function($scope,$log,$rootScope, fileReader) {
 
   $scope.socket = io.connect('http://ec2-54-254-210-45.ap-southeast-1.compute.amazonaws.com:8000/prodoupload', {
     query: 'session_id=' + localStorage.sid
@@ -6,6 +6,7 @@ var UploadController = function($scope,$log, fileReader) {
   //socket connect 
 
   $scope.fileLength;
+  $scope.uploadSrc;
   $scope.progressbar = 0;
   $scope.counter = 0;
   $scope.getFile = function(a) {
@@ -19,12 +20,12 @@ var UploadController = function($scope,$log, fileReader) {
               $scope.imageBfr = result;
               $scope.file = a;
               var file_data = {filetype: $scope.file.type, filename: $scope.file.name, filebuffer: $scope.imageBfr};
-              //  if ($scope.uploadSrc == "user")//it should be user
-              var action = {user: {userid: "uxkfzVj7or"}};
-              if ($scope.uploadSrc == "user")//it should be org
-                var action = {org: {userid: "uxkfzVj7or", orgid: "orge1LSosNiS"}};
+              if ($scope.uploadSrc == "user")//it should be user
+              var action = {user: {userid: $rootScope.usersession.currentUser.userid}};
+             else if ($scope.uploadSrc == "org")//it should be org
+                var action = {org: {userid: $rootScope.usersession.currentUser.userid, orgid:  $rootScope.usersession.currentUser.org.orgid}};
               else if ($scope.uploadSrc == "product")
-                var action = {product: {userid: $scope.userIDFromSession, orgid: $scope.orgidFromSession, prodle: $scope.product_prodle}};
+                var action = {product: {userid: $rootScope.usersession.currentUser.userid, orgid:  $rootScope.usersession.currentUser.org.orgid, prodle: $scope.product_prodle}};
 
               $scope.socket.emit('uploadFiles', file_data, action);
               $log.debug("pic emitted");
@@ -35,7 +36,7 @@ var UploadController = function($scope,$log, fileReader) {
 
 
   };
-//  $scope.socket.removeAllListeners('productUploadResponse');
+  $scope.socket.removeAllListeners('productUploadResponse');
   $scope.socket.on('productUploadResponse', function(error, imagelocation) {
     if (error) {
       $log.debug("Error " + error);
@@ -60,7 +61,7 @@ var UploadController = function($scope,$log, fileReader) {
       $log.debug("Error " + error);
     }
     else {
-      $log.debug("getting response for product upload  " + imagelocation);
+      $log.debug("getting response for org upload  " + imagelocation);
       $scope.imageSrc = imagelocation;
       $scope.counter++;
       $log.debug($scope.counter);
@@ -79,7 +80,7 @@ var UploadController = function($scope,$log, fileReader) {
       $log.debug("Error " + error);
     }
     else {
-      $log.debug("getting response for product upload  " + imagelocation);
+      $log.debug("getting response for user upload  " + imagelocation);
       $scope.imageSrc = imagelocation;
       $scope.counter++;
       $log.debug($scope.counter);
