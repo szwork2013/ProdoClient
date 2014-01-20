@@ -1,3 +1,4 @@
+
 /* Overview: Product Controller 
  * Controller for product comments,product features etc
  * Dated: 25/11/2013.
@@ -78,7 +79,7 @@ angular.module('prodo.ProductApp')
                 $scope.orgidFromSession = "";
               }
               $scope.userIDFromSession = $rootScope.usersession.currentUser.userid;
-              $scope.userFullnameFromSession = $rootScope.usersession.currentUser.fullname;
+              $scope.userFullnameFromSession = $rootScope.usersession.currentUser.username;
             }
             $scope.getUserDetails();
 
