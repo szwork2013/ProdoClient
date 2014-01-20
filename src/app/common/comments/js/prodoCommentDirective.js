@@ -52,7 +52,7 @@ angular.module('prodo.CommonApp')
                   s = "  ";
                 }
                 else {
-                  s = s.replace(/([^a-zA-Z0-9_\- ])|^[_0-9]+/g, "").trim().toLowerCase();
+                  s = s.replace(/([^a-zA-Z0-9_\- ])|^[_0-9]+/g, "").trim();
                   s = s.replace(/([ -]+)([a-zA-Z0-9])/g, function(a, b, c) {
                     return c.toUpperCase();
                   });
