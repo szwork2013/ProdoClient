@@ -206,7 +206,7 @@ angular.module('prodo.ProductApp')
 
               {
                 //  $scope.getTagsFromCommentText($scope);
-                $scope.socket.emit('addComment', "gk3BLA4Zd", $scope.newProductComment.product_comment);
+                $scope.socket.emit('addComment', "xkW3VkEId", $scope.newProductComment.product_comment);
                 $scope.productComments.unshift($scope.newProductComment_image.product_comment);
                 $scope.commenttextField.userComment = "";
                 var element=document.getElementById('holder');
@@ -220,7 +220,7 @@ angular.module('prodo.ProductApp')
             $scope.getProduct = function()
             {
 
-              ProductService.getProduct({orgid: $scope.orgidFromSession, prodle: 'gk3BLA4Zd'},
+              ProductService.getProduct({orgid: $scope.orgidFromSession, prodle: 'xkW3VkEId'},
               function(successData) {
                 if (successData.success == undefined)
                 {
@@ -333,6 +333,11 @@ angular.module('prodo.ProductApp')
                 return{display: "none"}
               }
             }
+            $scope.hideIfNotImage=function(image){
+               if ((image == "") || (image == " ") || (image == undefined) || (image == null)) {
+                return{display: "none"}
+              }
+            } 
 
             //Product discontinued visibility testing
 //                if (($scope.product !== undefined) || ($scope.product !== ""))

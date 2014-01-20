@@ -31,7 +31,7 @@
                         tabCommentRemove = false;"><div id="fa-tagsComment" class="fa fa-tags"  ></div></a></li>
                 <li ng-style="hideIfNotUser(comment.user.fullname)" ><a     ng-click="tabCommentRemove = tabCommentRemove === false ? true : false;
                         tabCommentTags = false;"><div  id="fa-removeComment" name="rm" class=" fa fa-trash-o  "  ></div></a></li>
-                <li><a     ng-click="tabCommentImg = tabCommentImg === false ? true : false;
+                <li><a   ng-style="hideIfNotImage(comment.comment_image[0].image)"  ng-click="tabCommentImg = tabCommentImg === false ? true : false;
                         tabCommentRemove = false;"><div id="fa-tagsComment" class="fa fa-picture-o"  ></div></a></li>        
                 </ul> 
             <div class="tab-content">
