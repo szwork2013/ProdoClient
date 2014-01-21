@@ -52,17 +52,17 @@ angular.module('prodo.ProdoWallApp')
        controller: 'ProdoDashboardController'
       }) 
   }])
- // .run(['$rootScope', 'UserSessionService', '$state', '$log', function ($rootScope, UserSessionService, $state, $log) {
-  
- //    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState){
- //      // $log.debug($state.current.url);
- //      if (toState.name == 'prodo.wall' && !$rootScope.usersession.isLoggedIn) {
- //        event.preventDefault();
 
- //      } else if (toState.name=='home.start' && $rootScope.usersession.isLoggedIn) {
- //        event.preventDefault();
- //      }  
- //    })
- //  }]);
- 
- 
+ .run(['$rootScope', 'UserSessionService', '$state', '$log', function ($rootScope, UserSessionService, $state, $log) {
+  
+    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState){
+      // $log.debug($state.current.url);
+
+      if (toState.name == 'prodo.wall' && !$rootScope.usersession.isLoggedIn) {
+        event.preventDefault();
+
+      } else if (toState.name=='home.start' && $rootScope.usersession.isLoggedIn) {
+        event.preventDefault();
+      }  
+    })
+  }]);

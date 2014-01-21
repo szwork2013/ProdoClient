@@ -14,7 +14,7 @@
 
 angular.module('prodo.WarrantyApp')
 
-        .controller('WarrantyController', ['$scope', 'WarrantyService', 'WarrantySaveService',  function($scope, WarrantyService, WarrantySaveService ) {
+        .controller('WarrantyController', ['$scope','$log' ,'WarrantyService', 'WarrantySaveService',  function($scope, $log,WarrantyService, WarrantySaveService ) {
             $scope.warrantyComments = {comments: [{}]};
             $scope.mytags;
             $scope.warranty;
@@ -43,13 +43,13 @@ angular.module('prodo.WarrantyApp')
 //            //get login details
 //            $scope.logindata = GetLoginService.checkLogin(
 //                    function(successData) {
-//                      console.log("session" + JSON.stringify(successData));
+//                      $log.debug("session" + JSON.stringify(successData));
 //                      localStorage.sid = successData.sessionid;
 //                      $scope.userIDFromSession = successData.userid;
 //                      $scope.userFullnameFromSession = successData.fullname;
 //                    },
 //                    function(error) {
-//                      console.log(error);
+//                      $log.debug(error);
 //                    });
 //            //get login details
 
@@ -63,14 +63,14 @@ angular.module('prodo.WarrantyApp')
             //socket response when for add comment
             $scope.socket.on("addcommentResponse", function(error, result) {
               if (error) {
-                console.log(error.error.message);
+                $log.debug(error.error.message);
                 $scope.showErrorIfCommentNotAdded();
                 $scope.showRetryIconIfCommentNotAdded();
                 // if(retry) retry.textContent("Error posting comment.. Please try again");
               } else if (result) {
-                // console.log(result.success.message);
+                // $log.debug(result.success.message);
                 $scope.ifErrorAddingComment = false;
-                console.log("addcommentResponse success" + result.success.product_comment);
+                $log.debug("addcommentResponse success" + result.success.product_comment);
               }
               //   $scope.socket.removeAllListeners();
             })
@@ -79,12 +79,12 @@ angular.module('prodo.WarrantyApp')
             //productComment response
             $scope.socket.on("productcommentResponse", function(error, result) {
               if (error) {
-                console.log(error.error.message);
+                $log.debug(error.error.message);
               } else if (result) {
-                console.log("productcomment  Response success" + result.success.product_comment);
+                $log.debug("productcomment  Response success" + result.success.product_comment);
                 $scope.productCommentResponsearray.push(result.success.product_comment);
                 var count = $scope.productCommentResponsearray.length;
-                console.log(count);
+                $log.debug(count);
                 var a = document.getElementById("responseComment");
                 a.style.display = 'inline';
                 a.innerHTML = count + ' new comments';
@@ -100,13 +100,13 @@ angular.module('prodo.WarrantyApp')
                 alert(data.success.message);
               } else {
                 if (data.error.code == 'AV001') {     // user already exist
-                  console.log(data.error.code + " " + data.error.message);
+                  $log.debug(data.error.code + " " + data.error.message);
                   alert(data.error.message);
                 } else if (data.error.code == 'AP001') {  // user data invalid
-                  console.log(data.error.code + " " + data.error.message);
+                  $log.debug(data.error.code + " " + data.error.message);
                   alert(data.error.message);
                 } else {
-                  console.log(data.error.message);
+                  $log.debug(data.error.message);
                   alert(data.error.message);
                 }
               }
@@ -136,7 +136,7 @@ angular.module('prodo.WarrantyApp')
                 }
               ]};
 
-            console.log("data= " + $scope.productWarranty.warranty);
+            $log.debug("data= " + $scope.productWarranty.warranty);
 
             //get product function declaration
             $scope.getWarrantyFunction = function()
@@ -145,20 +145,20 @@ angular.module('prodo.WarrantyApp')
               WarrantyService.getWarranty({prodle: 'xk7i99lj8'},
               function(successData) {
 
-                console.log(successData.success.warranty.warranty_comments);
+                $log.debug(successData.success.warranty.warranty_comments);
                 $scope.warranty = successData.success.warranty;
                 //   $scope.product_prodle = successData.success.product.prodle;
                 $scope.warrantyComments = successData.success.warranty.warranty_comments;
               },
                       function(error) {
-                        console.log(error);
+                        $log.debug(error);
                       });
             }
             //get product function declaration  
 
 
          //   $scope.getWarrantyFunction();
-            //   console.log(ProductService.getProduct({prodle: 'eyYHSKVtL'}));
+            //   $log.debug(ProductService.getProduct({prodle: 'eyYHSKVtL'}));
 
             //get latest comments posted by others
             $scope.getLatestComments = function() {
@@ -224,11 +224,11 @@ angular.module('prodo.WarrantyApp')
                 }};
 //              WarrantySaveService.saveWarranty($scope.newWarranty.warranty,
 //                      function(success) {
-//                        console.log(success);
+//                        $log.debug(success);
 //                        $scope.handleSaveWarrantyResponse(success); // calling function to handle success and error responses from server side on POST method success.
 //                      },
 //                      function(error) {
-//                        console.log(error);
+//                        $log.debug(error);
 //                      });
 
               $scope.productWarranty.warranty.push($scope.newWarranty.warranty);

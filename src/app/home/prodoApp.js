@@ -15,12 +15,12 @@ angular.module('prodo.BlogApp', []);
 angular.module('prodo.AdApp', []);
 angular.module('prodo.AdminApp', []);
 angular.module('prodo.SubscriptionApp', []);
- angular.module('upload', []);
+angular.module('prodo.UploadApp', []);
 
-angular.module('prodo.ProdonusApp',['ui.router', 'ui.bootstrap', 'xeditable', '$strap.directives', 'vcRecaptcha', 'ngResource', 'tags-input',  'prodo.CommonApp',
-	'prodo.UserApp', 'prodo.ProdoWallApp', 'prodo.OrgApp','prodo.ProductApp', 'prodo.ProdoCommentApp',
-	'prodo.WarrantyApp', 'prodo.DashboardApp','prodo.ContentApp',
-  'prodo.BlogApp', 'prodo.AdApp', 'prodo.AdminApp' ,  'prodo.SubscriptionApp', 'ngAnimate','upload' 
+
+angular.module('prodo.ProdonusApp',['ui.router', 'ui.bootstrap', 'xeditable', 'ngAnimate', '$strap.directives', 'vcRecaptcha', 'ngResource', 'tags-input',  'prodo.CommonApp',
+	'prodo.UserApp', 'prodo.ProdoWallApp', 'prodo.OrgApp','prodo.ProductApp', 'prodo.ProdoCommentApp','prodo.WarrantyApp', 'prodo.DashboardApp','prodo.ContentApp',
+  'prodo.BlogApp', 'prodo.AdApp', 'prodo.AdminApp' , 'prodo.SubscriptionApp', 'prodo.UploadApp' 
   ])
 
 	.config(function($logProvider)	{ 

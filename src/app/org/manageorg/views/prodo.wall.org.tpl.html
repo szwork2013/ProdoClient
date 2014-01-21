@@ -1,4 +1,28 @@
 <!-- template to handle organisation data related to prodowall -->
-<div id="prodo-comment-container" class="container" style="border: 1px solid #94d2f8; height: 300px;">
+<!-- <div id="prodo-comment-container" class="container" style="border: 1px solid #94d2f8; height: 300px;">
 	<h4>Manage org settings</h4>
+
+
+
+
+</div> -->
+
+<div id="prodo-comment-container" class="container" style="border: 1px solid #94d2f8; height: 300px;">
+
+     <ul class="nav nav-tabs">
+        <li class="active"><a href="#tabOrg" data-toggle="tab">organisation Details</a></li>
+       
+        <li class=""><a href="#tabOrgUpload" data-toggle="tab"   id="Upload-clck"  >organisation Upload</a></li>
+
+    </ul>
+    <div class="tab-content" style="padding-bottom: 9px; border-bottom: 1px solid #ddd;">
+        <div class="tab-pane active" id="tabOrg" ng-include="'org/manageorg/views/org.wall.orgDetails.tpl.html'">
+            <p>Org Details</p>
+        </div>
+        
+      <div class="tab-pane"  id="tabOrgUpload" ng-include="'org/manageorg/views/org.wall.orgUpload.tpl.html'"  >
+            <p>org Upload here</p>
+        </div>
+    </div>
+
 </div>

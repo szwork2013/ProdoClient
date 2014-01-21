@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-md-12">
     <div class="thumbnail">
-      <div ng-app="upload" ng-controller="UploadController">
+      <div ng-app="prodo.UploadApp" ng-controller="UploadController">
         <center> <img style="width:100px; height:80px; " ng-src="{{imageSrc}}"  alt="User Profile"></center>
         <form>
           <br>
@@ -11,7 +11,7 @@
                 <span class="btn btn-default fileinput-button">
                   <i class="fa fa-plus-square"></i>
                   <input type="file" name="file" ng-file-select="onFileSelect($files)"
-                         ><span>Add photo</span>
+                       ng-click=" uploadSrc='user';"  ><span>Add photo</span>
                 </span>
               </div>
             </div>

@@ -22,6 +22,14 @@ angular.module('prodo.ProductApp')
                       saveProduct: {method: 'POST', params: {orgid: 'id'}}
                     });
           }])
+         // .factory('ProductImageService', ['$resource', function($resource) {
+         //    return $resource('/api/image/product/:orgid/:prodle', {},
+         //            {
+                      
+         //              deleteProductImages: {method: 'DELETE', params: {orgid: 'id', prodle: 'id'}  }
+                  
+         //            });
+         //  }])
 
 
         .factory('CommentService', ['$resource', function($resource) {

@@ -19,10 +19,27 @@
   <div id="prodo-comment-enterComment" >
     <span class="label label-info   "  >{{300 - commenttextField.userComment.length}}</span> 
     <a href="" ng-click="getLatestComments()" > <div class="label label-info "  id="responseComment"  style="display: none">  </div></a>
- 
-    <textarea  type="text" class="form-control" name="txtComment" placeholder="Product Conversation [max 300 characters]" id="prodo-comment-Textbox" col="40"  ng-model="commenttextField.userComment" comment-limit="300" ng-enter="addProductComment()" required ></textarea> 
 
+  <div ng-controller="DragImageController">
+    <span id="holder" > 
+    <textarea  type="text" class="form-control" ondragleave="fx()" name="txtComment" placeholder="Product Conversation [max 300 characters]" id="prodo-comment-Textbox" col="40"  ng-model="commenttextField.userComment" comment-limit="300" ng-enter="addProductComment()" required ></textarea> 
+    </span>
+
+    <p id="upload" class="hidden">
+    <label  >
+      <br>
+      <input type="file"    >
+	</label>
+    </p>
+    </div>
   </div>
+  <br>
+  <br>
+  <br> <br>
+  <br>
+  <br> <br>
+  <br>
+  <br>
   <ul class="media-list "  id="prodo-comment-media-list">
 
     <div prodo-comments when-scrolled="loadMore()"   id="prodo-comment-commentContainer"  >
