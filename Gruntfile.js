@@ -17,6 +17,18 @@ module.exports = function (grunt) {
     // },
 
     uglify: { tests: { src: [ 
+      'src/app/home/prodoApp.js', 
+       
+      'src/app/user/js/UserRegistrationController.js',
+
+      'src/app/user/js/UserSigninController.js',
+      'src/app/user/js/UserService.js',
+      'src/app/org/orgregistration/js/OrgRegistrationController.js',
+      'src/app/org/orgregistration/js/OrgService.js',
+      'src/app/common/subscription/js/SubscriptionController.js',
+      'src/app/common/accounts/js/ManageAccountController.js',
+      'src/app/dashboard/js/ProdoDashboardController.js',
+      'src/app/common/directives/prodoDirective.js',
      'src/app/product/js/DragImageController.js',
      'src/app/product/js/ProductController.js',
      'src/app/product/js/ProductService.js',
@@ -26,6 +38,7 @@ module.exports = function (grunt) {
      'src/app/common/comments/js/prodoCommentEnterKeyDirective.js',
      'src/app/common/comments/js/prodoCommentLimitDirective.js',
      'src/app/common/comments/js/prodoCommentScrollDirective.js'
+
 
    // 'src/app/common/comments/js/prodoCommentDirective.js'
     ],
@@ -37,14 +50,16 @@ module.exports = function (grunt) {
 
 
 ngmin: {
+    // controllers: {
+    // src: ['src/app/home/prodo/ProdoWallApp.js'],
+    // dest: 'src/app/Premin/prodoAppPre.js'
+  // }
   
   directives: {
     expand: true,
     
-    src: ['src/app/common/comments/js/prodoCommentEnterKeyDirective.js',
-    'src/app/common/comments/js/prodoCommentLimitDirective.js',
-    'src/app/common/comments/js/prodoCommentScrollDirective.js'],
-    dest: 'src/app/common/comments/js/preminDirective'
+    src: ['src/app/common/directives/prodoDirective.js'],
+    dest: 'src/app/Premin'
   }
 }
 
@@ -56,7 +71,7 @@ grunt.loadNpmTasks('grunt-contrib-uglify');
 grunt.loadNpmTasks('grunt-ngmin');
 
 // register at least this one task
-grunt.registerTask('default', [ 'uglify'    ]);
+grunt.registerTask('default', [ 'uglify'  ]);
 
 
 };

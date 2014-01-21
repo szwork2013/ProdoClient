@@ -1,7 +1,3 @@
-/**
-* Prodonus main application modules
-*
-**/
 angular.module('prodo.CommonApp', []);
 angular.module('prodo.UserApp', []);
 angular.module('prodo.ProdoWallApp', []);
@@ -14,70 +10,84 @@ angular.module('prodo.ContentApp', []);
 angular.module('prodo.BlogApp', []);
 angular.module('prodo.AdApp', []);
 angular.module('prodo.AdminApp', []);
- angular.module('prodo.UploadApp', []);
-
-angular.module('prodo.ProdonusApp',['ui.router', 'ui.bootstrap', '$strap.directives', 'vcRecaptcha', 'ngResource', 'tags-input', 
-	'prodo.UserApp', 'prodo.ProdoWallApp', 'prodo.OrgApp','prodo.ProductApp', 'prodo.ProdoCommentApp',
-	'prodo.WarrantyApp', 'prodo.DashboardApp','prodo.ContentApp', 'prodo.CommonApp',
-  'prodo.BlogApp', 'prodo.AdApp', 'prodo.AdminApp' ,'ngAnimate','prodo.UploadApp' 
-  ])
-
-	.config(function($logProvider)	{
-  	$logProvider.debugEnabled(true);
-	})
-	
-	.run(['$rootScope', 'UserSessionService', 'OrgRegistrationService', '$log', function ($rootScope, UserSessionService, OrgRegistrationService, $log) {
+angular.module('prodo.UploadApp', []);
+var app = angular.module('prodo.ProdonusApp', [
+    'ui.router',
+    'ui.bootstrap',
+    '$strap.directives',
+    'vcRecaptcha',
+    'ngResource',
+    'ngAnimate',
+    'tags-input',
+    'prodo.UserApp',
+    'prodo.ProdoWallApp',
+    'prodo.OrgApp',
+    'prodo.ProductApp',
+    'prodo.ProdoCommentApp',
+    'prodo.WarrantyApp',
+    'prodo.DashboardApp',
+    'prodo.ContentApp',
+    'prodo.CommonApp',
+    'prodo.BlogApp',
+    'prodo.AdApp',
+    'prodo.AdminApp',
+    'prodo.UploadApp'
+  ]);
+app.config([
+  '$logProvider',
+  function ($logProvider) {
+    $logProvider.debugEnabled(true);
+  }
+]);
+app.run([
+  '$rootScope',
+  'UserSessionService',
+  'OrgRegistrationService',
+  '$log',
+  function ($rootScope, UserSessionService, OrgRegistrationService, $log) {
     UserSessionService.checkUser();
     $rootScope.usersession = UserSessionService;
     $rootScope.organizationData = OrgRegistrationService;
     $rootScope.$log = $log;
-	 
-	}])
-
-	.controller('ProdoMainController', ['$scope', '$rootScope', '$state', '$log', 'UserSessionService', function($scope, $rootScope, $state, $log, UserSessionService) {
-
-		$state.transitionTo('home.start');
-
-		var cleanupEventSession_Changed = $scope.$on("session-changed", function(event, message){
-			$log.debug(message);   
-				if (message.success) {
-					UserSessionService.authSuccess(message.success.user)
-					cleanupEventSession_Changed();
-					// $state.transitionTo($state.current.url);
-				} 
-				else {
-				UserSessionService.authfailed();
-				$state.transitionTo('home.start');
-				cleanupEventSession_Changed();
-				
-			};
-       
+  }
+]);
+app.controller('ProdoMainController', [
+  '$scope',
+  '$rootScope',
+  '$state',
+  '$log',
+  'UserSessionService',
+  function ($scope, $rootScope, $state, $log, UserSessionService) {
+    $state.transitionTo('home.start');
+    var cleanupEventSession_Changed = $scope.$on('session-changed', function (event, message) {
+        $log.debug(message);
+        if (message.success) {
+          UserSessionService.authSuccess(message.success.user);
+          cleanupEventSession_Changed();
+        } else {
+          UserSessionService.authfailed();
+          $state.transitionTo('home.start');
+          cleanupEventSession_Changed();
+        }
+        ;
       });
-
-		var cleanupEventSession_Changed_Failure = $scope.$on("session-changed-failure", function(event, message){
-			 UserSessionService.authfailed();
-       $state.transitionTo('home.start');
-			 $scope.showAlert('alert-danger', "Server Error: " + message);
-       cleanupEventSession_Changed_Failure();
-      });
-
-
-		$scope.logout = function() {
-			// $scope.showSpinner();
-			UserSessionService.logoutUser();
-			var cleanupEventLogoutDone = $scope.$on("logoutDone", function(event, message){
-				// $scope.hideSpinner();
+    var cleanupEventSession_Changed_Failure = $scope.$on('session-changed-failure', function (event, message) {
+        UserSessionService.authfailed();
         $state.transitionTo('home.start');
-        $scope.showAlert('alert-success', message);
-        cleanupEventLogoutDone();
-
+        $scope.showAlert('alert-danger', 'Server Error: ' + message);
+        cleanupEventSession_Changed_Failure();
       });
-      var cleanupEventLogoutNotDone = $scope.$on("logoutNotDone", function(event, message){
-      	// $scope.hideSpinner();
-        $scope.showAlert('alert-danger', "Server Error:" + message);
-        cleanupEventLogoutNotDone();
-
-      });
-		};
-		
-	}]);
+    $scope.logout = function () {
+      UserSessionService.logoutUser();
+      var cleanupEventLogoutDone = $scope.$on('logoutDone', function (event, message) {
+          $state.transitionTo('home.start');
+          $scope.showAlert('alert-success', message);
+          cleanupEventLogoutDone();
+        });
+      var cleanupEventLogoutNotDone = $scope.$on('logoutNotDone', function (event, message) {
+          $scope.showAlert('alert-danger', 'Server Error:' + message);
+          cleanupEventLogoutNotDone();
+        });
+    };
+  }
+]);

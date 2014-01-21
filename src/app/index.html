@@ -76,7 +76,7 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog fa-lg"></i></a>
               <ul style="text-align: left;" class="dropdown-menu">
               <li><a ng-click="usersession.getUserDetailSettings()" ui-sref="account.user.general">User Account Settings</a></li>
-              <li><a ng-show="usersession.currentUser.orgid" ng-click="organizationData.getOrgDetailSettings()" ui-sref="account.org.general">Organization Account Settings</a></li>
+              <li><a ng-show="usersession.currentUser.org.orgid" ng-click="organizationData.getOrgDetailSettings()" ui-sref="account.org.general">Organization Account Settings</a></li>
               <li class="divider"></li>
               <li><a href="#">Help</a></li>
               <li><a href="#">Report a Problem</a></li>
@@ -147,31 +147,34 @@
 
         <script src="http://cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.16/socket.io.min.js"></script>
         <!--        <script src="/socket.io/socket.io.js"></script>-->
-        <script src="home/prodoApp.js"></script>
+        <!-- // <script src="home/prodoApp.js"></script> -->
+        <script src="home/min/Prodo.min.js"></script> 
+
         <script src="home/prodoMainAppRoutes.js"></script>
-        <script src="home/landing/js/landingRoutes.js"></script>
-        <script src="home/prodo/js/prodoWallApp.js"></script>
-        <script src="user/js/UserRegistrationController.js"></script> 
+       <script src="home/prodo/js/prodoWallApp.js"></script>
+        <!-- // <script src="user/js/UserRegistrationController.js"></script>  -->
+
         <script src="home/prodo/js/prodoWallRoutes.js"></script>
-        <script src="user/js/UserSigninController.js"></script>
+        <!-- // <script src="user/js/UserSigninController.js"></script> -->
         <script src="vendor/angular-recaptcha/angular-recaptcha.min.js"></script>
         <script src="user/js/UserRoutes.js"></script>
-        <script src="user/js/UserService.js"></script>
-        <script src="org/orgregistration/js/OrgRegistrationController.js"></script>
-        <script src="org/orgregistration/js/OrgService.js"></script>
-        <script src="common/subscription/js/SubscriptionController.js"></script>
+
+        <!-- // <script src="user/js/UserService.js"></script> -->
+        <!-- // <script src="org/orgregistration/js/OrgRegistrationController.js"></script> -->
+        <!-- // <script src="org/orgregistration/js/OrgService.js"></script> -->
+        <!-- // <script src="common/subscription/js/SubscriptionController.js"></script> -->
         <script src="common/CommonRoutes.js"></script>
-        <script src="common/accounts/js/ManageAccountController.js"></script>
-        <script src="dashboard/js/ProdoDashboardController.js"></script>
+        <!-- // <script src="common/accounts/js/ManageAccountController.js"></script> -->
+        <!-- // <script src="dashboard/js/ProdoDashboardController.js"></script> -->
           <!-- // <script src="product/js/ProductController.js"></script>   -->
           <!-- // <script src="product/js/DragImageController.js"></script>   -->
-        <script src="home/min/Prodo.min.js"></script> 
+       
          <!-- // <script src="product/js/ProductService.js"></script>  -->
         
-         <script src="common/directives/prodoDirective.js"></script>
+         <!-- // <script src="common/directives/prodoDirective.js"></script> -->
 
          <script src="common/comments/js/prodoCommentDirective.js"></script>
-         
+
          <!-- // <script src="common/comments/js/prodoCommentLimitDirective.js"></script> -->
         <!-- // <script src="common/comments/js/prodoCommentScrollDirective.js"></script> -->
         <!-- // <script src="common/comments/js/prodoCommentEnterKeyDirective.js"></script>   -->
