@@ -37,7 +37,7 @@ angular.module('prodo.ProductApp')
     reader.readAsDataURL(file);
     } 
       else {
-        holder.innerHTML += '<p>Uploaded ' + file.name + ' ' + (file.size ? (file.size/1024|0) + 'K' : '');
+        holder.innerHTML += ' Uploaded ' + file.name + ' ' + (file.size ? (file.size/1024|0) + 'K' : '');
 
     }
      //get buffer
@@ -78,4 +78,4 @@ angular.module('prodo.ProductApp')
 
 
 
-}])
+}]);

@@ -12,89 +12,73 @@
  * 
  */
 
-angular.module('prodo.CommonApp')
-        .directive('prodoComments', function() {
-          return {
-            restrict: 'A',
-            // require: '?ngModel',
-            templateUrl: 'common/comments/views/prodo.comment.tpl.html',
-            //  scope: {productComments_l: '=info', pagesSize: '=', pagesShown: '='},
-            controller: function($scope,$log ,ProductService, $rootScope, UserSessionService, CommentService)
-            {
-              $(document).ready(function() {
-                //comment textbox increase height and decrease whe focus( toggle)
-                $('#prodo-comment-Textbox').focus(function() {
-                  $(this).height(75);
-                });
-                $('#prodo-comment-Textbox').blur(function() {
-                  $(this).height(30);
-                });
-                //comment textbox increase height and decrease whe focus( toggle)
-              });
-
-              //on  scroll event in testing phase
-              $scope.commentsLimit = function() {
-                return $scope.pagesSize * $scope.pagesShown;
-              };
-              //on  scroll event in testing phase
-
-              //function to convert time format for comment added  
-              $scope.fromNow = function(time) {
-                if (time != undefined) {
-                  return moment(time).calendar();
-                }
-              };
-              //function to convert time format for comment added  
-
-              //group name in camelCase function
-              $scope.toCamelCase = function(s) {
-                if ((s == undefined) || (s == "") || (s == null)) {
-                  s = "  ";
-                }
-                else {
-                  s = s.replace(/([^a-zA-Z0-9_\- ])|^[_0-9]+/g, "").trim();
-                  s = s.replace(/([ -]+)([a-zA-Z0-9])/g, function(a, b, c) {
-                    return c.toUpperCase();
-                  });
-                  s = s.replace(/([0-9]+)([a-zA-Z])/g, function(a, b, c) {
-                    return b + c.toUpperCase();
-                  });
-                }
-                return s;
-              };
-              //group name in camelCase function
-
-              //get tags from comment
-              $scope.getTagsFromCommentText = function($scope) {
-                //get tags from comment text and compare with predefined tags and add to tags
-                var commenttext = $scope.commenttextField.userComment;
-                $scope.mytags = $scope.pretags;
-                var new_arr = [];
-                var commenttextTags = commenttext.split(" ");
-                for (var i = 0; i < commenttextTags.length; i++) {
-                  for (var j = 0; j < $scope.mytags.length; j++) {
-                    if (commenttextTags[i] == $scope.mytags[j]) {
-                      new_arr.push(commenttextTags[i]);
-                    }
-                  }
-                }
-                $scope.mytags = new_arr;
-              };
-              //get tags from comment
-
-              //delete comment function
-              $scope.deleteProductComment = function(comment) {
-                // $log.debug("deleting....");
-                if (comment.user.fullname == $scope.userFullnameFromSession)
-                {
-                  var index = $scope.productComments.indexOf(comment);
-                  if (index != -1)
-                    $scope.productComments.splice(index, 1);
-                  CommentService.deleteComment({commentid: comment.commentid});
-                  $log.debug(comment.commentid);
-                }
-              };
-              //delete comment function
-            },
-          };
-        })
+angular.module('prodo.CommonApp').directive('prodoComments', function () {
+  return {
+    restrict: 'A',
+    
+    templateUrl: 'common/comments/views/prodo.comment.tpl.html',
+    controller: [
+      '$scope',
+      '$log',
+      'ProductService',
+      '$rootScope',
+      'UserSessionService',
+      'CommentService',
+      function ($scope, $log, ProductService, $rootScope, UserSessionService, CommentService) {
+        $(document).ready(function () {
+          $('#prodo-comment-Textbox').focus(function () {
+            $(this).height(75);
+          });
+          $('#prodo-comment-Textbox').blur(function () {
+            $(this).height(30);
+          });
+        });
+        $scope.commentsLimit = function () {
+          return $scope.pagesSize * $scope.pagesShown;
+        };
+        $scope.fromNow = function (time) {
+          if (time != undefined) {
+            return moment(time).calendar();
+          }
+        };
+        $scope.toCamelCase = function (s) {
+          if (s == undefined || s == '' || s == null) {
+            s = '  ';
+          } else {
+            s = s.replace(/([^a-zA-Z0-9_\- ])|^[_0-9]+/g, '').trim();
+            s = s.replace(/([ -]+)([a-zA-Z0-9])/g, function (a, b, c) {
+              return c.toUpperCase();
+            });
+            s = s.replace(/([0-9]+)([a-zA-Z])/g, function (a, b, c) {
+              return b + c.toUpperCase();
+            });
+          }
+          return s;
+        };
+        $scope.getTagsFromCommentText = function ($scope) {
+          var commenttext = $scope.commenttextField.userComment;
+          $scope.mytags = $scope.pretags;
+          var new_arr = [];
+          var commenttextTags = commenttext.split(' ');
+          for (var i = 0; i < commenttextTags.length; i++) {
+            for (var j = 0; j < $scope.mytags.length; j++) {
+              if (commenttextTags[i] == $scope.mytags[j]) {
+                new_arr.push(commenttextTags[i]);
+              }
+            }
+          }
+          $scope.mytags = new_arr;
+        };
+        $scope.deleteProductComment = function (comment) {
+          if (comment.user.fullname == $scope.userFullnameFromSession) {
+            var index = $scope.productComments.indexOf(comment);
+            if (index != -1)
+              $scope.productComments.splice(index, 1);
+            CommentService.deleteComment({ commentid: comment.commentid });
+            $log.debug(comment.commentid);
+          }
+        };
+      }
+    ]
+  };
+});
