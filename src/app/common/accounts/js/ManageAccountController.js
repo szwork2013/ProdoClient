@@ -227,23 +227,6 @@ angular.module('prodo.CommonApp')
   
     }
 
-    // function to handle server side responses
-    $scope.handleUpdateOrgAddressResponse = function(data){
-      if (data.success) {
-
-        $scope.showAlert('alert-success', data.success.message);   
-      } else {
-        if (data.error.code== 'AU004') {     // enter valid data
-            $log.debug(data.error.code + " " + data.error.message);
-            $scope.showAlert('alert-danger', data.error.message);
-        } else {
-            $log.debug(data.error.message);
-            $scope.showAlert('alert-danger', data.error.message);
-        }
-      }
-    };  
-
-
     $scope.jsonOrgAddressData = function()
       {
         var orgAddData = 
@@ -309,6 +292,35 @@ angular.module('prodo.CommonApp')
         cleanupEventAddOrgAddressNotDone();      
       });
   
+    }
+
+    // function to handle server side responses
+    $scope.handleUpdateOrgAddressResponse = function(data){
+      if (data.success) {
+
+        $scope.showAlert('alert-success', data.success.message);   
+      } else {
+        if (data.error.code== 'AU004') {     // enter valid data
+            $log.debug(data.error.code + " " + data.error.message);
+            $scope.showAlert('alert-danger', data.error.message);
+        } else {
+            $log.debug(data.error.message);
+            $scope.showAlert('alert-danger', data.error.message);
+        }
+      }
+    };  
+
+
+    $scope.updateAddress = function(addressId) {
+      OrgRegistrationService.updateOrgAddress($scope.jsonOrgAddressData(), addressId);
+      var cleanupEventUpdateOrgAddressDone = $scope.$on("updateOrgAddressDone", function(event, message){
+        $scope.handleUpdateOrgAddressResponse(message); 
+        cleanupEventUpdateOrgAddressDone();  
+      });
+      var cleanupEventUpdateOrgAddressNotDone = $scope.$on("updateOrgAddressNotDone", function(event, message){
+        $scope.showAlert('alert-danger', "Server Error:" + message); 
+        cleanupEventUpdateOrgAddressNotDone();     
+      });
     }
 
     // function to handle server side responses

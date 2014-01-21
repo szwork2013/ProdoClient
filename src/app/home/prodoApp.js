@@ -27,13 +27,12 @@ angular.module('prodo.ProdonusApp',['ui.router', 'ui.bootstrap', 'xeditable', 'n
   	$logProvider.debugEnabled(true);
 	})
 
-	.run(['$rootScope', 'UserSessionService', 'OrgRegistrationService', '$log', function ($rootScope, UserSessionService, OrgRegistrationService, $log, editableOptions) {
+	.run(['$rootScope', 'UserSessionService', 'OrgRegistrationService', '$log', 'editableOptions', function ($rootScope, UserSessionService, OrgRegistrationService, $log, editableOptions) {
     UserSessionService.checkUser();
-    $rootScope.usersession = UserSessionService;
-    $rootScope.organizationData = OrgRegistrationService;
-    $rootScope.$log = $log;
     editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
-	 
+		$rootScope.usersession = UserSessionService;
+    $rootScope.organizationData = OrgRegistrationService;
+    $rootScope.$log = $log;	 
 	}])
 
 	.controller('ProdoMainController', ['$scope', '$rootScope', '$state', '$log', 'UserSessionService', function($scope, $rootScope, $state, $log, UserSessionService) {

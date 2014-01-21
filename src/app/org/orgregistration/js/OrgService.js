@@ -96,19 +96,7 @@ angular.module('prodo.OrgApp')
       }
 
       organization.saveOrgAddress= function (orgAddData) {
-        $log.debug($rootScope.organizationData.currentOrgAdd._id)
-        if ($rootScope.organizationData.currentOrgAdd._id) {
-          OrgService.ManageOrgLocation.updateOrgAddress({orgid: $rootScope.usersession.currentUser.org.orgid, orgaddressid: $rootScope.organizationData.currentOrgAdd.location}, orgAddData,     // calling function of UserSigninService to make POST method call to signin user.
-            function(success){
-              $log.debug(success);
-              $rootScope.$broadcast("updateOrgAddressDone", success);
-            },
-            function(error){
-              $log.debug(error);
-              $rootScope.$broadcast("updateOrgAddressNotDone", error.status);
-            });
-        } else {
-          OrgService.ManageOrgLocation.addOrgAddress({orgid: $rootScope.usersession.currentUser.org.orgid}, orgAddData,     // calling function of UserSigninService to make POST method call to signin user.
+        OrgService.ManageOrgLocation.addOrgAddress({orgid: $rootScope.usersession.currentUser.org.orgid}, orgAddData,     // calling function of UserSigninService to make POST method call to signin user.
             function(success){
               $log.debug(success);
               $rootScope.$broadcast("addOrgAddressDone", success);
@@ -117,8 +105,18 @@ angular.module('prodo.OrgApp')
               $log.debug(error);
               $rootScope.$broadcast("addOrgAddressNotDone", error.status);
             });
-        }
-        
+      }
+
+      organization.updateOrgAddress= function (orgAddData, addId) {
+        OrgService.ManageOrgLocation.updateOrgAddress({orgid: $rootScope.usersession.currentUser.org.orgid, orgaddressid: addId}, orgAddData,     // calling function of UserSigninService to make POST method call to signin user.
+            function(success){
+              $log.debug(success);
+              $rootScope.$broadcast("updateOrgAddressDone", success);
+            },
+            function(error){
+              $log.debug(error);
+              $rootScope.$broadcast("updateOrgAddressNotDone", error.status);
+            });
       }
 
       organization.removeOrgAddress= function (addId) {
