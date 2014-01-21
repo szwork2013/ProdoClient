@@ -10,6 +10,10 @@ angular.module('prodo.ContentApp', []);
 angular.module('prodo.BlogApp', []);
 angular.module('prodo.AdApp', []);
 angular.module('prodo.AdminApp', []);
+angular.module('prodo.SubscriptionApp', []);
+angular.module('prodo.UploadApp', []);
+
+
 angular.module('prodo.UploadApp', []);
 var app = angular.module('prodo.ProdonusApp', [
     'ui.router',
@@ -18,6 +22,7 @@ var app = angular.module('prodo.ProdonusApp', [
     'vcRecaptcha',
     'ngResource',
     'ngAnimate',
+    'xeditable',
     'tags-input',
     'prodo.UserApp',
     'prodo.ProdoWallApp',
@@ -31,7 +36,8 @@ var app = angular.module('prodo.ProdonusApp', [
     'prodo.BlogApp',
     'prodo.AdApp',
     'prodo.AdminApp',
-    'prodo.UploadApp'
+    'prodo.UploadApp',
+    'prodo.SubscriptionApp'
   ]);
 app.config([
   '$logProvider',
@@ -44,8 +50,10 @@ app.run([
   'UserSessionService',
   'OrgRegistrationService',
   '$log',
-  function ($rootScope, UserSessionService, OrgRegistrationService, $log) {
+  'editableOptions',
+  function ($rootScope, UserSessionService, OrgRegistrationService, $log, editableOptions) {
     UserSessionService.checkUser();
+    editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
     $rootScope.usersession = UserSessionService;
     $rootScope.organizationData = OrgRegistrationService;
     $rootScope.$log = $log;
@@ -66,10 +74,9 @@ app.controller('ProdoMainController', [
           cleanupEventSession_Changed();
         } else {
           UserSessionService.authfailed();
-          $state.transitionTo('home.start');
+          // $state.transitionTo('home.start');
           cleanupEventSession_Changed();
-        }
-        ;
+        };
       });
     var cleanupEventSession_Changed_Failure = $scope.$on('session-changed-failure', function (event, message) {
         UserSessionService.authfailed();

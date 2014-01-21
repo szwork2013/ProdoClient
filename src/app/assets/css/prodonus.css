@@ -138,6 +138,15 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
      
 }
 
+#prodo-form-input-username-signup{
+	width:250px;
+	height: 30px;
+	border-radius: 2px;
+	margin: 10px auto;
+	display: block;
+     
+}
+
 /*change the View: Signup form input button signup style*/
 #prodo-form-button-signup{
 	width:250px;
@@ -188,8 +197,14 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
 	/*display: block;*/
 	/*padding-top: 10px;*/
  }
+
+ #recaptcha_response_field{
+ 	font-size: 12px;
+ }
  
- 
+ .btn-recaptcha{
+	padding: 6px 9px;
+}
 
 /**
 * View: Signin
@@ -437,7 +452,7 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
 .jumbotron-subscribe{
   width: 210px;
   float: left;
-  height: 400px;
+  height: 300px;
   margin-left: 2px;
   margin-bottom: 30px;
   padding: 0;
@@ -492,26 +507,28 @@ hr{
   margin-bottom: 10px;
  }
 
-.subscribe-feature-list{
-  font-size: 12px;
+.subscribe-plan-list{
+  font-size: 15px;
   color: #404541; 
 }
 
 #prodo-subscribe-btn{
-  display: block;
-  margin: 0 auto;
-  text-align: center;
+	width: 150px;
+  border-radius: 4px;
+	background-color: #3a92c6;
+	font-size: 20px;
+	font: bold;
+	position: relative;
+	display: block;
+  margin: 20px auto;
+	text-align: center;
 }
 
-p.price{
-  padding: 10px;
-  text-align: center;
-  color: #A5A9AD;
-  font:italic bold 20px/30px Georgia,serif;
-}
+
 .usd{
   color: #2366AD;
-  font-size: 25px;
+  font:italic bold 20px/30px Georgia,serif;
+  margin: 5px;
 }
 
 /**
@@ -744,6 +761,12 @@ p.price{
 	height:280px;
 	text-align: left;
 }
+
+/*#prodo-privacy-term{
+	overflow-y: scroll; 
+	height:280px;
+	text-align: left;
+}*/
 /*change the View: Signup form input button signup style*/
 #prodo-form-term-btn{
 	width:122.5px;
@@ -764,6 +787,14 @@ p.price{
 	color: #2b8dc0;
 }
 
+
+#prodo-privacy-label-control{
+	font-weight: normal;
+	font-size: 25px;
+	line-height: 20px;
+	padding: 10px;
+	color: #2b8dc0;
+}
 /**
 *	Subscription.payment
 **/
@@ -774,7 +805,7 @@ p.price{
   -moz-border-radius: 6px;
   border-radius: 6px; 
   background-color: #f3f5f3;
-  width: 400px;
+  width: 550px;
   height: 430px;
 	display: block;
 	margin: 50px auto;
@@ -789,21 +820,32 @@ p.price{
    
 }
 
-#prodo-form-input-payment{
-	width:250px;
+#prodo-form-input-payment {
+	width:180px;
 	height: 30px;
 	border-radius: 2px;
 	margin: 10px auto;
-	display: block;
+	display: inline-block;
 }
  
+
+#prodo-form-payment-btn {
+	height: 30px;
+	background-color: #7d8386;
+	font-size: 15px;
+  margin: 10px auto;
+	text-align: center;
+	color: white;
+  }
+
 /*change the View: Signup form input button signup style*/
-#prodo-form-payment-btn{
-	width:122.5px;
+#prodo-form-payment-submit-btn{
+	width:250px;
 	border-radius: 2px;
 	background-color: #3a92c6;
 	font-size: 15px;
 	position: relative;
+	display: block;
   margin: 20px auto;
 	text-align: center;
   }

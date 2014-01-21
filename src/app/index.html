@@ -9,7 +9,7 @@
     <meta name="description" content="Prodonus is a warranty and social network platform for products that manages warranty and enables conversations between manufacturer and consumers, both individuals and companies">
     <meta name="robots" content="noodp, noydir" />
     <meta name="author" content="">
-    <!-- <link rel="shortcut icon" href="../../assets/ico/favicon.png"> Needs to be addressed later -->
+    <link rel= "icon" media="all" type="image/x-icon" href="assets/ico/favicon.ico">
     <title>Prodonus</title>
 
       <link rel=" stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"> 
@@ -17,6 +17,7 @@
       <link rel="stylesheet" type="text/css" href="assets/css/prodonus.css">
       <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" rel="stylesheet">
       <link rel="stylesheet" type="text/css" href="vendor/tags/ng-tags-input.css">
+      <link href="vendor/angular-xeditable/css/xeditable.css" rel="stylesheet">
       <link data-require="nvd3@*" data-semver="1.1.14-beta" rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/nvd3/1.1.14-beta/nv.d3.css" />
       <link href='http://fonts.googleapis.com/css?family=Bevan|Cardo' rel='stylesheet' type='text/css'>
 
@@ -45,7 +46,7 @@
 
     <div id="prodo-navbar" class="navbar navbar-inverse navbar-static-top" role="navigation">
 
-      <div><a id="prodo-navbar-brand" class="navbar-brand" ui-sref="prodo.wall"><img style="width: 150px; height:40px;" src="assets/images/prodonus-logo.png"></a></div>
+      <div><a id="prodo-navbar-brand" class="navbar-brand" ui-sref="prodo.wall"><img src="assets/images/prodonus.png"></a></div>
 
 
       <p class="navbar-text pull-right">
@@ -70,7 +71,7 @@
 
         <p class="navbar-text navbar-right">
 
-          <span ng-show="usersession.isLoggedIn" style="color:#DDE1F0; font-size: 12px;" ng-bind="'Welcome ' + usersession.currentUser.fullname"></span>
+          <span ng-show="usersession.isLoggedIn" style="color:#DDE1F0; font-size: 12px;" ng-bind="'Welcome ' + usersession.currentUser.username"></span>
           <button id="prodo-form-button-signin" ng-cloak ng-show="usersession.isLoggedIn" class="btn btn-success" ng-click="logout()">Logout</button>
           <button style="background:transparent; border: none;" ng-cloak ng-show="usersession.isLoggedIn" class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog fa-lg"></i></a>
@@ -137,6 +138,8 @@
         <script type="text/javascript" src="//www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script>
         <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
         <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.6.0.js"></script>
+        <script src="vendor/angular-xeditable/js/xeditable.min.js"></script>
+
         <script src="http://momentjs.com/downloads/moment.min.js"></script>
         <script src="http://cdnjs.cloudflare.com/ajax/libs/angular-strap/0.7.2/angular-strap.min.js"></script>
         <script type="text/javascript" src="vendor/tags/ng-tags-input.js"></script>
@@ -163,6 +166,11 @@
         <!-- // <script src="org/orgregistration/js/OrgRegistrationController.js"></script> -->
         <!-- // <script src="org/orgregistration/js/OrgService.js"></script> -->
         <!-- // <script src="common/subscription/js/SubscriptionController.js"></script> -->
+
+       
+        <script src="common/subscription/js/PaymentController.js"></script>
+        <script src="common/subscription/js/SubscriptionService.js"></script>
+
         <script src="common/CommonRoutes.js"></script>
         <!-- // <script src="common/accounts/js/ManageAccountController.js"></script> -->
         <!-- // <script src="dashboard/js/ProdoDashboardController.js"></script> -->

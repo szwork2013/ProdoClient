@@ -71,7 +71,7 @@ grunt.loadNpmTasks('grunt-contrib-uglify');
 grunt.loadNpmTasks('grunt-ngmin');
 
 // register at least this one task
-grunt.registerTask('default', [ 'uglify'  ]);
+grunt.registerTask('default', [ 'uglify']);
 
 
 };

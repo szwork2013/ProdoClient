@@ -344,8 +344,8 @@ angular.module('prodo.CommonApp')
         }
     };
 
-    $scope.deleteOrgAddress = function() {
-      OrgRegistrationService.removeOrgAddress();
+    $scope.deleteOrgAddress = function(addressId) {
+      OrgRegistrationService.removeOrgAddress(addressId);
       var cleanupEventDeleteOrgAddressDone = $scope.$on("deleteOrgAddressDone", function(event, message){
         $scope.handleDeleteOrgResponse(message);   
         cleanupEventDeleteOrgAddressDone();

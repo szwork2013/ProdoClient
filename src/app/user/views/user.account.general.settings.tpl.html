@@ -1,6 +1,6 @@
 <!--Template for User Account General settings-->
 <div style="background-color:white;" id="prodo-user-general-settings-container" class="container">
-	<p style="margin-top: 10px;"><strong>General Account Settings</strong><a class="btn btn-danger btn-sm pull-right" data-toggle="modal" data-target="#myModal"><i class="fa fa-trash-o fa-lg"></i>Delete</a>
+	<p style="margin-top: 10px;"><strong>General Settings</strong><a class="btn btn-danger btn-sm pull-right" data-toggle="modal" data-target="#myModal"><i style="margin-right: 5px;" class="fa fa-trash-o fa-lg"></i>Delete</a>
 
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -82,7 +82,7 @@
 			</li>
 
 			<li class="list-group-item">
-	  	Other Settings
+	  	More ..
 	  	<a href="" data-toggle="collapse" data-target="#othersettings" class="pull-right">Edit</a>
 	  		<div id="othersettings" class="collapse">
 		  		<form id="prodo-form-signin" name="signinForm" class="css-form" ng-submit="" novalidate>
@@ -101,8 +101,8 @@
 	        		<input id="prodo-input-signin" name="DOB" class="form-control" type="date" placeholder="Date of birth" required ng-model="user.DOB" /></li>
 
 	        		<li><label class="label-control" style="width: 100px; text-align:left; float: left; display: inline-block;">Gender</label>
-	        		<input type="radio" ng-model="color" value="Male"> Male  
-      				<input type="radio" ng-model="color" value="Female"> Female</li>
+	        		<input type="radio" ng-model="user.gender" value="Male"> Male  
+      				<input type="radio" ng-model="user.gender" value="Female"> Female</li>
 
 	        		<li><label class="label-control" style="width: 100px; text-align:left; float: left; display: inline-block;">Contact No.</label>
 	        		<input id="prodo-input-signin" name="contact_number" class="form-control" type="text" placeholder="Contact No." required ng-model="user.contact_number" /></li>
