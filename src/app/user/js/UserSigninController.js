@@ -2,7 +2,7 @@
 *	User Signin Controller
 **/
 angular.module('prodo.UserApp')
- 	 .controller('UserSigninController', ['$scope', '$rootScope', '$state', '$timeout', '$stateParams', '$log', 'UserSessionService', function($scope, $rootScope, $state, $timeout, $stateParams, $log, UserSessionService) {
+ 	.controller('UserSigninController', ['$scope', '$rootScope', '$state', '$timeout', '$stateParams', '$log', 'UserSessionService', 'UserSubscriptionService', function($scope, $rootScope, $state, $timeout, $stateParams, $log, UserSessionService, UserSubscriptionService) {
     $scope.submitted = false;  // form submit property is false
     $scope.user = 
       {
@@ -14,29 +14,27 @@ angular.module('prodo.UserApp')
       };
 
     // function to clear form data on submit
-    $scope.clearformData = function() 
-      {
-        $scope.user.email = '';
-        $scope.user.password = '';
-        $scope.user.currentpassword = '';
-        $scope.user.newpassword = '';
-        $scope.user.confirmnewpassword = '';
-      }
+    $scope.clearformData = function() {
+      $scope.user.email = '';
+      $scope.user.password = '';
+      $scope.user.currentpassword = '';
+      $scope.user.newpassword = '';
+      $scope.user.confirmnewpassword = '';
+    }
 
-    $timeout(function(){
+    $timeout(function() {
        $scope.hideAlert();
-      }, 50000);
+    }, 50000);
 
     // function to send and stringify user signin data to Rest APIs
-    $scope.jsonUserSigninData = function()
-      {
-        var userSigninData = 
-          {
-            'email' : $scope.user.email,
-            'password' : $scope.user.password
-          };
-        return JSON.stringify(userSigninData); 
-      }
+    $scope.jsonUserSigninData = function() {
+      var userSigninData = 
+        {
+          'email' : $scope.user.email,
+          'password' : $scope.user.password
+        };
+      return JSON.stringify(userSigninData); 
+    }
 
     // function to handle server side responses
     $scope.handleSigninResponse = function(data){
@@ -68,7 +66,6 @@ angular.module('prodo.UserApp')
         } else if (data.error.code=='AS001') {   // user has not subscribed to any plan
             $log.debug(data.error.code + " " + data.error.message);
             UserSessionService.authSuccess(data.error.user);
-            $state.transitionTo('subscription.plans');
             $scope.showAlert('alert-danger', data.error.message);
         } else if (data.error.code=='AS002') { // user subscription expired
             $log.debug(data.error.code + " " + data.error.message);
@@ -78,7 +75,6 @@ angular.module('prodo.UserApp')
             $log.debug(data.error.code + " " + data.error.message);
             UserSessionService.authSuccess(data.error.user);
             $scope.showAlert('alert-danger', data.error.message);
-
         } else {
             $log.debug(data.error.message);
             $scope.showAlert('alert-danger', data.error.message);
@@ -87,25 +83,24 @@ angular.module('prodo.UserApp')
       }
     };  
 
-    $rootScope.$on("session", function(event, data){
+    var cleanupEventSessionDone = $scope.$on("session", function(event, data){
       $log.debug(data);
       if ($rootScope.usersession.isLoggedIn) {
-          if (!data.isOtpPassword && !data.isSubscribed) {
-            $state.transitionTo('subscription.plans');
-        } else if (data.isOtpPassword) {
+          if (data.isOtpPassword) {
             $state.transitionTo('messageContent.resetPassword');
-        } else if (data.isSubscribed && !data.subscriptionExpired) {
-            $state.transitionTo('subscription.payment');
-        } else if (data.isSubscribed && data.subscriptionExpired && data.hasDonePayment) {
-            $state.transitionTo('subscription.payment');
+        } else if (!data.isOtpPassword && !data.isSubscribed) {
+            UserSubscriptionService.getPlan();
+        } else if (data.isSubscribed && !data.subscriptionExpired && !data.hasDonePayment) {
+        $state.transitionTo('subscription.payment', {planid:  data.subscription.planid, plantype: data.usertype });
+        } else if (data.isSubscribed && data.subscriptionExpired) {
+        $state.transitionTo('subscription.payment', {planid:  data.subscription.planid, plantype: data.usertype });
         } else {
             $state.transitionTo('prodo.wall');
         }
       }
-      
+      cleanupEventSessionDone();
     })
-
-   
+    
     // function to signin to Prodonus App using REST APIs and performs form validation.
     $scope.signin = function() {
       $scope.showSpinner();

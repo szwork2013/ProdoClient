@@ -2,7 +2,7 @@
 *	Org Registration Controller
 **/
 angular.module('prodo.OrgApp')
-	.controller('OrgRegistrationController', ['$scope', 'OrgModel', '$state', '$log', 'OrgRegistrationService', function($scope, OrgModel, $state, $log, OrgRegistrationService) {
+	.controller('OrgRegistrationController', ['$scope', 'OrgModel', '$state', '$stateParams', '$log', 'OrgRegistrationService', function($scope, OrgModel, $state, $stateParams, $log, OrgRegistrationService) {
 		
     $scope.org = OrgModel;   // assining OrgModel service to org to update org model data
     
@@ -21,10 +21,10 @@ angular.module('prodo.OrgApp')
       $scope.org.city= '';
       $scope.org.state= '';
       $scope.org.zipcode= '';
-      $scope.org.contact_numbers.customerhelpline1= '';
-      $scope.org.contact_numbers.customerhelpline2= '';
-      $scope.org.contact_numbers.customerhelpline3= '';
-      $scope.org.contact_numbers.customerhelpline4= '';
+      $scope.org.contact.customerhelpline1= '';
+      $scope.org.contact.customerhelpline2= '';
+      $scope.org.contact.customerhelpline3= '';
+      $scope.org.contact.customerhelpline4= '';
       $scope.org.grpname= '';
       $scope.org.invites= '';  
     }
@@ -33,8 +33,8 @@ angular.module('prodo.OrgApp')
 		$scope.handleOrgResponse = function(data){
       if (data.success) {
         $log.debug(data.success);      
-        $state.transitionTo('prodo.wall');
-        $scope.showAlert('alert-success', data.success.message);
+        $state.transitionTo('subscription.payment', {planid:  $stateParams.planid, plantype: $stateParams.plantype });
+        $scope.showAlert('alert-success', data.success.message + "" + "Please make payment to continue with Prodonus");
       } 
       else {
         $log.debug(data.error);
@@ -47,7 +47,7 @@ angular.module('prodo.OrgApp')
       var orgData = 
         {
           organization:
-            {
+            { 
   	          'name':$scope.org.name,
   	          'description':$scope.org.description, 
   	          'orgtype':$scope.org.orgtype,
@@ -78,6 +78,11 @@ angular.module('prodo.OrgApp')
   	              'invites': $scope.org.invites
                 } ],
               'terms': $scope.org.terms
+            },
+          subscription:
+            {
+              'plantype': $stateParams.plantype,
+              'planid': $stateParams.planid
             }
         }
       return JSON.stringify(orgData); 

@@ -223,23 +223,30 @@ angular.module("prodo.CommonApp")
     return nav;
 })
 
-   .directive('ensureUnique', ['$http', function($http) {
-  return {
-    require: 'ngModel',
-    link: function(scope, ele, attrs, c) {
-      scope.$watch(attrs.ngModel, function() {
-        $http({
-          method: 'POST',
-          url: '/api/check/' + attrs.ensureUnique,
-          data: {'field': attrs.ensureUnique}
-        }).success(function(data, status, headers, cfg) {
-          c.$setValidity('unique', data.isUnique);
-        }).error(function(data, status, headers, cfg) {
-          c.$setValidity('unique', false);
-        });
-      });
-    }
-  }
+.directive ('prodoUnique',['$http', function($http){
+    var username = {
+        restrict: 'A',
+        link: function(scope, ele, attrs, ctrl) {
+          $('#prodo-form-input-username-signup').on('keyup', function(e) {
+              var value = $(this).val().trim();
+              var req = { "username": value }
+              if (value.length > 6 && value.length < 15) {
+                  $http({
+                    method: 'GET',
+                    url: '/api/userunique/' + value,
+                    data: req
+                  }).success(function(data, status, headers, cfg) {
+                    console.log(data)
+                    // ctrl.$setValidity('unique', data.isUnique);
+                  }).error(function(data, status, headers, cfg) {
+                    console.log(data)
+                    // ctrl.$setValidity('unique', false);
+                  });
+              }
+          })
+        }
+  };
+    return username;
 }])
 
   .directive('prodoBarchart',function() {

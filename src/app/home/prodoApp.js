@@ -14,23 +14,25 @@ angular.module('prodo.ContentApp', []);
 angular.module('prodo.BlogApp', []);
 angular.module('prodo.AdApp', []);
 angular.module('prodo.AdminApp', []);
+angular.module('prodo.SubscriptionApp', []);
  angular.module('upload', []);
 
-angular.module('prodo.ProdonusApp',['ui.router', 'ui.bootstrap', '$strap.directives', 'vcRecaptcha', 'ngResource', 'tags-input', 
+angular.module('prodo.ProdonusApp',['ui.router', 'ui.bootstrap', 'xeditable', '$strap.directives', 'vcRecaptcha', 'ngResource', 'tags-input',  'prodo.CommonApp',
 	'prodo.UserApp', 'prodo.ProdoWallApp', 'prodo.OrgApp','prodo.ProductApp', 'prodo.ProdoCommentApp',
-	'prodo.WarrantyApp', 'prodo.DashboardApp','prodo.ContentApp', 'prodo.CommonApp',
-  'prodo.BlogApp', 'prodo.AdApp', 'prodo.AdminApp' ,'ngAnimate','upload' 
+	'prodo.WarrantyApp', 'prodo.DashboardApp','prodo.ContentApp',
+  'prodo.BlogApp', 'prodo.AdApp', 'prodo.AdminApp' ,  'prodo.SubscriptionApp', 'ngAnimate','upload' 
   ])
 
-	.config(function($logProvider)	{
+	.config(function($logProvider)	{ 
   	$logProvider.debugEnabled(true);
 	})
-	
-	.run(['$rootScope', 'UserSessionService', 'OrgRegistrationService', '$log', function ($rootScope, UserSessionService, OrgRegistrationService, $log) {
+
+	.run(['$rootScope', 'UserSessionService', 'OrgRegistrationService', '$log', function ($rootScope, UserSessionService, OrgRegistrationService, $log, editableOptions) {
     UserSessionService.checkUser();
     $rootScope.usersession = UserSessionService;
     $rootScope.organizationData = OrgRegistrationService;
     $rootScope.$log = $log;
+    editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
 	 
 	}])
 
@@ -47,7 +49,7 @@ angular.module('prodo.ProdonusApp',['ui.router', 'ui.bootstrap', '$strap.directi
 				} 
 				else {
 				UserSessionService.authfailed();
-				$state.transitionTo('home.start');
+				// $state.transitionTo('home.start');
 				cleanupEventSession_Changed();
 				
 			};

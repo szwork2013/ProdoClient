@@ -9,7 +9,7 @@ angular.module('prodo.UserApp')
 
     $scope.user = 
       {
-        'fullname' : '',
+        'username' : '',
         'email' :  '',
         'password' :  '',
         'terms' : true,
@@ -17,7 +17,7 @@ angular.module('prodo.UserApp')
 
     // function to clear form data on submit
     $scope.clearformData = function() {
-      $scope.user.fullname = '';
+      $scope.user.username = '';
       $scope.user.email = '';
       $scope.user.password = '';
     }
@@ -26,13 +26,23 @@ angular.module('prodo.UserApp')
        $scope.hideAlert();
       }, 50000);
 
+    $('#recaptcha_reload_button').on('click', function() {
+      var placeholder = $(this).find(':selected').data('placeholder');
+      $('#recaptcha_response_field').attr('placeholder', "Enter what you see");
+    });
+    $('#recaptcha_audio_button').on('click', function() {
+      var placeholder = $(this).find(':selected').data('placeholder');
+      $('#recaptcha_response_field').attr('placeholder', "Enter what you hear");
+    });
+
+
      // function to send and stringify user registration data to Rest APIs
     $scope.jsonUserData = function(){
       var userData = 
       {
         user:
           {
-            'fullname' : $scope.user.fullname,
+            'username' : $scope.user.username,
             'email' : $scope.user.email,
             'password' : $scope.user.password,
             'terms' : $scope.user.terms 

@@ -26,7 +26,7 @@ angular.module('prodo.OrgApp')
       timezone : "",
       region: "",
       geo: {latitude: 2 , longitude: 1},
-      contact_numbers: {
+      contact: {
                        customerhelpline1 : "",
                        customerhelpline2 : "",
                        customerhelpline3 : ""},
@@ -72,7 +72,7 @@ angular.module('prodo.OrgApp')
       }
 
     organization.saveOrgSettings= function (orgData) {
-        OrgService.OrgRegistration.updateOrgSettings({orgid: $rootScope.usersession.currentUser.orgid}, orgData,     // calling function of UserSigninService to make POST method call to signin user.
+        OrgService.OrgRegistration.updateOrgSettings({orgid: $rootScope.usersession.currentUser.org.orgid}, orgData,     // calling function of UserSigninService to make POST method call to signin user.
         function(success){
           $log.debug(success);
           $rootScope.$broadcast("updateOrgDone", success);
@@ -84,7 +84,7 @@ angular.module('prodo.OrgApp')
       }
 
       organization.getAllOrgAddress= function () {
-        OrgService.ManageOrgLocation.getAllOrgAddress({orgid: $rootScope.usersession.currentUser.orgid},     // calling function of UserSigninService to make POST method call to signin user.
+        OrgService.ManageOrgLocation.getAllOrgAddress({orgid: $rootScope.usersession.currentUser.org.orgid},     // calling function of UserSigninService to make POST method call to signin user.
         function(success){
           $log.debug(success);
           $rootScope.$broadcast("getOrgAddressDone", success);
@@ -98,7 +98,7 @@ angular.module('prodo.OrgApp')
       organization.saveOrgAddress= function (orgAddData) {
         $log.debug($rootScope.organizationData.currentOrgAdd._id)
         if ($rootScope.organizationData.currentOrgAdd._id) {
-          OrgService.ManageOrgLocation.updateOrgAddress({orgid: $rootScope.usersession.currentUser.orgid, orgaddressid: $rootScope.organizationData.currentOrgAdd.location}, orgAddData,     // calling function of UserSigninService to make POST method call to signin user.
+          OrgService.ManageOrgLocation.updateOrgAddress({orgid: $rootScope.usersession.currentUser.org.orgid, orgaddressid: $rootScope.organizationData.currentOrgAdd.location}, orgAddData,     // calling function of UserSigninService to make POST method call to signin user.
             function(success){
               $log.debug(success);
               $rootScope.$broadcast("updateOrgAddressDone", success);
@@ -108,7 +108,7 @@ angular.module('prodo.OrgApp')
               $rootScope.$broadcast("updateOrgAddressNotDone", error.status);
             });
         } else {
-          OrgService.ManageOrgLocation.addOrgAddress({orgid: $rootScope.usersession.currentUser.orgid}, orgAddData,     // calling function of UserSigninService to make POST method call to signin user.
+          OrgService.ManageOrgLocation.addOrgAddress({orgid: $rootScope.usersession.currentUser.org.orgid}, orgAddData,     // calling function of UserSigninService to make POST method call to signin user.
             function(success){
               $log.debug(success);
               $rootScope.$broadcast("addOrgAddressDone", success);
@@ -121,8 +121,8 @@ angular.module('prodo.OrgApp')
         
       }
 
-      organization.removeOrgAddress= function () {
-        OrgService.ManageOrgLocation.deleteOrgAddressById({orgid: $rootScope.usersession.currentUser.orgid, orgaddressid: $rootScope.organizationData.currentOrgAdd.location},     // calling function of UserSigninService to make POST method call to signin user.
+      organization.removeOrgAddress= function (addId) {
+        OrgService.ManageOrgLocation.deleteOrgAddressById({orgid: $rootScope.usersession.currentUser.org.orgid, orgaddressid: addId},     // calling function of UserSigninService to make POST method call to signin user.
         function(success){
           $log.debug(success);
           $rootScope.$broadcast("deleteOrgAddressDone", success);
@@ -135,7 +135,7 @@ angular.module('prodo.OrgApp')
 
 
       organization.removeOrgSettings= function () {
-        OrgService.OrgRegistration.deleteOrgSettings({orgid: $rootScope.usersession.currentUser.orgid},     // calling function of UserSigninService to make POST method call to signin user.
+        OrgService.OrgRegistration.deleteOrgSettings({orgid: $rootScope.usersession.currentUser.org.orgid},     // calling function of UserSigninService to make POST method call to signin user.
         function(success){
           $log.debug(success);
           $rootScope.$broadcast("deleteOrgDone", success);
@@ -147,7 +147,7 @@ angular.module('prodo.OrgApp')
       }
 
       organization.getOrgDetailSettings= function () {
-        OrgService.OrgRegistration.getOrgSettings({orgid: $rootScope.usersession.currentUser.orgid},     // calling function of UserSigninService to make POST method call to signin user.
+        OrgService.OrgRegistration.getOrgSettings({orgid: $rootScope.usersession.currentUser.org.orgid},     // calling function of UserSigninService to make POST method call to signin user.
         function(success){
           $log.debug(success);
           $rootScope.$broadcast("getOrgDone", success);

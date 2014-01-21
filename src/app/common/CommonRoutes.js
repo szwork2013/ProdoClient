@@ -13,45 +13,40 @@ angular.module('prodo.CommonApp')
     .state('subscription.plans', {
       url: '/plans',
       templateUrl:  'common/subscription/views/subscription.plans.tpl.html',
-      // controller: 'SubscriptionController'
+      controller: 'SubscriptionController'
     }) 
     .state('subscription.plansexpired', {
       url: '/plans',
       templateUrl:  'common/subscription/views/subscription.plansexpired.tpl.html',
-      // controller: 'SubscriptionController'
+      controller: 'SubscriptionController'
     }) 
     .state('subscription.payment', {
-      url: '/userPayment',
+      url: '/userPayment/:planid/:plantype',
       templateUrl:  'common/subscription/views/subscription.payment.tpl.html',
-      // controller: 'PaymentController'
+      controller: 'PaymentController'
     })   
     .state('subscription.company', {
-      url: '/company',
+      url: '/company/:planid/:plantype',
       templateUrl: 'org/orgregistration/views/orgregistration.company.tpl.html',
       controller: 'OrgRegistrationController'
     }) 
-    .state('subscription.contact', {
-        url: '/contact',
-        templateUrl:  'org/orgregistration/views/orgregistration.contact.tpl.html',
-        controller: 'OrgRegistrationController'
-    })
     .state('subscription.address', {
-        url: '/address',
+        url: '/address/:planid/:plantype',
         templateUrl:  'org/orgregistration/views/orgregistration.address.tpl.html',
         controller: 'OrgRegistrationController'
     })
     .state('subscription.groupuser', {
-        url: '/groupuser',
+        url: '/groupuser/:planid/:plantype',
         templateUrl: 'org/orgregistration/views/orgregistration.groupusers.tpl.html',
         controller: 'OrgRegistrationController'
     })     
     .state('subscription.terms', {
-        url: '/terms',
+        url: '/terms/:planid/:plantype',
         templateUrl: 'org/orgregistration/views/orgregistration.terms.tpl.html',
         controller: 'OrgRegistrationController'
     })        
     .state('subscription.finish', {
-        url: '/finish',
+        url: '/finish/:planid/:plantype',
         templateUrl: 'org/orgregistration/views/orgregistration.finish.tpl.html',
         controller: 'OrgRegistrationController'
     }) 
@@ -160,15 +155,15 @@ angular.module('prodo.CommonApp')
       controller: 'ManageAccountController' 
     })                
   }]) 
-.run(['$rootScope', 'UserSessionService', '$state', '$log', function ($rootScope, UserSessionService, $state, $log) {
+// .run(['$rootScope', 'UserSessionService', '$state', '$log', function ($rootScope, UserSessionService, $state, $log) {
   
-    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState){
+//     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState){
    
-      if ((toState.name == 'prodo.wall' || toState.name == 'account.user') && $rootScope.usersession.isLoggedIn && !$rootScope.usersession.isSubscribed && !$rootScope.usersession.isPaymentDone ) {
-      // if ((toState.name == 'prodo.wall') && $rootScope.usersession.isLoggedIn && !$rootScope.usersession.isSubscribed && !$rootScope.usersession.isPaymentDone ) {
-        event.preventDefault();
-      } else if (toState.name == 'prodo.wall' && $rootScope.usersession.isOtpPassword ) {
-        event.preventDefault();
-      };      })
-  }]);
- 
+//       // if ((toState.name == 'prodo.wall' || toState.name == 'account.user') && $rootScope.usersession.isLoggedIn && !$rootScope.usersession.isSubscribed && !$rootScope.usersession.isPaymentDone ) {
+//       if ((toState.name == 'prodo.wall') && $rootScope.usersession.isLoggedIn && !$rootScope.usersession.isSubscribed && !$rootScope.usersession.isPaymentDone ) {
+//         event.preventDefault();
+//       } else if (toState.name == 'prodo.wall' && $rootScope.usersession.isOtpPassword ) {
+//         event.preventDefault();
+//       };      })
+//  }]);
+//  
