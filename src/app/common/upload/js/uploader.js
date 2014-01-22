@@ -28,6 +28,8 @@ angular.module('prodo.UploadApp')
                 var action = {org: {userid: $rootScope.usersession.currentUser.userid, orgid:  $rootScope.usersession.currentUser.org.orgid}};
               else if ($scope.uploadSrc == "product")
                 var action = {product: {userid: $rootScope.usersession.currentUser.userid, orgid:  $rootScope.usersession.currentUser.org.orgid, prodle: $scope.product_prodle}};
+               else if ($scope.uploadSrc == "productLogo")
+                var action = {productLogo: {userid: $rootScope.usersession.currentUser.userid, orgid:  $rootScope.usersession.currentUser.org.orgid, prodle: $scope.product_prodle}};
 
               $scope.socket.emit('uploadFiles', file_data, action);
               $log.debug("pic emitted");
@@ -56,8 +58,29 @@ angular.module('prodo.UploadApp')
         $scope.counter = 0;
     }
   });
+  
+  $scope.socket.removeAllListeners('productLogoUploadResponse');
+  $scope.socket.on('productLogoUploadResponse', function(error, imagelocation) {
+    if (error) {
+      $log.debug("Error " + error);
+    }
+    else {
+      $log.debug("getting response for user upload  " + imagelocation);
+      $scope.imageSrc = imagelocation;
+      $scope.counter++;
+      $log.debug($scope.counter);
+      if ($scope.counter < $scope.fileLength) {
+        $log.debug("emitting image " + $scope.counter);
+//    $scope.getFile($scope.counter);
+      }
+      else
+        $scope.counter = 0;
+    }
+  });
 
-  $scope.socket.removeAllListeners('orgUploadResponse');
+
+
+  $scope.socket.removeAllListeners('orgUploadsResponse');
   $scope.socket.on('orgUploadResponse', function(error, imagelocation) {
     if (error) {
       $log.debug("Error " + error);
