@@ -324,6 +324,19 @@ angular.module('prodo.ProductApp')
             }
             //delete product
 
+            $scope.ShowDiscontinuedSupport=function(product){
+               if (product.support_discontiuation_date) return{display: "inline" } 
+               else return{display: "none" } 
+            } 
+             $scope.ShowDiscontinuedSale=function(product){
+               if (product.sale_discontiuation_date) return{display: "inline" } 
+               else return{display: "none" }              
+            } 
+             $scope.ShowBannedDate=function(product){
+               if (product.banneddate) {
+                return{display: "inline" } 
+                            }
+            } 
 
             $scope.hideIfNotUser = function(fullname) {
               if (fullname) {
@@ -348,6 +361,7 @@ angular.module('prodo.ProductApp')
                 return{display: "none"}
               }
             } 
+
 
             //Product discontinued visibility testing
 //                if (($scope.product !== undefined) || ($scope.product !== ""))
