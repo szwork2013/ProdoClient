@@ -2,7 +2,7 @@ angular.module('prodo.UploadApp')
 
  .controller( 'UploadController',['$scope','$log','$rootScope','fileReader',  function($scope,$log,$rootScope, fileReader) {
 
-  $scope.socket = io.connect('http://ec2-54-254-210-45.ap-southeast-1.compute.amazonaws.com:8000/prodoupload', {
+  $scope.socket = io.connect('http://ec2-54-254-210-45.ap-southeast-1.compute.amazonaws.com:8000/api/prodoupload', {
     query: 'session_id=' + $rootScope.usersession.currentUser.sessionid
   });
   //socket connect 
@@ -28,8 +28,8 @@ angular.module('prodo.UploadApp')
                 var action = {org: {userid: $rootScope.usersession.currentUser.userid, orgid:  $rootScope.usersession.currentUser.org.orgid}};
               else if ($scope.uploadSrc == "product")
                 var action = {product: {userid: $rootScope.usersession.currentUser.userid, orgid:  $rootScope.usersession.currentUser.org.orgid, prodle: $scope.product_prodle}};
-               else if ($scope.uploadSrc == "productLogo")
-                var action = {productLogo: {userid: $rootScope.usersession.currentUser.userid, orgid:  $rootScope.usersession.currentUser.org.orgid, prodle: $scope.product_prodle}};
+               else if ($scope.uploadSrc == "productlogo")
+                var action = {productlogo: {userid: $rootScope.usersession.currentUser.userid, orgid:  $rootScope.usersession.currentUser.org.orgid, prodle: $scope.product_prodle}};
 
               $scope.socket.emit('uploadFiles', file_data, action);
               $log.debug("pic emitted");
@@ -77,8 +77,8 @@ angular.module('prodo.UploadApp')
     }
   });
   
-  $scope.socket.removeAllListeners('productLogoUploadResponse');
-  $scope.socket.on('productLogoUploadResponse', function(error, imagelocation) {
+  $scope.socket.removeAllListeners('productUploadLogoResponse');
+  $scope.socket.on('productUploadLogoResponse', function(error, imagelocation) {
     if (error) {
          if (error.error.code == 'AP003') {     // user already exist
                   $log.debug(error.error.code + " " + error.error.message);
