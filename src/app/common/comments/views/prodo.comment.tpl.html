@@ -27,9 +27,9 @@
         <div class="prodo-comment-tabs " id="tabs" style="align:left;"  >
               <ul id="commentNavTab" class="nav nav-pills" ng-init="tabCommentTags = false;
                         tabCommentRemove = false" >
-                <li><a     ng-click="tabCommentTags = tabCommentTags === false ? true : false;
+                <li><a    ng-click="tabCommentTags = tabCommentTags === false ? true : false;
                         tabCommentRemove = false;"><div id="fa-tagsComment" class="fa fa-tags"  ></div></a></li>
-                <li ng-style="hideIfNotUser(comment.user.fullname)" ><a     ng-click="tabCommentRemove = tabCommentRemove === false ? true : false;
+                <li ng-style="hideIfNotUser(comment.user.fullname)" ><a   data-toggle="modal" data-target="#myModal1"  ng-click="tabCommentRemove = tabCommentRemove === false ? true : false;
                         tabCommentTags = false;"><div  id="fa-removeComment" name="rm" class=" fa fa-trash-o  "  ></div></a></li>
                 <li><a   ng-style="hideIfNotImage(comment.comment_image[0].image)"  ng-click="tabCommentImg = tabCommentImg === false ? true : false;
                         tabCommentRemove = false;"><div id="fa-tagsComment" class="fa fa-picture-o"  ></div></a></li>        
@@ -44,11 +44,29 @@
                     </form>
                 </div>
 
-                <div id="Remove" ng-show="tabCommentRemove == 1"   > Are you sure to remove this comment?
-                    <a ng-click="deleteProductComment(comment)">&nbsp; Yes </a>
-                </div>  
+                <div id="Remove" ng-show="tabCommentRemove == 1"   >
+                </div>     
+                     <!-- Modal -->
+                    <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Confirm Delete</h4>
+                          </div>
+                          <div class="modal-body">
+                             Are you sure you want to delete this comment?
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="deleteProductComment(comment)">Delete Comment</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                          </div>
+                        </div><!-- /.modal-content -->
+                      </div><!-- /.modal-dialog -->
+                    </div><!-- /.modal -->
+                 
                  <div id="Remove" ng-show="tabCommentImg == 1"   >
-
+                    
                  <div id="img2">
                   <img style="width:50px; height:50px;"  id="img-user" ng-src="{{comment.comment_image[0].image}}"   /> 
                 
