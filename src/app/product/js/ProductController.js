@@ -87,7 +87,8 @@ angular.module('prodo.ProductApp')
 
             localStorage.sid = $rootScope.usersession.currentUser.sessionid;
             //socket connect
-            $scope.socket = io.connect('http://ec2-54-254-210-45.ap-southeast-1.compute.amazonaws.com:8000/prodoapp', {
+            $scope.socket = io.connect('http://ec2-54-254-210-45.ap-southeast-1.compute.amazonaws.com:8000/api/prodoapp', {
+               // $scope.socket = io.connect('http://localhost/api/prodoapp', {
               query: 'session_id=' + localStorage.sid
             });
             //socket connect
@@ -210,8 +211,11 @@ angular.module('prodo.ProductApp')
                 $scope.socket.emit('addComment', "xkW3VkEId", $scope.newProductComment.product_comment);
                 $scope.productComments.unshift($scope.newProductComment_image.product_comment);
                 $scope.commenttextField.userComment = "";
-                var element=document.getElementById('holder');
-                element.removeChild(element.childNodes[ element.childNodes.length - 1 ]);
+
+ 
+                 var element=document.getElementById('prodo-uploadedCommentImage');
+                 element.parentNode.removeChild(element);
+               
               }
 
             };

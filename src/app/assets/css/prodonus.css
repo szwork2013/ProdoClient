@@ -1591,5 +1591,8 @@ list-animate-item-warranty {
 }
 
 
-.control-group{font-family: Helvetica ;font-size:12px;}
+.control-group{ }
+
+#prodo-upload-SelectUploadBtn{font-family: Helvetica ;font-size:22px; text-align: left; }
+
 /*Uploads*/

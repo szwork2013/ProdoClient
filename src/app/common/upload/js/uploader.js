@@ -2,7 +2,7 @@ angular.module('prodo.UploadApp')
 
  .controller( 'UploadController',['$scope','$log','$rootScope','fileReader',  function($scope,$log,$rootScope, fileReader) {
 
-  $scope.socket = io.connect('http://ec2-54-254-210-45.ap-southeast-1.compute.amazonaws.com:8000/prodoupload', {
+  $scope.socket = io.connect('http://ec2-54-254-210-45.ap-southeast-1.compute.amazonaws.com:8000/api/prodoupload', {
     query: 'session_id=' + localStorage.sid
   });
   //socket connect 
