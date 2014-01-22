@@ -43,7 +43,7 @@ module.exports = function (grunt) {
    // 'src/app/common/comments/js/prodoCommentDirective.js'
     ],
      // uglify: { tests: { src: [ 'src/app/test.js' ],
-     dest: 'src/app/home/min/Prodo.min.js' } },
+     dest: 'src/app/home/min/prodo.min.js' } },
     watch: {
         js:  { files: 'js/*.js', tasks: [ 'uglify' ] },
     },

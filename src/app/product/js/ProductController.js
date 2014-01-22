@@ -87,8 +87,8 @@ angular.module('prodo.ProductApp')
 
             localStorage.sid = $rootScope.usersession.currentUser.sessionid;
             //socket connect
-            $scope.socket = io.connect('http://ec2-54-254-210-45.ap-southeast-1.compute.amazonaws.com:8000/api/prodoapp', {
-               // $scope.socket = io.connect('http://localhost/api/prodoapp', {
+            $scope.socket = io.connect('http://ec2-54-254-210-45.ap-southeast-1.compute.amazonaws.com:8000/prodoapp', {
+              // $scope.socket = io.connect('http://localhost/prodoapp', {
               query: 'session_id=' + localStorage.sid
             });
             //socket connect
@@ -214,7 +214,12 @@ angular.module('prodo.ProductApp')
 
  
                  var element=document.getElementById('prodo-uploadedCommentImage');
-                 element.parentNode.removeChild(element);
+                 if (typeof(element) != 'undefined' && element != null)
+                  {
+                    element.parentNode.removeChild(element);
+                    // exists.
+                  }
+                 
                
               }
 
