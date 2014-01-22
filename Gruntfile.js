@@ -28,6 +28,8 @@ module.exports = function (grunt) {
       'src/app/common/subscription/js/SubscriptionController.js',
       'src/app/common/accounts/js/ManageAccountController.js',
       'src/app/dashboard/js/ProdoDashboardController.js',
+      'src/app/common/subscription/js/PaymentController.js',
+      'src/app/common/subscription/js/SubscriptionService.js',
       'src/app/common/directives/prodoDirective.js',
      'src/app/product/js/DragImageController.js',
      'src/app/product/js/ProductController.js',
