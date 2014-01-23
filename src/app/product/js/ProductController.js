@@ -17,7 +17,7 @@ angular.module('prodo.ProductApp')
             //comments
             $scope.productComments = {comments: [{}]};
             $scope.newProductComment = [];
-            $scope.productCommentResponsearray = [];
+            $rootScope.productCommentResponsearray = [];
             $scope.mytags;
             $scope.count = 0;
             $scope.commenttextField = {userComment: ''};
@@ -26,7 +26,7 @@ angular.module('prodo.ProductApp')
               'set-back', 'sum', 'tab', 'tidy sum', 'whole', 'article', 'asset', 'belonging', 'chattel', 'goods', 'line',
               'material', 'object', 'produce', 'property', 'specialty', 'stock', 'thing', 'ware', 'good'];
             $scope.productcommentResponseListener;
-
+            var abc;
 
             //product
             $scope.product = {product: [{}]};
@@ -114,17 +114,41 @@ angular.module('prodo.ProductApp')
             //socket response when for add comment
 
             //on the fly comment listener creation
-             $scope.productcommentResponseListener="productcommentResponse"+$scope.product_prodle;
-             alert($scope.productcommentResponseListener);
+            
+             // alert($scope.productcommentResponseListener);
+            
             //productComment response
+            
+             $scope.productcommentResponseListener="productcommentResponse"+'xyY_OZ_dO';
+            
             $scope.socket.removeAllListeners($scope.productcommentResponseListener);
+            
+            alert($scope.productcommentResponseListener);
             $scope.socket.on($scope.productcommentResponseListener, function(error, result) {
               if (error) {
                 $log.debug(error.error.message);
               } else if (result) {
-                $log.debug("productcomment  Response success" + result.success.product_comment);
-                $scope.productCommentResponsearray.push(result.success.product_comment);
-                $scope.count = $scope.productCommentResponsearray.length;
+                $log.debug("productcomment  Response success" + JSON.stringify(result.success.product_comment));
+              //  $scope.productCommentResponsearray.push( JSON.stringify(result.success.product_comment));
+                
+                  $scope.newProductComment = {
+                product_comment: {
+                  user: {userid: result.success.product_comment.user.userid,
+                    fullname: result.success.product_comment.user.fullname,
+                    orgname: result.success.product_comment.user.orgname,
+                    grpname: result.success.product_comment.user.grpname
+                  },
+                  commentid: result.success.product_comment.commentid,
+                  type: result.success.product_comment.type,
+                  datecreated: result.success.product_comment.datecreated,
+                  commenttext: result.success.product_comment.commenttext
+                   
+                }};
+
+                 // $scope.productCommentResponsearray.push($scope.newProductComment.product_comment);
+                  $rootScope.productCommentResponsearray.push($scope.newProductComment.product_comment);
+                $log.debug($rootScope.productCommentResponsearray);
+                $scope.count = $rootScope.productCommentResponsearray.length;
                 $log.debug($scope.count);
                 var a = document.getElementById("responseComment");
                 a.style.display = 'inline';
@@ -137,10 +161,12 @@ angular.module('prodo.ProductApp')
 
             //Add comment function
             $scope.addProductComment = function() {
+              var abc="productcommentResponseListener"+$scope.product_prodle;
+              alert(abc);
               $log.debug($rootScope.file_data);
                $log.debug($rootScope.comment_image_l);
-              if($rootScope.file_data==undefined){
-
+              // if($rootScope.file_data==undefined){
+              if (($rootScope.file_data == "") || ($rootScope.file_data == " ") || ($rootScope.file_data == undefined) || ($rootScope.file_data == null)) {
                $scope.newProductComment = {
                 product_comment: {
                   user: {userid: $scope.userIDFromSession,
@@ -203,6 +229,7 @@ angular.module('prodo.ProductApp')
                   commenttext: $scope.commenttextField.userComment,
                   comment_image:$rootScope.comment_image_l
                 }};
+                $rootScope.file_data="";
               
               }
                 $log.debug($scope.newProductComment);
@@ -249,6 +276,7 @@ angular.module('prodo.ProductApp')
                   $scope.productComments = successData.success.product.product_comments;
                   $scope.pImages_l = successData.success.product.product_images;
                 }
+
               },
                       function(error) {
                         $log.debug(error);
@@ -264,8 +292,11 @@ angular.module('prodo.ProductApp')
 
             //get latest comments posted by others
             $scope.getLatestComments = function() {
+              $log.debug($rootScope.productCommentResponsearray);
               $scope.reversecomments_l = $scope.productCommentResponsearray.reverse();
+              $log.debug($scope.reversecomments_l);
               $scope.productComments = $scope.reversecomments_l.concat($scope.productComments);
+              $log.debug($scope.productComments);
               var a = document.getElementById("responseComment");
               a.style.display = 'none';
               a.innerHTML = "";
@@ -330,11 +361,11 @@ angular.module('prodo.ProductApp')
             //delete product
 
             $scope.ShowDiscontinuedSupport=function(product){
-               if (product.support_discontiuation_date) return{display: "inline" } 
+               if (product.support_discontinuation_date) return{display: "inline" } 
                else return{display: "none" } 
             } 
              $scope.ShowDiscontinuedSale=function(product){
-               if (product.sale_discontiuation_date) return{display: "inline" } 
+               if (product.sale_discontinuation_date) return{display: "inline" } 
                else return{display: "none" }              
             } 
              $scope.ShowBannedDate=function(product){
