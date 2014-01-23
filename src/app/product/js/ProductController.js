@@ -25,6 +25,8 @@ angular.module('prodo.ProductApp')
               'expense', 'extent', 'list', 'lot', 'net', 'outlay', 'output', 'price tag', 'product', 'quantum', 'score',
               'set-back', 'sum', 'tab', 'tidy sum', 'whole', 'article', 'asset', 'belonging', 'chattel', 'goods', 'line',
               'material', 'object', 'produce', 'property', 'specialty', 'stock', 'thing', 'ware', 'good'];
+            $scope.productcommentResponseListener;
+
 
             //product
             $scope.product = {product: [{}]};
@@ -41,7 +43,7 @@ angular.module('prodo.ProductApp')
             $scope.orgnameFromSession;
             $scope.orgidFromSession;
             $scope.socket;
-
+            
 
             //Generate GUID
             function S4() {
@@ -94,8 +96,9 @@ angular.module('prodo.ProductApp')
             //socket connect
 
             //socket response when for add comment
+               
             $scope.socket.removeAllListeners('addcommentResponse');
-            $scope.socket.on("addcommentResponse", function(error, result) {
+            $scope.socket.on('addcommentResponse', function(error, result) {
               if (error) {
                 $log.debug(error.error.message);
                 $scope.showErrorIfCommentNotAdded();
@@ -110,10 +113,12 @@ angular.module('prodo.ProductApp')
             })
             //socket response when for add comment
 
-
+            //on the fly comment listener creation
+             $scope.productcommentResponseListener="productcommentResponse"+$scope.product_prodle;
+             alert($scope.productcommentResponseListener);
             //productComment response
-            $scope.socket.removeAllListeners('productcommentResponse');
-            $scope.socket.on("productcommentResponse", function(error, result) {
+            $scope.socket.removeAllListeners($scope.productcommentResponseListener);
+            $scope.socket.on($scope.productcommentResponseListener, function(error, result) {
               if (error) {
                 $log.debug(error.error.message);
               } else if (result) {
@@ -208,7 +213,7 @@ angular.module('prodo.ProductApp')
 
               {
                 //  $scope.getTagsFromCommentText($scope);
-                $scope.socket.emit('addComment', "xkW3VkEId", $scope.newProductComment.product_comment);
+                $scope.socket.emit('addComment', $scope.product_prodle, $scope.newProductComment.product_comment);
                 $scope.productComments.unshift($scope.newProductComment_image.product_comment);
                 $scope.commenttextField.userComment = "";
 
@@ -230,7 +235,7 @@ angular.module('prodo.ProductApp')
             $scope.getProduct = function()
             {
 
-              ProductService.getProduct({orgid: $scope.orgidFromSession, prodle: 'xkW3VkEId'},
+              ProductService.getProduct({orgid: 'orglyPGwzpfO', prodle: 'xyY_OZ_dO'},
               function(successData) {
                 if (successData.success == undefined)
                 {
@@ -361,23 +366,6 @@ angular.module('prodo.ProductApp')
                 return{display: "none"}
               }
             } 
-
-
-            //Product discontinued visibility testing
-//                if (($scope.product !== undefined) || ($scope.product !== ""))
-//                {
-//                    $scope.status = "deactive";
-//                    if ($scope.status == "deactive")
-//                    {
-//
-//                        document.getElementById("prodo-productDiscontinued").style.display = "block";
-//                    }
-//                    else
-//                    {
-//                        document.getElementById("prodo-productDiscontinued").style.display = "none";
-//                    }
-//                }
-            //Product discontinued visibility testing
 
 
             $scope.masterChange = function() { //toggle to select all product iamges
