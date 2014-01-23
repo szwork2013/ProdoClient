@@ -123,7 +123,7 @@ angular.module('prodo.ProductApp')
             
             $scope.socket.removeAllListeners($scope.productcommentResponseListener);
             
-            alert($scope.productcommentResponseListener);
+           // alert($scope.productcommentResponseListener);
             $scope.socket.on($scope.productcommentResponseListener, function(error, result) {
               if (error) {
                 $log.debug(error.error.message);
@@ -472,6 +472,11 @@ angular.module('prodo.ProductApp')
                 adminPanel.style.display = 'inline';
               }
             }
+            $scope.formatDate=function(time)
+            {
+              return(moment(time).format('DD MMM YYYY'));
+            }
+
 
           }])
 
