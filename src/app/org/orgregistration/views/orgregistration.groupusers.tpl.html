@@ -5,7 +5,9 @@
 
     <div class="control-group">
 
-      <label id="prodo-groupuser-label-control" class="label-control">Group Users</label><br>
+      <h4 id="prodo-groupuser-heading">Group User</h4>
+
+      <hr size=3 width="90%" style="height:1px; margin-top: 0;" noshade>
 
       <input id="prodo-form-input-groupuser" type="text" name="groupname" class="form-control" placeholder="Group Name" ng-model="org.grpname"  autofocus required/>
         
@@ -17,7 +19,7 @@
      
     <button id="prodo-form-groupuser-btn" class="btn btn-md btn-primary" type="submit" ui-sref="subscription.address">Previous</button>
 
-    <button id="prodo-form-groupuser-btn" class="btn btn-md btn-primary" type="submit" ui-sref="subscription.terms">Next</button>
+    <button id="prodo-form-groupuser-btn" class="btn btn-md btn-primary" type="submit" ng-click="goToState()">Next</button>
   
   </form>   <!-- prodo-groupusers-form -->
 

@@ -8,7 +8,6 @@ angular.module('prodo.OrgApp')
     return {
       name:"",
       description:"", 
-      orgtype:"",
       contractid:"",
       orginvites: [],
       subscription: [],

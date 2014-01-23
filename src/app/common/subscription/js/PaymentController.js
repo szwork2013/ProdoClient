@@ -39,7 +39,7 @@ angular.module('prodo.SubscriptionApp')
         	payment:
             {
 		          'usertype' : $stateParams.plantype,
-		          'discountcode' : $scope.subscriptionpayment.discountcode,
+		          'discountcode' : '',
 		          'planid': $stateParams.planid
 		        }
         };
@@ -74,18 +74,19 @@ angular.module('prodo.SubscriptionApp')
 
 
 		$scope.makePayment = function() {
-			UserSubscriptionService.makeSubscriptionPayment($scope.jsonSubscriptionPaymentData());
-			var cleanupEventgetSubscriptionPaymentDone = $scope.$on("getSubscriptionPaymentDone", function(event, message){
-        $scope.handleSubscriptionPaymentResponse(message);
-        cleanupEventgetSubscriptionPaymentDone(); 
-      });
+      $state.transitionTo('prodo.wall');
+			// UserSubscriptionService.makeSubscriptionPayment($scope.jsonSubscriptionPaymentData());
+			// var cleanupEventgetSubscriptionPaymentDone = $scope.$on("getSubscriptionPaymentDone", function(event, message){
+   //      $scope.handleSubscriptionPaymentResponse(message);
+   //      cleanupEventgetSubscriptionPaymentDone(); 
+   //    });
 
-      var cleanupEventgetSubscriptionPaymentNotDone = $scope.$on("getSubscriptionPaymentNotDone", function(event, message){
-        $scope.showAlert('alert-danger', "Server Error:" + message);
-        cleanupEventgetSubscriptionPaymentNotDone();
-      });
+   //    var cleanupEventgetSubscriptionPaymentNotDone = $scope.$on("getSubscriptionPaymentNotDone", function(event, message){
+   //      $scope.showAlert('alert-danger', "Server Error:" + message);
+   //      cleanupEventgetSubscriptionPaymentNotDone();
+   //    });
 		}
 
-		$scope.getdiscount();
+		// $scope.getdiscount(); // needs to be addresses later
 
 	}]);

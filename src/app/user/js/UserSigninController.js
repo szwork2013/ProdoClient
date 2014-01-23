@@ -83,24 +83,6 @@ angular.module('prodo.UserApp')
       }
     };  
 
-    var cleanupEventSessionDone = $scope.$on("session", function(event, data){
-      $log.debug(data);
-      if ($rootScope.usersession.isLoggedIn) {
-          if (data.isOtpPassword) {
-            $state.transitionTo('messageContent.resetPassword');
-        } else if (!data.isOtpPassword && !data.isSubscribed) {
-            UserSubscriptionService.getPlan();
-        } else if (data.isSubscribed && !data.subscriptionExpired && !data.hasDonePayment) {
-        $state.transitionTo('subscription.payment', {planid:  data.subscription.planid, plantype: data.usertype });
-        } else if (data.isSubscribed && data.subscriptionExpired) {
-        $state.transitionTo('subscription.payment', {planid:  data.subscription.planid, plantype: data.usertype });
-        } else {
-            $state.transitionTo('prodo.wall');
-        }
-      }
-      cleanupEventSessionDone();
-    })
-    
     // function to signin to Prodonus App using REST APIs and performs form validation.
     $scope.signin = function() {
       $scope.showSpinner();

@@ -311,8 +311,9 @@ angular.module('prodo.CommonApp')
     };  
 
 
-    $scope.updateAddress = function(addressId) {
-      OrgRegistrationService.updateOrgAddress($scope.jsonOrgAddressData(), addressId);
+    $scope.updateAddress = function(data, addressId) {
+      console.log($scope.jsonOrgAddressData())
+      OrgRegistrationService.updateOrgAddress(data, addressId);
       var cleanupEventUpdateOrgAddressDone = $scope.$on("updateOrgAddressDone", function(event, message){
         $scope.handleUpdateOrgAddressResponse(message); 
         cleanupEventUpdateOrgAddressDone();  

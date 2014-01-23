@@ -161,6 +161,7 @@ angular.module('prodo.UserApp')
       session.authSuccess = function(userData, $scope){
         session.currentUser = userData;
         session.isLoggedIn = true;
+        console.log(userData);
         $rootScope.$broadcast("session", userData);
       }
 
@@ -172,7 +173,8 @@ angular.module('prodo.UserApp')
       UserService.IsUserLoggedin.checkUserSession(     // calling function of UserSigninService to make POST method call to signin user.
       function(success){
         $log.debug(success);
-        $rootScope.$broadcast("session-changed", success);        },
+        $rootScope.$broadcast("session-changed", success);    
+      },
       function(error){
         $log.debug(error);
         $rootScope.$broadcast("session-changed-failure", error.status);
