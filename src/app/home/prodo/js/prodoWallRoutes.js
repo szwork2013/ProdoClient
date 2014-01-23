@@ -16,7 +16,8 @@ angular.module('prodo.ProdoWallApp')
       url: '',
       views: {
         'sidebar' : {
-          templateUrl:  'home/prodo/views/prodo.wall.sidebar.tpl.html'
+          templateUrl:  'common/search/views/prodo.wall.sidebar.tpl.html',
+          controller: 'prodoSearchController'
         },
         'productwall' : {
           templateUrl:  'common/slider/views/prodo.wall.slider.tpl.html'
@@ -51,18 +52,18 @@ angular.module('prodo.ProdoWallApp')
        templateUrl:  'dashboard/views/prodo.wall.dashboard.tpl.html',
        controller: 'ProdoDashboardController'
       }) 
-  }])
-
- .run(['$rootScope', 'UserSessionService', '$state', '$log', function ($rootScope, UserSessionService, $state, $log) {
-  
-    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState){
-      // $log.debug($state.current.url);
-
-      if (toState.name == 'prodo.wall' && !$rootScope.usersession.isLoggedIn) {
-        event.preventDefault();
-
-      } else if (toState.name=='home.start' && $rootScope.usersession.isLoggedIn) {
-        event.preventDefault();
-      }  
-    })
   }]);
+
+ // .run(['$rootScope', 'UserSessionService', '$state', '$log', function ($rootScope, UserSessionService, $state, $log) {
+  
+ //    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState){
+ //      // $log.debug($state.current.url);
+
+ //      if (toState.name == 'prodo.wall' && !$rootScope.usersession.isLoggedIn) {
+ //        event.preventDefault();
+
+ //      } else if (toState.name=='home.start' && $rootScope.usersession.isLoggedIn) {
+ //        event.preventDefault();
+ //      }  
+ //    })
+ //  }]);

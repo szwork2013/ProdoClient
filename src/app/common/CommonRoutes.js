@@ -1,4 +1,4 @@
-/**
+ /**
 * Main routing configuration
 **/
 angular.module('prodo.CommonApp')
@@ -154,17 +154,17 @@ angular.module('prodo.CommonApp')
       templateUrl: 'org/manageorg/views/org.account.paymenthistory.settings.tpl.html',
       controller: 'ManageAccountController' 
     })                
-  }]) 
+  }]);
  
-.run(['$rootScope', 'UserSessionService', '$state', '$log', function ($rootScope, UserSessionService, $state, $log) {
+// .run(['$rootScope', 'UserSessionService', '$state', '$log', function ($rootScope, UserSessionService, $state, $log) {
  
-    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState){
+//     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState){
    
-      // if ((toState.name == 'prodo.wall' || toState.name == 'account.user') && $rootScope.usersession.isLoggedIn && !$rootScope.usersession.isSubscribed && !$rootScope.usersession.isPaymentDone ) {
-      if ((toState.name == 'prodo.wall') && $rootScope.usersession.isLoggedIn && !$rootScope.usersession.isSubscribed && !$rootScope.usersession.isPaymentDone ) {
-        event.preventDefault();
-      } else if (toState.name == 'prodo.wall' && $rootScope.usersession.isOtpPassword ) {
-        event.preventDefault();
-      };      })
- }]);
+//       // if ((toState.name == 'prodo.wall' || toState.name == 'account.user') && $rootScope.usersession.isLoggedIn && !$rootScope.usersession.isSubscribed && !$rootScope.usersession.isPaymentDone ) {
+//       if ((toState.name == 'prodo.wall') && $rootScope.usersession.isLoggedIn && !$rootScope.usersession.isSubscribed && !$rootScope.usersession.isPaymentDone ) {
+//         event.preventDefault();
+//       } else if (toState.name == 'prodo.wall' && $rootScope.usersession.isOtpPassword ) {
+//         event.preventDefault();
+//       };      })
+//  }]);
  
