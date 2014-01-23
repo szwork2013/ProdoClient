@@ -13,26 +13,24 @@
  * 27-3/2013 | xyx | Add a new property
  * 
  */
-angular.module('prodo.ProdoCommentApp')
-        .directive('commentLimit', function() {
-          return {
-            require: 'ngModel',
-            link: function(scope, element, attrs, CommentController) {
-              var maxlength = Number(attrs.commentLimit);
-              function fromUser(text) {
-                
-                if(text){
-                  if (text.length > maxlength) {
-                    var transformedInput = text.substring(0, maxlength);
-                    CommentController.$setViewValue(transformedInput);
-                    CommentController.$render();
-                    return transformedInput;
-                  }
-                  return text;
-                }
-              }
-              CommentController.$parsers.push(fromUser);
-            }
-          };
-        })
 
+angular.module('prodo.ProdoCommentApp').directive('commentLimit', function () {
+  return {
+    require: 'ngModel',
+    link: function (scope, element, attrs, CommentController) {
+      var maxlength = Number(attrs.commentLimit);
+      function fromUser(text) {
+        if (text) {
+          if (text.length > maxlength) {
+            var transformedInput = text.substring(0, maxlength);
+            CommentController.$setViewValue(transformedInput);
+            CommentController.$render();
+            return transformedInput;
+          }
+          return text;
+        }
+      }
+      CommentController.$parsers.push(fromUser);
+    }
+  };
+});

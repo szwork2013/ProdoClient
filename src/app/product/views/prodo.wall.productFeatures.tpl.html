@@ -132,17 +132,21 @@
 
       <div ng-switch-default>
       <!-- Switch to edit      -->
+       <!-- Product Logo here -->
+        <img class="img" style=" height: 100px; padding:10px;max-width:500px;"   ng-src="{{product.product_logo}}" />
         <div class="prodo-product-general " ng-class="closedPG"  >
           <button id="prodo-product-productgeneralbtn" ng-click="isClosedPG = !isClosedPG" onclick=" $('#toggleIconPG').toggleClass('fa-minus-square');" >
             <i id="toggleIconPG" class="fa fa-plus-square "></i> &nbsp;&nbsp; Product General
           </button><br><br>
           <table class="table child closedPG" id="prodo-ProductFeatureTable" ng-if="isClosedPG">
-            <tr id="prodo-productbnd" style="background-color: white" >
-              <td  colspan="2">Product Banned on : <span>&nbsp; </span></td>
+            <tr id="prodo-productbnd" style="background-color: white; display:none;" ng-style="ShowBannedDate(product)">
+              <td>Product Banned on : <span>&nbsp;{{product.banneddate }}</span></td>
             </tr>
-            <tr style=" background-color: #FFBABA; display: none" id="prodo-productDiscontinued"  >
-              <td  >Product Discontinued : <span >&nbsp;  </span></td>
-              <td  >Support Discontinued : <span  >&nbsp; </span></td>
+            <tr   id="prodo-productDiscontinued"  >
+              <td style=" background-color: #FFBABA;font-size: 16px;  border-top: 0px solid #ddd; padding:8px; padding-bottom:12px;" ng-style="ShowDiscontinuedSale(product)" >Product Discontinued On  <span >&nbsp;{{formatDate(product.sale_discontinuation_date)}}
+               </span></td></tr>
+               <tr   id="prodo-productDiscontinued"  >
+              <td style=" background-color: #FFBABA;font-size: 16px;  border-top: 0px solid #ddd; padding:8px; " ng-style="ShowDiscontinuedSupport(product)">Support Discontinued On  <span  >&nbsp;{{formatDate(product.support_discontinuation_date)}} </span></td>
             </tr>
             <tr>
               <td  colspan="2">Product Name :
