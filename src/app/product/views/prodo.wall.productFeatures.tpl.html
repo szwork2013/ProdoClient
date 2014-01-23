@@ -133,7 +133,7 @@
       <div ng-switch-default>
       <!-- Switch to edit      -->
        <!-- Product Logo here -->
-        <img class="img" style=" height: 100px; padding:10px;max-width:500px;"   ng-src="../assets/images/logo.jpg" />
+        <img class="img" style=" height: 100px; padding:10px;max-width:500px;"   ng-src="{{product.product_logo}}" />
         <div class="prodo-product-general " ng-class="closedPG"  >
           <button id="prodo-product-productgeneralbtn" ng-click="isClosedPG = !isClosedPG" onclick=" $('#toggleIconPG').toggleClass('fa-minus-square');" >
             <i id="toggleIconPG" class="fa fa-plus-square "></i> &nbsp;&nbsp; Product General

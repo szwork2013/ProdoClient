@@ -93,7 +93,8 @@ angular.module('prodo.UploadApp')
       $log.debug("Error " + error);
     }
     else {
-      $log.debug("getting response for user upload  " + imagelocation);
+      $scope.imageSrc = JSON.stringify(imagelocation);
+      $log.debug("getting response for logo upload  " +  $scope.imageSrc);
       $scope.imageSrc = imagelocation;
       $scope.counter++;
       $log.debug($scope.counter);
