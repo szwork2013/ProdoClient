@@ -1,4 +1,4 @@
-/**
+ /**
 * Main routing configuration
 **/
 angular.module('prodo.CommonApp')
@@ -154,7 +154,7 @@ angular.module('prodo.CommonApp')
       templateUrl: 'org/manageorg/views/org.account.paymenthistory.settings.tpl.html',
       controller: 'ManageAccountController' 
     })                
-  }]) 
+  }]);
  
 // .run(['$rootScope', 'UserSessionService', '$state', '$log', function ($rootScope, UserSessionService, $state, $log) {
  

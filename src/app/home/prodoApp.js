@@ -22,7 +22,8 @@ angular.module('prodo.ProdonusApp',['ui.router', 'ui.bootstrap', 'xeditable', 'n
     $logProvider.debugEnabled(true);
   })
 
-.run(['$rootScope', 'UserSessionService', 'OrgRegistrationService', '$log', 'editableOptions', function ($rootScope, UserSessionService, OrgRegistrationService, $log, editableOptions) {
+	.run(['$rootScope', 'UserSessionService', 'OrgRegistrationService', '$log', 'editableOptions', function ($rootScope, UserSessionService, OrgRegistrationService, $log, editableOptions) {
+
     UserSessionService.checkUser();
     $rootScope.usersession = UserSessionService;
     $rootScope.organizationData = OrgRegistrationService;
