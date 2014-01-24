@@ -19,8 +19,10 @@
       <a  href=""  ><i class="fa fa-shopping-cart fa-2x"></i></a>
       <a  href=""  >  <i class="fa fa-upload fa-2x" ></i></a>
       <a href=""  ng-click="$parent.isEditing = $parent.isEditing === true ? false : true;
-          product = ''"  >  <i class="fa fa-plus-circle fa-2x"></i></a>
-      <a href="" data-toggle="modal" data-target="#myModal">   <i class="fa fa-minus-circle fa-2x"></i> </a>
+          product = '' ; editStatus='add'"  >  <i class="fa fa-plus-circle fa-2x"></i></a>
+       <a href="" data-toggle="modal" data-target="#myModal">   <i class="fa fa-minus-circle fa-2x"></i> </a>    
+       <a href=""  ng-click="$parent.isEditing = $parent.isEditing === true ? false : true; editStatus='update' "  >  <i class="fa fa-pencil-square-o fa-2x"></i></a>    
+     
     </div><br>
 
 
@@ -43,7 +45,7 @@
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
     <div ng-switch="isEditing"  >
-      <form ng-switch-when="true" name="productForm" ng-submit="addProduct();">
+      <form ng-switch-when="true" name="productForm" ng-submit="addProduct(editStatus);">
         <div class="prodo-product-general " ng-class="closedPG"  >
           <button id="prodo-product-productgeneralbtn" ng-click="isClosedPG = !isClosedPG;" onclick=" $('#toggleIconPGE').toggleClass('fa-minus-square');" >
             <i id="toggleIconPGE" class="fa fa-plus-square "></i> &nbsp;&nbsp; Product General
@@ -64,7 +66,7 @@
             </tr>
             <tr>
               <td  colspan="2">Description   <textarea  type="text" id="prodo-product-featuresDescription_textfield" class="form-control"  ng-model="$parent.$parent.product.description" required name="description" col="40"  ></textarea>
-             
+
 
               </td>
             </tr>

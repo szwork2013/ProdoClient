@@ -29,6 +29,7 @@ angular.module('prodo.ProductApp')
             var abc;
 
             //product
+            $scope.editStatus;
             $scope.product = {product: [{}]};
             $scope.newProduct = {product: [{}]};
             $scope.type = "product";
@@ -327,9 +328,10 @@ angular.module('prodo.ProductApp')
             //error handling for add product
 
             //add product
-            $scope.addProduct = function()
+            $scope.addProduct = function(editStatus)
             {
-
+              
+              
               $scope.newProduct = {product: {
                   display_name: $scope.display_name,
                   serial_no: $scope.product.serial_no,
@@ -338,14 +340,29 @@ angular.module('prodo.ProductApp')
                   description: $scope.product.description
                 }};
 
-              ProductService.saveProduct({orgid: $scope.orgidFromSession}, $scope.newProduct,
-                      function(success) {
-                        $log.debug(success);
-                        $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
-                      },
-                      function(error) {
-                        $log.debug(error);
-                      });
+              if(editStatus=='add'){
+                ProductService.saveProduct({orgid: $scope.orgidFromSession}, $scope.newProduct,
+                        function(success) {
+                          $log.debug(success);
+                          $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
+                        },
+                        function(error) {
+                          $log.debug(error);
+                        });
+              }
+              else if(editStatus=='update'){
+               
+               ProductService.updateProduct({orgid: $scope.orgidFromSession,prodle:$scope.product_prodle}, $scope.newProduct,
+                        function(success) {
+                          $log.debug(success);
+                          $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
+                        },
+                        function(error) {
+                          $log.debug(error);
+                        });
+
+
+              }
 
             };
             //delete product
