@@ -161,7 +161,6 @@ angular.module('prodo.UserApp')
       session.authSuccess = function(userData, $scope){
         session.currentUser = userData;
         session.isLoggedIn = true;
-        console.log(userData);
         $rootScope.$broadcast("session", userData);
       }
 
