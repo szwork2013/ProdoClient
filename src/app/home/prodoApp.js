@@ -45,21 +45,19 @@ angular.module('prodo.ProdonusApp',['ui.router', 'ui.bootstrap', 'xeditable', 'n
       $state.transitionTo('home.start');
     }
 
-    var cleanupEventSession_Changed = $scope.$on("session-changed", function(event, message){
-      $log.debug(message);
-      console.log(message);   
-        if (message.success) {
-          console.log(message.success);
-          UserSessionService.authSuccess(message.success.user);
-          cleanupEventSession_Changed();
-          // $state.transitionTo($state.current.url);
-        } 
-        else {
-        UserSessionService.authfailed();
-        // $state.transitionTo('home.start');
-        cleanupEventSession_Changed();
-        
-      };
+		var cleanupEventSession_Changed = $scope.$on("session-changed", function(event, message){
+			$log.debug(message);  
+				if (message.success) {
+					UserSessionService.authSuccess(message.success.user);
+					cleanupEventSession_Changed();
+					// $state.transitionTo($state.current.url);
+				} 
+				else {
+				UserSessionService.authfailed();
+				// $state.transitionTo('home.start');
+				cleanupEventSession_Changed();
+				
+			};
     });
 
     var cleanupEventSession_Changed_Failure = $scope.$on("session-changed-failure", function(event, message){
@@ -71,7 +69,6 @@ angular.module('prodo.ProdonusApp',['ui.router', 'ui.bootstrap', 'xeditable', 'n
 
     var cleanupEventSessionDone = $rootScope.$on("session", function(event, data){
       $log.debug(data);
-      console.log(data);
       if ($rootScope.usersession.isLoggedIn) {
           if (data.isOtpPassword) {
             $state.transitionTo('messageContent.resetPassword');

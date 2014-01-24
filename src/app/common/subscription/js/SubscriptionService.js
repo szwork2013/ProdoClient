@@ -80,7 +80,6 @@ angular.module('prodo.CommonApp')
       SubscriptionService.MakePayment.getSubscriptionPayment( subscriptionData,    // calling function of UserSigninService to make POST method call to signin user.
       function(success){
         $log.debug(success);
-        console.log(success);
         $rootScope.$broadcast("getSubscriptionPaymentDone", success);
         
       },

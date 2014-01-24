@@ -74,17 +74,16 @@ angular.module('prodo.SubscriptionApp')
 
 
 		$scope.makePayment = function() {
-      $state.transitionTo('prodo.wall');
-			// UserSubscriptionService.makeSubscriptionPayment($scope.jsonSubscriptionPaymentData());
-			// var cleanupEventgetSubscriptionPaymentDone = $scope.$on("getSubscriptionPaymentDone", function(event, message){
-   //      $scope.handleSubscriptionPaymentResponse(message);
-   //      cleanupEventgetSubscriptionPaymentDone(); 
-   //    });
+			UserSubscriptionService.makeSubscriptionPayment($scope.jsonSubscriptionPaymentData());
+			var cleanupEventgetSubscriptionPaymentDone = $scope.$on("getSubscriptionPaymentDone", function(event, message){
+        $scope.handleSubscriptionPaymentResponse(message);
+        cleanupEventgetSubscriptionPaymentDone(); 
+      });
 
-   //    var cleanupEventgetSubscriptionPaymentNotDone = $scope.$on("getSubscriptionPaymentNotDone", function(event, message){
-   //      $scope.showAlert('alert-danger', "Server Error:" + message);
-   //      cleanupEventgetSubscriptionPaymentNotDone();
-   //    });
+      var cleanupEventgetSubscriptionPaymentNotDone = $scope.$on("getSubscriptionPaymentNotDone", function(event, message){
+        $scope.showAlert('alert-danger', "Server Error:" + message);
+        cleanupEventgetSubscriptionPaymentNotDone();
+      });
 		}
 
 		// $scope.getdiscount(); // needs to be addresses later
