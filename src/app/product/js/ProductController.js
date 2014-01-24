@@ -33,7 +33,8 @@ angular.module('prodo.ProductApp')
             $scope.product = {product: [{}]};
             $scope.newProduct = {product: [{}]};
             $scope.type = "product";
-            $scope.product_prodle;
+            $rootScope.product_prodle;
+            $rootScope.orgid;
             $scope.pImages_l = {product_images: [{}]};
             // $scope.uploadSrc="product";
 
@@ -44,7 +45,53 @@ angular.module('prodo.ProductApp')
             $scope.orgnameFromSession;
             $scope.orgidFromSession;
             $scope.socket;
-            
+             
+             //socket listener here
+
+
+
+            $rootScope.product_prodle='xyY_OZ_dO';
+            $rootScope.orgid='orglyPGwzpfO'; 
+
+              //get product function declaration
+            $scope.getProduct = function()
+            {
+
+              ProductService.getProduct({orgid: $rootScope.orgid, prodle: $rootScope.product_prodle},
+              function(successData) {
+                if (successData.success == undefined)
+                {
+                   var temp=document.getElementById('prodo-comment-container');
+                   $log.debug(temp);
+                   temp.innerHTML="<br>Please start following a product using search...<br><br>";
+                   $scope.showAlert('alert-danger', " Product not available ...");
+                }
+                else {
+                  $log.debug(successData.success.product);
+//                $log.debug("success    "+successData);
+                  $scope.product = successData.success.product;
+                   $rootScope.product_prodle = successData.success.product.prodle;
+                  $scope.productComments = successData.success.product.product_comments;
+                  $scope.pImages_l = successData.success.product.product_images;
+                }
+
+              },
+                      function(error) {
+                        $log.debug(error);
+                        var temp=document.getElementById('prodo-comment-container');
+                        $log.debug(temp);
+                        temp.innerHTML="<br> Server error please try after some time<br><br>";
+                        $scope.showAlert('alert-danger', "Server Error:" + error.status);
+                                      
+                      });
+
+            }
+            //get product function declaration  
+
+            $scope.getProduct();    
+
+
+
 
             //Generate GUID
             function S4() {
@@ -55,16 +102,7 @@ angular.module('prodo.ProductApp')
             }
             //Generate GUID
             
-            $scope.showErrorIfCommentNotAdded = function( ) {
-              var retry = document.getElementById("responseComment");
-              retry.style.display = 'inline';
-              retry.innerHTML = 'Error adding comment please try again..';
-            }
-
-            $scope.showRetryIconIfCommentNotAdded = function( ) {
-              var retryIcon = document.getElementById("retryIcon");
-              retryIcon.style.display = 'inline';
-            }
+           
 
 
 
@@ -118,7 +156,7 @@ angular.module('prodo.ProductApp')
                 
             //productComment response
             
-             $scope.productcommentResponseListener="productcommentResponse"+'xyY_OZ_dO';
+             $scope.productcommentResponseListener="productcommentResponse"+$rootScope.product_prodle;
             
             $scope.socket.removeAllListeners($scope.productcommentResponseListener);
             
@@ -237,7 +275,7 @@ angular.module('prodo.ProductApp')
 
               {
                 //  $scope.getTagsFromCommentText($scope);
-                $scope.socket.emit('addComment', $scope.product_prodle, $scope.newProductComment.product_comment);
+                $scope.socket.emit('addComment', $rootScope.product_prodle, $scope.newProductComment.product_comment);
                 $scope.productComments.unshift($scope.newProductComment_image.product_comment);
                 $scope.commenttextField.userComment = "";
 
@@ -255,42 +293,7 @@ angular.module('prodo.ProductApp')
             };
             //Add comment function
 
-            //get product function declaration
-            $scope.getProduct = function()
-            {
-
-              ProductService.getProduct({orgid: 'orglyPGwzpfO', prodle: 'xyY_OZ_dO'},
-              function(successData) {
-                if (successData.success == undefined)
-                {
-                   var temp=document.getElementById('prodo-comment-container');
-                   $log.debug(temp);
-                   temp.innerHTML="<br>Please start following a product using search...<br><br>";
-                   $scope.showAlert('alert-danger', " Product not available ...");
-                }
-                else {
-                  $log.debug(successData.success.product);
-//                $log.debug("success    "+successData);
-                  $scope.product = successData.success.product;
-                  $scope.product_prodle = successData.success.product.prodle;
-                  $scope.productComments = successData.success.product.product_comments;
-                  $scope.pImages_l = successData.success.product.product_images;
-                }
-
-              },
-                      function(error) {
-                        $log.debug(error);
-                        var temp=document.getElementById('prodo-comment-container');
-                        $log.debug(temp);
-                        temp.innerHTML="<br> Server error please try after some time<br><br>";
-                        $scope.showAlert('alert-danger', "Server Error:" + error.status);
-                                      
-                      });
-
-            }
-            //get product function declaration  
-
-            $scope.getProduct();
+          
             //   $log.debug(ProductService.getProduct({prodle: 'eyYHSKVtL'}));
 
             //get latest comments posted by others
@@ -342,7 +345,9 @@ angular.module('prodo.ProductApp')
                   description: $scope.product.description
                 }};
 
+                
               if(editStatus=='add'){
+                 if ($rootScope.usersession.currentUser.isAdmin ) {
                 ProductService.saveProduct({orgid: $scope.orgidFromSession}, $scope.newProduct,
                         function(success) {
                           $log.debug(success);
@@ -351,10 +356,13 @@ angular.module('prodo.ProductApp')
                         function(error) {
                           $log.debug(error);
                         });
+                }
+                 else $scope.showAlert('alert-danger', "You dont have rights  product..."); 
               }
               else if(editStatus=='update'){
-               
-               ProductService.updateProduct({orgid: 'orglyPGwzpfO',prodle:$scope.product_prodle}, $scope.newProduct,
+                if ($rootScope.usersession.currentUser.isAdmin ) {
+                if ($scope.orgidFromSession === $rootScope.orgid ) {
+               ProductService.updateProduct({orgid:$scope.orgidFromSession,prodle:$rootScope.product_prodle}, $scope.newProduct,
                         function(success) {
                           $log.debug(success);
                           $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
@@ -362,18 +370,20 @@ angular.module('prodo.ProductApp')
                         function(error) {
                           $log.debug(error);
                         });
-
-
+                }
+               }
+               else $scope.showAlert('alert-danger', "You dont have rights to update this product..."); 
               }
 
             };
             //delete product
             $scope.deleteProduct = function()
             {
-              if ($rootScope.usersession.currentUser.isAdmin) {
-
-                ProductService.deleteProduct({orgid: $scope.orgidFromSession, prodle: $scope.product_prodle});
+              if ($rootScope.usersession.currentUser.isAdmin ) {
+                if ($scope.orgidFromSession === $rootScope.orgid ) {
+                ProductService.deleteProduct({orgid: $scope.orgidFromSession, prodle: $rootScope.product_prodle});
               }
+            }
               else
                $scope.showAlert('alert-danger', "You dont have rights to delete this product...");
             }
@@ -417,7 +427,16 @@ angular.module('prodo.ProductApp')
               }
             } 
 
+             $scope.showErrorIfCommentNotAdded = function( ) {
+              var retry = document.getElementById("responseComment");
+              retry.style.display = 'inline';
+              retry.innerHTML = 'Error adding comment please try again..';
+            }
 
+            $scope.showRetryIconIfCommentNotAdded = function( ) {
+              var retryIcon = document.getElementById("retryIcon");
+              retryIcon.style.display = 'inline';
+            }
             $scope.masterChange = function() { //toggle to select all product iamges
 //                $(this).closest('div').find('.thumb :checkbox').prop("checked", this.checked);
               if ($('.imgToggles').is(':checked')) {
@@ -474,7 +493,7 @@ angular.module('prodo.ProductApp')
 
                  $http({
                     method: 'DELETE',
-                    url: 'http://localhost/api/image/product/' + $scope.orgidFromSession + '/' + $scope.product_prodle +'?prodleimageids='+$scope.imgIds ,
+                    url: 'http://localhost/api/image/product/' + $scope.orgidFromSession + '/' + $rootScope.product_prodle +'?prodleimageids='+$scope.imgIds ,
                     // data: {'prodleimageids':[ $scope.imgIdsJson]}
                   }).success(function(data, status, headers, cfg) {
                       $log.debug(data);
@@ -484,13 +503,54 @@ angular.module('prodo.ProductApp')
              
            };
 
-
-            $scope.checkAdmin = function() {
               if ($rootScope.usersession.currentUser.org.isAdmin) {
-                var adminPanel = document.getElementById("prodo.productAdmin");
-                adminPanel.style.display = 'inline';
+                if ($scope.orgidFromSession === $rootScope.orgid ) {
+                  $rootScope.isAdminCheck=true;
+                }
+              }
+            $scope.checkAdmin = function() {
+              if ($rootScope.isAdminCheck==true){
+                 var adminPanel = document.getElementById("prodo.productAdmin");
+                 adminPanel.style.display = 'inline';
+                 
+                
               }
             }
+
+            $scope.checkAdminProductUpload=function() {
+              // alert( $rootScope.isAdminCheck);
+              if ($rootScope.isAdminCheck==true)  document.getElementById("Upload-clck").style.display = 'block';
+            }
+             $scope.checkAdminProductUpload();
+
+             
+              // $scope.checkAdminProductImagesDelete=function() { 
+              //   if ($rootScope.isAdminCheck==true) {
+              //     alert( $rootScope.isAdminCheck);  
+                  $( document ).ready(function() { 
+                    if ($rootScope.isAdminCheck==true) {
+                       $('#prodo-deleteProductImage').load(function () {
+                          document.getElementById("prodo-deleteProductImage").style.display = 'inline';
+                       });
+                       $('#showHideAllchk').load(function () {
+                          document.getElementById("showHideAllchk").style.display = 'inline';
+                       });
+                       $('#imgchk').load(function () {
+                          document.getElementById("imgchk").style.display = 'inline';
+                       });
+                       $('#showHideAllchkLabel').load(function () {
+                          document.getElementById("showHideAllchkLabel").style.display = 'inline';
+                       });
+         
+                 // document.getElementById("prodo-deleteProductImage").style.display = 'inline';
+                 // document.getElementById("showHideAllchk").style.display = 'inline';
+                 // document.getElementById("imgchk").style.display = 'inline';
+                 // document.getElementById("showHideAllchkLabel").style.display = 'inline';
+                  }
+                  });
+               //   }
+               // }
+
             $scope.formatDate=function(time)
             {
               return(moment(time).format('DD MMM YYYY'));

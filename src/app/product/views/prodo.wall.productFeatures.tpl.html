@@ -228,23 +228,23 @@
         <!--  Pricing-->
         <!--  Product Images-->
         <div class="prodo-product-Pr" ng-class="closedPimgs">
-          <button id="prodo-product-productgeneralbtn" ng-click="isClosedPimgs = !isClosedPimgs" onclick=" $('#toggleIconPimgs').toggleClass('fa-minus-square');" >
+          <button id="prodo-product-productgeneralbtn" ng-click="isClosedPimgs = !isClosedPimgs ; checkAdminProductImagesDelete();  " onclick=" $('#toggleIconPimgs').toggleClass('fa-minus-square'); " >
             <i id="toggleIconPimgs" class="fa fa-plus-square "></i> &nbsp;&nbsp;Product images
           </button><br><br>
           <div class="table child closedPr" id="prodo-ProductFeatureTable" ng-if="isClosedPimgs">
-            <form   name="ProductImg">
-              <div class="checkboxFilter" style="padding: 10px;">
-                Show/Hide All
-                <input id="showHideAllchk"  type="checkbox" ng-click="masterChange();"  name="pinSet ">
+            <form   name="ProductImg" >
+              <div class="checkboxFilter"  style="padding: 10px;">
+                <span style="display:none" id="showHideAllchkLabel" >Show/Hide All</span>  
+                <input id="showHideAllchk" style="display:none" type="checkbox" ng-click="masterChange();"  name="pinSet ">
                 &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;            
-                <button type="button" class="btn btn-success  "  ng-click="deleteProductImages($index);"  >
+                <button type="button" class="btn btn-success  " id="prodo-deleteProductImage" style="display:none;" ng-click="deleteProductImages($index);"  >
                   <span class="glyphicon glyphicon-trash"></span> Delete images
                 </button> 
                 <br>
                 <br />
                 <div class="thumb" ng-repeat="img in pImages_l"  >
                   <img class="img" style="width: 150px; height: 150px;"  ng-src="{{img.image}}" />
-                  <input type="checkbox" value="{{img.imageid}}" name="imgSet" class="imgToggles"  ng-click="checkedIndex(img)">
+                  <input type="checkbox" value="{{img.imageid}}" name="imgSet" class="imgToggles" id="imgchk" style="display:none" ng-click="checkedIndex(img)">
                 </div>
               </div>
             </form>
