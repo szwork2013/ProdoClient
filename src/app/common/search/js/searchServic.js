@@ -1,5 +1,5 @@
 angular.module("prodo.ProdoWallApp")
-.factory("prodoSearchService",['$rootScope', '$resource', '$http', '$state', '$log', function($rootScope, $resource, $http, $state, $log) {
+.factory("prodoSearchService",['$rootScope', '$resource', '$http', '$state', '$log','prodoSearchService', function($rootScope, $resource, $http, $state, $log,prodoSearchService) {
 
 	var searchService=
 						{

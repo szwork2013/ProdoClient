@@ -14,49 +14,57 @@
 		<div id="prodo-sidebar-list" class="list" >
       <a ng-class="{'active':isCurrentListIndex(0)}" href="#" id="prodo-sidebar-list-group-item" class="list-group-item">Search</a>
       <div  id="prodo-sidebar-list-group-main" class="list-group-item">
-         <input type="text" name="product" typeahead="product.value for product in products_id| filter:$viewValue | limitTo:8" id="searchText" ng-model="product"></input>
+         <input type="text" class="btn btn-default"  name="product" typeahead="product.value for product in products_id| filter:$viewValue | limitTo:8" id="searchText" ng-model="product" style="width:150px;" placeholder="Search..."></input>
           </br></br>
-         <button id="searchButton" style="position:relative;left:90px;">Search</button></br>
-
-         <a data-toggle="modal" data-target="#testmodal" id="advancedSearch" style="position:relative;left:40px;"           ng-click="refresh()">Advanced Search
-         </a>
-
-<!-- Writing code for a modal -->
-
- <div id = "testmodal" class="modal fade" >
+         <button id="searchButton" class="btn btn-default btn-lg" style="position:relative;left:99px;top:-10px;" > <span class="glyphicon glyphicon-search"></span></button></br>
+<!-- start of advanced search -->
+<a data-toggle="modal"  data-target="#testmodal" ng-click="temp()">Advanced Search</a>
+   <div id = "testmodal" class="modal fade" >
      <div class="modal-dialog">
         <div class="modal-content">
-				                 <div class="modal-header" style="height:70px;">
-				                         <h3 align="center">Advanced Search </h3>
-				                 </div>
-				        
-				                 <div class="modal-body">
-				                 
-				                 
-				                    <label >Select Criteria:</label> </br>
-				                      
-				                        <select  id="111"  ng-model="s1">
-				                                <option  id="1" >{{p}}</option>
-				                                <option  id="2">{{m}}</option>
-				                                <option  id="3">{{ff}}</option>
-				                                <option  id="4">{{c}}</option> 
-				                        </select>
-				             
-				                      &nbsp;&nbsp;&nbsp;&nbsp;
-				                       <input type="text" id="t1" ng-model="val" ng-click="toggles1()" /> 
-				                      &nbsp;&nbsp;&nbsp;&nbsp; 
-				                      <input type="button" class="btn primary-btn"  value="Add More" id="add" ng-click="addMore();toggles()"/>&nbsp;&nbsp; <input type="button" class="btn primary-btn"  ng-click="refresh()" value="Clear" id="add" />
-				                      <p style="color:red;visibility:hidden;" id="warningB">Please enter values before clicking Advanced Search </p>
-				                      </br></br>
-				                      <p>{{query}}</p>
-				                 </div>  
-				                    
-	                             <div class="modal-footer">
-	                                    <button class="btn btn-warning" data-dismiss="modal">Cancel</button>
-	                                    
-	                                    <input type="button" id="submitB" class="btn primary-btn" value="Advanced Search" ng-click="f()" data-dismiss="modal "/>
-	                             </div>        
-	                
+                  <div > 
+                         <h3 align="center">Advanced Search </h3>
+                         
+                  </div>  
+                <hr>
+        
+                 <div class="modal-body">
+                    <label >Select Criteria:</label> </br>
+   <!--  -->
+   
+   <select  id="111" ng-model="s1" class="btn btn-default dropdown-toggle" ng-change="z()" style="height:33px">
+                                <option  id="1" >{{p}}</option>
+                                <option  id="2" >{{m}}</option>
+                                <option  id="3" >{{ff}}</option> 
+                                <option  id="4" >{{c}}</option>  
+                                <option id="5"></option>
+                     </select>
+  
+   
+   
+   <!--  -->
+                     
+              
+                    
+                    
+                       <input type="text" id="t1" ng-model="val" ng-click="refr()" class="btn btn-default dropdown-toggle" placeholder="Search"/>  
+                     <!--  <input type="button" class="btn btn-default"  value="Add More" id="add" ng-click="addM()"/> -->
+                     <button ng-click="addM()" id="add" class="btn btn-default"><span class="glyphicon glyphicon-plus-sign" ></span></button>
+                      <input type="button" class="btn btn-default"  value="AND" id="and" ng-click="and()" disabled=true/>
+                       <input type="button"  class="btn btn-default"   value="OR" id="orr" ng-click="or()" disabled=true/>
+                        <button  class="btn btn-default"><span class="glyphicon glyphicon-refresh" ></span></button>
+                      </br>
+                       <p id="1"><h4>Selected Criterion:</h4>{{search}}</p>
+               
+             
+                </div>  
+                    
+                            <div class="modal-footer">
+                                    <button class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove" </span></button>
+                                    
+                                    <button class="btn btn-success"  ng-click="searchProductData()" id="final" data-dismiss="modal "><span class="glyphicon glyphicon-search"></span></button>
+                            </div>        
+                
                   
                   
                   
@@ -66,9 +74,7 @@
       </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
   
-<!-- End of modal code -->
-
-
+    <!--End of advanced search  -->
 
 
       </div>
