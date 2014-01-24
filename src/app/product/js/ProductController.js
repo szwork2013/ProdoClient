@@ -162,9 +162,7 @@ angular.module('prodo.ProductApp')
 
             //Add comment function
             $scope.addProductComment = function() {
-              var abc="productcommentResponseListener"+$scope.product_prodle;
-              alert(abc);
-              $log.debug($rootScope.file_data);
+               $log.debug($rootScope.file_data);
                $log.debug($rootScope.comment_image_l);
               // if($rootScope.file_data==undefined){
               if (($rootScope.file_data == "") || ($rootScope.file_data == " ") || ($rootScope.file_data == undefined) || ($rootScope.file_data == null)) {
@@ -263,11 +261,14 @@ angular.module('prodo.ProductApp')
             $scope.getProduct = function()
             {
 
-              ProductService.getProduct({orgid: 'orglyPGwzpfO', prodle: 'xyY_OZ_dO'},
+              ProductService.getProduct({orgid: 'orglyPGwzpfO', prodle: 'xyY_OZ_dOp'},
               function(successData) {
                 if (successData.success == undefined)
                 {
-                  $scope.showAlert('alert-danger', " Product not available ...");
+                   var temp=document.getElementById('prodo-comment-container');
+                   $log.debug(temp);
+                   temp.innerHTML="<br>Please start following a product using search...<br><br>";
+                   $scope.showAlert('alert-danger', " Product not available ...");
                 }
                 else {
                   $log.debug(successData.success.product);
@@ -281,8 +282,11 @@ angular.module('prodo.ProductApp')
               },
                       function(error) {
                         $log.debug(error);
+                        var temp=document.getElementById('prodo-comment-container');
+                        $log.debug(temp);
+                        temp.innerHTML="<br> Server error please try after some time<br><br>";
                         $scope.showAlert('alert-danger', "Server Error:" + error.status);
-
+                                      
                       });
 
             }
@@ -352,7 +356,7 @@ angular.module('prodo.ProductApp')
               }
               else if(editStatus=='update'){
                
-               ProductService.updateProduct({orgid: $scope.orgidFromSession,prodle:$scope.product_prodle}, $scope.newProduct,
+               ProductService.updateProduct({orgid: 'orglyPGwzpfO',prodle:$scope.product_prodle}, $scope.newProduct,
                         function(success) {
                           $log.debug(success);
                           $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
