@@ -39,7 +39,7 @@ angular.module('prodo.SubscriptionApp')
         	payment:
             {
 		          'usertype' : $stateParams.plantype,
-		          'discountcode' : $scope.subscriptionpayment.discountcode,
+		          'discountcode' : '',
 		          'planid': $stateParams.planid
 		        }
         };
@@ -86,6 +86,6 @@ angular.module('prodo.SubscriptionApp')
       });
 		}
 
-		$scope.getdiscount();
+		// $scope.getdiscount(); // needs to be addresses later
 
 	}]);

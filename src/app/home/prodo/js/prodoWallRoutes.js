@@ -16,7 +16,8 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
       url: '',
       views: {
         'sidebar' : {
-          templateUrl:  'home/prodo/views/prodo.wall.sidebar.tpl.html'
+          templateUrl:  'common/search/views/prodo.wall.sidebar.tpl.html',
+          controller: 'prodoSearchController'
         },
         'productwall' : {
           templateUrl:  'common/slider/views/prodo.wall.slider.tpl.html'
@@ -51,7 +52,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
        templateUrl:  'dashboard/views/prodo.wall.dashboard.tpl.html',
        controller: 'ProdoDashboardController'
       }) 
-  }])
+  }]);
 
  // .run(['$rootScope', 'UserSessionService', '$state', '$log', function ($rootScope, UserSessionService, $state, $log) {
   

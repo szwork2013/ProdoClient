@@ -13,77 +13,80 @@ angular.module('prodo.AdminApp', []);
 angular.module('prodo.SubscriptionApp', []);
 angular.module('prodo.UploadApp', []);
 
+angular.module('prodo.ProdonusApp',['ui.router', 'ui.bootstrap', 'xeditable', 'ngAnimate', '$strap.directives', 'vcRecaptcha', 'ngResource', 'tags-input',  'prodo.CommonApp',
+  'prodo.UserApp', 'prodo.ProdoWallApp', 'prodo.OrgApp','prodo.ProductApp', 'prodo.ProdoCommentApp','prodo.WarrantyApp', 'prodo.DashboardApp','prodo.ContentApp',
+  'prodo.BlogApp', 'prodo.AdApp', 'prodo.AdminApp' , 'prodo.SubscriptionApp', 'prodo.UploadApp' 
+  ])
 
-angular.module('prodo.UploadApp', []);
-var app = angular.module('prodo.ProdonusApp', [
-    'ui.router',
-    'ui.bootstrap',
-    '$strap.directives',
-    'vcRecaptcha',
-    'ngResource',
-    'ngAnimate',
-    'xeditable',
-    'tags-input',
-    'prodo.UserApp',
-    'prodo.ProdoWallApp',
-    'prodo.OrgApp',
-    'prodo.ProductApp',
-    'prodo.ProdoCommentApp',
-    'prodo.WarrantyApp',
-    'prodo.DashboardApp',
-    'prodo.ContentApp',
-    'prodo.CommonApp',
-    'prodo.BlogApp',
-    'prodo.AdApp',
-    'prodo.AdminApp',
-    'prodo.UploadApp',
-    'prodo.SubscriptionApp'
-  ]);
-app.config([
-  '$logProvider',
-  function ($logProvider) {
+.config(function($logProvider)  { 
     $logProvider.debugEnabled(true);
-  }
-]);
-app.run([
-  '$rootScope',
-  'UserSessionService',
-  'OrgRegistrationService',
-  '$log',
-  'editableOptions',
-  function ($rootScope, UserSessionService, OrgRegistrationService, $log, editableOptions) {
+  })
+
+	.run(['$rootScope', 'UserSessionService', 'OrgRegistrationService', '$log', 'editableOptions', function ($rootScope, UserSessionService, OrgRegistrationService, $log, editableOptions) {
+
     UserSessionService.checkUser();
-    editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
     $rootScope.usersession = UserSessionService;
     $rootScope.organizationData = OrgRegistrationService;
-    $rootScope.$log = $log;
-  }
-]);
-app.controller('ProdoMainController', [
-  '$scope',
-  '$rootScope',
-  '$state',
-  '$log',
-  'UserSessionService',
-  function ($scope, $rootScope, $state, $log, UserSessionService) {
+    $rootScope.$log = $log; 
+    editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
+ 
+  }])
+.controller('ProdoMainController', ['$scope', '$rootScope', '$state', '$log', 'UserSessionService', 'UserSubscriptionService', function($scope, $rootScope, $state, $log, UserSessionService, UserSubscriptionService) {
+
     $state.transitionTo('home.start');
-    var cleanupEventSession_Changed = $scope.$on('session-changed', function (event, message) {
-        $log.debug(message);
-        if (message.success) {
-          UserSessionService.authSuccess(message.success.user);
-          cleanupEventSession_Changed();
+    $scope.isShown = false;
+
+    $scope.showSignin = function(){
+      $scope.isShown = true;
+      $state.transitionTo('home.signin');
+    }
+
+    $scope.showSignup = function(){
+      $scope.isShown = false;
+      $state.transitionTo('home.start');
+    }
+
+		var cleanupEventSession_Changed = $scope.$on("session-changed", function(event, message){
+			$log.debug(message);  
+				if (message.success) {
+					UserSessionService.authSuccess(message.success.user);
+					cleanupEventSession_Changed();
+					// $state.transitionTo($state.current.url);
+				} 
+				else {
+				UserSessionService.authfailed();
+				// $state.transitionTo('home.start');
+				cleanupEventSession_Changed();
+				
+			};
+    });
+
+    var cleanupEventSession_Changed_Failure = $scope.$on("session-changed-failure", function(event, message){
+       UserSessionService.authfailed();
+       $state.transitionTo('home.start');
+       $scope.showAlert('alert-danger', "Server Error: " + message);
+       cleanupEventSession_Changed_Failure();
+    });
+
+    var cleanupEventSessionDone = $rootScope.$on("session", function(event, data){
+      $log.debug(data);
+      if ($rootScope.usersession.isLoggedIn) {
+          if (data.isOtpPassword) {
+            $state.transitionTo('messageContent.resetPassword');
+        } else if (!data.isOtpPassword && !data.isSubscribed) {
+            UserSubscriptionService.getPlan();
+        } else if (data.isSubscribed && !data.subscriptionExpired && !data.hasDonePayment) {
+        $state.transitionTo('subscription.payment', {planid:  data.subscription.planid, plantype: data.usertype });
+        } else if (data.isSubscribed && data.subscriptionExpired) {
+        $state.transitionTo('subscription.payment', {planid:  data.subscription.planid, plantype: data.usertype });
         } else {
-          UserSessionService.authfailed();
-          // $state.transitionTo('home.start');
-          cleanupEventSession_Changed();
-        };
-      });
-    var cleanupEventSession_Changed_Failure = $scope.$on('session-changed-failure', function (event, message) {
-        UserSessionService.authfailed();
-        $state.transitionTo('home.start');
-        $scope.showAlert('alert-danger', 'Server Error: ' + message);
-        cleanupEventSession_Changed_Failure();
-      });
+            $state.transitionTo('prodo.wall');
+        }
+      }
+      cleanupEventSessionDone();
+    })
+    
+
     $scope.logout = function () {
       UserSessionService.logoutUser();
       var cleanupEventLogoutDone = $scope.$on('logoutDone', function (event, message) {
@@ -96,5 +99,5 @@ app.controller('ProdoMainController', [
           cleanupEventLogoutNotDone();
         });
     };
-  }
-]);
+  
+  }]);

@@ -1,4 +1,4 @@
-/**
+ /**
 * Main routing configuration
 **/
 angular.module('prodo.CommonApp')
@@ -6,7 +6,7 @@ angular.module('prodo.CommonApp')
   
   $stateProvider
     .state('subscription', {
-      url: '',
+      url: '/subscription',
       templateUrl: 'common/subscription/views/subscription.tpl.html',
       abstract: true
     })
@@ -16,7 +16,7 @@ angular.module('prodo.CommonApp')
       controller: 'SubscriptionController'
     }) 
     .state('subscription.plansexpired', {
-      url: '/plans',
+      url: '/plansexpired',
       templateUrl:  'common/subscription/views/subscription.plansexpired.tpl.html',
       controller: 'SubscriptionController'
     }) 
@@ -154,7 +154,7 @@ angular.module('prodo.CommonApp')
       templateUrl: 'org/manageorg/views/org.account.paymenthistory.settings.tpl.html',
       controller: 'ManageAccountController' 
     })                
-  }]) 
+  }]);
  
 // .run(['$rootScope', 'UserSessionService', '$state', '$log', function ($rootScope, UserSessionService, $state, $log) {
  

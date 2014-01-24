@@ -37,8 +37,8 @@ angular.module('prodo.CommonApp')
     }
 
     var cleanupEventGetSubscriptionDone = $rootScope.$on("getSubscriptionDone", function(event, data){
-      $state.transitionTo('subscription.plans');
       subscription.updateSubscriptionData(data);
+      $state.transitionTo('subscription.plans');
       cleanupEventGetSubscriptionDone();
     })
 
@@ -80,7 +80,6 @@ angular.module('prodo.CommonApp')
       SubscriptionService.MakePayment.getSubscriptionPayment( subscriptionData,    // calling function of UserSigninService to make POST method call to signin user.
       function(success){
         $log.debug(success);
-        console.log(success);
         $rootScope.$broadcast("getSubscriptionPaymentDone", success);
         
       },

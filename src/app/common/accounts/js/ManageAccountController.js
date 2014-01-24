@@ -1,5 +1,5 @@
 angular.module('prodo.CommonApp')
- .controller('ManageAccountController', ['$scope', '$rootScope', '$state', '$http', '$timeout', 'UserSessionService', 'OrgRegistrationService', function($scope, $rootScope, $state, $http, $timeout, UserSessionService, OrgRegistrationService) {
+ .controller('ManageAccountController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$log', 'UserSessionService', 'OrgRegistrationService', function($scope, $rootScope, $state, $http, $timeout, $log, UserSessionService, OrgRegistrationService) {
 
     
 		// function to send and stringify user email to Rest APIs for user account update
@@ -227,23 +227,6 @@ angular.module('prodo.CommonApp')
   
     }
 
-    // function to handle server side responses
-    $scope.handleUpdateOrgAddressResponse = function(data){
-      if (data.success) {
-
-        $scope.showAlert('alert-success', data.success.message);   
-      } else {
-        if (data.error.code== 'AU004') {     // enter valid data
-            $log.debug(data.error.code + " " + data.error.message);
-            $scope.showAlert('alert-danger', data.error.message);
-        } else {
-            $log.debug(data.error.message);
-            $scope.showAlert('alert-danger', data.error.message);
-        }
-      }
-    };  
-
-
     $scope.jsonOrgAddressData = function()
       {
         var orgAddData = 
@@ -309,6 +292,36 @@ angular.module('prodo.CommonApp')
         cleanupEventAddOrgAddressNotDone();      
       });
   
+    }
+
+    // function to handle server side responses
+    $scope.handleUpdateOrgAddressResponse = function(data){
+      if (data.success) {
+
+        $scope.showAlert('alert-success', data.success.message);   
+      } else {
+        if (data.error.code== 'AU004') {     // enter valid data
+            $log.debug(data.error.code + " " + data.error.message);
+            $scope.showAlert('alert-danger', data.error.message);
+        } else {
+            $log.debug(data.error.message);
+            $scope.showAlert('alert-danger', data.error.message);
+        }
+      }
+    };  
+
+
+    $scope.updateAddress = function(data, addressId) {
+      console.log($scope.jsonOrgAddressData())
+      OrgRegistrationService.updateOrgAddress(data, addressId);
+      var cleanupEventUpdateOrgAddressDone = $scope.$on("updateOrgAddressDone", function(event, message){
+        $scope.handleUpdateOrgAddressResponse(message); 
+        cleanupEventUpdateOrgAddressDone();  
+      });
+      var cleanupEventUpdateOrgAddressNotDone = $scope.$on("updateOrgAddressNotDone", function(event, message){
+        $scope.showAlert('alert-danger', "Server Error:" + message); 
+        cleanupEventUpdateOrgAddressNotDone();     
+      });
     }
 
     // function to handle server side responses
