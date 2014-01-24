@@ -1318,7 +1318,7 @@ background-color: transparent;
 .prodo-product-general.closedPr .child { display:none; }
 .prodo-product-general.closedPimgs .child { display:none; }
 #prodo-product-features_textfield{width: 160px; height: 30PX; font-size: 12PX; display:inline-block;}
-#prodo-product-featuresDescription_textfield{ font-size: 12PX;}
+#prodo-product-featuresDescription_textfield{ height:75px;width:580px;border-radius:10px;font-size:12px; font-family: Helvetica ;  max-height: 75;max-width: 518;resize: none;}
 #prodo-product-productgeneralbtn{text-align: left; height: 37px; width: 560px; background-color: #f3f5f3; color: black; font-size: 16px;box-shadow: 5px 5px 3px #888888;}
 #prodo-product-productgeneralbtn:hover{ background-color: activeborder;}
 .thumb { width:160px; float: left;margin-left: 5px; border: solid 1px #ccc;}

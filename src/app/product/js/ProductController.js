@@ -476,11 +476,12 @@ angular.module('prodo.ProductApp')
             {
               return(moment(time).format('DD MMM YYYY'));
             }
-
+         
+            
 
           }])
+           
+            
 
 
-
-
-        
+                 
