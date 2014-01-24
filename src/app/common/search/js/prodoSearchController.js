@@ -152,7 +152,7 @@ $scope.products_id =
           };
            
   
-          $scope.refr=function()
+          $scope.refr = function()
           {  
                               document.getElementById("and").disabled=false;
                               document.getElementById("orr").disabled=false;
