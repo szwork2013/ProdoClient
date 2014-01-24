@@ -5,38 +5,41 @@
 
     <div class="control-group">
 
-      <label id="prodo-payment-label-control"  class="label-control">Payment</label><br>
+      <h4 id="prodo-payment-heading">Payment</h4>
+
+      <hr size=3 width="90%" style="height:1px; margin-top: 0;" noshade>
 
 
       <div class="row">
 			  <div class="col-lg-4">
-			     <label class="label-control" style="font-size: 13px; text-align:right; margin: 10px auto;">Subscribed For Plan</label>
+			     <label class="label-control" style="font-size: 13px; text-align:right; margin: 10px auto;">Subscribed Plan:</label>
 			  </div><!-- /.col-lg-6 -->
 			  <div class="col-lg-4">
-			  {{subscriptionplandata.planpaymentcommitment.commitmenttype}}
-			 	 <input id="prodo-form-input-payment" name="planid" type="text" class="form-control" ng-model="subscriptionpayment.planid"><br>
-			 	 <ul ng-repeat="s in subscriptionplandata">
+			  <!-- {{subscriptionpayment.plancommitmenttype}} -->
+			  <h5>90-days Free Trial Plan</h5>
+			 	 <br>
+			 	 <!-- <ul ng-repeat="s in subscriptionplandata">
 			 	 		<li><input style="float: left;" type="radio" ng-model="subscriptionpayment.planid" value="{{s.planid}}">{{s.planpaymentcommitment.commitmenttype}}</li>
-			 	 </ul>
+			 	 </ul> -->
 			  </div><!-- /.col-lg-6 -->
 			  <div class="col-lg-4">
-			  	<button id="prodo-form-payment-btn" tooltip="Change subscription" class="btn" tooltip-placement="bottom" ng-click='changesubscription()'>Change</button>
+			  	<!-- <button id="prodo-form-payment-btn" tooltip="Change subscription" class="btn" tooltip-placement="bottom" ng-click='changesubscription()'>Change</button> -->
 			  </div>
 			  </div><!-- /.col-lg-6 -->
 
-			<div class="row">
+			<!-- <div class="row">
 			  <div class="col-lg-4">
 			     <label class="label-control" style="font-size: 13px; text-align:right; margin: 10px auto;">Apply Discount</label>
-			  </div><!-- /.col-lg-6 -->
-			  <div class="col-lg-4">
+			  </div><!-->
+			  <!-- <div class="col-lg-4">
 			    <div class="input-group">
 			      <input id="prodo-form-input-payment" name="discountcode" type="text" class="form-control" placeholder="Apply Code" ng-model="subscriptionpayment.discountcode" required/>
-			    </div><!-- /input-group -->
-			  </div><!-- /.col-lg-6 -->
-			  <div class="col-lg-4">
+			    </div><! -->
+			  <!-- </div>/.col-lg-6 --> 
+			  <!-- <div class="col-lg-4">
 			   <button id="prodo-form-payment-btn" tooltip="Get Discount" class="btn" tooltip-placement="bottom" ng-click='getdiscount()'>Discount</button>
-			  </div><!-- /.col-lg-6 -->
-			</div><!-- /.row -->
+			  </div> --><!-- /.col-lg-6 -->
+			<!-- </div> --><!-- /.row -->
 
 			<div class="row">
 			  <div class="col-lg-4">
@@ -44,7 +47,7 @@
 			  </div><!-- /.col-lg-6 -->
 			  <div class="col-lg-4">
 			    <div class="input-group">
-			    	 <input id="prodo-form-input-payment" name="discountcode" type="text" class="form-control" placeholder="Apply Code" ng-model="subscriptionpayment.price" required/> 
+			    	 <input id="prodo-form-input-payment" name="amount" type="text" class="form-control" placeholder="amount" ng-model="subscriptionpayment.price" required/> 
 			    </div><!-- /input-group -->
 			  </div><!-- /.col-lg-6 -->
 			  <div class="col-lg-4">
@@ -52,13 +55,7 @@
 			</div><!-- /.row -->
 			
 			<div class="row">
-			  <div class="col-lg-8">
-			  	<h3><span class="label label-success">**Trial Period for 3 months</span></h3>
-			  </div><!-- /.col-lg-6 -->
-			  <div class="col-lg-2">
-			  </div><!-- /.col-lg-6 -->
-			  <div class="col-lg-2">
-			  </div><!-- /.col-lg-6 -->
+			  	<h5><label class="label-control" style="font-size: 13px; float:left; margin-left: 30px; background-color:#81BEF7; padding: 5px;">**Make Payment is not going to charge any amount during trial period.</label></h5>
 			</div><!-- /.row -->
 		      	
 			<button id="prodo-form-payment-submit-btn" class="btn btn-md btn-primary" type="submit" ng-click="makePayment()">Make Payment</button>

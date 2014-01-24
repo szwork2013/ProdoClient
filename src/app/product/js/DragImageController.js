@@ -29,6 +29,7 @@ angular.module('prodo.ProductApp')
       reader.onload = function (event) {
       var image = new Image();
       image.src = event.target.result; 
+      image.id="prodo-uploadedCommentImage"
       $rootScope.comment_image_l=[{image:image.src}];
       image.width = 250; // a fake resize
       holder.appendChild(image);
@@ -37,7 +38,7 @@ angular.module('prodo.ProductApp')
     reader.readAsDataURL(file);
     } 
       else {
-        holder.innerHTML += '<p>Uploaded ' + file.name + ' ' + (file.size ? (file.size/1024|0) + 'K' : '');
+        holder.innerHTML += ' Uploaded ' + file.name + ' ' + (file.size ? (file.size/1024|0) + 'K' : '');
 
     }
      //get buffer
@@ -78,4 +79,4 @@ angular.module('prodo.ProductApp')
 
 
 
-}])
+}]);

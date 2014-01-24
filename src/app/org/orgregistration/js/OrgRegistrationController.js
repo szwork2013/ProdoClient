@@ -6,7 +6,17 @@ angular.module('prodo.OrgApp')
 		
     $scope.org = OrgModel;   // assining OrgModel service to org to update org model data
     
+    $scope.org.orgtype = $stateParams.plantype;
+
     $scope.countries = [ 'Afghanistan','Albania','Algeria','American Samoa','Andorra','Angola' ,'Anguilla' ,'Antigua and Barbuda', 'Argentina ca','Armenia','Aruba ','Austria','Azerbaijan','Bahamas' ,'Bahrain', 'India']
+
+    $scope.goToState = function() {
+      if ($stateParams.plantype == 'manufacturer') {
+        $state.transitionTo('subscription.terms');
+      } else {
+        transitionTo('subscription.finish');
+      }
+    }
 
     // function to clear org data on submit
     $scope.clearOrgData = function(){
@@ -50,7 +60,7 @@ angular.module('prodo.OrgApp')
             { 
   	          'name':$scope.org.name,
   	          'description':$scope.org.description, 
-  	          'orgtype':$scope.org.orgtype,
+  	          'orgtype':$stateParams.plantype,
   	          'contractid':$scope.org.contractid,
   	          'location': 
                 [ {

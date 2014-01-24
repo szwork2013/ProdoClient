@@ -76,39 +76,54 @@
 						<!-- Create a binding between the searchString model and the text field -->
 						<input type="text" class="form-control" ng-model="searchAddress" placeholder="Enter your search terms" />
 					</div>
-					<table class="table table-bordered table-hover table-condensed" ng-repeat="l in organizationData.currentOrgAdd">
+					<table class="table table-hover table-condensed" ng-repeat="orglocation in organizationData.currentOrgAdd">
 					<thead>
 						<tr>
-							<th><h5>Location Type As:<strong>{{l.loctype}}</strong></h5></th>
+							<th><h5>Location Type As:</h5></th>
+							<th><strong>{{orglocation.loctype}}</strong><th>
 						</tr>
 					</thead> 
 					<tr style="font-weight: bold">
-			      <td style="width:30%">Address</td>
-			      <td style="width:20%">Country</td>
-			      <td style="width:20%">State</td>
-			      <td style="width:20%">Contacts</td>
-			      <td style="width:10%">Edit</td>
+			      <td style="width:25%">Address</td>
+			      <td style="width:19%">Country</td>
+			      <td style="width:15%">State</td>
+			      <td style="width:19%">Contacts</td>
+			      <td style="width:22%">Edit</td>
 			    </tr>
 					<tbody>
-					  <tr ng-repeat="l1 in l.location | filter:searchAddress">
+					  <tr ng-repeat="orgadd in orglocation.location | filter:searchAddress">
 						<td>
-							<span editable-text="org.address1" e-name="address1" e-form="rowform" e-required>{{ l1.address.address1 || 'empty' }}</span>
-							<span editable-text="org.address2" e-name="address2" e-form="rowform" e-required>{{ l1.address.address2 || 'empty' }}</span>
-							<span editable-text="org.address3" e-name="address3" e-form="rowform" e-required>{{ l1.address.address3 || 'empty' }}</span>
-							<span editable-text="org.city" e-name="city" e-form="rowform" e-required>{{ l1.address.city || 'empty' }}</span>
-							<span editable-text="org.zipcode" e-name="zipcode" e-form="rowform" e-required>{{ l1.address.zipcode || 'empty' }}</span>
+							<span editable-text="org.address1" ng-model="org.address1" e-name="address1" e-form="rowform" e-required>{{ org.address1 || orgadd.address.address1}},</span><br>
+							<span editable-text="org.address2" ng-model="org.address2" e-name="address2" e-form="rowform" e-required>{{ org.address2 || orgadd.address.address2}},</span><br>
+							<span editable-text="org.address3" ng-model="org.address3" e-name="address3" e-form="rowform" e-required>{{ org.address3 || orgadd.address.address3}},</span><br>
+							<span editable-text="org.city" e-name="city" e-form="rowform" e-required>{{ org.city || orgadd.address.city}}</span><br>
+							<span editable-text="org.zipcode" e-name="zipcode" e-form="rowform" e-required>{{ org.zipcode || orgadd.address.zipcode}}</span>
 						</td>
 						<td>
-							<span editable-text="org.country" e-name="country" e-form="rowform" e-required>{{ l1.address.country || 'empty' }}</span>
+							<span editable-text="org.country" e-name="country" e-form="rowform" e-required>{{ org.country || orgadd.address.country}}</span>
 						</td>
 						<td>
-							<span editable-text="org.state" e-name="state" e-form="rowform" e-required>{{ l1.address.state || 'empty' }}</span>
+							<span editable-text="org.state" e-name="state" e-form="rowform" e-required>{{ org.state || orgadd.address.state}}</span>
 						</td>
-						<td>{{l1.contacts[0].customerhelpline}}<br>
-						{{l1.contacts[1].customerhelpline}}<br>
-						{{l1.contacts[2].customerhelpline}}</td>
-						<td><button class="btn btn-sm" data-toggle="collapse" data-target="#Editlocation">Edit</button></td>
-						<td><button class="btn btn-sm" ng-click="deleteOrgAddress(l1.locid)">Delete</button></td>
+						<td>
+							<span editable-text="org.contact.customerhelpline1" e-name="contact" e-form="rowform" e-required>{{ org.contact.customerhelpline1 || orgadd.contacts[0].customerhelpline}}</span><br>
+							<span editable-text="org.contact.customerhelpline2" e-name="contact" e-form="rowform" e-required>{{ org.contact.customerhelpline2 || orgadd.contacts[1].customerhelpline}}</span><br>
+							<span editable-text="org.contact.customerhelpline3" e-name="contact" e-form="rowform" e-required>{{ org.contact.customerhelpline3 || orgadd.contacts[2].customerhelpline}}</span>
+						</td>
+						<td>
+							<form editable-form name="rowform" ng-show="rowform.$visible" class="form-buttons form-inline" onaftersave="updateAddress($data, orgadd.locid)">
+	          	<button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
+	            save
+	          	</button>
+	          <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">
+	            cancel
+	          </button>
+	        </form>
+	        <div class="buttons" ng-show="!rowform.$visible">
+	          <button class="btn btn-primary" ng-click="rowform.$show()">edit</button>
+	          <button class="btn btn-danger" ng-click="deleteOrgAddress(orgadd.locid)">del</button>
+	        </div>  
+        </td>
 					  </tr>
 					</tbody>
 		  		</table>

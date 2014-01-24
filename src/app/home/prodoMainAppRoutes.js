@@ -11,7 +11,7 @@ angular.module('prodo.ProdonusApp')
       templateUrl: 'home/landing/views/home.tpl.html'
     })    
     .state('home.start', {
-      url: '',
+      url: '/signup',
       views: {
         'marketing' : {
           templateUrl:  'home/landing/views/home.marketing.tpl.html'
@@ -21,8 +21,19 @@ angular.module('prodo.ProdonusApp')
         }
       }
     }) 
+    .state('home.signin', {
+      url: '/signin',
+      views: {
+        'marketing' : {
+          templateUrl:  'home/landing/views/home.marketing.tpl.html'
+        },
+        'signup' : {
+          templateUrl:  'home/landing/views/home.signin.tpl.html'
+        }
+      }
+    }) 
     .state('messageContent', {
-      url: '',
+      url: '/message',
       abstract: true,
       templateUrl: 'home/landing/views/message.content.tpl.html'
     })    
@@ -67,7 +78,7 @@ angular.module('prodo.ProdonusApp')
       controller: 'UserRegistrationController' 
     })
     .state('messageContent.emailverification', {
-      url: '',
+      url: '/emailverification',
       templateUrl: 'home/landing/views/home.signup.verification.tpl.html',
       controller: 'UserRegistrationController'
     })  
@@ -80,12 +91,7 @@ angular.module('prodo.ProdonusApp')
       url: '/regeneratetoken',
       templateUrl: 'home/landing/views/home.signup.regeneratetoken.tpl.html',
       controller: 'UserRegistrationController'
-    })  
-    .state('messageContent.signin', {
-      url: '/signin',
-      templateUrl: 'home/landing/views/home.signin.tpl.html',
-      controller: 'UserSigninController'
-    })   
+    })    
     .state('messageContent.forgotPassword', {
       url: '/forgotPassword',
       templateUrl: 'user/views/user.signin.forgotpassword.tpl.html',

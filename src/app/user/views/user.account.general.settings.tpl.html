@@ -22,14 +22,14 @@
 	
 	<ul class="list-group">
 	  <li class="list-group-item">
-	  	Username: {{usersession.currentUserData.fullname}}
+	  	Username: {{usersession.currentUserData.username}}
 	  	<a href="" data-toggle="collapse" data-target="#username" class="pull-right">Edit</a>
 	  		<div id="username" class="collapse">
 		  		<form id="prodo-form-signin" name="signinForm" class="css-form" ng-submit="" novalidate>
 
 	    			<div class="control-group">
 
-	        	<input id="prodo-input-signin" name="fullname" class="form-control" type="text" placeholder="{{usersession.currentUser.fullname}}" required ng-model="user.fullname" /> 
+	        	<input id="prodo-input-signin" name="username" class="form-control" type="text" placeholder="{{usersession.currentUser.username}}" required ng-model="user.username" /> 
 	      
 	      
 	        	<input id="prodo-input-signin" type="password" class="form-control" id="password1" name="password" placeholder="Password" ng-model="user.password" required>

@@ -19,7 +19,7 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
 
 /*change the navbar style*/
 #prodo-navbar {
-	min-height: 60px;
+	height: 40px;
 	background: -webkit-linear-gradient(#424040,#000000);
   }
 
@@ -28,41 +28,70 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
 #prodo-navbar-brand {
 	color: #ffffff;
 	font:italic bold 20px/30px Georgia,serif;
+	padding: 5px 10px;
   }
+ 
 
-/*change the navbar form style*/
-#prodo-navbar-form{
-	padding-top: 5px;
+.prodo-button {
+	-moz-box-shadow:inset 0px 0px 0px 0px #bee2f9;
+	-webkit-box-shadow:inset 0px 0px 0px 0px #bee2f9;
+	box-shadow:inset 0px 0px 0px 0px #bee2f9;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #63b8ee), color-stop(1, #468ccf) );
+	background:-moz-linear-gradient( center top, #63b8ee 5%, #468ccf 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#63b8ee', endColorstr='#468ccf');
+	background-color:#63b8ee;
+	margin-right: 20px;
+	-webkit-border-top-left-radius:37px;
+	-moz-border-radius-topleft:37px;
+	border-top-left-radius:37px;
+	-webkit-border-top-right-radius:0px;
+	-moz-border-radius-topright:0px;
+	border-top-right-radius:0px;
+	-webkit-border-bottom-right-radius:37px;
+	-moz-border-radius-bottomright:37px;
+	border-bottom-right-radius:37px;
+	-webkit-border-bottom-left-radius:0px;
+	-moz-border-radius-bottomleft:0px;
+	border-bottom-left-radius:0px;
+	text-indent:0;
+	border:1px solid #3866a3;
+	display:inline-block;
+	color:#14396a;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	font-style:normal;
+	height:30px;
+	line-height:30px;
+	width:100px;
+	text-decoration:none;
+	text-align:center;
+	text-shadow:0px 0px 0px #7cacde;
 }
 
-/*change the navbar form input textbox signin style*/
-#prodo-form-input-signin{
-	width: 150px;
-	height: 25px;
-	font-size: 13px;
-	border-radius: 2px;
-  }
+.prodo-button:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #468ccf), color-stop(1, #63b8ee) );
+	background:-moz-linear-gradient( center top, #468ccf 5%, #63b8ee 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#468ccf', endColorstr='#63b8ee');
+	background-color:#468ccf;
+}
 
-/*change the navbar form input button signin style*/
-#prodo-form-button-signin{
+.prodo-button:active {
+	position:relative;
+	top:1px;
+}
+  #prodo-form-button-logout{
 	width: 60px;
 	height: 25px;
 	padding: 0px;
 	font-weight: bold;
 	border-radius: 5px;
-	margin-left: 5px;
+	margin: 15px;
 	border-color: #495549;
 	background-color: rgb(212, 208, 208);
 	color: black;
   }
-
-/*change the navbar form forgot link style*/
-#prodo-form-forgot-link{
-   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
-   font-size:12px;
-   color: white;
-}
-
+ 
 /*change the main view container style(main-ui-view inside this view)*/
 #prodo-main-view {
 	min-height:100%;
@@ -117,7 +146,7 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
   border-radius: 6px; 
   background-color: #f3f5f3;
   width: 350px;
-  min-height: 300px;
+  min-height: 400px;
   margin-top: 50px;
   margin-left: 100px;
   padding-bottom: 20px;
@@ -215,20 +244,23 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
 	font-weight: normal;
 	font-size: 25px;
 	line-height: 20px;
-	padding: 10px;
+	padding: 5px;
 	color: #2b8dc0;
+	text-align: left;
+	margin: 10px;
 }
+
 #prodo-view-signin{
-	border: 1px solid #94d2f8;
+  border: 1px solid #94d2f8;
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
   border-radius: 6px; 
   background-color: #f3f5f3;
-  width: 400px;
-  height: 330px;
-  display: block;
-  margin: 50px auto;
-  text-align: center;
+  width: 350px;
+  min-height: 400px;
+  margin-top: 50px;
+  margin-left: 100px;
+  padding-bottom: 20px;
 }
  
 #prodo-form-signin{
@@ -245,6 +277,22 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
 	display: block;
   
      
+}
+
+#prodo-rememberme-label {
+    display: block;
+    padding-left: 15px;
+    text-indent: -15px;
+}
+#prodo-input-remember-signin {
+    width: 13px;
+    height: 13px;
+    padding: 0;
+    margin:0;
+    vertical-align: bottom;
+    position: relative;
+    top: -1px;
+    *overflow: hidden;
 }
 
 /*change the View: signin form input button signin style*/
@@ -452,7 +500,7 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
 .jumbotron-subscribe{
   width: 210px;
   float: left;
-  height: 300px;
+  min-height: 300px;
   margin-left: 2px;
   margin-bottom: 30px;
   padding: 0;
@@ -480,8 +528,8 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
   /*font:bold 20px/30px Georgia,serif;*/
 }
 section:hover{
-  transform: scale(1.05);
-	-webkit-transform: scale(1.05); /* Safari and Chrome */  
+  transform: scale(1.02);
+	-webkit-transform: scale(1.02); /* Safari and Chrome */  
   tranform-style:preserve-3d;
   background-color: #F8F0C8 ;
   position:relative;
@@ -500,7 +548,7 @@ section:hover #prodo-subscribe-plan-heading{
   color: #929C93;
 }
 
-hr{
+#prodo-subscription-hr{
   width: 150px;
   border-top: 1px solid #D8D0D0;
   margin-top: 10px;
@@ -542,7 +590,7 @@ hr{
   border-radius: 6px; 
   background-color: #f3f5f3;
   width: 400px;
-  min-height: 430px;
+  min-height: 450px;
   display: block;
   margin: 50px auto;
   text-align: center;
@@ -557,6 +605,15 @@ hr{
 #prodo-form-input-company{
 	width:250px;
 	height: 30px;
+	border-radius: 2px;
+	margin: 10px auto;
+	display: block;
+     
+}
+
+#prodo-form-input-textarea-company{
+	width:250px;
+	height: 100px;
 	border-radius: 2px;
 	margin: 10px auto;
 	display: block;
@@ -580,23 +637,24 @@ hr{
 
 /*change the View: Signup form input button signup style*/
 #prodo-form-company-btn{
-	width:250px;
+	width:122.5px;
 	border-radius: 2px;
 	background-color: #3a92c6;
 	font-size: 15px;
 	position: relative;
-	display: block;
   margin: 20px auto;
 	text-align: center;
   }
 
 /*change the View: Signup form heading style*/  
-#prodo-company-label-control{
+#prodo-company-heading{
 	font-weight: normal;
 	font-size: 25px;
 	line-height: 20px;
-	padding: 10px;
+	padding: 5px;
 	color: #2b8dc0;
+	text-align: left;
+	margin: 10px;
 }
 
  
@@ -611,7 +669,7 @@ hr{
   border-radius: 6px; 
   background-color: #f3f5f3;
   width: 400px;
-  min-height: 430px;
+  min-height: 450px;
   display: block;
   margin: 50px auto;
   text-align: center;
@@ -670,12 +728,14 @@ hr{
   }
 
 /*change the View: Signup form heading style*/  
-#prodo-address-label-control{
+#prodo-address-heading{
 	font-weight: normal;
 	font-size: 25px;
 	line-height: 20px;
-	padding: 10px;
+	padding: 5px;
 	color: #2b8dc0;
+	text-align: left;
+	margin: 10px;
 }
 /**
 *	Subscription.groupuser
@@ -688,7 +748,7 @@ hr{
   border-radius: 6px; 
   background-color: #f3f5f3;
   width: 400px;
-  min-height: 430px;
+  min-height: 450px;
   display: block;
   margin: 50px auto;
   text-align: center;
@@ -721,12 +781,14 @@ hr{
   }
 
 /*change the View: Signup form heading style*/  
-#prodo-groupuser-label-control{
+#prodo-groupuser-heading{
 	font-weight: normal;
 	font-size: 25px;
 	line-height: 20px;
-	padding: 10px;
+	padding: 5px;
 	color: #2b8dc0;
+	text-align: left;
+	margin: 10px;
 }
 /**
 *	Subscription.term
@@ -739,7 +801,7 @@ hr{
   border-radius: 6px; 
   background-color: #f3f5f3;
   width: 400px;
-  height: 430px;
+  height: 450px;
   display: block;
   margin: 50px auto;
   text-align: center;
@@ -779,14 +841,15 @@ hr{
   }
 
 /*change the View: Signup form heading style*/  
-#prodo-term-label-control{
+#prodo-terms-heading{
 	font-weight: normal;
 	font-size: 25px;
 	line-height: 20px;
-	padding: 10px;
+	padding: 5px;
 	color: #2b8dc0;
+	text-align: left;
+	margin: 10px;
 }
-
 
 #prodo-privacy-label-control{
 	font-weight: normal;
@@ -806,7 +869,7 @@ hr{
   border-radius: 6px; 
   background-color: #f3f5f3;
   width: 550px;
-  height: 430px;
+  height: 450px;
 	display: block;
 	margin: 50px auto;
 	text-align: center;
@@ -851,12 +914,14 @@ hr{
   }
 
 /*change the View: Signup form heading style*/  
-#prodo-payment-label-control{
+#prodo-payment-heading{
 	font-weight: normal;
 	font-size: 25px;
 	line-height: 20px;
-	padding: 10px;
+	padding: 5px;
 	color: #2b8dc0;
+	text-align: left;
+	margin: 10px;
 }
 
 /**
@@ -870,7 +935,7 @@ hr{
   border-radius: 6px; 
   background-color: #f3f5f3;
   width: 400px;
-  height: 430px;
+  height: 450px;
   display: block;
   margin: 50px auto;
   text-align: center;
@@ -888,8 +953,8 @@ hr{
 	height:280px;
 }
 
-#prodo-form-summary-header{
-	 
+#prodo-summary-header{
+	background-color: #b3b3b3;	 
 }
 
 #prodo-form-summary-datarow{
@@ -908,12 +973,14 @@ hr{
   }
 
 /*change the View: Subscription:summary heading style*/  
-#prodo-summary-label-control{
+#prodo-summary-heading{
 	font-weight: normal;
 	font-size: 25px;
 	line-height: 20px;
-	padding: 10px;
+	padding: 5px;
 	color: #2b8dc0;
+	text-align: left;
+	margin: 10px;
 }
 
 /**
@@ -1278,7 +1345,7 @@ margin: 2px auto; position:absolute; }
 ul {list-style-type: none; }
 /*li:nth-child(odd) {background-color:#F2F2F2;}*/
 #prodo-comment-media-list{border:3px;font-family: Helvetica ;font-size:14px;}
-#prodo-comment-Textbox {  height:40px;width:518px;border-radius:10px;font-size:12px; font-family: Helvetica ; border: none; max-height: 75;max-width: 518;resize: none;}
+#prodo-comment-Textbox {  height:40px;width:518px;border-radius:10px;font-size:12px; font-family: Helvetica ; border: solid 1px #5bc0de; max-height: 75;max-width: 518;resize: none;}
 #prodo-comment-fixed { margin-left:17px;}
 #prodo-comment-media {margin-top: 0px;  border-top: 1px outset; border-color:#CCC;padding:5px;  width:518px;}
 #prodo-comment-row-fluid {word-wrap: break-word;width:450px;text-align: left;font-size:12px;}
@@ -1591,5 +1658,8 @@ list-animate-item-warranty {
 }
 
 
-.control-group{font-family: Helvetica ;font-size:12px;}
+.control-group{ }
+
+#prodo-upload-SelectUploadBtn{font-family: Helvetica ;font-size:22px; text-align: left; }
+
 /*Uploads*/

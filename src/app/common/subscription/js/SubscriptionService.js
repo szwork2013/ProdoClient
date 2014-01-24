@@ -37,8 +37,8 @@ angular.module('prodo.CommonApp')
     }
 
     var cleanupEventGetSubscriptionDone = $rootScope.$on("getSubscriptionDone", function(event, data){
-      $state.transitionTo('subscription.plans');
       subscription.updateSubscriptionData(data);
+      $state.transitionTo('subscription.plans');
       cleanupEventGetSubscriptionDone();
     })
 

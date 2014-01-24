@@ -1,5 +1,5 @@
-angular.module('prodo.ProdoWallApp')
-.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) { 
+var app = angular.module('prodo.ProdoWallApp');
+app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) { 
   $urlRouterProvider.rule(function ($injector, $location) {
         var path = $location.path(), normalized = path.toLowerCase();
         if (path != normalized) return normalized;

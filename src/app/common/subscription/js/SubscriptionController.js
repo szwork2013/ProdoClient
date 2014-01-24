@@ -17,7 +17,7 @@ angular.module('prodo.CommonApp')
 		}
 
 		$scope.makeTransitionToState = function(stateToGo, planId, planType) {
-			$state.transitionTo(stateToGo, {planid: planId, plantype: planType });
+			$state.transitionTo(stateToGo, {planid: planId, plantype: planType});
 		}
 
 		var cleanupEventPassSubscriptionData = $rootScope.$on("passSubscriptionData", function(event, data){
