@@ -115,16 +115,14 @@ angular.module('prodo.ProductApp')
             //socket response when for add comment
 
             //on the fly comment listener creation
-            
-             // alert($scope.productcommentResponseListener);
-            
+                
             //productComment response
             
              $scope.productcommentResponseListener="productcommentResponse"+'xyY_OZ_dO';
             
             $scope.socket.removeAllListeners($scope.productcommentResponseListener);
             
-           // alert($scope.productcommentResponseListener);
+          
             $scope.socket.on($scope.productcommentResponseListener, function(error, result) {
               if (error) {
                 $log.debug(error.error.message);
@@ -261,7 +259,7 @@ angular.module('prodo.ProductApp')
             $scope.getProduct = function()
             {
 
-              ProductService.getProduct({orgid: 'orglyPGwzpfO', prodle: 'xyY_OZ_dOp'},
+              ProductService.getProduct({orgid: 'orglyPGwzpfO', prodle: 'xyY_OZ_dO'},
               function(successData) {
                 if (successData.success == undefined)
                 {
@@ -315,17 +313,17 @@ angular.module('prodo.ProductApp')
             //error handling for add product
             $scope.handleSaveProductResponse = function(data) {
               if (data.success) {
-                alert(data.success.message);
-              } else {
+                $scope.showAlert('alert-success', data.success.message);
+               } else {
                 if (data.error.code == 'AV001') {     // user already exist
                   $log.debug(data.error.code + " " + data.error.message);
-                  alert(data.error.message);
-                } else if (data.error.code == 'AP001') {  // user data invalid
+                  $scope.showAlert('alert-danger', data.error.message);
+                 } else if (data.error.code == 'AP001') {  // user data invalid
                   $log.debug(data.error.code + " " + data.error.message);
-                  alert(data.error.message);
+                  $scope.showAlert('alert-danger', data.error.message);
                 } else {
                   $log.debug(data.error.message);
-                  alert(data.error.message);
+                  $scope.showAlert('alert-danger', data.error.message);
                 }
               }
             };
@@ -377,7 +375,7 @@ angular.module('prodo.ProductApp')
                 ProductService.deleteProduct({orgid: $scope.orgidFromSession, prodle: $scope.product_prodle});
               }
               else
-                alert("You dont have rights to delete this product...");
+               $scope.showAlert('alert-danger', "You dont have rights to delete this product...");
             }
             //delete product
 
