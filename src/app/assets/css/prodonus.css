@@ -1299,6 +1299,25 @@ corresponding value from the list below*/
     height: 100%;
 }
 /*Product Comment drag images*/
+ 
+
+.close {
+  font-size: 20px;
+  font-weight: bold;
+   
+  color: #000000;
+  text-shadow: 0 1px 0 #ffffff;
+  opacity: 0.2;
+  filter: alpha(opacity=20);
+  text-decoration: none;
+}
+.close:hover {
+  color: #000000;
+  text-decoration: none;
+  opacity: 0.4;
+  filter: alpha(opacity=40);
+  cursor: pointer;
+}
 #holder
 { 
 //border: 3px dashed #ccc; 
@@ -1329,7 +1348,7 @@ border:0px;
 margin: 2px auto; position:absolute; } 
 
 /*#a { border: 3px dashed #ccc; min-width: 100px; max-height: 100px; height:300px; margin: 2px auto; position:absolute;} */
-#holder.hover { border: 3px dashed #0c0; /*max-height:100px;*/} 
+#holder.hover { border: 3px dashed #0c0; border-radius:10px;/*max-height:100px;*/} 
 #holder img { display: inline; margin: 10px auto; max-height:60px; max-width:60px;} 
 #holder p { margin: 10px; font-size: 14px; /*max-height:300px;*/}
 

@@ -22,14 +22,19 @@
 
   <div ng-controller="DragImageController">
     <span id="holder" > 
-    <textarea  type="text" class="form-control" ondragleave="fx()" name="txtComment" placeholder="Product Conversation [max 300 characters]" id="prodo-comment-Textbox" col="40"  ng-model="commenttextField.userComment" comment-limit="300" ng-enter="addProductComment()" required ></textarea> 
+    <textarea id="prodo-comment-Textbox" col="40" type="text" class="form-control" ondragleave="clearBorder()" name="txtComment" placeholder="Product Conversation [max 300 characters]"   ng-model="commenttextField.userComment" comment-limit="300" ng-enter="addProductComment()" required ></textarea> 
+    <div style="width:75px;" id="CommentImg">
+                           
+                            <a class="close" id= "crossButton"  style="display:none" ng-click="clearReader()">&times;</a> 
+                           
+                      </div>
     </span>
 
     <p id="upload" class="hidden">
     <label  >
       <br>
       <input type="file"    >
-  	</label>
+	</label>
     </p>
     </div>
   </div> <br><br><br><br><br>

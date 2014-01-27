@@ -30,7 +30,7 @@ angular.module('prodo.CommonApp').directive('prodoComments', function () {
             $(this).height(75);
           });
           $('#prodo-comment-Textbox').blur(function () {
-            $(this).height(30);
+            $(this).height(40);
           });
         });
         $scope.commentsLimit = function () {

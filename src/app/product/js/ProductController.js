@@ -278,8 +278,9 @@ angular.module('prodo.ProductApp')
                 $scope.socket.emit('addComment', $rootScope.product_prodle, $scope.newProductComment.product_comment);
                 $scope.productComments.unshift($scope.newProductComment_image.product_comment);
                 $scope.commenttextField.userComment = "";
-
- 
+                $rootScope.count=0;
+                  document.getElementById('prodo-comment-commentContainer').style.marginTop='0px';
+                  document.getElementById("crossButton").style.display="none";
                  var element=document.getElementById('prodo-uploadedCommentImage');
                  if (typeof(element) != 'undefined' && element != null)
                   {
@@ -527,12 +528,14 @@ angular.module('prodo.ProductApp')
             };
  
            
-
+         $log.debug($( "#prodo-comment-Textbox" ).height());
           $(document).ready(function () {
             $('#holder').hover(
               function() {
                  $log.debug( 'hovering on' , $(this).attr('id') ); 
+            
                  var txtheight=$( "#prodo-comment-Textbox" ).height();
+                      $log.debug(txtheight);
                  var txtwidth=$( "#prodo-comment-Textbox" ).width();
                  document.getElementById("holder").style.height=txtheight;
                  document.getElementById("holder").style.width=txtwidth;
@@ -544,10 +547,10 @@ angular.module('prodo.ProductApp')
             }, 
               function() {
 
-              //   $log.debug( 'hovering out' , $(this).attr('id') );
+                $log.debug( 'hovering out' , $(this).attr('id') );
                  // var txtheight=$( "#prodo-comment-Textbox" ).height();
               //    var txtwidth=$( "#prodo-comment-Textbox" ).width();
-                 document.getElementById("holder").style.height='45px';
+                 document.getElementById("holder").style.height='40px';
                  // document.getElementById("prodo-comment-Textbox").style.height='45px';
               //    txtwidth="";
               //    txtheight="";
