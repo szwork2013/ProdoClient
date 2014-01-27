@@ -524,7 +524,37 @@ angular.module('prodo.ProductApp')
             $scope.formatDate=function(time)
             {
               return(moment(time).format('DD MMM YYYY'));
-            }
+            };
+ 
+           
+
+          $(document).ready(function () {
+            $('#holder').hover(
+              function() {
+                 $log.debug( 'hovering on' , $(this).attr('id') ); 
+                 var txtheight=$( "#prodo-comment-Textbox" ).height();
+                 var txtwidth=$( "#prodo-comment-Textbox" ).width();
+                 document.getElementById("holder").style.height=txtheight;
+                 document.getElementById("holder").style.width=txtwidth;
+                 txtwidth="";
+                 txtheight="";
+                // console.log(a); 
+
+
+            }, 
+              function() {
+
+              //   $log.debug( 'hovering out' , $(this).attr('id') );
+                 // var txtheight=$( "#prodo-comment-Textbox" ).height();
+              //    var txtwidth=$( "#prodo-comment-Textbox" ).width();
+                 document.getElementById("holder").style.height='45px';
+                 // document.getElementById("prodo-comment-Textbox").style.height='45px';
+              //    txtwidth="";
+              //    txtheight="";
+
+              }
+            );
+          });
          
           }])
            

@@ -34,7 +34,7 @@ angular.module('prodo.UploadApp')
               $scope.socket.emit('uploadFiles', file_data, action);
               $log.debug("pic emitted");
               //  $scope.uploadSrc = "";
-
+z
             });
 //            fileReader.readAsBinaryString($scope.file[a], $scope);
 
