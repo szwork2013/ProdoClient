@@ -478,18 +478,7 @@ angular.module('prodo.ProductApp')
                            
                   
               $scope.temp={prodleimageids:$scope.imgIds}
-                 // $log.debug($scope.imgIds);
-             
-
- // ProductImageService.deleteProductImages({orgid: $scope.orgidFromSession, prodle: $scope.product_prodle }, $scope.temp,
- //                      function(success) {
- //                        $log.debug(success);
-                        
- //                      },
- //                      function(error) {
- //                        $log.debug(error);
- //                      });
- 
+              
 
                  $http({
                     method: 'DELETE',
@@ -512,52 +501,31 @@ angular.module('prodo.ProductApp')
               if ($rootScope.isAdminCheck==true){
                  var adminPanel = document.getElementById("prodo.productAdmin");
                  adminPanel.style.display = 'inline';
-                 
-                
-              }
+                }
             }
 
             $scope.checkAdminProductUpload=function() {
-              // alert( $rootScope.isAdminCheck);
               if ($rootScope.isAdminCheck==true)  document.getElementById("Upload-clck").style.display = 'block';
             }
              $scope.checkAdminProductUpload();
 
              
-              // $scope.checkAdminProductImagesDelete=function() { 
-              //   if ($rootScope.isAdminCheck==true) {
-              //     alert( $rootScope.isAdminCheck);  
-                  $( document ).ready(function() { 
+              $scope.checkAdminProductImagesDelete=function() { 
+              
                     if ($rootScope.isAdminCheck==true) {
-                       $('#prodo-deleteProductImage').load(function () {
-                          document.getElementById("prodo-deleteProductImage").style.display = 'inline';
-                       });
-                       $('#showHideAllchk').load(function () {
-                          document.getElementById("showHideAllchk").style.display = 'inline';
-                       });
-                       $('#imgchk').load(function () {
-                          document.getElementById("imgchk").style.display = 'inline';
-                       });
-                       $('#showHideAllchkLabel').load(function () {
-                          document.getElementById("showHideAllchkLabel").style.display = 'inline';
-                       });
-         
-                 // document.getElementById("prodo-deleteProductImage").style.display = 'inline';
-                 // document.getElementById("showHideAllchk").style.display = 'inline';
-                 // document.getElementById("imgchk").style.display = 'inline';
-                 // document.getElementById("showHideAllchkLabel").style.display = 'inline';
-                  }
-                  });
-               //   }
-               // }
+                      return{display: "inline"}
+                      }
+                      else {
+                        return{display: "none"}
+                      }
+             };
+              
 
             $scope.formatDate=function(time)
             {
               return(moment(time).format('DD MMM YYYY'));
             }
          
-            
-
           }])
            
             
