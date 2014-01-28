@@ -11,8 +11,9 @@
  * 27-3/2013 | xyx | Add a new property
  * 
  */
-angular.module('prodo.ProdoCommentApp').directive('whenScrolled', function () {
+angular.module('prodo.CommonApp').directive('whenScrolled', function () {
   return function (scope, elm, attr) {
+  	console.log("Scrolled");
     var raw = elm[0];
     elm.bind('scroll', function () {
       if (raw.scrollTop + raw.offsetHeight >= raw.scrollHeight) {

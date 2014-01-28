@@ -173,7 +173,8 @@ angular.module('prodo.ProductApp')
                   user: {userid: result.success.product_comment.user.userid,
                     fullname: result.success.product_comment.user.fullname,
                     orgname: result.success.product_comment.user.orgname,
-                    grpname: result.success.product_comment.user.grpname
+                    grpname: result.success.product_comment.user.grpname,
+                     profilepic:result.success.product_comment.user.profilepic
                   },
                   commentid: result.success.product_comment.commentid,
                   type: result.success.product_comment.type,
@@ -207,7 +208,8 @@ angular.module('prodo.ProductApp')
                   user: {userid: $scope.userIDFromSession,
                     fullname: $scope.userFullnameFromSession,
                     orgname: $scope.orgnameFromSession,
-                    grpname: $scope.grpnameFromSession
+                    grpname: $scope.grpnameFromSession,
+                    profilepic:$rootScope.usersession.currentUser.profile_pic
                   },
                   commentid: guid(),
                   type: $scope.type,
@@ -221,7 +223,8 @@ angular.module('prodo.ProductApp')
                   user: {userid: $scope.userIDFromSession,
                     fullname: $scope.userFullnameFromSession,
                     orgname: $scope.orgnameFromSession,
-                    grpname: $scope.grpnameFromSession
+                    grpname: $scope.grpnameFromSession,
+                     profilepic:$rootScope.usersession.currentUser.profile_pic
                   },
                   commentid: guid(),
                   type: $scope.type,
@@ -242,7 +245,8 @@ angular.module('prodo.ProductApp')
                   user: {userid: $scope.userIDFromSession,
                     fullname: $scope.userFullnameFromSession,
                     orgname: $scope.orgnameFromSession,
-                    grpname: $scope.grpnameFromSession
+                    grpname: $scope.grpnameFromSession,
+                     profilepic:$rootScope.usersession.currentUser.profile_pic
                   },
                   commentid: guid(),
                   type: $scope.type,
@@ -256,7 +260,8 @@ angular.module('prodo.ProductApp')
                   user: {userid: $scope.userIDFromSession,
                     fullname: $scope.userFullnameFromSession,
                     orgname: $scope.orgnameFromSession,
-                    grpname: $scope.grpnameFromSession
+                    grpname: $scope.grpnameFromSession,
+                     profilepic:$rootScope.usersession.currentUser.profile_pic
                   },
                   commentid: guid(),
                   type: $scope.type,
