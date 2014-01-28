@@ -22,16 +22,7 @@ angular.module('prodo.ProductApp')
                       saveProduct: {method: 'POST', params: {orgid: 'id'}}
                     });
           }])
-         // .factory('ProductImageService', ['$resource', function($resource) {
-         //    return $resource('/api/image/product/:orgid/:prodle', {},
-         //            {
-                      
-         //              deleteProductImages: {method: 'DELETE', params: {orgid: 'id', prodle: 'id'}  }
-                  
-         //            });
-         //  }])
-
-
+       
         .factory('CommentService', ['$resource', function($resource) {
             return $resource('/api/comment/:commentid', {},
                     {
@@ -39,5 +30,12 @@ angular.module('prodo.ProductApp')
                     });
           }])
 
- 
+         .factory('CommentLoadMoreService', ['$resource', function($resource) {
+            return $resource('/api/nextcomments/:commentid', {},
+                    {
+                      loadMoreComments: {method: 'GET', params: {commentid: "id"}}
+                    });
+          }])
+
+  
 

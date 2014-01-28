@@ -12,7 +12,7 @@
  * 
  */
 angular.module('prodo.ProductApp')
-        .controller('ProductController', ['$scope','$log', '$rootScope', 'ProductService', 'UserSessionService','$http', function($scope, $log,$rootScope, ProductService, UserSessionService,$http) {
+        .controller('ProductController', ['$scope','$log', '$rootScope', 'ProductService', 'UserSessionService','$http','CommentLoadMoreService', function($scope, $log,$rootScope, ProductService, UserSessionService,$http,CommentLoadMoreService) {
 
             //comments
             $scope.productComments = {comments: [{}]};
@@ -533,14 +533,14 @@ angular.module('prodo.ProductApp')
             };
  
            
-         $log.debug($( "#prodo-comment-Textbox" ).height());
+       //  $log.debug($( "#prodo-comment-Textbox" ).height());
           $(document).ready(function () {
             $('#holder').hover(
               function() {
-                 $log.debug( 'hovering on' , $(this).attr('id') ); 
+                // $log.debug( 'hovering on' , $(this).attr('id') ); 
             
                  var txtheight=$( "#prodo-comment-Textbox" ).height();
-                      $log.debug(txtheight);
+                 //     $log.debug(txtheight);
                  var txtwidth=$( "#prodo-comment-Textbox" ).width();
                  document.getElementById("holder").style.height=txtheight;
                  document.getElementById("holder").style.width=txtwidth;
@@ -552,7 +552,7 @@ angular.module('prodo.ProductApp')
             }, 
               function() {
 
-                $log.debug( 'hovering out' , $(this).attr('id') );
+               // $log.debug( 'hovering out' , $(this).attr('id') );
                  // var txtheight=$( "#prodo-comment-Textbox" ).height();
               //    var txtwidth=$( "#prodo-comment-Textbox" ).width();
                  document.getElementById("holder").style.height='40px';
@@ -563,7 +563,31 @@ angular.module('prodo.ProductApp')
               }
             );
           });
-         
+ $scope.loadMoreComments=function(){
+ $log.debug( $scope.productComments);
+ $scope.productComments;
+ var lengthComments=$scope.productComments.length;
+ $log.debug(lengthComments)
+ var lastComment=$scope.productComments[lengthComments-1];
+ $log.debug(lastComment.commentid);
+//call service
+CommentLoadMoreService.loadMoreComments({commentid:lastComment.commentid},
+                        function(result) {
+                           $log.debug(result.success.comment );
+                           for (var i = 0; i < lengthComments-1; i++) {
+                            $scope.productComments.push(result.success.comment[i]);
+                           };
+                          },
+                        function(error) {
+                          $log.debug(error);
+                        });
+
+//get new array
+
+
+ }
+            
+
           }])
            
             
