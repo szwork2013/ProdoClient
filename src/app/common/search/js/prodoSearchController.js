@@ -1,6 +1,6 @@
 angular.module('prodo.ProdoWallApp')
-.controller("prodoSearchController",['$rootScope', '$scope', '$state', '$stateParams', '$log', 'UserSessionService', 'UserSubscriptionService',  function($rootScope, $scope, $state, $stateParams, $log, UserSessionService, UserSubscriptionService)
-{
+        .controller('prodoSearchController', ['$scope','$log', '$rootScope','prodoSearchService',  'UserSessionService','$http', function($scope, $log,$rootScope, prodoSearchService, UserSessionService, $http) {
+
 
 $scope.TrendingProducts = [
             {productname: 'Products Followed'},
@@ -9,6 +9,8 @@ $scope.TrendingProducts = [
             {productname: 'LG'},
             {productname: 'Motorola'}
         ];
+
+
         $scope.FollowedProducts = [
             {productname: 'Samsung Galaxy 4'},
             {productname: 'Samsung Note II'},
@@ -36,10 +38,10 @@ $scope.products_id =
  ];
 
 ////start of advanced search
- $scope.p="Product Name";
-  $scope.m="Model Number";
-  $scope.ff="Feature"; 
-  $scope.c="Category";  
+ $scope.productName="Product Name";
+  $scope.modelNumber="Model Number";
+  $scope.features="Feature"; 
+  $scope.category ="Category";  
   $scope.valp="";
   $scope.query="";
   $scope.s1=""; 
@@ -51,8 +53,7 @@ $scope.products_id =
   $scope.query4="";  
   $scope.product=[];
   $scope.model=[];
-  $scope.feature=[];
-  $scope.category=[];
+  $scope.feature=[]; 
   $scope.search=[];
   $scope.condition="";
   $scope.news={};
@@ -124,31 +125,30 @@ $scope.products_id =
                        }
                        
 
-
+                      document.getElementById("t1").value="";
+                      document.getElementById("111").value="";
+                      document.getElementById("t1").disabled=true;
+                      $scope.s1="";
+                      $scope.val="";
 
 
                        var productsearchdata = JSON.stringify($scope.search);
                        prodoSearchService.searchProduct(productsearchdata);
 
 
-                      concole.log(productsearchdata); 
+                      console.log(productsearchdata); 
 
 
 
                        $scope.$on('getSearchProductDone', function(event, data) {
-                        
+                        alert(data);
                        });
                     
                        $scope.$on('getSearchProductNotDone', function(event, data) {
                       
                        });
                 
-                      document.getElementById("t1").value="";
-                      document.getElementById("111").value="";
-                      document.getElementById("t1").disabled=true;
-                      $scope.query4="";
-                      $scope.s1="";
-                      $scope.val="";
+                      
           };
            
   
@@ -181,8 +181,13 @@ $scope.products_id =
           
           $scope.temp=function()
           {
+            document.getElementById("111").value="";
+            document.getElementById("t1").value="";
             $scope.search="";
             $scope.search=[];
+            $scope.s1="";
+            $scope.val="";
+
           };
             
 
