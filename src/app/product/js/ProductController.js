@@ -48,11 +48,34 @@ angular.module('prodo.ProductApp')
              
              //socket listener here
 
+            $scope.$on("product", function(event, data){
+               $rootScope.product_prodle=data.prodle;
+               $rootScope.orgid=data.orgid;
+            });
+
+            $rootScope.product_prodle='xkdiPXcT_';
+            $rootScope.orgid='orgxkpxhIFau'; 
 
 
-            $rootScope.product_prodle='xyY_OZ_dO';
-            $rootScope.orgid='orglyPGwzpfO'; 
+          //get login details
+            $scope.getUserDetails = function( ) {
+              if ($rootScope.usersession.currentUser.org) {
+                $scope.grpnameFromSession = $rootScope.usersession.currentUser.org.grpname;
+                $scope.orgidFromSession = $rootScope.usersession.currentUser.org.orgid;
+                $scope.orgnameFromSession = $rootScope.usersession.currentUser.org.orgname;
 
+              }
+              else {
+                $scope.grpnameFromSession = "";
+                $scope.orgnameFromSession = "";
+                $scope.orgidFromSession = "";
+              }
+              $scope.userIDFromSession = $rootScope.usersession.currentUser.userid;
+              $scope.usernameFromSession = $rootScope.usersession.currentUser.username;
+            }
+            $scope.getUserDetails();
+
+            //get login details
               //get product function declaration
             $scope.getProduct = function()
             {
@@ -63,8 +86,22 @@ angular.module('prodo.ProductApp')
                 {
                    var temp=document.getElementById('prodo-comment-container');
                    $log.debug(temp);
+                   if($rootScope.usersession.currentUser.org.isAdmin==true)
+                   {
+                     $("#prodoCommentsTab").css("display", "none");
+                     $("#tabComments").css("display", "none");
+                     // $( "#prodoProductFeaturesTab" ).addClass( "active" );
+                        $("#prodo.productAdmin").css("display", "inline"); 
+                         
+                        $("#tabproductupload").css("display", "inline");
+                         $("#prodoUploadTab").css("display", "inline");    
+                      // document.getElementById("prodo.productAdmin").style.display = 'inline';
+                      // document.getElementById("prodoUploadTab").style.display = 'inline';
+                   }
+                   else {
                    temp.innerHTML="<br>Please start following a product using search...<br><br>";
                    $scope.showAlert('alert-danger', " Product not available ...");
+                 }
                 }
                 else {
                   $log.debug(successData.success.product);
@@ -73,6 +110,11 @@ angular.module('prodo.ProductApp')
                    $rootScope.product_prodle = successData.success.product.prodle;
                   $scope.productComments = successData.success.product.product_comments;
                   $scope.pImages_l = successData.success.product.product_images;
+                  if(successData.success.product.product_comments.length==0){
+                    $("#load-more").css("display", "none");
+                  }
+                  else  $("#load-more").css("display", "inline");
+
                 }
 
               },
@@ -106,25 +148,7 @@ angular.module('prodo.ProductApp')
 
 
 
-            //get login details
-            $scope.getUserDetails = function( ) {
-              if ($rootScope.usersession.currentUser.org) {
-                $scope.grpnameFromSession = $rootScope.usersession.currentUser.org.grpname;
-                $scope.orgidFromSession = $rootScope.usersession.currentUser.org.orgid;
-                $scope.orgnameFromSession = $rootScope.usersession.currentUser.org.orgname;
-
-              }
-              else {
-                $scope.grpnameFromSession = "";
-                $scope.orgnameFromSession = "";
-                $scope.orgidFromSession = "";
-              }
-              $scope.userIDFromSession = $rootScope.usersession.currentUser.userid;
-              $scope.usernameFromSession = $rootScope.usersession.currentUser.username;
-            }
-            $scope.getUserDetails();
-
-            //get login details
+           
 
             localStorage.sid = $rootScope.usersession.currentUser.sessionid;
             //socket connect
@@ -353,7 +377,7 @@ angular.module('prodo.ProductApp')
 
                 
               if(editStatus=='add'){
-                 if ($rootScope.usersession.currentUser.isAdmin ) {
+                 if ($rootScope.usersession.currentUser.org.isAdmin ) {
                 ProductService.saveProduct({orgid: $scope.orgidFromSession}, $scope.newProduct,
                         function(success) {
                           $log.debug(success);
@@ -363,7 +387,7 @@ angular.module('prodo.ProductApp')
                           $log.debug(error);
                         });
                 }
-                 else $scope.showAlert('alert-danger', "You dont have rights  product..."); 
+                 else $scope.showAlert('alert-danger', "You dont have rights to add product..."); 
               }
               else if(editStatus=='update'){
                 if ($rootScope.usersession.currentUser.isAdmin ) {
@@ -511,7 +535,9 @@ angular.module('prodo.ProductApp')
             }
 
             $scope.checkAdminProductUpload=function() {
-              if ($rootScope.isAdminCheck==true)  document.getElementById("Upload-clck").style.display = 'block';
+              if ($rootScope.isAdminCheck==true)
+                $("#Upload-clck").css("display", "block");      
+                
             }
              $scope.checkAdminProductUpload();
 
@@ -616,8 +642,15 @@ angular.module('prodo.ProductApp')
                                           });
 
                    }
-                    $("#img-spinner").hide(); 
-            
+                    $("#img-spinner").hide();
+
+                   $(function () {
+                      $("#prodo-comment-Textbox")
+                          .popover({ title: 'How to add comment', content: "Add comment as product feature name and its performance..." })
+                          .blur(function () {
+                              $(this).popover('hide');
+                          });
+                  });
  }])
            
             

@@ -36,6 +36,22 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
 	padding: 5px 10px;
   }
  
+/*Advanced Search CSS*/
+.prodoAdvancedSearchTextbox { 
+    background: #FFF url(http://www.cssportal.com/form-elements/images/search.png) no-repeat 4px 4px; 
+    border: 1px solid #999; 
+    outline:0; 
+    padding-left: 25px;
+    height:25px; 
+    width: 500px; 
+    border-radius: 5px;
+    /* */
+  } 
+
+
+
+
+
 
 .prodo-button {
 	-moz-box-shadow:inset 0px 0px 0px 0px #bee2f9;
@@ -1401,6 +1417,47 @@ cursor: pointer;
 width: 518px;
     /*box-shadow: inset 1px 1px rgba(0, 0, 0, 0.4), inset -1px -1px rgba(0, 0, 0, 0.4);*/ }  
 #load-more:hover            { color:#666; }   
+
+
+
+/*User  modal - omkar*/
+.productFollowedImage
+{
+  height : 100px;
+  width : 100px ;
+}
+
+.productFollowedParagraphs
+{
+  position :absolute;
+  
+  top: 20px;
+  left:20px;
+}
+
+
+.myDiv
+{
+  position:absolute;
+  left: 40px;
+}
+
+
+.productFollowedImages
+{
+  position :absolute;
+  height:65px;
+  width:65px;
+  left:20px;
+}
+
+.parass
+{
+   
+  
+}
+/*User  modal - omkar*/
+
  /* Prodo-Comment-CSS*/
 
  
@@ -1527,6 +1584,40 @@ display:none;
  
 .closedPimgs.ng-enter{
   opacity: 0;
+}.productFollowedImage
+{
+  height : 100px;
+  width : 100px ;
+}
+
+.productFollowedParagraphs
+{
+  position :absolute;
+  
+  top: 20px;
+  left:20px;
+}
+
+
+.myDiv
+{
+  position:absolute;
+  left: 40px;
+}
+
+
+.productFollowedImages
+{
+  position :absolute;
+  height:65px;
+  width:65px;
+  left:20px;
+}
+
+.parass
+{
+   
+  
 }
  
 .closedPimgs.ng-enter-active{
