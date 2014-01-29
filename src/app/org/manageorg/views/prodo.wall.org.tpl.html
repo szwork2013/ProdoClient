@@ -7,22 +7,15 @@
 
 </div> -->
 
-<div id="prodo-comment-container" class="container" style="border: 1px solid #94d2f8; height: 300px;">
-
-     <ul class="nav nav-tabs">
-        <li class="active"><a href="#tabOrg" data-toggle="tab">organization Details</a></li>
+<div id="prodo-comment-container" class="container" style="border: 1px solid #94d2f8; min-height: 50px;">
+     <ul prodo-nav class="nav nav-tabs">
+        <li class="active"><a ui-sref="prodo.wall.org.detail">organization Details</a></li>
        
-        <li class=""><a href="#tabOrgUpload" data-toggle="tab"   id="Upload-clck"  >organization Upload</a></li>
+        <li><a ui-sref="prodo.wall.org.upload">organization Upload</a></li>
 
     </ul>
     <div class="tab-content" style="padding-bottom: 9px; border-bottom: 1px solid #ddd;">
-        <div class="tab-pane active" id="tabOrg" ng-include="'org/manageorg/views/org.wall.orgDetails.tpl.html'">
-            <p>Org Details</p>
-        </div>
-        
-      <div class="tab-pane"  id="tabOrgUpload" ng-include="'org/manageorg/views/org.wall.orgUpload.tpl.html'"  >
-            <p>org Upload here</p>
-        </div>
+        <div ui-view></div>
     </div>
 
 </div>
