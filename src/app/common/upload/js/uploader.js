@@ -30,8 +30,8 @@ angular.module('prodo.UploadApp')
                 var action = {product: {userid: $rootScope.usersession.currentUser.userid, orgid:  $rootScope.usersession.currentUser.org.orgid, prodle: $scope.product_prodle}};
                else if ($scope.uploadSrc == "productlogo")
                 var action = {productlogo: {userid: $rootScope.usersession.currentUser.userid, orgid:  $rootScope.usersession.currentUser.org.orgid, prodle: $scope.product_prodle}};
-
-              $scope.socket.emit('uploadFiles', file_data, action);
+              
+                $scope.socket.emit('uploadFiles', file_data, action);
               $log.debug("pic emitted");
               //  $scope.uploadSrc = "";
 

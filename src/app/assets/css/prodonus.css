@@ -1383,6 +1383,19 @@ ul {list-style-type: none; }
 text-decoration: none;
 background-color: transparent;
 }
+#load-more{
+bottom: -3rem;
+background-color: white;
+color: #999;
+ 
+line-height: 20px;
+text-align: center;
+padding: 10px 0;
+font-size:30px;
+cursor: pointer;
+width: 518px;
+    /*box-shadow: inset 1px 1px rgba(0, 0, 0, 0.4), inset -1px -1px rgba(0, 0, 0, 0.4);*/ }  
+#load-more:hover            { color:#666; }   
  /* Prodo-Comment-CSS*/
 
  

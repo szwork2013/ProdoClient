@@ -12,7 +12,7 @@
  * 
  */
 angular.module('prodo.ProductApp')
-        .controller('ProductController', ['$scope','$log', '$rootScope', 'ProductService', 'UserSessionService','$http', function($scope, $log,$rootScope, ProductService, UserSessionService,$http) {
+        .controller('ProductController', ['$scope','$log', '$rootScope', 'ProductService', 'UserSessionService','$http','CommentLoadMoreService', function($scope, $log,$rootScope, ProductService, UserSessionService,$http,CommentLoadMoreService) {
 
             //comments
             $scope.productComments = {comments: [{}]};
@@ -171,7 +171,7 @@ angular.module('prodo.ProductApp')
                   $scope.newProductComment = {
                 product_comment: {
                   user: {userid: result.success.product_comment.user.userid,
-                    fullname: result.success.product_comment.user.fullname,
+                    username: result.success.product_comment.user.username,
                     orgname: result.success.product_comment.user.orgname,
                     grpname: result.success.product_comment.user.grpname,
                      profilepic:result.success.product_comment.user.profilepic
@@ -206,7 +206,7 @@ angular.module('prodo.ProductApp')
                $scope.newProductComment = {
                 product_comment: {
                   user: {userid: $scope.userIDFromSession,
-                    fullname: $scope.userFullnameFromSession,
+                    username: $scope.userFullnameFromSession,
                     orgname: $scope.orgnameFromSession,
                     grpname: $scope.grpnameFromSession,
                     profilepic:$rootScope.usersession.currentUser.profile_pic
@@ -221,7 +221,7 @@ angular.module('prodo.ProductApp')
                 $scope.newProductComment_image = {
                 product_comment: {
                   user: {userid: $scope.userIDFromSession,
-                    fullname: $scope.userFullnameFromSession,
+                    username: $scope.userFullnameFromSession,
                     orgname: $scope.orgnameFromSession,
                     grpname: $scope.grpnameFromSession,
                      profilepic:$rootScope.usersession.currentUser.profile_pic
@@ -243,7 +243,7 @@ angular.module('prodo.ProductApp')
                 $scope.newProductComment = {
                 product_comment: {
                   user: {userid: $scope.userIDFromSession,
-                    fullname: $scope.userFullnameFromSession,
+                    username: $scope.userFullnameFromSession,
                     orgname: $scope.orgnameFromSession,
                     grpname: $scope.grpnameFromSession,
                      profilepic:$rootScope.usersession.currentUser.profile_pic
@@ -258,7 +258,7 @@ angular.module('prodo.ProductApp')
                 $scope.newProductComment_image = {
                 product_comment: {
                   user: {userid: $scope.userIDFromSession,
-                    fullname: $scope.userFullnameFromSession,
+                    username: $scope.userFullnameFromSession,
                     orgname: $scope.orgnameFromSession,
                     grpname: $scope.grpnameFromSession,
                      profilepic:$rootScope.usersession.currentUser.profile_pic
@@ -533,14 +533,14 @@ angular.module('prodo.ProductApp')
             };
  
            
-         $log.debug($( "#prodo-comment-Textbox" ).height());
+       //  $log.debug($( "#prodo-comment-Textbox" ).height());
           $(document).ready(function () {
             $('#holder').hover(
               function() {
-                 $log.debug( 'hovering on' , $(this).attr('id') ); 
+                // $log.debug( 'hovering on' , $(this).attr('id') ); 
             
                  var txtheight=$( "#prodo-comment-Textbox" ).height();
-                      $log.debug(txtheight);
+                 //     $log.debug(txtheight);
                  var txtwidth=$( "#prodo-comment-Textbox" ).width();
                  document.getElementById("holder").style.height=txtheight;
                  document.getElementById("holder").style.width=txtwidth;
@@ -552,7 +552,7 @@ angular.module('prodo.ProductApp')
             }, 
               function() {
 
-                $log.debug( 'hovering out' , $(this).attr('id') );
+               // $log.debug( 'hovering out' , $(this).attr('id') );
                  // var txtheight=$( "#prodo-comment-Textbox" ).height();
               //    var txtwidth=$( "#prodo-comment-Textbox" ).width();
                  document.getElementById("holder").style.height='40px';
@@ -563,8 +563,62 @@ angular.module('prodo.ProductApp')
               }
             );
           });
-         
-          }])
+
+                $scope.handleLoadMoreCommentResponse=function(result){
+                   console.log(result);
+                          if(result.success != undefined){
+                           $log.debug(result.success.comment );
+                           for (var i = 0; i < result.success.comment.length; i++) {
+                            $scope.productComments.push(result.success.comment[i]);
+                           };
+                         }
+                         else 
+                         {
+                          if(result.error.code=='AC002'){
+
+                            $("#loadMoreCommentMsg").html(result.error.message);
+                             $("#load-more").hide();
+                           $log.debug(result.error.message);
+                          }
+                        else  if(result.error.code=='AC001'){
+                            $log.debug(result.error.message);
+                            $("#loadMoreCommentMsg").html(result.error.message);
+                          }
+                          else {
+                            $log.debug(result.error.message);
+                            $("#loadMoreCommentMsg").html(result.error.message);
+                          }
+                         }
+                    };
+                   $("#load-more").show();
+                  $scope.getLastCommentId = function(){
+                     $log.debug( $scope.productComments);
+                   $scope.productComments;
+                   var lengthComments=$scope.productComments.length;
+                   $log.debug(lengthComments)
+                   var lastComment=$scope.productComments[lengthComments-1];
+                   $log.debug(lastComment.commentid);
+                   return lastComment.commentid;
+                  }
+
+
+                   $scope.loadMoreComments=function(){
+                    $("#img-spinner").show(); 
+                  var lastCommentId=$scope.getLastCommentId();
+                  //call service
+                  CommentLoadMoreService.loadMoreComments({commentid: lastCommentId},
+                                          function(result) {
+                                           $scope.handleLoadMoreCommentResponse(result)
+                                           $("#img-spinner").hide(); 
+                                            },
+                                          function(error) {
+                                            $log.debug(error);
+                                          });
+
+                   }
+                    $("#img-spinner").hide(); 
+            
+ }])
            
             
 

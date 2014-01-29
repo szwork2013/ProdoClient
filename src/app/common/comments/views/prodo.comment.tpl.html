@@ -16,8 +16,9 @@
     <a class="pull-left" href="#">
         <img class="media-object" id="img-user" style="height:60px; width:50px" ng-src="{{comment.user.profilepic}}" alt="User"/> 
     </a>
+    
     <div class="media-body"><div>
-        <div class=" pull-left " id="prodo-comment-userName"  >{{comment.user.fullname.substring(0,15)}}</div>
+        <div class=" pull-left " id="prodo-comment-userName"  >{{comment.user.username.substring(0,15)}}</div>
         <div ng-style="hideIfNoOrg(comment.user.orgname)" id="prodo-comment-companyName" class="pull-left"   >  &nbsp; &nbsp; &nbsp; &nbsp; @ {{toCamelCase(comment.user.orgname).substring(0,15)}}</div> <div id="prodo-comment-companyName"  ng-style="hideIfNogrp(comment.user.grpname)"> &nbsp; &nbsp;- &nbsp;{{comment.user.grpname.substring(0,15)}}</div>  
        
         <div class="pull-right" id="prodo-comment-timePosted" >{{fromNow(comment.datecreated)}}</div> </div>
