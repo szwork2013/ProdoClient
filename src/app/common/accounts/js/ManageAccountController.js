@@ -370,27 +370,6 @@ angular.module('prodo.CommonApp')
   
     }
 
-    // function to handle server side responses
-    $scope.handleGetOrgResponse = function(data){
-      if (data.success) {
-        OrgRegistrationService.updateOrgData(data.success.organization);
-        $scope.showAlert('alert-success', data.success.message);   
-      } else {
-        $log.debug(data.error.message);
-        $scope.showAlert('alert-danger', data.error.message);
-        }
-    };
-
-      var cleanupEventGetOrgDone = $rootScope.$on("getOrgDone", function(event, message){
-        $scope.handleGetOrgResponse(message); 
-        cleanupEventGetOrgDone();  
-      });
-
-      var cleanupEventGetOrgNotDone = $rootScope.$on("getOrgNotDone", function(event, message){
-        $scope.showAlert('alert-danger', "Server Error:" + message); 
-        cleanupEventGetOrgNotDone();  
-      });
-
     $scope.orginvites=[{
                         'name': '',
                         'orgname': '',
@@ -414,9 +393,6 @@ angular.module('prodo.CommonApp')
         return JSON.stringify(orgInvite); 
       }
 
-      // console.log($scope.invite.name)
-      console.log($scope.orginvites.name)
-
     // function to handle server side responses
     $scope.handleOrgInviteResponse = function(data){
       if (data.success) {
@@ -435,8 +411,6 @@ angular.module('prodo.CommonApp')
 
 
     $scope.sendOrgInvites = function() {
-      console.log($scope.orginvites.name)
-      console.log($scope.jsonOrgInvitesData())
       OrgRegistrationService.sendInvites($scope.jsonOrgInvitesData());
       var cleanupEventSendOrgInvitesDone = $scope.$on("sendOrgInvitesDone", function(event, data){
         $scope.handleOrgInviteResponse(data); 

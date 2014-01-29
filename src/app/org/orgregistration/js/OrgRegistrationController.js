@@ -12,9 +12,9 @@ angular.module('prodo.OrgApp')
 
     $scope.goToState = function() {
       if ($stateParams.plantype == 'manufacturer') {
-        $state.transitionTo('subscription.terms');
+        $state.transitionTo('subscription.terms', {planid:  $stateParams.planid, plantype: $stateParams.plantype });
       } else {
-        transitionTo('subscription.finish');
+        $state.transitionTo('subscription.finish', {planid:  $stateParams.planid, plantype: $stateParams.plantype });
       }
     }
 

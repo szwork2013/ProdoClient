@@ -36,7 +36,7 @@ angular.module('prodo.OrgApp')
   })
  
 // factory service to make call to REST APIs using $resource
- .factory('OrgRegistrationService', ['$rootScope', '$resource', '$log', function($rootScope, $resource, $log) {
+ .factory('OrgRegistrationService', ['$rootScope', '$resource', '$log', '$state', function($rootScope, $resource, $log, $state) {
     var OrgService = 
       {
         OrgRegistration: $resource('/api/organization/:orgid', {},
@@ -161,11 +161,12 @@ angular.module('prodo.OrgApp')
 
       organization.updateOrgData = function(orgData, $scope){
           organization.currentOrgData = orgData;
+          $rootScope.$broadcast("sendOrgData", orgData);
       }
 
       organization.updateOrgAdd = function(orgAdd, $scope){
         organization.currentOrgAdd = orgAdd;
-        $rootScope.$broadcast("getOrgAddData", orgAdd);
+        $rootScope.$emit("getOrgAddData", orgAdd);
       }
 
       organization.sendInvites= function (orgInvite) {

@@ -31,7 +31,7 @@ angular.module('prodo.ProdonusApp',['ui.router', 'ui.bootstrap', 'xeditable', 'n
     editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
  
   }])
-.controller('ProdoMainController', ['$scope', '$rootScope', '$state', '$log', 'UserSessionService', 'UserSubscriptionService', function($scope, $rootScope, $state, $log, UserSessionService, UserSubscriptionService) {
+.controller('ProdoMainController', ['$scope', '$rootScope', '$state', '$log', 'UserSessionService', 'OrgRegistrationService', 'UserSubscriptionService', function($scope, $rootScope, $state, $log, UserSessionService, OrgRegistrationService, UserSubscriptionService) {
 
     $state.transitionTo('home.start');
     $scope.isShown = false;
@@ -76,17 +76,44 @@ angular.module('prodo.ProdonusApp',['ui.router', 'ui.bootstrap', 'xeditable', 'n
         } else if (!data.isOtpPassword && !data.isSubscribed) {
             UserSubscriptionService.getPlan();
         } else if (data.isSubscribed && !data.subscriptionExpired && !data.hasDonePayment) {
-        $state.transitionTo('subscription.payment', {planid:  data.subscription.planid, plantype: data.usertype });
+          $state.transitionTo('subscription.payment', {planid:  data.subscription.planid, plantype: data.usertype });
         } else if (data.isSubscribed && data.subscriptionExpired) {
-        $state.transitionTo('subscription.payment', {planid:  data.subscription.planid, plantype: data.usertype });
+          $state.transitionTo('subscription.payment', {planid:  data.subscription.planid, plantype: data.usertype });
+        } else if (data.org.orgid) {
+          OrgRegistrationService.getOrgDetailSettings();
         } else {
             $state.transitionTo('prodo.wall');
         }
       }
       cleanupEventSessionDone();
-    })
-    
+    });
 
+    // function to handle server side responses
+    $scope.handleGetOrgResponse = function(data){
+      if (data.success) {
+        OrgRegistrationService.updateOrgData(data.success.organization);
+        $scope.showAlert('alert-success', data.success.message);   
+      } else {
+        $log.debug(data.error.message);
+        $scope.showAlert('alert-danger', data.error.message);
+        }
+    };
+
+      var cleanupEventGetOrgDone = $rootScope.$on("getOrgDone", function(event, message){
+        $scope.handleGetOrgResponse(message); 
+        cleanupEventGetOrgDone();  
+      });
+
+      var cleanupEventGetOrgNotDone = $rootScope.$on("getOrgNotDone", function(event, message){
+        $scope.showAlert('alert-danger', "Server Error:" + message); 
+        cleanupEventGetOrgNotDone();  
+      });
+
+      var cleanupEventSendOrgData = $rootScope.$on("sendOrgData", function(event, data){
+        $state.transitionTo('prodo.wall'); 
+        cleanupEventSendOrgData();  
+      });
+      
     $scope.logout = function () {
       UserSessionService.logoutUser();
       var cleanupEventLogoutDone = $scope.$on('logoutDone', function (event, message) {

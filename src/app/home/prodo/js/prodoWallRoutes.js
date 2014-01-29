@@ -9,8 +9,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
     .state('prodo', {
       url: '/prodo',
       templateUrl: 'home/prodo/views/prodo.tpl.html',
-      abstract: true,
-      controller: 'ProdoWallController'
+      abstract: true
     })    
     .state('prodo.wall', {
       url: '',
@@ -24,14 +23,14 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
           controller: 'ManageAccountController'
         },
         'productwall' : {
-          templateUrl:  'common/slider/views/prodo.wall.slider.tpl.html'
+          templateUrl:  'common/slider/views/prodo.wall.slider.tpl.html',
+          controller: 'ManageAccountController'
         },
         'prodonavbar' : {
           templateUrl:  'home/prodo/views/prodo.wall.navbar.tpl.html'
         },
         'content' : {
           templateUrl:  'home/prodo/views/prodo.wall.content.tpl.html',
-          abstract: true
         }
       },
       controller: 'ProdoWallController'
