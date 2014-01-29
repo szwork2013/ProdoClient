@@ -1,6 +1,24 @@
 angular.module('prodo.CommonApp')
  .controller('ManageAccountController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$log', 'UserSessionService', 'OrgRegistrationService', function($scope, $rootScope, $state, $http, $timeout, $log, UserSessionService, OrgRegistrationService) {
 
+
+    $scope.user = $rootScope.usersession.currentUser;
+    $scope.org = OrgRegistrationService.currentOrgData;
+    $scope.orgaddr = OrgRegistrationService.currentOrgAdd;
+    $scope.editorEnabled = false;
+  
+    $scope.enableEditor = function() {
+      $scope.editorEnabled = true;
+    };
+  
+    $scope.disableEditor = function() {
+      $scope.editorEnabled = false;
+    };
+
+    var cleanupEventGetOrgAddData = $rootScope.$on("getOrgAddData", function(event, data){
+        $scope.orgaddr = data;
+        cleanupEventGetOrgAddData();  
+      });
     
 		// function to send and stringify user email to Rest APIs for user account update
     $scope.jsonUserAccountData = function()
@@ -9,7 +27,7 @@ angular.module('prodo.CommonApp')
           {
             user:
             {
-            'fullname' : $scope.user.fullname,
+            'username' : $scope.user.username,
             'firstname' : $scope.user.firstname,
             'lastname' : $scope.user.lastname,
             'dob' : $scope.user.dob,
@@ -47,6 +65,7 @@ angular.module('prodo.CommonApp')
 
         return JSON.stringify(userData); 
       }
+
     // function to handle server side responses
     $scope.handleUpdateUserResponse = function(data){
       if (data.success) {
@@ -64,6 +83,8 @@ angular.module('prodo.CommonApp')
     };  
 
     $scope.updateUserAccount = function() {
+      $scope.user.username = $scope.editableTitle;
+      $scope.disableEditor();
       UserSessionService.saveUserSettings($scope.jsonUserAccountData());
       var cleanupEventUpdateUserDone = $scope.$on("updateUserDone", function(event, message){
         $scope.handleUpdateUserResponse(message); 
@@ -146,21 +167,7 @@ angular.module('prodo.CommonApp')
             organization:
             {
             'name' : $scope.org.name,
-            'description' : $scope.org.description,
-            'subscription': {
-                            'planid': '' , 
-                            'planstartdate': '' , 
-                            'planexpirydateate': ''
-                            },
-            'org_images': [{
-
-                        'image' : $scope.org.image
-
-                        }],
-            'usergrp': [{
-                          'grpname': $scope.org.grpname  
-                       }],
-            'orginvites': $scope.org.invites 
+            'description' : $scope.org.description
             }
           };
         return JSON.stringify(orgData); 
@@ -184,6 +191,7 @@ angular.module('prodo.CommonApp')
     };  
 
     $scope.updateOrgAccount = function() {
+      $scope.disableEditor();
       OrgRegistrationService.saveOrgSettings($scope.jsonOrgAccountData());
       var cleanupEventUpdateOrgDone = $scope.$on("updateOrgDone", function(event, message){
         $scope.handleUpdateOrgResponse(message);
@@ -275,14 +283,6 @@ angular.module('prodo.CommonApp')
 
     $scope.addOrgAddress = function() {
       OrgRegistrationService.saveOrgAddress($scope.jsonOrgAddressData());
-      var cleanupEventUpdateOrgAddressDone = $scope.$on("updateOrgAddressDone", function(event, message){
-        $scope.handleUpdateOrgAddressResponse(message); 
-        cleanupEventUpdateOrgAddressDone();  
-      });
-      var cleanupEventUpdateOrgAddressNotDone = $scope.$on("updateOrgAddressNotDone", function(event, message){
-        $scope.showAlert('alert-danger', "Server Error:" + message); 
-        cleanupEventUpdateOrgAddressNotDone();     
-      });
       var cleanupEventAddOrgAddressDone = $scope.$on("addOrgAddressDone", function(event, message){
         $scope.handleAddOrgAddressResponse(message);
         cleanupEventAddOrgAddressDone();   
@@ -311,9 +311,9 @@ angular.module('prodo.CommonApp')
     };  
 
 
-    $scope.updateAddress = function(data, addressId) {
-      console.log($scope.jsonOrgAddressData())
-      OrgRegistrationService.updateOrgAddress(data, addressId);
+    $scope.updateAddress = function(addressId) {
+      console.log($scope.jsonOrgAddressData());
+      OrgRegistrationService.updateOrgAddress($scope.jsonOrgAddressData(), addressId);
       var cleanupEventUpdateOrgAddressDone = $scope.$on("updateOrgAddressDone", function(event, message){
         $scope.handleUpdateOrgAddressResponse(message); 
         cleanupEventUpdateOrgAddressDone();  
@@ -390,6 +390,63 @@ angular.module('prodo.CommonApp')
         $scope.showAlert('alert-danger', "Server Error:" + message); 
         cleanupEventGetOrgNotDone();  
       });
+
+    $scope.orginvites=[{
+                        'name': '',
+                        'orgname': '',
+                        'email': ''
+                      }];
+    $scope.addMoreInvites = function() { 
+      $scope.orginvites.push({});
+    };
+
+    $scope.jsonOrgInvitesData = function()
+      {
+        var orgInvite = 
+          {
+            otherorginvites:
+            [{
+              'name': $scope.orginvites.name,
+              'orgname': $scope.invite.orgname,
+              'email': $scope.invite.email
+            }]
+          }
+        return JSON.stringify(orgInvite); 
+      }
+
+      // console.log($scope.invite.name)
+      console.log($scope.orginvites.name)
+
+    // function to handle server side responses
+    $scope.handleOrgInviteResponse = function(data){
+      if (data.success) {
+
+        $scope.showAlert('alert-success', data.success.message);   
+      } else {
+        if (data.error.code== 'AU004') {     // enter valid data
+            $log.debug(data.error.code + " " + data.error.message);
+            $scope.showAlert('alert-danger', data.error.message);
+        } else {
+            $log.debug(data.error.message);
+            $scope.showAlert('alert-danger', data.error.message);
+        }
+      }
+    };  
+
+
+    $scope.sendOrgInvites = function() {
+      console.log($scope.orginvites.name)
+      console.log($scope.jsonOrgInvitesData())
+      OrgRegistrationService.sendInvites($scope.jsonOrgInvitesData());
+      var cleanupEventSendOrgInvitesDone = $scope.$on("sendOrgInvitesDone", function(event, data){
+        $scope.handleOrgInviteResponse(data); 
+        cleanupEventSendOrgInvitesDone();  
+      });
+      var cleanupEventSendOrgInvitesNotDone = $scope.$on("sendOrgInvitesNotDone", function(event, data){
+        $scope.showAlert('alert-danger', "Server Error:" + data); 
+        cleanupEventSendOrgInvitesNotDone();     
+      });
+    }
 
 
 }]);

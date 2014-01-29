@@ -22,7 +22,17 @@
 	
 	<ul class="list-group">
 	  <li class="list-group-item">
-	  	Username: {{usersession.currentUserData.username}}
+	  <div ng-hide="editorEnabled">
+      {{user.username}}
+      <a href="#" ng-click="enableEditor()">Edit username</a>
+    </div>
+    <div ng-show="editorEnabled">
+      <input ng-model="editableTitle" ng-show="editorEnabled">
+      <a href="#" ng-click="updateUserAccount()">Save</a>
+      or
+      <a href="#" ng-click="disableEditor()">cancel</a>.
+    </div>{{user.username}}
+	  	 
 	  	<a href="" data-toggle="collapse" data-target="#username" class="pull-right">Edit</a>
 	  		<div id="username" class="collapse">
 		  		<form id="prodo-form-signin" name="signinForm" class="css-form" ng-submit="" novalidate>

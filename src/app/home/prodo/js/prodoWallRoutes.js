@@ -19,6 +19,10 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
           templateUrl:  'common/search/views/prodo.wall.sidebar.tpl.html',
           controller: 'prodoSearchController'
         },
+        'orglogodisplay' : {
+          templateUrl:  'org/manageorg/views/prodo.wall.orglogo.tpl.html',
+          controller: 'ManageAccountController'
+        },
         'productwall' : {
           templateUrl:  'common/slider/views/prodo.wall.slider.tpl.html'
         },
@@ -26,7 +30,8 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
           templateUrl:  'home/prodo/views/prodo.wall.navbar.tpl.html'
         },
         'content' : {
-          templateUrl:  'home/prodo/views/prodo.wall.content.tpl.html'
+          templateUrl:  'home/prodo/views/prodo.wall.content.tpl.html',
+          abstract: true
         }
       },
       controller: 'ProdoWallController'
@@ -34,6 +39,17 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
     .state('prodo.wall.org', {
       url: '',
        templateUrl:  'org/manageorg/views/prodo.wall.org.tpl.html',
+       controller: 'ManageAccountController'
+      }) 
+    .state('prodo.wall.org.detail', {
+      url: '',
+       templateUrl:  'org/manageorg/views/org.wall.orgDetails.tpl.html',
+       controller: 'ManageAccountController'
+      }) 
+    .state('prodo.wall.org.upload', {
+      url: '',
+       templateUrl:  'org/manageorg/views/org.wall.orgUpload.tpl.html',
+       controller: 'ManageAccountController'
       }) 
     .state('prodo.wall.product', {
       url: '',

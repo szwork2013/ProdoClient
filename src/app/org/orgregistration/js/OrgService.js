@@ -53,6 +53,10 @@ angular.module('prodo.OrgApp')
           addOrgAddress: { method: 'POST', params: { orgid: '@orgid'}},
           updateOrgAddress: { method: 'PUT', params: { orgid: '@orgid', orgaddressid: '@orgaddressid'  }, isArray: false},
           deleteOrgAddressById: { method: 'DELETE', params: { orgid: '@orgid', orgaddressid: '@orgaddressid' }}
+        }),
+        OtherOrgInvites: $resource('/api/otherorginvites/:orgid', {},
+        {
+          sendOtherOrgInvites: { method: 'POST', params: { orgid: '@orgid'}}
         })
       }
 
@@ -160,8 +164,20 @@ angular.module('prodo.OrgApp')
       }
 
       organization.updateOrgAdd = function(orgAdd, $scope){
+        organization.currentOrgAdd = orgAdd;
+        $rootScope.$broadcast("getOrgAddData", orgAdd);
+      }
 
-          organization.currentOrgAdd = orgAdd;
+      organization.sendInvites= function (orgInvite) {
+        OrgService.OtherOrgInvites.sendOtherOrgInvites({orgid: $rootScope.usersession.currentUser.org.orgid}, orgInvite,     // calling function of UserSigninService to make POST method call to signin user.
+        function(success){
+          $log.debug(success);
+          $rootScope.$broadcast("sendOrgInvitesDone", success);
+        },
+        function(error){
+          $log.debug(error);
+          $rootScope.$broadcast("sendOrgInvitesNotDone", error.status);
+        });
       }
 
     return organization;

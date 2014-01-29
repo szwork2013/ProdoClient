@@ -99,61 +99,7 @@ angular.module('prodo.CommonApp')
     .state('account.user.paymenthistory', {
       url: '/paymenthistory',
       templateUrl: 'user/views/user.account.paymenthistory.settings.tpl.html' 
-    })     
-    .state('account.org', {
-      url: '/org',
-      views: {
-        'account-navigation' : {
-          templateUrl:  'org/manageorg/views/org.account.settings.nav.tpl.html',
-          controller: 'ManageAccountController'
-        },
-        'account-settings' : {
-          abstract: true,
-          templateUrl:  'org/manageorg/views/org.account.settings.tpl.html',
-          controller: 'ManageAccountController'
-        }
-      }
-    })
-    .state('account.org.general', {
-      url: '/general',
-      templateUrl: 'org/manageorg/views/org.account.general.settings.tpl.html',
-      controller: 'ManageAccountController' 
-    })  
-    .state('account.org.location', {
-      url: '/location',
-      templateUrl: 'org/manageorg/views/org.account.location.settings.tpl.html',
-      controller: 'ManageAccountController'  
-    })
-    .state('account.org.groupinvites', {
-      url: '/invites',
-      templateUrl: 'org/manageorg/views/org.account.groupinvites.settings.tpl.html',
-      controller: 'ManageAccountController'  
-    })    
-    .state('account.org.otherinvites', {
-      url: '/invites',
-      templateUrl: 'org/manageorg/views/org.account.invites.settings.tpl.html',
-      controller: 'ManageAccountController'  
-    })  
-    .state('account.org.product', {
-      url: '/product',
-      templateUrl: 'org/manageorg/views/org.account.product.settings.tpl.html',
-      controller: 'ManageAccountController'  
-    })  
-    .state('account.org.subscription', {
-      url: '/subscription',
-      templateUrl: 'org/manageorg/views/org.account.subscription.settings.tpl.html',
-      controller: 'ManageAccountController'  
-    }) 
-    .state('account.org.payment', {
-      url: '/payment',
-      templateUrl: 'org/manageorg/views/org.account.payment.settings.tpl.html',
-      controller: 'ManageAccountController'  
-    }) 
-    .state('account.org.paymenthistory', {
-      url: '/paymenthistory',
-      templateUrl: 'org/manageorg/views/org.account.paymenthistory.settings.tpl.html',
-      controller: 'ManageAccountController' 
-    })                
+    })              
   }]);
  
 // .run(['$rootScope', 'UserSessionService', '$state', '$log', function ($rootScope, UserSessionService, $state, $log) {

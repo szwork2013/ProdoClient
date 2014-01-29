@@ -7,6 +7,11 @@ html,body{
 	height:100%;
 }
 
+.btn:focus {
+outline: thin dotted transparent;
+outline-offset: -2px;
+}
+
 /*#body{
 background-color: #3a92c8;
 background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
