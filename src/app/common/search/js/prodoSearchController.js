@@ -38,159 +38,71 @@ $scope.products_id =
  ];
 
 ////start of advanced search
- $scope.productName="Product Name";
-  $scope.modelNumber="Model Number";
-  $scope.features="Feature"; 
-  $scope.category ="Category";  
-  $scope.valp="";
-  $scope.query="";
-  $scope.s1=""; 
-  $scope.val="";   
-  $scope.counter=0;
-  $scope.query1=""; 
-  $scope.query2=""; 
-  $scope.query3=""; 
-  $scope.query4="";  
-  $scope.product=[];
-  $scope.model=[];
-  $scope.feature=[]; 
-  $scope.search=[];
-  $scope.condition="";
-  $scope.news={};
+  $scope.search={};
+
+  // var split = 'show OR text OR into input OR abs ccc'.split('OR').length;
+  // console.log(split); 
+   $scope.searchProductData=function()
+  {
+    if($scope.product_name!=="")
+    { 
+      $scope.search.Product_Name=$scope.product_name;
+  
+    }
+     if($scope.model_number !=="")
+    {
+       $scope.search.Model_number=$scope.model_number;
+    } 
+   
+    if($scope.category !=="") 
+    {
+      $scope.search.Category=$scope.category;
+    }
+    
+    
+    if($scope.feature !=="")
+    {
       
-  document.getElementById("t1").disabled=false;
+      
+      $scope.search.Feature=$scope.feature;
+     // $scope.search.push({"Feature":$scope.feature});
+      // var splitFeature = $scope.feature.split('OR').length;
+      // var splitFeature2=$scope.feature.split('OR');
+      // for(var l=0;l<splitFeature;l++)
+      // {
+      //   $scope.search.push({"Feature" : splitFeature2[l]}); 
+      //   if(l!==splitFeature-1)
+      //   {
+      //     $scope.search.push({"Condition" : "OR"});
+      //   }
+      // } 
+    }
+  //  var productsearchdata = JSON.stringify($scope.search);
+                       prodoSearchService.searchProduct($scope.search);
+ 
 
-  
-          $scope.addM=function() 
-          {
-                          document.getElementById("t1").value="";  
-                          if($scope.s1=="Product Name")
-                          {
-                             $scope.search.push({"Product_Name" : $scope.val});                
-                          }
-                           
-                          
-                          else if($scope.s1=="Feature")
-                          {
-
-                               $scope.search.push({"Feature" : $scope.val});
-                          } 
-                           
-                          
-                          else if($scope.s1=="Category")
-                          {  
-
-                             $scope.search.push({"Category" : $scope.val});
-                          }
-                          else if($scope.s1=="Model Number")
-                          {
-                            $scope.search.push({"Model_Number": $scope.val});
-                          }
-          
-                          document.getElementById("orr").disabled=false;
-                          document.getElementById("and").disabled=false;
-                          document.getElementById("add").disabled=true;
-                          document.getElementById("t1").disabled=true;
-                          document.getElementById("final").disabled=true;              
-          }; 
-         
-
-
-          $scope.and=function()
-          {      
-                   $scope.search.push({"condition":"AND"}); 
-                   document.getElementById("and").disabled=true;
-                   document.getElementById("orr").disabled=true;
-                   document.getElementById("t1").disabled=true;
-          };
-          
-  
-          $scope.searchProductData=function()
-          {
-                       if($scope.s1=="Product Name")
-                       {
-                          $scope.search.push({"Product_Name" : $scope.val});
-                       }
-                       else if($scope.s1=="Model Number")
-                       {
-                          $scope.search.push({"Model_Number": $scope.val});
-                       }
-                       else if($scope.s1=="Feature")
-                       {
-                         $scope.search.push({"Feature" : $scope.val});
-                       }
-                       else if($scope.s1=="Category")
-                       {
-                         $scope.search.push({"Category" : $scope.val});
-                       }
-                       
-
-                      document.getElementById("t1").value="";
-                      document.getElementById("111").value="";
-                      document.getElementById("t1").disabled=true;
-                      $scope.s1="";
-                      $scope.val="";
-
-
-                       var productsearchdata = JSON.stringify($scope.search);
-                       prodoSearchService.searchProduct(productsearchdata);
-
-
-                      console.log(productsearchdata); 
+                      //console.log(productsearchdata); 
 
 
 
                        $scope.$on('getSearchProductDone', function(event, data) {
-                        alert(data);
                        });
                     
                        $scope.$on('getSearchProductNotDone', function(event, data) {
                       
                        });
-                
-                      
-          };
-           
+    
+  }; 
   
-          $scope.refr = function()
-          {  
-                              document.getElementById("and").disabled=false;
-                              document.getElementById("orr").disabled=false;
-                              document.getElementById("orr").disabled=true;
-                              document.getElementById("and").disabled=true;
-                              document.getElementById("add").disabled=false;
-                              document.getElementById("final").disabled=false;                           
-          };
-
-
-          $scope.or=function()
-          {
-             $scope.search.push({"condition":"OR"});
-             document.getElementById("and").disabled=true;
-             document.getElementById("orr").disabled=true;
-             document.getElementById("t1").disabled=true;
-          };
-
-
-          $scope.z=function()
-          {
-             console.log("inside");
-             document.getElementById("t1").disabled=false;
-          };
-
-          
-          $scope.temp=function()
-          {
-            document.getElementById("111").value="";
-            document.getElementById("t1").value="";
-            $scope.search="";
-            $scope.search=[];
-            $scope.s1="";
-            $scope.val="";
-
-          };
-            
-
+  
+  $scope.modalReset=function()
+  {
+    document.getElementById("textBoxCategoryName").value="";
+    document.getElementById("textBoxModelNumber").value="";
+    document.getElementById("textBoxFeatureName").value="";
+    document.getElementById("textBoxProductName").value="";
+    $scope.search={};
+  };
 
 
   /////////////////////////////////////////////////
