@@ -16,13 +16,15 @@
 
 <!--<div id="prodo-comment-container" class="container" style="border: 1px solid #94d2f8; width: 80%; margin-left:64.5px; " ng-controller="ProductController">-->
 <div id="prodo-comment-fixed" style="">
+
   <div id="prodo-comment-enterComment" >
     <span class="label label-info   "  >{{300 - commenttextField.userComment.length}}</span> 
     <a href="" ng-click="getLatestComments()" > <div class="label label-info "  id="responseComment"  style="display: none">  </div></a>
 
   <div ng-controller="DragImageController">
     <span id="holder" > 
-    <textarea id="prodo-comment-Textbox" col="40" type="text" class="form-control" ondragleave="clearBorder()" name="txtComment" placeholder="Product Conversation [max 300 characters]"   ng-model="commenttextField.userComment" comment-limit="300" ng-enter="addProductComment()" required ></textarea> 
+
+    <textarea id="prodo-comment-Textbox" col="40" type="text" class="form-control " ondragleave="clearBorder()" name="txtComment" placeholder="Product Conversation [max 300 characters]"   ng-model="commenttextField.userComment" comment-limit="300" ng-enter="addProductComment()" required  ></textarea> 
     <div style="width:75px;" id="CommentImg">
                            
                             <a class="close" id= "crossButton"  style="display:none" ng-click="clearReader()">&times;</a> 
