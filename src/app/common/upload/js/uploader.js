@@ -30,6 +30,8 @@ angular.module('prodo.UploadApp')
                 var action = {product: {userid: $rootScope.usersession.currentUser.userid, orgid:  $rootScope.usersession.currentUser.org.orgid, prodle: $scope.product_prodle}};
                else if ($scope.uploadSrc == "productlogo")
                 var action = {productlogo: {userid: $rootScope.usersession.currentUser.userid, orgid:  $rootScope.usersession.currentUser.org.orgid, prodle: $scope.product_prodle}};
+               else if ($scope.uploadSrc == "orglogo")
+                var action = {orglogo: {userid: $rootScope.usersession.currentUser.userid, orgid:  $rootScope.usersession.currentUser.org.orgid}};
 
               $scope.socket.emit('uploadFiles', file_data, action);
               $log.debug("pic emitted");
@@ -46,14 +48,13 @@ angular.module('prodo.UploadApp')
            
       if (error.error.code == 'AP003') {     // user already exist
                   $log.debug(error.error.code + " " + error.error.message);
-                  alert("Error while uploading "+$scope.file.name +" " +error.error.message);
+                  $scope.showAlert('alert-danger', "Error while uploading "+$scope.file.name +" " +error.error.message);
                 } else if (error.error.code == 'AV001') {  // user data invalid
                   $log.debug(error.error.code + " " + error.error.message);
-                  alert("Error while uploading "+$scope.file.name +" " +error.error.message);
+                 $scope.showAlert('alert-danger', "Error while uploading "+$scope.file.name +" " +error.error.message);
                 } else {
                   $log.debug(error.error.message);
-                   alert("Error while uploading "+$scope.file.name +" " +error.error.message);
-                  // alert(uploadErr);
+                  $scope.showAlert('alert-danger', "Error while uploading "+$scope.file.name +" " +error.error.message);
                 }
 
       $log.debug("Error " + error);
@@ -82,13 +83,13 @@ angular.module('prodo.UploadApp')
     if (error) {
          if (error.error.code == 'AP003') {     // user already exist
                   $log.debug(error.error.code + " " + error.error.message);
-                  alert("Error while uploading "+$scope.file.name +" " +error.error.message);
+                  $scope.showAlert('alert-danger', "Error while uploading "+$scope.file.name +" " +error.error.message);
                 } else if (error.error.code == 'AV001') {  // user data invalid
                   $log.debug(error.error.code + " " + error.error.message);
-                  alert("Error while uploading "+$scope.file.name +" " +error.error.message);
+                 $scope.showAlert('alert-danger', "Error while uploading "+$scope.file.name +" " +error.error.message);
                 } else {
                   $log.debug(error.error.message);
-                  alert("Error while uploading "+$scope.file.name +" " +error.error.message);
+                 $scope.showAlert('alert-danger', "Error while uploading "+$scope.file.name +" " +error.error.message);
                 }
       $log.debug("Error " + error);
     }
@@ -114,13 +115,13 @@ angular.module('prodo.UploadApp')
     if (error) {
        if (error.error.code == 'AP003') {     // user already exist
                   $log.debug(error.error.code + " " + error.error.message);
-                  alert("Error while uploading "+$scope.file.name +" " +error.error.message);
+                  $scope.showAlert('alert-danger', "Error while uploading "+$scope.file.name +" " +error.error.message);
                 } else if (error.error.code == 'AV001') {  // user data invalid
                   $log.debug(error.error.code + " " + error.error.message);
-                  alert("Error while uploading "+$scope.file.name +" " +error.error.message);
+                 $scope.showAlert('alert-danger', "Error while uploading "+$scope.file.name +" " +error.error.message);
                 } else {
                   $log.debug(error.error.message);
-                  alert("Error while uploading "+$scope.file.name +" " +error.error.message);
+                  $scope.showAlert('alert-danger', "Error while uploading "+$scope.file.name +" " +error.error.message);
                 }
       $log.debug("Error " + error);
     }
@@ -137,19 +138,51 @@ angular.module('prodo.UploadApp')
         $scope.counter = 0;
     }
   });
+  
+  $scope.socket.removeAllListeners('orgUploadLogoResponse');
+  $scope.socket.on('orgUploadLogoResponse', function(error, imagelocation) {
+    if (error) {
+       if (error.error.code == 'AP003') {     // user already exist
+                  $log.debug(error.error.code + " " + error.error.message);
+                  $scope.showAlert('alert-danger', "Error while uploading "+$scope.file.name +" " +error.error.message);
+                } else if (error.error.code == 'AV001') {  // user data invalid
+                  $log.debug(error.error.code + " " + error.error.message);
+                 $scope.showAlert('alert-danger', "Error while uploading "+$scope.file.name +" " +error.error.message);
+                } else {
+                  $log.debug(error.error.message);
+                  $scope.showAlert('alert-danger', "Error while uploading "+$scope.file.name +" " +error.error.message);
+                }
+      $log.debug("Error " + error);
+    }
+    else {
+      $log.debug("getting response for org upload logo " + imagelocation);
+      $scope.imageSrc = imagelocation;
+      $scope.counter++;
+      $log.debug($scope.counter);
+      if ($scope.counter < $scope.fileLength) {
+        $log.debug("emitting image " + $scope.counter);
+//    $scope.getFile($scope.counter);
+      }
+      else
+        $scope.counter = 0;
+    }
+  });
+
+
+
 
   $scope.socket.removeAllListeners('userUploadResponse');
   $scope.socket.on('userUploadResponse', function(error, imagelocation) {
     if (error) {
        if (error.error.code == 'AP003') {     // user already exist
                   $log.debug(error.error.code + " " + error.error.message);
-                  alert("Error while uploading "+$scope.file.name +" " +error.error.message);
+                 $scope.showAlert('alert-danger', "Error while uploading "+$scope.file.name +" " +error.error.message);
                 } else if (error.error.code == 'AV001') {  // user data invalid
                   $log.debug(error.error.code + " " + error.error.message);
-                  alert("Error while uploading "+$scope.file.name +" " +error.error.message);
+                 $scope.showAlert('alert-danger', "Error while uploading "+$scope.file.name +" " +error.error.message);
                 } else {
                   $log.debug(error.error.message);
-                  alert("Error while uploading "+$scope.file.name +" " +error.error.message);
+                  $scope.showAlert('alert-danger', "Error while uploading "+$scope.file.name +" " +error.error.message);
                 }
       $log.debug("Error " + error);
     }

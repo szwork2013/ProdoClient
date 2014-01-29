@@ -1,10 +1,12 @@
 angular.module('prodo.ProductApp')
         .controller('DragImageController', ['$scope', '$rootScope', '$log', function($scope, $rootScope, $log) {
-
-   var fx=function()
+   var reader;
+   var reader1;
+   $rootScope.count=0;
+   function clearBorder()
     {
-      document.getElementById("holder").setAttribute('class', 'holderx');
-    };
+        document.getElementById("holder").setAttribute('class', 'holderx');
+    }
     var holder = document.getElementById('holder'),
     tests = {
       filereader: typeof FileReader != 'undefined',
@@ -25,14 +27,16 @@ angular.module('prodo.ProductApp')
 
     function previewfile(file) {
       if (tests.filereader === true && acceptedTypes[file.type] === true) {
-      var reader = new FileReader();
+       reader = new FileReader();
       reader.onload = function (event) {
       var image = new Image();
       image.src = event.target.result; 
-      image.id="prodo-uploadedCommentImage"
+      image.id="prodo-uploadedCommentImage";
+      document.getElementById("crossButton").style.display="inline";
       $rootScope.comment_image_l=[{image:image.src}];
       image.width = 250; // a fake resize
       holder.appendChild(image);
+      document.getElementById('prodo-comment-commentContainer').style.marginTop='60px';
     };
 
     reader.readAsDataURL(file);
@@ -42,7 +46,7 @@ angular.module('prodo.ProductApp')
 
     }
      //get buffer
-      var reader1 = new FileReader();
+      reader1 = new FileReader();
       reader1.onload = function (event) {
       var buffer=event.target.result; 
       $rootScope.file_data = {filetype: file.type, filename: file.name, filebuffer: buffer};
@@ -68,15 +72,41 @@ angular.module('prodo.ProductApp')
         holder.ondragend = function () { this.className = ''; return false; };
         holder.ondrop = function (e) 
       { 
-    this.className = '';
-    e.preventDefault();
-    readfiles(e.dataTransfer.files);
+                               $rootScope.count++;
+                              this.className = '';
+                              e.preventDefault();
+                               if(acceptedTypes[e.dataTransfer.files[0].type] === false)
+                                {document.getElementById('CommentImg').innerHTML="Add image only"}
+                              else if(e.dataTransfer.files[0].size/1024>500)
+                                {document.getElementById('CommentImg').innerHTML="Image size must ne less than 500kb"}
+                             else if($rootScope.count>1)
+                              {document.getElementById('CommentImg').innerHTML="Add only one image at a time"}
+                              else if($rootScope.count==1 && acceptedTypes[e.dataTransfer.files[0].type] === true && e.dataTransfer.files[0].size/1024<500)
+                              readfiles(e.dataTransfer.files );
+                              
   }
 
 }
 
 //drag comment image
-
+ $scope.clearReader=function()
+                              {
+                                $log.debug("Clear called");
+                                 document.getElementById('prodo-comment-commentContainer').style.marginTop='0px';
+                                document.getElementById("crossButton").style.display="none";
+                                 reader.abort();
+                                  reader1.abort();
+                                  reader=new FileReader();
+                                  reader1=new FileReader();
+                                  $rootScope.file_data ="";
+                                  $rootScope.count--;
+                                 var element=document.getElementById('prodo-uploadedCommentImage');
+                                 if (typeof(element) != 'undefined' && element != null)
+                                  {
+                                    element.parentNode.removeChild(element);
+                                    // exists.
+                                  }
+                              }
 
 
 }]);

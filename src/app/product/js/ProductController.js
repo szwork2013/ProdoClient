@@ -12,7 +12,7 @@
  * 
  */
 angular.module('prodo.ProductApp')
-        .controller('ProductController', ['$scope','$log', '$rootScope', 'ProductService', 'UserSessionService','$http', function($scope, $log,$rootScope, ProductService, UserSessionService,$http) {
+        .controller('ProductController', ['$scope','$log', '$rootScope', 'ProductService', 'UserSessionService','$http','CommentLoadMoreService', function($scope, $log,$rootScope, ProductService, UserSessionService,$http,CommentLoadMoreService) {
 
             //comments
             $scope.productComments = {comments: [{}]};
@@ -29,21 +29,69 @@ angular.module('prodo.ProductApp')
             var abc;
 
             //product
+            $scope.editStatus;
             $scope.product = {product: [{}]};
             $scope.newProduct = {product: [{}]};
             $scope.type = "product";
-            $scope.product_prodle;
+            $rootScope.product_prodle;
+            $rootScope.orgid;
             $scope.pImages_l = {product_images: [{}]};
             // $scope.uploadSrc="product";
 
             //user
             $scope.userIDFromSession;
-            $scope.userFullnameFromSession;
+            $scope.usernameFromSession;
             $scope.grpnameFromSession;
             $scope.orgnameFromSession;
             $scope.orgidFromSession;
             $scope.socket;
-            
+             
+             //socket listener here
+
+
+
+            $rootScope.product_prodle='xyY_OZ_dO';
+            $rootScope.orgid='orglyPGwzpfO'; 
+
+              //get product function declaration
+            $scope.getProduct = function()
+            {
+
+              ProductService.getProduct({orgid: $rootScope.orgid, prodle: $rootScope.product_prodle},
+              function(successData) {
+                if (successData.success == undefined)
+                {
+                   var temp=document.getElementById('prodo-comment-container');
+                   $log.debug(temp);
+                   temp.innerHTML="<br>Please start following a product using search...<br><br>";
+                   $scope.showAlert('alert-danger', " Product not available ...");
+                }
+                else {
+                  $log.debug(successData.success.product);
+//                $log.debug("success    "+successData);
+                  $scope.product = successData.success.product;
+                   $rootScope.product_prodle = successData.success.product.prodle;
+                  $scope.productComments = successData.success.product.product_comments;
+                  $scope.pImages_l = successData.success.product.product_images;
+                }
+
+              },
+                      function(error) {
+                        $log.debug(error);
+                        var temp=document.getElementById('prodo-comment-container');
+                        $log.debug(temp);
+                        temp.innerHTML="<br> Server error please try after some time<br><br>";
+                        $scope.showAlert('alert-danger', "Server Error:" + error.status);
+                                      
+                      });
+
+            }
+            //get product function declaration  
+
+            $scope.getProduct();    
+
+
+
 
             //Generate GUID
             function S4() {
@@ -54,16 +102,7 @@ angular.module('prodo.ProductApp')
             }
             //Generate GUID
             
-            $scope.showErrorIfCommentNotAdded = function( ) {
-              var retry = document.getElementById("responseComment");
-              retry.style.display = 'inline';
-              retry.innerHTML = 'Error adding comment please try again..';
-            }
-
-            $scope.showRetryIconIfCommentNotAdded = function( ) {
-              var retryIcon = document.getElementById("retryIcon");
-              retryIcon.style.display = 'inline';
-            }
+           
 
 
 
@@ -81,7 +120,7 @@ angular.module('prodo.ProductApp')
                 $scope.orgidFromSession = "";
               }
               $scope.userIDFromSession = $rootScope.usersession.currentUser.userid;
-              $scope.userFullnameFromSession = $rootScope.usersession.currentUser.username;
+              $scope.usernameFromSession = $rootScope.usersession.currentUser.username;
             }
             $scope.getUserDetails();
 
@@ -114,16 +153,14 @@ angular.module('prodo.ProductApp')
             //socket response when for add comment
 
             //on the fly comment listener creation
-            
-             // alert($scope.productcommentResponseListener);
-            
+                
             //productComment response
             
-             $scope.productcommentResponseListener="productcommentResponse"+'xyY_OZ_dO';
+             $scope.productcommentResponseListener="productcommentResponse"+$rootScope.product_prodle;
             
             $scope.socket.removeAllListeners($scope.productcommentResponseListener);
             
-           // alert($scope.productcommentResponseListener);
+          
             $scope.socket.on($scope.productcommentResponseListener, function(error, result) {
               if (error) {
                 $log.debug(error.error.message);
@@ -134,9 +171,10 @@ angular.module('prodo.ProductApp')
                   $scope.newProductComment = {
                 product_comment: {
                   user: {userid: result.success.product_comment.user.userid,
-                    fullname: result.success.product_comment.user.fullname,
+                    username: result.success.product_comment.user.username,
                     orgname: result.success.product_comment.user.orgname,
-                    grpname: result.success.product_comment.user.grpname
+                    grpname: result.success.product_comment.user.grpname,
+                     profilepic:result.success.product_comment.user.profilepic
                   },
                   commentid: result.success.product_comment.commentid,
                   type: result.success.product_comment.type,
@@ -161,18 +199,17 @@ angular.module('prodo.ProductApp')
 
             //Add comment function
             $scope.addProductComment = function() {
-              var abc="productcommentResponseListener"+$scope.product_prodle;
-              alert(abc);
-              $log.debug($rootScope.file_data);
+               $log.debug($rootScope.file_data);
                $log.debug($rootScope.comment_image_l);
               // if($rootScope.file_data==undefined){
               if (($rootScope.file_data == "") || ($rootScope.file_data == " ") || ($rootScope.file_data == undefined) || ($rootScope.file_data == null)) {
                $scope.newProductComment = {
                 product_comment: {
                   user: {userid: $scope.userIDFromSession,
-                    fullname: $scope.userFullnameFromSession,
+                    username: $scope.usernameFromSession,
                     orgname: $scope.orgnameFromSession,
-                    grpname: $scope.grpnameFromSession
+                    grpname: $scope.grpnameFromSession,
+                    profilepic:$rootScope.usersession.currentUser.profile_pic
                   },
                   commentid: guid(),
                   type: $scope.type,
@@ -184,9 +221,10 @@ angular.module('prodo.ProductApp')
                 $scope.newProductComment_image = {
                 product_comment: {
                   user: {userid: $scope.userIDFromSession,
-                    fullname: $scope.userFullnameFromSession,
+                    username: $scope.usernameFromSession,
                     orgname: $scope.orgnameFromSession,
-                    grpname: $scope.grpnameFromSession
+                    grpname: $scope.grpnameFromSession,
+                     profilepic:$rootScope.usersession.currentUser.profile_pic
                   },
                   commentid: guid(),
                   type: $scope.type,
@@ -205,9 +243,10 @@ angular.module('prodo.ProductApp')
                 $scope.newProductComment = {
                 product_comment: {
                   user: {userid: $scope.userIDFromSession,
-                    fullname: $scope.userFullnameFromSession,
+                    username: $scope.usernameFromSession,
                     orgname: $scope.orgnameFromSession,
-                    grpname: $scope.grpnameFromSession
+                    grpname: $scope.grpnameFromSession,
+                     profilepic:$rootScope.usersession.currentUser.profile_pic
                   },
                   commentid: guid(),
                   type: $scope.type,
@@ -219,9 +258,10 @@ angular.module('prodo.ProductApp')
                 $scope.newProductComment_image = {
                 product_comment: {
                   user: {userid: $scope.userIDFromSession,
-                    fullname: $scope.userFullnameFromSession,
+                    username: $scope.usernameFromSession,
                     orgname: $scope.orgnameFromSession,
-                    grpname: $scope.grpnameFromSession
+                    grpname: $scope.grpnameFromSession,
+                     profilepic:$rootScope.usersession.currentUser.profile_pic
                   },
                   commentid: guid(),
                   type: $scope.type,
@@ -240,11 +280,12 @@ angular.module('prodo.ProductApp')
 
               {
                 //  $scope.getTagsFromCommentText($scope);
-                $scope.socket.emit('addComment', $scope.product_prodle, $scope.newProductComment.product_comment);
+                $scope.socket.emit('addComment', $rootScope.product_prodle, $scope.newProductComment.product_comment);
                 $scope.productComments.unshift($scope.newProductComment_image.product_comment);
                 $scope.commenttextField.userComment = "";
-
- 
+                $rootScope.count=0;
+                  document.getElementById('prodo-comment-commentContainer').style.marginTop='0px';
+                  document.getElementById("crossButton").style.display="none";
                  var element=document.getElementById('prodo-uploadedCommentImage');
                  if (typeof(element) != 'undefined' && element != null)
                   {
@@ -258,36 +299,7 @@ angular.module('prodo.ProductApp')
             };
             //Add comment function
 
-            //get product function declaration
-            $scope.getProduct = function()
-            {
-
-              ProductService.getProduct({orgid: 'orglyPGwzpfO', prodle: 'xyY_OZ_dO'},
-              function(successData) {
-                if (successData.success == undefined)
-                {
-                  $scope.showAlert('alert-danger', " Product not available ...");
-                }
-                else {
-                  $log.debug(successData.success.product);
-//                $log.debug("success    "+successData);
-                  $scope.product = successData.success.product;
-                  $scope.product_prodle = successData.success.product.prodle;
-                  $scope.productComments = successData.success.product.product_comments;
-                  $scope.pImages_l = successData.success.product.product_images;
-                }
-
-              },
-                      function(error) {
-                        $log.debug(error);
-                        $scope.showAlert('alert-danger', "Server Error:" + error.status);
-
-                      });
-
-            }
-            //get product function declaration  
-
-            $scope.getProduct();
+          
             //   $log.debug(ProductService.getProduct({prodle: 'eyYHSKVtL'}));
 
             //get latest comments posted by others
@@ -310,26 +322,27 @@ angular.module('prodo.ProductApp')
             //error handling for add product
             $scope.handleSaveProductResponse = function(data) {
               if (data.success) {
-                alert(data.success.message);
-              } else {
+                $scope.showAlert('alert-success', data.success.message);
+               } else {
                 if (data.error.code == 'AV001') {     // user already exist
                   $log.debug(data.error.code + " " + data.error.message);
-                  alert(data.error.message);
-                } else if (data.error.code == 'AP001') {  // user data invalid
+                  $scope.showAlert('alert-danger', data.error.message);
+                 } else if (data.error.code == 'AP001') {  // user data invalid
                   $log.debug(data.error.code + " " + data.error.message);
-                  alert(data.error.message);
+                  $scope.showAlert('alert-danger', data.error.message);
                 } else {
                   $log.debug(data.error.message);
-                  alert(data.error.message);
+                  $scope.showAlert('alert-danger', data.error.message);
                 }
               }
             };
             //error handling for add product
 
             //add product
-            $scope.addProduct = function()
+            $scope.addProduct = function(editStatus)
             {
-
+              
+              
               $scope.newProduct = {product: {
                   display_name: $scope.display_name,
                   serial_no: $scope.product.serial_no,
@@ -338,25 +351,47 @@ angular.module('prodo.ProductApp')
                   description: $scope.product.description
                 }};
 
-              ProductService.saveProduct({orgid: $scope.orgidFromSession}, $scope.newProduct,
-                      function(success) {
-                        $log.debug(success);
-                        $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
-                      },
-                      function(error) {
-                        $log.debug(error);
-                      });
+                
+              if(editStatus=='add'){
+                 if ($rootScope.usersession.currentUser.isAdmin ) {
+                ProductService.saveProduct({orgid: $scope.orgidFromSession}, $scope.newProduct,
+                        function(success) {
+                          $log.debug(success);
+                          $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
+                        },
+                        function(error) {
+                          $log.debug(error);
+                        });
+                }
+                 else $scope.showAlert('alert-danger', "You dont have rights  product..."); 
+              }
+              else if(editStatus=='update'){
+                if ($rootScope.usersession.currentUser.isAdmin ) {
+                if ($scope.orgidFromSession === $rootScope.orgid ) {
+               ProductService.updateProduct({orgid:$scope.orgidFromSession,prodle:$rootScope.product_prodle}, $scope.newProduct,
+                        function(success) {
+                          $log.debug(success);
+                          $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
+                        },
+                        function(error) {
+                          $log.debug(error);
+                        });
+                }
+               }
+               else $scope.showAlert('alert-danger', "You dont have rights to update this product..."); 
+              }
 
             };
             //delete product
             $scope.deleteProduct = function()
             {
-              if ($rootScope.usersession.currentUser.isAdmin) {
-
-                ProductService.deleteProduct({orgid: $scope.orgidFromSession, prodle: $scope.product_prodle});
+              if ($rootScope.usersession.currentUser.isAdmin ) {
+                if ($scope.orgidFromSession === $rootScope.orgid ) {
+                ProductService.deleteProduct({orgid: $scope.orgidFromSession, prodle: $rootScope.product_prodle});
               }
+            }
               else
-                alert("You dont have rights to delete this product...");
+               $scope.showAlert('alert-danger', "You dont have rights to delete this product...");
             }
             //delete product
 
@@ -374,9 +409,9 @@ angular.module('prodo.ProductApp')
                             }
             } 
 
-            $scope.hideIfNotUser = function(fullname) {
-              if (fullname) {
-                if (fullname !== $scope.userFullnameFromSession) {
+            $scope.hideIfNotUser = function(userid) {
+              if (userid) {
+                if (userid !== $scope.userIDFromSession) {
                   return {display: "none"}
                 }
               }
@@ -398,7 +433,16 @@ angular.module('prodo.ProductApp')
               }
             } 
 
+             $scope.showErrorIfCommentNotAdded = function( ) {
+              var retry = document.getElementById("responseComment");
+              retry.style.display = 'inline';
+              retry.innerHTML = 'Error adding comment please try again..';
+            }
 
+            $scope.showRetryIconIfCommentNotAdded = function( ) {
+              var retryIcon = document.getElementById("retryIcon");
+              retryIcon.style.display = 'inline';
+            }
             $scope.masterChange = function() { //toggle to select all product iamges
 //                $(this).closest('div').find('.thumb :checkbox').prop("checked", this.checked);
               if ($('.imgToggles').is(':checked')) {
@@ -440,22 +484,11 @@ angular.module('prodo.ProductApp')
                            
                   
               $scope.temp={prodleimageids:$scope.imgIds}
-                 // $log.debug($scope.imgIds);
-             
-
- // ProductImageService.deleteProductImages({orgid: $scope.orgidFromSession, prodle: $scope.product_prodle }, $scope.temp,
- //                      function(success) {
- //                        $log.debug(success);
-                        
- //                      },
- //                      function(error) {
- //                        $log.debug(error);
- //                      });
- 
+              
 
                  $http({
                     method: 'DELETE',
-                    url: 'http://localhost/api/image/product/' + $scope.orgidFromSession + '/' + $scope.product_prodle +'?prodleimageids='+$scope.imgIds ,
+                    url: 'http://localhost/api/image/product/' + $scope.orgidFromSession + '/' + $rootScope.product_prodle +'?prodleimageids='+$scope.imgIds ,
                     // data: {'prodleimageids':[ $scope.imgIdsJson]}
                   }).success(function(data, status, headers, cfg) {
                       $log.debug(data);
@@ -465,22 +498,129 @@ angular.module('prodo.ProductApp')
              
            };
 
-
-            $scope.checkAdmin = function() {
               if ($rootScope.usersession.currentUser.org.isAdmin) {
-                var adminPanel = document.getElementById("prodo.productAdmin");
-                adminPanel.style.display = 'inline';
+                if ($scope.orgidFromSession === $rootScope.orgid ) {
+                  $rootScope.isAdminCheck=true;
+                }
               }
+            $scope.checkAdmin = function() {
+              if ($rootScope.isAdminCheck==true){
+                 var adminPanel = document.getElementById("prodo.productAdmin");
+                 adminPanel.style.display = 'inline';
+                }
             }
+
+            $scope.checkAdminProductUpload=function() {
+              if ($rootScope.isAdminCheck==true)  document.getElementById("Upload-clck").style.display = 'block';
+            }
+             $scope.checkAdminProductUpload();
+
+             
+              $scope.checkAdminProductImagesDelete=function() { 
+              
+                    if ($rootScope.isAdminCheck==true) {
+                      return{display: "inline"}
+                      }
+                      else {
+                        return{display: "none"}
+                      }
+             };
+              
+
             $scope.formatDate=function(time)
             {
               return(moment(time).format('DD MMM YYYY'));
-            }
+            };
+ 
+           
+       //  $log.debug($( "#prodo-comment-Textbox" ).height());
+          $(document).ready(function () {
+            $('#holder').hover(
+              function() {
+                // $log.debug( 'hovering on' , $(this).attr('id') ); 
+            
+                 var txtheight=$( "#prodo-comment-Textbox" ).height();
+                 //     $log.debug(txtheight);
+                 var txtwidth=$( "#prodo-comment-Textbox" ).width();
+                 document.getElementById("holder").style.height=txtheight;
+                 document.getElementById("holder").style.width=txtwidth;
+                 txtwidth="";
+                 txtheight="";
+                // console.log(a); 
 
 
-          }])
+            }, 
+              function() {
+
+               // $log.debug( 'hovering out' , $(this).attr('id') );
+                 // var txtheight=$( "#prodo-comment-Textbox" ).height();
+              //    var txtwidth=$( "#prodo-comment-Textbox" ).width();
+                 document.getElementById("holder").style.height='40px';
+                 // document.getElementById("prodo-comment-Textbox").style.height='45px';
+              //    txtwidth="";
+              //    txtheight="";
+
+              }
+            );
+          });
+
+                $scope.handleLoadMoreCommentResponse=function(result){
+                   console.log(result);
+                          if(result.success != undefined){
+                           $log.debug(result.success.comment );
+                           for (var i = 0; i < result.success.comment.length; i++) {
+                            $scope.productComments.push(result.success.comment[i]);
+                           };
+                         }
+                         else 
+                         {
+                          if(result.error.code=='AC002'){
+
+                            $("#loadMoreCommentMsg").html(result.error.message);
+                             $("#load-more").hide();
+                           $log.debug(result.error.message);
+                          }
+                        else  if(result.error.code=='AC001'){
+                            $log.debug(result.error.message);
+                            $("#loadMoreCommentMsg").html(result.error.message);
+                          }
+                          else {
+                            $log.debug(result.error.message);
+                            $("#loadMoreCommentMsg").html(result.error.message);
+                          }
+                         }
+                    };
+                   $("#load-more").show();
+                  $scope.getLastCommentId = function(){
+                     $log.debug( $scope.productComments);
+                   $scope.productComments;
+                   var lengthComments=$scope.productComments.length;
+                   $log.debug(lengthComments)
+                   var lastComment=$scope.productComments[lengthComments-1];
+                   $log.debug(lastComment.commentid);
+                   return lastComment.commentid;
+                  }
 
 
+                   $scope.loadMoreComments=function(){
+                    $("#img-spinner").show(); 
+                  var lastCommentId=$scope.getLastCommentId();
+                  //call service
+                  CommentLoadMoreService.loadMoreComments({commentid: lastCommentId},
+                                          function(result) {
+                                           $scope.handleLoadMoreCommentResponse(result)
+                                           $("#img-spinner").hide(); 
+                                            },
+                                          function(error) {
+                                            $log.debug(error);
+                                          });
+
+                   }
+                    $("#img-spinner").hide(); 
+            
+ }])
+           
+            
 
 
-        
+                 

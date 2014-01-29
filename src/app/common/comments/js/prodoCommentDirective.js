@@ -30,7 +30,7 @@ angular.module('prodo.CommonApp').directive('prodoComments', function () {
             $(this).height(75);
           });
           $('#prodo-comment-Textbox').blur(function () {
-            $(this).height(30);
+            $(this).height(40);
           });
         });
         $scope.commentsLimit = function () {
@@ -70,7 +70,7 @@ angular.module('prodo.CommonApp').directive('prodoComments', function () {
           $scope.mytags = new_arr;
         };
         $scope.deleteProductComment = function (comment) {
-          if (comment.user.fullname == $scope.userFullnameFromSession) {
+          if (comment.user.userid == $scope.userIDFromSession ) {
             var index = $scope.productComments.indexOf(comment);
             if (index != -1)
               $scope.productComments.splice(index, 1);

@@ -14,10 +14,10 @@
 
 <div ng-app="prodo.ProductApp" id="prodo-comment-container" class="container" style="border: 1px solid #94d2f8; width: 100%;"  ng-controller="ProductController">
 
-     <ul class="nav nav-tabs">
+     <ul class="nav nav-tabs" id="prodo-productTabs">
         <li class="active"><a href="#tabComments" data-toggle="tab">Product Comments</a></li>
         <li class=""><a href="#tabProductFeatures" data-toggle="tab" ng-click="checkAdmin()">Product Features</a></li>
-        <li class=""><a href="#tabProductUpload" data-toggle="tab"   id="Upload-clck"  >Product Upload</a></li>
+        <li class=""><a href="#tabProductUpload" style="display: none" data-toggle="tab"   id="Upload-clck"  >Product Upload</a></li>
 
     </ul>
     <div class="tab-content" style="padding-bottom: 9px; border-bottom: 1px solid #ddd;">
