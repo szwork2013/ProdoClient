@@ -40,7 +40,7 @@ angular.module('prodo.ProductApp')
 
             //user
             $scope.userIDFromSession;
-            $scope.userFullnameFromSession;
+            $scope.usernameFromSession;
             $scope.grpnameFromSession;
             $scope.orgnameFromSession;
             $scope.orgidFromSession;
@@ -120,7 +120,7 @@ angular.module('prodo.ProductApp')
                 $scope.orgidFromSession = "";
               }
               $scope.userIDFromSession = $rootScope.usersession.currentUser.userid;
-              $scope.userFullnameFromSession = $rootScope.usersession.currentUser.username;
+              $scope.usernameFromSession = $rootScope.usersession.currentUser.username;
             }
             $scope.getUserDetails();
 
@@ -206,7 +206,7 @@ angular.module('prodo.ProductApp')
                $scope.newProductComment = {
                 product_comment: {
                   user: {userid: $scope.userIDFromSession,
-                    username: $scope.userFullnameFromSession,
+                    username: $scope.usernameFromSession,
                     orgname: $scope.orgnameFromSession,
                     grpname: $scope.grpnameFromSession,
                     profilepic:$rootScope.usersession.currentUser.profile_pic
@@ -221,7 +221,7 @@ angular.module('prodo.ProductApp')
                 $scope.newProductComment_image = {
                 product_comment: {
                   user: {userid: $scope.userIDFromSession,
-                    username: $scope.userFullnameFromSession,
+                    username: $scope.usernameFromSession,
                     orgname: $scope.orgnameFromSession,
                     grpname: $scope.grpnameFromSession,
                      profilepic:$rootScope.usersession.currentUser.profile_pic
@@ -243,7 +243,7 @@ angular.module('prodo.ProductApp')
                 $scope.newProductComment = {
                 product_comment: {
                   user: {userid: $scope.userIDFromSession,
-                    username: $scope.userFullnameFromSession,
+                    username: $scope.usernameFromSession,
                     orgname: $scope.orgnameFromSession,
                     grpname: $scope.grpnameFromSession,
                      profilepic:$rootScope.usersession.currentUser.profile_pic
@@ -258,7 +258,7 @@ angular.module('prodo.ProductApp')
                 $scope.newProductComment_image = {
                 product_comment: {
                   user: {userid: $scope.userIDFromSession,
-                    username: $scope.userFullnameFromSession,
+                    username: $scope.usernameFromSession,
                     orgname: $scope.orgnameFromSession,
                     grpname: $scope.grpnameFromSession,
                      profilepic:$rootScope.usersession.currentUser.profile_pic
@@ -409,9 +409,9 @@ angular.module('prodo.ProductApp')
                             }
             } 
 
-            $scope.hideIfNotUser = function(fullname) {
-              if (fullname) {
-                if (fullname !== $scope.userFullnameFromSession) {
+            $scope.hideIfNotUser = function(userid) {
+              if (userid) {
+                if (userid !== $scope.userIDFromSession) {
                   return {display: "none"}
                 }
               }
