@@ -13,10 +13,75 @@
 */-->
 
 <li  id="prodo-comment-media"  class="media list-animate-item" ng-repeat="comment in productComments" >
-    <a class="pull-left" href="#">
+   <!--  <a class="pull-left" href="#">
         <img class="media-object" id="img-user" style="height:60px; width:50px" ng-src="{{comment.user.profilepic}}" alt="User"/> 
-    </a>
+    </a> -->
     
+
+
+    <a class="pull-left" href="#"  ng-click="userProfileModal(comment.user.userid)" ng-controller="prodoUserProfileDataController"  id="triggerModal">
+
+            <img class="media-object" id="img-user" ng-src="{{comment.user.profilepic}}" alt="User"  id="triggerModals" data-toggle="modal" data-target="#testmodal1" /> 
+        
+    </a>
+
+    <!-- modal -->
+
+      <div id = "testmodal1" class="modal fade" style="left:200px" >
+     <div class="modal-dialog"> 
+        <div class="modal-content"> 
+                  <div class="modal-header">
+                         <h3 align="center"> User Profile </h3>
+                  </div> 
+                
+           
+                 <div class="modal-body" ng-controller="prodoUserProfileDataController">                 
+                        <img ng-src="{{modaluser.profile_pic}}" class="productFollowedImage " id="profilePic"/>
+                        <p class="paras">
+                        <a  id="uder_ID" >{{modaluser.username}}</a> <a href="#" id="org_ID"></a><a href="#" id="grp_name" ng-model="hello"></a>
+                        </p>     
+                 </div>  
+                 
+  
+
+
+                 <div> 
+                       <p ><h5 class="productFollowedParagraphs">Product Followed</h5></p>
+                       <a href="#" class="productFollowedParagraphs" id="productFollowedName"></a><br>
+                       <img  id="productImage" src="" class="productFollowedImages"></img>
+                 </div>
+                 
+                  <br><br><br><br><br>
+                  
+
+
+                 <div >
+                       <p ><h5 class="productFollowedParagraphs">Product Recommended</h5></p>
+                       <a href="#" class="productFollowedParagraphs" if="productRecommendedName"></a><br>
+                       <img class="productFollowedImages"  id="productRImage"></img> 
+                 </div>
+                  
+                 
+                 
+                  
+                  <br><br><br><br><br><br><br><br><br>
+
+
+                  <div class="modal-footer">
+                        <button class="btn btn-warning" data-dismiss="modal">Close</button>
+                  </div>        
+                
+                  
+                  
+                  
+          
+          
+            </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+
+    <!-- modal -->
     <div class="media-body"><div>
         <div class=" pull-left " id="prodo-comment-userName"  >{{comment.user.username.substring(0,15)}}</div>
         <div ng-style="hideIfNoOrg(comment.user.orgname)" id="prodo-comment-companyName" class="pull-left"   >  &nbsp; &nbsp; &nbsp; &nbsp; @ {{toCamelCase(comment.user.orgname).substring(0,15)}}</div> <div id="prodo-comment-companyName"  ng-style="hideIfNogrp(comment.user.grpname)"> &nbsp; &nbsp;- &nbsp;{{comment.user.grpname.substring(0,15)}}</div>  

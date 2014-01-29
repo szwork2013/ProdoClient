@@ -50,7 +50,7 @@ angular.module('prodo.ProductApp')
 
 
 
-            $rootScope.product_prodle='xkdiPXcT';
+            $rootScope.product_prodle='xkdiPXcT_';
             $rootScope.orgid='orgxkpxhIFau'; 
 
 
