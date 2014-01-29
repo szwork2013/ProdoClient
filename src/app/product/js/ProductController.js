@@ -171,7 +171,7 @@ angular.module('prodo.ProductApp')
                   $scope.newProductComment = {
                 product_comment: {
                   user: {userid: result.success.product_comment.user.userid,
-                    fullname: result.success.product_comment.user.fullname,
+                    username: result.success.product_comment.user.username,
                     orgname: result.success.product_comment.user.orgname,
                     grpname: result.success.product_comment.user.grpname,
                      profilepic:result.success.product_comment.user.profilepic
@@ -206,7 +206,7 @@ angular.module('prodo.ProductApp')
                $scope.newProductComment = {
                 product_comment: {
                   user: {userid: $scope.userIDFromSession,
-                    fullname: $scope.userFullnameFromSession,
+                    username: $scope.userFullnameFromSession,
                     orgname: $scope.orgnameFromSession,
                     grpname: $scope.grpnameFromSession,
                     profilepic:$rootScope.usersession.currentUser.profile_pic
@@ -221,7 +221,7 @@ angular.module('prodo.ProductApp')
                 $scope.newProductComment_image = {
                 product_comment: {
                   user: {userid: $scope.userIDFromSession,
-                    fullname: $scope.userFullnameFromSession,
+                    username: $scope.userFullnameFromSession,
                     orgname: $scope.orgnameFromSession,
                     grpname: $scope.grpnameFromSession,
                      profilepic:$rootScope.usersession.currentUser.profile_pic
@@ -243,7 +243,7 @@ angular.module('prodo.ProductApp')
                 $scope.newProductComment = {
                 product_comment: {
                   user: {userid: $scope.userIDFromSession,
-                    fullname: $scope.userFullnameFromSession,
+                    username: $scope.userFullnameFromSession,
                     orgname: $scope.orgnameFromSession,
                     grpname: $scope.grpnameFromSession,
                      profilepic:$rootScope.usersession.currentUser.profile_pic
@@ -258,7 +258,7 @@ angular.module('prodo.ProductApp')
                 $scope.newProductComment_image = {
                 product_comment: {
                   user: {userid: $scope.userIDFromSession,
-                    fullname: $scope.userFullnameFromSession,
+                    username: $scope.userFullnameFromSession,
                     orgname: $scope.orgnameFromSession,
                     grpname: $scope.grpnameFromSession,
                      profilepic:$rootScope.usersession.currentUser.profile_pic
@@ -563,32 +563,62 @@ angular.module('prodo.ProductApp')
               }
             );
           });
- $scope.loadMoreComments=function(){
- $log.debug( $scope.productComments);
- $scope.productComments;
- var lengthComments=$scope.productComments.length;
- $log.debug(lengthComments)
- var lastComment=$scope.productComments[lengthComments-1];
- $log.debug(lastComment.commentid);
-//call service
-CommentLoadMoreService.loadMoreComments({commentid:lastComment.commentid},
-                        function(result) {
+
+                $scope.handleLoadMoreCommentResponse=function(result){
+                   console.log(result);
+                          if(result.success != undefined){
                            $log.debug(result.success.comment );
-                           for (var i = 0; i < lengthComments-1; i++) {
+                           for (var i = 0; i < result.success.comment.length; i++) {
                             $scope.productComments.push(result.success.comment[i]);
                            };
-                          },
-                        function(error) {
-                          $log.debug(error);
-                        });
+                         }
+                         else 
+                         {
+                          if(result.error.code=='AC002'){
 
-//get new array
+                            $("#loadMoreCommentMsg").html(result.error.message);
+                             $("#load-more").hide();
+                           $log.debug(result.error.message);
+                          }
+                        else  if(result.error.code=='AC001'){
+                            $log.debug(result.error.message);
+                            $("#loadMoreCommentMsg").html(result.error.message);
+                          }
+                          else {
+                            $log.debug(result.error.message);
+                            $("#loadMoreCommentMsg").html(result.error.message);
+                          }
+                         }
+                    };
+                   $("#load-more").show();
+                  $scope.getLastCommentId = function(){
+                     $log.debug( $scope.productComments);
+                   $scope.productComments;
+                   var lengthComments=$scope.productComments.length;
+                   $log.debug(lengthComments)
+                   var lastComment=$scope.productComments[lengthComments-1];
+                   $log.debug(lastComment.commentid);
+                   return lastComment.commentid;
+                  }
 
 
- }
+                   $scope.loadMoreComments=function(){
+                    $("#img-spinner").show(); 
+                  var lastCommentId=$scope.getLastCommentId();
+                  //call service
+                  CommentLoadMoreService.loadMoreComments({commentid: lastCommentId},
+                                          function(result) {
+                                           $scope.handleLoadMoreCommentResponse(result)
+                                           $("#img-spinner").hide(); 
+                                            },
+                                          function(error) {
+                                            $log.debug(error);
+                                          });
+
+                   }
+                    $("#img-spinner").hide(); 
             
-
-          }])
+ }])
            
             
 
