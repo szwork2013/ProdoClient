@@ -48,7 +48,10 @@ angular.module('prodo.ProductApp')
              
              //socket listener here
 
-
+            $scope.$on("product", function(event, data){
+               $rootScope.product_prodle=data.prodle;
+               $rootScope.orgid=data.orgid;
+            });
 
             $rootScope.product_prodle='xkdiPXcT_';
             $rootScope.orgid='orgxkpxhIFau'; 
