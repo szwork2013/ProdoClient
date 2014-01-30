@@ -90,13 +90,13 @@ $scope.products_id =
                     
                        $scope.$on('getSearchProductNotDone', function(event, data) {
                       
-                       });
+                       }); 
     
   }; 
   
   
   $scope.modalReset=function()
-  {
+  { 
     document.getElementById("textBoxCategoryName").value="";
     document.getElementById("textBoxModelNumber").value="";
     document.getElementById("textBoxFeatureName").value="";
@@ -108,8 +108,9 @@ $scope.products_id =
   /////////////////////////////////////////////////
 $scope.sampleDataEmitSearch=function()
 {
-  var data9={prodle:"xkdiPXcT_",orgid="orgxkpxhIFau"};
+  var data9={prodle:"xkdiPXcT_",orgid:"orgxkpxhIFau"};
   $scope.$emit("product",data9);
+  console.log("inside function");
 };
 
 
