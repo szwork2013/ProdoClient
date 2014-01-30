@@ -109,8 +109,9 @@ $scope.products_id =
 $scope.sampleDataEmitSearch=function()
 {
   var data9={prodle:"xkdiPXcT_",orgid:"orgxkpxhIFau"};
-  $scope.$emit("product",data9);
-  console.log("inside function");
+  $rootScope.$emit("product",data9);
+
+  console.log("inside function"+ data9);
 };
 
 
