@@ -1,0 +1,73 @@
+<!-- /*
+* Overview: Warranty  Screen 
+* Warranty contents will be here...
+* Dated: 09/12/2013.
+* Author: Bhagyashri Jangam
+* Copyright: Prodonus Software Private Limited and GiantLeap Systems Private Limited 2013
+* Change History:
+*
+* date | author | description 
+*
+* 27-3/2013 | xyx | Add a new property
+* 
+*/--> 
+
+
+<div id="prodo-comment-fixed"   ng-controller="WarrantyController"  >
+
+  <div style="   float:right">
+    <a href=""  ng-click="$parent.isEditingWarranty = $parent.isEditingWarranty === true ? false : true;
+       "  >  <i class="fa fa-plus-circle fa-3x"></i></a>
+    
+  </div><br>
+
+  <div ng-switch="isEditingWarranty"  >
+
+    <form ng-show="$parent.isEditingWarranty==true" novalidate>
+      <table  id="prodo-ProductFeatureTable"  style="padding: 10px;" >
+        <tr id="prodo-productbnd" style="background-color: white" >
+          <td  >Model No </td>
+          <td><input  id="prodo-product-features_textfield" class="form-control" required type="text" ng-model="$parent.$parent.warranty.modelno"   style="float: right ; "  /></td>
+         
+
+          <td style="padding-left:  10px;"   >Serial No</td>
+          <td><input id="prodo-product-features_textfield" type="text" class="form-control" required ng-model="$parent.$parent.warranty.serialno" style="float: right" /></td>
+
+        </tr>
+        <tr  >
+          <td style="padding-top: 10px;" >Date of purchase</td>
+
+          <td style="padding-top: 10px;"> 
+
+            <input  id="prodo-product-features_textfield" type="text"  class="form-control" required ng-model="$parent.$parent.warranty.dateofpurchase" style="float: right" /></td> 
+          <td  style="padding-left:  10px; padding-top: 10px;"   ><button>upload Invoice</button></td>
+          <td style="padding-top: 10px;"><input id="prodo-product-features_textfield" type="text" class="form-control" required ng-model="$parent.$parent.warranty.invoiceno" style="float: right" /> </td>
+        </tr>
+       
+        <tr ><td colspan="4"  style="padding-top: 10px;" >
+              
+            <button class="btn btn-info" style="width: 550px; "  ng-click=" addWarranty() ;$parent.isEditingWarranty = false ">Save</button>
+          </td>
+        </tr>
+      </table>
+    </form>
+    <br>
+    <div    >
+      
+      <ul ng-repeat="warranty in productWarranty.warranty"  class="list-group list-animate-item-warranty" >
+        <li class="list-group-item  active" style="background-color: antiquewhite; color: black;">  Warranty No : {{warranty.warrantyno}}  <a href="" ng-click="deleteWarranty(warranty);" >   <i class="fa fa-minus-circle fa-2x pull-right "  ></i></a>  </li> 
+        <li class="list-group-item "> Model No : {{warranty.modelno}}</li>
+        <li class="list-group-item "> Serial No : {{warranty.serialno}}</li>
+        <li class="list-group-item" > Date of purchase : {{warranty.dateofpurchase}}</li>
+        <li class="list-group-item "> Invoice no : {{warranty.invoiceno}} <a href="" >view invoice </a></li>
+        
+      </ul>
+      
+      
+      
+    </div>
+
+  </div>
+
+
+</div>
