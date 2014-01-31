@@ -12,7 +12,7 @@
  * 
  */
 angular.module('prodo.ProductApp')
-        .controller('ProductController', ['$scope','$log', '$rootScope', 'ProductService', 'UserSessionService','$http','CommentLoadMoreService', function($scope, $log,$rootScope, ProductService, UserSessionService,$http,CommentLoadMoreService) {
+        .controller('ProductController', ['$scope','$log', '$rootScope', 'ProductService', 'UserSessionService','$http','CommentLoadMoreService','ENV', function($scope, $log,$rootScope, ProductService, UserSessionService,$http,CommentLoadMoreService,ENV) {
 
             //comments
             $scope.productComments = {comments: [{}]};
@@ -49,7 +49,7 @@ angular.module('prodo.ProductApp')
              //socket listener here
 
             $rootScope.$on("product", function(event, data){
-              alert("In listener" + data.prodle);
+              // alert("In listener" + data.prodle);
                $rootScope.product_prodle=data.prodle;
                $rootScope.orgid=data.orgid;
             });
@@ -153,7 +153,8 @@ angular.module('prodo.ProductApp')
 
             localStorage.sid = $rootScope.usersession.currentUser.sessionid;
             //socket connect
-            $scope.socket = io.connect('http://ec2-54-254-210-45.ap-southeast-1.compute.amazonaws.com:8000/api/prodoapp', {
+            $log.debug(ENV.apiEndpoint);
+            $scope.socket = io.connect(ENV.apiEndpoint+'/api/prodoapp', {
               // $scope.socket = io.connect('http://localhost/prodoapp', {
               query: 'session_id=' + localStorage.sid
             });

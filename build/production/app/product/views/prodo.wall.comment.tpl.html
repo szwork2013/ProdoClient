@@ -1,0 +1,58 @@
+<!-- /*
+* Overview: Comment container 
+* All comments block is defined here...
+* Dated: 29/10/2013.
+* Author: Bhagyashri Jangam
+* Copyright: Prodonus Software Private Limited and GiantLeap Systems Private Limited 2013
+* Change History:
+*
+* date | author | description 
+*
+* 27-3/2013 | xyx | Add a new property
+* 
+*/
+-->
+
+
+<!--<div id="prodo-comment-container" class="container" style="border: 1px solid #94d2f8; width: 80%; margin-left:64.5px; " ng-controller="ProductController">-->
+<div id="prodo-comment-fixed" style="">
+
+  <div id="prodo-comment-enterComment" >
+    <span class="label label-info   "  >{{300 - commenttextField.userComment.length}}</span> 
+    <a href="" ng-click="getLatestComments()" > <div class="label label-info "  id="responseComment"  style="display: none">  </div></a>
+
+  <div ng-controller="DragImageController">
+    <span id="holder" > 
+
+    <textarea id="prodo-comment-Textbox" col="40" type="text" class="form-control " ondragleave="clearBorder()" name="txtComment" placeholder="Product Conversation [max 300 characters]"   ng-model="commenttextField.userComment" comment-limit="300" ng-enter="addProductComment()" required  ></textarea> 
+    <div style="width:75px;" id="CommentImg">
+                           
+                            <a class="close" id= "crossButton"  style="display:none" ng-click="clearReader()">&times;</a> 
+                           
+                      </div>
+    </span>
+
+    <p id="upload" class="hidden">
+    <label  >
+      <br>
+      <input type="file"    >
+	</label>
+    </p>
+    </div>
+  </div> <br><br><br><br><br>
+  
+  <ul class="media-list "  id="prodo-comment-media-list">
+
+    <div prodo-comments    id="prodo-comment-commentContainer"  >
+
+    </div>  
+  </ul>
+
+  <button class="" id="load-more" ng-click="loadMoreComments()">  
+      <img  id="img-spinner" style="alignment:center; padding :5px;" ng-class="searching && 'active' "                         src="https://raw.github.com/ThomasBurleson/angularJS-TwitterSearch/master/webroot/assets/image/spinner2.gif" alt="Loading"/>
+    Load more...  
+  </button>
+  <div id="loadMoreCommentMsg" style="text-align:center; width:518px; font-family: Helvetica ;"></div>
+</div>
+<!--</div>-->
+
