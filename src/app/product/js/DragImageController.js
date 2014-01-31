@@ -36,7 +36,7 @@ angular.module('prodo.ProductApp')
       $rootScope.comment_image_l=[{image:image.src}];
       image.width = 250; // a fake resize
       holder.appendChild(image);
-      document.getElementById('prodo-comment-commentContainer').style.marginTop='60px';
+      document.getElementById('prodo-comment-commentContainer').style.marginTop='80px';
     };
 
     reader.readAsDataURL(file);
