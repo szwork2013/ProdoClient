@@ -75,10 +75,11 @@ angular.module('prodo.ProductApp')
                                $rootScope.count++;
                               this.className = '';
                               e.preventDefault();
-                               if(acceptedTypes[e.dataTransfer.files[0].type] === false)
-                                {document.getElementById('CommentImg').innerHTML="Add image only"}
-                              else if(e.dataTransfer.files[0].size/1024>500)
+                               
+                             if(e.dataTransfer.files[0].size/1024>500)
                                 {document.getElementById('CommentImg').innerHTML="Image size must ne less than 500kb"}
+                             else if(acceptedTypes[e.dataTransfer.files[0].type] === false)
+                                {document.getElementById('CommentImg').innerHTML="Add image only"}
                              else if($rootScope.count>1)
                               {document.getElementById('CommentImg').innerHTML="Add only one image at a time"}
                               else if($rootScope.count==1 && acceptedTypes[e.dataTransfer.files[0].type] === true && e.dataTransfer.files[0].size/1024<500)
