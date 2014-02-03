@@ -2,7 +2,7 @@ angular.module('prodo.UploadApp')
 
  .controller( 'UploadController',['$scope','$log','$rootScope','fileReader', 'ENV' , function($scope,$log,$rootScope, fileReader,ENV) {
 
-  $scope.socket = io.connect(ENV.apiEndpoint+'/api/prodoupload', {
+  $scope.socket = io.connect(ENV.apiEndpoint+ENV.port+'/api/prodoupload', {
     query: 'session_id=' + $rootScope.usersession.currentUser.sessionid
   });
   //socket connect 

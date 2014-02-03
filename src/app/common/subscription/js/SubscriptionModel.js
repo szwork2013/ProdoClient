@@ -1,6 +1,3 @@
-angular.module('prodo.SubscriptionApp')
- .factory('SubscriptionModel', function(){
-  return {
-    planid:""
-  }
-});
+angular.module('prodo.SubscriptionApp').factory('SubscriptionModel', [function () {
+    return { planid: '' };
+  }]);

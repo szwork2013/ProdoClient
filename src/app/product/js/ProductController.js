@@ -49,7 +49,7 @@ angular.module('prodo.ProductApp')
              //socket listener here
 
             $rootScope.$on("product", function(event, data){
-              // alert("In listener" + data.prodle);
+
                $rootScope.product_prodle=data.prodle;
                $rootScope.orgid=data.orgid;
             });
@@ -154,7 +154,7 @@ angular.module('prodo.ProductApp')
             localStorage.sid = $rootScope.usersession.currentUser.sessionid;
             //socket connect
             $log.debug(ENV.apiEndpoint);
-            $scope.socket = io.connect(ENV.apiEndpoint+'/api/prodoapp', {
+            $scope.socket = io.connect(ENV.apiEndpoint+ENV.port+'/api/prodoapp', {
               // $scope.socket = io.connect('http://localhost/prodoapp', {
               query: 'session_id=' + localStorage.sid
             });
@@ -220,11 +220,48 @@ angular.module('prodo.ProductApp')
                 // a.textContent(JSON.stringify(result.success.product_comment).length + " new comments")
               }
               // $scope.socket.removeAllListeners();
-            })
+            });
             //productComment response 
+ $scope.commenttextField.userComment="";
+        $scope.getTagsFromCommentText = function () {
+          var commenttext = $scope.commenttextField.userComment;
+          $scope.mytags = $scope.pretags;
+          var new_arr = [];
+          var commenttextTags = commenttext.split(' ');
+          for (var i = 0; i < commenttextTags.length; i++) {
+            for (var j = 0; j < $scope.mytags.length; j++) {
+              if (commenttextTags[i] == $scope.mytags[j]) {
+                new_arr.push(commenttextTags[i]);
+              }
+            }
+          }
 
+          $scope.mytags = new_arr;
+          $log.debug($scope.mytags);
+        };
+
+            
+            $scope.$watch('commenttextField.userComment', function() {
+               
+                 $scope.getTagsFromCommentText();
+                 if($scope.mytags.length == 0){
+                    $("#prodo-productTags").css("display", "none"); 
+                  
+                 }
+                 else {  
+                     $("#prodo-productTags").css("display", "inline");
+                     document.getElementById('prodo-comment-commentContainer').style.marginTop='80px';  
+                     }
+                });
+
+
+            
             //Add comment function
+
             $scope.addProductComment = function() {
+
+             $scope.getTagsFromCommentText($scope);
+
                $log.debug($rootScope.file_data);
                $log.debug($rootScope.comment_image_l);
               // if($rootScope.file_data==undefined){
@@ -240,6 +277,7 @@ angular.module('prodo.ProductApp')
                   commentid: guid(),
                   type: $scope.type,
                   datecreated: Date.now(),
+                  tags:$scope.mytags,
                   commenttext: $scope.commenttextField.userComment
                    
                 }};
@@ -255,6 +293,7 @@ angular.module('prodo.ProductApp')
                   commentid: guid(),
                   type: $scope.type,
                   datecreated: Date.now(),
+                  tags:$scope.mytags,
                   commenttext: $scope.commenttextField.userComment
                  
                 }};
@@ -278,6 +317,7 @@ angular.module('prodo.ProductApp')
                   type: $scope.type,
                   datecreated: Date.now(),
                   commenttext: $scope.commenttextField.userComment,
+                  tags:$scope.mytags,
                   comment_image:$rootScope.file_data
                 }};
                 
@@ -292,6 +332,7 @@ angular.module('prodo.ProductApp')
                   commentid: guid(),
                   type: $scope.type,
                   datecreated: Date.now(),
+                  tags:$scope.mytags,
                   commenttext: $scope.commenttextField.userComment,
                   comment_image:$rootScope.comment_image_l
                 }};
@@ -514,7 +555,7 @@ angular.module('prodo.ProductApp')
 
                  $http({
                     method: 'DELETE',
-                    url: 'http://localhost/api/image/product/' + $scope.orgidFromSession + '/' + $rootScope.product_prodle +'?prodleimageids='+$scope.imgIds ,
+                    url: ENV.apiEndpoint_notSocket+'/api/image/product/' + $scope.orgidFromSession + '/' + $rootScope.product_prodle +'?prodleimageids='+$scope.imgIds ,
                     // data: {'prodleimageids':[ $scope.imgIdsJson]}
                   }).success(function(data, status, headers, cfg) {
                       $log.debug(data);
@@ -523,12 +564,13 @@ angular.module('prodo.ProductApp')
                    });
              
            };
-
+             // if($rootScope.usersession.currentUser.org){
               if ($rootScope.usersession.currentUser.org.isAdmin) {
                 if ($scope.orgidFromSession === $rootScope.orgid ) {
                   $rootScope.isAdminCheck=true;
                 }
               }
+             // } 
             $scope.checkAdmin = function() {
               if ($rootScope.isAdminCheck==true){
                  var adminPanel = document.getElementById("prodo.productAdmin");
