@@ -61,8 +61,7 @@ angular.module('prodo.UserApp')
             $scope.showAlert('alert-danger', data.error.message);
         } else if (data.error.code=='AU003') {   // user has not verified
             $log.debug(data.error.code + " " + data.error.message);
-            $state.transitionTo('messageContent.emailverification');
-            $scope.showAlert('alert-danger', data.error.message);
+            $scope.showAlert('alert-danger', 'Please check your email for verification link and activate your account with Prodonus.');
         } else if (data.error.code=='AS001') {   // user has not subscribed to any plan
             $log.debug(data.error.code + " " + data.error.message);
             UserSessionService.authSuccess(data.error.user);

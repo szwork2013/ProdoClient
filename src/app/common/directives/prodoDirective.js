@@ -182,17 +182,35 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
   function ($http) {
     var username = {
         restrict: 'A',
-        link: function (scope, ele, attrs, ctrl) {
+        require: 'ngModel',
+        link: function (scope, ele, attrs, ngModel) {
           $('#prodo-form-input-username-signup').on('keyup', function (e) {
             var value = $(this).val().trim();
             var req = { 'username': value };
-            if (value.length > 6 && value.length < 15) {
+            if (value.length > 2 && value.length < 15) {
               $http({
                 method: 'GET',
                 url: '/api/userunique/' + value,
                 data: req
               }).success(function (data, status, headers, cfg) {
-                console.log(data);
+                if (data.success) {
+                  console.log(data.success.message);
+                  ngModel.$setValidity("nametaken",true); // username available
+                } else {
+                    if (data.error.code== 'AV001') { 
+                        console.log(data.error.code + data.error.message); 
+                        ngModel.$setValidity("namelength", false);
+                        
+                    } else if (data.error.code=='ED001') {
+                        console.log(data.error.code + data.error.message);
+                        ngModel.$setValidity("nametaken",false);
+                        console.log(data.error.code + data.error.message);
+                    } else if (data.error.code=='ED003') {   
+                        console.log(data.error.code + data.error.message);
+                        ngModel.$setValidity("nametaken",false);
+                        console.log(data.error.code + data.error.message);
+                    } 
+                }
               }).error(function (data, status, headers, cfg) {
                 console.log(data);
               });

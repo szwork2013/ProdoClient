@@ -12,6 +12,24 @@ outline: thin dotted transparent;
 outline-offset: -2px;
 }
 
+#prodo-org-nav-pills>li.active>a{
+color: black;
+border-top-right-radius: 5px;
+border-top-left-radius: 5px;
+font-size: 14px;
+background-color: transparent;
+font-weight: bold; 
+}
+
+#prodo-org-nav-pills>li>a{
+font-size: 14px;
+margin: 2px;
+height: 30px;
+padding: 5px;
+border: 1px solid #9FBACC;
+border-bottom: none;
+}
+
 /*#body{
 background-color: #3a92c8;
 background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
@@ -223,9 +241,8 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
 #prodo-general-terms{
 	font-weight: normal;
 	font-size: 10px;
-	line-height: 5px;
 	padding-top: 10px;
-	margin-right: 40px;
+	margin-left: 10px;
 	color: #595365;
 }
 
@@ -315,6 +332,19 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
     top: -1px;
     *overflow: hidden;
 }
+
+#prodo-signin-forgot-link {
+    padding: 0;
+    margin:0;
+    vertical-align: bottom;
+    position: relative;
+    top: -1px;
+    *overflow: hidden;
+    font-weight:normal; 
+    font-size:12px;
+}
+
+
 
 /*change the View: signin form input button signin style*/
 #prodo-button-signin{
@@ -879,6 +909,15 @@ section:hover #prodo-subscribe-plan-heading{
 	padding: 10px;
 	color: #2b8dc0;
 }
+
+#prodo-term-label-control{
+	font-weight: normal;
+	font-size: 25px;
+	line-height: 20px;
+	padding: 10px;
+	color: #2b8dc0;
+}
+
 /**
 *	Subscription.payment
 **/

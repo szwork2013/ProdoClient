@@ -83,8 +83,6 @@ angular.module('prodo.CommonApp')
     };  
 
     $scope.updateUserAccount = function() {
-      $scope.user.username = $scope.editableTitle;
-      $scope.disableEditor();
       UserSessionService.saveUserSettings($scope.jsonUserAccountData());
       var cleanupEventUpdateUserDone = $scope.$on("updateUserDone", function(event, message){
         $scope.handleUpdateUserResponse(message); 
@@ -375,20 +373,16 @@ angular.module('prodo.CommonApp')
                         'orgname': '',
                         'email': ''
                       }];
+
     $scope.addMoreInvites = function() { 
-      $scope.orginvites.push({});
+      $scope.orginvites.push({'name': '', 'orgname': '', 'email': ''});
     };
 
     $scope.jsonOrgInvitesData = function()
       {
         var orgInvite = 
           {
-            otherorginvites:
-            [{
-              'name': $scope.orginvites.name,
-              'orgname': $scope.invite.orgname,
-              'email': $scope.invite.email
-            }]
+            otherorginvites: $scope.orginvites
           }
         return JSON.stringify(orgInvite); 
       }
@@ -411,6 +405,7 @@ angular.module('prodo.CommonApp')
 
 
     $scope.sendOrgInvites = function() {
+      console.log($scope.jsonOrgInvitesData());
       OrgRegistrationService.sendInvites($scope.jsonOrgInvitesData());
       var cleanupEventSendOrgInvitesDone = $scope.$on("sendOrgInvitesDone", function(event, data){
         $scope.handleOrgInviteResponse(data); 
@@ -421,6 +416,109 @@ angular.module('prodo.CommonApp')
         cleanupEventSendOrgInvitesNotDone();     
       });
     }
+
+    $scope.customerinvites=[{
+                        'name': '',
+                        'email': ''
+                      }];
+
+    $scope.addCustomerInvites = function() { 
+      $scope.customerinvites.push({'name': '', 'email': ''});
+    };
+
+    $scope.jsonOrgCustomerInvitesData = function()
+      {
+        var orgCustomerInvite = 
+          {
+            orgcustomerinvites: $scope.customerinvites
+          }
+        return JSON.stringify(orgCustomerInvite); 
+      }
+
+    // function to handle server side responses
+    $scope.handleOrgCustomerInviteResponse = function(data){
+      if (data.success) {
+
+        $scope.showAlert('alert-success', data.success.message);   
+      } else {
+        if (data.error.code== 'AU004') {     // enter valid data
+            $log.debug(data.error.code + " " + data.error.message);
+            $scope.showAlert('alert-danger', data.error.message);
+        } else {
+            $log.debug(data.error.message);
+            $scope.showAlert('alert-danger', data.error.message);
+        }
+      }
+    };  
+
+
+    $scope.orgCustomerInvites = function() {
+      console.log($scope.jsonOrgInvitesData());
+      OrgRegistrationService.sendCustomerInvites($scope.jsonOrgCustomerInvitesData());
+      var cleanupEventSendOrgCustomerInvitesDone = $scope.$on("sendOrgCustomerInvitesDone", function(event, data){
+        $scope.handleOrgCustomerInviteResponse(data); 
+        cleanupEventSendOrgCustomerInvitesDone();  
+      });
+      var cleanupEventSendOrgCustomerInvitesNotDone = $scope.$on("sendOrgCustomerInvitesNotDone", function(event, data){
+        $scope.showAlert('alert-danger', "Server Error:" + data); 
+        cleanupEventSendOrgCustomerInvitesNotDone();     
+      });
+    }
+
+
+    $scope.showInvites = false;
+
+    $scope.addInvites = function() {
+      $scope.showInvites = true;
+    }
+
+    $scope.group = {
+                      'grpname': '',
+                      'invites': ''
+    }
+
+    $scope.jsonOrgGroupInvitesData = function()
+      {
+        var orgGroupInvite = 
+          {
+            usergrp:
+            {
+             'grpname': $scope.group.grpname,
+             'invites': $scope.group.invites
+            }
+          }
+        return JSON.stringify(orgGroupInvite); 
+      }
+
+    // function to handle server side responses
+    $scope.handleOrgGroupInviteResponse = function(data){
+      if (data.success) {
+
+        $scope.showAlert('alert-success', data.success.message);   
+      } else {
+        if (data.error.code== 'AU004') {     // enter valid data
+            $log.debug(data.error.code + " " + data.error.message);
+            $scope.showAlert('alert-danger', data.error.message);
+        } else {
+            $log.debug(data.error.message);
+            $scope.showAlert('alert-danger', data.error.message);
+        }
+      }
+    };  
+
+
+    $scope.addGroupInvite = function() {
+      OrgRegistrationService.groupInvites($scope.jsonOrgGroupInvitesData());
+      var cleanupEventSendOrgGroupInvitesDone = $scope.$on("sendOrgGroupInvitesDone", function(event, data){
+        $scope.handleOrgGroupInviteResponse(data); 
+        cleanupEventSendOrgGroupInvitesDone();  
+      });
+      var cleanupEventSendOrgGroupInvitesNotDone = $scope.$on("sendOrgGroupInvitesNotDone", function(event, data){
+        $scope.showAlert('alert-danger', "Server Error:" + data); 
+        cleanupEventSendOrgGroupInvitesNotDone();     
+      });
+    }
+
 
 
 }]);

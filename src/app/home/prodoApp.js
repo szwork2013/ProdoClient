@@ -110,6 +110,7 @@ angular.module('prodo.ProdonusApp',['ui.router', 'ui.bootstrap', 'xeditable', 'n
       });
 
       var cleanupEventSendOrgData = $rootScope.$on("sendOrgData", function(event, data){
+        $scope.org = data;
         $state.transitionTo('prodo.wall'); 
         cleanupEventSendOrgData();  
       });
