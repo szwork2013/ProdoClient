@@ -154,7 +154,7 @@ angular.module('prodo.ProductApp')
             localStorage.sid = $rootScope.usersession.currentUser.sessionid;
             //socket connect
             $log.debug(ENV.apiEndpoint);
-            $scope.socket = io.connect(ENV.apiEndpoint+'/api/prodoapp', {
+            $scope.socket = io.connect(ENV.apiEndpoint+ENV.port+'/api/prodoapp', {
               // $scope.socket = io.connect('http://localhost/prodoapp', {
               query: 'session_id=' + localStorage.sid
             });
@@ -555,7 +555,7 @@ angular.module('prodo.ProductApp')
 
                  $http({
                     method: 'DELETE',
-                    url: 'http://localhost/api/image/product/' + $scope.orgidFromSession + '/' + $rootScope.product_prodle +'?prodleimageids='+$scope.imgIds ,
+                    url: ENV.apiEndpoint_notSocket+'/api/image/product/' + $scope.orgidFromSession + '/' + $rootScope.product_prodle +'?prodleimageids='+$scope.imgIds ,
                     // data: {'prodleimageids':[ $scope.imgIdsJson]}
                   }).success(function(data, status, headers, cfg) {
                       $log.debug(data);

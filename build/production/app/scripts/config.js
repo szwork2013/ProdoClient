@@ -4,6 +4,10 @@
 
 .constant("ENV", "production")
 
-.constant("apiEndpoint", "http://www.prodonus.com:8000")
+.constant("apiEndpoint", "http://www.prodonus.com")
+
+.constant("apiEndpoint_notSocket", "http://www.prodonus.com")
+
+.constant("port", ":8000")
 
 ;
