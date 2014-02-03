@@ -1087,6 +1087,7 @@ border-radius: 30px;
   background-color: #ffffff;
   border-radius: 10px;
   margin-top: 10px;
+  min-height: 50px;
 }
 
 /*Barchart*/
@@ -1134,8 +1135,8 @@ text {
 
 #a
 { 
-  width:540px; 
-  height:500px; 
+  width:720px; 
+  height:400px; 
   display: inline-block;
   /*position : fixed ;*/
   background-position:top;
