@@ -55,6 +55,8 @@ angular.module('prodo.UserApp')
     $scope.handleSignupResponse = function(data){
       if (data.success) {
         $state.transitionTo('messageContent.emailverification');
+        $scope.clearformData();    // on successfull signup transition occurs to verification page 
+
       } else {
         if (data.error.code== 'AU001') {     // user already exist
             $log.debug(data.error.code + " " + data.error.message);
@@ -72,8 +74,6 @@ angular.module('prodo.UserApp')
             $scope.showAlert('alert-danger', 'Prodonus Database Server error. Please wait for some time.');
         }
       }
-        $scope.clearformData();    // on successfull signup transition occurs to verification page 
-
     };
   
     $scope.signup = function(){
