@@ -12,63 +12,50 @@
  * 
  */
 
-angular.module('prodo.CommonApp').directive('prodoComments', function () {
+ angular.module('prodo.CommonApp').directive('prodoComments', function () {
   return {
     restrict: 'A',
     
     templateUrl: 'common/comments/views/prodo.comment.tpl.html',
     controller: [
-      '$scope',
-      '$log',
-      'ProductService',
-      '$rootScope',
-      'UserSessionService',
-      'CommentService',
-      function ($scope, $log, ProductService, $rootScope, UserSessionService, CommentService) {
-        $(document).ready(function () {
-          $('#prodo-comment-Textbox').focus(function () {
-            $(this).height(75);
-          });
-          $('#prodo-comment-Textbox').blur(function () {
-            $(this).height(40);
-          });
+    '$scope',
+    '$log',
+    'ProductService',
+    '$rootScope',
+    'UserSessionService',
+    'CommentService',
+    function ($scope, $log, ProductService, $rootScope, UserSessionService, CommentService) {
+      $(document).ready(function () {
+        $('#prodo-comment-Textbox').focus(function () {
+          $(this).height(75);
         });
-        $scope.commentsLimit = function () {
-          return $scope.pagesSize * $scope.pagesShown;
-        };
-        $scope.fromNow = function (time) {
-          if (time != undefined) {
-            return moment(time).calendar();
-          }
-        };
-        $scope.toCamelCase = function (s) {
-          if (s == undefined || s == '' || s == null) {
-            s = '  ';
-          } else {
-            s = s.replace(/([^a-zA-Z0-9_\- ])|^[_0-9]+/g, '').trim();
-            s = s.replace(/([ -]+)([a-zA-Z0-9])/g, function (a, b, c) {
-              return c.toUpperCase();
-            });
-            s = s.replace(/([0-9]+)([a-zA-Z])/g, function (a, b, c) {
-              return b + c.toUpperCase();
-            });
-          }
-          return s;
-        };
-        $scope.getTagsFromCommentText = function ($scope) {
-          var commenttext = $scope.commenttextField.userComment;
-          $scope.mytags = $scope.pretags;
-          var new_arr = [];
-          var commenttextTags = commenttext.split(' ');
-          for (var i = 0; i < commenttextTags.length; i++) {
-            for (var j = 0; j < $scope.mytags.length; j++) {
-              if (commenttextTags[i] == $scope.mytags[j]) {
-                new_arr.push(commenttextTags[i]);
-              }
-            }
-          }
-          $scope.mytags = new_arr;
-        };
+        $('#prodo-comment-Textbox').blur(function () {
+          $(this).height(40);
+        });
+      });
+      $scope.commentsLimit = function () {
+        return $scope.pagesSize * $scope.pagesShown;
+      };
+      $scope.fromNow = function (time) {
+        if (time != undefined) {
+          return moment(time).calendar();
+        }
+      };
+      $scope.toCamelCase = function (s) {
+        if (s == undefined || s == '' || s == null) {
+          s = '  ';
+        } else {
+          s = s.replace(/([^a-zA-Z0-9_\- ])|^[_0-9]+/g, '').trim();
+          s = s.replace(/([ -]+)([a-zA-Z0-9])/g, function (a, b, c) {
+            return c.toUpperCase();
+          });
+          s = s.replace(/([0-9]+)([a-zA-Z])/g, function (a, b, c) {
+            return b + c.toUpperCase();
+          });
+        }
+        return s;
+      };
+        
         $scope.deleteProductComment = function (comment) {
           if (comment.user.userid == $scope.userIDFromSession ) {
             var index = $scope.productComments.indexOf(comment);
@@ -79,6 +66,6 @@ angular.module('prodo.CommonApp').directive('prodoComments', function () {
           }
         };
       }
-    ]
-  };
-});
+      ]
+    };
+  });
