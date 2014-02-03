@@ -54,9 +54,17 @@ angular.module('prodo.OrgApp')
           updateOrgAddress: { method: 'PUT', params: { orgid: '@orgid', orgaddressid: '@orgaddressid'  }, isArray: false},
           deleteOrgAddressById: { method: 'DELETE', params: { orgid: '@orgid', orgaddressid: '@orgaddressid' }}
         }),
-        OtherOrgInvites: $resource('/api/otherorginvites/:orgid', {},
+        OtherOrgInvites: $resource('/api/otherorginvite/:orgid', {},
         {
           sendOtherOrgInvites: { method: 'POST', params: { orgid: '@orgid'}}
+        }),
+        OrgCustomerInvites: $resource('/api/orgcustomerinvite/:orgid', {},
+        {
+          sendOrgCustomerInvites: { method: 'POST', params: { orgid: '@orgid'}}
+        }),
+        OrgGroupInvites: $resource('/api/orginvite/:orgid', {},
+        {
+          sendGroupInvites: { method: 'POST', params: { orgid: '@orgid'}}
         })
       }
 
@@ -166,7 +174,7 @@ angular.module('prodo.OrgApp')
 
       organization.updateOrgAdd = function(orgAdd, $scope){
         organization.currentOrgAdd = orgAdd;
-        $rootScope.$emit("getOrgAddData", orgAdd);
+        $rootScope.$broadcast("getOrgAddData", orgAdd);
       }
 
       organization.sendInvites= function (orgInvite) {
@@ -180,6 +188,31 @@ angular.module('prodo.OrgApp')
           $rootScope.$broadcast("sendOrgInvitesNotDone", error.status);
         });
       }
+
+      organization.sendCustomerInvites= function (orgCustInvite) {
+        OrgService.OrgCustomerInvites.sendOrgCustomerInvites({orgid: $rootScope.usersession.currentUser.org.orgid}, orgCustInvite,     // calling function of UserSigninService to make POST method call to signin user.
+        function(success){
+          $log.debug(success);
+          $rootScope.$broadcast("sendOrgCustomerInvitesDone", success);
+        },
+        function(error){
+          $log.debug(error);
+          $rootScope.$broadcast("sendOrgCustomerInvitesNotDone", error.status);
+        });
+      }
+
+      organization.groupInvites= function (orgGrpInvite) {
+        OrgService.OrgGroupInvites.sendGroupInvites({orgid: $rootScope.usersession.currentUser.org.orgid}, orgGrpInvite,     // calling function of UserSigninService to make POST method call to signin user.
+        function(success){
+          $log.debug(success);
+          $rootScope.$broadcast("sendOrgGroupInvitesDone", success);
+        },
+        function(error){
+          $log.debug(error);
+          $rootScope.$broadcast("sendOrgGroupInvitesNotDone", error.status);
+        });
+      }
+
 
     return organization;
   }]); 

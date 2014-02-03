@@ -6,7 +6,7 @@
 
       <h4 id="prodo-signup-heading">Talk About Your Products</h4>
        
-        <input id="prodo-form-input-username-signup" name="username" class="form-control" type="text" placeholder="UserName" ng-model="user.username" prodo-unique required /><i class="fa fa-check" ng-show="signupForm.username.$dirty && signupForm.username.$valid && signupForm.username.$valid.unique" ></i><span class="help-inline" ng-show="signupForm.username.$error.unique">Username already exist!</span>
+        <input id="prodo-form-input-username-signup" name="username" class="form-control" type="text" placeholder="UserName" ng-model="user.username" prodo-unique required /><i class="fa fa-check" ng-show="signupForm.username.$dirty && signupForm.username.$valid"></i>
 
         <input id="prodo-form-input-signup" name="email" class="form-control" type="email" placeholder="Email" required ng-model="user.email" /><i class="fa fa-check" ng-show="signupForm.email.$dirty && signupForm.email.$valid"></i>
       
@@ -24,13 +24,14 @@
           </div><!-- /input-group -->
         </div>
         
-        <p id="prodo-general-terms">By clicking Sign Up, you agree to our <a ui-sref="messageContent.terms" id="prodo-general-terms-link" class="link">Terms</a>.</p>
+        <p style="width: 370px;" id="prodo-general-terms">By clicking Sign Up, you agree to our<a ui-sref="messageContent.privacy" id="prodo-general-terms-link" class="link"> Terms</a>&nbsp;and &nbsp;<a ui-sref="messageContent.terms" id="prodo-general-terms-link" class="link">Privacy Policy</a>.</p>
 
     </div>  
     <div ng-show="(signupForm.$invalid && signupForm.$dirty) || (signupForm.$invalid && signupForm.submitted)" style="width:250px;
     border-radius: 2px; margin: 10px auto; display: block; text-align:left;" class="alert alert-danger">
       <ul style="list-style-type: disc;">
-        <li ng-show="(signupForm.fullname.$dirty && signupForm.fullname.$invalid && signupForm.submitted) || (signupForm.fullname.$invalid && signupForm.submitted) || (signupForm.fullname.$dirty && signupForm.fullname.$error.required)">Fullname is required</li>
+        <li ng-show="(signupForm.username.$dirty && signupForm.username.$invalid && signupForm.submitted) || (signupForm.username.$invalid && signupForm.submitted) || (signupForm.username.$dirty && signupForm.username.$error.required)">Username is required</li>
+        <li ng-show="signupForm.username.$error.nametaken">Username already taken</li>
         <li ng-show="(signupForm.email.$dirty && signupForm.email.$invalid && signupForm.submitted) || (signupForm.email.$invalid && signupForm.submitted) || (signupForm.email.$dirty && signupForm.email.$error.required)">Email is required</li>
         <li ng-show="signupForm.email.$error.email && signupForm.email.$dirty">Enter valid emailid</li>
         <li ng-show="signupForm.password.$dirty && signupForm.password.$error.required && signupForm.password.$invalid">Password should contain atleast 6 characters, a number, alphabet and special symbol</li>

@@ -132,9 +132,12 @@ angular.module('prodo.ProdonusApp', [
         $scope.showAlert('alert-danger', 'Server Error:' + message);
         cleanupEventGetOrgNotDone();
       });
-    var cleanupEventSendOrgData = $rootScope.$on('sendOrgData', function (event, data) {
-        $state.transitionTo('prodo.wall');
-        cleanupEventSendOrgData();
+
+      var cleanupEventSendOrgData = $rootScope.$on("sendOrgData", function(event, data){
+        $scope.org = data;
+        $state.transitionTo('prodo.wall'); 
+        cleanupEventSendOrgData();  
+
       });
     $scope.logout = function () {
       UserSessionService.logoutUser();

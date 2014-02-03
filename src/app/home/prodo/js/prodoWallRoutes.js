@@ -50,6 +50,11 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
        templateUrl:  'org/manageorg/views/org.wall.orgUpload.tpl.html',
        controller: 'ManageAccountController'
       }) 
+    .state('prodo.wall.org.broadcast', {
+      url: '',
+       templateUrl:  'org/manageorg/views/org.wall.orgBroadcast.tpl.html',
+       controller: 'ManageAccountController'
+      }) 
     .state('prodo.wall.product', {
       url: '',
        templateUrl:  'product/views/prodo.wall.productTabs.tpl.html',
