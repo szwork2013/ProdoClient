@@ -57,7 +57,7 @@ $scope.socket.removeAllListeners('productUploadResponse');
 $scope.socket.on('productUploadResponse', function(error, imagelocation) {
   if (error) {
    $("#errAlert").css("visibility", "visible");  
-    $("#bar").hide(); 
+   $("#bar").hide(); 
       if (error.error.code == 'AP003') {     // user already exist
         $log.debug(error.error.code + " " + error.error.message);
         $("#errorMsg").html( "Error while uploading "+$scope.file.name +" " +error.error.message);
@@ -93,8 +93,8 @@ else
 $scope.socket.removeAllListeners('productUploadLogoResponse');
 $scope.socket.on('productUploadLogoResponse', function(error, imagelocation) {
   if (error) {
-     $("#bar").hide();
-     $("#errAlert").css("visibility", "visible");    
+   $("#bar").hide();
+   $("#errAlert").css("visibility", "visible");    
          if (error.error.code == 'AP003') {     // user already exist
           $log.debug(error.error.code + " " + error.error.message);
           $("#errorMsg").html( "Error while uploading "+$scope.file.name +" " +error.error.message);
@@ -103,7 +103,7 @@ $scope.socket.on('productUploadLogoResponse', function(error, imagelocation) {
                   $("#errorMsg").html( "Error while uploading "+$scope.file.name +" " +error.error.message);
                 } else {
                   $log.debug(error.error.message);
-                 $("#errorMsg").html("Error while uploading "+$scope.file.name +" " +error.error.message);
+                  $("#errorMsg").html("Error while uploading "+$scope.file.name +" " +error.error.message);
                 }
                 $log.debug("Error " + error);
               }
@@ -127,8 +127,8 @@ else
 $scope.socket.removeAllListeners('orgUploadsResponse');
 $scope.socket.on('orgUploadResponse', function(error, imagelocation) {
   if (error) {
-     $("#bar").hide();
-     $("#errAlert").css("visibility", "visible");    
+   $("#bar").hide();
+   $("#errAlert").css("visibility", "visible");    
        if (error.error.code == 'AP003') {     // user already exist
         $log.debug(error.error.code + " " + error.error.message);
         $("#errorMsg").html( "Error while uploading "+$scope.file.name +" " +error.error.message);
@@ -158,8 +158,8 @@ else
 $scope.socket.removeAllListeners('orgUploadLogoResponse');
 $scope.socket.on('orgUploadLogoResponse', function(error, imagelocation) {
   if (error) {
-     $("#bar").hide();
-     $("#errAlert").css("visibility", "visible");    
+   $("#bar").hide();
+   $("#errAlert").css("visibility", "visible");    
        if (error.error.code == 'AP003') {     // user already exist
         $log.debug(error.error.code + " " + error.error.message);
         $("#errorMsg").html( "Error while uploading "+$scope.file.name +" " +error.error.message);
@@ -192,8 +192,8 @@ else
 $scope.socket.removeAllListeners('userUploadResponse');
 $scope.socket.on('userUploadResponse', function(error, imagelocation) {
   if (error) {
-     $("#bar").hide();
-     $("#errAlert").css("visibility", "visible");    
+   $("#bar").hide();
+   $("#errAlert").css("visibility", "visible");    
        if (error.error.code == 'AP003') {     // user already exist
         $log.debug(error.error.code + " " + error.error.message);
         $("#errorMsg").html( "Error while uploading "+$scope.file.name +" " +error.error.message);

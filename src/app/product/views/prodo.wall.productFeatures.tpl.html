@@ -19,10 +19,10 @@
       <a  href=""  ><i class="fa fa-shopping-cart fa-2x"></i></a>
       <a  href=""  >  <i class="fa fa-upload fa-2x" ></i></a>
       <a href=""  ng-click="$parent.isEditing = $parent.isEditing === true ? false : true;
-          product = '' ; editStatus='add'"  >  <i class="fa fa-plus-circle fa-2x"></i></a>
-       <a href="" data-toggle="modal" data-target="#myModal">   <i class="fa fa-minus-circle fa-2x"></i> </a>    
-       <a href=""  ng-click="$parent.isEditing = $parent.isEditing === true ? false : true; editStatus='update' "  >  <i class="fa fa-pencil-square-o fa-2x"></i></a>    
-     
+      product = '' ; editStatus='add'"  >  <i class="fa fa-plus-circle fa-2x"></i></a>
+      <a href="" data-toggle="modal" data-target="#myModal">   <i class="fa fa-minus-circle fa-2x"></i> </a>    
+      <a href=""  ng-click="$parent.isEditing = $parent.isEditing === true ? false : true; editStatus='update' "  >  <i class="fa fa-pencil-square-o fa-2x"></i></a>    
+      
     </div><br>
 
 
@@ -71,86 +71,86 @@
               </td>
             </tr>
             <tr ><td colspan="2">
-                <button type="submit" class="btn btn-info" style="width: 550px;"  ng-click=" $parent.isEditing = false" >Save</button>
-              </td>
-            </tr>
-          </table>
+              <button type="submit" class="btn btn-info" style="width: 550px;"  ng-click=" $parent.isEditing = false" >Save</button>
+            </td>
+          </tr>
+        </table>
 
-        </div>
-                <!--Category  >-->
-        <div class="prodo-product-C" ng-class="closedC ">
-          <button id="prodo-product-productgeneralbtn" ng-click="isClosedC  = !isClosedC " onclick=" $('#toggleIconCE').toggleClass('fa-minus-square');" >
-            <i id="toggleIconCE" class="fa fa-plus-square "></i> &nbsp;&nbsp; Category  
-          </button><br><br>
-          <table class="table child closedC " id="prodo-ProductFeatureTable" ng-if="isClosedC ">
-            <tr>
-              <td  >Category <span>&nbsp; category here</span></td>
-              <td  >Description <span  > description here</span></td>
-            </tr>
-          </table>
-        </div>
-                <!--Category-->  
-                <!--features-->  
-        <div class="prodo-product-F" ng-class="closedF">
-          <button id="prodo-product-productgeneralbtn" ng-click="isClosedF = !isClosedF" onclick=" $('#toggleIconFE').toggleClass('fa-minus-square');" >
-            <i id="toggleIconFE" class="fa fa-plus-square "></i> &nbsp;&nbsp;   Features 
-          </button><br><br>
-          <table class="table child closedF" id="prodo-ProductFeatureTable" ng-if="isClosedF">
-            <tr>
-              <td  >Category <span>&nbsp; category here</span></td>
-              <td  >Description <span  > description here</span></td>
-            </tr>
-          </table>
-        </div>
-                 <!--features-->  
+      </div>
+      <!--Category  >-->
+      <div class="prodo-product-C" ng-class="closedC ">
+        <button id="prodo-product-productgeneralbtn" ng-click="isClosedC  = !isClosedC " onclick=" $('#toggleIconCE').toggleClass('fa-minus-square');" >
+          <i id="toggleIconCE" class="fa fa-plus-square "></i> &nbsp;&nbsp; Category  
+        </button><br><br>
+        <table class="table child closedC " id="prodo-ProductFeatureTable" ng-if="isClosedC ">
+          <tr>
+            <td  >Category <span>&nbsp; category here</span></td>
+            <td  >Description <span  > description here</span></td>
+          </tr>
+        </table>
+      </div>
+      <!--Category-->  
+      <!--features-->  
+      <div class="prodo-product-F" ng-class="closedF">
+        <button id="prodo-product-productgeneralbtn" ng-click="isClosedF = !isClosedF" onclick=" $('#toggleIconFE').toggleClass('fa-minus-square');" >
+          <i id="toggleIconFE" class="fa fa-plus-square "></i> &nbsp;&nbsp;   Features 
+        </button><br><br>
+        <table class="table child closedF" id="prodo-ProductFeatureTable" ng-if="isClosedF">
+          <tr>
+            <td  >Category <span>&nbsp; category here</span></td>
+            <td  >Description <span  > description here</span></td>
+          </tr>
+        </table>
+      </div>
+      <!--features-->  
 
-           <!--Substitutes-->
+      <!--Substitutes-->
 
-        <div class="prodo-product-Sb" ng-class="closedSb">
-          <button id="prodo-product-productgeneralbtn" ng-click="isClosedSb = !isClosedSb" onclick=" $('#toggleIconSbE').toggleClass('fa-minus-square');" >
-            <i id="toggleIconSbE" class="fa fa-plus-square "></i> &nbsp;&nbsp;  Substitutes 
-          </button><br><br>
-          <table class="table child closedSb" id="prodo-ProductFeatureTable" ng-if="isClosedSb">
-            <tr>
-              <td  >substitutes <span>&nbsp;  substitutes data here</span></td>
-            </tr>
-          </table>
-        </div>
+      <div class="prodo-product-Sb" ng-class="closedSb">
+        <button id="prodo-product-productgeneralbtn" ng-click="isClosedSb = !isClosedSb" onclick=" $('#toggleIconSbE').toggleClass('fa-minus-square');" >
+          <i id="toggleIconSbE" class="fa fa-plus-square "></i> &nbsp;&nbsp;  Substitutes 
+        </button><br><br>
+        <table class="table child closedSb" id="prodo-ProductFeatureTable" ng-if="isClosedSb">
+          <tr>
+            <td  >substitutes <span>&nbsp;  substitutes data here</span></td>
+          </tr>
+        </table>
+      </div>
 
-          <!--Substitutes-->
+      <!--Substitutes-->
 
-          <!--Pricing-->
+      <!--Pricing-->
 
-        <div class="prodo-product-Pr" ng-class="closedPr">
-          <button id="prodo-product-productgeneralbtn" ng-click="isClosedPr = !isClosedPr" onclick=" $('#toggleIconPrE').toggleClass('fa-minus-square');" >
-            <i id="toggleIconPrE" class="fa fa-plus-square "></i> &nbsp;&nbsp; Pricing
-          </button><br><br>
-          <table class="table child closedPr" id="prodo-ProductFeatureTable" ng-if="isClosedPr">
-            <tr>
-              <td  >Pricing details <span>&nbsp;  Pricing details here</span></td>
-            </tr>
-          </table>
-        </div>
-          <!--Pricing-->
-      </form>
+      <div class="prodo-product-Pr" ng-class="closedPr">
+        <button id="prodo-product-productgeneralbtn" ng-click="isClosedPr = !isClosedPr" onclick=" $('#toggleIconPrE').toggleClass('fa-minus-square');" >
+          <i id="toggleIconPrE" class="fa fa-plus-square "></i> &nbsp;&nbsp; Pricing
+        </button><br><br>
+        <table class="table child closedPr" id="prodo-ProductFeatureTable" ng-if="isClosedPr">
+          <tr>
+            <td  >Pricing details <span>&nbsp;  Pricing details here</span></td>
+          </tr>
+        </table>
+      </div>
+      <!--Pricing-->
+    </form>
 
 
-      <div ng-switch-default>
+    <div ng-switch-default>
       <!-- Switch to edit      -->
-       <!-- Product Logo here -->
-        <img class="img" style=" height: 100px; padding:10px;max-width:500px;"   ng-src="{{product.product_logo}}" />
-        <div class="prodo-product-general " ng-class="closedPG"  >
-          <button id="prodo-product-productgeneralbtn" ng-click="isClosedPG = !isClosedPG" onclick=" $('#toggleIconPG').toggleClass('fa-minus-square');" >
-            <i id="toggleIconPG" class="fa fa-plus-square "></i> &nbsp;&nbsp; Product General
-          </button><br><br>
-          <table class="table child closedPG" id="prodo-ProductFeatureTable" ng-if="isClosedPG">
-            <tr id="prodo-productbnd" style="background-color: white; display:none;" ng-style="ShowBannedDate(product)">
-              <td>Product Banned on : <span>&nbsp;{{product.banneddate }}</span></td>
-            </tr>
+      <!-- Product Logo here -->
+      <img class="img" style=" height: 100px; padding:10px;max-width:500px;"   ng-src="{{product.product_logo}}" />
+      <div class="prodo-product-general " ng-class="closedPG"  >
+        <button id="prodo-product-productgeneralbtn" ng-click="isClosedPG = !isClosedPG" onclick=" $('#toggleIconPG').toggleClass('fa-minus-square');" >
+          <i id="toggleIconPG" class="fa fa-plus-square "></i> &nbsp;&nbsp; Product General
+        </button><br><br>
+        <table class="table child closedPG" id="prodo-ProductFeatureTable" ng-if="isClosedPG">
+          <tr id="prodo-productbnd" style="background-color: white; display:none;" ng-style="ShowBannedDate(product)">
+            <td>Product Banned on : <span>&nbsp;{{product.banneddate }}</span></td>
+          </tr>
+          <tr   id="prodo-productDiscontinued"  >
+            <td style=" background-color: #FFBABA;font-size: 16px;  border-top: 0px solid #ddd; padding:8px; padding-bottom:12px;" ng-style="ShowDiscontinuedSale(product)" >Product Discontinued On  <span >&nbsp;{{formatDate(product.sale_discontinuation_date)}}
+            </span></td></tr>
             <tr   id="prodo-productDiscontinued"  >
-              <td style=" background-color: #FFBABA;font-size: 16px;  border-top: 0px solid #ddd; padding:8px; padding-bottom:12px;" ng-style="ShowDiscontinuedSale(product)" >Product Discontinued On  <span >&nbsp;{{formatDate(product.sale_discontinuation_date)}}
-               </span></td></tr>
-               <tr   id="prodo-productDiscontinued"  >
               <td style=" background-color: #FFBABA;font-size: 16px;  border-top: 0px solid #ddd; padding:8px; " ng-style="ShowDiscontinuedSupport(product)">Support Discontinued On  <span  >&nbsp;{{formatDate(product.support_discontinuation_date)}} </span></td>
             </tr>
             <tr>
@@ -174,7 +174,7 @@
             </tr>
           </table>
         </div>
-               <!-- Category  -->
+        <!-- Category  -->
         <div class="prodo-product-C" ng-class="closedC">
           <button id="prodo-product-productgeneralbtn" ng-click="isClosedC = !isClosedC" onclick=" $('#toggleIconC').toggleClass('fa-minus-square');" >
             <i id="toggleIconC" class="fa fa-plus-square "></i> &nbsp;&nbsp; Category  
@@ -187,7 +187,7 @@
           </table>
         </div>
         <!--        Category 
-          <!--         features-->
+        <!--         features-->
         <div class="prodo-product-F" ng-class="closedF">
           <button id="prodo-product-productgeneralbtn" ng-click="isClosedF = !isClosedF" onclick=" $('#toggleIconF').toggleClass('fa-minus-square');" >
             <i id="toggleIconF" class="fa fa-plus-square "></i> &nbsp;&nbsp;   Features 
