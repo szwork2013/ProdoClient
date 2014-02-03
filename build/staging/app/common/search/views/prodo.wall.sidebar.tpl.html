@@ -1,0 +1,111 @@
+
+<!-- Org list code -->
+<div id="prodo-sidebar-trendingproductlist-container" class="container">
+  <div id="prodo-sidebar-list-group" class="list-group">
+    <div id="prodo-sidebar-list" class="list" >
+      <a ng-class="{'active':isCurrentListIndex(0)}" href="#" id="prodo-sidebar-list-group-item" class="list-group-item">Products Followed</a>
+    </div>
+  </div>
+</div>
+
+<!-- Product list code -->
+<div id="prodo-sidebar-followedproductlist-container" class="container">
+   <div id="prodo-sidebar-list-group" class="list-group">
+    <div id="prodo-sidebar-list" class="list" >
+      <a ng-class="{'active':isCurrentListIndex(0)}" href="#" id="prodo-sidebar-list-group-item" class="list-group-item">Search</a>
+      <div  id="prodo-sidebar-list-group-main" class="list-group-item">
+         <input type="text" class="btn btn-default"  name="product" typeahead="product.value for product in products_id| filter:$viewValue | limitTo:8" id="searchText" ng-model="product" style="width:150px;" placeholder="Search..." ng-mouseover="sampleDataEmitSearch()"></input>
+          </br></br>
+        <a data-toggle="modal"  data-target="#testmodal" ng-click="temp()" >Advanced Search</a>
+<!-- start of advanced search -->
+ <div id = "testmodal" class="modal fade" >
+     <div class="modal-dialog">
+        <div class="modal-content">
+                  <div >
+                         <h3 align="center">Advanced Search </h3>
+                         <hr>
+                  </div>  
+                
+         
+                 <div class="modal-body">
+                  
+                      <div class="row">         
+                        <div class="col-lg-6">
+                          <div class="input-group">
+                          <p>
+                          *Type Comma (,) between all the words you want. </p>
+                          <p>Eg: Apple Iphone , Samsung Galaxy Pro</p>
+                          </br>
+                              <input type="text" class="prodoAdvancedSearchTextbox" placeholder="Product Name [ eg:Samsung,Nokia ]" id="textBoxProductName" ng-model="product_name">
+                              
+                         </div><!-- /input-group -->
+                        </div><!-- /.col-lg-6 --> 
+                      </div>    
+                    <br>
+
+          <div class="row">         
+            <div class="col-lg-6"> 
+              <div class="input-group">
+                  <input type="text" class="prodoAdvancedSearchTextbox"  placeholder="Feature [ eg:JBL Speaker,BOSE Speakers ]" id="textBoxFeatureName"  ng-model="feature" >
+                 <!--  <span >
+                  &nbsp;&nbsp;  
+                  </span> -->
+               </div><!-- /input-group -->
+            </div><!-- /.col-lg-6 -->
+          </div>    
+      
+                      <br>
+                  <div class="row">         
+                    <div class="col-lg-6">
+                       <div class="input-group">
+                         <input type="text" class="prodoAdvancedSearchTextbox" placeholder="Category [ eg:Mobiles,Tablets]" id="textBoxCategoryName" ng-model="category">
+               
+                      </div><!-- /input-group --> 
+                      </div>   &nbsp;
+                  </div>    
+
+                       <br> 
+                <div class="row">          
+                   <div class="col-lg-6">
+                      <div class="input-group">
+                         <input type="text" placeholder="Model Number [ eg:Grang Duos,S4 ]"  ng-model="model_number" id="textBoxModelNumber" class="prodoAdvancedSearchTextbox">
+              
+                      </div><!-- /input-group -->
+                   </div><!-- /.col-lg-6 -->
+                </div>    
+   <!--  -->
+                        </br>
+           <p>Search Criteria:{{search}}</p>
+                
+             
+                </div>  
+                    
+                            <div class="modal-footer">
+                                    <button class="btn btn-danger" data-dismiss="modal" ng-click="modalReset()">Cancel</button>
+                                    
+                                    <input type="button" class="btn btn-success" value="Search" ng-click="searchProductData()" id="final" data-dismiss="modal "/>
+                            
+                              
+                              
+                              
+                            </div>        
+                
+                  
+                  
+                  
+          
+          
+            </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+  
+
+  
+ 
+    <!--End of advanced search  -->
+
+
+      </div>
+    </div>
+  </div>
+</div>

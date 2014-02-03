@@ -1,0 +1,26 @@
+<!-- Template for Organisation Group Users Details view wizard-->
+<div id="prodo-groupuser-container" class="container">
+
+  <form id="prodo-form-groupuser" name="prodoOrgGroupuserForm" class="css-form" ng-submit="" novalidate>
+
+    <div class="control-group">
+
+      <h4 id="prodo-groupuser-heading">Group User</h4>
+
+      <hr size=3 width="90%" style="height:1px; margin-top: 0;" noshade>
+
+      <input id="prodo-form-input-groupuser" type="text" name="groupname" class="form-control" placeholder="Group Name" ng-model="org.grpname"  autofocus required/>
+        
+      <input id="prodo-form-input-groupuser" name="domain" type="text" class="form-control" placeholder="Company domain name" ng-model="org.domain" required/>
+
+      <input id="prodo-form-input-groupuser" name="invites" type="text" class="form-control" placeholder="Send invites" ng-model="org.invites" prodonus-multi-email-validate required/>
+         
+    </div>    <!-- control group  div -->
+     
+    <button id="prodo-form-groupuser-btn" class="btn btn-md btn-primary" type="submit" ui-sref="subscription.address">Previous</button>
+
+    <button id="prodo-form-groupuser-btn" class="btn btn-md btn-primary" type="submit" ng-click="goToState()">Next</button>
+  
+  </form>   <!-- prodo-groupusers-form -->
+
+</div>   <!-- prodo-groupusers-container div -->

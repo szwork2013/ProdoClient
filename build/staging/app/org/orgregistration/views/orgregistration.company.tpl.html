@@ -1,0 +1,26 @@
+<!-- Template for Organisation Company Details view wizard-->
+<div id="prodo-company-container" class="container">
+
+  <form id="prodo-form-company" name="prodoOrgCompanyForm" class="css-form" ng-submit="" novalidate>
+
+    <div class="control-group">
+
+      <h4 id="prodo-company-heading">{{org.orgtype}}</h4>
+
+      <hr size=3 width="90%" style="height:1px; margin-top: 0;" noshade>
+          
+      <input id="prodo-form-input-company" name="companyname" type="text" class="form-control" ng-model="org.name" placeholder="Company Name" required />
+         
+      <textarea id="prodo-form-input-textarea-company" name="description" type="textarea" class=" form-control" ng-model="org.description" placeholder="Company Description" required></textarea>
+          
+      <input id="prodo-form-input-company" name="contractid" type="text" class=" form-control" ng-model="org.contractid" placeholder="Contract Id" required />
+      
+      </div> 
+         
+    
+    <button id="prodo-form-company-btn" class="btn btn-md btn-primary" ui-sref="subscription.plans">Previous</button>
+    <button id="prodo-form-company-btn" class="btn btn-md btn-primary" ui-sref="subscription.address">Next</button>
+
+  </form>   <!-- prodo-company-form -->
+
+</div>      <!-- prodo-company-container div -->

@@ -292,59 +292,84 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
   var g = {
       restrict: 'EA',
       link: function (scope, element, attr) {
-        var tooltip = d3.select('#a').append('div').attr('class', 'abc').style('opacity', 0);
-        var z = d3.select('#a').style('background-image', 'url(http://www.digitaltrends.com/wp-content/uploads/2010/06/apple-iphone-4-91.jpg) ').style('background-repeat', 'no-repeat');
+        var tooltip = d3.select("#a").append("div")   
+           .attr("class", "abc")               
+           .style("opacity", 0);
+        var z = d3.select('#a').style('background-image', 'url(http://s1.ibtimes.com/sites/www.ibtimes.com/files/styles/v2_article_large/public/2013/09/18/apple-iphone-5s-release.jpg) ').style('background-repeat', 'no-repeat' ).style('background-size', '78%');
         var zz = z.append('svg');
-        var l = zz.append('circle').attr('cx', 70 + 9).attr('cy', 80).attr('r', 5).style('fill', 'blue');
+
+
+
+
+        var l = zz.append('circle').attr('cx', 540 + 9).attr('cy', 74).attr('r', 5).style('fill', 'blue');
         l.on('mouseenter', function () {
           l.attr('r', 10).style('fill', 'none').style('stroke', 'red').style('stroke-opacity', 0.000001).style('stroke-width', 3).transition().duration(500).attr('r', 5).style('fill', 'blue').style('stroke-opacity', 2);
-          tooltip.text('Front 12 Megapixel Camera').style('opacity', 2).style('left', d3.event.pageX + 5 + 'px').style('top', d3.event.pageY + 5 + 'px');
+          tooltip.text('Front Camera').style('opacity', 2).style("left","540px").style("bottom","265px");
+          //.style("left", d3.select(this).attr("cx") + "px").style("top", d3.select(this).attr("cy") + "px");
+
+          // .style('left', d3.event.pageX + 5 + 'px').style('top', d3.event.pageY + 5 + 'px');
         }).on('mouseout', function () {
           l.attr('r', 5).style('stroke', 'none');
-          tooltip.style('opacity', 0);
+          tooltip.style('opacity', 0).style("left","0px").style("bottom","0px");
         });
-        l2 = zz.append('circle').attr('cx', 52).attr('cy', 99 + 4 + 134).attr('r', 8).style('fill', 'blue').on('mouseover', function () {
+
+
+
+
+        l2 = zz.append('circle').attr('cx', 52+10+130).attr('cy', 90+90).attr('r', 8).style('fill', 'blue')
+        .on('mouseover', function () {
           l2.attr('r', 12).style('fill', 'none').style('stroke', 'red').style('stroke-opacity', 0.000001).style('stroke-width', 3).transition().duration(500).attr('r', 8).style('fill', 'blue').style('stroke-opacity', 2);
-          tooltip.text('Screen').style('opacity', 2).style('left', d3.event.pageX + 5 + 'px').style('top', d3.event.pageY + 5 + 'px');
+          tooltip.text('Screen').style('opacity', 2).style("left","192px").style("bottom","180px");
+          // .style('left', d3.event.pageX + 5 + 'px').style('top', d3.event.pageY + 5 + 'px');
         }).on('mouseout', function () {
           l2.attr('r', 8).style('stroke', 'none');
-          tooltip.style('opacity', 0);
+          tooltip.style('opacity', 0).style("left","0px").style("bottom","0px");
         });
-        l3 = zz.append('circle').attr('cx', 120).attr('cy', 90).attr('r', 5).style('fill', 'blue').on('mouseover', function () {
+
+
+
+
+        l3 = zz.append('circle').attr('cx', 220).attr('cy', 290).attr('r', 5).style('fill', 'blue').on('mouseover', function () {
           l3.attr('r', 10).style('fill', 'none').style('stroke', 'red').style('stroke-opacity', 0.000001).style('stroke-width', 3).transition().duration(500).attr('r', 5).style('fill', 'blue').style('stroke-opacity', 2);
-          tooltip.text('Speaker').style('opacity', 2).style('left', d3.event.pageX + 5 + 'px').style('top', d3.event.pageY + 5 + 'px');
+          tooltip.text('Home Key').style('opacity', 2).style("left","220px").style("bottom","70px");
+          // .style('left', d3.event.pageX + 5 + 'px').style('top', d3.event.pageY + 5 + 'px');
         }).on('mouseout', function () {
           l3.attr('r', 5).style('stroke', 'none');
-          tooltip.style('opacity', 0);
+          tooltip.style('opacity', 0).style("left","0px").style("bottom","0px");
         });
-        l4 = zz.append('circle').attr('cx', 100).attr('cy', 370).attr('r', 4).style('fill', 'blue').on('mouseover', function () {
+
+
+
+
+        l4 = zz.append('circle').attr('cx', 180).attr('cy', 320).attr('r', 4).style('fill', 'blue').on('mouseover', function () {
           l4.attr('r', 10).style('fill', 'none').style('stroke', 'red').style('stroke-opacity', 0.000001).style('stroke-width', 3).transition().duration(500).attr('r', 4).style('fill', 'blue').style('stroke-opacity', 2);
-          tooltip.text('Home Button').style('opacity', 2).style('left', d3.event.pageX + 5 + 'px').style('top', d3.event.pageY + 5 + 'px');
+          tooltip.text('Mini USB Port').style('opacity', 2).style("left","180px").style("bottom","38px");
+          //.style('left', d3.event.pageX + 5 + 'px').style('top', d3.event.pageY + 5 + 'px');
         }).on('mouseout', function () {
-          l4.attr('r', 4).style('stroke', 'none');
+          l4.attr('r', 4).style('stroke', 'none').style("left","0px").style("bottom","0px");
           tooltip.style('opacity', 0);
         });
-        l5 = zz.append('circle').attr('cx', 280).attr('cy', 90).attr('r', 4).style('fill', 'blue').on('mouseover', function () {
-          l5.attr('r', 10).style('fill', 'none').style('stroke', 'red').style('stroke-opacity', 0.000001).style('stroke-width', 3).transition().duration(500).attr('r', 4).style('fill', 'blue').style('stroke-opacity', 2);
-          tooltip.text('Rear Main Camera').style('opacity', 2).style('left', d3.event.pageX + 5 + 'px').style('top', d3.event.pageY + 5 + 'px');
-        }).on('mouseout', function () {
-          l5.attr('r', 4).style('stroke', 'none');
-          tooltip.style('opacity', 0);
-        });
-        l6 = zz.append('circle').attr('cx', 305).attr('cy', 67).attr('r', 4).style('fill', 'blue').on('mouseover', function () {
-          l6.attr('r', 7).style('fill', 'none').style('stroke', 'red').style('stroke-opacity', 0.000001).style('stroke-width', 3).transition().duration(500).attr('r', 4).style('fill', 'blue').style('stroke-opacity', 2);
-          tooltip.text('Flash').style('opacity', 2).style('left', d3.event.pageX + 5 + 'px').style('top', d3.event.pageY + 5 + 'px');
-        }).on('mouseout', function () {
-          l6.attr('r', 2).style('stroke', 'none');
-          tooltip.style('opacity', 0);
-        });
-        l7 = zz.append('circle').attr('cx', 488).attr('cy', 140).attr('r', 4).style('fill', 'blue').on('mouseover', function () {
-          l7.attr('r', 10).style('fill', 'none').style('stroke', 'red').style('stroke-opacity', 0.000001).style('stroke-width', 3).transition().duration(500).attr('r', 5).style('fill', 'blue').style('stroke-opacity', 2);
-          tooltip.text('Volume Keys').style('opacity', 4).style('left', d3.event.pageX + 5 + 'px').style('top', d3.event.pageY + 5 + 'px');
-        }).on('mouseout', function () {
-          l7.attr('r', 4).style('stroke', 'none');
-          tooltip.style('opacity', 0);
-        });
+        // l5 = zz.append('circle').attr('cx', 280).attr('cy', 90).attr('r', 4).style('fill', 'blue').on('mouseover', function () {
+        //   l5.attr('r', 10).style('fill', 'none').style('stroke', 'red').style('stroke-opacity', 0.000001).style('stroke-width', 3).transition().duration(500).attr('r', 4).style('fill', 'blue').style('stroke-opacity', 2);
+        //   tooltip.text('Rear Main Camera').style('opacity', 2).style('left', d3.event.pageX + 5 + 'px').style('top', d3.event.pageY + 5 + 'px');
+        // }).on('mouseout', function () {
+        //   l5.attr('r', 4).style('stroke', 'none');
+        //   tooltip.style('opacity', 0);
+        // });
+        // l6 = zz.append('circle').attr('cx', 305).attr('cy', 67).attr('r', 4).style('fill', 'blue').on('mouseover', function () {
+        //   l6.attr('r', 7).style('fill', 'none').style('stroke', 'red').style('stroke-opacity', 0.000001).style('stroke-width', 3).transition().duration(500).attr('r', 4).style('fill', 'blue').style('stroke-opacity', 2);
+        //   tooltip.text('Flash').style('opacity', 2).style('left', d3.event.pageX + 5 + 'px').style('top', d3.event.pageY + 5 + 'px');
+        // }).on('mouseout', function () {
+        //   l6.attr('r', 2).style('stroke', 'none');
+        //   tooltip.style('opacity', 0);
+        // });
+        // l7 = zz.append('circle').attr('cx', 488).attr('cy', 140).attr('r', 4).style('fill', 'blue').on('mouseover', function () {
+        //   l7.attr('r', 10).style('fill', 'none').style('stroke', 'red').style('stroke-opacity', 0.000001).style('stroke-width', 3).transition().duration(500).attr('r', 5).style('fill', 'blue').style('stroke-opacity', 2);
+        //   tooltip.text('Volume Keys').style('opacity', 4).style('left', d3.event.pageX + 5 + 'px').style('top', d3.event.pageY + 5 + 'px');
+        // }).on('mouseout', function () {
+        //   l7.attr('r', 4).style('stroke', 'none');
+        //   tooltip.style('opacity', 0);
+        // });
       }
     };
   return g;

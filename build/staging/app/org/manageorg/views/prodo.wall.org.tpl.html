@@ -1,0 +1,21 @@
+<!-- template to handle organisation data related to prodowall -->
+<!-- <div id="prodo-comment-container" class="container" style="border: 1px solid #94d2f8; height: 300px;">
+	<h4>Manage org settings</h4>
+
+
+
+
+</div> -->
+
+<div id="prodo-comment-container" class="container" style="border: 1px solid #94d2f8; min-height: 50px;">
+     <ul prodo-nav class="nav nav-tabs">
+        <li class="active"><a ui-sref="prodo.wall.org.detail">organization Details</a></li>
+       
+        <li><a ui-sref="prodo.wall.org.upload">organization Upload</a></li>
+
+    </ul>
+    <div class="tab-content" style="padding-bottom: 9px; border-bottom: 1px solid #ddd;">
+        <div ui-view></div>
+    </div>
+
+</div>

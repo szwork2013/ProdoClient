@@ -1,6 +1,7 @@
 /nbproject/private/
-
+.DS_Store
 node_modules
 commonRoutes.js
 prodoWallRoutes.js
 nbproject
+build

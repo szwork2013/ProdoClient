@@ -1,0 +1,56 @@
+<!--Template for org invites Account settings-->
+<div style="background-color:white;" id="prodo-user-location-settings-container" class="container">
+	<h4>Group Invites</h4>
+	<ul class="list-group">
+	  <li class="list-group-item">
+	  	Group Invites
+	  	<a href="" data-toggle="collapse" data-target="#invites" class="pull-right">Edit</a>
+	  	<p style="margin-top: 10px; font-size: 10px;">Add More Invites
+	  	<a href="" data-toggle="collapse" data-target="#Editlocation" class="pull-right"><i class="fa fa-plus-square fa-lg pull-right"></i></a></p>
+
+	  	<div id="Editlocation" class="collapse">
+
+		  		<form id="prodo-form-signin" name="signinForm" class="css-form" ng-submit="" novalidate>
+
+	    			<div class="control-group">
+
+	    				<ul>
+
+	    					<li>
+		        		<label class="label-control" style="font-size: 10px; width: 120px; text-align:left; float: left; display: inline-block;">Location Type</label>
+	    					<select id="prodo-form-input-address" type="text" class="form-control" ng-model="org.orgaddresstype" autofocus required>
+		        		<option value="Company Address">Company Address</option>
+		        		<option value="Service Centers">Service Centers</option></select></li>
+
+							</ul>
+
+	  				</div>  
+
+	  				<button id="prodo-button" class="btn btn-sm btn-primary" ng-click="addOrgAddress()">Save Changes</button>
+	  				<button id="prodo-button" class="btn btn-sm btn-primary" data-toggle="collapse" data-target="#Editlocation">Cancel</button>
+	  			</form>
+
+				</div>
+				<br>
+	  		<div id="invites" class="collapse">
+	  			<table class="table table-striped" ng-repeat="invites in organizationData.currentOrgData.usergrp">
+						<thead>
+						  <tr>
+							<th>Group Name</th>
+							<th>Group Members</th>
+						  </tr>
+						</thead>
+						<tbody>
+						  <tr ng-repeat="grpmember in invites.grpmembers">
+							<td>{{invites.grpname}}</td>
+							<td>{{grpmember}}</td>
+							<td><button class="btn btn-sm" data-toggle="collapse" data-target="#Editlocation">Edit</button></td>
+							<td><button class="btn btn-sm" ng-click="deleteOrgAddress()">Delete</button></td>
+						  </tr>
+						</tbody>
+		  		</table>
+				</div>
+			</li>
+	  </ul>
+	</div>
+</div>

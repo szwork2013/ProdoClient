@@ -55,20 +55,21 @@ angular.module('prodo.CommonApp').directive('prodoComments', function () {
           }
           return s;
         };
-        $scope.getTagsFromCommentText = function ($scope) {
-          var commenttext = $scope.commenttextField.userComment;
-          $scope.mytags = $scope.pretags;
-          var new_arr = [];
-          var commenttextTags = commenttext.split(' ');
-          for (var i = 0; i < commenttextTags.length; i++) {
-            for (var j = 0; j < $scope.mytags.length; j++) {
-              if (commenttextTags[i] == $scope.mytags[j]) {
-                new_arr.push(commenttextTags[i]);
-              }
-            }
-          }
-          $scope.mytags = new_arr;
-        };
+        // $scope.getTagsFromCommentText = function ($scope) {
+        //   var commenttext = $scope.commenttextField.userComment;
+        //   $scope.mytags = $scope.pretags;
+        //   var new_arr = [];
+        //   var commenttextTags = commenttext.split(' ');
+        //   for (var i = 0; i < commenttextTags.length; i++) {
+        //     for (var j = 0; j < $scope.mytags.length; j++) {
+        //       if (commenttextTags[i] == $scope.mytags[j]) {
+        //         new_arr.push(commenttextTags[i]);
+        //       }
+        //     }
+        //   }
+        //   $scope.mytags = new_arr;
+        // };
+        
         $scope.deleteProductComment = function (comment) {
           if (comment.user.userid == $scope.userIDFromSession ) {
             var index = $scope.productComments.indexOf(comment);
