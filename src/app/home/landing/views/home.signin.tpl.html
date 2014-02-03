@@ -9,7 +9,7 @@
 
       <hr size=3 width="90%" style="height:1px; margin-top: 0;" noshade>
 
-      <input id="prodo-input-signin" name="email" class="form-control" type="text" placeholder="Email or username" required ng-model="user.email" /> 
+      <input id="prodo-input-signin" name="username" class="form-control" type="text" placeholder="Email or username" required ng-model="user.email" /> 
     
     
       <input id="prodo-input-signin" type="password" class="form-control" id="password1" name="password" placeholder="Password" ng-model="user.password" required>
@@ -18,13 +18,19 @@
         <input id="prodo-input-remember-signin" type="checkbox" ng-model="user.remember">&nbsp;Remember me
       </label>
 
-      <a id="prodo-signin-forgot-link" href="messageContent.forgotPassword">forgot password?</a>
+      <a id="prodo-signin-forgot-link" ui-sref="messageContent.forgotPassword">forgot password?</a>
 
-    </div>  
+    </div> 
+    <div ng-show="(signinForm.username.$dirty && signinForm.username.$invalid) || (signinForm.password.$dirty && signinForm.password.$invalid) || (signinForm.$invalid && signinForm.submitted)" style="width:250px; min-height: 30px; border-radius: 2px; margin: 10px auto; display: block; text-align:left; font-size: 12px;" class="alert alert-danger">
+      <ul style="list-style-type: disc;">
+        <li ng-show="(signinForm.username.$dirty && signinForm.username.$invalid && signinForm.submitted) || (signinForm.username.$invalid && signinForm.submitted) || (signinForm.username.$dirty && signinForm.username.$error.required)">Username or email is required</li>
+        <li ng-show="(signinForm.password.$dirty && signinForm.password.$error.required)|| (signinForm.password.$invalid && signinForm.submitted)">Password is required</li>
+      </ul>
+    </div> 
 
-    <button id="prodo-button-signin" class="btn btn-sm btn-primary">Sign In</button>
+    <button id="prodo-button-signin" class="btn btn-sm btn-primary">Sign In&nbsp;&nbsp;<div prodo-spinner></div></button>
 
-    <div prodo-spinner></div>
+    
 
   </form>
 

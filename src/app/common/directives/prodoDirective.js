@@ -129,7 +129,7 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
     return {
       restrict: 'EA',
       replace: true,
-      template: '<span ng-show="spinner.isShown">' + '<i style="color:blue;" class="fa fa-spinner fa-spin fa-2x">' + '</i>' + '</span>',
+      template: '<span ng-show="spinner.isShown">' + '<i style="color:yellow;" class="fa fa-spinner fa-spin">' + '</i>' + '</span>',
       controller: [
         '$scope',
         '$rootScope',

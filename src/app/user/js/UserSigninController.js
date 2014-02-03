@@ -42,7 +42,8 @@ angular.module('prodo.UserApp')
         UserSessionService.authSuccess(data.success.user);
         $state.transitionTo('prodo.wall');
         $scope.showAlert('alert-success', 'Welcome to Prodonus, you have successfully signed up.');
-
+        $scope.clearformData();
+        
       } else {
         if (data.error.code== 'AU005') {     // user does not exist
             $log.debug(data.error.code + " " + data.error.message);
@@ -84,23 +85,26 @@ angular.module('prodo.UserApp')
 
     // function to signin to Prodonus App using REST APIs and performs form validation.
     $scope.signin = function() {
-      $scope.showSpinner();
+      if ($scope.signinForm.$valid) {
+        $scope.showSpinner();
+        $log.debug('User Data entered successfully');
+        UserSessionService.signinUser($scope.jsonUserSigninData());
 
-      UserSessionService.signinUser($scope.jsonUserSigninData());
+        var cleanupEventSigninDone = $scope.$on("signinDone", function(event, message){
+          $scope.hideSpinner();
+          $scope.handleSigninResponse(message);
+          cleanupEventSigninDone(); 
+        });
 
-      var cleanupEventSigninDone = $scope.$on("signinDone", function(event, message){
-        $scope.clearformData();
-        $scope.hideSpinner();
-        $scope.handleSigninResponse(message);
-        cleanupEventSigninDone(); 
-      });
-
-      var cleanupEventSigninNotDone = $scope.$on("signinNotDone", function(event, message){
-        $scope.clearformData();
-        $scope.hideSpinner();
-        $scope.showAlert('alert-danger', "Server Error:" + message);
-        cleanupEventSigninNotDone();
-      });
+        var cleanupEventSigninNotDone = $scope.$on("signinNotDone", function(event, message){
+          $scope.clearformData();
+          $scope.hideSpinner();
+          $scope.showAlert('alert-danger', "Server Error:" + message);
+          cleanupEventSigninNotDone();
+        });
+      } else {
+        $scope.signinForm.submitted = true;
+      }
     }
 
      
