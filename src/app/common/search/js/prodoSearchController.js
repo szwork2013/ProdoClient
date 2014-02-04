@@ -4,8 +4,9 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
   '$rootScope',
   'prodoSearchService',
   'UserSessionService',
+  'searchProductService',
   '$http',
-  function ($scope, $log, $rootScope, prodoSearchService, UserSessionService, $http) {
+  function ($scope, $log, $rootScope, prodoSearchService, UserSessionService, searchProductService, $http) {
     $scope.TrendingProducts = [
       { productname: 'Products Followed' },
       { productname: 'Sony' },
@@ -20,6 +21,47 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
       { productname: 'Samsung LCD 32 inches' },
       { productname: 'Samsung S4' }
     ];
+
+
+$scope.productNames=[];
+
+
+
+
+    $scope.searchProductP=function()
+    { 
+      
+    
+      searchProductService.searchProduct();
+
+    
+      $scope.$on('notGotAllProducts', function (event, data) {
+      
+      });
+
+
+
+    };
+
+   $scope.$on('gotAllProducts', function (event, data) {
+
+        $scope.productNames=data.success.doc;
+     
+      });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     $scope.products_id = [
       {
         'key': '1',
@@ -63,6 +105,12 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
       }
     ];
     $scope.search = {};
+
+
+    $scope.product;
+
+
+
     $scope.searchProductData = function () {
       if ($scope.product_name !== '') {
         $scope.search.Product_Name = $scope.product_name;
@@ -82,6 +130,19 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
       $scope.$on('getSearchProductNotDone', function (event, data) {
       });
     };
+
+
+
+
+
+
+
+
+
+
+
+
+
     $scope.modalReset = function () {
       document.getElementById('textBoxCategoryName').value = '';
       document.getElementById('textBoxModelNumber').value = '';
@@ -89,13 +150,49 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
       document.getElementById('textBoxProductName').value = '';
       $scope.search = {};
     };
+
+
+//////////////////////////// tryl and error
+
+
+////////////////////////////////////////
+
+
+
+
+
+
+
+
+
     $scope.sampleDataEmitSearch = function () {
-      var data9 = {
-          prodle: 'xkdiPXcT_',
-          orgid: 'orgxkpxhIFau'
-        };
+
+     var data9={};
+     angular.forEach($scope.productNames, function(state) {
+      if ($scope.product === state.name) {
+        data9 = {prodle: state.prodle,orgid:state.orgid};
+      }
+      });
+
+
+      // var data9 = {
+      //     prodle: 'xkdiPXcT_',
+      //     orgid: 'orgxkpxhIFau'
+      //   };
       $rootScope.$emit('product', data9);
-      console.log('inside function' + data9);
-    };
+      
+
+      };
+
+
+
+
+
+
+
+
+
+
+
   }
 ]);

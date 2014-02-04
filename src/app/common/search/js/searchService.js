@@ -1,4 +1,6 @@
-angular.module('prodo.ProdoWallApp').factory('prodoSearchService', [
+angular.module('prodo.ProdoWallApp')
+
+.factory('prodoSearchService', [
   '$rootScope',
   '$resource',
   '$http',
@@ -17,5 +19,34 @@ angular.module('prodo.ProdoWallApp').factory('prodoSearchService', [
       };
     };
     return search;
+
+
   }
-]);
+])
+
+
+.factory('searchProductService', [
+  '$rootScope',
+  '$resource',
+  '$http',
+  '$state',
+  '$log',
+     function ($rootScope, $resource, $http, $state, $log) {
+    var searchService = { Product: $resource('/api/allproduct', {}, { searchProductByKey: { method: 'POST' } }) };
+    var search = {};
+    search.searchProduct = function () {
+      searchService.Product.searchProductByKey(function (success) {
+        $log.debug(success);
+        $rootScope.$broadcast('gotAllProducts', success);
+      }), function (error) {
+        $log.debug(error);
+        $rootScope.$broadcast('notGotAllProducts', error);
+      };
+    };
+    return search;
+
+
+  }
+])
+
+
