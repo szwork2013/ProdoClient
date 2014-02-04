@@ -36,7 +36,7 @@ angular.module('prodo.UploadApp')
               if ($scope.uploadSrc == "user")//it should be user
                 var action = {user: {userid: $rootScope.usersession.currentUser.userid}};
              else if ($scope.uploadSrc == "org")//it should be org
-              var action = {org: {userid: "$rootScope.usersession.currentUser.userid", orgid:  $rootScope.usersession.currentUser.org.orgid}};
+              var action = {org: {userid: $rootScope.usersession.currentUser.userid, orgid:  $rootScope.usersession.currentUser.org.orgid}};
             else if ($scope.uploadSrc == "product")
               var action = {product: {userid: $rootScope.usersession.currentUser.userid, orgid:  $rootScope.usersession.currentUser.org.orgid, prodle: $scope.product_prodle}};
             else if ($scope.uploadSrc == "productlogo")

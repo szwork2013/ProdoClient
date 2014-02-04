@@ -106,29 +106,29 @@
                  }
                  else {
                   $log.debug(successData.success.product);
-//                $log.debug("success    "+successData);
-              $scope.product = successData.success.product;
-              $rootScope.product_prodle = successData.success.product.prodle;
-              $scope.productComments = successData.success.product.product_comments;
-              $scope.pImages_l = successData.success.product.product_images;
-              if(successData.success.product.product_comments.length==0){
-                $("#load-more").css("display", "none");
-              }
-              else  $("#load-more").css("display", "inline");
+                //                $log.debug("success    "+successData);
+                $scope.product = successData.success.product;
+                $rootScope.product_prodle = successData.success.product.prodle;
+                $scope.productComments = successData.success.product.product_comments;
+                $scope.pImages_l = successData.success.product.product_images;
+                if(successData.success.product.product_comments.length==0){
+                  $("#load-more").css("display", "none");
+                }
+                else  $("#load-more").css("display", "inline");
 
-              }
+                }
 
-              },
-              function(error) {
-                $log.debug(error);
-                var temp=document.getElementById('prodo-comment-container');
-                $log.debug(temp);
-                temp.innerHTML="<br> Server error please try after some time<br><br>";
-                $scope.showAlert('alert-danger', "Server Error:" + error.status);
+                },
+                function(error) {
+                  $log.debug(error);
+                  var temp=document.getElementById('prodo-comment-container');
+                  $log.debug(temp);
+                  temp.innerHTML="<br> Server error please try after some time<br><br>";
+                  $scope.showAlert('alert-danger', "Server Error:" + error.status);
 
-              });
+                });
 
-              }
+                }
             //get product function declaration  
 
             $scope.getProduct();    
@@ -232,7 +232,7 @@
               $log.debug($scope.mytags);
             };
 
-            
+            //On the fly tags
             $scope.$watch('commenttextField.userComment', function() {
 
              $scope.getTagsFromCommentText();
@@ -397,7 +397,7 @@
             };
             //error handling for add product
 
-            //add product
+            //add ,update product
             $scope.addProduct = function(editStatus)
             {
 
@@ -502,27 +502,31 @@
           var retryIcon = document.getElementById("retryIcon");
           retryIcon.style.display = 'inline';
         }
-            $scope.masterChange = function() { //toggle to select all product iamges
+
+
+       //toggle to select all product iamges
+       $scope.masterChange = function() { 
 //                $(this).closest('div').find('.thumb :checkbox').prop("checked", this.checked);
-if ($('.imgToggles').is(':checked')) {
-  $('.imgToggles').prop('checked', false)
-} else {
-  $('.imgToggles').prop('checked', true)
-}
-};
+          if ($('.imgToggles').is(':checked')) {
+            $('.imgToggles').prop('checked', false)
+          } else {
+            $('.imgToggles').prop('checked', true)
+          }
+          };
 
-$scope.chckedIndexs=[];
-$scope.checkedIndex = function (img) {
- if ($scope.chckedIndexs.indexOf(img) === -1) {
-   $scope.chckedIndexs.push(img);
- }
- else {
-   $scope.chckedIndexs.splice($scope.chckedIndexs.indexOf(img), 1);
- }
- $log.debug($scope.chckedIndexs);
-}
-
-$scope.deleteProductImages = function(index) {
+          $scope.chckedIndexs=[];
+          $scope.checkedIndex = function (img) {
+           if ($scope.chckedIndexs.indexOf(img) === -1) {
+             $scope.chckedIndexs.push(img);
+           }
+           else {
+             $scope.chckedIndexs.splice($scope.chckedIndexs.indexOf(img), 1);
+           }
+           $log.debug($scope.chckedIndexs);
+          }
+          
+          //delete images
+          $scope.deleteProductImages = function(index) {
               //get selected ids to delete images
               $scope.imgIds = [{}];
               $scope.ids;
@@ -556,13 +560,15 @@ $scope.deleteProductImages = function(index) {
                  });
 
                 };
-             // if($rootScope.usersession.currentUser.org){
+
+                
+             if($rootScope.usersession.currentUser.org){
               if ($rootScope.usersession.currentUser.org.isAdmin) {
                 if ($scope.orgidFromSession === $rootScope.orgid ) {
                   $rootScope.isAdminCheck=true;
                 }
               }
-             // } 
+             } 
              $scope.checkAdmin = function() {
               if ($rootScope.isAdminCheck==true){
                var adminPanel = document.getElementById("prodo.productAdmin");
