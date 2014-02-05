@@ -61,6 +61,7 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
 /*change the navbar style*/
 #prodo-navbar {
 	height: 40px;
+	margin-bottom: 10px;
 	background: -webkit-linear-gradient(#424040,#000000);
   }
 

@@ -92,7 +92,7 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
     return {
       restrict: 'EA',
       replace: true,
-      template: '<div style="text-align:left; margin: 5px auto;" class="alert {{mainAlert.alertType}}" ng-show="mainAlert.isShown">' + '<button type="button" class="close" ng-click="closeAlert()" aria-hidden="true">&times;</button>' + '{{mainAlert.message}}' + '<a href="#/{{mainAlert.linkpage}}" class="alert-link"> {{mainAlert.linkmessage}}</a>' + '</div>',
+      template: '<div style="text-align:left; padding: 8px; margin: 10px;" class="alert {{mainAlert.alertType}}" ng-show="mainAlert.isShown">' + '<button type="button" class="close" ng-click="closeAlert()" aria-hidden="true">&times;</button>' + '{{mainAlert.message}}' + '<a href="#/{{mainAlert.linkpage}}" class="alert-link"> {{mainAlert.linkmessage}}</a>' + '</div>',
       controller: [
         '$scope',
         '$rootScope',
