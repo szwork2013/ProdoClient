@@ -60,10 +60,11 @@ angular.module('prodo.ProdonusApp', [
   '$rootScope',
   '$state',
   '$log',
+  '$location',
   'UserSessionService',
   'OrgRegistrationService',
   'UserSubscriptionService',
-  function ($scope, $rootScope, $state, $log, UserSessionService, OrgRegistrationService, UserSubscriptionService) {
+  function ($scope, $rootScope, $state, $log, $location, UserSessionService, OrgRegistrationService, UserSubscriptionService) {
     $state.transitionTo('home.start');
     $scope.isShown = false;
     $scope.showSignin = function () {
@@ -74,6 +75,17 @@ angular.module('prodo.ProdonusApp', [
       $scope.isShown = false;
       $state.transitionTo('home.start');
     };
+
+    $scope.$watch('locationPath', function(path) {
+      $location.path(path);
+    });
+  
+    $scope.$watch(function() {
+      return $location.path();
+    }, function(path) {
+    $scope.locationPath = path;
+    });
+
     var cleanupEventSession_Changed = $scope.$on('session-changed', function (event, message) {
         $log.debug(message);
         if (message.success) {
@@ -96,9 +108,12 @@ angular.module('prodo.ProdonusApp', [
         if ($rootScope.usersession.isLoggedIn) {
            $rootScope.orgid="orgxkpxhIFau";
            $rootScope.product_prodle="ek1ntsdzF";
-          if (data.isOtpPassword) {
-            $state.transitionTo('messageContent.resetPassword');
-          } else if (!data.isOtpPassword && !data.isSubscribed) {
+        if ($scope.locationPath == '/message/resetpassword') {
+          $state.transitionTo('messageContent.resetPassword');
+          }
+            else if (data.hasDonePayment && data.org.orgid) {
+            OrgRegistrationService.getOrgDetailSettings();
+          } else if (!data.isSubscribed) {
             UserSubscriptionService.getPlan();
           } else if (data.isSubscribed && !data.subscriptionExpired && !data.hasDonePayment) {
             $state.transitionTo('subscription.payment', {
@@ -110,11 +125,9 @@ angular.module('prodo.ProdonusApp', [
               planid: data.subscription.planid,
               plantype: data.usertype
             });
-          } else if (data.org.orgid) {
-            OrgRegistrationService.getOrgDetailSettings();
-          } else {
+          } else if (data.hasDonePayment) {
             $state.transitionTo('prodo.wall');
-          }
+          } 
         }
         cleanupEventSessionDone();
       });

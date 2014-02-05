@@ -2,7 +2,7 @@
   <div class="col-md-12">
     <div class="thumbnail">
       <div ng-app="prodo.UploadApp" ng-controller="UploadController">
-        <center> <img style="width:100px; height:80px; " ng-src="{{imageSrc}}"  alt="User Profile"></center>
+        <center> <img style="width:100px; height:80px; " ng-src="{{usersession.currentUser.profile_pic}}"  alt="User Profile"></center>
         <form>
           <br>
           <center>  
@@ -25,7 +25,7 @@
         </form>
        </div>
       <div class="caption">
-        <center><h4>{{usersession.currentUser.fullname}}</h4></center>
+        <center><h4>{{usersession.currentUser.username}}</h4></center>
       </div>
     </div>
     <ul prodo-nav style="margin-top:10px; background-color:white;" class="nav nav-pills nav-stacked">

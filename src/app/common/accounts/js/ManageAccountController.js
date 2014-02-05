@@ -148,7 +148,7 @@ angular.module('prodo.CommonApp')
     });
 
     var cleanupEventGetUserNotDone = $rootScope.$on("getUserNotDone", function(event, message){
-      scope.showAlert('alert-danger', "Server Error:" + message);
+      $scope.showAlert('alert-danger', "Server Error:" + message);
       cleanupEventGetUserNotDone();
     });
 
