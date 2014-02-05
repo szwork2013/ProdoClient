@@ -12,7 +12,7 @@
    * 
    */
    angular.module('prodo.ProductApp')
-   .controller('ProductController', ['$scope','$log', '$rootScope', 'ProductService', 'UserSessionService','$http','CommentLoadMoreService','ENV', function($scope, $log,$rootScope, ProductService, UserSessionService,$http,CommentLoadMoreService,ENV) {
+   .controller('ProductController', ['$scope','$log', '$rootScope', 'ProductService', 'UserSessionService','$http','CommentLoadMoreService','ENV','TagReffDictionaryService', function($scope, $log,$rootScope, ProductService, UserSessionService,$http,CommentLoadMoreService,ENV,TagReffDictionaryService) {
 
               //comments
               $scope.productComments = {comments: [{}]};
@@ -47,7 +47,16 @@
               $scope.socket;
 
                //socket listener here
+                
+                TagReffDictionaryService.getAllTags(
+                  function(successData) {
+                   // $scope.pretags=successData.success;
 
+                  })
+                  
+
+
+               
                $rootScope.$on("product", function(event, data){
 
                  $rootScope.product_prodle=data.prodle;
@@ -229,6 +238,7 @@
                 }
 
                 $scope.mytags = new_arr;
+
                 $log.debug($scope.mytags);
               };
 
@@ -246,13 +256,15 @@
              }
            });
 
-
-              
+              $scope.$watch('mytags', function() {
+                $scope.mytags;
+               $log.debug("tags "+$scope.mytags);
+              })              
               //Add comment function
 
               $scope.addProductComment = function() {
 
-               $scope.getTagsFromCommentText($scope);
+               // $scope.getTagsFromCommentText($scope);
 
                $log.debug($rootScope.file_data);
                $log.debug($rootScope.comment_image_l);

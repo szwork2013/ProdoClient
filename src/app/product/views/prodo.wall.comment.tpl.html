@@ -31,7 +31,7 @@
         <div id="prodo-productTags">
           <form  role="form">
             <div  style="width:518px; " >
-              <tags-input   ng-model="mytags" placeholder="Add tags"  list="pretags" min-length="5"
+              <tags-input  add-on-enter="false" add-on-space="true" ng-model="mytags" placeholder="Add tags"  list="pretags" ng-enter="addProductComment()"
               replace-spaces-with-dashes="false"></tags-input>
             </div>
           </form>

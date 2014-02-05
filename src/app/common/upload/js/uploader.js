@@ -30,7 +30,7 @@ angular.module('prodo.UploadApp')
         $("#errorMsg").html("Image size must ne less than 500kb");
         $("#bar").hide();
 
-      }
+      } 
       else{
         var file_data = {filetype: $scope.file.type, filename: $scope.file.name, filebuffer: $scope.imageBfr};
               if ($scope.uploadSrc == "user")//it should be user
