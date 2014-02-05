@@ -1,4 +1,4 @@
-angular.module('prodo.CommonApp')
+angular.module('prodo.AdminApp')
         .controller('prodoAdminTagInputController', ['$scope','$log', '$rootScope', 'prodoCommentService', 'UserSessionService','$http', function($scope, $log,$rootScope, prodoCommentService, UserSessionService,$http) {
   
 

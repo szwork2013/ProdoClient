@@ -204,11 +204,9 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
                     } else if (data.error.code=='ED001') {
                         console.log(data.error.code + data.error.message);
                         ngModel.$setValidity("nametaken",false);
-                        console.log(data.error.code + data.error.message);
                     } else if (data.error.code=='ED003') {   
                         console.log(data.error.code + data.error.message);
                         ngModel.$setValidity("nametaken",false);
-                        console.log(data.error.code + data.error.message);
                     } 
                 }
               }).error(function (data, status, headers, cfg) {
