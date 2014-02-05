@@ -56,13 +56,15 @@
                   
 
 
-               
-               $rootScope.$on("product", function(event, data){
-
-                 $rootScope.product_prodle=data.prodle;
-                 $rootScope.orgid=data.orgid;
-               });
-
+              $rootScope.$watch('product_prodle', function() {  
+            // var cleanProduct=   $rootScope.$on("product", function(event, data){
+                 $log.debug("Listening");
+                 // $rootScope.product_prodle=data.prodle;
+                 // $rootScope.orgid=data.orgid;
+                 $scope.getProduct(); 
+                 // cleanProduct(); 
+               // });
+                });
               // $rootScope.product_prodle='xkdiPXcT_';
               // $rootScope.orgid='orgxkpxhIFau'; 
 
@@ -87,8 +89,18 @@
 
               //get login details
                 //get product function declaration
+
+                // if($rootScope.product_prodle==undefined){
+                //      var temp=document.getElementById('prodo-comment-container');
+                //     temp.innerHTML="<br>Please start following a product using search...<br><br>";
+                       
+                //    };
+
+
                 $scope.getProduct = function()
                 {
+
+                   
 
                   ProductService.getProduct({orgid: $rootScope.orgid, prodle: $rootScope.product_prodle},
                     function(successData) {
@@ -140,7 +152,7 @@
                   }
               //get product function declaration  
 
-              $scope.getProduct();    
+                
 
               //Generate GUID
               function S4() {
