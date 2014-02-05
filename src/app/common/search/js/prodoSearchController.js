@@ -107,7 +107,7 @@ $scope.productNames=[];
     $scope.search = {};
 
 
-    $scope.product;
+    $rootScope.productSearch={product:""};
 
 
 
@@ -169,8 +169,12 @@ $scope.productNames=[];
 
      var data9={};
      angular.forEach($scope.productNames, function(state) {
-      if ($scope.product === state.name) {
+      if ($rootScope.productSearch.product === state.name) {
         data9 = {prodle: state.prodle,orgid:state.orgid};
+
+        $rootScope.product_prodle=state.prodle;
+        $rootScope.orgid=state.orgid;
+   
       }
       });
 
@@ -180,7 +184,7 @@ $scope.productNames=[];
       //     orgid: 'orgxkpxhIFau'
       //   };
       $rootScope.$emit('product', data9);
-      
+      console.log("Emit" +data9.prodle);      
 
       };
 

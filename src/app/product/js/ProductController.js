@@ -12,7 +12,7 @@
    * 
    */
    angular.module('prodo.ProductApp')
-   .controller('ProductController', ['$scope','$log', '$rootScope', 'ProductService', 'UserSessionService','$http','CommentLoadMoreService','ENV', function($scope, $log,$rootScope, ProductService, UserSessionService,$http,CommentLoadMoreService,ENV) {
+   .controller('ProductController', ['$scope','$log', '$rootScope', 'ProductService', 'UserSessionService','$http','CommentLoadMoreService','ENV','TagReffDictionaryService', function($scope, $log,$rootScope, ProductService, UserSessionService,$http,CommentLoadMoreService,ENV,TagReffDictionaryService) {
 
               //comments
               $scope.productComments = {comments: [{}]};
@@ -47,13 +47,37 @@
               $scope.socket;
 
                //socket listener here
+                
+                TagReffDictionaryService.getAllTags(
+                  function(successData) {
+                   // $scope.pretags=successData.success;
 
-               $rootScope.$on("product", function(event, data){
+                  })
+                  
 
-                 $rootScope.product_prodle=data.prodle;
-                 $rootScope.orgid=data.orgid;
-               });
+               
 
+
+
+                
+              $rootScope.$watch('product_prodle', function() {  
+            // var cleanProduct=   $rootScope.$on("product", function(event, data){
+                 $log.debug("Listening");
+                 // $rootScope.product_prodle=data.prodle;
+                 // $rootScope.orgid=data.orgid;
+                 var temp=document.getElementById('prodo-comment-container');
+                  if($rootScope.product_prodle!==undefined){
+                     // var temp=document.getElementById('prodo-comment-container');
+                     $scope.getProduct(); 
+                    }
+                else{
+                  temp.innerHTML="<br>Please start following a product using search...<br><br>";
+                  
+                 }
+
+                 // cleanProduct(); 
+               // });
+                });
               // $rootScope.product_prodle='xkdiPXcT_';
               // $rootScope.orgid='orgxkpxhIFau'; 
 
@@ -78,10 +102,14 @@
 
               //get login details
                 //get product function declaration
+            
+               
+                  
                 $scope.getProduct = function()
                 {
 
-                  ProductService.getProduct({orgid: $rootScope.orgid, prodle: $rootScope.product_prodle},
+                  
+                 ProductService.getProduct({orgid: $rootScope.orgid, prodle: $rootScope.product_prodle},
                     function(successData) {
                       if (successData.success == undefined)
                       {
@@ -131,7 +159,7 @@
                   }
               //get product function declaration  
 
-              $scope.getProduct();    
+                
 
               //Generate GUID
               function S4() {
@@ -229,6 +257,7 @@
                 }
 
                 $scope.mytags = new_arr;
+
                 $log.debug($scope.mytags);
               };
 
@@ -246,13 +275,15 @@
              }
            });
 
-
-              
+              $scope.$watch('mytags', function() {
+                $scope.mytags;
+               $log.debug("tags "+$scope.mytags);
+              })              
               //Add comment function
 
               $scope.addProductComment = function() {
 
-               $scope.getTagsFromCommentText($scope);
+               // $scope.getTagsFromCommentText($scope);
 
                $log.debug($rootScope.file_data);
                $log.debug($rootScope.comment_image_l);

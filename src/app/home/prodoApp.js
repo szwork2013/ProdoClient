@@ -106,8 +106,10 @@ angular.module('prodo.ProdonusApp', [
     var cleanupEventSessionDone = $rootScope.$on('session', function (event, data) {
         $log.debug(data);
         if ($rootScope.usersession.isLoggedIn) {
-          if ($scope.locationPath == '/message/resetpassword') {
-            $state.transitionTo('messageContent.resetPassword');
+           $rootScope.orgid="orgxkpxhIFau";
+           $rootScope.product_prodle="ek1ntsdzF";
+        if ($scope.locationPath == '/message/resetpassword') {
+          $state.transitionTo('messageContent.resetPassword');
           }
             else if (data.hasDonePayment && data.org.orgid) {
             OrgRegistrationService.getOrgDetailSettings();

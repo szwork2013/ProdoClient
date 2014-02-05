@@ -22,7 +22,7 @@
     saveProduct: {method: 'POST', params: {orgid: 'id'}}
   });
 }])
- 
+
  .factory('CommentService', ['$resource', function($resource) {
   return $resource('/api/comment/:commentid', {},
   {
@@ -37,5 +37,12 @@
   });
 }])
 
- 
+.factory('TagReffDictionaryService', ['$resource', function($resource) {
+  return $resource('/api/tagreffdictionary/getAllTag', {},
+  {
+    getAllTags: {method: 'GET'}
+  });
+}])
+
+
 

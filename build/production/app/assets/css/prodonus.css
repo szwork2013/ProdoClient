@@ -30,6 +30,24 @@ border: 1px solid #9FBACC;
 border-bottom: none;
 }
 
+#prodo-admin-nav-pills>li.active>a{
+color: black;
+border-top-right-radius: 5px;
+border-top-left-radius: 5px;
+font-size: 14px;
+background-color: transparent;
+font-weight: bold; 
+}
+
+#prodo-admin-nav-pills>li>a{
+font-size: 14px;
+margin: 2px;
+height: 30px;
+padding: 5px;
+border: 1px solid #9FBACC;
+border-bottom: none;
+}
+
 /*#body{
 background-color: #3a92c8;
 background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
