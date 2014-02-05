@@ -23,6 +23,16 @@
   });
 }])
 
+ .factory('ProductFeatureService', ['$resource', function($resource) {
+  return $resource('/api/product/:orgid/:prodle', {},
+  {
+    getFeature: {method: 'GET', params: {orgid: 'id', prodle: 'id'}},
+    updateFeature: {method: 'PUT', params: {orgid: 'id', prodle: 'id'}, isArray: false},
+    deleteFeature: {method: 'DELETE', params: {orgid: 'id', prodle: 'id'}},
+    saveFeature: {method: 'POST', params: {orgid: 'id'}}
+  });
+}])
+
  .factory('CommentService', ['$resource', function($resource) {
   return $resource('/api/comment/:commentid', {},
   {

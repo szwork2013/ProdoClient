@@ -12,7 +12,7 @@
    * 
    */
    angular.module('prodo.ProductApp')
-   .controller('ProductController', ['$scope','$log', '$rootScope', 'ProductService', 'UserSessionService','$http','CommentLoadMoreService','ENV','TagReffDictionaryService', function($scope, $log,$rootScope, ProductService, UserSessionService,$http,CommentLoadMoreService,ENV,TagReffDictionaryService) {
+   .controller('ProductController', ['$scope','$log', '$rootScope', 'ProductService', 'UserSessionService','$http','CommentLoadMoreService','ENV','TagReffDictionaryService','ProductFeatureService', function($scope, $log,$rootScope, ProductService, UserSessionService,$http,CommentLoadMoreService,ENV,TagReffDictionaryService,ProductFeatureService) {
 
               //comments
               $scope.productComments = {comments: [{}]};
@@ -724,8 +724,50 @@
                       $(this).popover('hide');
                     });
                   });
+                //Product features
+               $scope.deleteFeature=function(feature){
 
+               };
 
+               $scope.addProductFeature=function(editStatus){
+
+                 $scope.newFeature = {feature: {
+                  serial_no: $scope.feature.name,
+                  model_no: $scope.feature.category,
+                  name: $scope.feature.description
+                  
+                }};
+               $log.debug( $scope.newFeature);
+
+                if(editStatus=='add'){
+                 if ($rootScope.usersession.currentUser.org.isAdmin ) {
+                  ProductFeatureService.saveFeature({orgid: $scope.orgidFromSession}, $scope.newFeature,
+                    function(success) {
+                      $log.debug(success);
+                            $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
+                          },
+                          function(error) {
+                            $log.debug(error);
+                          });
+                }
+                else $scope.showAlert('alert-danger', "You dont have rights to add product..."); 
+              }
+              else if(editStatus=='update'){
+                if ($rootScope.usersession.currentUser.isAdmin ) {
+                  if ($scope.orgidFromSession === $rootScope.orgid ) {
+                   ProductFeatureService.updateFeature({orgid:$scope.orgidFromSession,prodle:$rootScope.product_prodle}, $scope.newFeature,
+                    function(success) {
+                      $log.debug(success);
+                            $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
+                          },
+                          function(error) {
+                            $log.debug(error);
+                          });
+                 }
+               }
+               else $scope.showAlert('alert-danger', "You dont have rights to update this product..."); 
+            }
+          }
                 }])
 
 
