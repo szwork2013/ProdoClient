@@ -6,7 +6,7 @@
 
       <h4 id="prodo-signup-heading">Talk About Your Products</h4>
        
-        <input id="prodo-form-input-username-signup" name="username" class="form-control" type="text" placeholder="UserName" ng-model="user.username" prodo-unique required /><i class="fa fa-check" ng-show="signupForm.username.$dirty && signupForm.username.$valid"></i>
+        <input id="prodo-form-input-username-signup" name="username" class="form-control" type="text" placeholder="UserName" ng-model="user.username" ng-minlength="3" ng-maxlength="14" prodo-unique required /><i class="fa fa-check" ng-show="signupForm.username.$dirty && signupForm.username.$valid"></i>
 
         <input id="prodo-form-input-signup" name="email" class="form-control" type="email" placeholder="Email" required ng-model="user.email" /><i class="fa fa-check" ng-show="signupForm.email.$dirty && signupForm.email.$valid"></i>
       
@@ -30,6 +30,10 @@
     <div ng-show="(signupForm.username.$dirty && signupForm.username.$invalid) || (signupForm.email.$dirty && signupForm.email.$invalid) || (signupForm.password.$dirty && signupForm.password.$invalid) || (signupForm.$invalid && signupForm.submitted)" style="width:250px; min-height: 30px; border-radius: 2px; margin: 10px auto; display: block; text-align:left; font-size: 12px;" class="alert alert-danger">
       <ul style="list-style-type: disc;">
         <li ng-show="(signupForm.username.$dirty && signupForm.username.$invalid && signupForm.submitted) || (signupForm.username.$invalid && signupForm.submitted) || (signupForm.username.$dirty && signupForm.username.$error.required)">Username is required</li>
+        <li ng-show="signupForm.username.$error.minlength">
+          Username should be greater than 3 characters</li>
+        <li ng-show="signupForm.username.$error.maxlength">
+          Username should be less than 15 characters</li>
         <li ng-show="signupForm.username.$error.nametaken">Username already taken</li>
         <li ng-show="(signupForm.email.$dirty && signupForm.email.$invalid && signupForm.submitted) || (signupForm.email.$invalid && signupForm.submitted) || (signupForm.email.$dirty && signupForm.email.$error.required)">Email is required</li>
         <li ng-show="signupForm.email.$error.email && signupForm.email.$dirty">Enter valid emailid</li>

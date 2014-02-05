@@ -5,6 +5,11 @@
 angular.module('prodo.ProdonusApp')
 .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {  
   $stateProvider
+    .state('admin', {
+      url: '/admin',
+      abstract: true,
+      templateUrl: 'common/admin/views/prodo.admin.tpl.html'
+    })  
     .state('home', {
       url: '',
       abstract: true,
