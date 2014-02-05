@@ -21,6 +21,7 @@ angular.module('prodo.ProdonusApp', [
   'vcRecaptcha',
   'ngResource',
   'tags-input',
+  'ngCookies',
   'prodo.CommonApp',
   'prodo.UserApp',
   'prodo.ProdoWallApp',
