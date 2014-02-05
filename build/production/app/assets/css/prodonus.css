@@ -12,6 +12,24 @@ outline: thin dotted transparent;
 outline-offset: -2px;
 }
 
+#prodo-org-nav-pills>li.active>a{
+color: black;
+border-top-right-radius: 5px;
+border-top-left-radius: 5px;
+font-size: 14px;
+background-color: transparent;
+font-weight: bold; 
+}
+
+#prodo-org-nav-pills>li>a{
+font-size: 14px;
+margin: 2px;
+height: 30px;
+padding: 5px;
+border: 1px solid #9FBACC;
+border-bottom: none;
+}
+
 /*#body{
 background-color: #3a92c8;
 background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
@@ -223,9 +241,8 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
 #prodo-general-terms{
 	font-weight: normal;
 	font-size: 10px;
-	line-height: 5px;
 	padding-top: 10px;
-	margin-right: 40px;
+	margin-left: 10px;
 	color: #595365;
 }
 
@@ -315,6 +332,19 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
     top: -1px;
     *overflow: hidden;
 }
+
+#prodo-signin-forgot-link {
+    padding: 0;
+    margin:0;
+    vertical-align: bottom;
+    position: relative;
+    top: -1px;
+    *overflow: hidden;
+    font-weight:normal; 
+    font-size:12px;
+}
+
+
 
 /*change the View: signin form input button signin style*/
 #prodo-button-signin{
@@ -879,6 +909,15 @@ section:hover #prodo-subscribe-plan-heading{
 	padding: 10px;
 	color: #2b8dc0;
 }
+
+#prodo-term-label-control{
+	font-weight: normal;
+	font-size: 25px;
+	line-height: 20px;
+	padding: 10px;
+	color: #2b8dc0;
+}
+
 /**
 *	Subscription.payment
 **/
@@ -1087,6 +1126,7 @@ border-radius: 30px;
   background-color: #ffffff;
   border-radius: 10px;
   margin-top: 10px;
+  min-height: 50px;
 }
 
 /*Barchart*/
@@ -1134,8 +1174,8 @@ text {
 
 #a
 { 
-  width:540px; 
-  height:500px; 
+  width:720px; 
+  height:400px; 
   display: inline-block;
   /*position : fixed ;*/
   background-position:top;
@@ -1388,7 +1428,7 @@ ul {list-style-type: none; }
 #prodo-comment-Textbox {  height:40px;width:518px;border-radius:10px;font-size:12px; font-family: Helvetica ; border: solid 1px #5bc0de; max-height: 75;max-width: 518;resize: none;}
 #prodo-comment-fixed { margin-left:17px;}
 #prodo-comment-media {margin-top: 0px;  border-top: 1px outset; border-color:#CCC;padding:5px;  width:518px;}
-#prodo-comment-row-fluid {word-wrap: break-word;width:450px;text-align: left;font-size:12px;}
+#prodo-comment-row-fluid {word-wrap: break-word;width:450px;text-align: left;font-size:12px; }
 #prodo-comment-companyName{color: gray;word-spacing: -.5ex ;}
 #prodo-comment-userName{font-size:15px; font-weight:bold;}
 #prodo-comment-commentContainer{ width:550px;}
@@ -1397,6 +1437,15 @@ ul {list-style-type: none; }
 #prodo-comment-tabs{height: 10px;}
 #prodo-comment-timePosted{font-size:10px; }
 #fa-removeComment:hover{}
+.commentSearchTextbox{background: #FFF url(http://www.cssportal.com/form-elements/images/search.png) no-repeat 4px 4px; 
+    border: 1px solid #999; 
+    outline:0; 
+    padding-left: 25px;
+    font-size:11px;
+    font-family: Helvetica ; 
+    height:25px; 
+    width: 500px; 
+    border-radius: 5px;}
 .list-animate-item {-webkit-transition: color 0.6s, background-color 0.3s;-moz-transition: color 0.6s, background-color 0.3s;-ms-transition: color 0.6s, background-color 0.3s; transition: color 0.6s, background-color 0.3s; }
 .list-animate-item.ng-enter {-webkit-animation: fadeIn 1s;-moz-animation: fadeIn 1s;-ms-animation: fadeIn 1s;animation: fadeIn 1s;} 
 .list-animate-item.ng-leave {-webkit-animation: fadeOut 1s;-moz-animation: fadeOut 1s;-ms-animation: fadeOut 1s;animation: fadeOut 1s;}
@@ -1472,6 +1521,7 @@ width: 518px;
 
 
 /*.prodo-product-general.closed button {color: red;}   stand-in for showing an up/down arrow or something*/
+
 .prodo-product-general.closedPG .child { display:none; }
 .prodo-product-general.closedF .child { display:none; }
 .prodo-product-general.closedC .child { display:none; }

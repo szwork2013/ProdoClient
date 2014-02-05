@@ -93,12 +93,12 @@ angular.module('prodo.ProdonusApp')
       controller: 'UserRegistrationController'
     })    
     .state('messageContent.forgotPassword', {
-      url: '/forgotPassword',
+      url: '/forgotpassword',
       templateUrl: 'user/views/user.signin.forgotpassword.tpl.html',
       controller: 'UserSigninController'
     })    
     .state('messageContent.resetPassword', {
-      url: '/resetPassword',
+      url: '/resetpassword',
       templateUrl: 'user/views/user.signin.resetpassword.tpl.html',
       controller: 'UserSigninController'
     })  

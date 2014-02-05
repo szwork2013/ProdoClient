@@ -14,7 +14,11 @@
     <div id="prodo-sidebar-list" class="list" >
       <a ng-class="{'active':isCurrentListIndex(0)}" href="#" id="prodo-sidebar-list-group-item" class="list-group-item">Search</a>
       <div  id="prodo-sidebar-list-group-main" class="list-group-item">
-         <input type="text" class="btn btn-default"  name="product" typeahead="product.value for product in products_id| filter:$viewValue | limitTo:8" id="searchText" ng-model="product" style="width:150px;" placeholder="Search..." ng-mouseover="sampleDataEmitSearch()"></input>
+        <!--  <input type="text" class="prodoAdvancedSearchTextbox"  name="product" typeahead="product.value for product in products_id| filter:$viewValue | limitTo:8" id="searchText" ng-model="product" style="width:100%" placeholder="Search..." ng-click="searchProductP()"></input>
+ -->
+         <input type="text" class="prodoAdvancedSearchTextbox"  name="product" typeahead="product.name for product in productNames| filter:$viewValue | limitTo:8" id="searchText" ng-model="product" style="width:100%" placeholder="Search..." ng-click="searchProductP()" typeahead-on-select="sampleDataEmitSearch()" ></input>
+
+
           </br></br>
         <a data-toggle="modal"  data-target="#testmodal" ng-click="temp()" >Advanced Search</a>
 <!-- start of advanced search -->

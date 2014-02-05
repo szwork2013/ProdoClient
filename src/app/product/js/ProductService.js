@@ -12,30 +12,30 @@
  */
 
 
-angular.module('prodo.ProductApp')
-        .factory('ProductService', ['$resource', function($resource) {
-            return $resource('/api/product/:orgid/:prodle', {},
-                    {
-                      getProduct: {method: 'GET', params: {orgid: 'id', prodle: 'id'}},
-                      updateProduct: {method: 'PUT', params: {orgid: 'id', prodle: 'id'}, isArray: false},
-                      deleteProduct: {method: 'DELETE', params: {orgid: 'id', prodle: 'id'}},
-                      saveProduct: {method: 'POST', params: {orgid: 'id'}}
-                    });
-          }])
-       
-        .factory('CommentService', ['$resource', function($resource) {
-            return $resource('/api/comment/:commentid', {},
-                    {
-                      deleteComment: {method: 'DELETE', params: {commentid: "id"}}
-                    });
-          }])
+ angular.module('prodo.ProductApp')
+ .factory('ProductService', ['$resource', function($resource) {
+  return $resource('/api/product/:orgid/:prodle', {},
+  {
+    getProduct: {method: 'GET', params: {orgid: 'id', prodle: 'id'}},
+    updateProduct: {method: 'PUT', params: {orgid: 'id', prodle: 'id'}, isArray: false},
+    deleteProduct: {method: 'DELETE', params: {orgid: 'id', prodle: 'id'}},
+    saveProduct: {method: 'POST', params: {orgid: 'id'}}
+  });
+}])
+ 
+ .factory('CommentService', ['$resource', function($resource) {
+  return $resource('/api/comment/:commentid', {},
+  {
+    deleteComment: {method: 'DELETE', params: {commentid: "id"}}
+  });
+}])
 
-         .factory('CommentLoadMoreService', ['$resource', function($resource) {
-            return $resource('/api/nextcomments/:commentid', {},
-                    {
-                      loadMoreComments: {method: 'GET', params: {commentid: "id"}}
-                    });
-          }])
+ .factory('CommentLoadMoreService', ['$resource', function($resource) {
+  return $resource('/api/nextcomments/:commentid', {},
+  {
+    loadMoreComments: {method: 'GET', params: {commentid: "id"}}
+  });
+}])
 
-  
+ 
 

@@ -12,95 +12,96 @@
 * 
 */-->
 
-<li  id="prodo-comment-media"  class="media list-animate-item" ng-repeat="comment in productComments" >
+<li  id="prodo-comment-media"  class="media list-animate-item" ng-repeat="comment in productComments | filter:{commenttext:search}" >
+
    <!--  <a class="pull-left" href="#">
         <img class="media-object" id="img-user" style="height:60px; width:50px" ng-src="{{comment.user.profilepic}}" alt="User"/> 
-    </a> -->
-    
+      </a> -->
 
+ 
 
-    <a class="pull-left" href="#"  ng-click="userProfileModal(comment.user.userid)" ng-controller="prodoUserProfileDataController"  id="triggerModal">
+      <a class="pull-left" href="#"  ng-click="userProfileModal(comment.user.userid)" ng-controller="prodoUserProfileDataController"  id="triggerModal">
 
-            <img class="media-object" id="img-user" ng-src="{{comment.user.profilepic}}" alt="User"  style="height:60px; width:50px" id="triggerModals" data-toggle="modal" data-target="#testmodal1" /> 
+      <img class="media-object" id="img-user" ng-src="{{comment.user.profilepic}}" alt="User"  style="height:50px; width:50px" id="triggerModals" data-toggle="modal" data-target="#testmodal1" /> 
         
-    </a>
+      </a>
 
-    <!-- modal -->
+      <!-- modal -->
 
       <div id = "testmodal1" class="modal fade" style="left:200px" >
-     <div class="modal-dialog"> 
+       <div class="modal-dialog"> 
         <div class="modal-content"> 
-                  <div class="modal-header">
-                         <h3 align="center"> User Profile </h3>
-                  </div> 
-                
-           
-                 <div class="modal-body" ng-controller="prodoUserProfileDataController">                 
-                        <img ng-src="{{modaluser.profile_pic}}" class="productFollowedImage " id="profilePic"/>
-                        <p class="paras">
-                        <a  id="uder_ID" >{{modaluser.username}}</a> <a href="#" id="org_ID"></a><a href="#" id="grp_name" ng-model="hello"></a>
-                        </p>     
-                 </div>  
-                 
-  
+          <div class="modal-header">
+           <h3 align="center"> User Profile </h3>
+         </div> 
 
 
-                 <div> 
-                       <p ><h5 class="productFollowedParagraphs">Product Followed</h5></p>
-                       <a href="#" class="productFollowedParagraphs" id="productFollowedName"></a><br>
-                       <img  id="productImage" src="" class="productFollowedImages"></img>
-                 </div>
-                 
-                  <br><br><br><br><br>
-                  
+         <div class="modal-body" ng-controller="prodoUserProfileDataController">                 
+          <img ng-src="{{modaluser.profile_pic}}" class="productFollowedImage " id="profilePic"/>
+          <p class="paras">
+            <a  id="uder_ID" >{{modaluser.username}}</a> <a href="#" id="org_ID"></a><a href="#" id="grp_name" ng-model="hello"></a>
+          </p>     
+        </div>  
 
 
-                 <div >
-                       <p ><h5 class="productFollowedParagraphs">Product Recommended</h5></p>
-                       <a href="#" class="productFollowedParagraphs" if="productRecommendedName"></a><br>
-                       <img class="productFollowedImages"  id="productRImage"></img> 
-                 </div>
-                  
-                 
-                 
-                  
-                  <br><br><br><br><br><br><br><br><br>
 
 
-                  <div class="modal-footer">
-                        <button class="btn btn-warning" data-dismiss="modal">Close</button>
-                  </div>        
-                
-                  
-                  
-                  
-          
-          
-            </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-  </div><!-- /.modal -->
+        <div> 
+         <p ><h5 class="productFollowedParagraphs">Product Followed</h5></p>
+         <a href="#" class="productFollowedParagraphs" id="productFollowedName"></a><br>
+         <img  id="productImage" src="" class="productFollowedImages"></img>
+       </div>
+
+       <br><br><br><br><br>
 
 
-    <!-- modal -->
-    <div class="media-body"><div>
-        <div class=" pull-left " id="prodo-comment-userName"  >{{comment.user.username.substring(0,15)}}</div>
-        <div ng-style="hideIfNoOrg(comment.user.orgname)" id="prodo-comment-companyName" class="pull-left"   >  &nbsp; &nbsp; &nbsp; &nbsp; @ {{toCamelCase(comment.user.orgname).substring(0,15)}}</div> <div id="prodo-comment-companyName"  ng-style="hideIfNogrp(comment.user.grpname)"> &nbsp; &nbsp;- &nbsp;{{comment.user.grpname.substring(0,15)}}</div>  
-       
-        <div class="pull-right" id="prodo-comment-timePosted" >{{fromNow(comment.datecreated)}}</div> </div>
-        <div class="pull-left" id="prodo-comment-row-fluid" > {{comment.commenttext}}</div><br>
-            <div class="label label-warning"   id="responseComment"  style="display: none">  </div>
-            <a   id="retryIcon" ng-click="addProductComment();" style="display: none" ><span class="glyphicon glyphicon-refresh "></span> </a>
-        <div class="prodo-comment-tabs " id="tabs" style="align:left;"  >
-              <ul id="commentNavTab" class="nav nav-pills" ng-init="tabCommentTags = false;
-                        tabCommentRemove = false" >
+
+       <div >
+         <p ><h5 class="productFollowedParagraphs">Product Recommended</h5></p>
+         <a href="#" class="productFollowedParagraphs" if="productRecommendedName"></a><br>
+         <img class="productFollowedImages"  id="productRImage"></img> 
+       </div>
+
+
+
+
+       <br><br><br><br><br><br><br><br><br>
+
+
+       <div class="modal-footer">
+        <button class="btn btn-warning" data-dismiss="modal">Close</button>
+      </div>        
+
+
+
+
+
+
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<!-- modal -->
+<div class="media-body"><div>
+  <div class=" pull-left " id="prodo-comment-userName"  >{{comment.user.username.substring(0,15)}}</div>
+  <div ng-style="hideIfNoOrg(comment.user.orgname)" id="prodo-comment-companyName" class="pull-left"   >  &nbsp; &nbsp; &nbsp; &nbsp; @ {{toCamelCase(comment.user.orgname).substring(0,15)}}</div> <div id="prodo-comment-companyName"  ng-style="hideIfNogrp(comment.user.grpname)"> &nbsp; &nbsp;- &nbsp;{{comment.user.grpname.substring(0,15)}}</div>  
+
+  <div class="pull-right" id="prodo-comment-timePosted" >{{fromNow(comment.datecreated)}}</div> </div>
+  <div class="pull-left" id="prodo-comment-row-fluid" > {{comment.commenttext}}</div><br>
+  <div class="label label-warning"   id="responseComment"  style="display: none">  </div>
+  <a   id="retryIcon" ng-click="addProductComment();" style="display: none" ><span class="glyphicon glyphicon-refresh "></span> </a>
+  <div class="prodo-comment-tabs " id="tabs" style="align:left;"  >
+    <ul id="commentNavTab" class="nav nav-pills" ng-init="tabCommentTags = false;
+    tabCommentRemove = false" >
              <!--    <li><a    ng-click="tabCommentTags = tabCommentTags === false ? true : false;
-                        tabCommentRemove = false;"><div id="fa-tagsComment" class="fa fa-tags"  ></div></a></li> -->
-                <li ng-style="hideIfNotUser(comment.user.userid)" ><a   ng-click="tabCommentRemove = tabCommentRemove === false ? true : false;
-                        tabCommentTags = false;"><div  id="fa-removeComment" name="rm" class=" fa fa-trash-o  "  ></div></a></li>
-                <li><a   ng-style="hideIfNotImage(comment.comment_image[0].image)"  ng-click="tabCommentImg = tabCommentImg === false ? true : false;
-                        tabCommentRemove = false;"><div id="fa-tagsComment" class="fa fa-picture-o"  ></div></a></li>        
-                </ul> 
-            <div class="tab-content">
+             tabCommentRemove = false;"><div id="fa-tagsComment" class="fa fa-tags"  ></div></a></li> -->
+             <li ng-style="hideIfNotUser(comment.user.userid)" ><a   ng-click="tabCommentRemove = tabCommentRemove === false ? true : false;
+              tabCommentTags = false;"><div  id="fa-removeComment" name="rm" class=" fa fa-trash-o  "  ></div></a></li>
+              <li><a   ng-style="hideIfNotImage(comment.comment_image[0].image)"  ng-click="tabCommentImg = tabCommentImg === false ? true : false;
+                tabCommentRemove = false;"><div id="fa-tagsComment" class="fa fa-picture-o"  ></div></a></li>        
+              </ul> 
+              <div class="tab-content">
               <!--   <div id="Tag" ng-show="tabCommentTags == 1" >
                     <form class="form-horizontal" role="form">
                         <div class="form-group"   >
@@ -108,24 +109,24 @@
                                          replace-spaces-with-dashes="false"></tags-input>
                         </div>
                     </form>
-                </div> -->
+                  </div> -->
 
-                <div id="Remove" ng-show="tabCommentRemove == 1"   >
-                Are you sure you want to delete this comment ?
-                <a href="" ng-click="deleteProductComment(comment)"> Yes</a>
-                </div>     
-                     
-                 
-                 <div id="Remove" ng-show="tabCommentImg == 1"   >
-                    
-                 <div id="img2">
-                  <img style="width:50px; height:50px;"  id="img-user" ng-src="{{comment.comment_image[0].image}}"   /> 
-                
-                </div>      
+                  <div id="Remove" ng-show="tabCommentRemove == 1"   >
+                    Are you sure you want to delete this comment ?
+                    <a href="" ng-click="deleteProductComment(comment)"> Yes</a>
+                  </div>     
+
+
+                  <div id="Remove" ng-show="tabCommentImg == 1"   >
+
+                   <div id="img2">
+                    <img style="width:50px; height:50px;"  id="img-user" ng-src="{{comment.comment_image[0].image}}"   /> 
+
+                  </div>      
+                </div>
+              </div>
             </div>
-        </div>
-    </div>
-</li>
+          </li>
 
 
 

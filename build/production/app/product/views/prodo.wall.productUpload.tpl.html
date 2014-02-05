@@ -1,59 +1,59 @@
-
+  
 
 <br>
 <div id="prodo-productFeature-fixed"   ng-app="prodo.UploadApp" ng-controller="UploadController"  >
- 
 
+ <form >
+  <br>
+  <div class="control-group"  ><div style="font-size:22px; text-align: left; padding-left:152px;" id="prodo-upload-SelectUploadBtn"> Upload product logo </div><br>
+  <center>  
 
-
-   <form >
-    <br>
-     <div class="control-group"  ><div style="font-size:22px; text-align: left; padding-left:152px;" id="prodo-upload-SelectUploadBtn"> Upload product logo </div><br>
-    <center>  
-   
-        <div class="controls" > 
-          <span class="btn btn-info fileinput-button" style="width: 400px;" >
-            <i class="glyphicon glyphicon-upload "></i>
-            <input   type="file" name="file" ng-file-select="onFileSelect($files)" multiple ng-click="uploadSrc = 'productlogo';">
-            <span>Select Logo</span>
-          </span>
-        </div>
-       </center>
-      </div>
-  </form>
+    <div class="controls" > 
+      <span class="btn btn-info fileinput-button" style="width: 400px;" >
+        <i class="glyphicon glyphicon-upload "></i>
+        <input   type="file" name="file" ng-file-select="onFileSelect($files)" multiple ng-click="uploadSrc = 'productlogo';">
+        <span>Select Logo</span>
+      </span>
+    </div>
+  </center>
+</div>
+</form>
  <!--  <center>
     <div id="FileName" > 
     </div>
   
  </center>
- -->
+-->
 
-  <form >
-    <br>
-     <div class="control-group"  ><div style="font-size:22px; text-align: left; padding-left:152px;" id="prodo-upload-SelectUploadBtn"> Select files to upload for product</div><br>
-    <center>  
-   
-        <div class="controls" > 
-          <span class="btn btn-info fileinput-button" style="width: 400px;" >
-            <i class="glyphicon glyphicon-upload "></i>
-            <input   type="file" name="file" ng-file-select="onFileSelect($files)" multiple ng-click="uploadSrc = 'product';">
-            <span>Select Files</span>
-          </span>
-        </div>
-       </center>
-      </div>
-  </form><br><br>
-  <center>
-    <div id="FileName" > 
+<form >
+  <br>
+  <div class="control-group"  ><div style="font-size:22px; text-align: left; padding-left:152px;" id="prodo-upload-SelectUploadBtn"> Select files to upload for product</div><br>
+  <center>  
+
+    <div class="controls" > 
+      <span class="btn btn-info fileinput-button" style="width: 400px;" >
+        <i class="glyphicon glyphicon-upload "></i>
+        <input   type="file" name="file" ng-file-select="onFileSelect($files)" multiple ng-click="uploadSrc = 'product';">
+        <span>Select Files</span>
+      </span>
     </div>
-  
- </center>
+  </center>
+</div>
+</form><br><br>
+<center>
+  <div class="alert alert-warning alert-dismissable" id="errAlert" style=" visibility: hidden;">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> 
+    <span id="errorMsg">
 
+    </span>
+  </div>
+  <div id="FileName" > 
+  </div>
+  
+</center>
 
-  
-  
-  <br>
-  <br>
+<br>
+<br>
 </div>
 <br>
 
