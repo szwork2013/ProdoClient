@@ -26,6 +26,7 @@
         'src/app/common/subscription/js/PaymentController.js',
         'src/app/common/subscription/js/SubscriptionService.js',
         'src/app/common/directives/prodoDirective.js',
+        'src/app/common/admin/js/tagService.js',
         'src/app/product/js/DragImageController.js',
         'src/app/product/js/ProductController.js',
         'src/app/product/js/ProductService.js',
@@ -60,7 +61,7 @@
     directives: {
       expand: true,
       
-      src: ['src/app/home/prodoApp.js'],
+      src: ['src/app/common/admin/js/tagService.js'],
       dest: 'build/production/app/Premin'
     }
   },
