@@ -93,6 +93,8 @@ angular.module('prodo.ProdonusApp', [
     var cleanupEventSessionDone = $rootScope.$on('session', function (event, data) {
         $log.debug(data);
         if ($rootScope.usersession.isLoggedIn) {
+           $rootScope.orgid="orgxkpxhIFau";
+           $rootScope.product_prodle="ek1ntsdzF";
           if (data.isOtpPassword) {
             $state.transitionTo('messageContent.resetPassword');
           } else if (!data.isOtpPassword && !data.isSubscribed) {
