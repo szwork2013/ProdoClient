@@ -1,11 +1,11 @@
 angular.module('prodo.AdminApp')
-        .controller('prodoAdminTagInputController', ['$scope','$log', '$rootScope', 'prodoCommentService', 'UserSessionService','$http', function($scope, $log,$rootScope, prodoCommentService, UserSessionService,$http) {
+        .controller('prodoAdminTagInputController', ['$scope','$log', '$rootScope', 'prodoCommentService', 'UserSessionService','$http','tagAddService', function($scope, $log,$rootScope, prodoCommentService, UserSessionService,$http,tagAddService) {
   
 
   $scope.category_selection;
   $scope.option1;
   $scope.option2;
-  $scope.query={};
+  $scope.query={};$scope.query1={};
   $scope.tagid;
   $scope.tagname;
   $scope.result;
@@ -72,13 +72,13 @@ angular.module('prodo.AdminApp')
 				  $scope.func=function()  
 				  {
 				 
-				    $scope.query.Tag_ID=$scope.tagid;
-				    $scope.query.Tag_Name=$scope.tagname;
-				    $scope.query.Emotions={};
-				    $scope.query.Emotions.Category=$scope.category_selection;
-				    $scope.query.Emotions.Emotion=$scope.emotion;
-				    $scope.query.Emotions.Level=$scope.level;
-				    $scope.query.Emotions.Result=$scope.result;
+				    //$scope.query.Tag_ID=$scope.tagid;
+				    $scope.query.tagname=$scope.tagname;
+				    $scope.query.emotions={};
+				    $scope.query.emotions.category=$scope.category_selection;
+				    $scope.query.emotions.emotion=$scope.emotion;
+				    $scope.query.emotions.level=$scope.level;
+				    $scope.query.emotions.result=$scope.result;
 				             var fullPath = document.getElementById('4').value;
 				                if (fullPath) {
 				                	var startIndex = (fullPath.indexOf('\\') >= 0 ? fullPath.lastIndexOf('\\') : fullPath.lastIndexOf('/'));
@@ -89,7 +89,29 @@ angular.module('prodo.AdminApp')
 				                	$scope.urll=filename;
 				                }
 				   // $scope.query.Emotions.Emotion_URL=document.getElementById("4").files;
-				$scope.query.Emotions.Emotion_URL=$scope.urll;
+				$scope.query.emotions.emotion_url=$scope.urll;
+
+         $scope.query1.tagreffdicdata={};
+         $scope.query1.tagreffdicdata=$scope.query;
+        // alert($scope.query);
+
+
+
+      tagAddService.addTagFunction($scope.query1);
+      $scope.$on('getSearchProductDone', function (event, data) {
+      });
+      $scope.$on('getSearchProductNotDone', function (event, data) {
+      });
+
+
+
+
+
+
+
+
+
+
 				 
 				  }; 
   
