@@ -21,10 +21,11 @@
               $scope.mytags;
               $scope.count = 0;
               $scope.commenttextField = {userComment: ''};
-              $scope.pretags = ['addition', 'aggregate', 'all', 'bad news', 'budget', 'cost', 'damage', 'entirety',
-              'expense', 'extent', 'list', 'lot', 'net', 'outlay', 'output', 'price tag', 'product', 'quantum', 'score',
-              'set-back', 'sum', 'tab', 'tidy sum', 'whole', 'article', 'asset', 'belonging', 'chattel', 'goods', 'line',
-              'material', 'object', 'produce', 'property', 'specialty', 'stock', 'thing', 'ware', 'good'];
+              // $scope.pretags = ['addition', 'aggregate', 'all', 'bad news', 'budget', 'cost', 'damage', 'entirety',
+              // 'expense', 'extent', 'list', 'lot', 'net', 'outlay', 'output', 'price tag', 'product', 'quantum', 'score',
+              // 'set-back', 'sum', 'tab', 'tidy sum', 'whole', 'article', 'asset', 'belonging', 'chattel', 'goods', 'line',
+              // 'material', 'object', 'produce', 'property', 'specialty', 'stock', 'thing', 'ware', 'good'];
+              $scope.pretags=[];
               $scope.productcommentResponseListener;
               var abc;
 
@@ -49,8 +50,14 @@
                //socket listener here
                 
                 TagReffDictionaryService.getAllTags(
-                  function(successData) {
-                   // $scope.pretags=successData.success;
+
+                  function( successData) {
+                    $log.debug("newtags: " +JSON.stringify(successData.success.tags));
+                    $log.debug("length: " +successData.success.tags.length);
+                    for(var i=0 ; i< successData.success.tags.length ; i++){
+                    $scope.pretags.push(successData.success.tags[i].tagname);
+                  }
+                    $log.debug($scope.pretags);
 
                   })
                   
@@ -225,7 +232,8 @@
                     commentid: result.success.product_comment.commentid,
                     type: result.success.product_comment.type,
                     datecreated: result.success.product_comment.datecreated,
-                    commenttext: result.success.product_comment.commenttext
+                    commenttext: result.success.product_comment.commenttext,
+                    analytics:{featureid:"123"}
 
                   }};
 
@@ -301,7 +309,8 @@
                       type: $scope.type,
                       datecreated: Date.now(),
                       tags:$scope.mytags,
-                      commenttext: $scope.commenttextField.userComment
+                      commenttext: $scope.commenttextField.userComment,
+                       analytics:{featureid:"123"}
 
                     }};
 
@@ -317,7 +326,8 @@
                         type: $scope.type,
                         datecreated: Date.now(),
                         tags:$scope.mytags,
-                        commenttext: $scope.commenttextField.userComment
+                        commenttext: $scope.commenttextField.userComment,
+                         analytics:{featureid:"123"}
 
                       }};
 
@@ -341,7 +351,8 @@
                           datecreated: Date.now(),
                           commenttext: $scope.commenttextField.userComment,
                           tags:$scope.mytags,
-                          comment_image:$rootScope.file_data
+                          comment_image:$rootScope.file_data,
+                           analytics:{featureid:"123"}
                         }};
 
                         $scope.newProductComment_image = {
@@ -357,7 +368,8 @@
                             datecreated: Date.now(),
                             tags:$scope.mytags,
                             commenttext: $scope.commenttextField.userComment,
-                            comment_image:$rootScope.comment_image_l
+                            comment_image:$rootScope.comment_image_l,
+                             analytics:{featureid:"123"}
                           }};
                           $rootScope.file_data="";
 
