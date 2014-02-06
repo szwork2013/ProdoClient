@@ -52,12 +52,12 @@
                 TagReffDictionaryService.getAllTags(
 
                   function( successData) {
-                    $log.debug("newtags: " +JSON.stringify(successData.success.tags));
-                    $log.debug("length: " +successData.success.tags.length);
+                    // $log.debug("newtags: " +JSON.stringify(successData.success.tags));
+                    // $log.debug("length: " +successData.success.tags.length);
                     for(var i=0 ; i< successData.success.tags.length ; i++){
                     $scope.pretags.push(successData.success.tags[i].tagname);
                   }
-                    $log.debug($scope.pretags);
+                    // $log.debug($scope.pretags);
 
                   })
                   
@@ -266,7 +266,7 @@
 
                 $scope.mytags = new_arr;
 
-                $log.debug($scope.mytags);
+                // $log.debug($scope.mytags);
               };
 
               //On the fly tags
@@ -285,7 +285,7 @@
 
               $scope.$watch('mytags', function() {
                 $scope.mytags;
-               $log.debug("tags "+$scope.mytags);
+               // $log.debug("tags "+$scope.mytags);
               })              
               //Add comment function
 
@@ -752,6 +752,7 @@
                $log.debug( $scope.newFeature);
 
                 if(editStatus=='add'){
+                  $log.debug("adding");
                  if ($rootScope.usersession.currentUser.org.isAdmin ) {
                   ProductFeatureService.saveFeature({orgid: $scope.orgidFromSession}, $scope.newFeature,
                     function(success) {
@@ -765,6 +766,7 @@
                 else $scope.showAlert('alert-danger', "You dont have rights to add product..."); 
               }
               else if(editStatus=='update'){
+                $log.debug("updatings");
                 if ($rootScope.usersession.currentUser.isAdmin ) {
                   if ($scope.orgidFromSession === $rootScope.orgid ) {
                    ProductFeatureService.updateFeature({orgid:$scope.orgidFromSession,prodle:$rootScope.product_prodle}, $scope.newFeature,

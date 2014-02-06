@@ -90,15 +90,15 @@
   <div class="pull-right" id="prodo-comment-timePosted" >{{fromNow(comment.datecreated)}}</div> </div>
   <div class="pull-left" id="prodo-comment-row-fluid" > {{comment.commenttext}}</div><br>
   <div class="label label-warning"   id="responseComment"  style="display: none">  </div>
-  <a   id="retryIcon" ng-click="addProductComment();" style="display: none" ><span class="glyphicon glyphicon-refresh "></span> </a>
+  <a   id="retryIcon" ng-click="addProductComment();" style="display: none; cursor: pointer; cursor: hand;" > <span class="glyphicon glyphicon-refresh "></span> </a>
   <div class="prodo-comment-tabs " id="tabs" style="align:left;"  >
     <ul id="commentNavTab" class="nav nav-pills" ng-init="tabCommentTags = false;
     tabCommentRemove = false" >
              <!--    <li><a    ng-click="tabCommentTags = tabCommentTags === false ? true : false;
              tabCommentRemove = false;"><div id="fa-tagsComment" class="fa fa-tags"  ></div></a></li> -->
-             <li ng-style="hideIfNotUser(comment.user.userid)" ><a   ng-click="tabCommentRemove = tabCommentRemove === false ? true : false;
+             <li ng-style="hideIfNotUser(comment.user.userid)" ><a  style="cursor: pointer; cursor: hand;" ng-click="tabCommentRemove = tabCommentRemove === false ? true : false;
               tabCommentTags = false;"><div  id="fa-removeComment" name="rm" class=" fa fa-trash-o  "  ></div></a></li>
-              <li><a   ng-style="hideIfNotImage(comment.comment_image[0].image)"  ng-click="tabCommentImg = tabCommentImg === false ? true : false;
+              <li><a  style="cursor: pointer; cursor: hand;" ng-style="hideIfNotImage(comment.comment_image[0].image)"  ng-click="tabCommentImg = tabCommentImg === false ? true : false;
                 tabCommentRemove = false;"><div id="fa-tagsComment" class="fa fa-picture-o"  ></div></a></li>        
               </ul> 
               <div class="tab-content">
