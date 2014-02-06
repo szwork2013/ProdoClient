@@ -19,6 +19,7 @@
               $scope.newProductComment = [];
               $rootScope.productCommentResponsearray = [];
               $scope.mytags;
+              $scope.myFeaturetags;
               $scope.count = 0;
               $scope.commenttextField = {userComment: ''};
               // $scope.pretags = ['addition', 'aggregate', 'all', 'bad news', 'budget', 'cost', 'damage', 'entirety',
@@ -26,8 +27,10 @@
               // 'set-back', 'sum', 'tab', 'tidy sum', 'whole', 'article', 'asset', 'belonging', 'chattel', 'goods', 'line',
               // 'material', 'object', 'produce', 'property', 'specialty', 'stock', 'thing', 'ware', 'good'];
               $scope.pretags=[];
+              $scope.featuretags = ['product', 'warrany', 'comment', 'blog', 'dashboard', 'search', 'image', 'orgnization'];
               $scope.productcommentResponseListener;
               var abc;
+              $scope.tagPairs= [];
 
               //product
               $scope.editStatus;
@@ -266,7 +269,25 @@
 
                 $scope.mytags = new_arr;
 
-                // $log.debug($scope.mytags);
+
+                 //feature tags
+                 $scope.myFeaturetags = $scope.featuretags;
+                var new_arr = [];
+                var commenttextTags = commenttext.split(' ');
+                for (var i = 0; i < commenttextTags.length; i++) {
+                  for (var j = 0; j < $scope.myFeaturetags.length; j++) {
+                    if (commenttextTags[i] == $scope.myFeaturetags[j]) {
+                      new_arr.push(commenttextTags[i]);
+                    }
+                  }
+                }
+
+                $scope.myFeaturetags = new_arr;
+
+                 //feature tags
+
+                $log.debug($scope.mytags);
+                $log.debug($scope.myFeaturetags);
               };
 
               //On the fly tags
@@ -288,10 +309,29 @@
                // $log.debug("tags "+$scope.mytags);
               })              
               //Add comment function
+             $scope.makeTagsPair= function(noun,adj){
+
+                for(var i=0;i<adj.length;i++){
+                  if(noun[i]==undefined)
+                     $scope.tagPairs.push({featureid:"1", featurename:"product",tag:adj[i]});
+                  else 
+                    $scope.tagPairs.push({featureid:"1", featurename:noun[i],tag:adj[i]});
+                }
+                  
+
+             }
+
+
 
               $scope.addProductComment = function() {
 
                // $scope.getTagsFromCommentText($scope);
+
+                $log.debug("tags "+$scope.mytags);
+                $log.debug("features "+ $scope.myFeaturetags);
+                $scope.makeTagsPair($scope.myFeaturetags,$scope.mytags);
+                 $log.debug("Pair : " +JSON.stringify( $scope.tagPairs));
+
 
                $log.debug($rootScope.file_data);
                $log.debug($rootScope.comment_image_l);
@@ -310,7 +350,7 @@
                       datecreated: Date.now(),
                       tags:$scope.mytags,
                       commenttext: $scope.commenttextField.userComment,
-                       analytics:{featureid:"123"}
+                      analytics:[{featurename:"product",adj:"good"},{}]
 
                     }};
 
@@ -385,6 +425,7 @@
                   $scope.socket.emit('addComment', $rootScope.product_prodle, $scope.newProductComment.product_comment);
                   $scope.productComments.unshift($scope.newProductComment_image.product_comment);
                   $scope.commenttextField.userComment = "";
+
                   $rootScope.count=0;
                   document.getElementById('prodo-comment-commentContainer').style.marginTop='0px';
                   document.getElementById("crossButton").style.display="none";
@@ -483,7 +524,7 @@
                else $scope.showAlert('alert-danger', "You dont have rights to update this product..."); 
              }
 
-           };
+            };
               //delete product
               $scope.deleteProduct = function()
               {
@@ -737,24 +778,90 @@
                     });
                   });
                 //Product features
+               
+               $scope.features=[];
+               
+               $scope.getProductFeatures=function(){
+                
+
+
+                  
+                 ProductFeatureService.getFeature({orgid: $rootScope.orgid, prodle: $rootScope.product_prodle},
+                    function(successData) {
+                      if (successData.success == undefined)
+                      {
+                       if($rootScope.usersession.currentUser.org.isAdmin==true)
+                       {
+                        //admin tasks
+                         // $("#prodoCommentsTab").css("display", "none");
+                       }
+                      else { }
+                   }
+                   else {
+                  $log.debug("success    "+JSON.stringify( successData));
+                   for(i=0;i<successData.success.productfeature.length;i++){
+                    $scope.features.push(successData.success.productfeature[i]);
+                   // $log.debug("pf    "+$scope.feature.featurename);
+                   }
+                  
+                   $log.debug("pf  "+JSON.stringify( $scope.features.featurename));
+                  }
+
+                  },
+                  function(error) {
+                    
+                    $scope.showAlert('alert-danger', "Server Error:" + error.status);
+
+                  });
+
+
+
+
+
+               }
+
+
+              $scope.getProductFeatures();
+
                $scope.deleteFeature=function(feature){
+                $log.debug("deleting feature");
+                 // if ($rootScope.usersession.currentUser.isAdmin ) {
+                  if ($scope.orgidFromSession === $rootScope.orgid ) {
+                    ProductFeatureService.deleteFeature({orgid: $scope.orgidFromSession, prodle: $rootScope.product_prodle ,productfeatureid:feature.featureid},
+                    function(success) {
+                      $log.debug(JSON.stringify( success));
+                      //client side delete
+                      // var index = $scope.feature.indexOf(feature);
+                      // if (index != -1)
+                      // $scope.feature.splice(index, 1);
+
+
+                      },
+                       function(error){
+                       $log.debug(JSON.stringify( error));
+
+                       });
+                  }
+                // }
+                else
+                 $scope.showAlert('alert-danger', "You dont have rights to delete this feature...");
+
 
                };
 
                $scope.addProductFeature=function(editStatus){
 
-                 $scope.newFeature = {feature: {
-                  serial_no: $scope.feature.name,
-                  model_no: $scope.feature.category,
-                  name: $scope.feature.description
+                 $scope.newFeature = {productfeature: [{
+                  featurename: $scope.feature.name,
+                  featuredescription: $scope.feature.description
                   
-                }};
+                }]};
                $log.debug( $scope.newFeature);
 
                 if(editStatus=='add'){
                   $log.debug("adding");
                  if ($rootScope.usersession.currentUser.org.isAdmin ) {
-                  ProductFeatureService.saveFeature({orgid: $scope.orgidFromSession}, $scope.newFeature,
+                  ProductFeatureService.saveFeature({orgid: $scope.orgidFromSession , prodle:$rootScope.product_prodle}, $scope.newFeature,
                     function(success) {
                       $log.debug(success);
                             $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
