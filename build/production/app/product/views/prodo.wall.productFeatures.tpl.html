@@ -102,8 +102,8 @@
           </button><br><br>
           <table class="table child closedF" id="prodo-ProductFeatureTable" ng-if="isClosedF">
              <tr>
-                <td>   Feature name <input ng-model="$parent.$parent.feature.name"   id="prodo-product-features_textfield" class="form-control"  type="text" style="float: right"  required name="name" />  </td>
-                <td  > Category name   <input id="prodo-product-features_textfield" type="text" class="form-control" ng-model="$parent.$parent.feature.category" style="float: right" required  name="serial_no" /></td>
+                <td colspan="2">   Feature name <input ng-model="$parent.$parent.feature.name"   id="prodo-product-features_textfield" class="form-control"  type="text" style="float: right"  required name="name" />  </td>
+               
               </tr>
                <tr>
                 <td  colspan="2">Description   <textarea  type="text" id="prodo-product-featuresDescription_textfield" class="form-control"  ng-model="$parent.$parent.feature.description" required name="description" col="40"  ></textarea>
@@ -221,11 +221,11 @@
                   <td  >Description <span  > description here</span></td>
                 </tr>
               </table> -->
-             <ul class=" child closedF list-group list-animate-item-warranty" id="prodo-ProductFeatureTable" ng-if="isClosedF"  >
-              <li class="list-group-item  active" style="background-color: #f3f5f3; color: black;">  Feature id : {{feature.id}}  <a href="" ng-click="deleteFeature(feature);" >   <i class="fa fa-minus-circle fa-2x pull-right "  ></i></a>  </li> 
-              <li class="list-group-item "> Feature name : {{feature.name}}</li>
-              <li class="list-group-item "> Category name: {{feature.category}}</li>
-              <li class="list-group-item" > Description : {{feature.description}}</li>
+             <ul class=" child closedF list-group list-animate-item-warranty" id="prodo-ProductFeatureTable" ng-if="isClosedF" ng-repeat="feature in features" >
+              <li class="list-group-item  active" style="background-color: #f3f5f3; color: black;">  Feature id : {{feature.featureid}}  <a href="" ng-click="deleteFeature(feature);" >   <i class="fa fa-minus-circle fa-2x pull-right "  ></i></a>  </li> 
+              <li class="list-group-item "> Feature name : {{feature.featurename}}</li>
+             
+              <li class="list-group-item" > Description : {{feature.featuredescription}}</li>
              
               
             </ul>
