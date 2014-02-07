@@ -14,6 +14,195 @@
 
   <div ng-controller="ProductController"  >
     <div id="prodo-productFeature-fixed"    >
+    <br><img class="img" style=" height: 100px; padding:10px;max-width:500px;"   ng-src="{{product.product_logo}}" /><br>
+      <accordion>
+    <accordion-group>
+      <accordion-heading >
+        <p style='font-weight:bold; font-size: 13px; margin: 0;'>Product General
+    <span style="color:green">   {{product.status}}&nbsp;&nbsp;&nbsp; </span>
+        <i class="fa fa-pencil pull-right"></i></p>
+      </accordion-heading>
+      
+
+             
+        <div class="prodo-product-general "  >
+                      <!-- admin tasks -->
+        <div style="float:right; display: none" id="prodo.productAdmin">
+       
+       
+        <a href=""  data-toggle="collapse" data-target="#Edit" ng-click="enableEditor() ;  editStatus='add'; clearText(); " >  <i class="fa fa-plus-circle "></i></a>
+
+         <a href=""   ng-click="editStatus='update' ; enableEditor() ;  " data-toggle="collapse" data-target="#Edit" >  <i class="fa fa-pencil-square-o "></i></a>
+        <a href="" data-toggle="modal" data-target="#myModal">   <i class="fa fa-trash-o"></i> </a>    
+           
+        
+      </div>
+
+                     
+
+      
+
+ <!-- display mode -->
+          <table class="table child " ng-hide="editorEnabled" id="prodo-ProductFeatureTable" >
+            <tr id="prodo-productbnd" style="background-color: white; display:none;" ng-style="ShowBannedDate(product)">
+              <td>Product Banned on : <span>&nbsp;{{product.banneddate }}</span></td>
+            </tr>
+            <tr   id="prodo-productDiscontinued"  >
+              <td style=" background-color: #FFBABA;font-size: 16px;  border-top: 0px solid #ddd; padding:8px; padding-bottom:12px;" ng-style="ShowDiscontinuedSale(product)" >Product Discontinued On  <span >&nbsp;{{formatDate(product.sale_discontinuation_date)}}
+              </span></td></tr>
+              <tr   id="prodo-productDiscontinued"  >
+                <td style=" background-color: #FFBABA;font-size: 16px;  border-top: 0px solid #ddd; padding:8px; " ng-style="ShowDiscontinuedSupport(product)">Support Discontinued On  <span  >&nbsp;{{formatDate(product.support_discontinuation_date)}} </span></td>
+              </tr>
+              <tr>
+                <td  colspan="2">Product Name :
+                  <span>&nbsp;{{product.name}} </span>
+                  <span   class="collapsed2" style="cursor:pointer; color:brown" onclick="this.className = this.className == 'collapsed2' ? 'expanded' : 'collapsed2'">
+                    <a onclick="">[ {{product.prodle}} ]</a>
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td  >Organization ProductID : <span>&nbsp;{{product.orgid}}  </span></td>
+                <td  >Serial No : <span  >&nbsp; {{product.serial_no}} </span></td>
+              </tr>
+              <tr>
+                <td  >Model No : <span>&nbsp;{{product.model_no}} </span></td>
+                <td  >Model Name : <span  >&nbsp;{{product.name}} </span></td>
+              </tr>
+              <tr>
+                <td  colspan="2">Description : <span>&nbsp; {{product.description}}</span></td>
+              </tr>
+            </table>
+          </div>
+
+          <!-- display mode -->
+<hr>
+<!-- edit mode -->
+       <form    id="Edit" class="collapse"  ng-show="editorEnabled" ng-switch="isEditing" name="productForm" >
+          <div class="prodo-product-general " >
+            
+            <table class="table child " id="prodo-ProductFeatureTable">
+              <tr style=" background-color: #FFBABA; display: none" id="prodo-productDiscontinued"  >
+                <td  >Product Discontinued   <input  id="prodo-product-features_textfield" type="text" class="form-control productDisCont" ng-model="$parent.$parent.product.prodDis" style="float: right" name="prodDis"   /></td>
+                <td  >Support Discontinued   <input id="prodo-product-features_textfield" type="text" class="form-control supDisCont" ng-model="$parent.$parent.product.supDis" style="float: right" name="supDis"  /></td>
+              </tr>
+              <tr>
+                <td>   Product Name <input ng-model="$parent.$parent.product.name"   id="prodo-product-features_textfield" class="form-control productName"  type="text" style="float: right"  required name="name" />  </td>
+                <td  >Serial No   <input id="prodo-product-features_textfield" type="text" class="form-control" ng-model="$parent.$parent.product.serial_no" style="float: right" required  name="serial_no" /></td>
+              </tr>
+              <tr>
+                <td  >Model No  <input id="prodo-product-features_textfield" type="text" class="form-control" ng-model="$parent.$parent.product.model_no" style="float: right; " required name="model_no" /></td>
+
+                <td  >Model Name  <input id="prodo-product-features_textfield" type="text" class="form-control" ng-model="$parent.$parent.product.display_name" style="float: right" required name="display_name" /></td>
+              </tr>
+              <tr>
+                <td  colspan="2">Description   <textarea  type="text" id="prodo-product-featuresDescription_textfield" class="form-control"  ng-model="$parent.$parent.product.description" required name="description" col="40"  ></textarea>
+
+
+                </td>
+              </tr>
+              <tr ><td colspan="2">
+              <!--   <button type="submit" class="btn btn-info" style="width: 550px;"  ng-click=" $parent.isEditing = false" >Save</button>
+ -->
+                <a  ng-click="addProduct(editStatus);disableEditor();" class="btn btn-primary btn-sm glyphicon glyphicon-floppy-save pull-right" style="border-radius: 10px; margin: 5px;"  >Save</a>
+                <a class="btn btn-primary btn-sm glyphicon glyphicon-remove pull-right" style="border-radius: 10px; margin: 5px;" ng-click="disableEditor()">Cancel</a>
+              </td>
+            </tr>
+          </table>
+
+        </div>
+        </form>
+        <!-- edit mode -->
+
+
+       
+
+
+    </accordion-group>
+    
+    <accordion-group>
+      <accordion-heading>
+            <p ng-click="getOrgAddress()" style='font-weight:bold; font-size: 13px; margin: 0;'>Product Features<i class="fa fa-pencil pull-right"></i></p>
+        </accordion-heading>
+<!-- data here -->
+      
+
+
+
+
+
+    </accordion-group>
+
+    <accordion-group>
+      <accordion-heading>
+            <p style='font-weight:bold; font-size: 13px; margin: 0;'>Groups<i class="fa fa-pencil pull-right"></i></p>
+        </accordion-heading>
+       
+    </accordion-group>
+
+    <accordion-group>
+      <accordion-heading>
+            <p style='font-weight:bold; font-size: 13px; margin: 0;'>Other Organization Invites<i class="fa fa-pencil pull-right"></i></p>
+        </accordion-heading>
+        <button class="btn btn-info btn-sm" style="background-color:#47707C; border-color:#3C555C; border-radius: 10px; margin: 15px;" ng-click="addMoreInvites()"><i style="margin-right: 5px;" class="fa fa-plus-square"></i>Add More Invites</button>
+        <table class="table table-condensed">
+          <tbody>
+            <tr ng-repeat="invite in orginvites">
+              <td><input class="form-control" ng-model="invite.name" type="text" placeholder="Name" > </td>
+              <td><input class="form-control" ng-model="invite.orgname" type="text" placeholder="Organization Name" ></td>
+              <td><input class="form-control" ng-model="invite.email" type="email" placeholder="Email" ></td>
+            </tr>
+          </tbody>
+        </table>
+        <button class="btn btn-info btn-sm glyphicon glyphicon-send pull-right" style="border-radius: 10px; margin: 5px;" ng-click="sendOrgInvites()">Send</button>
+    </accordion-group>
+
+    <accordion-group>
+      <accordion-heading>
+            <p style='font-weight:bold; font-size: 13px; margin: 0;'>Organization Customer Invites<i class="fa fa-pencil pull-right"></i></p>
+      </accordion-heading>
+        <button class="btn btn-info btn-sm" style="background-color:#47707C; border-color:#3C555C; border-radius: 10px; margin: 15px;" ng-click="addCustomerInvites()"><i style="margin-right: 5px;" class="fa fa-plus-square"></i>Add More Invites</button>
+        <table class="table table-condensed">
+          <tbody>
+            <tr ng-repeat="customer in customerinvites">
+              <td><input class="form-control" ng-model="customer.name" type="text" placeholder="Name" > </td>
+              <td><input class="form-control" ng-model="customer.email" type="email" placeholder="Email" ></td>
+            </tr>
+          </tbody>
+        </table>
+        <button class="btn btn-info btn-sm glyphicon glyphicon-send pull-right" style="border-radius: 10px; margin: 5px;" ng-click="orgCustomerInvites()">Send</button>
+    </accordion-group>
+
+
+    <accordion-group>
+      <accordion-heading>
+            <p style='font-weight:bold; font-size: 13px; margin: 0;'>Product<i class="fa fa-pencil pull-right"></i></p>
+        </accordion-heading>
+        This is just some content to illustrate fancy headings.
+    </accordion-group>
+
+    
+
+  </accordion>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       <div style="float:right; display: none" id="prodo.productAdmin">
         <span style="color:green">   {{product.status}}&nbsp;&nbsp;&nbsp; </span>
         <a  href=""  ><i class="fa fa-shopping-cart fa-2x"></i></a>

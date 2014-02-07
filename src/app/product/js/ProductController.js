@@ -501,6 +501,7 @@
                     function(success) {
                       $log.debug(success);
                             $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
+                            $scope.getProduct(); 
                           },
                           function(error) {
                             $log.debug(error);
@@ -538,6 +539,16 @@
              }
               //delete product
 
+               $scope.clearText=function(){
+                 // prodo-product-features_textfield
+                 $log.debug("clearig");
+                 // $('#prodo-product-featuresDescription_textfield').val("")
+                 //  productDisCont
+                 //  supDisCont
+                 //  productName
+                  $scope.product="";
+                
+               }
               $scope.ShowDiscontinuedSupport=function(product){
                if (product.support_discontinuation_date) return{display: "inline" } 
                  else return{display: "none" } 
@@ -834,7 +845,7 @@
                       // var index = $scope.feature.indexOf(feature);
                       // if (index != -1)
                       // $scope.feature.splice(index, 1);
-
+                      
 
                       },
                        function(error){
@@ -888,7 +899,19 @@
                }
                else $scope.showAlert('alert-danger', "You dont have rights to update this product..."); 
             }
-          }
+          };
+          $scope.editorEnabled = false;
+  
+    $scope.enableEditor = function() {
+      $scope.editorEnabled = true;
+    };
+  
+    $scope.disableEditor = function() {
+      $scope.editorEnabled = false;
+    };
+
+
+
                 }])
 
 
