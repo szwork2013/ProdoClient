@@ -27,7 +27,8 @@
               // 'set-back', 'sum', 'tab', 'tidy sum', 'whole', 'article', 'asset', 'belonging', 'chattel', 'goods', 'line',
               // 'material', 'object', 'produce', 'property', 'specialty', 'stock', 'thing', 'ware', 'good'];
               $scope.pretags=[];
-              $scope.featuretags = ['product', 'warrany', 'comment', 'blog', 'dashboard', 'search', 'image', 'orgnization'];
+              $scope.featuretags=[];
+              // $scope.featuretags = ['product', 'warrany', 'comment', 'blog', 'dashboard', 'search', 'image', 'orgnization'];
               $scope.productcommentResponseListener;
               var abc;
               $scope.tagPairs= [];
@@ -236,7 +237,7 @@
                     type: result.success.product_comment.type,
                     datecreated: result.success.product_comment.datecreated,
                     commenttext: result.success.product_comment.commenttext,
-                    analytics:{featureid:"123"}
+                    analytics:$scope.tagPairs
 
                   }};
 
@@ -314,10 +315,23 @@
                 for(var i=0;i<adj.length;i++){
                   if(noun[i]==undefined)
                      $scope.tagPairs.push({featureid:"1", featurename:"product",tag:adj[i]});
-                  else 
+                 else 
                     $scope.tagPairs.push({featureid:"1", featurename:noun[i],tag:adj[i]});
                 }
-                  
+
+                //append feature id
+                 
+                     for(var i=0; i<$scope.features.length ; i++){
+                      for(j=0;j<$scope.tagPairs.length;j++){
+                         if($scope.features[i].featurename==$scope.tagPairs[j].featurename){
+                        $scope.tagPairs[j].featureid=$scope.features[i].featureid;
+                         $log.debug("fn2"+$scope.tagPairs[j].featurename+" "+$scope.tagPairs[j].tag+" "+$scope.tagPairs[j].featureid);
+                       }
+                        }
+
+                     }
+                  //append feature id 
+
 
              }
 
@@ -350,7 +364,7 @@
                       datecreated: Date.now(),
                       tags:$scope.mytags,
                       commenttext: $scope.commenttextField.userComment,
-                      analytics:[{featurename:"product",adj:"good"},{}]
+                      analytics:$scope.tagPairs
 
                     }};
 
@@ -367,7 +381,7 @@
                         datecreated: Date.now(),
                         tags:$scope.mytags,
                         commenttext: $scope.commenttextField.userComment,
-                         analytics:{featureid:"123"}
+                         analytics:$scope.tagPairs
 
                       }};
 
@@ -392,7 +406,7 @@
                           commenttext: $scope.commenttextField.userComment,
                           tags:$scope.mytags,
                           comment_image:$rootScope.file_data,
-                           analytics:{featureid:"123"}
+                           analytics:$scope.tagPairs
                         }};
 
                         $scope.newProductComment_image = {
@@ -409,7 +423,7 @@
                             tags:$scope.mytags,
                             commenttext: $scope.commenttextField.userComment,
                             comment_image:$rootScope.comment_image_l,
-                             analytics:{featureid:"123"}
+                             analytics:$scope.tagPairs
                           }};
                           $rootScope.file_data="";
 
@@ -510,12 +524,13 @@
                 else $scope.showAlert('alert-danger', "You dont have rights to add product..."); 
               }
               else if(editStatus=='update'){
-                if ($rootScope.usersession.currentUser.isAdmin ) {
+                if ($rootScope.usersession.currentUser.org.isAdmin ) {
                   if ($scope.orgidFromSession === $rootScope.orgid ) {
                    ProductService.updateProduct({orgid:$scope.orgidFromSession,prodle:$rootScope.product_prodle}, $scope.newProduct,
                     function(success) {
                       $log.debug(success);
                             $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
+                             $scope.getProduct(); 
                           },
                           function(error) {
                             $log.debug(error);
@@ -529,7 +544,7 @@
               //delete product
               $scope.deleteProduct = function()
               {
-                if ($rootScope.usersession.currentUser.isAdmin ) {
+                if ($rootScope.usersession.currentUser.org.isAdmin ) {
                   if ($scope.orgidFromSession === $rootScope.orgid ) {
                     ProductService.deleteProduct({orgid: $scope.orgidFromSession, prodle: $rootScope.product_prodle});
                   }
@@ -542,10 +557,7 @@
                $scope.clearText=function(){
                  // prodo-product-features_textfield
                  $log.debug("clearig");
-                 // $('#prodo-product-featuresDescription_textfield').val("")
-                 //  productDisCont
-                 //  supDisCont
-                 //  productName
+                 
                   $scope.product="";
                 
                }
@@ -812,10 +824,12 @@
                   $log.debug("success    "+JSON.stringify( successData));
                    for(i=0;i<successData.success.productfeature.length;i++){
                     $scope.features.push(successData.success.productfeature[i]);
-                   // $log.debug("pf    "+$scope.feature.featurename);
-                   }
+                    $scope.featuretags.push(successData.success.productfeature[i].featurename);
+
                   
-                   $log.debug("pf  "+JSON.stringify( $scope.features.featurename));
+                   }
+                     // $scope.features= JSON.stringify($scope.features);
+                   $log.debug("pf  "+ $scope.featuretags);
                   }
 
                   },
@@ -836,7 +850,7 @@
 
                $scope.deleteFeature=function(feature){
                 $log.debug("deleting feature");
-                 // if ($rootScope.usersession.currentUser.isAdmin ) {
+                 if ($rootScope.usersession.currentUser.org.isAdmin ) {
                   if ($scope.orgidFromSession === $rootScope.orgid ) {
                     ProductFeatureService.deleteFeature({orgid: $scope.orgidFromSession, prodle: $rootScope.product_prodle ,productfeatureid:feature.featureid},
                     function(success) {
@@ -853,7 +867,7 @@
 
                        });
                   }
-                // }
+                }
                 else
                  $scope.showAlert('alert-danger', "You dont have rights to delete this feature...");
 
@@ -885,7 +899,7 @@
               }
               else if(editStatus=='update'){
                 $log.debug("updatings");
-                if ($rootScope.usersession.currentUser.isAdmin ) {
+                if ($rootScope.usersession.currentUser.org.isAdmin ) {
                   if ($scope.orgidFromSession === $rootScope.orgid ) {
                    ProductFeatureService.updateFeature({orgid:$scope.orgidFromSession,prodle:$rootScope.product_prodle}, $scope.newFeature,
                     function(success) {

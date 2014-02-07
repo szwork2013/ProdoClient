@@ -19,7 +19,8 @@
     <accordion-group>
       <accordion-heading >
         <p style='font-weight:bold; font-size: 13px; margin: 0;'>Product General
-    <span style="color:green">   {{product.status}}&nbsp;&nbsp;&nbsp; </span>
+    <span style="color:green">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    Status:    {{product.status}}&nbsp;&nbsp;&nbsp; </span>
         <i class="fa fa-pencil pull-right"></i></p>
       </accordion-heading>
       
@@ -30,7 +31,7 @@
         <div style="float:right; display: none" id="prodo.productAdmin">
        
        
-        <a href=""  data-toggle="collapse" data-target="#Edit" ng-click="enableEditor() ;  editStatus='add'; clearText(); " >  <i class="fa fa-plus-circle "></i></a>
+        <a href=""  data-toggle="collapse" data-target="#Edit" ng-click="enableEditor() ;  editStatus='add'; clearText(); " >  <i class="fa fa-plus-square-o "></i></a>
 
          <a href=""   ng-click="editStatus='update' ; enableEditor() ;  " data-toggle="collapse" data-target="#Edit" >  <i class="fa fa-pencil-square-o "></i></a>
         <a href="" data-toggle="modal" data-target="#myModal">   <i class="fa fa-trash-o"></i> </a>    
@@ -83,11 +84,11 @@
             
             <table class="table child " id="prodo-ProductFeatureTable">
               <tr style=" background-color: #FFBABA; display: none" id="prodo-productDiscontinued"  >
-                <td  >Product Discontinued   <input  id="prodo-product-features_textfield" type="text" class="form-control productDisCont" ng-model="$parent.$parent.product.prodDis" style="float: right" name="prodDis"   /></td>
-                <td  >Support Discontinued   <input id="prodo-product-features_textfield" type="text" class="form-control supDisCont" ng-model="$parent.$parent.product.supDis" style="float: right" name="supDis"  /></td>
+                <td  >Product Discontinued   <input  id="prodo-product-features_textfield" type="text" class="form-control" ng-model="$parent.$parent.product.prodDis" style="float: right" name="prodDis"   /></td>
+                <td  >Support Discontinued   <input id="prodo-product-features_textfield" type="text" class="form-control" ng-model="$parent.$parent.product.supDis" style="float: right" name="supDis"  /></td>
               </tr>
               <tr>
-                <td>   Product Name <input ng-model="$parent.$parent.product.name"   id="prodo-product-features_textfield" class="form-control productName"  type="text" style="float: right"  required name="name" />  </td>
+                <td>   Product Name <input ng-model="$parent.$parent.product.name"   id="prodo-product-features_textfield" class="form-control"  type="text" style="float: right"  required name="name" />  </td>
                 <td  >Serial No   <input id="prodo-product-features_textfield" type="text" class="form-control" ng-model="$parent.$parent.product.serial_no" style="float: right" required  name="serial_no" /></td>
               </tr>
               <tr>
