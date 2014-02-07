@@ -439,7 +439,7 @@
                   $scope.socket.emit('addComment', $rootScope.product_prodle, $scope.newProductComment.product_comment);
                   $scope.productComments.unshift($scope.newProductComment_image.product_comment);
                   $scope.commenttextField.userComment = "";
-
+                  $scope.tagPairs="";
                   $rootScope.count=0;
                   document.getElementById('prodo-comment-commentContainer').style.marginTop='0px';
                   document.getElementById("crossButton").style.display="none";
@@ -875,12 +875,13 @@
                };
 
                $scope.addProductFeature=function(editStatus){
-
-                 $scope.newFeature = {productfeature: [{
+                  $scope.newFeature={};
+                 $scope.newFeature = {productfeature: {
+                  featureid:'',
                   featurename: $scope.feature.name,
                   featuredescription: $scope.feature.description
                   
-                }]};
+                }};
                $log.debug( $scope.newFeature);
 
                 if(editStatus=='add'){
@@ -890,7 +891,12 @@
                     function(success) {
                       $log.debug(success);
                             $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
+                           $scope.features.push($scope.newFeature.productfeature);
+                          
+                           $log.debug($scope.features);
+                          
                           },
+                         
                           function(error) {
                             $log.debug(error);
                           });
@@ -905,6 +911,8 @@
                     function(success) {
                       $log.debug(success);
                             $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
+                            $scope.features.push($scope.newFeature);
+                          
                           },
                           function(error) {
                             $log.debug(error);
@@ -914,6 +922,8 @@
                else $scope.showAlert('alert-danger', "You dont have rights to update this product..."); 
             }
           };
+
+
           $scope.editorEnabled = false;
   
     $scope.enableEditor = function() {
