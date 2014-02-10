@@ -1,8 +1,6 @@
 angular.module('prodo.CommonApp')
  .controller('ManageAccountController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$log', 'UserSessionService', 'OrgRegistrationService', function($scope, $rootScope, $state, $http, $timeout, $log, UserSessionService, OrgRegistrationService) {
 
-
-    $scope.user = $rootScope.usersession.currentUser;
     $scope.org = OrgRegistrationService.currentOrgData;
     $scope.orgaddr = OrgRegistrationService.currentOrgAdd;
     $scope.editorEnabled = false;
@@ -131,9 +129,31 @@ angular.module('prodo.CommonApp')
   
     }
 
+    $scope.prodlesfollowed = [{}];
+    $scope.prodlesrecommend = [{}];
+
     // function to handle server side responses
     $scope.handleGetUserResponse = function(data){
     if (data.success) {
+        $scope.user = data.success.user;
+        if ($scope.user.products_followed.length > 0) {
+          for (var i=0;i<$scope.user.products_followed.length;i++){
+            if($scope.user.products_followed[i] && $scope.user.products_followed[i].prodle){
+              var prodle = $scope.user.products_followed[i].prodle;
+            }
+            $scope.prodlesfollowed.push(prodle);
+          }
+          UserSessionService.getProductFollowed($scope.prodlesfollowed);
+        };
+        if ($scope.user.products_recommends.length > 0) {
+          for (var i=0;i<$scope.user.products_recommends.length;i++){
+            if($scope.user.products_recommends[i] && $scope.user.products_recommends[i].prodle){
+              var prodle = $scope.user.products_recommends[i].prodle;
+            }
+            $scope.prodlesrecommend.push(prodle);
+          }
+          UserSessionService.getProductRecommend($scope.prodlesrecommend);
+        };
         UserSessionService.updateUserData(data.success.user);
         $scope.showAlert('alert-success', data.success.message);   
     } else {
@@ -152,6 +172,53 @@ angular.module('prodo.CommonApp')
       cleanupEventGetUserNotDone();
     });
 
+    $scope.userinvites=[{
+                        'name': '',
+                        'email': ''
+                      }];
+
+    $scope.addUserInvites = function() { 
+      $scope.userinvites.push({'name': '', 'email': ''});
+    };
+
+    $scope.jsonUserInvitesData = function()
+      {
+        var userInvite = 
+          {
+            userinvites: $scope.userinvites
+          }
+        return JSON.stringify(userInvite); 
+      }
+
+    // function to handle server side responses
+    $scope.handleUserInviteResponse = function(data){
+      if (data.success) {
+
+        $scope.showAlert('alert-success', data.success.message);   
+      } else {
+        if (data.error.code== 'AU004') {     // enter valid data
+            $log.debug(data.error.code + " " + data.error.message);
+            $scope.showAlert('alert-danger', data.error.message);
+        } else {
+            $log.debug(data.error.message);
+            $scope.showAlert('alert-danger', data.error.message);
+        }
+      }
+    };  
+
+
+    $scope.sendUserInvites = function() {
+      console.log($scope.jsonUserInvitesData());
+      UserSessionService.sendInvites($scope.jsonUserInvitesData());
+      var cleanupEventSendUserInvitesDone = $scope.$on("sendUserInvitesDone", function(event, data){
+        $scope.handleUserInviteResponse(data); 
+        cleanupEventSendUserInvitesDone();  
+      });
+      var cleanupEventSendUserInvitesNotDone = $scope.$on("sendUserInvitesNotDone", function(event, data){
+        $scope.showAlert('alert-danger', "Server Error:" + data); 
+        cleanupEventSendUserInvitesNotDone();     
+      });
+    }
 
 
     /***

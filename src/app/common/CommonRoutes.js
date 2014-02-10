@@ -6,17 +6,14 @@ angular.module('prodo.CommonApp')
   
   $stateProvider
     .state('subscription', {
-      url: '/subscription',
       templateUrl: 'common/subscription/views/subscription.tpl.html',
       abstract: true
     })
     .state('subscription.plans', {
-      url: '/plans',
       templateUrl:  'common/subscription/views/subscription.plans.tpl.html',
       controller: 'SubscriptionController'
     }) 
     .state('subscription.plansexpired', {
-      url: '/plansexpired',
       templateUrl:  'common/subscription/views/subscription.plansexpired.tpl.html',
       controller: 'SubscriptionController'
     }) 
@@ -51,55 +48,14 @@ angular.module('prodo.CommonApp')
         controller: 'OrgRegistrationController'
     }) 
     .state('account', {
-      url: '/account',
       abstract: true,
       templateUrl: 'common/accounts/views/account.settings.tpl.html',
       controller: 'ManageAccountController'
     })    
     .state('account.user', {
-      url: '/user',
-      views: {
-        'account-navigation' : {
-          templateUrl:  'user/views/user.account.settings.nav.tpl.html',
-          controller: 'ManageAccountController'
-          
-        },
-        'account-settings' : {
-          abstract: true,
-          templateUrl:  'user/views/user.account.settings.tpl.html',
-          controller: 'ManageAccountController'
-        }
-      }
-    })
-    .state('account.user.general', {
-      url: '/general',
-      templateUrl: 'user/views/user.account.general.settings.tpl.html',
-      controller: 'ManageAccountController' 
-    })  
-    .state('account.user.location', {
-      url: '/location',
-      templateUrl: 'user/views/user.account.location.settings.tpl.html' 
-    })  
-    .state('account.user.invites', {
-      url: '/invites',
-      templateUrl: 'user/views/user.account.invites.settings.tpl.html' 
-    })  
-    .state('account.user.product', {
-      url: '/product',
-      templateUrl: 'user/views/user.account.product.settings.tpl.html' 
-    })  
-    .state('account.user.subscription', {
-      url: '/subscription',
-      templateUrl: 'user/views/user.account.subscription.settings.tpl.html' 
-    }) 
-    .state('account.user.payment', {
-      url: '/payment',
-      templateUrl: 'user/views/user.account.payment.settings.tpl.html' 
-    }) 
-    .state('account.user.paymenthistory', {
-      url: '/paymenthistory',
-      templateUrl: 'user/views/user.account.paymenthistory.settings.tpl.html' 
-    })              
+      templateUrl:  'user/views/user.account.settings.tpl.html',
+      controller: 'ManageAccountController'
+    })   
   }]);
  
 // .run(['$rootScope', 'UserSessionService', '$state', '$log', function ($rootScope, UserSessionService, $state, $log) {

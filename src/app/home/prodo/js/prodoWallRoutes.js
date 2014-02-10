@@ -7,12 +7,10 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
 
   $stateProvider
     .state('prodo', {
-      url: '/prodo',
       templateUrl: 'home/prodo/views/prodo.tpl.html',
       abstract: true
     })    
     .state('prodo.wall', {
-      url: '',
       views: {
         'sidebar' : {
           templateUrl:  'common/search/views/prodo.wall.sidebar.tpl.html',
@@ -36,39 +34,28 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
       controller: 'ProdoWallController'
     })
     .state('prodo.wall.org', {
-      url: '',
        templateUrl:  'org/manageorg/views/prodo.wall.org.tpl.html',
        controller: 'ManageAccountController'
       }) 
     .state('prodo.wall.org.detail', {
-      url: '',
-       templateUrl:  'org/manageorg/views/org.wall.orgDetails.tpl.html',
-       controller: 'ManageAccountController'
+       templateUrl:  'org/manageorg/views/org.wall.orgDetails.tpl.html'
       }) 
     .state('prodo.wall.org.upload', {
-      url: '',
-       templateUrl:  'org/manageorg/views/org.wall.orgUpload.tpl.html',
-       controller: 'ManageAccountController'
+       templateUrl:  'org/manageorg/views/org.wall.orgUpload.tpl.html'
       }) 
     .state('prodo.wall.org.broadcast', {
-      url: '',
-       templateUrl:  'org/manageorg/views/org.wall.orgBroadcast.tpl.html',
-       controller: 'ManageAccountController'
+       templateUrl:  'org/manageorg/views/org.wall.orgBroadcast.tpl.html'
       }) 
     .state('prodo.wall.product', {
-      url: '',
        templateUrl:  'product/views/prodo.wall.productTabs.tpl.html',
       }) 
      .state('prodo.wall.warranty', {
-      url: '',
        templateUrl:  'warranty/views/prodo.wall.warrantyTabs.tpl.html',
       }) 
     .state('prodo.wall.blog', {
-      url: '',
        templateUrl:  'blog/views/prodo.wall.blog.tpl.html',
       }) 
     .state('prodo.wall.dashboard', {
-      url: '',
        templateUrl:  'dashboard/views/prodo.wall.dashboard.tpl.html',
        controller: 'ProdoDashboardController'
       }) 
