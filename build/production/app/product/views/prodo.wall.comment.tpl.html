@@ -25,7 +25,9 @@
     <div ng-controller="DragImageController">
       <span id="holder" > 
 
-        <textarea id="prodo-comment-Textbox" col="40" type="text" class="form-control " ng-dragout="clearBorder1()" name="txtComment" placeholder="Product Conversation [max 300 characters]"   ng-model="commenttextField.userComment" comment-limit="300" ng-enter="addProductComment()" required  ></textarea> 
+        <textarea id="prodo-comment-Textbox" col="40" type="text" class="form-control " ondragleave="clearBorder1()" name="txtComment" placeholder="Product Conversation [max 300 characters]"   ng-model="commenttextField.userComment" comment-limit="300" ng-enter="addProductComment()" required  ></textarea> 
+
+        
         <!-- tags -->
 
         <div id="prodo-productTags">
@@ -36,28 +38,29 @@
             </div>
           </form>
         </div>
+        
         <!-- tags -->
         <div style="width:75px;" id="CommentImg"   >
-
-          <a class="close" id= "crossButton"  style="display:none" ng-click="clearReader()">&times;</a>   
-
+         <a class="close" id= "crossButton"  style="display:none" ng-click="clearReader()">&times;</a> 
+          <img style="display:none; width:250px; "  id="prodo-uploadedCommentImage" />
+              
+        </div>
+         <div  class="alert alert-warning alert-dismissable pull-right" id="errAlert" style=" visibility: hidden; width:400px;" >
+          <span id="errorMsg"></span>
+          <button type="button" class="close" data-hide="alert"  onclick="$('#errAlert').css('visibility', 'hidden');  " >&times;</button> 
          </div>
-
+    </div>
       </span>
-
-  
-
-
       <p id="upload" class="hidden">
         <label  >
           <br>
           <input type="file"    >
         </label>
       </p>
-    </div>
-  
+    
+   
     <br><br><br><br><br><br>
-
+     
 
 
   </div> 

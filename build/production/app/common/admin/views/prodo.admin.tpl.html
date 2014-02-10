@@ -1,0 +1,29 @@
+<!-- Prodonus Admin -->
+<div id="prodo-container" class="container">
+
+  <div id="prodo-row" class="row">
+
+		<div id="prodo-col-md-2" class="col-md-2"></div>
+
+		<div id="prodo-col-md-8" class="col-md-8">
+			<div id="prodo-admin-container" class="container" style="border: 1px solid #E7EDF1; min-height: 50px;">
+
+				<h3><center> Admin Screen</center></h3>
+     			<ul style="padding:5px;" prodo-nav id="prodo-admin-nav-pills" class="nav nav-pills">
+        		<li class="active"><a ui-sref="admin.tags">Tags</a></li>
+       			<li><a ui-sref="admin.product">Product</a></li>
+        		<li><a ui-sref="admin.payment">Payment</a></li>
+					</ul>
+    			
+    			<div class="tab-content" style="margin-top: 30px; min-height: 50px; padding-bottom: 9px; border-bottom: 1px solid #ddd;">
+        		<div ui-view></div>
+    			</div>
+    	</div>	
+
+		</div>
+
+		<div id="prodo-col-md-2" class="col-md-2"></div>
+
+	</div>
+
+</div>
