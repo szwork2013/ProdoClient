@@ -821,7 +821,7 @@
                       else { }
                    }
                    else {
-                  $log.debug("success    "+JSON.stringify( successData));
+                  $log.debug("success    "+JSON.stringify(successData));
                    for(i=0;i<successData.success.productfeature.length;i++){
                     $scope.features.push(successData.success.productfeature[i]);
                     $scope.featuretags.push(successData.success.productfeature[i].featurename);
@@ -843,12 +843,12 @@
 
 
 
-               }
+               };
 
 
               $scope.getProductFeatures();
 
-               $scope.deleteFeature=function(feature){
+               $scope.deleteFeature = function(feature){
                 $log.debug("deleting feature");
                  if ($rootScope.usersession.currentUser.org.isAdmin ) {
                   if ($scope.orgidFromSession === $rootScope.orgid ) {
@@ -856,9 +856,9 @@
                     function(success) {
                       $log.debug(JSON.stringify( success));
                       //client side delete
-                      // var index = $scope.feature.indexOf(feature);
-                      // if (index != -1)
-                      // $scope.feature.splice(index, 1);
+                      var index = $scope.features.indexOf(feature);
+                      if (index != -1)
+                      $scope.features.splice(index, 1);
                       
 
                       },
@@ -877,7 +877,7 @@
                $scope.addProductFeature=function(editStatus){
                   $scope.newFeature={};
                  $scope.newFeature = {productfeature: {
-                  featureid:'',
+                 
                   featurename: $scope.feature.name,
                   featuredescription: $scope.feature.description
                   
