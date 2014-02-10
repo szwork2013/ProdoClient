@@ -122,30 +122,26 @@
 </accordion-group>
 
 <accordion-group>
-<accordion-heading>
-<p  style='font-weight:bold; font-size: 13px; margin: 0;'>Product Features<i class="fa fa-pencil pull-right"></i></p>
-</accordion-heading>
-<!-- data here -->
-<div style="float:right; " id="prodo.productAdmin">
- <a href=""  data-toggle="collapse" data-target="#Editfeature" ng-click="enableEditor() ;  editStatus='add';  " > <i class="fa fa-plus-square"></i></a>
- 
+  <accordion-heading>
+  <p  style='font-weight:bold; font-size: 13px; margin: 0;'>Product Features<i class="fa fa-pencil pull-right"></i></p>
+  </accordion-heading>
+    <!-- data here -->
+  <div style="float:right; " id="prodo.productAdmin">
+    <a href=""  data-toggle="collapse" data-target="#Editfeature" ng-click="enableEditor() ;  editStatus='add';  " > <i class="fa fa-plus-square"></i></a>
+  </div>
 
-</div>
-
-<form    id="Editfeature" class="collapse"  ng-show="editorEnabled"  name="productFeaturesForm" >
- <table class="table child " id="prodo-ProductFeatureTable" >
-   <tr>
-    <td colspan="2">   Feature name <input ng-model="$parent.$parent.feature.name"   id="prodo-product-features_textfield" class="form-control"  type="text" style="float: right"  required name="name" />  </td>
+  <form    id="Editfeature" class="collapse"  ng-show="editorEnabled"  name="productFeaturesForm" >
+    <table class="table child " id="prodo-ProductFeatureTable" >
+      <tr>
+        <td colspan="2">   Feature name <input ng-model="$parent.$parent.feature.name"   id="prodo-product-features_textfield" class="form-control"  type="text" style="float: right"  required name="name" />  </td>
     
-  </tr>
-  <tr>
-    <td  colspan="2">Description   <textarea  type="text" id="prodo-product-featuresDescription_textfield" class="form-control"  ng-model="$parent.$parent.feature.description" required name="description" col="40"  ></textarea>
-
-
-    </td>
-  </tr> 
+      </tr>
+      <tr>
+        <td  colspan="2">Description   <textarea  type="text" id="prodo-product-featuresDescription_textfield" class="form-control"  ng-model="$parent.$parent.feature.description" required name="description" col="40"  > </textarea>
+        </td>
+      </tr> 
   
-  <tr ><td colspan="2">
+    <tr ><td colspan="2">
    
     <a  ng-click="addProductFeature(editStatus);disableEditor();" class="btn btn-primary btn-sm glyphicon glyphicon-floppy-save pull-right" style="border-radius: 10px; margin: 5px;"  >Save</a>
     <a class="btn btn-primary btn-sm glyphicon glyphicon-remove pull-right" style="border-radius: 10px; margin: 5px;" ng-click="disableEditor()">Cancel</a>
@@ -157,14 +153,36 @@
 
 
 <table class="table child " id="prodo-ProductFeatureTable">
- <tr >
-   <td> <dt>Feature</dt></td>
-   <td> <dt>Description </dt></td>
- </tr>
- <tr ng-repeat="feature in features">
-   <td> {{feature.featurename}}</td>
-   <td> {{feature.featuredescription}}</td>
- </tr>
+   <tr >
+     <td> <dt>Feature</dt> </td>
+     <td> <dt>Description </dt></td>
+   </tr>
+   <tr ng-repeat="feature in features">
+     <td ng-hide="editorEnabled"> {{feature.featurename}} </td>
+
+     <td  ng-show="editorEnabled"><input ng-model="$parent.$parent.feature.name"  style="width:200px;" class="form-control"  type="text"   required name="name" /> </td>
+     
+     <td ng-hide="editorEnabled"> {{feature.featuredescription}}</td> 
+
+      <td  ng-show="editorEnabled"><input ng-model="$parent.$parent.feature.description" style="width:200px;" class="form-control"  type="text"   required name="name" /> </td>
+  
+
+    <td ng-hide="editorEnabled">
+
+      <a href=""     ng-click="enableEditor(); editStatus='update';  "> <i class="fa fa-pencil " /> </a>
+        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      <a href="" ng-click="deleteFeature(feature)">  <i class="glyphicon glyphicon-trash " /></a>
+    </td>
+    <td ng-show="editorEnabled">
+  
+       <a id="Editfeature1" ng-click="addProductFeature(editStatus);disableEditor();" class="btn btn-primary btn-sm glyphicon glyphicon-floppy-save pull-right" style="border-radius: 10px; margin: 5px;"  >Save</a>
+      <a id="Editfeature1" class="btn btn-primary btn-sm glyphicon glyphicon-remove pull-right" style="border-radius: 10px; margin: 5px;" ng-click="disableEditor()">Cancel</a>
+      </div>
+
+    </td>
+
+     
+   </tr>
 
 </table>
 
