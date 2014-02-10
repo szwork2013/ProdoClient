@@ -38,7 +38,19 @@ angular.module('prodo.UserApp').factory('UserSessionService', [
         }),
         RegenerateToken: $resource('/api/regenerateverificationtoken', {}, { regenerateToken: { method: 'POST' } }),
         IsUserLoggedin: $resource('/api/isloggedin', {}, { checkUserSession: { method: 'GET' } }),
-        Logout: $resource('/api/logout', {}, { logoutUser: { method: 'GET' } })
+        Logout: $resource('/api/logout', {}, { logoutUser: { method: 'GET' } }),
+        Product_Followed: $resource('/api/myproductsfollowed?prodles=:data', {}, {
+          getProduct_Followed: { 
+            method: 'GET', 
+            params: { data: '@data' }
+          }
+        }),
+        Product_Recommend: $resource('/api/myrecommendproducts?prodles=:data', {}, {
+          getProduct_Recommend: { 
+            method: 'GET', 
+            params: { data: '@data' }
+          }
+        })
       };
     var session = {};
     session.isLoggedIn = false;
@@ -61,6 +73,27 @@ angular.module('prodo.UserApp').factory('UserSessionService', [
         $rootScope.$broadcast('updateUserNotDone', error.status);
       });
     };
+
+    session.getProductFollowed = function (prodledata) {
+      UserService.Product_Followed.getProduct_Followed({ data: prodledata }, function (success) {
+        $log.debug(success);
+        
+      }, function (error) {
+        $log.debug(error);
+        
+      });
+    };
+
+    session.getProductRecommend = function (prodledata) {
+      UserService.Product_Recommend.getProduct_Recommend({ data: prodledata }, function (success) {
+        $log.debug(success);
+        
+      }, function (error) {
+        $log.debug(error);
+        
+      });
+    };
+
     session.removeUserSettings = function () {
       UserService.ManageUser.deleteUserSettings({ userid: session.currentUser.userid }, function (success) {
         $log.debug(success);

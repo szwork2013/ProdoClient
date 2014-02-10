@@ -1720,13 +1720,13 @@ list-animate-item-warranty {
 
 
 
-.fileinput-button 
+#fileinput-button 
 {
 	position: relative;
 	overflow: hidden;
 }
 
-.fileinput-button input 
+#fileinput-button input 
 {
 	position: absolute;
 	top: 0;
@@ -1738,6 +1738,33 @@ list-animate-item-warranty {
 	font-size: 23px;
 	direction: ltr;
 	cursor: pointer;
+}
+
+#uploadWrapper {
+    overflow: hidden;
+    position: relative;
+    height: 20px;
+    width: 130px;
+    margin: 10px ;
+    padding-bottom: 20px;
+
+}
+
+#uploadWrapper p {
+    position: absolute;
+    line-height: 15px;
+}
+
+#uploadWrapper input {
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    transform: translate(-300px, 0) scale(4);
+    filter: alpha(opacity=0);
+    opacity: 0;
+}
+
+#errAlert{
+	margin-bottom: 5px;
+	padding: 0px;
 }
 /*Uploads*/
  
