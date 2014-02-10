@@ -1400,12 +1400,14 @@ corresponding value from the list below*/
 }
 #holder
 { 
-//border: 3px dashed #ccc; 
+/*//border: 3px dashed #ccc; */
 /*width:600px;
 min-width: 100px; */
 /*max-height: 100px; */
 /*height:300px; */
-margin: 2px auto; position:absolute;
+margin: 2px auto; 
+position:absolute;
+align:center;
 }
 
 .tc

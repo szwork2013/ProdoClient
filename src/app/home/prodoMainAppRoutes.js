@@ -105,3 +105,133 @@ angular.module('prodo.ProdonusApp')
       controller: 'UserSigninController'
     })  
   }])
+
+ 
+// .run(['$rootScope', 'UserSessionService', '$state', '$log', function ($rootScope, UserSessionService, $state, $log) {
+ 
+//     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState){
+   
+//     console.log("tostate:"+ JSON.stringify(toState.name) + "fromstate:"+ JSON.stringify(fromState.name) );
+    
+    
+  
+    
+//     // if (fromState.name="home.start" && !$rootScope.usersession.isLoggedIn)
+//     // {
+//     //   event.preventDefault();
+//     // }
+
+
+
+
+//    if(!$rootScope.usersession.isLoggedIn && toState.name==="home.signin")
+//         {
+
+//         }
+//     if(toState.name==="home.signin"  && fromState.name==="home.start")
+//     {
+
+//     }
+//     if(fromState.name==="home.signin" && toState.name==="home.wall" && $rootScope.usersession.currentUser.isSubscribed)
+//     {
+
+//     }
+
+//     if(toState.name==="messageContent.forgotPassword" && fromState.name==="home.signin" )
+//     {
+
+//     }
+//     if(fromState.name==="prodo.wall" && toState.name==="home.start")
+//     {
+
+//     }
+//     if(toState.name==="messageContent.forgotPassword" && fromState.name==="home.signin" )
+//     {
+
+//     }
+   
+//    if(toState.name==="home.start" && fromState.name==="home.signin" )
+//    {
+       
+//    }
+//    if(toState.name==="home.start" && fromState.name==="subscription.plans" )
+//    {
+
+//        // $state.transitionTo("home.signin");
+//    }
+//    if(toState.name==="prodo.wall" && fromState.name==="messageContent.resetPassword" )
+//    {
+//       if(!$rootScope.usersession.currentUser.isSubscribed)
+//       {
+//           $state.transitionTo("subscription.plans");
+//       }
+//       else
+//       {
+//            $state.transitionTo("prodo.wall");
+//       }
+//    }
+
+// if(toState.name==="prodo.wall" && fromState.name==="subscription.payment" )
+// {
+
+// }
+//    else if(toState.name==="subscription.plans" && (fromState.name==="" || fromState.name==="home.start") && !$rootScope.usersession.isLoggedIn )
+//    {
+//     event.preventDefault();
+//    }
+
+
+
+
+//     else if(!$rootScope.usersession.isLoggedIn && fromState.name!=="" && toState.name!=="home.signin" && fromState.name!=="home.signin"&& toState!=="messageContent.forgotPassword" &&fromState.name!=="prodo.wall" )
+//     {
+//       event.preventDefault();
+//     }
+// else if(toState.name==="prodo.wall" && fromState.name==="home.start" )
+//    {
+//       event.preventDefault();
+//    }
+//    else if(!$rootScope.usersession.isLoggedIn && toState.name==="account.user.general")
+//     {
+//       event.preventDefault();
+//     }
+//  else  if( (toState.name==="prodo.wall" ||toState.name==="subscription.plans") && (fromState.name==="subscription.plans"|| fromState.name==="home.start" ) )
+//    {
+//       event.preventDefault();
+//    }  
+//     else if(toState.name==="prodo.wall" && (!$rootScope.usersession.isLoggedIn || !$rootScope.usersession.currentUser.isSubscribed || !$rootScope.usersession.currentUser.isPaymentDone ) && fromState.name!=="home.signin")
+//     {
+//       event.preventDefault();
+//     }
+
+
+// ////way to go
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//     })
+ // }]);

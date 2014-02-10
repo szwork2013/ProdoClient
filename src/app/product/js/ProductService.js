@@ -24,12 +24,12 @@
 }])
 
  .factory('ProductFeatureService', ['$resource', function($resource) {
-  return $resource('/api/product/:orgid/:prodle', {},
+  return $resource('/api/productfeature/:orgid/:prodle/:productfeatureid', {},
   {
     getFeature: {method: 'GET', params: {orgid: 'id', prodle: 'id'}},
-    updateFeature: {method: 'PUT', params: {orgid: 'id', prodle: 'id'}, isArray: false},
-    deleteFeature: {method: 'DELETE', params: {orgid: 'id', prodle: 'id'}},
-    saveFeature: {method: 'POST', params: {orgid: 'id'}}
+    updateFeature: {method: 'PUT', params: {orgid: 'id', prodle: 'id',productfeatureid: 'id'}, isArray: false},
+    deleteFeature: {method: 'DELETE', params: {orgid: 'id', prodle: 'id' ,productfeatureid: 'id'}},
+    saveFeature: {method: 'POST', params: {orgid: 'id', prodle: 'id'}}
   });
 }])
 
