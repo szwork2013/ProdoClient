@@ -708,10 +708,6 @@
             };
 
 
-       //on the fly drag zone height and width
-         $(document).ready(function () {
-         
-          });
 
             $scope.handleLoadMoreCommentResponse=function(result){
              console.log(result);
@@ -877,11 +873,21 @@
                 }
                 else $scope.showAlert('alert-danger', "You dont have rights to add product..."); 
               }
-              else if(editStatus=='update'){
+         
+          };
+
+            $scope.updateProductFeature=function(feature){
+                  $scope.newFeature={};
+                 $scope.newFeature = {productfeature: {
+                 
+                  featurename: $scope.feature.name,
+                  featuredescription: $scope.feature.description
+                  
+                }};
                 $log.debug("updatings");
                 if ($rootScope.usersession.currentUser.org.isAdmin ) {
                   if ($scope.orgidFromSession === $rootScope.orgid ) {
-                   ProductFeatureService.updateFeature({orgid:$scope.orgidFromSession,prodle:$rootScope.product_prodle}, $scope.newFeature,
+                   ProductFeatureService.updateFeature({orgid:$scope.orgidFromSession,prodle:$rootScope.product_prodle,productfeatureid:feature.featureid}, $scope.newFeature,
                     function(success) {
                       $log.debug(success);
                             $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
@@ -894,8 +900,10 @@
                  }
                }
                else $scope.showAlert('alert-danger', "You dont have rights to update this product..."); 
-            }
-          };
+            };
+           
+
+
 
 
           $scope.editorEnabled = false;

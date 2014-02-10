@@ -3,10 +3,7 @@ angular.module('prodo.ProductApp')
  var reader;
  var reader1;
  $rootScope.count=0;
- function clearBorder()
- {
-  document.getElementById("holder").setAttribute('class', 'holderx');
-}
+
 var holder = document.getElementById('holder'),
 tests = {
   filereader: typeof FileReader != 'undefined',
@@ -29,13 +26,15 @@ function previewfile(file) {
   if (tests.filereader === true && acceptedTypes[file.type] === true) {
    reader = new FileReader();
    reader.onload = function (event) {
-    var image = new Image();
-    image.src = event.target.result; 
-    image.id="prodo-uploadedCommentImage";
+     $("#prodo-uploadedCommentImage").css("display", "inline");   
+    // var image = new Image();
+    // image.src = event.target.result; 
+    // image.id="prodo-uploadedCommentImage";
     document.getElementById("crossButton").style.display="inline";
-    $rootScope.comment_image_l=[{image:image.src}];
-      image.width = 250; // a fake resize
-      holder.appendChild(image);
+    $("#prodo-uploadedCommentImage").attr('src', event.target.result);
+    $rootScope.comment_image_l=[{image:event.target.result}];
+      // image.width = 250; // a fake resize
+      // holder.appendChild(image);
       document.getElementById('prodo-comment-commentContainer').style.marginTop='80px';
     };
 
@@ -77,11 +76,24 @@ if (tests.dnd) {
    e.preventDefault();
    
    if(e.dataTransfer.files[0].size/1024>500)
-    {document.getElementById('CommentImg').innerHTML="Image size must ne less than 500kb"}
+
+    { 
+    
+     $("#errAlert").css('visibility', 'visible');     
+        $("#errorMsg").html("Image size must ne less than 500kb");
+    }
   else if(acceptedTypes[e.dataTransfer.files[0].type] === false)
-    {document.getElementById('CommentImg').innerHTML="Add image only"}
+    {
+     
+     $("#errAlert").css('visibility', 'visible');     
+        $("#errorMsg").html("Add image only");
+    }
   else if($rootScope.count>1)
-    {document.getElementById('CommentImg').innerHTML="Add only one image at a time"}
+    {
+    
+     $("#errAlert").css('visibility', 'visible');   
+      $("#errorMsg").html("Add only one image at a time");
+    }
   else if($rootScope.count==1 && acceptedTypes[e.dataTransfer.files[0].type] === true && e.dataTransfer.files[0].size/1024<500)
     readfiles(e.dataTransfer.files );
   
@@ -90,6 +102,12 @@ if (tests.dnd) {
 }
 
 //drag comment image
+
+ $scope.clearBorder1=function()
+ {
+  document.getElementById("holder").setAttribute('class', 'holderx');
+};
+
 $scope.clearReader=function()
 {
   $log.debug("Clear called");

@@ -32,43 +32,45 @@
             $(this).height(75);
             txtheight=$( "#prodo-comment-Textbox" ).height();
             txtwidth=$( "#prodo-comment-Textbox" ).width();
-            
+
           });
           $('#prodo-comment-Textbox').blur(function () {
             $(this).height(26);
             txtheight=$( "#prodo-comment-Textbox" ).height();
             txtwidth=$( "#prodo-comment-Textbox" ).width();
-            
+
 
           });
           
 
           $('#holder').hover(
             function() {
-             
+            txtheight=$( "#prodo-comment-Textbox" ).height();
+            txtwidth=$( "#prodo-comment-Textbox" ).width();
              document.getElementById("holder").style.height=txtheight;
              document.getElementById("holder").style.width=txtwidth;
              txtwidth="";
              txtheight="";
-             
+
 
 
            }, 
            function() {
 
              $log.debug( 'hovering out' , $(this).attr('id') );
-             var txtheight=$( "#prodo-comment-Textbox" ).height();
-             var txtwidth=$( "#prodo-comment-Textbox" ).width();
-             
+              txtheight=$( "#prodo-comment-Textbox" ).height();
+              txtwidth=$( "#prodo-comment-Textbox" ).width();
+
              document.getElementById("holder").style.height=txtheight;
              document.getElementById("holder").style.width=txtwidth;
              txtwidth="";
              txtheight="";
-             
+
            }
            );
 
-
+           txtwidth="";
+             txtheight="";
 
 
         });
@@ -94,7 +96,7 @@
     }
     return s;
   };
-  
+
   $scope.deleteProductComment = function (comment) {
     if (comment.user.userid == $scope.userIDFromSession ) {
       var index = $scope.productComments.indexOf(comment);
