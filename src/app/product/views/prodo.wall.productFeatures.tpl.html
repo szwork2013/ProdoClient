@@ -73,19 +73,17 @@
               </tr>
               <tr>
                 <td  colspan="2">Product Name :
-                  <span>&nbsp;{{product.name}} </span>
-                  <span   class="collapsed2" style="cursor:pointer; color:brown" onclick="this.className = this.className == 'collapsed2' ? 'expanded' : 'collapsed2'">
-                    <a onclick="">[ {{product.prodle}} ]</a>
+                 
+                  <span   class="collapsed2 " style="cursor:pointer; color:brown" onclick="this.className = this.className == 'collapsed2' ? 'expanded' : 'collapsed2'">
+                    <a onclick="" > <span>&nbsp;{{product.name}} </span></a>
                   </span>
                 </td>
               </tr>
+             
               <tr>
-                <td  >Organization ProductID : <span>&nbsp;{{product.orgid}}  </span></td>
-                <td  >Serial No : <span  >&nbsp; {{product.serial_no}} </span></td>
-              </tr>
-              <tr>
+              <td  >Model Name : <span  >&nbsp;{{product.name}} </span></td>
                 <td  >Model No : <span>&nbsp;{{product.model_no}} </span></td>
-                <td  >Model Name : <span  >&nbsp;{{product.name}} </span></td>
+                
               </tr>
               <tr>
                 <td  colspan="2">Description : <span>&nbsp; {{product.description}}</span></td>
@@ -94,7 +92,7 @@
           </div>
 
           <!-- display mode -->
-          <hr>
+         
           <!-- edit mode -->
           <form    id="Edit" class="collapse"  ng-show="editorEnabled" ng-switch="isEditing" name="productForm" >
             <div class="prodo-product-general " >
@@ -105,8 +103,8 @@
                   <td  >Support Discontinued   <input id="prodo-product-features_textfield" type="text" class="form-control" ng-model="$parent.$parent.product.supDis" style="float: right" name="supDis"  /></td>
                 </tr>
                 <tr>
-                  <td>   Product Name <input ng-model="$parent.$parent.product.name"   id="prodo-product-features_textfield" class="form-control"  type="text" style="float: right"  required name="name" />  </td>
-                  <td  >Serial No   <input id="prodo-product-features_textfield" type="text" class="form-control" ng-model="$parent.$parent.product.serial_no" style="float: right" required  name="serial_no" /></td>
+                  <td >   Product Name <input ng-model="$parent.$parent.product.name"   id="prodo-product-features_textfield" class="form-control"  type="text" style="float: right"  required name="name" />  </td>
+                 
                 </tr>
                 <tr>
                   <td  >Model No  <input id="prodo-product-features_textfield" type="text" class="form-control" ng-model="$parent.$parent.product.model_no" style="float: right; " required name="model_no" /></td>
@@ -175,18 +173,20 @@
    <tr >
      <td> <dt>Feature</dt> </td>
      <td> <dt>Description </dt></td>
+     <td> <dt>Option</dt> </td>
+   
    </tr>
    <tr ng-repeat="feature in features track by feature.featureid">
-     <td ng-hide="edit">  {{feature.featurename}}</td>
+     <td ng-hide="edit" >  {{feature.featurename}}</td>
 
-     <td  ng-show="edit"><input ng-model="feature.featurename"  style="width:200px;" class="form-control"  type="text"   required name="name" /> </td>
+     <td  ng-show="edit" ><input ng-model="feature.featurename"  style="width:150px;" class="form-control"  type="text"   required name="name" /> </td>
      
-     <td ng-hide="edit"> {{feature.featuredescription}}</td> 
+     <td ng-hide="edit" > {{feature.featuredescription}}</td> 
 
-      <td  ng-show="edit"><input ng-model="feature.featuredescription" style="width:200px;" class="form-control"  type="text"   required name="name" /> </td>
+      <td  ng-show="edit" ><input ng-model="feature.featuredescription" style="width:300px;" class="form-control"  type="text"   required name="name" /> </td>
   
 
-    <td ng-hide="edit">
+    <td ng-hide="edit" >
 
       <a href=""     ng-click="edit = ! edit; editStatus='update';  "> <i class="fa fa-pencil " /> </a>
         &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
@@ -194,8 +194,8 @@
     </td>
     <td ng-show="edit">
   
-       <a id="Editfeature1" ng-click="updateProductFeature(feature,feature.featureid);edit = ! edit;" class="btn btn-primary btn-sm glyphicon glyphicon-floppy-save pull-right" style="border-radius: 10px; margin: 5px;"  >&nbsp;Save</a>
-      <a id="Editfeature1" class="btn btn-primary btn-sm glyphicon glyphicon-remove pull-right" style="border-radius: 10px; margin: 5px;" ng-click="edit = ! edit;">&nbsp;Cancel</a>
+       <a id="Editfeature1" ng-click="updateProductFeature(feature,feature.featureid);edit = ! edit;" class="btn btn-primary btn-sm glyphicon glyphicon-floppy-save " style="margin: 5px;"  ></a>
+      <a id="Editfeature1" class="btn btn-primary btn-sm glyphicon glyphicon-remove " style=" margin: 5px;" ng-click="edit = ! edit;"></a>
 
 
     </td>

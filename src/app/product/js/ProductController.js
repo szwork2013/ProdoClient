@@ -502,7 +502,7 @@
 
                 $scope.newProduct = {product: {
                   display_name: $scope.display_name,
-                  serial_no: $scope.product.serial_no,
+                  
                   model_no: $scope.product.model_no,
                   name: $scope.product.name,
                   description: $scope.product.description
