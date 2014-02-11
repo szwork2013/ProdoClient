@@ -70,7 +70,7 @@
            );
 
            txtwidth="";
-             txtheight="";
+            txtheight="";
 
 
         });

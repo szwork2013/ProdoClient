@@ -542,11 +542,46 @@
 
             };
               //delete product
+              $scope.handleProductDeleted=function(){
+                 $http({
+                  method: 'GET',
+                  url: '/api/product/' + $rootScope.orgid  ,
+                      // data: {'prodleimageids':[ $scope.imgIdsJson]}
+                    }).success(function(data, status, headers, cfg) {
+                      $log.debug(data.success.product.length);
+                      if(data.success.product.length==0){
+                        temp.innerHTML="<br>Product not available ... Add new product<br><br>";
+                       $scope.showAlert('alert-danger', " Product not available ...");
+                      }
+                      else 
+                        {
+                          $log.debug(data.success.product[0].prodle);
+                          $rootScope.product_prodle=data.success.product[0].prodle;
+                        }
+                      // $log.debug(data);
+                    }).error(function(data, status, headers, cfg) {
+                     $log.debug(status);
+                   });
+
+                  };
+
+
+
+             
               $scope.deleteProduct = function()
               {
                 if ($rootScope.usersession.currentUser.org.isAdmin ) {
                   if ($scope.orgidFromSession === $rootScope.orgid ) {
-                    ProductService.deleteProduct({orgid: $scope.orgidFromSession, prodle: $rootScope.product_prodle});
+                    ProductService.deleteProduct({orgid: $scope.orgidFromSession, prodle: $rootScope.product_prodle},
+                       function(success) {
+                      $log.debug(JSON.stringify( success));
+                      $scope.showAlert('alert-info', "Product deleted successfully...");
+                      $scope.handleProductDeleted();
+                      },
+                       function(error){
+                       $log.debug(JSON.stringify( error));
+
+                       });
                   }
                 }
                 else
@@ -846,12 +881,12 @@
 
                $scope.addProductFeature=function(editStatus){
                   $scope.newFeature={};
-                 $scope.newFeature = {productfeature: {
+                 $scope.newFeature = {productfeature: [{
                  
                   featurename: $scope.feature.name,
                   featuredescription: $scope.feature.description
                   
-                }};
+                }]};
                $log.debug( $scope.newFeature);
 
                 if(editStatus=='add'){
@@ -861,7 +896,7 @@
                     function(success) {
                       $log.debug(success);
                             $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
-                           $scope.features.push($scope.newFeature.productfeature);
+                           $scope.features.push($scope.newFeature.productfeature[0]);
                           
                            $log.debug($scope.features);
                           
@@ -876,18 +911,13 @@
          
           };
 
-            $scope.updateProductFeature=function(feature){
-                  $scope.newFeature={};
-                 $scope.newFeature = {productfeature: {
-                 
-                  featurename: $scope.feature.name,
-                  featuredescription: $scope.feature.description
-                  
-                }};
-                $log.debug("updatings");
-                if ($rootScope.usersession.currentUser.org.isAdmin ) {
-                  if ($scope.orgidFromSession === $rootScope.orgid ) {
-                   ProductFeatureService.updateFeature({orgid:$scope.orgidFromSession,prodle:$rootScope.product_prodle,productfeatureid:feature.featureid}, $scope.newFeature,
+       
+           
+            $scope.updateProductFeature = function(data, id) {
+    //$scope.user not updated yet
+      console.log(data);
+    angular.extend(data, {id: id});
+    ProductFeatureService.updateFeature({orgid:$scope.orgidFromSession,prodle:$rootScope.product_prodle,productfeatureid:id},{'productfeature': data},
                     function(success) {
                       $log.debug(success);
                             $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
@@ -897,12 +927,7 @@
                           function(error) {
                             $log.debug(error);
                           });
-                 }
-               }
-               else $scope.showAlert('alert-danger', "You dont have rights to update this product..."); 
-            };
-           
-
+  };
 
 
 
