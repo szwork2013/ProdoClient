@@ -1561,6 +1561,9 @@ display:none;
 
 .collapsed2:hover:after{
     content: " Click here to follow";
+    border: solid 1px #ccc;
+    padding:5px;
+
     
 }
 
