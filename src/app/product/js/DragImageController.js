@@ -31,11 +31,12 @@ function previewfile(file) {
     // image.src = event.target.result; 
     // image.id="prodo-uploadedCommentImage";
     document.getElementById("crossButton").style.display="inline";
+    // document.getElementById("prodo-uploadedCommentImage").style.display="inline";
     $("#prodo-uploadedCommentImage").attr('src', event.target.result);
     $rootScope.comment_image_l=[{image:event.target.result}];
       // image.width = 250; // a fake resize
       // holder.appendChild(image);
-      document.getElementById('prodo-comment-commentContainer').style.marginTop='80px';
+      //document.getElementById('prodo-comment-commentContainer').style.marginTop='80px';
     };
 
     reader.readAsDataURL(file);
@@ -69,6 +70,7 @@ function readfiles(files) {
 if (tests.dnd) { 
   holder.ondragover = function () { this.className = 'hover'; return false; };
   holder.ondragend = function () { this.className = ''; return false; };
+  holder.ondragleave = function () { this.className = ''; return false; };
   holder.ondrop = function (e) 
   { 
    $rootScope.count++;
@@ -79,19 +81,19 @@ if (tests.dnd) {
 
     { 
     
-     $("#errAlert").css('visibility', 'visible');     
+     $("#errAlert").css('display', 'inline');     
         $("#errorMsg").html("Image size must ne less than 500kb");
     }
   else if(acceptedTypes[e.dataTransfer.files[0].type] === false)
     {
      
-     $("#errAlert").css('visibility', 'visible');     
+     $("#errAlert").css('display', 'inline');     
         $("#errorMsg").html("Add image only");
     }
   else if($rootScope.count>1)
     {
     
-     $("#errAlert").css('visibility', 'visible');   
+     $("#errAlert").css('display', 'inline');   
       $("#errorMsg").html("Add only one image at a time");
     }
   else if($rootScope.count==1 && acceptedTypes[e.dataTransfer.files[0].type] === true && e.dataTransfer.files[0].size/1024<500)
@@ -103,28 +105,26 @@ if (tests.dnd) {
 
 //drag comment image
 
- $scope.clearBorder1=function()
- {
-  document.getElementById("holder").setAttribute('class', 'holderx');
-};
+
 
 $scope.clearReader=function()
 {
   $log.debug("Clear called");
   document.getElementById('prodo-comment-commentContainer').style.marginTop='0px';
   document.getElementById("crossButton").style.display="none";
+  document.getElementById("prodo-uploadedCommentImage").style.display="none";
   reader.abort();
   reader1.abort();
   reader=new FileReader();
   reader1=new FileReader();
   $rootScope.file_data ="";
-  $rootScope.count--;
+  $rootScope.count=0;
   var element=document.getElementById('prodo-uploadedCommentImage');
-  if (typeof(element) != 'undefined' && element != null)
-  {
-    element.parentNode.removeChild(element);
-                                    // exists.
-                                  }
+  // if (typeof(element) != 'undefined' && element != null)
+  // {
+  //   element.parentNode.removeChild(element);
+  //                                   // exists.
+  //                                 }
                                 }
 
 
