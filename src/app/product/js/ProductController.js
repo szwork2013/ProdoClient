@@ -54,16 +54,19 @@
                //socket listener here
 
                TagReffDictionaryService.getAllTags(
-
+                
                 function( successData) {
                     // $log.debug("newtags: " +JSON.stringify(successData.success.tags));
                     // $log.debug("length: " +successData.success.tags.length);
+                    if (successData.success == undefined){}
+                      else {
                     for(var i=0 ; i< successData.success.tags.length ; i++){
                       $scope.pretags.push(successData.success.tags[i].tagname);
                     }
+                  }
                     // $log.debug($scope.pretags);
 
-                  })
+                  });
 
 
                
@@ -450,11 +453,12 @@
                   document.getElementById('prodo-comment-commentContainer').style.marginTop='0px';
                   document.getElementById("crossButton").style.display="none";
                   var element=document.getElementById('prodo-uploadedCommentImage');
-                  if (typeof(element) != 'undefined' && element != null)
-                  {
-                    element.parentNode.removeChild(element);
-                      // exists.
-                    }
+                  $scope.mytags="";
+                  // if (typeof(element) != 'undefined' && element != null)
+                  // {
+                  //   element.parentNode.removeChild(element);
+                  //     // exists.
+                  //   }
 
 
                   }
@@ -919,34 +923,46 @@ $scope.addProductFeature=function(editStatus){
 
 
 
-$scope.updateProductFeature = function(data, id) {
-    //$scope.user not updated yet
-    console.log(data);
-    angular.extend(data, {id: id});
-    ProductFeatureService.updateFeature({orgid:$scope.orgidFromSession,prodle:$rootScope.product_prodle,productfeatureid:id},{'productfeature': data},
-      function(success) {
-        $log.debug(success);
-                            $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
-                            $scope.features.push($scope.newFeature);
+          $scope.updateProductFeature = function(data, id) {
+              //$scope.user not updated yet
+              console.log(data);
+              angular.extend(data, {id: id});
+              ProductFeatureService.updateFeature({orgid:$scope.orgidFromSession,prodle:$rootScope.product_prodle,productfeatureid:id},{'productfeature': data},
+                function(success) {
+                  $log.debug(success);
+                                      $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
+                                      $scope.features.push($scope.newFeature);
 
-                          },
-                          function(error) {
-                            $log.debug(error);
-                          });
-  };
+                                    },
+                                    function(error) {
+                                      $log.debug(error);
+                                    });
+            };
 
 
 
-  $scope.editorEnabled = false;
-  
-  $scope.enableEditor = function() {
-    $scope.editorEnabled = true;
-  };
-  
-  $scope.disableEditor = function() {
-    $scope.editorEnabled = false;
-  };
+          $scope.editorEnabled = false;
+          
+          $scope.enableEditor = function() {
+            $scope.editorEnabled = true;
+          };
+          
+          $scope.disableEditor = function() {
+            $scope.editorEnabled = false;
+          };
 
+          
+          $(document).ready(function(){
+    $("#productLogo").hover(function(){
+        $("#productLogoUpload").show();
+       
+    },function(){
+        setTimeout( function() {
+            $("#productLogoUpload").hide();
+      
+        }, 1000 );
+    });
+    });
 
 
 }])

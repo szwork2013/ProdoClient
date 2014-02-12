@@ -14,7 +14,16 @@
 
 <div ng-controller="ProductController"  >
   <div id="prodo-productFeature-fixed"    >
-    <br><img class="img" id="productLogo"  style=" height: 100px; padding:10px;max-width:500px;"   ng-src="{{product.product_logo}}" /><br>
+    <br><img class="img" id="productLogo"  style=" height: 100px; padding:10px;max-width:500px;"   ng-src="{{product.product_logo}}" />
+    <form ng-app="prodo.UploadApp" ng-controller="UploadController" ng-style="checkAdminProductImagesDelete();" id="productLogoUpload">
+    
+          <span class="btn btn-info fileinput-button" >
+            <i class="fa fa-cloud-upload "></i>
+            <input   type="file" name="file" ng-file-select="onFileSelect($files)"  ng-click="uploadSrc = 'productlogo';">
+            
+          </span>
+      </form>
+<br>
     <accordion>
       <accordion-group>
       <accordion-heading >
