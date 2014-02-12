@@ -28,6 +28,26 @@ angular.module('prodo.UserApp').factory('UserSessionService', [
             params: { userid: '@userid' }
           }
         }),
+        User_Invites: $resource('/api/userinvites', {}, {
+          sendUserInvites: { 
+            method: 'POST', 
+            isArray: false
+          }
+        }),
+        Update_Email: $resource('/api/changeemail/:userid', {}, {
+          updateEmailSettings: { 
+            method: 'POST',
+            params: { userid: '@userid' }, 
+            isArray: false
+          }
+        }),
+        Change_Password: $resource('/api/changepassword/:userid', {}, {
+          updatePasswordSettings: { 
+            method: 'POST', 
+            params: { userid: '@userid' },
+            isArray: false
+          }
+        }),
         ForgotPassword: $resource('/api/user/forgotpassword', {}, { forgotPassword: { method: 'POST' } }),
         ResetPassword: $resource('/api/user/resetpassword/:userid', {}, {
           resetPassword: {
@@ -50,7 +70,13 @@ angular.module('prodo.UserApp').factory('UserSessionService', [
             method: 'GET', 
             params: { data: '@data' }
           }
-        })
+        }),
+        Product_Unfollow: $resource('/api/user/followun/:data', {}, {
+          followUnProduct: { 
+            method: 'GET', 
+            params: { data: '@data' }
+          }
+        }),
       };
     var session = {};
     session.isLoggedIn = false;
@@ -74,23 +100,63 @@ angular.module('prodo.UserApp').factory('UserSessionService', [
       });
     };
 
+    session.updateEmail = function (userdata) {
+      UserService.Update_Email.updateEmailSettings({ userid: session.currentUser.userid }, userdata, function (success) {
+        $log.debug(success);
+        $rootScope.$broadcast('updateUserEmailDone', success);
+      }, function (error) {
+        $log.debug(error);
+        $rootScope.$broadcast('updateUserEmailNotDone', error.status);
+      });
+    };
+
+    session.updatePassword = function (userdata) {
+      UserService.Change_Password.updatePasswordSettings({ userid: session.currentUser.userid }, userdata, function (success) {
+        $log.debug(success);
+        $rootScope.$broadcast('updateUserPasswordDone', success);
+      }, function (error) {
+        $log.debug(error);
+        $rootScope.$broadcast('updateUserPasswordNotDone', error.status);
+      });
+    };
+
     session.getProductFollowed = function (prodledata) {
       UserService.Product_Followed.getProduct_Followed({ data: prodledata }, function (success) {
         $log.debug(success);
-        
+        $rootScope.$broadcast('getProductFollowedDone', success);
       }, function (error) {
         $log.debug(error);
-        
+        $rootScope.$broadcast('getProductFollowedNotDone', error);
       });
     };
 
     session.getProductRecommend = function (prodledata) {
       UserService.Product_Recommend.getProduct_Recommend({ data: prodledata }, function (success) {
         $log.debug(success);
-        
+        $rootScope.$broadcast('getProductRecommendDone', success);
       }, function (error) {
         $log.debug(error);
-        
+        $rootScope.$broadcast('getProductRecommendNotDone', error);
+      });
+    };
+
+    session.unfollowProduct = function (pdata) {
+      UserService.Product_Unfollow.followUnProduct({ data: pdata }, function (success) {
+        $log.debug(success);
+        $rootScope.$broadcast('unfollowProductDone', success);
+      }, function (error) {
+        $log.debug(error);
+        $rootScope.$broadcast('unfollowProductNotDone', error);
+      });
+    };
+
+    session.sendInvites = function (udata) {
+      UserService.User_Invites.sendUserInvites(udata, function (success) {
+        $log.debug(success);
+        $rootScope.$broadcast('sendUserInvitesDone', success);
+      }, function (error) {
+        $log.debug(error);
+        $rootScope.$broadcast('sendUserInvitesNotDone', error);
       });
     };
 

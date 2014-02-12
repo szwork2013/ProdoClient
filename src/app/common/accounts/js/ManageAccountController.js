@@ -4,6 +4,9 @@ angular.module('prodo.CommonApp')
     $scope.org = OrgRegistrationService.currentOrgData;
     $scope.orgaddr = OrgRegistrationService.currentOrgAdd;
     $scope.editorEnabled = false;
+    $scope.editEmail = false;
+    $scope.editAddress = false;
+
   
     $scope.enableEditor = function() {
       $scope.editorEnabled = true;
@@ -13,11 +16,24 @@ angular.module('prodo.CommonApp')
       $scope.editorEnabled = false;
     };
 
-    var cleanupEventGetOrgAddData = $rootScope.$on("getOrgAddData", function(event, data){
-        $scope.orgaddr = data;
-        cleanupEventGetOrgAddData();  
-      });
-    
+    $scope.emailEditor = function() {
+      if ($scope.editEmail) {
+        $scope.editEmail = false;
+      } else {
+        $scope.editEmail = true;
+      }
+      
+    };
+
+    $scope.addrEditor = function() {
+      if ($scope.editAddress) {
+        $scope.editAddress = false;
+      } else {
+        $scope.editAddress = true;
+      }
+      
+    };
+
 		// function to send and stringify user email to Rest APIs for user account update
     $scope.jsonUserAccountData = function()
       {
@@ -25,38 +41,37 @@ angular.module('prodo.CommonApp')
           {
             user:
             {
-            'username' : $scope.user.username,
             'firstname' : $scope.user.firstname,
             'lastname' : $scope.user.lastname,
             'dob' : $scope.user.dob,
             'gender' : $scope.user.gender,
-            'phone' : $scope.user.phone_number,
-            'mobile' : $scope.user.mobile_number,
-            'email' : $scope.user.email,
-            'password' : $scope.user.password,
-            'currentpassword' : $scope.user.currentpassword,
-            'newpassword' : $scope.user.newpassword,
-            'address':{
-                        'address1':$scope.user.address1,
-                        'address2':$scope.user.address2,
-                        'address3':$scope.user.address3,
-                        'city':$scope.user.city,
-                        'state':$scope.user.state,
-                        'country':$scope.user.country,
-                        'zipcode':$scope.user.zipcode
-                      },
-            'subscription':{
-                              'planid':$scope.user.planid  ,
-                              'planstartdate':$scope.user.planexpirydate , 
-                              'planexpirydate':$scope.user.planstartdate
-                           },
-            'payment':{
-                        'paymentid': ''
-                      },
-            'payment_history':{
-                                'paymentid': ''
-                              },
-            'profile_pic':$scope.user.profile_pic
+            'phone' : $scope.user.phone,
+            'mobile' : $scope.user.mobile
+            // 'email' : $scope.user.email,
+            // 'password' : $scope.user.password,
+            // 'currentpassword' : $scope.user.currentpassword,
+            // 'newpassword' : $scope.user.newpassword,
+            // 'address':{
+            //             'address1':$scope.user.address1,
+            //             'address2':$scope.user.address2,
+            //             'address3':$scope.user.address3,
+            //             'city':$scope.user.city,
+            //             'state':$scope.user.state,
+            //             'country':$scope.user.country,
+            //             'zipcode':$scope.user.zipcode
+            //           },
+            // 'subscription':{
+            //                   'planid':$scope.user.planid  ,
+            //                   'planstartdate':$scope.user.planexpirydate , 
+            //                   'planexpirydate':$scope.user.planstartdate
+            //                },
+            // 'payment':{
+            //             'paymentid': ''
+            //           },
+            // 'payment_history':{
+            //                     'paymentid': ''
+            //                   },
+            // 'profile_pic':$scope.user.profile_pic
             
             }
           };
@@ -81,6 +96,7 @@ angular.module('prodo.CommonApp')
     };  
 
     $scope.updateUserAccount = function() {
+      $scope.disableEditor();
       UserSessionService.saveUserSettings($scope.jsonUserAccountData());
       var cleanupEventUpdateUserDone = $scope.$on("updateUserDone", function(event, message){
         $scope.handleUpdateUserResponse(message); 
@@ -88,13 +104,150 @@ angular.module('prodo.CommonApp')
     });
 
       var cleanupEventUpdateUserNotDone = $scope.$on("updateUserNotDone", function(event, message){
-        $scope.hideSpinner();
         $scope.showAlert('alert-danger', "Server Error:" + message);
         cleanupEventUpdateUserNotDone();
 
       });
   
     }
+
+    $scope.jsonUpdateEmailData = function()
+      {
+        var userData = 
+          {
+            user:
+            {
+            'email' : $scope.user.email,
+            'currentpassword' : $scope.user.password
+            }
+          };
+
+        return JSON.stringify(userData); 
+    }
+
+    // function to handle server side responses
+    $scope.handleUpdateUserEmailResponse = function(data){
+      if (data.success) {
+
+        $scope.showAlert('alert-success', data.success.message);   
+      } else {
+        if (data.error.code== 'AU004') {     // enter valid data
+            $log.debug(data.error.code + " " + data.error.message);
+            $scope.showAlert('alert-danger', data.error.message);
+        } else {
+            $log.debug(data.error.message);
+            $scope.showAlert('alert-danger', data.error.message);
+        }
+      }
+    };  
+
+    $scope.updateUserEmail = function() {
+      $scope.emailEditor();
+      UserSessionService.updateEmail($scope.jsonUpdateEmailData());
+      var cleanupEventUpdateUserEmailDone = $scope.$on("updateUserEmailDone", function(event, message){
+        $scope.handleUpdateUserEmailResponse(message); 
+        cleanupEventUpdateUserEmailDone();     
+    });
+
+      var cleanupEventUpdateUserEmailNotDone = $scope.$on("updateUserEmailNotDone", function(event, message){
+        $scope.showAlert('alert-danger', "Server Error:" + message);
+        cleanupEventUpdateUserEmailNotDone();
+
+      });
+  
+    }
+
+    $scope.jsonUpdatePasswordData = function()
+      {
+        var userData = 
+          {
+            user:
+            {
+            'currentpassword' : $scope.user.currentpassword,
+            'newpassword' : $scope.user.newpassword,
+            'confirmnewpassword' : $scope.user.confirmpassword,            
+            }
+          };
+
+        return JSON.stringify(userData); 
+    }
+
+    $scope.clear = function () {
+      $scope.user.currentpassword = '';
+      $scope.user.newpassword = '';
+      $scope.user.confirmpassword = '';
+    }
+
+    // function to handle server side responses
+    $scope.handleUpdateUserPasswordResponse = function(data){
+      if (data.success) {
+
+        $scope.showAlert('alert-success', data.success.message);   
+      } else {
+        if (data.error.code== 'AU004') {     // enter valid data
+            $log.debug(data.error.code + " " + data.error.message);
+            $scope.showAlert('alert-danger', data.error.message);
+        } else {
+            $log.debug(data.error.message);
+            $scope.showAlert('alert-danger', data.error.message);
+        }
+      }
+    };  
+
+    $scope.changePassword = function() {
+      UserSessionService.updatePassword($scope.jsonUpdatePasswordData());
+      var cleanupEventUpdateUserPasswordDone = $scope.$on("updateUserPasswordDone", function(event, message){
+        $scope.handleUpdateUserPasswordResponse(message); 
+        $scope.clear();
+        cleanupEventUpdateUserPasswordDone();     
+    });
+
+      var cleanupEventUpdateUserPasswordNotDone = $scope.$on("updateUserPasswordNotDone", function(event, message){
+        $scope.showAlert('alert-danger', "Server Error:" + message);
+        cleanupEventUpdateUserPasswordNotDone();
+
+      });
+  
+    }
+
+    // function to send and stringify user email to Rest APIs for user account update
+    $scope.jsonUserAddressData = function()
+      {
+        var userData = 
+          {
+            user:
+            {
+            'address':{
+                        'address1':$scope.user.address.address1,
+                        'address2':$scope.user.address.address2,
+                        'address3':$scope.user.address.address3,
+                        'city':$scope.user.address.city,
+                        'state':$scope.user.address.state,
+                        'country':$scope.user.address.country,
+                        'zipcode':$scope.user.address.zipcode
+                      }
+            }
+          };
+
+        return JSON.stringify(userData); 
+      }
+
+    $scope.updateUserAddress = function() {
+      $scope.addrEditor();
+      UserSessionService.saveUserSettings($scope.jsonUserAddressData());
+      var cleanupEventUpdateUserDone = $scope.$on("updateUserDone", function(event, message){
+        $scope.handleUpdateUserResponse(message); 
+        cleanupEventUpdateUserDone();     
+    });
+
+      var cleanupEventUpdateUserNotDone = $scope.$on("updateUserNotDone", function(event, message){
+        $scope.showAlert('alert-danger', "Server Error:" + message);
+        cleanupEventUpdateUserNotDone();
+
+      });
+  
+    }
+
 
     // function to handle server side responses
     $scope.handleDeleteUserResponse = function(data){
@@ -121,7 +274,6 @@ angular.module('prodo.CommonApp')
         cleanupEventDeleteUserDone();   
       });
       var cleanupEventDeleteUserNotDone = $scope.$on("deleteUserNotDone", function(event, message){
-        $scope.hideSpinner();
         $scope.showAlert('alert-danger', "Server Error:" + message);
         cleanupEventDeleteUserNotDone();
 
@@ -134,33 +286,64 @@ angular.module('prodo.CommonApp')
 
     // function to handle server side responses
     $scope.handleGetUserResponse = function(data){
-    if (data.success) {
-        $scope.user = data.success.user;
-        if ($scope.user.products_followed.length > 0) {
-          for (var i=0;i<$scope.user.products_followed.length;i++){
-            if($scope.user.products_followed[i] && $scope.user.products_followed[i].prodle){
-              var prodle = $scope.user.products_followed[i].prodle;
-            }
-            $scope.prodlesfollowed.push(prodle);
+      if (data.success) {
+          $scope.user = data.success.user;
+          var d=new Date(data.success.user.dob);
+          var year=d.getFullYear();
+          var month=d.getMonth()+1;
+          if (month<10){
+            month="0" + month;
           }
-          UserSessionService.getProductFollowed($scope.prodlesfollowed);
-        };
-        if ($scope.user.products_recommends.length > 0) {
-          for (var i=0;i<$scope.user.products_recommends.length;i++){
-            if($scope.user.products_recommends[i] && $scope.user.products_recommends[i].prodle){
-              var prodle = $scope.user.products_recommends[i].prodle;
+          var day=d.getDate();
+          $scope.user.dob = year + "-" + month + "-" + day;
+          if ($scope.user.products_followed.length > 0) {
+            for (var i=0;i<$scope.user.products_followed.length;i++){
+              if($scope.user.products_followed[i] && $scope.user.products_followed[i].prodle){
+                var prodle = $scope.user.products_followed[i].prodle;
+              }
+              $scope.prodlesfollowed.push(prodle);
             }
-            $scope.prodlesrecommend.push(prodle);
-          }
-          UserSessionService.getProductRecommend($scope.prodlesrecommend);
-        };
-        UserSessionService.updateUserData(data.success.user);
-        $scope.showAlert('alert-success', data.success.message);   
-    } else {
-        $log.debug(data.error.message);
-        $scope.showAlert('alert-success', data.success.message);  
+            UserSessionService.getProductFollowed($scope.prodlesfollowed);
+          };
+          if ($scope.user.products_recommends.length > 0) {
+            for (var i=0;i<$scope.user.products_recommends.length;i++){
+              if($scope.user.products_recommends[i] && $scope.user.products_recommends[i].prodle){
+                var prodle = $scope.user.products_recommends[i].prodle;
+              }
+              $scope.prodlesrecommend.push(prodle);
+            }
+            UserSessionService.getProductRecommend($scope.prodlesrecommend);
+          };
+          UserSessionService.updateUserData(data.success.user);
+          $scope.showAlert('alert-success', data.success.message);   
+      } else {
+          $log.debug(data.error.message);
+          $scope.showAlert('alert-error', data.error.message);  
       }
-  };
+    };
+
+    $scope.products_followed = [];
+    var cleanupEventGetProductFollowedDone = $rootScope.$on("getProductFollowedDone", function(event, data){
+      $scope.products_followed = data.success.products;
+      $scope.showAlert('alert-success', data.success.message);  
+      cleanupEventGetProductFollowedDone();  
+    });
+
+    var cleanupEventGetProductFollowedNotDone = $rootScope.$on("getProductFollowedNotDone", function(event, data){
+      $scope.showAlert('alert-error', data.error.message);  
+      cleanupEventGetProductFollowedNotDone();  
+    });
+
+    var cleanupEventGetProductRecommendDone = $rootScope.$on("getProductRecommendDone", function(event, data){
+      $scope.products_recommends = data.success.products;
+      $scope.showAlert('alert-success', data.success.message);  
+      cleanupEventGetProductRecommendDone();  
+    });;
+
+    var cleanupEventGetProductRecommendNotDone = $rootScope.$on("getProductRecommendNotDone", function(event, data){
+      $scope.showAlert('alert-error', data.error.message);  
+      cleanupEventGetProductRecommendNotDone();  
+    });
 
     var cleanupEventGetUserDone = $rootScope.$on("getUserDone", function(event, message){
       $scope.handleGetUserResponse(message); 
@@ -220,10 +403,32 @@ angular.module('prodo.CommonApp')
       });
     }
 
+    $scope.unfollow = function (product, prodleindex) {
+      UserSessionService.unfollowProduct(product.prodle);
+      var cleanupEventUnfollowProductDone = $scope.$on("unfollowProductDone", function(event, data){
+        $scope.showAlert('alert-success', data.success.message); 
+        var products_followed = $scope.products_followed;
+          for (var i = 0, ii = products_followed.length; i < ii; i++) {
+            if (product === products_followed[i]) { products_followed.splice(i, 1); }
+          }   
+        cleanupEventUnfollowProductDone();  
+      });
+      var cleanupEventUnfollowProductNotDone = $scope.$on("unfollowProductNotDone", function(event, data){
+        $scope.showAlert('alert-danger', "Server Error:" + data); 
+        cleanupEventUnfollowProductNotDone();     
+      });
+    }
+
 
     /***
     // Organisation Manage Account Settings
     ***/
+
+    var cleanupEventGetOrgAddData = $rootScope.$on("getOrgAddData", function(event, data){
+        $scope.orgaddr = data;
+        cleanupEventGetOrgAddData();  
+    });
+    
 
     $scope.jsonOrgAccountData = function()
       {
