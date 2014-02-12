@@ -52,45 +52,48 @@
               $scope.socket;
 
                //socket listener here
-                
-                TagReffDictionaryService.getAllTags(
 
-                  function( successData) {
+               TagReffDictionaryService.getAllTags(
+
+                function( successData) {
                     // $log.debug("newtags: " +JSON.stringify(successData.success.tags));
                     // $log.debug("length: " +successData.success.tags.length);
                     for(var i=0 ; i< successData.success.tags.length ; i++){
-                    $scope.pretags.push(successData.success.tags[i].tagname);
-                  }
+                      $scope.pretags.push(successData.success.tags[i].tagname);
+                    }
                     // $log.debug($scope.pretags);
 
                   })
-                  
+
 
                
 
 
 
-                
-              $rootScope.$watch('product_prodle', function() {  
-            // var cleanProduct=   $rootScope.$on("product", function(event, data){
-                 $log.debug("Listening");
-                 // $rootScope.product_prodle=data.prodle;
-                 // $rootScope.orgid=data.orgid;
-                 $("#productLogo").attr('src', '');
+
+               $rootScope.$watch('product_prodle', function() {  
+              // var cleanProduct=   $rootScope.$on("product", function(event, data){
+                    $log.debug("Listening");
+                    $scope.features=[];
+                   // $rootScope.product_prodle=data.prodle;
+                   // $rootScope.orgid=data.orgid;
+                   $("#productLogo").attr('src', '');
 
                  var temp=document.getElementById('prodo-comment-container');
-                  if($rootScope.product_prodle!==undefined){
+                 if($rootScope.product_prodle!==undefined){
                      // var temp=document.getElementById('prodo-comment-container');
                      $scope.getProduct(); 
-                    }
-                else{
-                  temp.innerHTML="<br>Please start following a product using search...<br><br>";
-                  
-                 }
+                    $scope.getProductFeatures();
+
+                   }
+                   else{
+                    temp.innerHTML="<br>Please start following a product using search...<br><br>";
+
+                  }
 
                  // cleanProduct(); 
                // });
-                });
+             });
               // $rootScope.product_prodle='xkdiPXcT_';
               // $rootScope.orgid='orgxkpxhIFau'; 
 
@@ -115,26 +118,26 @@
 
               //get login details
                 //get product function declaration
-            
-               
-                  
+
+
+
                 $scope.getProduct = function()
                 {
 
-                  
+
                  ProductService.getProduct({orgid: $rootScope.orgid, prodle: $rootScope.product_prodle},
-                    function(successData) {
-                      if (successData.success == undefined)
+                  function(successData) {
+                    if (successData.success == undefined)
+                    {
+
+                      var temp=document.getElementById('prodo-comment-container');
+                      $log.debug(temp);
+                      if($rootScope.usersession.currentUser.org.isAdmin==true)
                       {
-                       var temp=document.getElementById('prodo-comment-container');
-                       $log.debug(temp);
-                       if($rootScope.usersession.currentUser.org.isAdmin==true)
-                       {
-                         $("#prodoCommentsTab").css("display", "none");
-                         $("#tabComments").css("display", "none");
+                       $("#prodoCommentsTab").css("display", "none");
+                       $("#tabComments").css("display", "none");
                        // $( "#prodoProductFeaturesTab" ).addClass( "active" );
                        $("#prodo.productAdmin").css("display", "inline"); 
-
                        $("#tabproductupload").css("display", "inline");
                        $("#prodoUploadTab").css("display", "inline");    
                         // document.getElementById("prodo.productAdmin").style.display = 'inline';
@@ -147,6 +150,7 @@
                    }
                    else {
                     $log.debug(successData.success.product);
+
                   //                $log.debug("success    "+successData);
                   $scope.product = successData.success.product;
                   $rootScope.product_prodle = successData.success.product.prodle;
@@ -157,22 +161,22 @@
                   }
                   else  $("#load-more").css("display", "inline");
 
-                  }
+                }
 
-                  },
-                  function(error) {
-                    $log.debug(error);
-                    var temp=document.getElementById('prodo-comment-container');
-                    $log.debug(temp);
-                    temp.innerHTML="<br> Server error please try after some time<br><br>";
-                    $scope.showAlert('alert-danger', "Server Error:" + error.status);
+              },
+              function(error) {
+                $log.debug(error);
+                var temp=document.getElementById('prodo-comment-container');
+                $log.debug(temp);
+                temp.innerHTML="<br> Server error please try after some time<br><br>";
+                $scope.showAlert('alert-danger', "Server Error:" + error.status);
 
-                  });
+              });
 
-                  }
+}
               //get product function declaration  
 
-                
+
 
               //Generate GUID
               function S4() {
@@ -275,9 +279,9 @@
 
                  //feature tags
                  $scope.myFeaturetags = $scope.featuretags;
-                var new_arr = [];
-                var commenttextTags = commenttext.split(' ');
-                for (var i = 0; i < commenttextTags.length; i++) {
+                 var new_arr = [];
+                 var commenttextTags = commenttext.split(' ');
+                 for (var i = 0; i < commenttextTags.length; i++) {
                   for (var j = 0; j < $scope.myFeaturetags.length; j++) {
                     if (commenttextTags[i] == $scope.myFeaturetags[j]) {
                       new_arr.push(commenttextTags[i]);
@@ -289,9 +293,9 @@
 
                  //feature tags
 
-                $log.debug($scope.mytags);
-                $log.debug($scope.myFeaturetags);
-              };
+                 $log.debug($scope.mytags);
+                 $log.debug($scope.myFeaturetags);
+               };
 
               //On the fly tags
               $scope.$watch('commenttextField.userComment', function() {
@@ -310,43 +314,43 @@
               $scope.$watch('mytags', function() {
                 $scope.mytags;
                // $log.debug("tags "+$scope.mytags);
-              })              
+             })              
               //Add comment function
-             $scope.makeTagsPair= function(noun,adj){
+              $scope.makeTagsPair= function(noun,adj){
 
                 for(var i=0;i<adj.length;i++){
                   if(noun[i]==undefined)
-                     $scope.tagPairs.push({featureid:"1", featurename:"product",tag:adj[i]});
+                   $scope.tagPairs.push({featureid:"1", featurename:"product",tag:adj[i]});
                  else 
-                    $scope.tagPairs.push({featureid:"1", featurename:noun[i],tag:adj[i]});
-                }
+                  $scope.tagPairs.push({featureid:"1", featurename:noun[i],tag:adj[i]});
+              }
 
                 //append feature id
-                 
-                     for(var i=0; i<$scope.features.length ; i++){
-                      for(j=0;j<$scope.tagPairs.length;j++){
-                         if($scope.features[i].featurename==$scope.tagPairs[j].featurename){
-                        $scope.tagPairs[j].featureid=$scope.features[i].featureid;
-                         $log.debug("fn2"+$scope.tagPairs[j].featurename+" "+$scope.tagPairs[j].tag+" "+$scope.tagPairs[j].featureid);
-                       }
-                        }
 
-                     }
+                for(var i=0; i<$scope.features.length ; i++){
+                  for(j=0;j<$scope.tagPairs.length;j++){
+                   if($scope.features[i].featurename==$scope.tagPairs[j].featurename){
+                    $scope.tagPairs[j].featureid=$scope.features[i].featureid;
+                    $log.debug("fn2"+$scope.tagPairs[j].featurename+" "+$scope.tagPairs[j].tag+" "+$scope.tagPairs[j].featureid);
+                  }
+                }
+
+              }
                   //append feature id 
 
 
-             }
+                }
 
 
 
-              $scope.addProductComment = function() {
+                $scope.addProductComment = function() {
 
                // $scope.getTagsFromCommentText($scope);
 
-                $log.debug("tags "+$scope.mytags);
-                $log.debug("features "+ $scope.myFeaturetags);
-                $scope.makeTagsPair($scope.myFeaturetags,$scope.mytags);
-                 $log.debug("Pair : " +JSON.stringify( $scope.tagPairs));
+               $log.debug("tags "+$scope.mytags);
+               $log.debug("features "+ $scope.myFeaturetags);
+               $scope.makeTagsPair($scope.myFeaturetags,$scope.mytags);
+               $log.debug("Pair : " +JSON.stringify( $scope.tagPairs));
 
 
                $log.debug($rootScope.file_data);
@@ -383,7 +387,7 @@
                         datecreated: Date.now(),
                         tags:$scope.mytags,
                         commenttext: $scope.commenttextField.userComment,
-                         analytics:$scope.tagPairs
+                        analytics:$scope.tagPairs
 
                       }};
 
@@ -408,7 +412,7 @@
                           commenttext: $scope.commenttextField.userComment,
                           tags:$scope.mytags,
                           comment_image:$rootScope.file_data,
-                           analytics:$scope.tagPairs
+                          analytics:$scope.tagPairs
                         }};
 
                         $scope.newProductComment_image = {
@@ -425,7 +429,7 @@
                             tags:$scope.mytags,
                             commenttext: $scope.commenttextField.userComment,
                             comment_image:$rootScope.comment_image_l,
-                             analytics:$scope.tagPairs
+                            analytics:$scope.tagPairs
                           }};
                           $rootScope.file_data="";
 
@@ -532,7 +536,7 @@
                     function(success) {
                       $log.debug(success);
                             $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
-                             $scope.getProduct(); 
+                            $scope.getProduct(); 
                           },
                           function(error) {
                             $log.debug(error);
@@ -542,24 +546,24 @@
                else $scope.showAlert('alert-danger', "You dont have rights to update this product..."); 
              }
 
-            };
+           };
               //delete product
               $scope.handleProductDeleted=function(){
-                 $http({
-                  method: 'GET',
-                  url: '/api/product/' + $rootScope.orgid  ,
+               $http({
+                method: 'GET',
+                url: '/api/product/' + $rootScope.orgid  ,
                       // data: {'prodleimageids':[ $scope.imgIdsJson]}
                     }).success(function(data, status, headers, cfg) {
                       $log.debug(data.success.product.length);
                       if(data.success.product.length==0){
                         temp.innerHTML="<br>Product not available ... Add new product<br><br>";
-                       $scope.showAlert('alert-danger', " Product not available ...");
+                        $scope.showAlert('alert-danger', " Product not available ...");
                       }
                       else 
-                        {
-                          $log.debug(data.success.product[0].prodle);
-                          $rootScope.product_prodle=data.success.product[0].prodle;
-                        }
+                      {
+                        $log.debug(data.success.product[0].prodle);
+                        $rootScope.product_prodle=data.success.product[0].prodle;
+                      }
                       // $log.debug(data);
                     }).error(function(data, status, headers, cfg) {
                      $log.debug(status);
@@ -569,106 +573,106 @@
 
 
 
-             
-              $scope.deleteProduct = function()
-              {
-                if ($rootScope.usersession.currentUser.org.isAdmin ) {
-                  if ($scope.orgidFromSession === $rootScope.orgid ) {
-                    ProductService.deleteProduct({orgid: $scope.orgidFromSession, prodle: $rootScope.product_prodle},
-                       function(success) {
-                      $log.debug(JSON.stringify( success));
-                      $scope.showAlert('alert-info', "Product deleted successfully...");
-                      $scope.handleProductDeleted();
-                      },
-                       function(error){
-                       $log.debug(JSON.stringify( error));
+
+                  $scope.deleteProduct = function()
+                  {
+                    if ($rootScope.usersession.currentUser.org.isAdmin ) {
+                      if ($scope.orgidFromSession === $rootScope.orgid ) {
+                        ProductService.deleteProduct({orgid: $scope.orgidFromSession, prodle: $rootScope.product_prodle},
+                         function(success) {
+                          $log.debug(JSON.stringify( success));
+                          $scope.showAlert('alert-info', "Product deleted successfully...");
+                          $scope.handleProductDeleted();
+                        },
+                        function(error){
+                         $log.debug(JSON.stringify( error));
 
                        });
-                  }
-                }
-                else
-                 $scope.showAlert('alert-danger', "You dont have rights to delete this product...");
-             }
+                      }
+                    }
+                    else
+                     $scope.showAlert('alert-danger', "You dont have rights to delete this product...");
+                 }
               //delete product
 
-               $scope.clearText=function(){
+              $scope.clearText=function(){
                  // prodo-product-features_textfield
                  $log.debug("clearig");
                  
-                  $scope.product="";
-                
+                 $scope.product="";
+
                }
-              $scope.ShowDiscontinuedSupport=function(product){
-               if (product.support_discontinuation_date) return{display: "inline" } 
-                 else return{display: "none" } 
-               } 
-             $scope.ShowDiscontinuedSale=function(product){
-               if (product.sale_discontinuation_date) return{display: "inline" } 
-                 else return{display: "none" }              
-               } 
-             $scope.ShowBannedDate=function(product){
-               if (product.banneddate) {
-                return{display: "inline" } 
+               $scope.ShowDiscontinuedSupport=function(product){
+                 if (product.support_discontinuation_date) return{display: "inline" } 
+                   else return{display: "none" } 
+                 } 
+               $scope.ShowDiscontinuedSale=function(product){
+                 if (product.sale_discontinuation_date) return{display: "inline" } 
+                   else return{display: "none" }              
+                 } 
+               $scope.ShowBannedDate=function(product){
+                 if (product.banneddate) {
+                  return{display: "inline" } 
+                }
+              } 
+
+              $scope.hideIfNotUser = function(userid) {
+                if (userid) {
+                  if (userid !== $scope.userIDFromSession) {
+                    return {display: "none"}
+                  }
+                }
+              }
+
+              $scope.hideIfNoOrg = function(orgname) {
+                if ((orgname == "") || (orgname == " ") || (orgname == undefined) || (orgname == null)) {
+                  return{display: "none"}
+                }
+              }
+              $scope.hideIfNogrp = function(grpname) {
+                if ((grpname == "") || (grpname == " ") || (grpname == undefined) || (grpname == null)) {
+                  return{display: "none"}
+                }
+              }
+              $scope.hideIfNotImage=function(image){
+               if ((image == "") || (image == " ") || (image == undefined) || (image == null)) {
+                return{display: "none"}
               }
             } 
 
-            $scope.hideIfNotUser = function(userid) {
-              if (userid) {
-                if (userid !== $scope.userIDFromSession) {
-                  return {display: "none"}
-                }
-              }
+            $scope.showErrorIfCommentNotAdded = function( ) {
+              var retry = document.getElementById("responseComment");
+              retry.style.display = 'inline';
+              retry.innerHTML = 'Error adding comment please try again..';
             }
 
-            $scope.hideIfNoOrg = function(orgname) {
-              if ((orgname == "") || (orgname == " ") || (orgname == undefined) || (orgname == null)) {
-                return{display: "none"}
-              }
+            $scope.showRetryIconIfCommentNotAdded = function( ) {
+              var retryIcon = document.getElementById("retryIcon");
+              retryIcon.style.display = 'inline';
             }
-            $scope.hideIfNogrp = function(grpname) {
-              if ((grpname == "") || (grpname == " ") || (grpname == undefined) || (grpname == null)) {
-                return{display: "none"}
-              }
-            }
-            $scope.hideIfNotImage=function(image){
-             if ((image == "") || (image == " ") || (image == undefined) || (image == null)) {
-              return{display: "none"}
-            }
-          } 
-
-          $scope.showErrorIfCommentNotAdded = function( ) {
-            var retry = document.getElementById("responseComment");
-            retry.style.display = 'inline';
-            retry.innerHTML = 'Error adding comment please try again..';
-          }
-
-          $scope.showRetryIconIfCommentNotAdded = function( ) {
-            var retryIcon = document.getElementById("retryIcon");
-            retryIcon.style.display = 'inline';
-          }
 
 
          //toggle to select all product iamges
          $scope.masterChange = function() { 
   //                $(this).closest('div').find('.thumb :checkbox').prop("checked", this.checked);
-            if ($('.imgToggles').is(':checked')) {
-              $('.imgToggles').prop('checked', false)
-            } else {
-              $('.imgToggles').prop('checked', true)
-            }
-            };
+  if ($('.imgToggles').is(':checked')) {
+    $('.imgToggles').prop('checked', false)
+  } else {
+    $('.imgToggles').prop('checked', true)
+  }
+};
 
-            $scope.chckedIndexs=[];
-            $scope.checkedIndex = function (img) {
-             if ($scope.chckedIndexs.indexOf(img) === -1) {
-               $scope.chckedIndexs.push(img);
-             }
-             else {
-               $scope.chckedIndexs.splice($scope.chckedIndexs.indexOf(img), 1);
-             }
-             $log.debug($scope.chckedIndexs);
-            }
-            
+$scope.chckedIndexs=[];
+$scope.checkedIndex = function (img) {
+ if ($scope.chckedIndexs.indexOf(img) === -1) {
+   $scope.chckedIndexs.push(img);
+ }
+ else {
+   $scope.chckedIndexs.splice($scope.chckedIndexs.indexOf(img), 1);
+ }
+ $log.debug($scope.chckedIndexs);
+}
+
             //delete images
             $scope.deleteProductImages = function(index) {
                 //get selected ids to delete images
@@ -706,85 +710,85 @@
                   };
 
 
-               if($rootScope.usersession.currentUser.org){
-                if ($rootScope.usersession.currentUser.org.isAdmin) {
-                  if ($scope.orgidFromSession === $rootScope.orgid ) {
-                    $rootScope.isAdminCheck=true;
+                  if($rootScope.usersession.currentUser.org){
+                    if ($rootScope.usersession.currentUser.org.isAdmin) {
+                      if ($scope.orgidFromSession === $rootScope.orgid ) {
+                        $rootScope.isAdminCheck=true;
+                      }
+                    }
+                  } 
+                  $scope.checkAdmin = function() {
+                    if ($rootScope.isAdminCheck==true){
+                     var adminPanel = document.getElementById("prodo.productAdmin");
+                     adminPanel.style.display = 'inline';
+                   }
+                 }
+
+                 $scope.checkAdminProductUpload=function() {
+                  if ($rootScope.isAdminCheck==true)
+                    $("#Upload-clck").css("display", "block");      
+
+                }
+                $scope.checkAdminProductUpload();
+
+
+                $scope.checkAdminProductImagesDelete=function() { 
+
+                  if ($rootScope.isAdminCheck==true) {
+                    return{display: "inline"}
+                  }
+                  else {
+                    return{display: "none"}
+                  }
+                };
+
+
+                $scope.formatDate=function(time)
+                {
+                  return(moment(time).format('DD MMM YYYY'));
+                };
+
+
+
+                $scope.handleLoadMoreCommentResponse=function(result){
+                 console.log(result);
+                 if(result.success != undefined){
+                   $log.debug(result.success.comment );
+                   for (var i = 0; i < result.success.comment.length; i++) {
+                    $scope.productComments.push(result.success.comment[i]);
+                  };
+                }
+                else 
+                {
+                  if(result.error.code=='AC002'){
+
+                    $("#loadMoreCommentMsg").html(result.error.message);
+                    $("#load-more").hide();
+                    $log.debug(result.error.message);
+                  }
+                  else  if(result.error.code=='AC001'){
+                    $log.debug(result.error.message);
+                    $("#loadMoreCommentMsg").html(result.error.message);
+                  }
+                  else {
+                    $log.debug(result.error.message);
+                    $("#loadMoreCommentMsg").html(result.error.message);
                   }
                 }
-               } 
-               $scope.checkAdmin = function() {
-                if ($rootScope.isAdminCheck==true){
-                 var adminPanel = document.getElementById("prodo.productAdmin");
-                 adminPanel.style.display = 'inline';
-               }
+              };
+              $("#load-more").show();
+              $scope.getLastCommentId = function(){
+               $log.debug( $scope.productComments);
+               $scope.productComments;
+               var lengthComments=$scope.productComments.length;
+               $log.debug(lengthComments)
+               var lastComment=$scope.productComments[lengthComments-1];
+               $log.debug(lastComment.commentid);
+               return lastComment.commentid;
              }
 
-             $scope.checkAdminProductUpload=function() {
-              if ($rootScope.isAdminCheck==true)
-                $("#Upload-clck").css("display", "block");      
 
-            }
-            $scope.checkAdminProductUpload();
-
-
-            $scope.checkAdminProductImagesDelete=function() { 
-
-              if ($rootScope.isAdminCheck==true) {
-                return{display: "inline"}
-              }
-              else {
-                return{display: "none"}
-              }
-            };
-
-
-            $scope.formatDate=function(time)
-            {
-              return(moment(time).format('DD MMM YYYY'));
-            };
-
-
-
-            $scope.handleLoadMoreCommentResponse=function(result){
-             console.log(result);
-             if(result.success != undefined){
-               $log.debug(result.success.comment );
-               for (var i = 0; i < result.success.comment.length; i++) {
-                $scope.productComments.push(result.success.comment[i]);
-              };
-            }
-            else 
-            {
-              if(result.error.code=='AC002'){
-
-                $("#loadMoreCommentMsg").html(result.error.message);
-                $("#load-more").hide();
-                $log.debug(result.error.message);
-              }
-              else  if(result.error.code=='AC001'){
-                $log.debug(result.error.message);
-                $("#loadMoreCommentMsg").html(result.error.message);
-              }
-              else {
-                $log.debug(result.error.message);
-                $("#loadMoreCommentMsg").html(result.error.message);
-              }
-            }
-            };
-            $("#load-more").show();
-            $scope.getLastCommentId = function(){
-             $log.debug( $scope.productComments);
-             $scope.productComments;
-             var lengthComments=$scope.productComments.length;
-             $log.debug(lengthComments)
-             var lastComment=$scope.productComments[lengthComments-1];
-             $log.debug(lastComment.commentid);
-             return lastComment.commentid;
-            }
-
-
-            $scope.loadMoreComments=function(){
+             $scope.loadMoreComments=function(){
               $("#img-spinner").show(); 
               var lastCommentId=$scope.getLastCommentId();
                     //call service
@@ -808,123 +812,123 @@
                     });
                   });
                 //Product features
-               
-               $scope.features=[];
-               
-               $scope.getProductFeatures=function(){
-                
+
+                $scope.features=[];
+
+                $scope.getProductFeatures=function(){
 
 
-                  
+
+
                  ProductFeatureService.getFeature({orgid: $rootScope.orgid, prodle: $rootScope.product_prodle},
-                    function(successData) {
-                      if (successData.success == undefined)
-                      {
-                       if($rootScope.usersession.currentUser.org.isAdmin==true)
-                       {
+                  function(successData) {
+                    if (successData.success == undefined)
+                    {
+                     if($rootScope.usersession.currentUser.org.isAdmin==true)
+                     {
                         //admin tasks
                          // $("#prodoCommentsTab").css("display", "none");
                        }
-                      else { }
-                   }
+                       else { }
+                     }
                    else {
-                  $log.debug("success    "+JSON.stringify(successData));
-                   for(i=0;i<successData.success.productfeature.length;i++){
-                    $scope.features.push(successData.success.productfeature[i]);
-                    $scope.featuretags.push(successData.success.productfeature[i].featurename);
+                    $log.debug("success    "+JSON.stringify(successData));
+                    for(i=0;i<successData.success.productfeature.length;i++){
+                      $scope.features.push(successData.success.productfeature[i]);
+                      $scope.featuretags.push(successData.success.productfeature[i].featurename);
 
-                  
-                   }
+
+                    }
                      // $scope.features= JSON.stringify($scope.features);
-                   $log.debug("pf  "+ $scope.featuretags);
-                  }
+                     $log.debug("pf  "+ $scope.featuretags);
+                   }
 
-                  },
-                  function(error) {
-                    
-                    $scope.showAlert('alert-danger', "Server Error:" + error.status);
+                 },
+                 function(error) {
 
-                  });
+                  $scope.showAlert('alert-danger', "Server Error:" + error.status);
 
-
+                });
 
 
 
-               };
 
 
-              $scope.getProductFeatures();
+};
 
-               $scope.deleteFeature = function(feature){
-                $log.debug("deleting feature");
-                 if ($rootScope.usersession.currentUser.org.isAdmin ) {
-                  if ($scope.orgidFromSession === $rootScope.orgid ) {
-                    ProductFeatureService.deleteFeature({orgid: $scope.orgidFromSession, prodle: $rootScope.product_prodle ,productfeatureid:feature.featureid},
-                    function(success) {
-                      $log.debug(JSON.stringify( success));
+
+$scope.getProductFeatures();
+
+$scope.deleteFeature = function(feature){
+  $log.debug("deleting feature");
+  if ($rootScope.usersession.currentUser.org.isAdmin ) {
+    if ($scope.orgidFromSession === $rootScope.orgid ) {
+      ProductFeatureService.deleteFeature({orgid: $scope.orgidFromSession, prodle: $rootScope.product_prodle ,productfeatureid:feature.featureid},
+        function(success) {
+          $log.debug(JSON.stringify( success));
                       //client side delete
                       var index = $scope.features.indexOf(feature);
                       if (index != -1)
-                      $scope.features.splice(index, 1);
+                        $scope.features.splice(index, 1);
                       
 
-                      },
-                       function(error){
-                       $log.debug(JSON.stringify( error));
+                    },
+                    function(error){
+                     $log.debug(JSON.stringify( error));
 
-                       });
-                  }
-                }
-                else
-                 $scope.showAlert('alert-danger', "You dont have rights to delete this feature...");
+                   });
+    }
+  }
+  else
+   $scope.showAlert('alert-danger', "You dont have rights to delete this feature...");
 
 
-               };
+};
 
-               $scope.addProductFeature=function(editStatus){
-                  $scope.newFeature={};
-                 $scope.newFeature = {productfeature: [{
-                 
-                  featurename: $scope.feature.name,
-                  featuredescription: $scope.feature.description
-                  
-                }]};
-               $log.debug( $scope.newFeature);
+$scope.addProductFeature=function(editStatus){
+  $scope.newFeature={};
+  $scope.newFeature = {productfeature: [{
 
-                if(editStatus=='add'){
-                  $log.debug("adding");
-                 if ($rootScope.usersession.currentUser.org.isAdmin ) {
-                  ProductFeatureService.saveFeature({orgid: $scope.orgidFromSession , prodle:$rootScope.product_prodle}, $scope.newFeature,
-                    function(success) {
-                      $log.debug(success);
+    featurename: $scope.feature.name,
+    featuredescription: $scope.feature.description
+
+  }]};
+  $log.debug( $scope.newFeature);
+
+  if(editStatus=='add'){
+    $log.debug("adding");
+    if ($rootScope.usersession.currentUser.org.isAdmin ) {
+      ProductFeatureService.saveFeature({orgid: $scope.orgidFromSession , prodle:$rootScope.product_prodle}, $scope.newFeature,
+        function(success) {
+          $log.debug(success);
                             $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
-                           $scope.features.push($scope.newFeature.productfeature[0]);
-                          
-                           $log.debug($scope.features);
-                          
+                            $scope.features.push($scope.newFeature.productfeature[0]);
+
+                            $log.debug($scope.features);
+
                           },
-                         
+
                           function(error) {
                             $log.debug(error);
                           });
-                }
-                else $scope.showAlert('alert-danger', "You dont have rights to add product..."); 
-              }
-         
-          };
+    }
+    else $scope.showAlert('alert-danger', "You dont have rights to add product..."); 
+  }
 
-       
-           
-            $scope.updateProductFeature = function(data, id) {
+};
+
+
+
+$scope.updateProductFeature = function(data, id) {
     //$scope.user not updated yet
-      console.log(data);
+    console.log(data);
     angular.extend(data, {id: id});
     ProductFeatureService.updateFeature({orgid:$scope.orgidFromSession,prodle:$rootScope.product_prodle,productfeatureid:id},{'productfeature': data},
-                    function(success) {
-                      $log.debug(success);
+      function(success) {
+        $log.debug(success);
                             $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
                             $scope.features.push($scope.newFeature);
-                          
+
                           },
                           function(error) {
                             $log.debug(error);
@@ -933,19 +937,19 @@
 
 
 
-          $scope.editorEnabled = false;
+  $scope.editorEnabled = false;
   
-    $scope.enableEditor = function() {
-      $scope.editorEnabled = true;
-    };
+  $scope.enableEditor = function() {
+    $scope.editorEnabled = true;
+  };
   
-    $scope.disableEditor = function() {
-      $scope.editorEnabled = false;
-    };
+  $scope.disableEditor = function() {
+    $scope.editorEnabled = false;
+  };
 
 
 
-                }])
+}])
 
 
 
