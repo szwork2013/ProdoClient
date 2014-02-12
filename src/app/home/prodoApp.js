@@ -111,7 +111,7 @@ angular.module('prodo.ProdonusApp', [
         if ($scope.locationPath == '/message/resetpassword') {
           $state.transitionTo('messageContent.resetPassword');
           }
-            else if (data.hasDonePayment && data.org.orgid) {
+            else if (data.hasDonePayment && data.org) {
             OrgRegistrationService.getOrgDetailSettings();
           } else if (!data.isSubscribed) {
             UserSubscriptionService.getPlan();

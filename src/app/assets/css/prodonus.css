@@ -1722,13 +1722,13 @@ list-animate-item-warranty {
 
 
 
-#fileinput-button 
+.fileinput-button 
 {
 	position: relative;
 	overflow: hidden;
 }
 
-#fileinput-button input 
+.fileinput-button input 
 {
 	position: absolute;
 	top: 0;
