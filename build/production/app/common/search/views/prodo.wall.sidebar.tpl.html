@@ -1,4 +1,4 @@
-
+  
 <!-- Org list code -->
 <div id="prodo-sidebar-trendingproductlist-container" class="container">
   <div id="prodo-sidebar-list-group" class="list-group">
@@ -20,7 +20,7 @@
 
 
           </br></br>
-        <a data-toggle="modal"  data-target="#testmodal" ng-click="temp()" >Advanced Search</a>
+        <a data-toggle="modal"  data-target="#testmodal" ng-click="modalReset()" >Advanced Search</a>
 <!-- start of advanced search -->
  <div id = "testmodal" class="modal fade" >
      <div class="modal-dialog">
@@ -72,7 +72,7 @@
                 <div class="row">          
                    <div class="col-lg-6">
                       <div class="input-group">
-                         <input type="text" placeholder="Model Number [ eg:Grang Duos,S4 ]"  ng-model="model_number" id="textBoxModelNumber" class="prodoAdvancedSearchTextbox">
+                         <input type="text" placeholder="Please Enter Exact   Model Number [ eg:Grang Duos,S4 ]"  ng-model="model_number" id="textBoxModelNumber" class="prodoAdvancedSearchTextbox">
               
                       </div><!-- /input-group -->
                    </div><!-- /.col-lg-6 -->
@@ -80,8 +80,18 @@
    <!--  -->
                         </br>
            <p>Search Criteria:{{search}}</p>
-                
-             
+
+
+                         <div id="prodo-searchResults">
+                                <u> <h5>{{message}}</h5><u>
+                                  <ol>
+                                 <li ng-repeat="list in result">
+                                 <a ng-click="emitProdle(list.prodle,list.orgid)">{{list.name}}</a>
+
+                                 </li>  </ol>   
+                                 </div>
+
+
                 </div>  
                     
                             <div class="modal-footer">
