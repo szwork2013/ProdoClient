@@ -76,6 +76,8 @@
                  $log.debug("Listening");
                  // $rootScope.product_prodle=data.prodle;
                  // $rootScope.orgid=data.orgid;
+                 $("#productLogo").attr('src', '');
+
                  var temp=document.getElementById('prodo-comment-container');
                   if($rootScope.product_prodle!==undefined){
                      // var temp=document.getElementById('prodo-comment-container');
