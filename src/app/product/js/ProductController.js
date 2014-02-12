@@ -310,7 +310,7 @@
               }
               else {  
                $("#prodo-productTags").css("display", "inline");
-               document.getElementById('prodo-comment-commentContainer').style.marginTop='80px';  
+               // document.getElementById('prodo-comment-commentContainer').style.marginTop='80px';  
              }
            });
 
@@ -349,7 +349,9 @@
                 $scope.addProductComment = function() {
 
                // $scope.getTagsFromCommentText($scope);
+                if ($scope.commenttextField.userComment !== "")
 
+                {
                $log.debug("tags "+$scope.mytags);
                $log.debug("features "+ $scope.myFeaturetags);
                $scope.makeTagsPair($scope.myFeaturetags,$scope.mytags);
@@ -441,9 +443,7 @@
 
                 // var action = {product: {userid: $scope.userIDFromSession, orgid: $scope.orgidFromSession, prodle: $scope.product_prodle}};
 
-                if ($scope.commenttextField.userComment !== "")
-
-                {
+               
                   //  $scope.getTagsFromCommentText($scope);
                   $scope.socket.emit('addComment', $rootScope.product_prodle, $scope.newProductComment.product_comment);
                   $scope.productComments.unshift($scope.newProductComment_image.product_comment);
@@ -452,7 +452,8 @@
                   $rootScope.count=0;
                   document.getElementById('prodo-comment-commentContainer').style.marginTop='0px';
                   document.getElementById("crossButton").style.display="none";
-                  var element=document.getElementById('prodo-uploadedCommentImage');
+                  // var element=document.getElementById('prodo-uploadedCommentImage');
+                   $("#prodo-uploadedCommentImage").css("display", "none");      
                   $scope.mytags="";
                   // if (typeof(element) != 'undefined' && element != null)
                   // {
@@ -960,7 +961,7 @@ $scope.addProductFeature=function(editStatus){
         setTimeout( function() {
             $("#productLogoUpload").hide();
       
-        }, 1000 );
+        }, 3000 );
     });
     });
 
