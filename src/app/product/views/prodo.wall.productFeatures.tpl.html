@@ -18,9 +18,9 @@
     <accordion>
       <accordion-group>
       <accordion-heading >
-      <p style='font-weight:bold; font-size: 13px; margin: 0;'>Product General
+      <p style='font-weight:bold; font-size: 15px; margin: 0;'>Product General
         <span style="color:green">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          Status:    {{product.status}}&nbsp;&nbsp;&nbsp; </span>
+             {{product.status}}&nbsp;&nbsp;&nbsp; </span>
           <i class="fa fa-pencil pull-right"></i></p>
         </accordion-heading>
         
@@ -38,7 +38,7 @@
             
             
           </div>
-            <!-- Modal -->
+     <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -50,8 +50,8 @@
             Are you sure you want to delete ?
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-primary" ng-click="deleteProduct();" data-dismiss="modal" >Delete Product</button>
+            <button type="button" class="btn btn-default glyphicon glyphicon-remove" data-dismiss="modal"></button>
+            <button type="button" class="btn btn-danger glyphicon glyphicon-trash " ng-click="deleteProduct();" data-dismiss="modal" ></button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
@@ -120,8 +120,8 @@
                 <tr ><td colspan="2">
               <!--   <button type="submit" class="btn btn-info" style="width: 550px;"  ng-click=" $parent.isEditing = false" >Save</button>
             -->
-            <a  ng-click="addProduct(editStatus);disableEditor();" class="btn btn-primary btn-sm glyphicon glyphicon-floppy-save pull-right" style="border-radius: 10px; margin: 5px;"  >Save</a>
-            <a class="btn btn-primary btn-sm glyphicon glyphicon-remove pull-right" style="border-radius: 10px; margin: 5px;" ng-click="disableEditor()">Cancel</a>
+            <a  ng-click="addProduct(editStatus);disableEditor();" class="btn btn-default btn-sm fa fa-floppy-o pull-right" style=" margin: 5px;"   ></a>
+            <a class="btn btn-default btn-sm glyphicon glyphicon-remove pull-right"  style=" margin: 5px;"  ng-click="disableEditor()"></a>
           </td>
         </tr>
       </table>
@@ -138,7 +138,7 @@
 
 <accordion-group>
   <accordion-heading>
-  <p  style='font-weight:bold; font-size: 13px; margin: 0;'>Product Features<i class="fa fa-pencil pull-right"></i></p>
+  <p  style='font-weight:bold; font-size: 15px; margin: 0;'>Product Features<i class="fa fa-pencil pull-right"></i></p>
   </accordion-heading>
     <!-- data here -->
 
@@ -150,7 +150,7 @@
   <form    id="Editfeature" class="collapse"  ng-show="editorEnabled"  name="productFeaturesForm" >
     <table class="table child " id="prodo-ProductFeatureTable" >
       <tr>
-        <td colspan="2">   Feature name <input ng-model="$parent.$parent.feature.name"   id="prodo-product-features_textfield" class="form-control"  type="text" style="float: right"  required name="name" />  </td>
+        <td >   Feature name <input ng-model="$parent.$parent.feature.name"   id="prodo-product-features_textfield" class="form-control"  type="text" style="float: right"  required name="name" />  </td>
     
       </tr>
       <tr>
@@ -160,8 +160,8 @@
   
     <tr ><td colspan="2">
    
-    <a  ng-click="addProductFeature(editStatus);disableEditor();" class="btn btn-primary btn-sm glyphicon glyphicon-floppy-save pull-right" style="border-radius: 10px; margin: 5px;"  >Save</a>
-    <a class="btn btn-primary btn-sm glyphicon glyphicon-remove pull-right" style="border-radius: 10px; margin: 5px;" ng-click="disableEditor()">Cancel</a>
+    <a  ng-click="addProductFeature(editStatus);disableEditor();" class="btn btn-default btn-sm fa fa-floppy-o pull-right" style=" margin: 5px;"  ></a>
+    <a class="btn btn-default btn-sm glyphicon glyphicon-remove pull-right" style=" margin: 5px;" ng-click="disableEditor()"></a>
   </td>
 </tr>
 </table>
@@ -194,8 +194,8 @@
     </td>
     <td ng-show="edit">
   
-       <a id="Editfeature1" ng-click="updateProductFeature(feature,feature.featureid);edit = ! edit;" class="btn btn-primary btn-sm glyphicon glyphicon-floppy-save " style="margin: 5px;"  ></a>
-      <a id="Editfeature1" class="btn btn-primary btn-sm glyphicon glyphicon-remove " style=" margin: 5px;" ng-click="edit = ! edit;"></a>
+       <a id="Editfeature1" ng-click="updateProductFeature(feature,feature.featureid);edit = ! edit;" class="btn btn-default  btn-sm fa fa-floppy-o " style="margin: 5px;"  ></a>
+      <a id="Editfeature1" class="btn btn-default  btn-sm glyphicon glyphicon-remove " style=" margin: 5px;" ng-click="edit = ! edit;"></a>
 
 
     </td>
@@ -211,17 +211,17 @@
 
 <accordion-group>
 <accordion-heading>
-<p  style='font-weight:bold; font-size: 13px; margin: 0;'>Product Images<i class="fa fa-pencil pull-right"></i></p>
+<p  style='font-weight:bold; font-size: 15px; margin: 0;'>Product Images<i class="fa fa-pencil pull-right"></i></p>
 </accordion-heading>
 
 <div class="table child " id="prodo-ProductFeatureTable" >
   <form   name="ProductImg" >
     <div class="checkboxFilter"  style="padding: 10px;">
-      <span  id="showHideAllchkLabel" ng-style="checkAdminProductImagesDelete();" >Show/Hide All</span>  
+      <span  id="showHideAllchkLabel" ng-style="checkAdminProductImagesDelete();" >Select All</span>  
       <input id="showHideAllchk" ng-style="checkAdminProductImagesDelete();"  type="checkbox" ng-click="masterChange();"  name="pinSet ">
       &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;            
-      <button type="button" class="btn btn-success  " id="prodo-deleteProductImage" ng-style="checkAdminProductImagesDelete();" ng-click="deleteProductImages($index);"  >
-        <span class="glyphicon glyphicon-trash"></span> Delete images
+      <button type="button" class=" btn btn-danger  " id="prodo-deleteProductImage" ng-style="checkAdminProductImagesDelete();" data-toggle="modal" data-target="#imgDelModal"   >
+        <span class="glyphicon glyphicon-trash"></span> 
       </button> 
       <br>
       <br />
@@ -232,6 +232,24 @@
     </div>
   </form>
 </div>
+ <!-- Modal -->
+    <div class="modal fade" id="imgDelModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">Delete Images</h4>
+          </div>
+          <div class="modal-body">
+            Are you sure you want to delete selected images?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default glyphicon glyphicon-remove" data-dismiss="modal"></button>
+            <button type="button" class="btn btn-danger glyphicon glyphicon-trash"  ng-click="deleteProductImages($index);" data-dismiss="modal" ></button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 
 </accordion-group>
 </accordion>
