@@ -27,6 +27,7 @@
         'src/app/common/subscription/js/SubscriptionService.js',
         'src/app/common/directives/prodoDirective.js',
         'src/app/common/admin/js/tagService.js',
+         'src/app/common/admin/js/TagController-Admin.js',
         'src/app/product/js/DragImageController.js',
         'src/app/product/js/ProductController.js',
         'src/app/product/js/ProductService.js',
@@ -61,7 +62,7 @@
     directives: {
       expand: true,
       
-      src: ['src/app/common/admin/js/tagService.js'],
+      src: ['src/app/common/admin/js/TagController-Admin.js'],
       dest: 'build/production/app/Premin'
     }
   },
@@ -147,6 +148,7 @@
         // {expand: true, flatten: true, src: ['src/app/common/comments/js/prodoUserProfileDataController.js'], dest: 'build/production/app/common/comments/js/' , filter: 'isFile' },
         // {expand: true, flatten: true, src: ['src/app/common/comments/js/prodoCommentService.js'], dest: 'build/production/app/common/comments/js/' , filter: 'isFile'},
         {expand: true, flatten: true, src: ['src/app/common/comments/views/*'], dest: 'build/production/app/common/comments/views/' , filter: 'isFile'},
+        {expand: true, flatten: true, src: ['src/app/common/admin/views/*'], dest: 'build/production/app/common/admin/views/' , filter: 'isFile'},
         {expand: true, flatten: true, src: ['src/app/common/search/views/*'], dest: 'build/production/app/common/search/views/' , filter: 'isFile'},
         {expand: true, flatten: true, src: ['src/app/common/slider/gallery/*'], dest: 'build/production/app/common/slider/gallery/' , filter: 'isFile'},
         {expand: true, flatten: true, src: ['src/app/common/slider/views/*'], dest: 'build/production/app/common/slider/views/' , filter: 'isFile'},

@@ -34,11 +34,28 @@
             <a href=""  data-toggle="collapse" data-target="#Edit" ng-click="enableEditor() ;  editStatus='add'; clearText(); " > <i class="fa fa-plus-square"></i></a>
 
             <a href=""   ng-click="editStatus='update' ; enableEditor() ;  " data-toggle="collapse" data-target="#Edit" >  <i class="fa fa-pencil-square-o "></i></a>
-            <a href="" data-toggle="modal" data-target="#myModal">   <i class="fa fa-trash-o"></i> </a>    
+            <a href=""  data-toggle="modal" data-target="#myModal">   <i class="fa fa-trash-o"></i> </a>    
             
             
           </div>
-
+            <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">Delete Product</h4>
+          </div>
+          <div class="modal-body">
+            Are you sure you want to delete ?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary" ng-click="deleteProduct();" data-dismiss="modal" >Delete Product</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
           
 
           
@@ -56,19 +73,17 @@
               </tr>
               <tr>
                 <td  colspan="2">Product Name :
-                  <span>&nbsp;{{product.name}} </span>
-                  <span   class="collapsed2" style="cursor:pointer; color:brown" onclick="this.className = this.className == 'collapsed2' ? 'expanded' : 'collapsed2'">
-                    <a onclick="">[ {{product.prodle}} ]</a>
+                 
+                  <span   class="collapsed2 " style="cursor:pointer; color:brown" onclick="this.className = this.className == 'collapsed2' ? 'expanded' : 'collapsed2'">
+                    <a onclick="" > <span>&nbsp;{{product.name}} </span></a>
                   </span>
                 </td>
               </tr>
+             
               <tr>
-                <td  >Organization ProductID : <span>&nbsp;{{product.orgid}}  </span></td>
-                <td  >Serial No : <span  >&nbsp; {{product.serial_no}} </span></td>
-              </tr>
-              <tr>
+              <td  >Model Name : <span  >&nbsp;{{product.name}} </span></td>
                 <td  >Model No : <span>&nbsp;{{product.model_no}} </span></td>
-                <td  >Model Name : <span  >&nbsp;{{product.name}} </span></td>
+                
               </tr>
               <tr>
                 <td  colspan="2">Description : <span>&nbsp; {{product.description}}</span></td>
@@ -77,7 +92,7 @@
           </div>
 
           <!-- display mode -->
-          <hr>
+         
           <!-- edit mode -->
           <form    id="Edit" class="collapse"  ng-show="editorEnabled" ng-switch="isEditing" name="productForm" >
             <div class="prodo-product-general " >
@@ -88,8 +103,8 @@
                   <td  >Support Discontinued   <input id="prodo-product-features_textfield" type="text" class="form-control" ng-model="$parent.$parent.product.supDis" style="float: right" name="supDis"  /></td>
                 </tr>
                 <tr>
-                  <td>   Product Name <input ng-model="$parent.$parent.product.name"   id="prodo-product-features_textfield" class="form-control"  type="text" style="float: right"  required name="name" />  </td>
-                  <td  >Serial No   <input id="prodo-product-features_textfield" type="text" class="form-control" ng-model="$parent.$parent.product.serial_no" style="float: right" required  name="serial_no" /></td>
+                  <td >   Product Name <input ng-model="$parent.$parent.product.name"   id="prodo-product-features_textfield" class="form-control"  type="text" style="float: right"  required name="name" />  </td>
+                 
                 </tr>
                 <tr>
                   <td  >Model No  <input id="prodo-product-features_textfield" type="text" class="form-control" ng-model="$parent.$parent.product.model_no" style="float: right; " required name="model_no" /></td>
@@ -122,30 +137,28 @@
 </accordion-group>
 
 <accordion-group>
-<accordion-heading>
-<p  style='font-weight:bold; font-size: 13px; margin: 0;'>Product Features<i class="fa fa-pencil pull-right"></i></p>
-</accordion-heading>
-<!-- data here -->
-<div style="float:right; " id="prodo.productAdmin">
- <a href=""  data-toggle="collapse" data-target="#Editfeature" ng-click="enableEditor() ;  editStatus='add';  " > <i class="fa fa-plus-square"></i></a>
- 
+  <accordion-heading>
+  <p  style='font-weight:bold; font-size: 13px; margin: 0;'>Product Features<i class="fa fa-pencil pull-right"></i></p>
+  </accordion-heading>
+    <!-- data here -->
 
-</div>
 
-<form    id="Editfeature" class="collapse"  ng-show="editorEnabled"  name="productFeaturesForm" >
- <table class="table child " id="prodo-ProductFeatureTable" >
-   <tr>
-    <td colspan="2">   Feature name <input ng-model="$parent.$parent.feature.name"   id="prodo-product-features_textfield" class="form-control"  type="text" style="float: right"  required name="name" />  </td>
+  <div style="float:right; " id="prodo.productAdmin">
+    <a href=""  data-toggle="collapse" data-target="#Editfeature" ng-click="enableEditor() ;  editStatus='add';  " > <i class="fa fa-plus-square"></i></a>
+  </div>
+
+  <form    id="Editfeature" class="collapse"  ng-show="editorEnabled"  name="productFeaturesForm" >
+    <table class="table child " id="prodo-ProductFeatureTable" >
+      <tr>
+        <td colspan="2">   Feature name <input ng-model="$parent.$parent.feature.name"   id="prodo-product-features_textfield" class="form-control"  type="text" style="float: right"  required name="name" />  </td>
     
-  </tr>
-  <tr>
-    <td  colspan="2">Description   <textarea  type="text" id="prodo-product-featuresDescription_textfield" class="form-control"  ng-model="$parent.$parent.feature.description" required name="description" col="40"  ></textarea>
-
-
-    </td>
-  </tr> 
+      </tr>
+      <tr>
+        <td  colspan="2">Description   <textarea  type="text" id="prodo-product-featuresDescription_textfield" class="form-control"  ng-model="$parent.$parent.feature.description" required name="description" col="40"  > </textarea>
+        </td>
+      </tr> 
   
-  <tr ><td colspan="2">
+    <tr ><td colspan="2">
    
     <a  ng-click="addProductFeature(editStatus);disableEditor();" class="btn btn-primary btn-sm glyphicon glyphicon-floppy-save pull-right" style="border-radius: 10px; margin: 5px;"  >Save</a>
     <a class="btn btn-primary btn-sm glyphicon glyphicon-remove pull-right" style="border-radius: 10px; margin: 5px;" ng-click="disableEditor()">Cancel</a>
@@ -157,19 +170,40 @@
 
 
 <table class="table child " id="prodo-ProductFeatureTable">
- <tr >
-   <td> <dt>Feature</dt></td>
-   <td> <dt>Description </dt></td>
- </tr>
- <tr ng-repeat="feature in features">
-   <td> {{feature.featurename}}</td>
-   <td> {{feature.featuredescription}}</td>
- </tr>
+   <tr >
+     <td> <dt>Feature</dt> </td>
+     <td> <dt>Description </dt></td>
+     <td> <dt>Option</dt> </td>
+   
+   </tr>
+   <tr ng-repeat="feature in features track by feature.featureid">
+     <td ng-hide="edit" >  {{feature.featurename}}</td>
+
+     <td  ng-show="edit" ><input ng-model="feature.featurename"  style="width:150px;" class="form-control"  type="text"   required name="name" /> </td>
+     
+     <td ng-hide="edit" > {{feature.featuredescription}}</td> 
+
+      <td  ng-show="edit" ><input ng-model="feature.featuredescription" style="width:300px;" class="form-control"  type="text"   required name="name" /> </td>
+  
+
+    <td ng-hide="edit" >
+
+      <a href=""     ng-click="edit = ! edit; editStatus='update';  "> <i class="fa fa-pencil " /> </a>
+        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      <a href="" ng-click="deleteFeature(feature)">  <i class="glyphicon glyphicon-trash " /></a>
+    </td>
+    <td ng-show="edit">
+  
+       <a id="Editfeature1" ng-click="updateProductFeature(feature,feature.featureid);edit = ! edit;" class="btn btn-primary btn-sm glyphicon glyphicon-floppy-save " style="margin: 5px;"  ></a>
+      <a id="Editfeature1" class="btn btn-primary btn-sm glyphicon glyphicon-remove " style=" margin: 5px;" ng-click="edit = ! edit;"></a>
+
+
+    </td>
+
+     
+   </tr>
 
 </table>
-
-
-
 
 
 </accordion-group>
