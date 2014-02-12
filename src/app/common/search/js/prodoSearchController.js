@@ -105,27 +105,42 @@ $scope.productNames=[];
       }
     ];
     $scope.search = {};
-
-
+    $scope.result=[];
+    
     $rootScope.productSearch={product:""};
 
 
 
     $scope.searchProductData = function () {
+      $scope.search.productsearchdata={};
       if ($scope.product_name !== '') {
-        $scope.search.Product_Name = $scope.product_name;
+        $scope.search.productsearchdata.Product_Name = $scope.product_name;
       }
       if ($scope.model_number !== '') {
-        $scope.search.Model_number = $scope.model_number;
+        $scope.search.productsearchdata.Model_Number = $scope.model_number;
       }
       if ($scope.category !== '') {
-        $scope.search.Category = $scope.category;
+        $scope.search.productsearchdata.Category = $scope.category;
       }
       if ($scope.feature !== '') {
-        $scope.search.Feature = $scope.feature;
+        $scope.search.productsearchdata.Feature = $scope.feature;
       }
       prodoSearchService.searchProduct($scope.search);
+     // $scope.search.productsearchdata= {};
       $scope.$on('getSearchProductDone', function (event, data) {
+        $scope.result=data.success.doc;
+        //alert($scope.result);
+        // if(data.success.doc===null)
+        // {
+        //   console.log("null");
+        //   document.getElementById("prodo-searchResults").className="displayresult";
+        // }
+        // else
+        // { console.log(" not null");
+        //    document.getElementById("prodo-searchResults").className="displaynoresult";
+        // }
+        $scope.message=data.success.message;
+        //alert($scope.message);
       });
       $scope.$on('getSearchProductNotDone', function (event, data) {
       });
@@ -134,7 +149,11 @@ $scope.productNames=[];
 
 
 
-
+$scope.emitProdle=function(dataProdle,dataOrgid)
+{
+dataOfAdvancedSearch = {prodle: dataProdle,orgid:dataOrgid};
+$rootScope.$emit("product",dataOfAdvancedSearch);console.log("sent to Bhagyashri ");
+};
 
 
 
@@ -144,11 +163,18 @@ $scope.productNames=[];
 
 
     $scope.modalReset = function () {
+   // document.getElementById("prodo-searchResults").className="displaynoresult";
+      $scope.message="";
       document.getElementById('textBoxCategoryName').value = '';
       document.getElementById('textBoxModelNumber').value = '';
       document.getElementById('textBoxFeatureName').value = '';
       document.getElementById('textBoxProductName').value = '';
-      $scope.search = {};
+      $scope.product_name="";
+      $scope.model_number="";
+      $scope.category="";
+      $scope.feature="";
+      $scope.search.productsearchdata = {};
+      $scope.result=[];
     };
 
 
