@@ -23,43 +23,25 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
     ];
 
 
-$scope.productNames=[];
-
-
-
+    $scope.productNames=[];
+    $scope.selected = undefined;
+    $scope.tempnames=[];
+    $scope.search = {};
+    $scope.result=[];
+    $rootScope.productSearch={product:""};
+    $scope.enhancement=[];
 
     $scope.searchProductP=function()
     { 
+              $scope.tempnames=[];  
+              searchProductService.searchProduct();    
+              $scope.$on('notGotAllProducts', function (event, data) {
       
-    
-      searchProductService.searchProduct();
-
-    
-      $scope.$on('notGotAllProducts', function (event, data) {
-      
-      });
+               });
 
 
 
-    };
-
-   $scope.$on('gotAllProducts', function (event, data) {
-
-        $scope.productNames=data.success.doc;
-     
-      });
-
-
-
-
-
-
-
-
-
-
-
-
+    };//
 
 
     $scope.products_id = [
@@ -104,31 +86,35 @@ $scope.productNames=[];
         'value': 'Sony'
       }
     ];
-    $scope.search = {};
-    $scope.result=[];
-    
-    $rootScope.productSearch={product:""};
-
 
 
     $scope.searchProductData = function () {
       $scope.search.productsearchdata={};
       if ($scope.product_name !== '') {
-        $scope.search.productsearchdata.Product_Name = $scope.product_name;
+                var temp=$scope.product_name.replace(/\s/g, "");
+                $scope.search.productsearchdata.Product_Name = temp;
+                temp="";
       }
       if ($scope.model_number !== '') {
-        $scope.search.productsearchdata.Model_Number = $scope.model_number;
+                 var temp=$scope.model_number.replace(/\s/g, "");
+                $scope.search.productsearchdata.Model_Number = temp;
+                temp="";
       }
       if ($scope.category !== '') {
-        $scope.search.productsearchdata.Category = $scope.category;
+                 var temp=$scope.category.replace(/\s/g, "");
+                $scope.search.productsearchdata.Category = temp;
+                temp="";
       }
       if ($scope.feature !== '') {
-        $scope.search.productsearchdata.Feature = $scope.feature;
+                 var temp=$scope.feature.replace(/\s/g, "");
+                $scope.search.productsearchdata.Feature = temp;
+                temp="";
       }
+
       prodoSearchService.searchProduct($scope.search);
      // $scope.search.productsearchdata= {};
       $scope.$on('getSearchProductDone', function (event, data) {
-        $scope.result=data.success.doc;
+      $scope.result=data.success.doc;
         //alert($scope.result);
         // if(data.success.doc===null)
         // {
@@ -151,8 +137,13 @@ $scope.productNames=[];
 
 $scope.emitProdle=function(dataProdle,dataOrgid)
 {
-dataOfAdvancedSearch = {prodle: dataProdle,orgid:dataOrgid};
-$rootScope.$emit("product",dataOfAdvancedSearch);console.log("sent to Bhagyashri ");
+        dataOfAdvancedSearch = {prodle: dataProdle,orgid:dataOrgid};
+        $rootScope.$emit("product",dataOfAdvancedSearch);console.log("sent to Bhagyashri ");
+        $rootScope.product_prodle=dataProdle;
+        $rootScope.orgid=dataOrgid;
+       
+        $('#testmodal').modal('hide');
+        $('.modal-backdrop').remove(); 
 };
 
 
@@ -164,17 +155,17 @@ $rootScope.$emit("product",dataOfAdvancedSearch);console.log("sent to Bhagyashri
 
     $scope.modalReset = function () {
    // document.getElementById("prodo-searchResults").className="displaynoresult";
-      $scope.message="";
-      document.getElementById('textBoxCategoryName').value = '';
-      document.getElementById('textBoxModelNumber').value = '';
-      document.getElementById('textBoxFeatureName').value = '';
-      document.getElementById('textBoxProductName').value = '';
-      $scope.product_name="";
-      $scope.model_number="";
-      $scope.category="";
-      $scope.feature="";
-      $scope.search.productsearchdata = {};
-      $scope.result=[];
+              $scope.message="";
+              document.getElementById('textBoxCategoryName').value = '';
+              document.getElementById('textBoxModelNumber').value = '';
+              document.getElementById('textBoxFeatureName').value = '';
+              document.getElementById('textBoxProductName').value = '';
+              $scope.product_name="";
+              $scope.model_number="";
+              $scope.category="";
+              $scope.feature="";
+              $scope.search.productsearchdata = {};
+              $scope.result=[];
     };
 
 
@@ -187,42 +178,38 @@ $rootScope.$emit("product",dataOfAdvancedSearch);console.log("sent to Bhagyashri
 
 
 
+$scope.$on('gotAllProducts', function (event, data) {
+        $scope.productNames=data.success.doc;
+        $scope.enhancement=data.name.doc;
+                for(var i=0;i<$scope.productNames.length;i++)
+                {
+                          var temp1=$scope.productNames[i].name;
+                          $scope.tempnames.push(temp1);
+                          temp1="";
+                }
+     
+      });
+
+
+
 
 
 
 
     $scope.sampleDataEmitSearch = function () {
+                 var data9={};
+                 angular.forEach($scope.productNames, function(state) {
+                  if ($rootScope.productSearch.product === state.name) {
+                    data9 = {prodle: state.prodle,orgid:state.orgid};
+                    $rootScope.product_prodle=state.prodle;
+                    $rootScope.orgid=state.orgid;
+               
+                  }
+                  });
 
-     var data9={};
-     angular.forEach($scope.productNames, function(state) {
-      if ($rootScope.productSearch.product === state.name) {
-        data9 = {prodle: state.prodle,orgid:state.orgid};
-
-        $rootScope.product_prodle=state.prodle;
-        $rootScope.orgid=state.orgid;
-   
-      }
-      });
-
-
-      // var data9 = {
-      //     prodle: 'xkdiPXcT_',
-      //     orgid: 'orgxkpxhIFau'
-      //   };
       $rootScope.$emit('product', data9);
       console.log("Emit" +data9.prodle);      
-
+  
       };
-
-
-
-
-
-
-
-
-
-
-
   }
 ]);
