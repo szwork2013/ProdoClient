@@ -56,8 +56,8 @@ angular.module('prodo.UploadApp')
 $scope.socket.removeAllListeners('productUploadResponse');
 $scope.socket.on('productUploadResponse', function(error, imagelocation) {
   if (error) {
+     $("#bar").hide();
    $("#errAlert").css("visibility", "visible");  
-   $("#bar").hide(); 
       if (error.error.code == 'AP003') {     // user already exist
         $log.debug(error.error.code + " " + error.error.message);
         $("#errorMsg").html( "Error while uploading "+$scope.file.name +" " +error.error.message);
@@ -70,6 +70,7 @@ $scope.socket.on('productUploadResponse', function(error, imagelocation) {
                 }
 
                 $log.debug("Error " + error);
+                $("#errorMsg").html(error);
        // var uploadErr= document.getElementById("bar");
        //   clearInterval(progress);
        //      uploadErr.style.width="50%";
@@ -93,8 +94,8 @@ else
 $scope.socket.removeAllListeners('productUploadLogoResponse');
 $scope.socket.on('productUploadLogoResponse', function(error, imagelocation) {
   if (error) {
-   $("#bar").hide();
-   $("#errAlert").css("visibility", "visible");    
+     $("#bar").hide();
+   $("#errAlert").css("visibility", "visible");   
          if (error.error.code == 'AP003') {     // user already exist
           $log.debug(error.error.code + " " + error.error.message);
           $("#errorMsg").html( "Error while uploading "+$scope.file.name +" " +error.error.message);
@@ -106,6 +107,7 @@ $scope.socket.on('productUploadLogoResponse', function(error, imagelocation) {
                   $("#errorMsg").html("Error while uploading "+$scope.file.name +" " +error.error.message);
                 }
                 $log.debug("Error " + error);
+                $("#errorMsg").html(error);
               }
               else {
                 $scope.imageSrc = JSON.stringify(imagelocation);
@@ -140,6 +142,7 @@ $scope.socket.on('orgUploadResponse', function(error, imagelocation) {
                   $("#errorMsg").html( "Error while uploading "+$scope.file.name +" " +error.error.message);
                 }
                 $log.debug("Error " + error);
+                $("#errorMsg").html(error);
               }
               else {
                 $log.debug("getting response for org upload  " + imagelocation);
@@ -171,6 +174,7 @@ $scope.socket.on('orgUploadLogoResponse', function(error, imagelocation) {
                   $("#errorMsg").html( "Error while uploading "+$scope.file.name +" " +error.error.message);
                 }
                 $log.debug("Error " + error);
+                $("#errorMsg").html(error);
               }
               else {
                 $log.debug("getting response for org upload logo " + imagelocation);
@@ -205,6 +209,7 @@ $scope.socket.on('userUploadResponse', function(error, imagelocation) {
                   $("#errorMsg").html( "Error while uploading "+$scope.file.name +" " +error.error.message);
                 }
                 $log.debug("Error " + error);
+                $("#errorMsg").html(error);
               }
               else {
                 $log.debug("getting response for user upload  " + imagelocation);

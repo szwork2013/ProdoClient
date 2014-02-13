@@ -78,7 +78,7 @@
                    $("#productLogo").attr('src', '');
 
                  var temp=document.getElementById('prodo-comment-container');
-                 if($rootScope.product_prodle!==undefined){
+                 if($rootScope.product_prodle!==undefined && $rootScope.product_prodle!==null && $rootScope.product_prodle!==""){
                  
                      // var temp=document.getElementById('prodo-comment-container');
                      $scope.getProduct(); 
@@ -96,10 +96,9 @@
                         $("#Upload-clck").css("display", "block");
                         $("#prodoProductFeaturesTab").css("display", "inline");
                       
-                       $("#prodo.productAdmin").css("display", "inline"); 
+                       $("#prodo.productAdmin").css("display", "none"); 
+                        $("#prodo.productAdminAddProduct").css("display", "inline"); 
 
-                      
-                    
                       }
                       else {
                        temp.innerHTML="<br>Please start following a product using search....<br><br>";
@@ -115,14 +114,7 @@
               // $rootScope.product_prodle='xkdiPXcT_';
               // $rootScope.orgid='orgxkpxhIFau'; 
 
-           if($rootScope.usersession.currentUser.org){
-                    if ($rootScope.usersession.currentUser.org.isAdmin==true) {
-                      if ($scope.orgidFromSession === $rootScope.orgid ) {
-                        $rootScope.isAdminCheck=true;
-                      }
-                    }
-                  } 
-
+         
 
             //get login details
             $scope.getUserDetails = function( ) {
@@ -149,8 +141,7 @@
 
                 $scope.getProduct = function(){
                 
-
-                 $rootScope.product_prodle="";
+               
                  ProductService.getProduct({orgid: $rootScope.orgid, prodle: $rootScope.product_prodle},
                   function(successData) {
                     if (successData.success == undefined){
@@ -162,12 +153,14 @@
                       {
                         $("#prodoCommentsTab").css("display", "none");
                        $("#tabComments").css("display", "none");
-                       $("#prodoUploadTab").css("display", "inline");    
+                       $("#prodoUploadTab").css("display", "inline"); 
+
                        
                         $("#Upload-clck").css("display", "block");
                         $("#prodoProductFeaturesTab").css("display", "inline");
                       
-                       $("#prodo.productAdmin").css("display", "inline"); 
+                       $("#prodo.productAdmin").css("display", "none"); 
+                        $("#prodo.productAdminAddProduct").css("display", "inline"); 
 
                       }
                       else {
@@ -180,6 +173,15 @@
                    else {
                     $log.debug(successData.success.product);
                        $scope.getProductFeatures();
+
+
+                        if($rootScope.usersession.currentUser.org){
+                    if ($rootScope.usersession.currentUser.org.isAdmin==true) {
+                      if ($scope.orgidFromSession === $rootScope.orgid ) {
+                        $rootScope.isAdminCheck=true;
+                      }
+                    }
+                  } 
 
                   //                $log.debug("success    "+successData);
                   $scope.product = successData.success.product;
@@ -207,31 +209,31 @@
               },
               function(error) {
 
-                   var temp=document.getElementById('prodo-comment-container');
-                      $log.debug(temp);
-                      // alert($rootScope.usersession.currentUser.org.isAdmin);
-                      if($rootScope.usersession.currentUser.org.isAdmin==true){
+                   // var temp=document.getElementById('prodo-comment-container');
+                   //    $log.debug(temp);
+                   //    // alert($rootScope.usersession.currentUser.org.isAdmin);
+                   //    if($rootScope.usersession.currentUser.org.isAdmin==true){
                       
-                        $("#prodoCommentsTab").css("display", "none");
-                       $("#tabComments").css("display", "none");
-                       $("#prodoUploadTab").css("display", "inline");    
+                   //      $("#prodoCommentsTab").css("display", "none");
+                   //     $("#tabComments").css("display", "none");
+                   //     $("#prodoUploadTab").css("display", "inline");    
                        
-                        $("#Upload-clck").css("display", "block");
-                        $("#prodoProductFeaturesTab").css("display", "inline");
+                   //      $("#Upload-clck").css("display", "block");
+                   //      $("#prodoProductFeaturesTab").css("display", "inline");
                       
-                       $("#prodo.productAdmin").css("display", "inline"); 
+                   //     // $("#prodo.productAdmin").css("display", "none"); 
+                   //      $("#prodo.productAdminAddProduct").css("display", "inline"); 
+                   //    }
+                   //    else {
+                   //     temp.innerHTML="<br>Please start following a product using search....<br><br>";
+                   //     $scope.showAlert('alert-danger', " Product not available ....");
+                   //   }
 
-                      }
-                      else {
-                       temp.innerHTML="<br>Please start following a product using search....<br><br>";
-                       $scope.showAlert('alert-danger', " Product not available ....");
-                     }
-
-                // $log.debug(error);
-                // var temp=document.getElementById('prodo-comment-container');
-                // $log.debug(temp);
-                // temp.innerHTML="<br> Server error please try after some time<br><br>";
-                // $scope.showAlert('alert-danger', "Server Error:" + error.status);
+                $log.debug(error);
+                var temp=document.getElementById('prodo-comment-container');
+                $log.debug(temp);
+                temp.innerHTML="<br> Server error please try after some time<br><br>";
+                $scope.showAlert('alert-danger', "Server Error:" + error.status);
 
               });
 
@@ -767,22 +769,59 @@
 
                   };
 
+            
 
+                 $scope.checkAdmintoUpdateProduct=function(){
+                    
+                    if($rootScope.usersession.currentUser.org){
+                    if ($rootScope.usersession.currentUser.org.isAdmin==true) {
+                      if ($scope.orgidFromSession === $rootScope.orgid ) {
+                        $rootScope.isAdminCheck=true;
+                        return{display: "block"}
+                      }
+                      else
+                    return{display: "none"}
+                    }
+                    else
+                    return{display: "none"}
+                  } 
+                   else
+                    return{display: "none"}
+                 }
               
                   $scope.checkAdmin = function() {
+                     if($rootScope.usersession.currentUser.org){
+                    if ($rootScope.usersession.currentUser.org.isAdmin==true) {
+                      if ($scope.orgidFromSession === $rootScope.orgid ) {
+                        $rootScope.isAdminCheck=true;
+                      }
+                    }
+                  } 
                     if ($rootScope.isAdminCheck==true){
-                     var adminPanel = document.getElementById("prodo.productAdmin");
-                     adminPanel.style.display = 'inline';
+                    // $("#prodo.productAdmin").css("display", "inline"); 
+                     $("#prodo.productAdminAddProduct").css("display", "inline"); 
                    }
-                   else if($rootScope.usersession.currentUser.org.isAdmin==true && $rootScope.product_prodle==""){
+                   else if($rootScope.usersession.currentUser.org.isAdmin==true) {
                       
-                       $("#prodo.productAdmin").css("display", "inline"); 
+                      $("#prodo.productAdminAddProduct").css("display", "inline"); 
+                      $("#prodo.productAdmin").css("display", "none"); 
                    }
-                   else
+
+                   else{
+
                      $("#prodo.productAdmin").css("display", "none"); 
+                    $("#prodo.productAdminAddProduct").css("display", "none"); 
                  }
+               };
 
                  $scope.checkAdminProductUpload=function() {
+                  if($rootScope.usersession.currentUser.org){
+                    if ($rootScope.usersession.currentUser.org.isAdmin==true) {
+                      if ($scope.orgidFromSession === $rootScope.orgid ) {
+                        $rootScope.isAdminCheck=true;
+                      }
+                    }
+                  } 
                   if ($rootScope.isAdminCheck==true)
                     $("#Upload-clck").css("display", "block");      
 

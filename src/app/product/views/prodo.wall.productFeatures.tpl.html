@@ -37,16 +37,23 @@
         
         <div class="prodo-product-general "  >
           <!-- admin tasks -->
-          <div style="float:right; " id="prodo.productAdmin">
+
+         
+
+          <div style="float:right; " id="prodo.productAdmin" ng-style="checkAdmintoUpdateProduct();">
            
            
-            <a href=""  data-toggle="collapse" data-target="#Edit" ng-click="enableEditor() ;  editStatus='add'; clearText(); " > <i class="fa fa-plus-square"></i></a>
+          
 
             <a href=""   ng-click="editStatus='update' ; enableEditor() ;  " data-toggle="collapse" data-target="#Edit" >  <i class="fa fa-pencil-square-o "></i></a>
             <a href=""  data-toggle="modal" data-target="#myModal">   <i class="fa fa-trash-o"></i> </a>    
             
             
           </div>
+           <div style="float:right; " id="prodo.productAdminAddProduct">
+           <a href=""  data-toggle="collapse" data-target="#Edit" ng-click="enableEditor() ;  editStatus='add'; clearText(); " > <i class="fa fa-plus-square"></i></a>&nbsp;&nbsp;
+           </div>
+
      <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -152,7 +159,7 @@
     <!-- data here -->
 
 
-  <div style="float:right; " id="prodo.productAdmin">
+  <div style="float:right;" ng-style="checkAdmintoUpdateProduct();" id="prodo.productAdmin">
     <a href=""  data-toggle="collapse" data-target="#Editfeature" ng-click="enableEditor() ;  editStatus='add';  " > <i class="fa fa-plus-square"></i></a>
   </div>
 
@@ -182,7 +189,7 @@
    <tr >
      <td> <dt>Feature</dt> </td>
      <td> <dt>Description </dt></td>
-     <td> <dt>Option</dt> </td>
+     <td ng-style="checkAdmintoUpdateProduct();"> <dt>Option</dt> </td>
    
    </tr>
    <tr ng-repeat="feature in features track by $index">
@@ -195,7 +202,7 @@
       <td  ng-show="edit" ><input ng-model="feature.featuredescription" style="width:300px;" class="form-control"  type="text"   required name="name" /> </td>
   
 
-    <td ng-hide="edit" >
+    <td ng-hide="edit" ng-style="checkAdmintoUpdateProduct();">
 
       <a href=""     ng-click="edit = ! edit; editStatus='update';  "> <i class="fa fa-pencil " /> </a>
         &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
