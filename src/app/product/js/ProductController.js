@@ -69,11 +69,6 @@
                   });
 
 
-               
-
-
-
-
                $rootScope.$watch('product_prodle', function() {  
               // var cleanProduct=   $rootScope.$on("product", function(event, data){
                     $log.debug("Listening");
@@ -99,6 +94,14 @@
              });
               // $rootScope.product_prodle='xkdiPXcT_';
               // $rootScope.orgid='orgxkpxhIFau'; 
+
+           if($rootScope.usersession.currentUser.org){
+                    if ($rootScope.usersession.currentUser.org.isAdmin==true) {
+                      if ($scope.orgidFromSession === $rootScope.orgid ) {
+                        $rootScope.isAdminCheck=true;
+                      }
+                    }
+                  } 
 
 
             //get login details
@@ -159,6 +162,17 @@
                   $rootScope.product_prodle = successData.success.product.prodle;
                   $scope.productComments = successData.success.product.product_comments;
                   $scope.pImages_l = successData.success.product.product_images;
+                   $("#prodo-addingProduct").text($scope.product.status);
+
+                   if($rootScope.usersession.currentUser.org){
+                    if ($rootScope.usersession.currentUser.org.isAdmin==true) {
+                      if ($scope.orgidFromSession === $rootScope.orgid ) {
+                        $rootScope.isAdminCheck=true;
+                      }
+                    }
+                  } 
+
+
                   if(successData.success.product.product_comments.length==0){
                     $("#load-more").css("display", "none");
                   }
@@ -310,7 +324,7 @@
               }
               else {  
                $("#prodo-productTags").css("display", "inline");
-               document.getElementById('prodo-comment-commentContainer').style.marginTop='80px';  
+               // document.getElementById('prodo-comment-commentContainer').style.marginTop='80px';  
              }
            });
 
@@ -328,8 +342,6 @@
                   $scope.tagPairs.push({featureid:"1", featurename:noun[i],tag:adj[i]});
               }
 
-                //append feature id
-
                 for(var i=0; i<$scope.features.length ; i++){
                   for(j=0;j<$scope.tagPairs.length;j++){
                    if($scope.features[i].featurename==$scope.tagPairs[j].featurename){
@@ -339,7 +351,7 @@
                 }
 
               }
-                  //append feature id 
+
 
 
                 }
@@ -348,8 +360,10 @@
 
                 $scope.addProductComment = function() {
 
-               // $scope.getTagsFromCommentText($scope);
+  
+                if ($scope.commenttextField.userComment !== "")
 
+                {
                $log.debug("tags "+$scope.mytags);
                $log.debug("features "+ $scope.myFeaturetags);
                $scope.makeTagsPair($scope.myFeaturetags,$scope.mytags);
@@ -439,12 +453,6 @@
                         }
                         $log.debug($scope.newProductComment);
 
-                // var action = {product: {userid: $scope.userIDFromSession, orgid: $scope.orgidFromSession, prodle: $scope.product_prodle}};
-
-                if ($scope.commenttextField.userComment !== "")
-
-                {
-                  //  $scope.getTagsFromCommentText($scope);
                   $scope.socket.emit('addComment', $rootScope.product_prodle, $scope.newProductComment.product_comment);
                   $scope.productComments.unshift($scope.newProductComment_image.product_comment);
                   $scope.commenttextField.userComment = "";
@@ -452,14 +460,10 @@
                   $rootScope.count=0;
                   document.getElementById('prodo-comment-commentContainer').style.marginTop='0px';
                   document.getElementById("crossButton").style.display="none";
-                  var element=document.getElementById('prodo-uploadedCommentImage');
+     
+                   $("#prodo-uploadedCommentImage").css("display", "none");      
                   $scope.mytags="";
-                  // if (typeof(element) != 'undefined' && element != null)
-                  // {
-                  //   element.parentNode.removeChild(element);
-                  //     // exists.
-                  //   }
-
+              
 
                   }
 
@@ -520,7 +524,8 @@
 
 
                 if(editStatus=='add'){
-                 if ($rootScope.usersession.currentUser.org.isAdmin ) {
+                 if ($rootScope.usersession.currentUser.org.isAdmin ==true) {
+                  if ($scope.orgidFromSession === $rootScope.orgid ) {
                   ProductService.saveProduct({orgid: $scope.orgidFromSession}, $scope.newProduct,
                     function(success) {
                       $log.debug(success);
@@ -531,10 +536,11 @@
                             $log.debug(error);
                           });
                 }
+              }
                 else $scope.showAlert('alert-danger', "You dont have rights to add product..."); 
               }
               else if(editStatus=='update'){
-                if ($rootScope.usersession.currentUser.org.isAdmin ) {
+                if ($rootScope.usersession.currentUser.org.isAdmin ==true) {
                   if ($scope.orgidFromSession === $rootScope.orgid ) {
                    ProductService.updateProduct({orgid:$scope.orgidFromSession,prodle:$rootScope.product_prodle}, $scope.newProduct,
                     function(success) {
@@ -580,7 +586,7 @@
 
                   $scope.deleteProduct = function()
                   {
-                    if ($rootScope.usersession.currentUser.org.isAdmin ) {
+                    if ($rootScope.usersession.currentUser.org.isAdmin ==true) {
                       if ($scope.orgidFromSession === $rootScope.orgid ) {
                         ProductService.deleteProduct({orgid: $scope.orgidFromSession, prodle: $rootScope.product_prodle},
                          function(success) {
@@ -604,6 +610,9 @@
                  $log.debug("clearig");
                  
                  $scope.product="";
+                 $scope.pImages_l="";
+
+                 $scope.features="";
 
                }
                $scope.ShowDiscontinuedSupport=function(product){
@@ -656,26 +665,26 @@
             }
 
 
-         //toggle to select all product iamges
-         $scope.masterChange = function() { 
-  //                $(this).closest('div').find('.thumb :checkbox').prop("checked", this.checked);
-  if ($('.imgToggles').is(':checked')) {
-    $('.imgToggles').prop('checked', false)
-  } else {
-    $('.imgToggles').prop('checked', true)
-  }
-};
+                       //toggle to select all product iamges
+            $scope.masterChange = function() { 
+                //                $(this).closest('div').find('.thumb :checkbox').prop("checked", this.checked);
+                if ($('.imgToggles').is(':checked')) {
+                  $('.imgToggles').prop('checked', false)
+                } else {
+                  $('.imgToggles').prop('checked', true)
+                }
+              };
 
-$scope.chckedIndexs=[];
-$scope.checkedIndex = function (img) {
- if ($scope.chckedIndexs.indexOf(img) === -1) {
-   $scope.chckedIndexs.push(img);
- }
- else {
-   $scope.chckedIndexs.splice($scope.chckedIndexs.indexOf(img), 1);
- }
- $log.debug($scope.chckedIndexs);
-}
+              $scope.chckedIndexs=[];
+              $scope.checkedIndex = function (img) {
+               if ($scope.chckedIndexs.indexOf(img) === -1) {
+                 $scope.chckedIndexs.push(img);
+               }
+               else {
+                 $scope.chckedIndexs.splice($scope.chckedIndexs.indexOf(img), 1);
+               }
+               $log.debug($scope.chckedIndexs);
+              }
 
             //delete images
             $scope.deleteProductImages = function(index) {
@@ -714,13 +723,7 @@ $scope.checkedIndex = function (img) {
                   };
 
 
-                  if($rootScope.usersession.currentUser.org){
-                    if ($rootScope.usersession.currentUser.org.isAdmin) {
-                      if ($scope.orgidFromSession === $rootScope.orgid ) {
-                        $rootScope.isAdminCheck=true;
-                      }
-                    }
-                  } 
+                 
                   $scope.checkAdmin = function() {
                     if ($rootScope.isAdminCheck==true){
                      var adminPanel = document.getElementById("prodo.productAdmin");
@@ -821,8 +824,7 @@ $scope.checkedIndex = function (img) {
 
                 $scope.getProductFeatures=function(){
 
-
-
+                  
 
                  ProductFeatureService.getFeature({orgid: $rootScope.orgid, prodle: $rootScope.product_prodle},
                   function(successData) {
@@ -837,6 +839,8 @@ $scope.checkedIndex = function (img) {
                      }
                    else {
                     $log.debug("success    "+JSON.stringify(successData));
+                     $scope.features=[];
+                   $scope.featuretags=[];
                     for(i=0;i<successData.success.productfeature.length;i++){
                       $scope.features.push(successData.success.productfeature[i]);
                       $scope.featuretags.push(successData.success.productfeature[i].featurename);
@@ -861,107 +865,124 @@ $scope.checkedIndex = function (img) {
 };
 
 
-$scope.getProductFeatures();
+                $scope.getProductFeatures();
 
-$scope.deleteFeature = function(feature){
-  $log.debug("deleting feature");
-  if ($rootScope.usersession.currentUser.org.isAdmin ) {
-    if ($scope.orgidFromSession === $rootScope.orgid ) {
-      ProductFeatureService.deleteFeature({orgid: $scope.orgidFromSession, prodle: $rootScope.product_prodle ,productfeatureid:feature.featureid},
-        function(success) {
-          $log.debug(JSON.stringify( success));
-                      //client side delete
-                      var index = $scope.features.indexOf(feature);
-                      if (index != -1)
-                        $scope.features.splice(index, 1);
-                      
-
-                    },
-                    function(error){
-                     $log.debug(JSON.stringify( error));
-
-                   });
-    }
-  }
-  else
-   $scope.showAlert('alert-danger', "You dont have rights to delete this feature...");
-
-
-};
-
-$scope.addProductFeature=function(editStatus){
-  $scope.newFeature={};
-  $scope.newFeature = {productfeature: [{
-
-    featurename: $scope.feature.name,
-    featuredescription: $scope.feature.description
-
-  }]};
-  $log.debug( $scope.newFeature);
-
-  if(editStatus=='add'){
-    $log.debug("adding");
-    if ($rootScope.usersession.currentUser.org.isAdmin ) {
-      ProductFeatureService.saveFeature({orgid: $scope.orgidFromSession , prodle:$rootScope.product_prodle}, $scope.newFeature,
-        function(success) {
-          $log.debug(success);
-                            $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
-                            $scope.features.push($scope.newFeature.productfeature[0]);
-
-                            $log.debug($scope.features);
-
-                          },
-
-                          function(error) {
-                            $log.debug(error);
-                          });
-    }
-    else $scope.showAlert('alert-danger', "You dont have rights to add product..."); 
-  }
-
-};
-
-
-
-          $scope.updateProductFeature = function(data, id) {
-              //$scope.user not updated yet
-              console.log(data);
-              angular.extend(data, {id: id});
-              ProductFeatureService.updateFeature({orgid:$scope.orgidFromSession,prodle:$rootScope.product_prodle,productfeatureid:id},{'productfeature': data},
-                function(success) {
-                  $log.debug(success);
-                                      $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
-                                      $scope.features.push($scope.newFeature);
+                $scope.deleteFeature = function(feature){
+                  $log.debug("deleting feature");
+                  if ($rootScope.usersession.currentUser.org.isAdmin==true ) {
+                    if ($scope.orgidFromSession === $rootScope.orgid ) {
+                      ProductFeatureService.deleteFeature({orgid: $scope.orgidFromSession, prodle: $rootScope.product_prodle ,productfeatureid:feature.featureid},
+                        function(success) {
+                          $log.debug(JSON.stringify( success));
+                                      //client side delete
+                                      var index = $scope.features.indexOf(feature);
+                                      if (index != -1)
+                                        $scope.features.splice(index, 1);
+                                      
 
                                     },
-                                    function(error) {
-                                      $log.debug(error);
-                                    });
-            };
+                                    function(error){
+                                     $log.debug(JSON.stringify( error));
+
+                                   });
+                    }
+                  }
+                  else
+                   $scope.showAlert('alert-danger', "You dont have rights to delete this feature...");
+
+
+                };
+
+              $scope.addProductFeature=function(editStatus){
+                $scope.newFeature={};
+                $scope.newFeature = {productfeature: [{
+                  
+                  featurename: $scope.feature.name,
+                  featuredescription: $scope.feature.description
+
+                }]};
+                $log.debug( $scope.newFeature);
+
+                if(editStatus=='add'){
+                  $log.debug("adding");
+                  if ($rootScope.usersession.currentUser.org.isAdmin ==true) {
+                    ProductFeatureService.saveFeature({orgid: $scope.orgidFromSession , prodle:$rootScope.product_prodle}, $scope.newFeature,
+                      function(success) {
+                        $log.debug(success);
+                                          $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
+                                         $log.debug("new Feature : "+JSON.stringify( $scope.newFeature.productfeature[0]));
+                                          $scope.features.push($scope.newFeature.productfeature[0]);
+
+                                          $log.debug($scope.features);
+
+                                        },
+
+                                        function(error) {
+                                          $log.debug(error);
+                                        });
+                  }
+                  else $scope.showAlert('alert-danger', "You dont have rights to add product..."); 
+                }
+
+              };
 
 
 
-          $scope.editorEnabled = false;
-          
-          $scope.enableEditor = function() {
-            $scope.editorEnabled = true;
-          };
-          
-          $scope.disableEditor = function() {
-            $scope.editorEnabled = false;
-          };
+                $scope.updateProductFeature = function(data, id) {
+                    //$scope.user not updated yet
+                    console.log(data);
+                    angular.extend(data, {id: id});
+                    ProductFeatureService.updateFeature({orgid:$scope.orgidFromSession,prodle:$rootScope.product_prodle,productfeatureid:id},{'productfeature': data},
+                      function(success) {
+                        $log.debug(success);
+                                            $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
+                                            // $scope.features.push($scope.newFeature);
 
-          
-          $(document).ready(function(){
-    $("#productLogo").hover(function(){
-        $("#productLogoUpload").show();
+                                          },
+                                          function(error) {
+                                            $log.debug(error);
+                                          });
+                  };
+
+
+
+                  $scope.editorEnabled = false;
+                  
+                  $scope.enableEditor = function() {
+                    $scope.editorEnabled = true;
+                     $("#prodo-addingProduct").text("   Adding product data.....");
+                    
+                  };
+                  
+                  $scope.disableEditor = function() {
+                    $scope.editorEnabled = false;
+                   
+                    $scope.getProduct();
+                    $scope.getProductFeatures();
+                   
+                  };
+
+                
+                $(document).ready(function(){
+
+                   if ($rootScope.isAdminCheck==true) {
+                         $("#productLogoUpload").css("display", "inline");  
+                              $("#productLogo").hover(function(){
+
+                                      $("#productLogoUpload").show();
+                                     
+                                  },function(){
+                                      setTimeout( function() {
+                                          $("#productLogoUpload").hide();
+                                    
+                                      }, 3000 );
+                                 });
+                        
+                        }
+                        else {
+                           $("#productLogoUpload").css("display", "none");
+                        }
        
-    },function(){
-        setTimeout( function() {
-            $("#productLogoUpload").hide();
-      
-        }, 1000 );
-    });
     });
 
 
