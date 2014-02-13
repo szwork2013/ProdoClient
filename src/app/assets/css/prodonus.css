@@ -75,7 +75,7 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
  
 /*Advanced Search CSS*/
 .prodoAdvancedSearchTextbox { 
-    background: #FFF url(http://www.cssportal.com/form-elements/images/search.png) no-repeat 4px 4px; 
+    background: #FFF url(../ico/search.png) no-repeat 4px 4px; 
     border: 1px solid #999; 
     outline:0; 
     padding-left: 25px;
@@ -1893,7 +1893,104 @@ list-animate-item-warranty {
 
 
 .control-group{ }
-
 #prodo-upload-SelectUploadBtn{font-family: Helvetica ;font-size:22px; text-align: left; }
-
 /*Uploads*/
+/*User profile modal css*/
+#prodo-userprofileinfoz
+{
+	background-image: url();
+	height: 40%;
+/*	//min-width: 100px;*/
+	width:100%;
+	border: solid 1px #ccc;
+}
+.prodo-profilepic
+{
+height:40%;width:90%;border: solid 1px #ccc;
+}
+#prodo-productsfollowed
+{
+	border: solid 1px #ccc;
+	min-height:200px;
+	width:100%;
+}
+/*#prodo-productfolloweddata
+{
+
+}*/
+
+#prodo-productdata
+{
+/*height:70px;
+width:70px;
+border: solid 1px #ccc;*/
+
+width:10%; height: 10%; float: left; margin: 5px; border: solid 1px #ccc;
+}
+.prodo-prodles
+{
+	margin:0px auto; display:block; width:20px; height: 20px; 
+}
+#prodle-followed-button
+{
+	margin:5px auto; display:block; height:9%; width: 9%; background-color:#304A61;
+}
+
+
+
+.effectpic {
+     background-color: transparent;
+	-webkit-transition: all 1s ease;
+  	-moz-transition: all 1s ease;
+  	-o-transition: all 1s ease;
+  	-ms-transition: all 1s ease;
+  	transition: all 1s ease;
+  	display:inline-block;
+  	border:2px solid;
+  	padding-top:5px;
+    width:100px ; 
+    padding-bottom:5px;
+    margin:9px;
+}
+
+.effectpic:hover {
+	cursor: pointer;
+    background-color: white;
+    transform:scale(1.5);
+ 
+    -webkit-transform:scale(1.2); /* Safari and Chrome */
+  
+}
+
+
+.classMain
+{
+	min-height:20px;width:100%;border:3px solid white;padding-left:5px;padding-bottom:5px;
+}
+
+.profileImage
+{
+
+}
+
+.prodleImage
+{
+	height:60px;width:60px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -37,35 +37,36 @@
 
 
          <div class="modal-body" ng-controller="prodoUserProfileDataController">                 
-          <img ng-src="{{modaluser.profile_pic}}" class="productFollowedImage " id="profilePic"/>
-          <p class="paras">
-            <a  id="uder_ID" >{{modaluser.username}}</a> <a href="#" id="org_ID"></a><a href="#" id="grp_name" ng-model="hello"></a>
-          </p>     
+                <div class="classMain">
+                  <h5 ng-bind=" modaluser.username"></h5>
+                    <img ng-src="{{modaluser.profile_pic}}" style="height:90px;width:90px; "/>
+                </div>
+                <br><hr>
+                <div  class="classMain">
+                   <h4> Product Followed </h4>
+                        <div ng-repeat="products in modaluser.products_followed"  
+                        class="effectpic" ><center>
+                          <p >{{products.name}}</p>
+                          <img ng-src="{{products.product_logo}}" class="prodleImage" ng-click="emitProductData(products.prodle,products.orgid)"></center>
+                        </div>
+                </div>
+                <br><hr>
+                 <div class="classMain">
+                   <h4> Product Recommended </h4>
+                        <div ng-repeat="products in modaluser.products_recommends"   class="effectpic" >
+                         <center> <p >{{products.name}}</p>
+                          <img ng-src="{{products.product_logo}}" class="prodleImage" ng-click="emitProductData(products.prodle,products.orgid)"></center>
+                        </div>
+                </div>
         </div>  
 
 
 
 
-        <div> 
-         <p ><h5 class="productFollowedParagraphs">Product Followed</h5></p>
-         <a href="#" class="productFollowedParagraphs" id="productFollowedName"></a><br>
-         <img  id="productImage" src="" class="productFollowedImages"></img>
-       </div>
-
-       <br><br><br><br><br>
-
-
-
-       <div >
-         <p ><h5 class="productFollowedParagraphs">Product Recommended</h5></p>
-         <a href="#" class="productFollowedParagraphs" if="productRecommendedName"></a><br>
-         <img class="productFollowedImages"  id="productRImage"></img> 
-       </div>
 
 
 
 
-       <br><br><br><br><br><br><br><br><br>
 
 
        <div class="modal-footer">
