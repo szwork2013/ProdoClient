@@ -22,6 +22,7 @@ angular.module('prodo.ProdonusApp', [
   'ngResource',
   'tags-input',
   'ngCookies',
+  'angular-growl',
   'prodo.CommonApp',
   'prodo.UserApp',
   'prodo.ProdoWallApp',
@@ -38,9 +39,14 @@ angular.module('prodo.ProdonusApp', [
   'prodo.UploadApp',
   'config'
 ]).config([
-  '$logProvider',
-  function ($logProvider) {
+  '$logProvider', 'growlProvider', '$httpProvider',
+  function ($logProvider, growlProvider) {
     $logProvider.debugEnabled(true);
+    growlProvider.globalTimeToLive(20000);
+    growlProvider.onlyUniqueMessages(true);      
+    growlProvider.messagesKey("errors");
+    growlProvider.messageTextKey("message");
+    growlProvider.messageSeverityKey("field");
   }
 ]).run([
   '$rootScope',
@@ -48,7 +54,8 @@ angular.module('prodo.ProdonusApp', [
   'OrgRegistrationService',
   '$log',
   'editableOptions',
-  function ($rootScope, UserSessionService, OrgRegistrationService, $log, editableOptions) {
+  'growl',
+  function ($rootScope, UserSessionService, OrgRegistrationService, $log, editableOptions, growl) {
     UserSessionService.checkUser();
     $rootScope.usersession = UserSessionService;
     $rootScope.organizationData = OrgRegistrationService;
@@ -61,10 +68,11 @@ angular.module('prodo.ProdonusApp', [
   '$state',
   '$log',
   '$location',
+  'growl',
   'UserSessionService',
   'OrgRegistrationService',
   'UserSubscriptionService',
-  function ($scope, $rootScope, $state, $log, $location, UserSessionService, OrgRegistrationService, UserSubscriptionService) {
+  function ($scope, $rootScope, $state, $log, $location, growl, UserSessionService, OrgRegistrationService, UserSubscriptionService) {
     $state.transitionTo('home.start');
     $scope.isShown = false;
     $scope.showSignin = function () {
@@ -106,8 +114,12 @@ angular.module('prodo.ProdonusApp', [
     var cleanupEventSessionDone = $rootScope.$on('session', function (event, data) {
         $log.debug(data);
         if ($rootScope.usersession.isLoggedIn) {
-           $rootScope.orgid="orgxkpxhIFau";
-           $rootScope.product_prodle="ek1ntsdzF";
+          if (data.products_followed == null && data.products_followed == undefined) {
+            $log.debug('There is some problem with the database. Please contact support.')
+          } else if (data.products_followed.length > 0) {
+            $rootScope.orgid= data.products_followed[0].orgid;
+            $rootScope.product_prodle= data.products_followed[0].prodle;
+          } 
         if ($scope.locationPath == '/message/resetpassword') {
           $state.transitionTo('messageContent.resetPassword');
           }
