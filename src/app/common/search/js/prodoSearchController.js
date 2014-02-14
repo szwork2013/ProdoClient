@@ -23,43 +23,45 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
     ];
 
 
-$scope.productNames=[];
+    $scope.productNames=[];
+    $scope.selected = undefined;
+    $scope.tempnames=[];
+    $scope.search = {};
+    $scope.result=[];
+    $rootScope.productSearch={product:""};
+    $scope.enhancement=[];
+    $scope.searchCriterion={};
+    $scope.count=0;
 
 
 
 
-    $scope.searchProductP=function()
+               $rootScope.$watch('productSearch.product', function() { 
+               if($scope.productSearch.product!=="")
+               {
+                    $scope.searchCriterion.name=$scope.productSearch.product;
+                    $scope.searchProductP($scope.searchCriterion);
+                
+                   } 
+             
+                });
+
+
+
+
+
+
+    $scope.searchProductP=function(data)
     { 
+              
+              searchProductService.searchProduct(data);    
+              $scope.$on('notGotAllProducts', function (event, data) {
       
-    
-      searchProductService.searchProduct();
-
-    
-      $scope.$on('notGotAllProducts', function (event, data) {
-      
-      });
+               });
 
 
 
-    };
-
-   $scope.$on('gotAllProducts', function (event, data) {
-
-        $scope.productNames=data.success.doc;
-     
-      });
-
-
-
-
-
-
-
-
-
-
-
-
+    };//
 
 
     $scope.products_id = [
@@ -104,28 +106,52 @@ $scope.productNames=[];
         'value': 'Sony'
       }
     ];
-    $scope.search = {};
-
-
-    $rootScope.productSearch={product:""};
-
 
 
     $scope.searchProductData = function () {
+      $scope.search.productsearchdata={};
       if ($scope.product_name !== '') {
-        $scope.search.Product_Name = $scope.product_name;
+                var temp=$scope.product_name.replace(/\s/g, "");
+                $scope.search.productsearchdata.Product_Name = temp;
+                temp="";
       }
       if ($scope.model_number !== '') {
-        $scope.search.Model_number = $scope.model_number;
+                 var temp=$scope.model_number.replace(/\s/g, "");
+                $scope.search.productsearchdata.Model_Number = temp;
+                temp="";
       }
       if ($scope.category !== '') {
-        $scope.search.Category = $scope.category;
+                 var temp=$scope.category.replace(/\s/g, "");
+                $scope.search.productsearchdata.Category = temp;
+                temp="";
       }
       if ($scope.feature !== '') {
-        $scope.search.Feature = $scope.feature;
+                 var temp=$scope.feature.replace(/\s/g, "");
+                $scope.search.productsearchdata.Feature = temp;
+                temp="";
       }
+       if ($scope.org !== '') {
+                 var temp=$scope.org.replace(/\s/g, "");
+                $scope.search.productsearchdata.Organization_Name = temp;
+                temp="";
+      }
+
       prodoSearchService.searchProduct($scope.search);
+     // $scope.search.productsearchdata= {};
       $scope.$on('getSearchProductDone', function (event, data) {
+      $scope.result=data.success.doc;
+        //alert($scope.result);
+        // if(data.success.doc===null)
+        // {
+        //   console.log("null");
+        //   document.getElementById("prodo-searchResults").className="displayresult";
+        // }
+        // else
+        // { console.log(" not null");
+        //    document.getElementById("prodo-searchResults").className="displaynoresult";
+        // }
+        $scope.message=data.success.message;
+        //alert($scope.message);
       });
       $scope.$on('getSearchProductNotDone', function (event, data) {
       });
@@ -134,7 +160,16 @@ $scope.productNames=[];
 
 
 
-
+$scope.emitProdle=function(dataProdle,dataOrgid)
+{
+        dataOfAdvancedSearch = {prodle: dataProdle,orgid:dataOrgid};
+        $rootScope.$emit("product",dataOfAdvancedSearch);console.log("sent to Bhagyashri ");
+        $rootScope.product_prodle=dataProdle;
+        $rootScope.orgid=dataOrgid;
+       
+        $('#testmodal').modal('hide');
+        $('.modal-backdrop').remove(); 
+};
 
 
 
@@ -144,11 +179,20 @@ $scope.productNames=[];
 
 
     $scope.modalReset = function () {
-      document.getElementById('textBoxCategoryName').value = '';
-      document.getElementById('textBoxModelNumber').value = '';
-      document.getElementById('textBoxFeatureName').value = '';
-      document.getElementById('textBoxProductName').value = '';
-      $scope.search = {};
+   // document.getElementById("prodo-searchResults").className="displaynoresult";
+              $scope.message="";
+              document.getElementById('textBoxCategoryName').value = '';
+              document.getElementById('textBoxModelNumber').value = '';
+              document.getElementById('textBoxFeatureName').value = '';
+              document.getElementById('textBoxProductName').value = '';
+              document.getElementById('textBoxOrgName').value='';
+              $scope.product_name="";
+              $scope.model_number="";
+              $scope.category="";
+              $scope.feature="";
+              $scope.search.productsearchdata = {};
+              $scope.result=[];
+              $scope.org="";
     };
 
 
@@ -161,42 +205,35 @@ $scope.productNames=[];
 
 
 
+$scope.$on('gotAllProducts', function (event, data) {
+        $scope.productNames=data.success.doc;
+        // $scope.$watch()
+        $scope.enhancement=data.name.doc;
+        //alert($scope.enhancement[0]);
+              
+     
+      });
+
+
+
 
 
 
 
     $scope.sampleDataEmitSearch = function () {
+                 var data9={};
+                 angular.forEach($scope.productNames, function(state) {
+                  if ($rootScope.productSearch.product === state.name) {
+                    data9 = {prodle: state.prodle,orgid:state.orgid};
+                    $rootScope.product_prodle=state.prodle;
+                    $rootScope.orgid=state.orgid;
+               
+                  }
+                  });
 
-     var data9={};
-     angular.forEach($scope.productNames, function(state) {
-      if ($rootScope.productSearch.product === state.name) {
-        data9 = {prodle: state.prodle,orgid:state.orgid};
-
-        $rootScope.product_prodle=state.prodle;
-        $rootScope.orgid=state.orgid;
-   
-      }
-      });
-
-
-      // var data9 = {
-      //     prodle: 'xkdiPXcT_',
-      //     orgid: 'orgxkpxhIFau'
-      //   };
       $rootScope.$emit('product', data9);
       console.log("Emit" +data9.prodle);      
-
+  
       };
-
-
-
-
-
-
-
-
-
-
-
   }
 ]);

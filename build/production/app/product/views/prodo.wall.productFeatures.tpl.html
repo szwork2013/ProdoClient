@@ -14,13 +14,22 @@
 
 <div ng-controller="ProductController"  >
   <div id="prodo-productFeature-fixed"    >
-    <br><img class="img" style=" height: 100px; padding:10px;max-width:500px;"   ng-src="{{product.product_logo}}" /><br>
+    <br><img class="img" id="productLogo"  style=" height: 100px; padding:10px;max-width:500px; cursor: pointer;"   ng-src="{{product.product_logo}}" />
+    <form ng-app="prodo.UploadApp" ng-controller="UploadController"  id="productLogoUpload" style="display:none;">
+    
+          <span class="btn btn-info fileinput-button" >
+            <i class="fa fa-cloud-upload "></i>
+            <input   type="file" name="file" ng-file-select="onFileSelect($files)"  ng-click="uploadSrc = 'productlogo';">
+            
+          </span>
+      </form>
+<br>
     <accordion>
       <accordion-group>
       <accordion-heading >
-      <p style='font-weight:bold; font-size: 13px; margin: 0;'>Product General
-        <span style="color:green">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          Status:    {{product.status}}&nbsp;&nbsp;&nbsp; </span>
+      <p style='font-weight:bold; font-size: 15px; margin: 0;'>Product General &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <span id="prodo-addingProduct" style="color:green" >
+             {{product.status}}&nbsp;&nbsp;&nbsp; </span>
           <i class="fa fa-pencil pull-right"></i></p>
         </accordion-heading>
         
@@ -28,17 +37,24 @@
         
         <div class="prodo-product-general "  >
           <!-- admin tasks -->
-          <div style="float:right; display: none" id="prodo.productAdmin">
+
+         
+
+          <div style="float:right; " id="prodo.productAdmin" ng-style="checkAdmintoUpdateProduct();">
            
            
-            <a href=""  data-toggle="collapse" data-target="#Edit" ng-click="enableEditor() ;  editStatus='add'; clearText(); " > <i class="fa fa-plus-square"></i></a>
+          
 
             <a href=""   ng-click="editStatus='update' ; enableEditor() ;  " data-toggle="collapse" data-target="#Edit" >  <i class="fa fa-pencil-square-o "></i></a>
             <a href=""  data-toggle="modal" data-target="#myModal">   <i class="fa fa-trash-o"></i> </a>    
             
             
           </div>
-            <!-- Modal -->
+           <div style="float:right; " id="prodo.productAdminAddProduct">
+           <a href=""  data-toggle="collapse" data-target="#Edit" ng-click="enableEditor() ;  editStatus='add'; clearText(); " > <i class="fa fa-plus-square"></i></a>&nbsp;&nbsp;
+           </div>
+
+     <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -50,8 +66,8 @@
             Are you sure you want to delete ?
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-primary" ng-click="deleteProduct();" data-dismiss="modal" >Delete Product</button>
+            <button type="button" class="btn btn-default glyphicon glyphicon-remove" data-dismiss="modal"></button>
+            <button type="button" class="btn btn-danger glyphicon glyphicon-trash " ng-click="deleteProduct();" data-dismiss="modal" ></button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
@@ -120,8 +136,8 @@
                 <tr ><td colspan="2">
               <!--   <button type="submit" class="btn btn-info" style="width: 550px;"  ng-click=" $parent.isEditing = false" >Save</button>
             -->
-            <a  ng-click="addProduct(editStatus);disableEditor();" class="btn btn-primary btn-sm glyphicon glyphicon-floppy-save pull-right" style="border-radius: 10px; margin: 5px;"  >Save</a>
-            <a class="btn btn-primary btn-sm glyphicon glyphicon-remove pull-right" style="border-radius: 10px; margin: 5px;" ng-click="disableEditor()">Cancel</a>
+            <a  ng-click="addProduct(editStatus);disableEditor();" class="btn btn-default btn-sm fa fa-floppy-o pull-right" style=" margin: 5px;"   ></a>
+            <a class="btn btn-default btn-sm glyphicon glyphicon-remove pull-right"  style=" margin: 5px;"  ng-click="disableEditor()"></a>
           </td>
         </tr>
       </table>
@@ -138,19 +154,19 @@
 
 <accordion-group>
   <accordion-heading>
-  <p  style='font-weight:bold; font-size: 13px; margin: 0;'>Product Features<i class="fa fa-pencil pull-right"></i></p>
+  <p  style='font-weight:bold; font-size: 15px; margin: 0;'>Product Features<i class="fa fa-pencil pull-right"></i></p>
   </accordion-heading>
     <!-- data here -->
 
 
-  <div style="float:right; " id="prodo.productAdmin">
+  <div style="float:right;" ng-style="checkAdmintoUpdateProduct();" id="prodo.productAdmin">
     <a href=""  data-toggle="collapse" data-target="#Editfeature" ng-click="enableEditor() ;  editStatus='add';  " > <i class="fa fa-plus-square"></i></a>
   </div>
 
   <form    id="Editfeature" class="collapse"  ng-show="editorEnabled"  name="productFeaturesForm" >
     <table class="table child " id="prodo-ProductFeatureTable" >
       <tr>
-        <td colspan="2">   Feature name <input ng-model="$parent.$parent.feature.name"   id="prodo-product-features_textfield" class="form-control"  type="text" style="float: right"  required name="name" />  </td>
+        <td >   Feature name <input ng-model="$parent.$parent.feature.name"   id="prodo-product-features_textfield" class="form-control"  type="text" style="float: right"  required name="name" />  </td>
     
       </tr>
       <tr>
@@ -160,8 +176,8 @@
   
     <tr ><td colspan="2">
    
-    <a  ng-click="addProductFeature(editStatus);disableEditor();" class="btn btn-primary btn-sm glyphicon glyphicon-floppy-save pull-right" style="border-radius: 10px; margin: 5px;"  >Save</a>
-    <a class="btn btn-primary btn-sm glyphicon glyphicon-remove pull-right" style="border-radius: 10px; margin: 5px;" ng-click="disableEditor()">Cancel</a>
+    <a  ng-click="addProductFeature(editStatus);disableEditor();" class="btn btn-default btn-sm fa fa-floppy-o pull-right" style=" margin: 5px;"  ></a>
+    <a class="btn btn-default btn-sm glyphicon glyphicon-remove pull-right" style=" margin: 5px;" ng-click="disableEditor()"></a>
   </td>
 </tr>
 </table>
@@ -173,10 +189,10 @@
    <tr >
      <td> <dt>Feature</dt> </td>
      <td> <dt>Description </dt></td>
-     <td> <dt>Option</dt> </td>
+     <td ng-style="checkAdmintoUpdateProduct();"> <dt>Option</dt> </td>
    
    </tr>
-   <tr ng-repeat="feature in features track by feature.featureid">
+   <tr ng-repeat="feature in features track by $index">
      <td ng-hide="edit" >  {{feature.featurename}}</td>
 
      <td  ng-show="edit" ><input ng-model="feature.featurename"  style="width:150px;" class="form-control"  type="text"   required name="name" /> </td>
@@ -186,7 +202,7 @@
       <td  ng-show="edit" ><input ng-model="feature.featuredescription" style="width:300px;" class="form-control"  type="text"   required name="name" /> </td>
   
 
-    <td ng-hide="edit" >
+    <td ng-hide="edit" ng-style="checkAdmintoUpdateProduct();">
 
       <a href=""     ng-click="edit = ! edit; editStatus='update';  "> <i class="fa fa-pencil " /> </a>
         &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
@@ -194,8 +210,8 @@
     </td>
     <td ng-show="edit">
   
-       <a id="Editfeature1" ng-click="updateProductFeature(feature,feature.featureid);edit = ! edit;" class="btn btn-primary btn-sm glyphicon glyphicon-floppy-save " style="margin: 5px;"  ></a>
-      <a id="Editfeature1" class="btn btn-primary btn-sm glyphicon glyphicon-remove " style=" margin: 5px;" ng-click="edit = ! edit;"></a>
+       <a id="Editfeature1" ng-click="updateProductFeature(feature,feature.featureid);edit = ! edit;" class="btn btn-default  btn-sm fa fa-floppy-o " style="margin: 5px;"  ></a>
+      <a id="Editfeature1" class="btn btn-default  btn-sm glyphicon glyphicon-remove " style=" margin: 5px;" ng-click="edit = ! edit;"></a>
 
 
     </td>
@@ -211,17 +227,17 @@
 
 <accordion-group>
 <accordion-heading>
-<p  style='font-weight:bold; font-size: 13px; margin: 0;'>Product Images<i class="fa fa-pencil pull-right"></i></p>
+<p  style='font-weight:bold; font-size: 15px; margin: 0;'>Product Images<i class="fa fa-pencil pull-right"></i></p>
 </accordion-heading>
 
 <div class="table child " id="prodo-ProductFeatureTable" >
   <form   name="ProductImg" >
     <div class="checkboxFilter"  style="padding: 10px;">
-      <span  id="showHideAllchkLabel" ng-style="checkAdminProductImagesDelete();" >Show/Hide All</span>  
+      <span  id="showHideAllchkLabel" ng-style="checkAdminProductImagesDelete();" >Select All</span>  
       <input id="showHideAllchk" ng-style="checkAdminProductImagesDelete();"  type="checkbox" ng-click="masterChange();"  name="pinSet ">
       &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;            
-      <button type="button" class="btn btn-success  " id="prodo-deleteProductImage" ng-style="checkAdminProductImagesDelete();" ng-click="deleteProductImages($index);"  >
-        <span class="glyphicon glyphicon-trash"></span> Delete images
+      <button type="button" class=" btn btn-danger  " id="prodo-deleteProductImage" ng-style="checkAdminProductImagesDelete();" data-toggle="modal" data-target="#imgDelModal"   >
+        <span class="glyphicon glyphicon-trash"></span> 
       </button> 
       <br>
       <br />
@@ -232,6 +248,24 @@
     </div>
   </form>
 </div>
+ <!-- Modal -->
+    <div class="modal fade" id="imgDelModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">Delete Images</h4>
+          </div>
+          <div class="modal-body">
+            Are you sure you want to delete selected images?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default glyphicon glyphicon-remove" data-dismiss="modal"></button>
+            <button type="button" class="btn btn-danger glyphicon glyphicon-trash"  ng-click="deleteProductImages($index);" data-dismiss="modal" ></button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 
 </accordion-group>
 </accordion>

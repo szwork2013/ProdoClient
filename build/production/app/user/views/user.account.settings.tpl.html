@@ -1,9 +1,9 @@
 <div style="border: 1px solid #b3b3b3; border-radius: 5px; padding: 5px; " id="prodo-user-account-container" style="" class="container" ng-controller="UploadController">
-  <h4 style="font-weight: bold;"><center>User Accounts</center></h4>
-  <div style="border-radius: 5px; margin-bottom: 5px;">
-      <img ng-src="{{user.profile_pic}}" style="width:150px; height:120px; margin: 20px;">
-      <h4 style="margin-left: 20px;">{{user.username}}</h4>
-      <a class="btn btn-danger btn-sm pull-right" style="border-radius: 10px; margin: 10px;" href="" data-toggle="modal" data-target="#myModal"><i style="margin-right: 5px;" class="fa fa-trash-o fa-lg"></i>Delete</a>
+  <h4 style="font-weight: bold; margin-top: 5px; margin-bottom: 5px;"><center>User Accounts</center></h4>
+  <div style="height:190px; border-radius: 5px; margin-bottom: 10px;">
+      <img ng-src="{{user.profile_pic}}" style="width:150px; height:100px; margin: 10px;">
+      <h4 style="margin-left: 20px; margin-top: 2px; margin-bottom: 2px;">{{user.username}}</h4>
+      <a class="btn btn-danger btn-sm pull-right" style="border-radius: 10px; margin: 5px;" href="" data-toggle="modal" data-target="#myModal"><i style="margin-right: 5px;" class="fa fa-trash-o fa-lg"></i>Delete</a>
       <div id="uploadWrapper" class="btn btn-success">
         <p><i style="margin-right: 5px;" class="fa fa-upload"></i>Upload Photo</p>
           <input type="file" name="file" ng-file-select="onFileSelect($files)"
@@ -37,84 +37,92 @@
     	<accordion-heading>
         <p style='font-weight:bold; font-size: 13px; margin: 0;'>General Settings<i class="fa fa-pencil pull-right"></i></p>
       </accordion-heading>
-        <a ng-hide="editorEnabled" class="btn btn-primary btn-sm glyphicon glyphicon-edit pull-right" style="border-radius: 10px; margin: 5px;" href="#" ng-click="enableEditor()">Edit</a>
+        <a ng-hide="editEmail" class="btn btn-primary btn-sm glyphicon glyphicon-edit pull-right" style="border-radius: 10px; margin: 5px;" href="#" ng-click="emailEditor()">Edit</a>
         <div>
             <dl ng-show='user.org.orgid' class="dl-horizontal">
               <dt>Organization Name:</dt>
-              <dd>{{user.org.orgtype}}</dd>
+              <dd>{{user.org.orgname}}</dd>
             </dl>
             <dl class="dl-horizontal">
               <dt>UserName:</dt>
-              <dd ng-hide="editorEnabled">{{user.username}}</dd>
-              <dd ng-show="editorEnabled"><input style=" height:30px; display:block" class="form-control" ng-model="user.username"></dd>
+              <dd>{{user.username}}</dd>
             </dl>
             <dl class="dl-horizontal">
               <dt>Email:</dt>
-              <dd ng-hide="editorEnabled">{{user.email}}</dd>
-              <dd ng-show="editorEnabled"><input style=" height:30px; display:block" class="form-control" ng-model="user.email">
+              <dd ng-hide="editEmail">{{user.email}}</dd>
+              <dd ng-show="editEmail"><input style="width:55%; height:30px; display:block" type="email" class="form-control" ng-model="user.email">
               </dd>
             </dl>
-            <dl ng-show="editorEnabled" class="dl-horizontal">
+            <dl ng-show="editEmail" class="dl-horizontal">
               <dt>Password:</dt>
-              <dd><input style=" height:30px; display:block" class="form-control" ng-model="user.password1" placeholder="Please enter your password"></dd>
+              <dd><input style="width:55%; height:30px; display:block" class="form-control" type="password" ng-model="user.password" placeholder="Please enter your password"></dd>
             </dl>
         </div>
-        <div ng-show="editorEnabled">
-            <a class="btn btn-primary btn-sm glyphicon glyphicon-floppy-save pull-right" style="border-radius: 10px; margin: 5px;" ng-click="updateUserAccount()">Save</a>
-            <a class="btn btn-primary btn-sm glyphicon glyphicon-remove pull-right" style="border-radius: 10px; margin: 5px;" ng-click="disableEditor()">Cancel</a>
+        <div ng-show="editEmail">
+            <a class="btn btn-primary btn-sm glyphicon glyphicon-floppy-save pull-right" style="border-radius: 10px; margin: 5px;" ng-click="updateUserEmail()">Save</a>
+            <a class="btn btn-primary btn-sm glyphicon glyphicon-remove pull-right" style="border-radius: 10px; margin: 5px;" ng-click="emailEditor()">Cancel</a>
         </div>
         <br>
         <hr size=3 width="90%;" style="height:1px; margin-top: 0;" noshade>
-        <br>
-
+        <p style="text-align:center; font-size:15px;" class="text-info"><strong>Change Password Settings</strong></p>
         <div>
             <dl class="dl-horizontal">
+              <dt>Current Password:</dt>
+              <dd><input type="password" style="width:55%; height:30px; display:block" class="form-control" ng-model="user.currentpassword" placeholder="Please enter your current password"></dd>
+            </dl>
+            <dl class="dl-horizontal">
               <dt>New Password:</dt>
-              <dd><input style=" height:30px; display:block" class="form-control" ng-model="user.password1" placeholder="Please enter your new password"></dd>
+              <dd><input type="password" style="width:55%; height:30px; display:block" class="form-control" ng-model="user.newpassword" prodonus-password-validate placeholder="Please enter your new password"></dd>
             </dl>
             <dl class="dl-horizontal">
               <dt>Confirm Password:</dt>
-              <dd><input style=" height:30px; display:block" class="form-control" ng-model="user.password1" placeholder="Please confirm your password"></dd>
+              <dd><input type="password" style="width:55%; height:30px; display:block" class="form-control" ng-model="user.confirmpassword" prodonus-password-check="user.newpassword" placeholder="Please confirm your password"></dd>
             </dl>
             <div>
-              <a class="btn btn-primary btn-sm glyphicon glyphicon-floppy-save pull-right" style="border-radius: 10px; margin: 5px;" ng-click="resetPassword()">Save</a>
+              <a class="btn btn-primary btn-sm glyphicon glyphicon-floppy-save pull-right" style="border-radius: 10px; margin: 5px;" ng-click="changePassword()">Save</a>
               <a class="btn btn-primary btn-sm glyphicon glyphicon-remove pull-right" style="border-radius: 10px; margin: 5px;" ng-click="clear()">Cancel</a>
             </div>
         </div>
 
         <br>
         <hr size=3 width="90%;" style="height:1px; margin-top: 0;" noshade>
-        <br>
-
+        <p style="text-align:center; font-size:15px;" class="text-info"><strong>Other User Settings</strong></p>
+        <a ng-hide="editorEnabled" class="btn btn-primary btn-sm glyphicon glyphicon-edit pull-right" style="border-radius: 10px; margin: 5px;" href="#" ng-click="enableEditor()">Edit</a>
         <div>
             <dl class="dl-horizontal">
               <dt>Firstname:</dt>
-              <dd><input type="text" style=" height:30px; display:block" class="form-control" ng-model="user.firstname" placeholder="firstname"></dd>
+              <dd ng-show="((user.firstname != null) && !editorEnabled)">{{user.firstname}}</dd>
+              <dd ng-show="((user.firstname == null) || editorEnabled)"><input type="text" style="width:55%; height:30px; display:block" class="form-control" ng-model="user.firstname" placeholder="firstname"></dd>
             </dl>
             <dl class="dl-horizontal">
               <dt>Lastname:</dt>
-              <dd><input type="text" style=" height:30px; display:block" class="form-control" ng-model="user.lastname" placeholder="lastname"></dd>
+              <dd ng-show="((user.lastname != null) && !editorEnabled)">{{user.lastname}}</dd>
+              <dd ng-show="((user.lastname == null) || editorEnabled)"><input type="text" style="width:55%; height:30px; display:block" class="form-control" ng-model="user.lastname" placeholder="lastname"></dd>
             </dl>
             <dl class="dl-horizontal">
               <dt>Date Of Birth:</dt>
-              <dd><input type="date" style=" height:30px; display:block" class="form-control" ng-model="user.DOB" placeholder="date of birth"></dd>
+              <dd ng-show="((user.dob != null) && !editorEnabled)">{{user.dob | date: 'MMM-dd-yyyy'}}</dd>
+              <dd ng-show="((user.dob == null) || editorEnabled)" ><input type="date" style="width:55%; height:30px; display:block" class="form-control" ng-model="user.dob" placeholder="date of birth"></dd>
             </dl>
             <dl class="dl-horizontal">
               <dt>Gender:</dt>
-              <dd><input type="radio" ng-model="user.gender" value="Male"> Male  
+              <dd ng-show="((user.gender != null) && !editorEnabled)">{{user.gender}}</dd>
+              <dd ng-show="((user.gender == null) || editorEnabled)"><input type="radio" ng-model="user.gender" value="Male"> Male  
               <input type="radio" ng-model="user.gender" value="Female"> Female</dd>
             </dl>
             <dl class="dl-horizontal">
               <dt>Mobile No:</dt>
-              <dd><input type="text" ng-pattern="/^[0-9]{10}$/" style=" height:30px; display:block" class="form-control" ng-model="user.mobileno" placeholder="mobile no."></dd>
+              <dd ng-show="((user.mobile != null) && !editorEnabled)">{{user.mobile}}</dd>
+              <dd ng-show="((user.mobile == null) || editorEnabled)"><input type="text" ng-pattern="/^[0-9]{10}$/" style="width:55%; height:30px; display:block" class="form-control" ng-model="user.mobile" placeholder="mobile no."></dd>
             </dl>
             <dl class="dl-horizontal">
               <dt>Phone No:</dt>
-              <dd><input type="text" ng-pattern="/^[0-9]$/" style=" height:30px; display:block" class="form-control" ng-model="user.phoneno" placeholder="phone no.(020-2123456)"></dd>
+              <dd ng-show="((user.phone != null) && !editorEnabled)">{{user.phone}}</dd>
+              <dd ng-show="((user.phone == null) || editorEnabled)"><input type="text" ng-pattern="/^[0-9]*$/" style="width:55%; height:30px; display:block" class="form-control" ng-model="user.phone" placeholder="phone no.(020-2123456)"></dd>
             </dl>
-            <div>
-              <a class="btn btn-primary btn-sm glyphicon glyphicon-floppy-save pull-right" style="border-radius: 10px; margin: 5px;" ng-click="updateUserAccount()">Save</a>
-              <a class="btn btn-primary btn-sm glyphicon glyphicon-remove pull-right" style="border-radius: 10px; margin: 5px;" ng-click="clear()">Cancel</a>
+            <div ng-show="((user.firstname == null) || editorEnabled)">
+              <a class="btn btn-primary btn-sm glyphicon glyphicon-floppy-save pull-right" style="border-radius: 10px; margin: 5px;" ng-click="updateUserAccount()"><div prodo-spinner></div>Save</a>
+              <a class="btn btn-primary btn-sm glyphicon glyphicon-remove pull-right" style="border-radius: 10px; margin: 5px;" ng-click="disableEditor()">Cancel</a>
             </div>
         </div>
     </accordion-group>
@@ -123,39 +131,55 @@
     	<accordion-heading>
         <p style='font-weight:bold; font-size: 13px; margin: 0;'>Location<i class="fa fa-pencil pull-right"></i></p>
       </accordion-heading>
-        <div>
+        <p style="text-align:center; font-size:15px;" class="text-info"><strong>User Address Settings</strong></p>
+        <div ng-show="((user.address.address1 == null) || editAddress)">
             <dl class="dl-horizontal">
               <dt>Address Line1:</dt>
-              <dd><input type="text" style=" height:30px; display:block" class="form-control" ng-model="user.address1" placeholder="address line1"></dd>
+              <dd><input type="text" style="width:55%; height:30px; display:block" class="form-control" ng-model="user.address.address1" placeholder="address line1"></dd>
             </dl>
             <dl class="dl-horizontal">
               <dt>Address Line2:</dt>
-              <dd><input type="text" style=" height:30px; display:block" class="form-control" ng-model="user.address2" placeholder="address line2"></dd>
+              <dd><input type="text" style="width:55%; height:30px; display:block" class="form-control" ng-model="user.address.address2" placeholder="address line2"></dd>
             </dl>
             <dl class="dl-horizontal">
               <dt>Address Line3:</dt>
-              <dd><input type="text" style=" height:30px; display:block" class="form-control" ng-model="user.address3" placeholder="address line3"></dd>
+              <dd><input type="text" style="width:55%; height:30px; display:block" class="form-control" ng-model="user.address.address3" placeholder="address line3"></dd>
             </dl>
             <dl class="dl-horizontal">
               <dt>Country:</dt>
-              <dd><input type="text" style=" height:30px; display:block" class="form-control" ng-model="user.country" placeholder="country"></dd>
+              <dd><input type="text" ng-pattern="/^[A-z]*$/" style="width:55%; height:30px; display:block" class="form-control" ng-model="user.address.country" placeholder="country"></dd>
             </dl>
             <dl class="dl-horizontal">
               <dt>State:</dt>
-              <dd><input type="text" ng-pattern="/^[0-9]{10}$/" style=" height:30px; display:block" class="form-control" ng-model="user.state" placeholder="state"></dd>
+              <dd><input type="text" ng-pattern="/^[A-z]*$/" style="width:55%; height:30px; display:block" class="form-control" ng-model="user.address.state" placeholder="state"></dd>
             </dl>
             <dl class="dl-horizontal">
               <dt>City:</dt>
-              <dd><input type="text" ng-pattern="/^[0-9]$/" style=" height:30px; display:block" class="form-control" ng-model="user.city" placeholder="city"></dd>
+              <dd><input type="text" ng-pattern="/^[A-z]*$/" style="width:55%; height:30px; display:block" class="form-control" ng-model="user.address.city" placeholder="city"></dd>
             </dl>
             <dl class="dl-horizontal">
               <dt>Zipcode:</dt>
-              <dd><input type="text" ng-pattern="/^[0-9]$/" style=" height:30px; display:block" class="form-control" ng-model="user.zipcode" placeholder="zipcode"></dd>
+              <dd><input type="text" ng-pattern="/^[0-9]*$/" style="width:55%; height:30px; display:block" class="form-control" ng-model="user.address.zipcode" placeholder="zipcode"></dd>
             </dl>
-            <div>
-              <a class="btn btn-primary btn-sm glyphicon glyphicon-floppy-save pull-right" style="border-radius: 10px; margin: 5px;" ng-click="updateUserAccount()">Save</a>
-              <a class="btn btn-primary btn-sm glyphicon glyphicon-remove pull-right" style="border-radius: 10px; margin: 5px;" ng-click="clear()">Cancel</a>
+            <div ng-show="((user.address.address1 == null) || editAddress)">
+              <a class="btn btn-primary btn-sm glyphicon glyphicon-floppy-save pull-right" style="border-radius: 10px; margin: 5px;" ng-click="updateUserAddress()">Save</a>
+              <a class="btn btn-primary btn-sm glyphicon glyphicon-remove pull-right" style="border-radius: 10px; margin: 5px;" ng-click="addrEditor()">Cancel</a>
             </div>
+        </div>
+        <div ng-show="((user.address.address1 != null) && !editAddress)">
+          <a ng-hide="editAddress" class="btn btn-primary btn-sm glyphicon glyphicon-edit pull-right" style="border-radius: 10px; margin: 5px;" href="#" ng-click="addrEditor()">Edit</a>
+          <dl class="dl-horizontal">
+              <dt>Address:</dt>
+              <dd>
+                <address>
+                  {{user.address.address1}},<br>
+                  {{user.address.address2}},<br>
+                  {{user.address.address3}}, {{user.address.city}}<br>
+                  {{user.address.state}}, {{user.address.country}}<br>
+                  <abbr title="Zipcode">Z:</abbr> {{user.address.zipcode}}
+                </address>
+              </dd>
+            </dl>
         </div>
            
     </accordion-group>
@@ -181,70 +205,56 @@
     	<accordion-heading>
         <p style='font-weight:bold; font-size: 13px; margin: 0;'>Products Followed<i class="fa fa-pencil pull-right"></i></p>
       </accordion-heading>
-        <div id="productfollowed">
-
-          <table class="table table-striped">
-            <thead>
-              <tr>
-              <th>Prodle</th>
-              <th>Product Name</th>
-              <th>Unfollow</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr ng-repeat="products_followed in user.products_followed">
-              <td>{{products_followed.prodle}}</td>
-              <td>{{products_followed.productname}}</td>
-              <td><button class="btn btn-sm">Unfollow</button></td>
-              </tr>
-            </tbody>
-          </table>
+        <div ng-show="(user.products_followed.length == 0)">
+          <p style="text-align:left; font-size:20px; margin: 20px auto;" class="text-success"><strong><em>You are not following any products.</em></strong></p>
         </div>
-        
+        <div style="width:160px; min-height: 200px; float: left; margin: 5px; border: solid 1px #ccc;" ng-repeat="productf in products_followed">
+          <p style="margin:5px auto; display:block; text-align:center; font-weight:bold; font-size:12px;">{{productf.name}}</p>
+          <img style="margin:0px auto; display:block; width:95%; height: 150px; " src="{{productf.product_logo}}" alt=" No Image" class="img-rounded">
+          <button style="margin:5px auto; display:block; height:25px; width: 95%; background-color:#304A61;" class="btn btn-primary btn-sm" ng-click='unfollow(productf)'>unfollow</button>
+        </div>
     </accordion-group>
     <accordion-group>
       <accordion-heading>
             <p style='font-weight:bold; font-size: 13px; margin: 0;'>Products Recommended<i class="fa fa-pencil pull-right"></i></p>
         </accordion-heading>
-        <div id="productrecommend">
-
-          <table class="table table-striped">
-            <thead>
-              <tr>
-              <th>Prodle</th>
-              <th>Product Name</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr ng-repeat="products_recommend in user.products_recommends">
-              <td>{{products_recommend.prodle}}</td>
-              <td>{{products_recommend.productname}}</td>
-              </tr>
-            </tbody>
-          </table>
+          <div ng-show="(user.products_recommends.length == 0)">
+            <p style="text-align:left; font-size:20px; margin: 20px auto;" class="text-success"><strong><em>You have not recommended any products.</em></strong></p>
+          </div>
+          <div style="width:160px; min-height: 200px; float: left; margin: 5px; border: solid 1px #ccc;" ng-repeat="productr in products_recommends">
+            <p style="margin:5px auto; display:block; text-align:center; font-weight:bold; font-size:12px;">{{productr.name}}</p>
+            <img style="margin:0px auto; display:block; width:95%; height: 150px; " src="{{productr.product_logo}}" alt=" No Image" class="img-rounded">
         </div>
-        
     </accordion-group>
 
     <accordion-group ng-hide='user.org.orgid'>
     	<accordion-heading>
            <p style='font-weight:bold; font-size: 13px; margin: 0;'>Subscription<i class="fa fa-pencil pull-right"></i></p>
         </accordion-heading>
-        This is just some content to illustrate fancy headings.
+        <div ng-show="usersession.currentUser.isSubscribed">
+          <p style="text-align:left; font-size:20px; margin: 20px auto;" class="text-success"><strong><em>You are currently subscribed for 90-days Free Trial Plan.<br>
+          No payment has been taken during trial plan.</em></strong></p>
+        </div>
     </accordion-group>
 
     <accordion-group ng-hide='user.org.orgid'>
     	<accordion-heading>
             <p style='font-weight:bold; font-size: 13px; margin: 0;'>Payment<i class="fa fa-pencil pull-right"></i></p>
         </accordion-heading>
-        This is just some content to illustrate fancy headings.
+        <div ng-show="usersession.currentUser.hasDonePayment">
+          <p style="text-align:left; font-size:20px; margin: 20px auto;" class="text-success"><strong><em>You are currently subscribed for 90-days Free Trial Plan.<br>
+          No payment has been taken during trial plan.</em></strong></p>
+        </div>
     </accordion-group>
 
     <accordion-group ng-hide='user.org.orgid'>
     	<accordion-heading>
             <p style='font-weight:bold; font-size: 13px; margin: 0;'>Payment History<i class="fa fa-pencil pull-right"></i></p>
         </accordion-heading>
-        This is just some content to illustrate fancy headings.
+        <div ng-show="usersession.currentUser.hasDonePayment">
+          <p style="text-align:left; font-size:20px; margin: 20px auto;" class="text-success"><strong><em>You are currently subscribed for 90-days Free Trial Plan.<br>
+          No payment has been taken during trial plan.</em></strong></p>
+        </div>
     </accordion-group>
 
   </accordion>

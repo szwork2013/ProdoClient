@@ -37,35 +37,36 @@
 
 
          <div class="modal-body" ng-controller="prodoUserProfileDataController">                 
-          <img ng-src="{{modaluser.profile_pic}}" class="productFollowedImage " id="profilePic"/>
-          <p class="paras">
-            <a  id="uder_ID" >{{modaluser.username}}</a> <a href="#" id="org_ID"></a><a href="#" id="grp_name" ng-model="hello"></a>
-          </p>     
+                <div class="classMain">
+                  <h5 ng-bind=" modaluser.username"></h5>
+                    <img ng-src="{{modaluser.profile_pic}}" style="height:90px;width:90px; "/>
+                </div>
+                <br><hr>
+                <div  class="classMain">
+                   <h4> Product Followed </h4>
+                        <div ng-repeat="products in modaluser.products_followed"  
+                        class="effectpic" ><center>
+                          <p >{{products.name}}</p>
+                          <img ng-src="{{products.product_logo}}" class="prodleImage" ng-click="emitProductData(products.prodle,products.orgid)"></center>
+                        </div>
+                </div>
+                <br><hr>
+                 <div class="classMain">
+                   <h4> Product Recommended </h4>
+                        <div ng-repeat="products in modaluser.products_recommends"   class="effectpic" >
+                         <center> <p >{{products.name}}</p>
+                          <img ng-src="{{products.product_logo}}" class="prodleImage" ng-click="emitProductData(products.prodle,products.orgid)"></center>
+                        </div>
+                </div>
         </div>  
 
 
 
 
-        <div> 
-         <p ><h5 class="productFollowedParagraphs">Product Followed</h5></p>
-         <a href="#" class="productFollowedParagraphs" id="productFollowedName"></a><br>
-         <img  id="productImage" src="" class="productFollowedImages"></img>
-       </div>
-
-       <br><br><br><br><br>
-
-
-
-       <div >
-         <p ><h5 class="productFollowedParagraphs">Product Recommended</h5></p>
-         <a href="#" class="productFollowedParagraphs" if="productRecommendedName"></a><br>
-         <img class="productFollowedImages"  id="productRImage"></img> 
-       </div>
 
 
 
 
-       <br><br><br><br><br><br><br><br><br>
 
 
        <div class="modal-footer">
@@ -120,10 +121,43 @@
                   <div id="Remove" ng-show="tabCommentImg == 1"   >
 
                    <div id="img2">
-                    <img style="width:50px; height:50px;"  id="img-user" ng-src="{{comment.comment_image[0].image}}"   /> 
+                    <img style="width:50px; height:50px;"  id="img-user" ng-src="{{comment.comment_image[0].image}}"   ng-click="captureCommentImageHere(comment.comment_image[0].image)" data-toggle="modal" data-target="#testmodalx" /> 
 
                   </div>      
                 </div>
+<!-- Code for comment image modal -->
+
+<div id = "testmodalx" class="modal fade" style="left:200px" >
+  <div class="modal-dialog"> 
+    <div class="modal-content"> 
+
+<!-- Layer slider code from slider/ only image changed -->
+
+
+            <div id="layerslider-container">    
+                <div id="layerslider" prodo-slider style="width: 500px; height: 250px; margin: 0 auto;">
+                     <div class="ls-layer" ng-repeat="slide in org.org_images" >     
+                          <img ng-src="{{commentImageShow}}"class="ls-bg" >    <!-- Function written in product controller -->
+                     </div>
+                 </div>
+             </div>
+             
+<!--  -->
+
+
+
+
+        <img ng-src="{{commentImageShow}}" />
+    </div>
+  </div>
+</div>
+
+
+<!--  -->
+
+
+
+
               </div>
             </div>
           </li>

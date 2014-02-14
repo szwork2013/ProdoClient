@@ -1,9 +1,9 @@
-
-<!-- Org list code -->
-<div id="prodo-sidebar-trendingproductlist-container" class="container">
-  <div id="prodo-sidebar-list-group" class="list-group">
-    <div id="prodo-sidebar-list" class="list" >
-      <a ng-class="{'active':isCurrentListIndex(0)}" href="#" id="prodo-sidebar-list-group-item" class="list-group-item">Products Followed</a>
+  
+<!-- Product list code -->
+<div id="prodo-sidebar-followedproductlist-container" class="container">
+   <div id="prodo-sidebar-list-group" class="list-group">
+    <div id="prodo-sidebar-list" class="list" ng-repeat="fp in usersession.currentUser.products_followed">
+      <a ng-class="{'active':isCurrentListIndex($index)}" href="#" id="prodo-sidebar-list-group-item" class="list-group-item">{{fp.name}}</a>
     </div>
   </div>
 </div>
@@ -16,11 +16,11 @@
       <div  id="prodo-sidebar-list-group-main" class="list-group-item">
         <!--  <input type="text" class="prodoAdvancedSearchTextbox"  name="product" typeahead="product.value for product in products_id| filter:$viewValue | limitTo:8" id="searchText" ng-model="product" style="width:100%" placeholder="Search..." ng-click="searchProductP()"></input>
  -->
-         <input type="text" class="prodoAdvancedSearchTextbox"  name="product" typeahead="product.name for product in productNames| filter:$viewValue | limitTo:10" id="searchText" ng-model="productSearch.product" style="width:100%" placeholder="Search..." ng-click="searchProductP()" typeahead-on-select="sampleDataEmitSearch()" ></input>
+         <input type="text" class="prodoAdvancedSearchTextbox"  name="product" typeahead="name for name in enhancement| filter:$viewValue | limitTo:10" id="searchText" ng-model="productSearch.product"  style="width:100%" placeholder="Search..."  typeahead-on-select="sampleDataEmitSearch()" ></input>
 
 
           </br></br>
-        <a data-toggle="modal"  data-target="#testmodal" ng-click="temp()" >Advanced Search</a>
+        <a data-toggle="modal"  data-target="#testmodal" ng-click="modalReset()" >Advanced Search</a>
 <!-- start of advanced search -->
  <div id = "testmodal" class="modal fade" >
      <div class="modal-dialog">
@@ -72,16 +72,39 @@
                 <div class="row">          
                    <div class="col-lg-6">
                       <div class="input-group">
-                         <input type="text" placeholder="Model Number [ eg:Grang Duos,S4 ]"  ng-model="model_number" id="textBoxModelNumber" class="prodoAdvancedSearchTextbox">
+                         <input type="text" placeholder="Please Enter Exact   Model Number [ eg:Grang Duos,S4 ]"  ng-model="model_number" id="textBoxModelNumber" class="prodoAdvancedSearchTextbox">
               
                       </div><!-- /input-group -->
                    </div><!-- /.col-lg-6 -->
                 </div>    
+
    <!--  -->
+   <!--  -->
+                  <br>
+                  <div class="row">         
+                    <div class="col-lg-6">
+                       <div class="input-group">
+                         <input type="text" class="prodoAdvancedSearchTextbox" placeholder="Organization Name [ eg:Prodonus]" id="textBoxOrgName" ng-model="org">
+               
+                      </div><!-- /input-group --> 
+                      </div>   &nbsp;
+                  </div>    
+
+
                         </br>
            <p>Search Criteria:{{search}}</p>
-                
-             
+
+
+                         <div id="prodo-searchResults">
+                                <u> <h5>{{message}}</h5><u>
+                                  <ol>
+                                 <li ng-repeat="list in result">
+                                 <a ng-click="emitProdle(list.prodle,list.orgid)">{{list.name}}</a>
+
+                                 </li>  </ol>   
+                                 </div>
+
+
                 </div>  
                     
                             <div class="modal-footer">
