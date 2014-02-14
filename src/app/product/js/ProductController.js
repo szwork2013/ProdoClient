@@ -34,7 +34,7 @@
               $scope.tagPairs= [];
 
               //product
-              
+
               $scope.editStatus;
               $scope.product = {product: [{}]};
               $scope.newProduct = {product: [{}]};
@@ -523,7 +523,7 @@
                   $scope.socket.emit('addComment', $rootScope.product_prodle, $scope.newProductComment.product_comment);
                   $scope.productComments.unshift($scope.newProductComment_image.product_comment);
                   $scope.commenttextField.userComment = "";
-                  $scope.tagPairs="";
+                  $scope.tagPairs=[];
                   $rootScope.count=0;
                   document.getElementById('prodo-comment-commentContainer').style.marginTop='0px';
                   document.getElementById("crossButton").style.display="none";

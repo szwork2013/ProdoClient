@@ -1464,7 +1464,11 @@ ul {list-style-type: none; }
 #prodo-comment-tabs{height: 10px;}
 #prodo-comment-timePosted{font-size:10px; }
 #fa-removeComment:hover{}
-.commentSearchTextbox{background: #FFF url(http://www.cssportal.com/form-elements/images/search.png) no-repeat 4px 4px; 
+
+ul#commentTab li a:hover,ul#commentTab li.active a{
+  border-bottom-color: red;
+}
+.commentSearchTextbox{
     border: 1px solid #999; 
     outline:0; 
     padding-left: 25px;

@@ -21,14 +21,14 @@
 <!-- tabs -->
 
  <div class="prodo-comment-Text-tabs " id="tabs" style="align:left;"  >
-    <ul id="commentNavTab" class="nav nav-pills" ng-init="tabSearch = false;
+    <ul id="commentTab" class=" commentTab nav nav-pills" ng-init="tabSearch = false;
     tabComment = true" >
             
              <li >
-             <a  style="cursor: pointer; cursor: hand;" ng-click="tabComment = tabComment === false ? true : false; tabSearch=false;">
+             <a  style="cursor: pointer; cursor: hand;" ng-click="tabComment = true; tabSearch=false;">
              <div  id="fa-removeComment" name="rm" class=" fa fa-comments-o fa-lg  " ></div></a></li>
               <li>
-              <a  style="cursor: pointer; cursor: hand;"  ng-click="tabSearch = tabSearch === false ? true : false;
+              <a  style="cursor: pointer; cursor: hand;"  ng-click="tabSearch =  true ;
                 tabComment = false;">
                 <div id="fa-tagsComment" class="fa fa-search fa-lg"  ></div></a></li>        
               </ul> 
@@ -84,20 +84,17 @@
                                     <input type="file"    >
                                   </label>
                                 </p>
-                              
-                        
+                                                  
                             </div> 
-
-
 
                   </div>     
 
 
-                  <div id="Remove" ng-show="tabSearch == 1"   >
+                  <div id="Remove" ng-show="tabSearch == 1"  style="padding-bottom: 10px;" >
 
                  
-
-                    <input ng-model="search" class="commentSearchTextbox form-control " id="prodo-comment-search-Textbox"  type="text"   placeholder="Search comments ..."><br> <br>
+                    <br>
+                    <input ng-model="search" class="commentSearchTextbox form-control " id="prodo-comment-search-Textbox"  type="text"   placeholder="Search comments ...">
 
                 
                 </div>
