@@ -226,7 +226,7 @@
   });
   grunt.registerTask('build', [
     // 'clean:dist',
-    'ngmin',
+    // 'ngmin',
     'copy',
     'uglify',
     'cssmin',
