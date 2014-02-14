@@ -799,12 +799,21 @@
                     if ($rootScope.isAdminCheck==true){
                     // $("#prodo.productAdmin").css("display", "inline"); 
                      $("#prodo.productAdminAddProduct").css("display", "inline"); 
+<<<<<<< HEAD
                    }
                    else if($rootScope.usersession.currentUser.org.isAdmin==true) {
                       
                       $("#prodo.productAdminAddProduct").css("display", "inline"); 
                       $("#prodo.productAdmin").css("display", "none"); 
                    }
+=======
+                   }
+                   else if($rootScope.usersession.currentUser.org.isAdmin==true) {
+                      
+                      $("#prodo.productAdminAddProduct").css("display", "inline"); 
+                      $("#prodo.productAdmin").css("display", "none"); 
+                   }
+>>>>>>> 7d76c9a6416ae97f5c8a0df1f6d17744f00d7768
 
                    else{
 
