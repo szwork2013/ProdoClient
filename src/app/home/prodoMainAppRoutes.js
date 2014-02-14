@@ -32,7 +32,7 @@ angular.module('prodo.ProdonusApp')
         'marketing' : {
           templateUrl:  'home/landing/views/home.marketing.tpl.html'
         },
-        'signup' : {
+        'signup-signin' : {
           templateUrl:  'home/landing/views/home.signup.tpl.html'
         }
       }
@@ -43,7 +43,7 @@ angular.module('prodo.ProdonusApp')
         'marketing' : {
           templateUrl:  'home/landing/views/home.marketing.tpl.html'
         },
-        'signup' : {
+        'signup-signin' : {
           templateUrl:  'home/landing/views/home.signin.tpl.html'
         }
       }

@@ -1,12 +1,18 @@
 angular.module('prodo.CommonApp')
- .controller('ManageAccountController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$log', 'UserSessionService', 'OrgRegistrationService', function($scope, $rootScope, $state, $http, $timeout, $log, UserSessionService, OrgRegistrationService) {
+ .controller('ManageAccountController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$log', 'growl', 'UserSessionService', 'OrgRegistrationService', function($scope, $rootScope, $state, $http, $timeout, $log, growl, UserSessionService, OrgRegistrationService) {
 
     $scope.org = OrgRegistrationService.currentOrgData;
     $scope.orgaddr = OrgRegistrationService.currentOrgAdd;
     $scope.editorEnabled = false;
     $scope.editEmail = false;
     $scope.editAddress = false;
-
+    $scope.hasChangedPassword = false;
+    $scope.hasChangedEmail = false;
+    $scope.isInvites = false;
+    $scope.isUnfollowed = false;
+    $scope.hasChangedAddress = false;
+    $scope.hasChangedPersonalSettings = false;
+    $scope.submitted = false;
   
     $scope.enableEditor = function() {
       $scope.editorEnabled = true;
@@ -47,32 +53,6 @@ angular.module('prodo.CommonApp')
             'gender' : $scope.user.gender,
             'phone' : $scope.user.phone,
             'mobile' : $scope.user.mobile
-            // 'email' : $scope.user.email,
-            // 'password' : $scope.user.password,
-            // 'currentpassword' : $scope.user.currentpassword,
-            // 'newpassword' : $scope.user.newpassword,
-            // 'address':{
-            //             'address1':$scope.user.address1,
-            //             'address2':$scope.user.address2,
-            //             'address3':$scope.user.address3,
-            //             'city':$scope.user.city,
-            //             'state':$scope.user.state,
-            //             'country':$scope.user.country,
-            //             'zipcode':$scope.user.zipcode
-            //           },
-            // 'subscription':{
-            //                   'planid':$scope.user.planid  ,
-            //                   'planstartdate':$scope.user.planexpirydate , 
-            //                   'planexpirydate':$scope.user.planstartdate
-            //                },
-            // 'payment':{
-            //             'paymentid': ''
-            //           },
-            // 'payment_history':{
-            //                     'paymentid': ''
-            //                   },
-            // 'profile_pic':$scope.user.profile_pic
-            
             }
           };
 
@@ -82,29 +62,37 @@ angular.module('prodo.CommonApp')
     // function to handle server side responses
     $scope.handleUpdateUserResponse = function(data){
       if (data.success) {
-
+        growl.addSuccessMessage(data.success.message); 
         $scope.showAlert('alert-success', data.success.message);   
       } else {
         if (data.error.code== 'AU004') {     // enter valid data
             $log.debug(data.error.code + " " + data.error.message);
-            $scope.showAlert('alert-danger', data.error.message);
+            growl.addErrorMessage(data.error.message); 
         } else {
             $log.debug(data.error.message);
-            $scope.showAlert('alert-danger', data.error.message);
+            growl.addErrorMessage(data.error.message); 
         }
       }
     };  
 
     $scope.updateUserAccount = function() {
-      $scope.disableEditor();
-      UserSessionService.saveUserSettings($scope.jsonUserAccountData());
+      if ($scope.userpersonalsettingform.$valid) {
+        $scope.personalsettingchange = ''
+        $scope.disableEditor();
+        UserSessionService.saveUserSettings($scope.jsonUserAccountData());
+      } else {
+          $scope.userpersonalsettingform.submitted = true;
+          $scope.personalsettingchange = 'Please pass valid data.'
+      }
       var cleanupEventUpdateUserDone = $scope.$on("updateUserDone", function(event, message){
+        $scope.hasChangedPersonalSettings = true;
         $scope.handleUpdateUserResponse(message); 
         cleanupEventUpdateUserDone();     
     });
 
       var cleanupEventUpdateUserNotDone = $scope.$on("updateUserNotDone", function(event, message){
-        $scope.showAlert('alert-danger', "Server Error:" + message);
+        $scope.hasChangedPersonalSettings = true;
+        growl.addErrorMessage("Server Error:" + message);
         cleanupEventUpdateUserNotDone();
 
       });
@@ -128,29 +116,39 @@ angular.module('prodo.CommonApp')
     // function to handle server side responses
     $scope.handleUpdateUserEmailResponse = function(data){
       if (data.success) {
-
-        $scope.showAlert('alert-success', data.success.message);   
+        growl.addSuccessMessage(data.success.message);   
       } else {
         if (data.error.code== 'AU004') {     // enter valid data
             $log.debug(data.error.code + " " + data.error.message);
-            $scope.showAlert('alert-danger', data.error.message);
+            growl.addErrorMessage(data.error.message);
         } else {
             $log.debug(data.error.message);
-            $scope.showAlert('alert-danger', data.error.message);
+            growl.addErrorMessage(data.error.message);
         }
       }
     };  
 
     $scope.updateUserEmail = function() {
-      $scope.emailEditor();
-      UserSessionService.updateEmail($scope.jsonUpdateEmailData());
+      alert('hi');
+      if ($scope.usergeneralsettingform.$valid) {
+        alert('hiiiii');
+        $scope.generalsettingchange = ''
+        $scope.emailEditor();
+        UserSessionService.updateEmail($scope.jsonUpdateEmailData());
+      } else {
+          alert('hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii');
+          $scope.usergeneralsettingform.submitted = true;
+          $scope.generalsettingchange = 'Please pass valid data.'
+      }
       var cleanupEventUpdateUserEmailDone = $scope.$on("updateUserEmailDone", function(event, message){
+        $scope.hasChangedEmail = true;
         $scope.handleUpdateUserEmailResponse(message); 
         cleanupEventUpdateUserEmailDone();     
     });
 
       var cleanupEventUpdateUserEmailNotDone = $scope.$on("updateUserEmailNotDone", function(event, message){
-        $scope.showAlert('alert-danger', "Server Error:" + message);
+        $scope.hasChangedEmail = true;
+        growl.addErrorMessage("Server Error:" + message);
         cleanupEventUpdateUserEmailNotDone();
 
       });
@@ -181,29 +179,38 @@ angular.module('prodo.CommonApp')
     // function to handle server side responses
     $scope.handleUpdateUserPasswordResponse = function(data){
       if (data.success) {
-
-        $scope.showAlert('alert-success', data.success.message);   
+        growl.addSuccessMessage(data.success.message);  
       } else {
         if (data.error.code== 'AU004') {     // enter valid data
             $log.debug(data.error.code + " " + data.error.message);
-            $scope.showAlert('alert-danger', data.error.message);
+            growl.addErrorMessage(data.error.message);
         } else {
             $log.debug(data.error.message);
-            $scope.showAlert('alert-danger', data.error.message);
+            growl.addErrorMessage(data.error.message);
         }
       }
     };  
 
     $scope.changePassword = function() {
-      UserSessionService.updatePassword($scope.jsonUpdatePasswordData());
+      alert('hi');
+      if ($scope.userpasswordsettingform.$valid) {
+        alert('hiiiii');
+        $scope.passwordsettingchange = ''
+        UserSessionService.updatePassword($scope.jsonUpdatePasswordData());
+      } else {
+          $scope.userpasswordsettingform.submitted = true;
+          $scope.passwordsettingchange = 'Please pass valid data.'
+      }
       var cleanupEventUpdateUserPasswordDone = $scope.$on("updateUserPasswordDone", function(event, message){
+        $scope.hasChangedPassword = true;
         $scope.handleUpdateUserPasswordResponse(message); 
         $scope.clear();
         cleanupEventUpdateUserPasswordDone();     
     });
 
       var cleanupEventUpdateUserPasswordNotDone = $scope.$on("updateUserPasswordNotDone", function(event, message){
-        $scope.showAlert('alert-danger', "Server Error:" + message);
+        $scope.hasChangedPassword = true;
+        growl.addErrorMessage("Server Error:" + message);
         cleanupEventUpdateUserPasswordNotDone();
 
       });
@@ -233,15 +240,23 @@ angular.module('prodo.CommonApp')
       }
 
     $scope.updateUserAddress = function() {
-      $scope.addrEditor();
-      UserSessionService.saveUserSettings($scope.jsonUserAddressData());
+      if ($scope.userlocationsettingform.$valid) {
+        $scope.locationsettingchange = ''
+        $scope.addrEditor();
+        UserSessionService.saveUserSettings($scope.jsonUserAddressData());
+      } else {
+          $scope.userlocationsettingform.submitted = true;
+          $scope.locationsettingchange = 'Please pass valid data.'
+      }
       var cleanupEventUpdateUserDone = $scope.$on("updateUserDone", function(event, message){
+        hasChangedAddress = true;
         $scope.handleUpdateUserResponse(message); 
         cleanupEventUpdateUserDone();     
     });
 
       var cleanupEventUpdateUserNotDone = $scope.$on("updateUserNotDone", function(event, message){
-        $scope.showAlert('alert-danger', "Server Error:" + message);
+        hasChangedAddress = true;
+        growl.addErrorMessage("Server Error:" + message);
         cleanupEventUpdateUserNotDone();
 
       });
@@ -376,15 +391,14 @@ angular.module('prodo.CommonApp')
     // function to handle server side responses
     $scope.handleUserInviteResponse = function(data){
       if (data.success) {
-
-        $scope.showAlert('alert-success', data.success.message);   
+        growl.addSuccessMessage('Your invites has been successfully sent.');
       } else {
         if (data.error.code== 'AU004') {     // enter valid data
             $log.debug(data.error.code + " " + data.error.message);
-            $scope.showAlert('alert-danger', data.error.message);
+            growl.addErrorMessage(data.error.message);
         } else {
             $log.debug(data.error.message);
-            $scope.showAlert('alert-danger', data.error.message);
+            growl.addErrorMessage(data.error.message);
         }
       }
     };  
@@ -394,11 +408,13 @@ angular.module('prodo.CommonApp')
       console.log($scope.jsonUserInvitesData());
       UserSessionService.sendInvites($scope.jsonUserInvitesData());
       var cleanupEventSendUserInvitesDone = $scope.$on("sendUserInvitesDone", function(event, data){
+        $scope.isInvites = true;
         $scope.handleUserInviteResponse(data); 
         cleanupEventSendUserInvitesDone();  
       });
       var cleanupEventSendUserInvitesNotDone = $scope.$on("sendUserInvitesNotDone", function(event, data){
-        $scope.showAlert('alert-danger', "Server Error:" + data); 
+        $scope.isInvites = true;
+        growl.addErrorMessage("Server Error:" + data); 
         cleanupEventSendUserInvitesNotDone();     
       });
     }
@@ -406,7 +422,8 @@ angular.module('prodo.CommonApp')
     $scope.unfollow = function (product, prodleindex) {
       UserSessionService.unfollowProduct(product.prodle);
       var cleanupEventUnfollowProductDone = $scope.$on("unfollowProductDone", function(event, data){
-        $scope.showAlert('alert-success', data.success.message); 
+        $scope.isUnfollowed = true;
+        growl.addSuccessMessage('You have successfully unfollowed product:' + ' ' + product.name);
         var products_followed = $scope.products_followed;
           for (var i = 0, ii = products_followed.length; i < ii; i++) {
             if (product === products_followed[i]) { products_followed.splice(i, 1); }
@@ -414,7 +431,7 @@ angular.module('prodo.CommonApp')
         cleanupEventUnfollowProductDone();  
       });
       var cleanupEventUnfollowProductNotDone = $scope.$on("unfollowProductNotDone", function(event, data){
-        $scope.showAlert('alert-danger', "Server Error:" + data); 
+        growl.addErrorMessage("Server Error:" + message); 
         cleanupEventUnfollowProductNotDone();     
       });
     }

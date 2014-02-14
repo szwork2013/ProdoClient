@@ -1,4 +1,3 @@
-
   /* Overview: Product Controller 
    * Controller for product comments,product features etc
    * Dated: 25/11/2013.
@@ -821,6 +820,7 @@
                     // $("#prodo.productAdmin").css("display", "inline"); 
                  
                      $("#prodo.productAdminAddProduct").css("display", "inline"); 
+
                    }
                    else if($rootScope.usersession.currentUser.org.isAdmin==true) {
                      
@@ -828,6 +828,7 @@
                       $("#prodo.productAdminAddProduct").css("display", "inline"); 
                      
                    }
+
 
                    else{
                      
@@ -1114,6 +1115,13 @@
                         }
        
     });
+                // code for layerslider
+                $scope.commentImageShow;
+                $scope.captureCommentImageHere=function(params)
+                {
+                  $scope.commentImageShow=params;
+                };
+                 // code for layerslider
 
 
 }])
