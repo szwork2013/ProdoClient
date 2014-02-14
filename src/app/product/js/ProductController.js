@@ -38,6 +38,7 @@
               $scope.product = {product: [{}]};
               $scope.newProduct = {product: [{}]};
               $scope.type = "product";
+
               $rootScope.product_prodle;
               $rootScope.orgid;
               $scope.pImages_l = {product_images: [{}]};
@@ -911,7 +912,7 @@
                 //Product features
 
                 $scope.features=[];
-
+                $scope.PFeatures=[];
                 $scope.getProductFeatures=function(){
 
                   
@@ -933,6 +934,7 @@
                    $scope.featuretags=[];
                     for(i=0;i<successData.success.productfeature.length;i++){
                       $scope.features.push(successData.success.productfeature[i]);
+                      $scope.PFeatures.push(successData.success.productfeature[i]);
                       $scope.featuretags.push(successData.success.productfeature[i].featurename);
 
 
@@ -948,14 +950,12 @@
 
                 });
 
-}
+            }
 
 
 
-};
+            };
 
-
-             
 
                 $scope.deleteFeature = function(feature){
                   $log.debug("deleting feature");
