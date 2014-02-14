@@ -1,4 +1,3 @@
-
   /* Overview: Product Controller 
    * Controller for product comments,product features etc
    * Dated: 25/11/2013.
@@ -78,15 +77,34 @@
                    $("#productLogo").attr('src', '');
 
                  var temp=document.getElementById('prodo-comment-container');
-                 if($rootScope.product_prodle!==undefined){
+                 if($rootScope.product_prodle!==undefined && $rootScope.product_prodle!==null && $rootScope.product_prodle!==""){
+                 
                      // var temp=document.getElementById('prodo-comment-container');
                      $scope.getProduct(); 
-                    $scope.getProductFeatures();
+                    // $scope.getProductFeatures();
 
                    }
                    else{
-                    temp.innerHTML="<br>Please start following a product using search...<br><br>";
 
+                    if($rootScope.usersession.currentUser.org.isAdmin==true){
+                      
+                       $("#prodoCommentsTab").css("display", "none");
+                       $("#tabComments").css("display", "none");
+                       $("#prodoUploadTab").css("display", "inline");    
+                       
+                        $("#Upload-clck").css("display", "block");
+                        $("#prodoProductFeaturesTab").css("display", "inline");
+                      
+                       $("#prodo.productAdmin").css("display", "none"); 
+                        $("#prodo.productAdminAddProduct").css("display", "inline"); 
+
+                      }
+                      else {
+                       temp.innerHTML="<br>Please start following a product using search....<br><br>";
+                       $scope.showAlert('alert-danger', " Product not available ....");
+                     }
+                   
+                    
                   }
 
                  // cleanProduct(); 
@@ -95,14 +113,7 @@
               // $rootScope.product_prodle='xkdiPXcT_';
               // $rootScope.orgid='orgxkpxhIFau'; 
 
-           if($rootScope.usersession.currentUser.org){
-                    if ($rootScope.usersession.currentUser.org.isAdmin==true) {
-                      if ($scope.orgidFromSession === $rootScope.orgid ) {
-                        $rootScope.isAdminCheck=true;
-                      }
-                    }
-                  } 
-
+         
 
             //get login details
             $scope.getUserDetails = function( ) {
@@ -127,35 +138,49 @@
 
 
 
-                $scope.getProduct = function()
-                {
-
-
+                $scope.getProduct = function(){
+                
+               
                  ProductService.getProduct({orgid: $rootScope.orgid, prodle: $rootScope.product_prodle},
                   function(successData) {
-                    if (successData.success == undefined)
-                    {
-
+                    if (successData.success == undefined){
+                   
                       var temp=document.getElementById('prodo-comment-container');
                       $log.debug(temp);
+                      // alert($rootScope.usersession.currentUser.org.isAdmin);
                       if($rootScope.usersession.currentUser.org.isAdmin==true)
                       {
-                       $("#prodoCommentsTab").css("display", "none");
+                        $("#prodoCommentsTab").css("display", "none");
                        $("#tabComments").css("display", "none");
-                       // $( "#prodoProductFeaturesTab" ).addClass( "active" );
-                       $("#prodo.productAdmin").css("display", "inline"); 
-                       $("#tabproductupload").css("display", "inline");
-                       $("#prodoUploadTab").css("display", "inline");    
-                        // document.getElementById("prodo.productAdmin").style.display = 'inline';
-                        // document.getElementById("prodoUploadTab").style.display = 'inline';
+                       $("#prodoUploadTab").css("display", "inline"); 
+
+                       
+                        $("#Upload-clck").css("display", "block");
+                        $("#prodoProductFeaturesTab").css("display", "inline");
+                      
+                       $("#prodo.productAdmin").css("display", "none"); 
+                        $("#prodo.productAdminAddProduct").css("display", "inline"); 
+
                       }
                       else {
+
+
                        temp.innerHTML="<br>Please start following a product using search...<br><br>";
                        $scope.showAlert('alert-danger', " Product not available ...");
                      }
                    }
                    else {
                     $log.debug(successData.success.product);
+                       $scope.getProductFeatures();
+
+
+                        if($rootScope.usersession.currentUser.org){
+                    if ($rootScope.usersession.currentUser.org.isAdmin==true) {
+                      if ($scope.orgidFromSession === $rootScope.orgid ) {
+                        $rootScope.isAdminCheck=true;
+                      }
+                    }
+                  } 
 
                   //                $log.debug("success    "+successData);
                   $scope.product = successData.success.product;
@@ -182,6 +207,27 @@
 
               },
               function(error) {
+
+                   // var temp=document.getElementById('prodo-comment-container');
+                   //    $log.debug(temp);
+                   //    // alert($rootScope.usersession.currentUser.org.isAdmin);
+                   //    if($rootScope.usersession.currentUser.org.isAdmin==true){
+                      
+                   //      $("#prodoCommentsTab").css("display", "none");
+                   //     $("#tabComments").css("display", "none");
+                   //     $("#prodoUploadTab").css("display", "inline");    
+                       
+                   //      $("#Upload-clck").css("display", "block");
+                   //      $("#prodoProductFeaturesTab").css("display", "inline");
+                      
+                   //     // $("#prodo.productAdmin").css("display", "none"); 
+                   //      $("#prodo.productAdminAddProduct").css("display", "inline"); 
+                   //    }
+                   //    else {
+                   //     temp.innerHTML="<br>Please start following a product using search....<br><br>";
+                   //     $scope.showAlert('alert-danger', " Product not available ....");
+                   //   }
+
                 $log.debug(error);
                 var temp=document.getElementById('prodo-comment-container');
                 $log.debug(temp);
@@ -190,7 +236,7 @@
 
               });
 
-}
+          }
               //get product function declaration  
 
 
@@ -722,16 +768,59 @@
 
                   };
 
+            
 
-                 
-                  $scope.checkAdmin = function() {
-                    if ($rootScope.isAdminCheck==true){
-                     var adminPanel = document.getElementById("prodo.productAdmin");
-                     adminPanel.style.display = 'inline';
-                   }
+                 $scope.checkAdmintoUpdateProduct=function(){
+                    
+                    if($rootScope.usersession.currentUser.org){
+                    if ($rootScope.usersession.currentUser.org.isAdmin==true) {
+                      if ($scope.orgidFromSession === $rootScope.orgid ) {
+                        $rootScope.isAdminCheck=true;
+                        return{display: "block"}
+                      }
+                      else
+                    return{display: "none"}
+                    }
+                    else
+                    return{display: "none"}
+                  } 
+                   else
+                    return{display: "none"}
                  }
+              
+                  $scope.checkAdmin = function() {
+                     if($rootScope.usersession.currentUser.org){
+                    if ($rootScope.usersession.currentUser.org.isAdmin==true) {
+                      if ($scope.orgidFromSession === $rootScope.orgid ) {
+                        $rootScope.isAdminCheck=true;
+                      }
+                    }
+                  } 
+                    if ($rootScope.isAdminCheck==true){
+                    // $("#prodo.productAdmin").css("display", "inline"); 
+                     $("#prodo.productAdminAddProduct").css("display", "inline"); 
+                   }
+                   else if($rootScope.usersession.currentUser.org.isAdmin==true) {
+                      
+                      $("#prodo.productAdminAddProduct").css("display", "inline"); 
+                      $("#prodo.productAdmin").css("display", "none"); 
+                   }
+
+                   else{
+
+                     $("#prodo.productAdmin").css("display", "none"); 
+                    $("#prodo.productAdminAddProduct").css("display", "none"); 
+                 }
+               };
 
                  $scope.checkAdminProductUpload=function() {
+                  if($rootScope.usersession.currentUser.org){
+                    if ($rootScope.usersession.currentUser.org.isAdmin==true) {
+                      if ($scope.orgidFromSession === $rootScope.orgid ) {
+                        $rootScope.isAdminCheck=true;
+                      }
+                    }
+                  } 
                   if ($rootScope.isAdminCheck==true)
                     $("#Upload-clck").css("display", "block");      
 
@@ -825,7 +914,7 @@
                 $scope.getProductFeatures=function(){
 
                   
-
+                  if($rootScope.product_prodle!==""){
                  ProductFeatureService.getFeature({orgid: $rootScope.orgid, prodle: $rootScope.product_prodle},
                   function(successData) {
                     if (successData.success == undefined)
@@ -858,14 +947,14 @@
 
                 });
 
-
+}
 
 
 
 };
 
 
-                $scope.getProductFeatures();
+             
 
                 $scope.deleteFeature = function(feature){
                   $log.debug("deleting feature");
@@ -984,6 +1073,13 @@
                         }
        
     });
+                // code for layerslider
+                $scope.commentImageShow;
+                $scope.captureCommentImageHere=function(params)
+                {
+                  $scope.commentImageShow=params;
+                };
+                 // code for layerslider
 
 
 }])
