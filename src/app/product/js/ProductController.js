@@ -34,6 +34,7 @@
               $scope.tagPairs= [];
 
               //product
+              
               $scope.editStatus;
               $scope.product = {product: [{}]};
               $scope.newProduct = {product: [{}]};
@@ -87,9 +88,10 @@
 
                    }
                    else{
-
+                       if($rootScope.usersession.currentUser.org){
                     if($rootScope.usersession.currentUser.org.isAdmin==true){
-                      
+
+                       $("#prodo-ProductFeatureTable").css("display", "none"); 
                        $("#prodoCommentsTab").css("display", "none");
                        $("#tabComments").css("display", "none");
                        $("#prodoUploadTab").css("display", "inline");    
@@ -101,6 +103,11 @@
                         $("#prodo.productAdminAddProduct").css("display", "inline"); 
 
                       }
+                       else {
+                       temp.innerHTML="<br>Please start following a product using search....<br><br>";
+                       $scope.showAlert('alert-danger', " Product not available ....");
+                     }
+                    }
                       else {
                        temp.innerHTML="<br>Please start following a product using search....<br><br>";
                        $scope.showAlert('alert-danger', " Product not available ....");
@@ -141,17 +148,19 @@
 
 
                 $scope.getProduct = function(){
+               
                 
                
                  ProductService.getProduct({orgid: $rootScope.orgid, prodle: $rootScope.product_prodle},
                   function(successData) {
                     if (successData.success == undefined){
-                   
+                    
                       var temp=document.getElementById('prodo-comment-container');
                       $log.debug(temp);
-                      // alert($rootScope.usersession.currentUser.org.isAdmin);
+                      if($rootScope.usersession.currentUser.org){
                       if($rootScope.usersession.currentUser.org.isAdmin==true)
                       {
+                       
                         $("#prodoCommentsTab").css("display", "none");
                        $("#tabComments").css("display", "none");
                        $("#prodoUploadTab").css("display", "inline"); 
@@ -164,6 +173,11 @@
                         $("#prodo.productAdminAddProduct").css("display", "inline"); 
 
                       }
+                       else {
+                       temp.innerHTML="<br>Please start following a product using search....<br><br>";
+                       $scope.showAlert('alert-danger', " Product not available ....");
+                     }
+                    }
                       else {
 
 
@@ -185,6 +199,7 @@
                   } 
 
                   //                $log.debug("success    "+successData);
+                   $("#prodo-ProductFeatureTable").css("display", "table"); 
                   $scope.product = successData.success.product;
                   $rootScope.product_prodle = successData.success.product.prodle;
                   $scope.productComments = successData.success.product.product_comments;
@@ -210,31 +225,35 @@
               },
               function(error) {
 
-                   // var temp=document.getElementById('prodo-comment-container');
-                   //    $log.debug(temp);
-                   //    // alert($rootScope.usersession.currentUser.org.isAdmin);
-                   //    if($rootScope.usersession.currentUser.org.isAdmin==true){
+                   var temp=document.getElementById('prodo-comment-container');
+                   $log.debug(temp);
+                    if($rootScope.usersession.currentUser.org){
+                      if($rootScope.usersession.currentUser.org.isAdmin==true){
                       
-                   //      $("#prodoCommentsTab").css("display", "none");
-                   //     $("#tabComments").css("display", "none");
-                   //     $("#prodoUploadTab").css("display", "inline");    
+                        $("#prodoCommentsTab").css("display", "none");
+                       $("#tabComments").css("display", "none");
+                       $("#prodoUploadTab").css("display", "inline");    
                        
-                   //      $("#Upload-clck").css("display", "block");
-                   //      $("#prodoProductFeaturesTab").css("display", "inline");
+                        $("#Upload-clck").css("display", "block");
+                        $("#prodoProductFeaturesTab").css("display", "inline");
                       
-                   //     // $("#prodo.productAdmin").css("display", "none"); 
-                   //      $("#prodo.productAdminAddProduct").css("display", "inline"); 
-                   //    }
-                   //    else {
-                   //     temp.innerHTML="<br>Please start following a product using search....<br><br>";
-                   //     $scope.showAlert('alert-danger', " Product not available ....");
-                   //   }
+                       // $("#prodo.productAdmin").css("display", "none"); 
+                        $("#prodo.productAdminAddProduct").css("display", "inline"); 
+                      }
+                       else {
+                       temp.innerHTML="<br>Please start following a product using search....<br><br>";
+                       $scope.showAlert('alert-danger', " Product not available ....");
+                     }
+                    }
+                      else {
+                     $log.debug(error);
+                      var temp=document.getElementById('prodo-comment-container');
+                      $log.debug(temp);
+                      temp.innerHTML="<br> Server error please try after some time<br><br>";
+                      $scope.showAlert('alert-danger', "Server Error:" + error.status);
+                     }
 
-                $log.debug(error);
-                var temp=document.getElementById('prodo-comment-container');
-                $log.debug(temp);
-                temp.innerHTML="<br> Server error please try after some time<br><br>";
-                $scope.showAlert('alert-danger', "Server Error:" + error.status);
+                
 
               });
 
@@ -800,16 +819,18 @@
                   } 
                     if ($rootScope.isAdminCheck==true){
                     // $("#prodo.productAdmin").css("display", "inline"); 
+                 
                      $("#prodo.productAdminAddProduct").css("display", "inline"); 
                    }
                    else if($rootScope.usersession.currentUser.org.isAdmin==true) {
-                      
-                      $("#prodo.productAdminAddProduct").css("display", "inline"); 
+                     
                       $("#prodo.productAdmin").css("display", "none"); 
+                      $("#prodo.productAdminAddProduct").css("display", "inline"); 
+                     
                    }
 
                    else{
-
+                     
                      $("#prodo.productAdmin").css("display", "none"); 
                     $("#prodo.productAdminAddProduct").css("display", "none"); 
                  }
@@ -828,6 +849,22 @@
 
                 }
                 $scope.checkAdminProductUpload();
+
+           
+
+               $scope.checkImageSelectedToDelete=function(){
+                 
+
+                 if($scope.chckedIndexs.length>0){
+                   $('#imgDelModal').modal('toggle');
+                   $('#imgDelModal').modal('show');
+                 }
+                 else{
+                  alert("Select atlest 1 image to delete");
+                 }
+
+               
+               }
 
 
                 $scope.checkAdminProductImagesDelete=function() { 
@@ -1005,6 +1042,7 @@
                                           $scope.features.push($scope.newFeature.productfeature[0]);
 
                                           $log.debug($scope.features);
+                                          $scope.feature="";
 
                                         },
 
@@ -1047,6 +1085,7 @@
                   
                   $scope.disableEditor = function() {
                     $scope.editorEnabled = false;
+                       $scope.feature="";
                    
                     $scope.getProduct();
                     $scope.getProductFeatures();

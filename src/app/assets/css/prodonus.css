@@ -1451,6 +1451,8 @@ ul {list-style-type: none; }
 #prodo-comment-media-list{border:3px;font-family: Helvetica ;font-size:14px;}
 #prodo-comment-Textbox {  height:40px;width:518px;border-radius:10px;font-size:12px; 
 	font-family: Helvetica ; border: solid 1px #5bc0de; max-height: 75px;max-width: 518px;resize: none;}
+#prodo-comment-search-Textbox {  height:40px;width:518px;border-radius:10px;font-size:12px; 
+	font-family: Helvetica ; border: solid 1px #5bc0de; }
 #prodo-comment-fixed { margin-left:17px;}
 #prodo-comment-media {margin-top: 0px;  border-top: 1px outset; border-color:#CCC;padding:5px;  width:518px;}
 #prodo-comment-row-fluid {word-wrap: break-word;width:450px;text-align: left;font-size:12px; }

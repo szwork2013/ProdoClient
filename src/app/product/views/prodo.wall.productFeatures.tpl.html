@@ -176,8 +176,8 @@
   
     <tr ><td colspan="2">
    
-    <a  ng-click="addProductFeature(editStatus);disableEditor();" class="btn btn-default btn-sm fa fa-floppy-o pull-right" style=" margin: 5px;"  ></a>
-    <a class="btn btn-default btn-sm glyphicon glyphicon-remove pull-right" style=" margin: 5px;" ng-click="disableEditor()"></a>
+    <a  ng-click="addProductFeature(editStatus);disableEditor(); " class="btn btn-default btn-sm fa fa-floppy-o pull-right" style=" margin: 5px;"  ></a>
+    <a class="btn btn-default btn-sm glyphicon glyphicon-remove pull-right" style=" margin: 5px;" ng-click="disableEditor() ; "></a>
   </td>
 </tr>
 </table>
@@ -260,7 +260,10 @@
       <span  id="showHideAllchkLabel" ng-style="checkAdminProductImagesDelete();" >Select All</span>  
       <input id="showHideAllchk" ng-style="checkAdminProductImagesDelete();"  type="checkbox" ng-click="masterChange();"  name="pinSet ">
       &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;            
-      <button type="button" class=" btn btn-danger  " id="prodo-deleteProductImage" ng-style="checkAdminProductImagesDelete();" data-toggle="modal" data-target="#imgDelModal"   >
+      <button type="button" class=" btn btn-danger  " id="prodo-deleteProductImage" ng-style="checkAdminProductImagesDelete();" 
+     
+      ng-click="checkImageSelectedToDelete()"  >
+       <!-- data-toggle="modal" data-target="#imgDelModal"  -->
         <span class="glyphicon glyphicon-trash"></span> 
       </button> 
       <br>
