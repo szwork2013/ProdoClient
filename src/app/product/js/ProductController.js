@@ -67,12 +67,14 @@
                     // $log.debug($scope.pretags);
 
                   });
+///////////My code for image display
+               $scope.commentImageShow;
+               $scope.captureCommentImageHere=function(params)
+               {
+                      $scope.commentImageShow=params;
+               };
 
-
-               
-
-
-
+////////////////////////////
 
                $rootScope.$watch('product_prodle', function() {  
               // var cleanProduct=   $rootScope.$on("product", function(event, data){

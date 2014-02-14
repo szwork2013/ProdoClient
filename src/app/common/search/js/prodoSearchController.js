@@ -30,11 +30,31 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
     $scope.result=[];
     $rootScope.productSearch={product:""};
     $scope.enhancement=[];
+    $scope.searchCriterion={};
+    $scope.count=0;
 
-    $scope.searchProductP=function()
+
+
+
+               $rootScope.$watch('productSearch.product', function() { 
+               if($scope.productSearch.product!=="")
+               {
+                    $scope.searchCriterion.name=$scope.productSearch.product;
+                    $scope.searchProductP($scope.searchCriterion);
+                
+                   } 
+             
+                });
+
+
+
+
+
+
+    $scope.searchProductP=function(data)
     { 
-              $scope.tempnames=[];  
-              searchProductService.searchProduct();    
+              
+              searchProductService.searchProduct(data);    
               $scope.$on('notGotAllProducts', function (event, data) {
       
                });
@@ -110,6 +130,11 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
                 $scope.search.productsearchdata.Feature = temp;
                 temp="";
       }
+       if ($scope.org !== '') {
+                 var temp=$scope.org.replace(/\s/g, "");
+                $scope.search.productsearchdata.Organization_Name = temp;
+                temp="";
+      }
 
       prodoSearchService.searchProduct($scope.search);
      // $scope.search.productsearchdata= {};
@@ -160,12 +185,14 @@ $scope.emitProdle=function(dataProdle,dataOrgid)
               document.getElementById('textBoxModelNumber').value = '';
               document.getElementById('textBoxFeatureName').value = '';
               document.getElementById('textBoxProductName').value = '';
+              document.getElementById('textBoxOrgName').value='';
               $scope.product_name="";
               $scope.model_number="";
               $scope.category="";
               $scope.feature="";
               $scope.search.productsearchdata = {};
               $scope.result=[];
+              $scope.org="";
     };
 
 
@@ -180,13 +207,10 @@ $scope.emitProdle=function(dataProdle,dataOrgid)
 
 $scope.$on('gotAllProducts', function (event, data) {
         $scope.productNames=data.success.doc;
+        // $scope.$watch()
         $scope.enhancement=data.name.doc;
-                for(var i=0;i<$scope.productNames.length;i++)
-                {
-                          var temp1=$scope.productNames[i].name;
-                          $scope.tempnames.push(temp1);
-                          temp1="";
-                }
+        //alert($scope.enhancement[0]);
+              
      
       });
 
