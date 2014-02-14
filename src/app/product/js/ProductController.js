@@ -959,6 +959,7 @@
 
                 $scope.deleteFeature = function(feature){
                   $log.debug("deleting feature");
+                  $log.debug(feature.featureid);
                   if ($rootScope.usersession.currentUser.org.isAdmin==true ) {
                     if ($scope.orgidFromSession === $rootScope.orgid ) {
                       ProductFeatureService.deleteFeature({orgid: $scope.orgidFromSession, prodle: $rootScope.product_prodle ,productfeatureid:feature.featureid},
