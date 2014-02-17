@@ -165,8 +165,8 @@
 
   <form    id="Editfeature" class="collapse"  ng-show="editorEnabled"  name="productFeaturesForm" >
     <table class="table child " id="prodo-ProductFeatureTable" >
-      <tr>
-        <td >   Feature name <input ng-model="$parent.$parent.feature.name"   id="prodo-product-features_textfield" class="form-control"  type="text" style="float: right"  required name="name" />  </td>
+      <tr >
+        <td >   Feature name&nbsp;&nbsp;&nbsp; <input ng-model="$parent.$parent.feature.name"   id="prodo-product-features_textfield" class="form-control"  type="text"   required name="name" />  </td>
     
       </tr>
       <tr>
@@ -176,8 +176,8 @@
   
     <tr ><td colspan="2">
    
-    <a  ng-click="addProductFeature(editStatus);disableEditor();" class="btn btn-default btn-sm fa fa-floppy-o pull-right" style=" margin: 5px;"  ></a>
-    <a class="btn btn-default btn-sm glyphicon glyphicon-remove pull-right" style=" margin: 5px;" ng-click="disableEditor()"></a>
+    <a  ng-click="addProductFeature(editStatus);disableEditor(); " class="btn btn-default btn-sm fa fa-floppy-o pull-right" style=" margin: 5px;"  ></a>
+    <a class="btn btn-default btn-sm glyphicon glyphicon-remove pull-right" style=" margin: 5px;" ng-click="disableEditor() ; "></a>
   </td>
 </tr>
 </table>
@@ -206,21 +206,45 @@
 
       <a href=""     ng-click="edit = ! edit; editStatus='update';  "> <i class="fa fa-pencil " /> </a>
         &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
-      <a href="" ng-click="deleteFeature(feature)">  <i class="glyphicon glyphicon-trash " /></a>
+      <a href=""  data-toggle="modal" data-target="#ProductFeatureDelModal">  <i class="glyphicon glyphicon-trash " /></a>
+      
+      <!-- Modal -->
+    <div class="modal fade" id="ProductFeatureDelModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">Delete product feature</h4>
+          </div>
+          <div class="modal-body">
+            Are you sure you want to delete this product feature ?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default glyphicon glyphicon-remove" data-dismiss="modal"></button>
+            <button type="button" class="btn btn-danger glyphicon glyphicon-trash"  ng-click="deleteFeature(feature)" data-dismiss="modal" ></button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
     </td>
     <td ng-show="edit">
   
        <a id="Editfeature1" ng-click="updateProductFeature(feature,feature.featureid);edit = ! edit;" class="btn btn-default  btn-sm fa fa-floppy-o " style="margin: 5px;"  ></a>
-      <a id="Editfeature1" class="btn btn-default  btn-sm glyphicon glyphicon-remove " style=" margin: 5px;" ng-click="edit = ! edit;"></a>
-
+      <a id="Editfeature1" class="btn btn-default  btn-sm glyphicon glyphicon-remove " style=" margin: 5px;" ng-click="edit = ! edit; getProductFeatures(); "></a>
+       
 
     </td>
-
+   
      
    </tr>
 
 </table>
 
+ 
+
+ 
 
 </accordion-group>
 
@@ -236,7 +260,10 @@
       <span  id="showHideAllchkLabel" ng-style="checkAdminProductImagesDelete();" >Select All</span>  
       <input id="showHideAllchk" ng-style="checkAdminProductImagesDelete();"  type="checkbox" ng-click="masterChange();"  name="pinSet ">
       &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;            
-      <button type="button" class=" btn btn-danger  " id="prodo-deleteProductImage" ng-style="checkAdminProductImagesDelete();" data-toggle="modal" data-target="#imgDelModal"   >
+      <button type="button" class=" btn btn-danger  " id="prodo-deleteProductImage" ng-style="checkAdminProductImagesDelete();" 
+     
+      ng-click="checkImageSelectedToDelete()"  >
+       <!-- data-toggle="modal" data-target="#imgDelModal"  -->
         <span class="glyphicon glyphicon-trash"></span> 
       </button> 
       <br>

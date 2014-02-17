@@ -62,7 +62,7 @@
     directives: {
       expand: true,
       
-      src: ['src/app/common/admin/js/TagController-Admin.js'],
+      src: ['src/app/common/subscription/js/PaymentController.js'],
       dest: 'build/production/app/Premin'
     }
   },
