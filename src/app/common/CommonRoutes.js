@@ -49,12 +49,10 @@ angular.module('prodo.CommonApp')
     }) 
     .state('account', {
       abstract: true,
-      templateUrl: 'common/accounts/views/account.settings.tpl.html',
-      controller: 'ManageAccountController'
+      templateUrl: 'common/accounts/views/account.settings.tpl.html'
     })    
     .state('account.user', {
-      templateUrl:  'user/views/user.account.settings.tpl.html',
-      controller: 'ManageAccountController'
+      templateUrl:  'user/views/user.account.settings.tpl.html'
     })   
   }]);
  

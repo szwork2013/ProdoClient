@@ -12,7 +12,7 @@ angular.module('prodo.CommonApp')
     $scope.isUnfollowed = false;
     $scope.hasChangedAddress = false;
     $scope.hasChangedPersonalSettings = false;
-    $scope.submitted = false;
+    $scope.form = {};
   
     $scope.enableEditor = function() {
       $scope.editorEnabled = true;
@@ -23,6 +23,7 @@ angular.module('prodo.CommonApp')
     };
 
     $scope.emailEditor = function() {
+      $scope.generalsettingchange = '';
       if ($scope.editEmail) {
         $scope.editEmail = false;
       } else {
@@ -32,6 +33,7 @@ angular.module('prodo.CommonApp')
     };
 
     $scope.addrEditor = function() {
+      $scope.locationsettingchange = '';
       if ($scope.editAddress) {
         $scope.editAddress = false;
       } else {
@@ -76,12 +78,11 @@ angular.module('prodo.CommonApp')
     };  
 
     $scope.updateUserAccount = function() {
-      if ($scope.userpersonalsettingform.$valid) {
+      if ($scope.form.userpersonalsettingform.$valid) {
         $scope.personalsettingchange = ''
         $scope.disableEditor();
         UserSessionService.saveUserSettings($scope.jsonUserAccountData());
       } else {
-          $scope.userpersonalsettingform.submitted = true;
           $scope.personalsettingchange = 'Please pass valid data.'
       }
       var cleanupEventUpdateUserDone = $scope.$on("updateUserDone", function(event, message){
@@ -128,17 +129,13 @@ angular.module('prodo.CommonApp')
       }
     };  
 
+    
     $scope.updateUserEmail = function() {
-      alert('hi');
-      if ($scope.usergeneralsettingform.$valid) {
-        alert('hiiiii');
-        $scope.generalsettingchange = ''
+      if ($scope.form.usergeneralsettingform.$valid) {
         $scope.emailEditor();
         UserSessionService.updateEmail($scope.jsonUpdateEmailData());
       } else {
-          alert('hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii');
-          $scope.usergeneralsettingform.submitted = true;
-          $scope.generalsettingchange = 'Please pass valid data.'
+          $scope.generalsettingchange = 'Please pass valid data.';
       }
       var cleanupEventUpdateUserEmailDone = $scope.$on("updateUserEmailDone", function(event, message){
         $scope.hasChangedEmail = true;
@@ -174,6 +171,7 @@ angular.module('prodo.CommonApp')
       $scope.user.currentpassword = '';
       $scope.user.newpassword = '';
       $scope.user.confirmpassword = '';
+      $scope.passwordsettingchange = '';
     }
 
     // function to handle server side responses
@@ -192,13 +190,10 @@ angular.module('prodo.CommonApp')
     };  
 
     $scope.changePassword = function() {
-      alert('hi');
-      if ($scope.userpasswordsettingform.$valid) {
-        alert('hiiiii');
-        $scope.passwordsettingchange = ''
+      if ($scope.form.userpasswordsettingform.$valid) {
+        $scope.passwordsettingchange = '';
         UserSessionService.updatePassword($scope.jsonUpdatePasswordData());
       } else {
-          $scope.userpasswordsettingform.submitted = true;
           $scope.passwordsettingchange = 'Please pass valid data.'
       }
       var cleanupEventUpdateUserPasswordDone = $scope.$on("updateUserPasswordDone", function(event, message){
@@ -240,12 +235,10 @@ angular.module('prodo.CommonApp')
       }
 
     $scope.updateUserAddress = function() {
-      if ($scope.userlocationsettingform.$valid) {
-        $scope.locationsettingchange = ''
+      if ($scope.form.userlocationsettingform.$valid) {
         $scope.addrEditor();
         UserSessionService.saveUserSettings($scope.jsonUserAddressData());
       } else {
-          $scope.userlocationsettingform.submitted = true;
           $scope.locationsettingchange = 'Please pass valid data.'
       }
       var cleanupEventUpdateUserDone = $scope.$on("updateUserDone", function(event, message){
@@ -405,8 +398,14 @@ angular.module('prodo.CommonApp')
 
 
     $scope.sendUserInvites = function() {
-      console.log($scope.jsonUserInvitesData());
-      UserSessionService.sendInvites($scope.jsonUserInvitesData());
+      if ($scope.form.userinvitesform.$valid) {
+        $scope.invitesettingchange = ''
+        console.log($scope.jsonUserInvitesData());
+        UserSessionService.sendInvites($scope.jsonUserInvitesData());
+      } else {
+          $scope.invitesettingchange = 'Please pass valid data.'
+      }
+      
       var cleanupEventSendUserInvitesDone = $scope.$on("sendUserInvitesDone", function(event, data){
         $scope.isInvites = true;
         $scope.handleUserInviteResponse(data); 
