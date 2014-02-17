@@ -1,6 +1,6 @@
 angular.module('prodo.UploadApp')
 
-.controller( 'UploadController',['$scope','$log','$rootScope','fileReader', 'ENV' , function($scope,$log,$rootScope, fileReader,ENV) {
+.controller( 'UploadController',['$scope','$log','$rootScope','fileReader', 'ENV' ,'growl' , function($scope,$log,$rootScope, fileReader,ENV , growl) {
 
   $scope.socket = io.connect(ENV.apiEndpoint+ENV.port+'/api/prodoupload', {
     query: 'session_id=' + $rootScope.usersession.currentUser.sessionid
@@ -19,6 +19,7 @@ angular.module('prodo.UploadApp')
     fileReader.readAsBinaryString(a, $scope)
     .then(function(result) {
       $log.debug("reader called ... " + a);
+
       $scope.imageBfr = result;
       $scope.file = a;
       if(($scope.file.size/1024>500) && ( ($scope.file.type=='image/jpg') || ($scope.file.type=='image/png' )|| ($scope.file.type=='image/gif') || ($scope.file.type=='image/jpeg' ) ) ) {
@@ -26,8 +27,8 @@ angular.module('prodo.UploadApp')
         $log.debug("Image size must be less than 500kb");
 
 
-        $("#errAlert").css("visibility", "visible");      
-        $("#errorMsg").html("Image size must ne less than 500kb");
+           
+        growl.addErrorMessage("Image size must ne less than 500kb");
         $("#bar").hide();
 
       } 
@@ -57,24 +58,18 @@ $scope.socket.removeAllListeners('productUploadResponse');
 $scope.socket.on('productUploadResponse', function(error, imagelocation) {
   if (error) {
      $("#bar").hide();
-   $("#errAlert").css("visibility", "visible");  
+ 
       if (error.error.code == 'AP003') {     // user already exist
         $log.debug(error.error.code + " " + error.error.message);
-        $("#errorMsg").html( "Error while uploading "+$scope.file.name +" " +error.error.message);
+        growl.addErrorMessage("Error while uploading "+$scope.file.name +" " +error.error.message);
                 } else if (error.error.code == 'AV001') {  // user data invalid
                   $log.debug(error.error.code + " " + error.error.message);
-                  $("#errorMsg").html( "Error while uploading "+$scope.file.name +" " +error.error.message);
+                  growl.addErrorMessage(" Error while uploading "+$scope.file.name +" " +error.error.message);
                 } else {
                   $log.debug(error.error.message);
-                  $("#errorMsg").html( "Error while uploading "+$scope.file.name +" " +error.error.message);
+                  growl.addErrorMessage("Error while uploading "+$scope.file.name +" " +error.error.message);
                 }
 
-                $log.debug("Error " + error);
-                $("#errorMsg").html(error);
-       // var uploadErr= document.getElementById("bar");
-       //   clearInterval(progress);
-       //      uploadErr.style.width="50%";
-       //      var progress ='';
      }
      else {
       $scope.imageSrc = JSON.stringify(imagelocation);
@@ -95,19 +90,18 @@ $scope.socket.removeAllListeners('productUploadLogoResponse');
 $scope.socket.on('productUploadLogoResponse', function(error, imagelocation) {
   if (error) {
      $("#bar").hide();
-   $("#errAlert").css("visibility", "visible");   
+  
          if (error.error.code == 'AP003') {     // user already exist
           $log.debug(error.error.code + " " + error.error.message);
-          $("#errorMsg").html( "Error while uploading "+$scope.file.name +" " +error.error.message);
+          growl.addErrorMessage("Error while uploading "+$scope.file.name +" " +error.error.message);
                 } else if (error.error.code == 'AV001') {  // user data invalid
                   $log.debug(error.error.code + " " + error.error.message);
-                  $("#errorMsg").html( "Error while uploading "+$scope.file.name +" " +error.error.message);
+                  growl.addErrorMessage("Error while uploading "+$scope.file.name +" " +error.error.message);
                 } else {
                   $log.debug(error.error.message);
-                  $("#errorMsg").html("Error while uploading "+$scope.file.name +" " +error.error.message);
+                  growl.addErrorMessage("Error while uploading "+$scope.file.name +" " +error.error.message);
+                
                 }
-                $log.debug("Error " + error);
-                $("#errorMsg").html(error);
               }
               else {
                 $scope.imageSrc = JSON.stringify(imagelocation);
@@ -130,19 +124,18 @@ $scope.socket.removeAllListeners('orgUploadsResponse');
 $scope.socket.on('orgUploadResponse', function(error, imagelocation) {
   if (error) {
    $("#bar").hide();
-   $("#errAlert").css("visibility", "visible");    
+   
        if (error.error.code == 'AP003') {     // user already exist
         $log.debug(error.error.code + " " + error.error.message);
-        $("#errorMsg").html( "Error while uploading "+$scope.file.name +" " +error.error.message);
+        growl.addErrorMessage("Error while uploading "+$scope.file.name +" " +error.error.message);
                 } else if (error.error.code == 'AV001') {  // user data invalid
                   $log.debug(error.error.code + " " + error.error.message);
-                  $("#errorMsg").html( "Error while uploading "+$scope.file.name +" " +error.error.message);
+                  growl.addErrorMessage("Error while uploading "+$scope.file.name +" " +error.error.message);
                 } else {
                   $log.debug(error.error.message);
-                  $("#errorMsg").html( "Error while uploading "+$scope.file.name +" " +error.error.message);
+                  growl.addErrorMessage("Error while uploading "+$scope.file.name +" " +error.error.message);
                 }
-                $log.debug("Error " + error);
-                $("#errorMsg").html(error);
+            
               }
               else {
                 $log.debug("getting response for org upload  " + imagelocation);
@@ -162,19 +155,18 @@ $scope.socket.removeAllListeners('orgUploadLogoResponse');
 $scope.socket.on('orgUploadLogoResponse', function(error, imagelocation) {
   if (error) {
    $("#bar").hide();
-   $("#errAlert").css("visibility", "visible");    
+  
        if (error.error.code == 'AP003') {     // user already exist
         $log.debug(error.error.code + " " + error.error.message);
-        $("#errorMsg").html( "Error while uploading "+$scope.file.name +" " +error.error.message);
+        growl.addErrorMessage("Error while uploading "+$scope.file.name +" " +error.error.message);
                 } else if (error.error.code == 'AV001') {  // user data invalid
                   $log.debug(error.error.code + " " + error.error.message);
-                  $("#errorMsg").html( "Error while uploading "+$scope.file.name +" " +error.error.message);
+                  growl.addErrorMessage("Error while uploading "+$scope.file.name +" " +error.error.message);
                 } else {
                   $log.debug(error.error.message);
-                  $("#errorMsg").html( "Error while uploading "+$scope.file.name +" " +error.error.message);
+                  growl.addErrorMessage("Error while uploading "+$scope.file.name +" " +error.error.message);
                 }
-                $log.debug("Error " + error);
-                $("#errorMsg").html(error);
+                
               }
               else {
                 $log.debug("getting response for org upload logo " + imagelocation);
@@ -197,19 +189,18 @@ $scope.socket.removeAllListeners('userUploadResponse');
 $scope.socket.on('userUploadResponse', function(error, imagelocation) {
   if (error) {
    $("#bar").hide();
-   $("#errAlert").css("visibility", "visible");    
+   
        if (error.error.code == 'AP003') {     // user already exist
         $log.debug(error.error.code + " " + error.error.message);
-        $("#errorMsg").html( "Error while uploading "+$scope.file.name +" " +error.error.message);
+        growl.addErrorMessage("Error while uploading "+$scope.file.name +" " +error.error.message);
                 } else if (error.error.code == 'AV001') {  // user data invalid
                   $log.debug(error.error.code + " " + error.error.message);
-                  $("#errorMsg").html( "Error while uploading "+$scope.file.name +" " +error.error.message);
+                  growl.addErrorMessage("Error while uploading "+$scope.file.name +" " +error.error.message);
                 } else {
                   $log.debug(error.error.message);
-                  $("#errorMsg").html( "Error while uploading "+$scope.file.name +" " +error.error.message);
+                  growl.addErrorMessage("Error while uploading "+$scope.file.name +" " +error.error.message);
                 }
-                $log.debug("Error " + error);
-                $("#errorMsg").html(error);
+            
               }
               else {
                 $log.debug("getting response for user upload  " + imagelocation);
