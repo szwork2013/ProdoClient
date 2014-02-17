@@ -1,5 +1,5 @@
 angular.module('prodo.ProdoWallApp')
-
+//Code for advanced search 
 .factory('prodoSearchService', [
   '$rootScope',
   '$resource',
@@ -24,7 +24,7 @@ angular.module('prodo.ProdoWallApp')
   }
 ])
 
-
+//service for normal search
 .factory('searchProductService', [
   '$rootScope',
   '$resource',

@@ -51,8 +51,8 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
 
 //This is defined outside above function in order to make data available throughout this file
 $scope.$on('gotAllProducts', function (event, data) {
-        $scope.enhancement=[];
-     
+       
+          $scope.enhancement=[]; 
           $scope.enhancement=data.name.doc;     //$scope.enhancement is an array which stores name of products from api : used in typeahead
            console.log("names=" + data.name.doc);
           $scope.productNames=data.success.doc;      //$scope.productNames is an array of objectrs which stores information of products result     
