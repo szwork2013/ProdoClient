@@ -1,5 +1,5 @@
 angular.module('prodo.ProductApp')
-.controller('DragImageController', ['$scope', '$rootScope', '$log', function($scope, $rootScope, $log) {
+.controller('DragImageController', ['$scope', '$rootScope', '$log','growl' , function($scope, $rootScope, $log,growl) {
  var reader;
  var reader1;
  $rootScope.count=0;
@@ -81,20 +81,20 @@ if (tests.dnd) {
 
     { 
     
-     $("#errAlert").css('display', 'inline');     
-        $("#errorMsg").html("Image size must ne less than 500kb");
+        growl.addErrorMessage(" Image size must ne less than 500kb ");
+       
     }
   else if(acceptedTypes[e.dataTransfer.files[0].type] === false)
     {
      
-     $("#errAlert").css('display', 'inline');     
-        $("#errorMsg").html("Add image only");
+   
+        growl.addErrorMessage("Add image only");
     }
   else if($rootScope.count>1)
     {
     
-     $("#errAlert").css('display', 'inline');   
-      $("#errorMsg").html("Add only one image at a time");
+   
+      growl.addErrorMessage("Add only one image at a time");
     }
   else if($rootScope.count==1 && acceptedTypes[e.dataTransfer.files[0].type] === true && e.dataTransfer.files[0].size/1024<500)
     readfiles(e.dataTransfer.files );

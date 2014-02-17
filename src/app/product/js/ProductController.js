@@ -11,7 +11,7 @@
    * 
    */
    angular.module('prodo.ProductApp')
-   .controller('ProductController', ['$scope','$log', '$rootScope', 'ProductService', 'UserSessionService','$http','CommentLoadMoreService','ENV','TagReffDictionaryService','ProductFeatureService', function($scope, $log,$rootScope, ProductService, UserSessionService,$http,CommentLoadMoreService,ENV,TagReffDictionaryService,ProductFeatureService) {
+   .controller('ProductController', ['$scope','$log', '$rootScope', 'ProductService', 'UserSessionService','$http','CommentLoadMoreService','ENV','TagReffDictionaryService','ProductFeatureService', 'growl',function($scope, $log,$rootScope, ProductService, UserSessionService,$http,CommentLoadMoreService,ENV,TagReffDictionaryService,ProductFeatureService,growl) {
 
               //comments
               $scope.productComments = {comments: [{}]};
@@ -51,7 +51,7 @@
               $scope.orgnameFromSession;
               $scope.orgidFromSession;
               $scope.socket;
-
+           
                //socket listener here
 
                TagReffDictionaryService.getAllTags(
@@ -73,6 +73,7 @@
                $rootScope.$watch('product_prodle', function() {  
               // var cleanProduct=   $rootScope.$on("product", function(event, data){
                     $log.debug("Listening");
+                    growl.addInfoMessage("Getting product details");
                     $scope.features=[];
                    // $rootScope.product_prodle=data.prodle;
                    // $rootScope.orgid=data.orgid;
@@ -104,12 +105,12 @@
                       }
                        else {
                        temp.innerHTML="<br>Please start following a product using search....<br><br>";
-                       $scope.showAlert('alert-danger', " Product not available ....");
+                       growl.addErrorMessage(" Product not available ....");
                      }
                     }
                       else {
                        temp.innerHTML="<br>Please start following a product using search....<br><br>";
-                       $scope.showAlert('alert-danger', " Product not available ....");
+                       growl.addErrorMessage(" Product not available ....");
                      }
                    
                     
@@ -174,14 +175,14 @@
                       }
                        else {
                        temp.innerHTML="<br>Please start following a product using search....<br><br>";
-                       $scope.showAlert('alert-danger', " Product not available ....");
+                        growl.addErrorMessage(" Product not available ....");
                      }
                     }
                       else {
 
 
                        temp.innerHTML="<br>Please start following a product using search...<br><br>";
-                       $scope.showAlert('alert-danger', " Product not available ...");
+                        growl.addErrorMessage(" Product not available ....");
                      }
                    }
                    else {
@@ -189,13 +190,7 @@
                        $scope.getProductFeatures();
 
 
-                        if($rootScope.usersession.currentUser.org){
-                    if ($rootScope.usersession.currentUser.org.isAdmin==true) {
-                      if ($scope.orgidFromSession === $rootScope.orgid ) {
-                        $rootScope.isAdminCheck=true;
-                      }
-                    }
-                  } 
+                 
 
                   //                $log.debug("success    "+successData);
                    $("#prodo-ProductFeatureTable").css("display", "table"); 
@@ -210,6 +205,7 @@
                       if ($scope.orgidFromSession === $rootScope.orgid ) {
                         $rootScope.isAdminCheck=true;
                       }
+                      else   $rootScope.isAdminCheck=false;
                     }
                   } 
 
@@ -241,7 +237,7 @@
                       }
                        else {
                        temp.innerHTML="<br>Please start following a product using search....<br><br>";
-                       $scope.showAlert('alert-danger', " Product not available ....");
+                        growl.addErrorMessage(" Product not available ....");
                      }
                     }
                       else {
@@ -249,7 +245,7 @@
                       var temp=document.getElementById('prodo-comment-container');
                       $log.debug(temp);
                       temp.innerHTML="<br> Server error please try after some time<br><br>";
-                      $scope.showAlert('alert-danger', "Server Error:" + error.status);
+                      growl.addErrorMessage( "Server Error:" + error.status);
                      }
 
                 
@@ -559,17 +555,19 @@
               //error handling for add product
               $scope.handleSaveProductResponse = function(data) {
                 if (data.success) {
-                  $scope.showAlert('alert-success', data.success.message);
+                   growl.addSuccessMessage( data.success.message);
+                 
                 } else {
                   if (data.error.code == 'AV001') {     // user already exist
                     $log.debug(data.error.code + " " + data.error.message);
-                    $scope.showAlert('alert-danger', data.error.message);
+                     growl.addErrorMessage(data.error.message);
+                  
                    } else if (data.error.code == 'AP001') {  // user data invalid
                     $log.debug(data.error.code + " " + data.error.message);
-                    $scope.showAlert('alert-danger', data.error.message);
+                     growl.addErrorMessage(data.error.message);
                   } else {
                     $log.debug(data.error.message);
-                    $scope.showAlert('alert-danger', data.error.message);
+                     growl.addErrorMessage(data.error.message);
                   }
                 }
               };
@@ -603,7 +601,7 @@
                           });
                 }
               }
-                else $scope.showAlert('alert-danger', "You dont have rights to add product..."); 
+                else  growl.addErrorMessage("You dont have rights to add product...");
               }
               else if(editStatus=='update'){
                 if ($rootScope.usersession.currentUser.org.isAdmin ==true) {
@@ -619,7 +617,7 @@
                           });
                  }
                }
-               else $scope.showAlert('alert-danger', "You dont have rights to update this product..."); 
+               else growl.addErrorMessage("You dont have rights to update this product...");
              }
 
            };
@@ -633,7 +631,8 @@
                       $log.debug(data.success.product.length);
                       if(data.success.product.length==0){
                         temp.innerHTML="<br>Product not available ... Add new product<br><br>";
-                        $scope.showAlert('alert-danger', " Product not available ...");
+                        growl.addErrorMessage(" Product not available ...");
+                        
                       }
                       else 
                       {
@@ -652,12 +651,14 @@
 
                   $scope.deleteProduct = function()
                   {
+                      growl.addInfoMessage("Deleting product  ...");
                     if ($rootScope.usersession.currentUser.org.isAdmin ==true) {
                       if ($scope.orgidFromSession === $rootScope.orgid ) {
                         ProductService.deleteProduct({orgid: $scope.orgidFromSession, prodle: $rootScope.product_prodle},
                          function(success) {
                           $log.debug(JSON.stringify( success));
-                          $scope.showAlert('alert-info', "Product deleted successfully...");
+                           growl.addSuccessMessage("Product deleted successfully...");
+                        
                           $scope.handleProductDeleted();
                         },
                         function(error){
@@ -667,8 +668,8 @@
                       }
                     }
                     else
-                     $scope.showAlert('alert-danger', "You dont have rights to delete this product...");
-                 }
+                        growl.addErrorMessage("You dont have rights to delete this product...");
+                  }
               //delete product
 
               $scope.clearText=function(){
@@ -722,6 +723,7 @@
             $scope.showErrorIfCommentNotAdded = function( ) {
               var retry = document.getElementById("responseComment");
               retry.style.display = 'inline';
+
               retry.innerHTML = 'Error adding comment please try again..';
             }
 
@@ -755,6 +757,7 @@
             //delete images
             $scope.deleteProductImages = function(index) {
                 //get selected ids to delete images
+                growl.addInfoMessage("Deleting product images ...");
                 $scope.imgIds = [{}];
                 $scope.ids;
 
@@ -782,8 +785,10 @@
                       // data: {'prodleimageids':[ $scope.imgIdsJson]}
                     }).success(function(data, status, headers, cfg) {
                       $log.debug(data);
+                      growl.addSuccessMessage("Images deleted successfully...");
                     }).error(function(data, status, headers, cfg) {
                      $log.debug(status);
+                     growl.addErrorMessage(status);
                    });
 
                   };
@@ -861,7 +866,8 @@
                    $('#imgDelModal').modal('show');
                  }
                  else{
-                  alert("Select atlest 1 image to delete");
+                  growl.addErrorMessage("Select atlest 1 image to delete");
+                 
                  }
 
                
@@ -983,9 +989,7 @@
 
                  },
                  function(error) {
-
-                  $scope.showAlert('alert-danger', "Server Error:" + error.status);
-
+                   growl.addErrorMessage("Server Error:" + error.status);
                 });
 
             }
@@ -997,9 +1001,9 @@
 
                 $scope.deleteFeature = function(feature){
                   $log.debug("deleting feature");
+                    growl.addInfoMessage("Deleting product feature ...");
                   $log.debug(feature.featureid);
-                  if ($rootScope.usersession.currentUser.org.isAdmin==true ) {
-                    if ($scope.orgidFromSession === $rootScope.orgid ) {
+                 if ($rootScope.isAdminCheck==true){
                       ProductFeatureService.deleteFeature({orgid: $scope.orgidFromSession, prodle: $rootScope.product_prodle ,productfeatureid:feature.featureid},
                         function(success) {
                           $log.debug(JSON.stringify( success));
@@ -1007,18 +1011,19 @@
                                       var index = $scope.features.indexOf(feature);
                                       if (index != -1)
                                         $scope.features.splice(index, 1);
-                                      
+                                      growl.addSuccessMessage(success.success.message);
 
                                     },
                                     function(error){
                                      $log.debug(JSON.stringify( error));
+                                     growl.addErrorMessage(error)
 
                                    });
                     }
-                  }
+                  
                   else
-                   $scope.showAlert('alert-danger', "You dont have rights to delete this feature...");
-
+              
+                    growl.addErrorMessage("You dont have rights to delete this feature...");
 
                 };
 
@@ -1034,24 +1039,27 @@
 
                 if(editStatus=='add'){
                   $log.debug("adding");
-                  if ($rootScope.usersession.currentUser.org.isAdmin ==true) {
+                  if ($rootScope.isAdminCheck==true){
                     ProductFeatureService.saveFeature({orgid: $scope.orgidFromSession , prodle:$rootScope.product_prodle}, $scope.newFeature,
                       function(success) {
                         $log.debug(success);
                                           $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
                                          $log.debug("new Feature : "+JSON.stringify( $scope.newFeature.productfeature[0]));
                                           $scope.features.push($scope.newFeature.productfeature[0]);
-
+                                          growl.addSuccessMessage("Feature added successfully");
                                           $log.debug($scope.features);
                                           $scope.feature="";
 
                                         },
 
                                         function(error) {
+                                          growl.addErrorMessage(error);
                                           $log.debug(error);
                                         });
                   }
-                  else $scope.showAlert('alert-danger', "You dont have rights to add product..."); 
+                  else  growl.addErrorMessage("You dont have rights to add product feature...");
+                   
+
                 }
 
               };
@@ -1059,19 +1067,22 @@
 
 
                 $scope.updateProductFeature = function(data, id) {
-                    //$scope.user not updated yet
+                   
                     console.log(data);
-                    angular.extend(data, {id: id});
+                      if ($rootScope.isAdminCheck==true){
                     ProductFeatureService.updateFeature({orgid:$scope.orgidFromSession,prodle:$rootScope.product_prodle,productfeatureid:id},{'productfeature': data},
                       function(success) {
                         $log.debug(success);
                                             $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
                                             // $scope.features.push($scope.newFeature);
-
+                                             growl.addSuccessMessage(success.success.message);                                                               
                                           },
                                           function(error) {
                                             $log.debug(error);
+                                            growl.addErrorMessage(error);
                                           });
+                  }
+                   else  growl.addErrorMessage("You dont have rights to update product feature...");
                   };
 
 
@@ -1080,7 +1091,8 @@
                   
                   $scope.enableEditor = function() {
                     $scope.editorEnabled = true;
-                     $("#prodo-addingProduct").text("   Adding product data.....");
+                     growl.addInfoMessage("   Adding product data.....");
+                   
                     
                   };
                   
