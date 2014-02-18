@@ -87,6 +87,7 @@ angular.module('prodo.UserApp').factory('UserSessionService', [
     var session = {};
     session.isLoggedIn = false;
     session.currentUser = null;
+    session.productfollowlist = {};
     session.signinUser = function (userdata) {
       UserService.Signin.signinUser(userdata, function (success) {
         $log.debug(success);
@@ -140,6 +141,7 @@ angular.module('prodo.UserApp').factory('UserSessionService', [
     session.getProductFollowed = function (prodledata) {
       UserService.Product_Followed.getProduct_Followed({ data: prodledata }, function (success) {
         $log.debug(success);
+        session.productfollowlist = success.success.products;
         $rootScope.$broadcast('getProductFollowedDone', success);
       }, function (error) {
         $log.debug(error);

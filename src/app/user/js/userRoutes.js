@@ -36,7 +36,8 @@ angular.module('prodo.UserApp')
       templateUrl: 'user/views/user.account.settings.container.html'
     })    
     .state('account.user', {
-      templateUrl:  'user/views/user.account.settings.tpl.html'
+      templateUrl:  'user/views/user.account.settings.tpl.html',
+      controller: 'UserAccountController'
     })
     .state('user-content', {
       abstract: true,

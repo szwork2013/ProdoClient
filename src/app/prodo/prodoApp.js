@@ -72,6 +72,7 @@ angular.module('prodo.ProdonusApp', [
   function ($scope, $rootScope, $state, $log, $location, growl, UserSessionService, OrgRegistrationService, UserSubscriptionService) {
     $state.transitionTo('home.signup');
     $scope.isShown = false;
+    $scope.prodlesfollowed = [{}];
     $scope.showSignin = function () {
       $scope.isShown = true;
       $state.transitionTo('home.signin');
@@ -116,7 +117,14 @@ angular.module('prodo.ProdonusApp', [
           } else if (data.products_followed.length > 0) {
             $rootScope.orgid= data.products_followed[0].orgid;
             $rootScope.product_prodle= data.products_followed[0].prodle;
-          } 
+            for (var i=0;i<data.products_followed.length;i++){
+              if(data.products_followed[i] && data.products_followed[i].prodle){
+                var prodle = data.products_followed[i].prodle;
+              }
+              $scope.prodlesfollowed.push(prodle);
+            }
+            UserSessionService.getProductFollowed($scope.prodlesfollowed);
+          }
         if ($scope.locationPath == '/message/resetpassword') {
           $state.transitionTo('user-content.resetpassword');
           }
