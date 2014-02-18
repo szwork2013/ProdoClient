@@ -54,7 +54,7 @@ angular.module('prodo.UserApp')
     // function to handle server side responses
     $scope.handleSignupResponse = function(data){
       if (data.success) {
-        $state.transitionTo('messageContent.emailverification');
+        $state.transitionTo('user-content.emailverification');
         $scope.clearformData();    // on successfull signup transition occurs to verification page 
 
       } else {
@@ -68,7 +68,7 @@ angular.module('prodo.UserApp')
             $state.transitionTo('home.start');
         } else if (data.error.code=='AT001') {   // user has not verified
             $log.debug(data.error.code + " " + data.error.message);
-            $state.transitionTo('messageContent.resetGenerateToken');
+            $state.transitionTo('user-content.resetGenerateToken');
         } else {
             $log.debug(data.error.message);
             $scope.showAlert('alert-danger', 'Prodonus Database Server error. Please wait for some time.');

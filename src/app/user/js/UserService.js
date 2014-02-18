@@ -77,6 +77,12 @@ angular.module('prodo.UserApp').factory('UserSessionService', [
             params: { data: '@data' }
           }
         }),
+        User_Profile: $resource('/api/profileinfo/:userid', {}, {
+          getUserProfile: {
+            method: 'GET',
+            params: { userid: '@userid' }
+          }
+        })
       };
     var session = {};
     session.isLoggedIn = false;
@@ -90,6 +96,17 @@ angular.module('prodo.UserApp').factory('UserSessionService', [
         $rootScope.$broadcast('signinNotDone', error.status);
       });
     };
+
+    session.getUserProfileData = function (userData) {
+      UserService.User_Profile.getUserProfile({ userid: userData }, function (success) {
+        $log.debug(success);
+        $rootScope.$broadcast('getUserDataDone', success);
+      }), function (error) {
+        $log.debug(error);
+        $rootScope.$broadcast('getUserDataNotDone', error);
+      };
+    };
+
     session.saveUserSettings = function (userdata) {
       UserService.ManageUser.updateUserSettings({ userid: session.currentUser.userid }, userdata, function (success) {
         $log.debug(success);
