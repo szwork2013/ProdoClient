@@ -287,7 +287,6 @@ angular.module('prodo.UserApp')
   
     }
 
-    $scope.prodlesfollowed = [{}];
     $scope.prodlesrecommend = [{}];
 
     // function to handle server side responses
@@ -302,15 +301,15 @@ angular.module('prodo.UserApp')
           }
           var day=d.getDate();
           $scope.user.dob = year + "-" + month + "-" + day;
-          if ($scope.user.products_followed.length > 0) {
-            for (var i=0;i<$scope.user.products_followed.length;i++){
-              if($scope.user.products_followed[i] && $scope.user.products_followed[i].prodle){
-                var prodle = $scope.user.products_followed[i].prodle;
-              }
-              $scope.prodlesfollowed.push(prodle);
-            }
-            UserSessionService.getProductFollowed($scope.prodlesfollowed);
-          };
+          // if ($scope.user.products_followed.length > 0) {
+          //   for (var i=0;i<$scope.user.products_followed.length;i++){
+          //     if($scope.user.products_followed[i] && $scope.user.products_followed[i].prodle){
+          //       var prodle = $scope.user.products_followed[i].prodle;
+          //     }
+          //     $scope.prodlesfollowed.push(prodle);
+          //   }
+          //   UserSessionService.getProductFollowed($scope.prodlesfollowed);
+          // };
           if ($scope.user.products_recommends.length > 0) {
             for (var i=0;i<$scope.user.products_recommends.length;i++){
               if($scope.user.products_recommends[i] && $scope.user.products_recommends[i].prodle){
