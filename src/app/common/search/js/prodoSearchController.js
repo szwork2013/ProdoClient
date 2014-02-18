@@ -7,22 +7,7 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
   'searchProductService',
   '$http',
   function ($scope, $log, $rootScope, prodoSearchService, UserSessionService, searchProductService, $http) {
-    $scope.TrendingProducts = [
-      { productname: 'Products Followed' },
-      { productname: 'Sony' },
-      { productname: 'Videocon' },
-      { productname: 'LG' },
-      { productname: 'Motorola' }
-    ];
-    $scope.FollowedProducts = [
-      { productname: 'Samsung Galaxy 4' },
-      { productname: 'Samsung Note II' },
-      { productname: 'Samsung Washing Machine' },
-      { productname: 'Samsung LCD 32 inches' },
-      { productname: 'Samsung S4' }
-    ];
-
-
+//Declaration of variables
     $scope.productNames=[];
     $scope.selected = undefined;
     $scope.tempnames=[];
@@ -34,11 +19,12 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
     $scope.count=0;
 
 
-
-
+//Watch added on search textbox to call api on every character change. productSearch.product is a ng-model of textbox
+//If content of textbox is not null
+//parameter is poassed on to function on which service is called : format:{name: 'criteria'}
                $rootScope.$watch('productSearch.product', function() { 
                if($scope.productSearch.product!=="")
-               {
+               {     
                     $scope.searchCriterion.name=$scope.productSearch.product;
                     $scope.searchProductP($scope.searchCriterion);
                 
@@ -49,7 +35,8 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
 
 
 
-
+//This is the function callen on every character change from simple search text box
+//searchProductService is a service which calles ''allproduct'' API
 
     $scope.searchProductP=function(data)
     { 
@@ -59,115 +46,107 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
       
                });
 
-
-
     };//
 
 
-    $scope.products_id = [
-      {
-        'key': '1',
-        'value': 'Nokia Lumia 720'
-      },
-      {
-        'key': '2',
-        'value': 'Samsung Galaxy Pro'
-      },
-      {
-        'key': '3',
-        'value': 'Micromax Canvas'
-      },
-      {
-        'key': '4',
-        'value': 'Micromax Canvas Doodle'
-      },
-      {
-        'key': '5',
-        'value': 'HTC Pro'
-      },
-      {
-        'key': '6',
-        'value': 'Apple Ipad'
-      },
-      {
-        'key': '7',
-        'value': 'Nokia 6600'
-      },
-      {
-        'key': '8',
-        'value': 'Videocone'
-      },
-      {
-        'key': '9',
-        'value': 'Blackberry Boss '
-      },
-      {
-        'key': '10',
-        'value': 'Sony'
-      }
-    ];
+//This is defined outside above function in order to make data available throughout this file
+$scope.$on('gotAllProducts', function (event, data) {
+       
+          $scope.enhancement=[]; 
+          $scope.enhancement=data.name.doc;     //$scope.enhancement is an array which stores name of products from api : used in typeahead
+           console.log("names=" + data.name.doc);
+          $scope.productNames=data.success.doc;      //$scope.productNames is an array of objectrs which stores information of products result     
+      });
 
 
+
+//The following function is called when search button is clicked from advanced search modal
     $scope.searchProductData = function () {
+      $scope.count=0;
       $scope.search.productsearchdata={};
       if ($scope.product_name !== '') {
-                var temp=$scope.product_name.replace(/\s/g, "");
+                var temp=$scope.product_name.replace(/\s/g, "");     //Declared temporary variable to remove spaces from search query
                 $scope.search.productsearchdata.Product_Name = temp;
                 temp="";
+      }
+      else
+      {
+        $scope.search.productsearchdata.Product_Name=""; 
+       $scope.count++;
       }
       if ($scope.model_number !== '') {
                  var temp=$scope.model_number.replace(/\s/g, "");
                 $scope.search.productsearchdata.Model_Number = temp;
                 temp="";
       }
+      else
+      {
+        $scope.search.productsearchdata.Model_Number="";
+       $scope.count++;
+      }
       if ($scope.category !== '') {
                  var temp=$scope.category.replace(/\s/g, "");
                 $scope.search.productsearchdata.Category = temp;
                 temp="";
+      }
+      else
+      {
+       $scope.search.productsearchdata.Category="";
+      $scope.count++;
       }
       if ($scope.feature !== '') {
                  var temp=$scope.feature.replace(/\s/g, "");
                 $scope.search.productsearchdata.Feature = temp;
                 temp="";
       }
+      else
+      {
+         $scope.search.productsearchdata.Feature="";
+       $scope.count++;
+      }
        if ($scope.org !== '') {
                  var temp=$scope.org.replace(/\s/g, "");
                 $scope.search.productsearchdata.Organization_Name = temp;
                 temp="";
+      
+      }
+      else
+      {
+        $scope.search.productsearchdata.Organization_Name="";
+       $scope.count++;     
       }
 
-      prodoSearchService.searchProduct($scope.search);
-     // $scope.search.productsearchdata= {};
-      $scope.$on('getSearchProductDone', function (event, data) {
-      $scope.result=data.success.doc;
-        //alert($scope.result);
-        // if(data.success.doc===null)
-        // {
-        //   console.log("null");
-        //   document.getElementById("prodo-searchResults").className="displayresult";
-        // }
-        // else
-        // { console.log(" not null");
-        //    document.getElementById("prodo-searchResults").className="displaynoresult";
-        // }
-        $scope.message=data.success.message;
-        //alert($scope.message);
-      });
-      $scope.$on('getSearchProductNotDone', function (event, data) {
-      });
+
+      //Following if statement is to check whether all fields are empty
+      //If all are empty then dont call API
+
+     if($scope.count==5)
+      {
+      }
+     else
+      {         console.log("Json file " + JSON.stringify($scope.search));
+                prodoSearchService.searchProduct($scope.search);    //Calling searchproduct api for advanced search; Format for input is {productsearchdata:{''}}
+               // $scope.search.productsearchdata= {};
+                $scope.$on('getSearchProductDone', function (event, data) {
+                $scope.result=data.success.doc;
+                  $scope.message=data.success.message;
+                  //alert($scope.message);
+                });
+                $scope.$on('getSearchProductNotDone', function (event, data) {
+                });
+
+      }
+
     };
 
 
-
+//This function assigns prodles and orgid to rootscope 
 
 $scope.emitProdle=function(dataProdle,dataOrgid)
 {
-        dataOfAdvancedSearch = {prodle: dataProdle,orgid:dataOrgid};
-        $rootScope.$emit("product",dataOfAdvancedSearch);console.log("sent to Bhagyashri ");
         $rootScope.product_prodle=dataProdle;
-        $rootScope.orgid=dataOrgid;
-       
-        $('#testmodal').modal('hide');
+        $rootScope.orgid=dataOrgid;    
+        $('#testmodal').modal('hide');  //code for cloasing modal
         $('.modal-backdrop').remove(); 
 };
 
@@ -176,10 +155,10 @@ $scope.emitProdle=function(dataProdle,dataOrgid)
 
 
 
+//This functions resets the advanced search modal
 
-
-    $scope.modalReset = function () {
-   // document.getElementById("prodo-searchResults").className="displaynoresult";
+    $scope.modalReset = function () 
+    {
               $scope.message="";
               document.getElementById('textBoxCategoryName').value = '';
               document.getElementById('textBoxModelNumber').value = '';
@@ -196,23 +175,8 @@ $scope.emitProdle=function(dataProdle,dataOrgid)
     };
 
 
-//////////////////////////// tryl and error
 
 
-////////////////////////////////////////
-
-
-
-
-
-$scope.$on('gotAllProducts', function (event, data) {
-        $scope.productNames=data.success.doc;
-        // $scope.$watch()
-        $scope.enhancement=data.name.doc;
-        //alert($scope.enhancement[0]);
-              
-     
-      });
 
 
 
@@ -221,19 +185,20 @@ $scope.$on('gotAllProducts', function (event, data) {
 
 
     $scope.sampleDataEmitSearch = function () {
-                 var data9={};
-                 angular.forEach($scope.productNames, function(state) {
-                  if ($rootScope.productSearch.product === state.name) {
+        var data9={};
+        angular.forEach($scope.productNames, function(state) 
+        {
+                if ($rootScope.productSearch.product === state.name) 
+                {
                     data9 = {prodle: state.prodle,orgid:state.orgid};
                     $rootScope.product_prodle=state.prodle;
-                    $rootScope.orgid=state.orgid;
-               
-                  }
-                  });
+                   $rootScope.orgid=state.orgid;
+                           
+                }
+         });
 
-      $rootScope.$emit('product', data9);
-      console.log("Emit" +data9.prodle);      
-  
-      };
+    };
+//End of controller  
+
   }
 ]);
