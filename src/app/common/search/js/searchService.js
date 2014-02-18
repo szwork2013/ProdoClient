@@ -19,8 +19,6 @@ angular.module('prodo.ProdoWallApp')
       };
     };
     return search;
-
-
   }
 ])
 
@@ -44,8 +42,6 @@ angular.module('prodo.ProdoWallApp')
       };
     };
     return search;
-
-
   }
 ])
 
