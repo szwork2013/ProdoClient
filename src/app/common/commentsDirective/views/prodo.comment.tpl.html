@@ -85,8 +85,8 @@
              <!--    <li><a    ng-click="tabCommentTags = tabCommentTags === false ? true : false;
              tabCommentRemove = false;"><div id="fa-tagsComment" class="fa fa-tags"  ></div></a></li> -->
              <li ng-style="hideIfNotUser(comment.user.userid)" ><a  style="cursor: pointer; cursor: hand;" ng-click="tabCommentRemove = tabCommentRemove === false ? true : false;
-              tabCommentTags = false;"><div  id="fa-removeComment" name="rm" class=" fa fa-trash-o  "  ></div></a></li>
-              <li><a  style="cursor: pointer; cursor: hand;" ng-style="hideIfNotImage(comment.comment_image[0].image)"  ng-click="tabCommentImg = tabCommentImg === false ? true : false;
+              tabCommentImg = false;"><div  id="fa-removeComment" name="rm" class=" fa fa-trash-o  "  ></div></a></li>
+              <li><a  style="cursor: pointer; cursor: hand;" ng-style="hideIfNotImage(comment.comment_image[0].image)"  ng-click="tabCommentImg = tabCommentImg === true ? false : true;
                 tabCommentRemove = false;"><div id="fa-tagsComment" class="fa fa-picture-o"  ></div></a></li>        
               </ul> 
               <div class="tab-content">
