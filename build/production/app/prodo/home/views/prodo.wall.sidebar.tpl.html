@@ -4,7 +4,7 @@
    <div id="prodo-sidebar-list-group" class="list-group">
     <div id="prodo-sidebar-list" class="list">
       <a style="background-color: #494F53; font-weight: bold; fornt-size:12px;" class="list-group-item active">Products Followed</a>
-      <a  ng-repeat="fp in usersession.productfollowlist | limitTo:5" href="#" id="prodo-sidebar-list-group-item" class="list-group-item">{{fp.name}}</a>
+      <a  ng-repeat="fp in usersession.productfollowlist | limitTo:5" href="#" id="prodo-sidebar-list-group-item" class="list-group-item" ng-click="emitProdle(fp.prodle,fp.orgid)">{{fp.name}}</a>
     </div>
   </div>
 </div>
@@ -15,8 +15,28 @@
     <div id="prodo-sidebar-list" class="list" >
       <a style="background-color: #494F53; font-weight: bold; fornt-size:12px;" id="prodo-sidebar-list-group-item" class="list-group-item active">Search</a>
       <div  id="prodo-sidebar-list-group-main" class="list-group-item">
-        <input type="text" class="prodoAdvancedSearchTextbox"  name="product" typeahead="name for name in enhancement| filter:$viewValue | limitTo:100" id="searchText" ng-model="productSearch.product"  style="width:100%" placeholder="Search..."  typeahead-on-select="sampleDataEmitSearch()">
-        <br><br>
+
+
+        <input general-search type="text" class="prodoAdvancedSearchTextbox"  name="product" typeahead="name for name in enhancement | filter : $viewValue | limitTo:10" id="searchText" ng-model="productSearch.product"  style="width:100%" placeholder="Prod or Org Search"  typeahead-on-select="sampleDataEmitSearch()" typeahead-loading="loadingLocations" typeahead-wait-ms="320">
+        <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+
+
+<!-- 
+  <input type="text" general-search ng-model="productSearch.product" placeholder="Prod or Org Search" typeahead="name for name in enhancement | filter:$viewValue" typeahead-loading="loadingLocations" class="form-control" style="width:100%" typeahead-on-select="sampleDataEmitSearch()" > 
+    <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+ -->
+
+ <!--    <input type="text" ng-model="productSearch.product" placeholder="" typeahead="enh for enhancement in getSearchResult($viewValue) | filter:$viewValue" typeahead-loading="loadingLocations" class="form-control" typeahead-on-select="sampleDataEmitSearch()">
+    <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+
+ -->
+
+<!--  <input type="text" ng-model="asyncSelected" placeholder="" typeahead="address for address in getSearchResult($viewValue) | filter:$viewValue" typeahead-loading="loadingLocations" class="form-control" typeahead-wait-ms="10000">
+    <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i> -->
+
+
+
+   <!--  <p ng-click="a()">test</p> -->
         <a data-toggle="modal"  data-target="#testmodal" ng-click="modalReset()" >Advanced Search</a>
         <!-- start of advanced search -->
          <div id = "testmodal" class="modal fade" >      <!-- Modal Code Starts for Advansed-Search -->
@@ -105,11 +125,14 @@
      <!--End of advanced search  --> 
       </div>
     </div>
+     <div id="prodo-sidebar-list" class="list">
+      <a  ng-repeat="fp in usersession.productfollowlist | limitTo:5" href="#" id="prodo-sidebar-list-group-item" class="list-group-item">coming soon..</a>
+    </div>
   </div>
 </div>
 
 <!-- Product trending list code -->
-<div id="prodo-sidebar-followedproductlist-container" class="container">
+<!-- <div id="prodo-sidebar-followedproductlist-container" class="container">
    <div id="prodo-sidebar-list-group" class="list-group">
     <div id="prodo-sidebar-list" class="list">
       <a style="background-color: #494F53; font-weight: bold; fornt-size:12px;" class="list-group-item active"> Trending Products</a>
@@ -117,3 +140,4 @@
     </div>
   </div>
 </div>
+ -->

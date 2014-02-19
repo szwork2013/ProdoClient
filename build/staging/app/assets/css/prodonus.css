@@ -75,10 +75,10 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
  
 /*Advanced Search CSS*/
 .prodoAdvancedSearchTextbox { 
-    background: #FFF url(../ico/search.png) no-repeat 4px 4px; 
+
     border: 1px solid #999; 
     outline:0; 
-    padding-left: 25px;
+    /*padding-left: 25px;*/
     height:25px; 
     width: 500px; 
     border-radius: 5px;
