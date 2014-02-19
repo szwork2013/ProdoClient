@@ -22,68 +22,55 @@
 
       <a class="pull-left" href="#"  ng-click="userProfileModal(comment.user.userid)" ng-controller="prodoUserProfileDataController"  id="triggerModal">
 
-      <img class="media-object" id="img-user" ng-src="{{comment.user.profilepic}}" alt="User"  style="height:50px; width:50px" id="triggerModals" data-toggle="modal" data-target="#testmodal1" /> 
+      <img class="media-object" id="img-user" ng-src="{{comment.user.profilepic}}" alt="User"  style="height:50px; width:50px" id="triggerModals" data-toggle="modal" data-target="#profileInfoModal" /> 
         
       </a>
 
-      <!-- modal -->
+<!-- modal -->
 
-      <div id = "testmodal1" class="modal fade" style="left:200px" >
+      <div id = "profileInfoModal" class="modal fade" style="left:200px" >
        <div class="modal-dialog"> 
         <div class="modal-content"> 
-          <div class="modal-header">
-           <h3 align="center"> User Profile </h3>
-         </div> 
+              <div class="modal-header">
+                  <h3 align="center"> User Profile </h3>
+             </div> 
 
 
-         <div class="modal-body" ng-controller="prodoUserProfileDataController">                 
-                <div class="classMain">
-                  <h5 ng-bind=" modaluser.username"></h5>
-                    <img ng-src="{{modaluser.profile_pic}}" style="height:90px;width:90px; "/>
-                </div>
-                <br><hr>
-                <div  class="classMain">
-                   <h4> Product Followed </h4>
-                        <div ng-repeat="products in modaluser.products_followed"  
-                        class="effectpic" ><center>
-                          <p >{{products.name}}</p>
-                          <img ng-src="{{products.product_logo}}" class="prodleImage" ng-click="emitProductData(products.prodle,products.orgid)"></center>
-                        </div>
-                </div>
-                <br><hr>
-                 <div class="classMain">
-                   <h4> Product Recommended </h4>
-                        <div ng-repeat="products in modaluser.products_recommends"   class="effectpic" >
-                         <center> <p >{{products.name}}</p>
-                          <img ng-src="{{products.product_logo}}" class="prodleImage" ng-click="emitProductData(products.prodle,products.orgid)"></center>
-                        </div>
-                </div>
-        </div>  
+             <div class="modal-body" ng-controller="prodoUserProfileDataController">                 
+                            <div class="classMain">
+                                  <h5 ng-bind=" modaluser.username"></h5>
+                                  <img ng-src="{{modaluser.profile_pic}}" style="height:90px;width:90px; "/>
+                            </div>
+                     <br><hr>
+                     <div  class="classMain">
+                           <h4> Product Followed </h4>
+                                <div ng-repeat="products in modaluser.products_followed"  
+                                class="effectpic" ><center>
+                                      <p >{{products.name}}</p>
+                                      <img ng-src="{{products.product_logo}}" class="prodleImage" ng-click="emitProductData(products.prodle,products.orgid)"></center>
+                                </div>
+                     </div>
+                     <br><hr>
+                     <div class="classMain">
+                           <h4> Product Recommended </h4>
+                                <div ng-repeat="products in modaluser.products_recommends"   class="effectpic" >
+                                     <center> <p >{{products.name}}</p>
+                                     <img ng-src="{{products.product_logo}}" class="prodleImage" ng-click="emitProductData(products.prodle,products.orgid)"></center>
+                                </div>
+                    </div>
+             </div>  
 
+             <div class="modal-footer">
+                     <button class="btn btn-warning" data-dismiss="modal">Close</button>
+             </div>        
 
-
-
-
-
-
-
-
-
-       <div class="modal-footer">
-        <button class="btn btn-warning" data-dismiss="modal">Close</button>
-      </div>        
-
-
-
-
-
-
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+           </div><!-- /.modal-content -->
+         </div><!-- /.modal-dialog -->
+       </div><!-- /.modal -->
 
 
 <!-- modal -->
+
 <div class="media-body"><div>
   <div class=" pull-left " id="prodo-comment-userName"  >{{comment.user.username.substring(0,15)}}</div>
   <div ng-style="hideIfNoOrg(comment.user.orgname)" id="prodo-comment-companyName" class="pull-left"   >  &nbsp; &nbsp; &nbsp; &nbsp; @ {{toCamelCase(comment.user.orgname).substring(0,15)}}</div> <div id="prodo-comment-companyName"  ng-style="hideIfNogrp(comment.user.grpname)"> &nbsp; &nbsp;- &nbsp;{{comment.user.grpname.substring(0,15)}}</div>  
@@ -121,36 +108,20 @@
                   <div id="Remove" ng-show="tabCommentImg == 1"   >
 
                    <div id="img2">
-                    <img style="width:50px; height:50px;"  id="img-user" ng-src="{{comment.comment_image[0].image}}"   ng-click="captureCommentImageHere(comment.comment_image[0].image)" data-toggle="modal" data-target="#testmodalx" /> 
+                    <img style="width:50px; height:50px;"  id="img-user" ng-src="{{comment.comment_image[0].image}}"   ng-click="captureCommentImageHere(comment.comment_image[0].image)" data-toggle="modal" data-target="#commentImageModal" /> 
 
                   </div>      
                 </div>
 <!-- Code for comment image modal -->
 
-<div id = "testmodalx" class="modal fade" style="left:200px" >
-  <div class="modal-dialog"> 
-    <div class="modal-content"> 
+                    <div id = "commentImageModal" class="modal fade" style="left:200px" >
+                      <div class="modal-dialog"> 
+                        <div class="modal-content"> 
 
-<!-- Layer slider code from slider/ only image changed -->
-
-
-            <div id="layerslider-container">    
-                <div id="layerslider" prodo-slider style="width: 500px; height: 250px; margin: 0 auto;">
-                     <div class="ls-layer" ng-repeat="slide in org.org_images" >     
-                          <img ng-src="{{commentImageShow}}"class="ls-bg" >    <!-- Function written in product controller -->
-                     </div>
-                 </div>
-             </div>
-             
-<!--  -->
-
-
-
-
-        <img ng-src="{{commentImageShow}}" />
-    </div>
-  </div>
-</div>
+                            <img ng-src="{{commentImageShow}}" />
+                        </div>
+                      </div>
+                    </div>
 
 
 <!--  -->
