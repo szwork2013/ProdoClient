@@ -65,10 +65,58 @@ angular.module('prodo.OrgApp')
         OrgGroupInvites: $resource('/api/orginvite/:orgid', {},
         {
           sendGroupInvites: { method: 'POST', params: { orgid: '@orgid'}}
+        }),
+        GetOrgGroupMembers: $resource('/api/orggroupmembers/:orgid', {},
+        {
+          getGroupDetails: { method: 'GET', params: { orgid: '@orgid'}}
+        }),
+        RemoveOrgGroupMember: $resource('/api/orggroupmember/:orgid/:grpid/:userid', {},
+        {
+          deleteGrpMember: { method: 'DELETE', params: { orgid: '@orgid', grpid: '@grpid', userid: '@userid'}}
+        }),
+        GetOrgProducts: $resource('/api/product/:orgid', {},
+        {
+          getAllOrgProducts: { method: 'GET', params: { orgid: '@orgid'}}
         })
       }
 
     var organization = {};
+
+    organization.getAllGroups = function() {
+      OrgService.GetOrgGroupMembers.getGroupDetails({orgid: $rootScope.usersession.currentUser.org.orgid},     // calling function of UserSigninService to make POST method call to signin user.
+        function(success){
+          $log.debug(success);
+          $rootScope.$broadcast("getOrgGroupDone", success);
+        },
+        function(error){
+          $log.debug(error);
+          $rootScope.$broadcast("getOrgGroupNotDone", error.status);
+        });
+    }
+
+    organization.deleteMember = function(usergrpid, memberid) {
+      OrgService.RemoveOrgGroupMember.deleteGrpMember({orgid: $rootScope.usersession.currentUser.org.orgid, grpid: usergrpid, userid: memberid},     // calling function of UserSigninService to make POST method call to signin user.
+        function(success){
+          $log.debug(success);
+          $rootScope.$broadcast("deleteOrgGroupMemberDone", success);
+        },
+        function(error){
+          $log.debug(error);
+          $rootScope.$broadcast("deleteOrgGroupMemberNotDone", error.status);
+        });
+    }
+
+    organization.getAllProducts = function() {
+      OrgService.GetOrgProducts.getAllOrgProducts({orgid: $rootScope.usersession.currentUser.org.orgid},     // calling function of UserSigninService to make POST method call to signin user.
+        function(success){
+          $log.debug(success);
+          $rootScope.$broadcast("getOrgProductDone", success);
+        },
+        function(error){
+          $log.debug(error);
+          $rootScope.$broadcast("getOrgProductNotDone", error.status);
+        });
+    }
 
     organization.RegisterOrg= function (orgData) {
         OrgService.OrgRegistration.saveOrg(orgData,     // calling function of UserSigninService to make POST method call to signin user.

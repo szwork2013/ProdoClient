@@ -38,7 +38,6 @@ angular.module('prodo.UserApp')
     $scope.handleSigninResponse = function(data){
       if (data.success) {
         UserSessionService.authSuccess(data.success.user);
-        $state.transitionTo('prodo.wall');
         $scope.showAlert('alert-success', 'Welcome to Prodonus, you have successfully signed up.');
         $scope.clearformData();
         
