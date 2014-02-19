@@ -1,0 +1,289 @@
+<div id="prodo-comment-fixed" style="">
+  	<div>
+  		<img src="../../../assets/images/logo_oasis.jpg" style="width: 250px; height:100px; margin: 20px; ">
+  		<a class="btn btn-danger btn-sm pull-right" style="border-radius: 10px; margin: 15px;" href="" data-toggle="modal" data-target="#myModal"><i style="margin-right: 5px;" class="fa fa-trash-o fa-lg"></i>Delete</a>
+  	</div>
+  	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		        <h4 class="modal-title" id="myModalLabel">Confirm Delete</h4>
+		      </div>
+		      <div class="modal-body">
+		        You have selected to delete your Organization. This would stop you from any further interaction with the organization. Do you want to proceed?
+		      </div>
+		      <div class="modal-footer">
+		      	<button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="deleteOrgAccount()">Delete Organisation</button>
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+		      </div>
+		    </div><!-- /.modal-content -->
+		  </div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+	<accordion>
+    <accordion-group>
+    	<accordion-heading>
+        <p style='font-weight:bold; font-size: 13px; margin: 0;'>General Settings<i class="fa fa-pencil pull-right"></i></p>
+      </accordion-heading>
+        <div>
+            <dl>
+              <dt>Organization Name:</dt>
+              <dd ng-hide="editorEnabled">{{org.name}}<a class="btn btn-primary btn-sm glyphicon glyphicon-edit pull-right" style="border-radius: 10px; margin: 5px;" href="#" ng-click="enableEditor()">Edit</a></dd>
+            </dl>
+    			</div>
+  			<div ng-show="editorEnabled">
+    			<input style="width: 50%; height:30px; display:block" class="form-control" ng-model="org.name" ng-show="editorEnabled"><br>
+          <input style="width: 50%; height:30px; display: block" class="form-control" ng-model="user.password" placeholder="Please enter your password" ng-show="editorEnabled">
+          <a class="btn btn-primary btn-sm glyphicon glyphicon-floppy-save pull-right" style="border-radius: 10px; margin: 5px;" ng-click="updateOrgAccount()">Save</a>
+          <a class="btn btn-primary btn-sm glyphicon glyphicon-remove pull-right" style="border-radius: 10px; margin: 5px;" ng-click="disableEditor()">Cancel</a>
+  			</div>
+        <div>
+            <dl>
+              <dt>Organization Description:</dt>
+              <dd ng-hide="editorEnabled">{{org.description}}<a class="btn btn-primary btn-sm glyphicon glyphicon-edit pull-right" style="border-radius: 10px; margin: 5px;" href="#" ng-click="enableEditor()">Edit</a></dd>
+            </dl>
+          </div>
+          <div ng-show="editorEnabled">
+            <input style="width: 50%; height:30px; display:block" class="form-control" ng-model="org.description" ng-show="editorEnabled"><br>
+            <a class="btn btn-primary btn-sm glyphicon glyphicon-floppy-save pull-right" style="border-radius: 10px; margin: 5px;" ng-click="updateOrgAccount()">Save</a>
+            <a class="btn btn-primary btn-sm glyphicon glyphicon-remove pull-right" style="border-radius: 10px; margin: 5px;" ng-click="disableEditor()">Cancel</a>
+          </div>
+    </accordion-group>
+    
+    <accordion-group>
+    	<accordion-heading>
+            <p ng-click="getOrgAddress()" style='font-weight:bold; font-size: 13px; margin: 0;'>Location<i class="fa fa-pencil pull-right"></i></p>
+        </accordion-heading>
+           <p style="margin-top: 10px; font-size: 10px;">To add address please click here.
+      <a href="" data-toggle="collapse" data-target="#Editlocation" class="pull-right"><i class="fa fa-plus-square fa-lg pull-right"></i></a></p>
+
+      <div id="Editlocation" class="collapse">
+
+          <form id="prodo-form-signin" name="signinForm" class="css-form" ng-submit="" novalidate>
+
+            <div class="control-group">
+
+              <ul>
+
+                <li>
+                <label class="label-control" style="font-size: 12px; width: 120px; text-align:left; float: left; display: inline-block;">Location Type</label>
+                <select id="prodo-form-input-address" type="text" class="form-control" ng-model="org.orgaddresstype" autofocus required>
+                <option value="Company Address">Company Address</option>
+                <option value="Service Centers">Service Centers</option></select></li>
+
+                <li>
+                <label class="label-control" style="font-size: 12px; width: 120px; text-align:left; float: left; display: inline-block;">Address Line 1</label>
+                <input id="prodo-form-input-address" name="address1"  type="text" class="form-control" placeholder="Address Line1" ng-model="org.address1"  required /></li>
+                 
+                <li>
+                <label class="label-control" style="font-size: 12px; width: 120px; text-align:left; float: left; display: inline-block;">Address Line 2</label>
+                <input name="address2"  type="text" id="prodo-form-input-address" class="form-control" placeholder="Address Line2" ng-model="org.address2" /></li>
+
+                <li>
+                <label class="label-control" style="font-size: 12px; width: 120px; text-align:left; float: left; display: inline-block;">Address Line 3</label>
+                <input name="address3"  type="text" id="prodo-form-input-address" class="form-control" placeholder="Address Line3" ng-model="org.address3" /></li>
+
+                <li>
+                <label class="label-control" style="font-size: 12px; width: 120px; text-align:left; float: left; display: inline-block;">Country</label>
+                <input name="country" type="text" id="prodo-form-input-address" class="form-control" placeholder="Country" ng-model="org.country" required /></li>
+                   
+                <li>
+                <label class="label-control" style="font-size: 12px; width: 120px; text-align:left; float: left; display: inline-block;">State</label>
+                <input name="state"  type="text" id="prodo-form-input-address" class="form-control" placeholder="State" ng-model="org.state" required /></li>
+
+                <li>
+                <label class="label-control" style="font-size: 12px; width: 120px; text-align:left; float: left; display: inline-block;">City</label>
+                <input name="city"  type="text" id="prodo-form-input-address" class="form-control" placeholder="City" ng-model="org.city" required /></li>
+              
+                <li>
+                <label class="label-control" style="font-size: 12px; width: 120px; text-align:left; float: left; display: inline-block;">Zipcode</label>
+                <input name="zipcode" type="text" id="prodo-form-input-address" class="form-control" placeholder="Zip Code" ng-model="org.zipcode" required /></li>
+
+                <li>
+                <label class="label-control" style="font-size: 12px; width: 120px; text-align:left; float: left; display: inline-block;">Customer HelpLine</label>
+                <input id="prodo-form-input-address" name="contact" type="text" class="form-control" placeholder="Customer HelpLine" ng-model="org.contact.customerhelpline1" autofocus required/></li>
+                
+                <li>
+                <label class="label-control" style="font-size: 12px; width: 120px; text-align:left; float: left; display: inline-block;">Customer HelpLine</label>
+                <input id="prodo-form-input-address" name="contact" type="text" class="form-control" placeholder="Customer HelpLine" ng-model="org.contact.customerhelpline2" autofocus required/></li>
+
+                <li>
+                <label class="label-control" style="font-size: 12px; width: 120px; text-align:left; float: left; display: inline-block;">Customer HelpLine</label><input id="prodo-form-input-address" name="contact" type="text" class="form-control" placeholder="Customer HelpLine" ng-model="org.contact.customerhelpline3" autofocus required/></li>
+
+              </ul>
+
+            </div>  
+
+            <button id="prodo-button" class="btn btn-sm btn-primary" ng-click="addOrgAddress()">Save Changes</button>
+            <button id="prodo-button" class="btn btn-sm btn-primary" data-toggle="collapse" data-target="#Editlocation">Cancel</button>
+          </form>
+
+        </div><br>
+          <div class="bar">
+            <input type="text" class="form-control" ng-model="searchAddress" placeholder="Enter your search terms" />
+          </div>
+
+          <table class="table table-hover table-condensed" ng-repeat="orgAd in orgaddr">
+          <thead>
+
+            <tr>
+              <th></th> 
+              <th>Location Type As:</th>
+              <th>{{orgAd.loctype}}<th>
+            </tr>
+          </thead> 
+          <tr style="font-weight: bold">
+            <td style="width:5%">#</td>
+            <td style="width:22%">Address</td>
+            <td style="width:18%">Country</td>
+            <td style="width:15%">State</td>
+            <td style="width:18%">Contacts</td>
+            <td style="width:22%">Edit</td>
+          </tr>
+          <tbody>
+            <tr ng-repeat="addr in orgAd.location | filter:searchAddress">
+            <td>{{$index + 1}}</td>
+            <td>
+              <span style="margin:.3px;" ng-hide="editorEnabled">{{org.address1 || addr.address.address1}},<br>{{addr.address.address2}},<br>{{addr.address.address3}},<br>{{addr.address.city}},{{addr.address.zipcode}}</span>
+              <span style="margin:.3px;">
+                <input style="height:30px; display:block; margin:3px;" class="form-control" ng-model="org.address1" placeholder="Address Line1" ng-show="editorEnabled"></span>
+                <span style="margin:.3px;"><input style="height:30px; display: block; margin:3px;" class="form-control" ng-model="org.address2" placeholder="Address Line2" ng-show="editorEnabled"></span>
+                <span style="margin:.3px;"><input style="height:30px; display:block; margin:3px;" class="form-control" ng-model="org.address3" placeholder="Address Line3" ng-show="editorEnabled"></span>
+                <span style="margin:.3px;"><input style="height:30px; display:block; margin:3px;" class="form-control" ng-model="org.city" placeholder="City" ng-show="editorEnabled"></span>
+                <span style="margin:.3px;"><input style="height:30px; display:block; margin:3px;" class="form-control" ng-model="org.zipcode" placeholder="Zipcode" ng-show="editorEnabled">
+              </span>
+            </td>
+            <td>
+              <span ng-hide="editorEnabled">{{addr.address.country}}</span>
+              <span style="margin:.3px;" ng-show="editorEnabled">
+                <input style="height:30px; display:block; margin:3px;" class="form-control" ng-model="org.country" placeholder="Country" ng-show="editorEnabled">
+              </span>
+            </td>
+            <td>
+              <span ng-hide="editorEnabled">{{addr.address.state}}</span>
+              <span style="margin:.3px;" ng-show="editorEnabled">
+                <input style="height:30px; display:block; margin:3px;" class="form-control" ng-model="org.state" placeholder="State" ng-show="editorEnabled">
+              </span>
+            </td>
+            <td>
+              <span ng-hide="editorEnabled">{{addr.contacts[0].customerhelpline}}<br>{{addr.contacts[1].customerhelpline}}<br>{{addr.contacts[2].customerhelpline}}</span>
+              <span style="margin:.3px;" ng-show="editorEnabled">
+                <input style="height:30px; display:block; margin:3px;" class="form-control" ng-model="org.contact.customerhelpline1" placeholder="Helpline1" ng-show="editorEnabled"></span>
+                <span style="margin:.3px;">
+                <input style="height:30px; display:block; margin:3px;" class="form-control" ng-model="org.contact.customerhelpline2" placeholder="Helpline2" ng-show="editorEnabled"></span>
+                <span style="margin:.3px;">
+                <input style="height:30px; display:block; margin:3px;" class="form-control" ng-model="org.contact.customerhelpline3" placeholder="Helpline3" ng-show="editorEnabled">
+              </span>
+            </td>
+            <td>
+              <div class="buttons">
+                <a ng-hide="editorEnabled" class="btn btn-primary btn-sm" style="border-radius: 10px; margin: 5px;" ng-click="enableEditor()">Edit</a>
+                <a ng-hide= "{{$index}}<1" ng-hide="editorEnabled" class="btn btn-danger btn-sm" style="border-radius: 10px; margin: 5px;" ng-click="deleteOrgAddress(addr.locid)">Del</a>
+                <a ng-show="editorEnabled" class="btn btn-primary btn-sm glyphicon glyphicon-floppy-save" style="border-radius: 10px; margin: 2px;" ng-click="updateAddress(addr.locid)">Save</a>
+                <a ng-show="editorEnabled" class="btn btn-primary btn-sm glyphicon glyphicon-remove" style="border-radius: 10px; margin: 2px;" ng-click="disableEditor()">Can</a>
+              </div>  
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </accordion-group>
+
+    <accordion-group>
+    	<accordion-heading>
+            <p style='font-weight:bold; font-size: 13px; margin: 0;'>Groups<i class="fa fa-pencil pull-right"></i></p>
+        </accordion-heading>
+        <button class="btn btn-info btn-sm" style="background-color:#47707C; border-color:#3C555C; border-radius: 10px; margin: 15px;" ng-click="addInvites()"><i style="margin-right: 5px;" class="fa fa-plus-square"></i>Add Groups</button>
+        <table ng-show="showInvites" class="table table-condensed">
+          <tbody>
+            <tr>
+              <td><input class="form-control" ng-model="group.grpname" type="text" placeholder="Group Name" ></td>
+              <td><input class="form-control" ng-model="group.invites" type="email" placeholder="Enter email seprated by commas(,)" prodonus-multi-email-validate></td>
+              <td><button class="btn btn-info btn-sm glyphicon glyphicon-send pull-right" style="border-radius: 10px; margin: 5px;" ng-click="addGroupInvite()">Send</button></td>
+            </tr>
+          </tbody>
+        </table>
+        <br>
+        <div id="invites">
+          <table class="table table-striped" ng-repeat="i in org.usergrp">
+            <thead>
+              <tr>
+              <th>Group Name</th>
+              <th>Group Members</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="grpmember in i.grpmembers">
+              <td>{{i.grpname}}</td>
+              <td>{{grpmember}}</td>
+              <td><button class="btn btn-sm">Edit</button></td>
+              <td><button class="btn btn-sm" ng-click="deleteOrgAddress()">Delete</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+    </accordion-group>
+
+    <accordion-group>
+    	<accordion-heading>
+            <p style='font-weight:bold; font-size: 13px; margin: 0;'>Other Organization Invites<i class="fa fa-pencil pull-right"></i></p>
+        </accordion-heading>
+        <button class="btn btn-info btn-sm" style="background-color:#47707C; border-color:#3C555C; border-radius: 10px; margin: 15px;" ng-click="addMoreInvites()"><i style="margin-right: 5px;" class="fa fa-plus-square"></i>Add More Invites</button>
+        <table class="table table-condensed">
+          <tbody>
+            <tr ng-repeat="invite in orginvites">
+              <td><input class="form-control" ng-model="invite.name" type="text" placeholder="Name" > </td>
+              <td><input class="form-control" ng-model="invite.orgname" type="text" placeholder="Organization Name" ></td>
+              <td><input class="form-control" ng-model="invite.email" type="email" placeholder="Email" ></td>
+            </tr>
+          </tbody>
+        </table>
+        <button class="btn btn-info btn-sm glyphicon glyphicon-send pull-right" style="border-radius: 10px; margin: 5px;" ng-click="sendOrgInvites()">Send</button>
+    </accordion-group>
+
+    <accordion-group>
+      <accordion-heading>
+            <p style='font-weight:bold; font-size: 13px; margin: 0;'>Organization Customer Invites<i class="fa fa-pencil pull-right"></i></p>
+      </accordion-heading>
+        <button class="btn btn-info btn-sm" style="background-color:#47707C; border-color:#3C555C; border-radius: 10px; margin: 15px;" ng-click="addCustomerInvites()"><i style="margin-right: 5px;" class="fa fa-plus-square"></i>Add More Invites</button>
+        <table class="table table-condensed">
+          <tbody>
+            <tr ng-repeat="customer in customerinvites">
+              <td><input class="form-control" ng-model="customer.name" type="text" placeholder="Name" > </td>
+              <td><input class="form-control" ng-model="customer.email" type="email" placeholder="Email" ></td>
+            </tr>
+          </tbody>
+        </table>
+        <button class="btn btn-info btn-sm glyphicon glyphicon-send pull-right" style="border-radius: 10px; margin: 5px;" ng-click="orgCustomerInvites()">Send</button>
+    </accordion-group>
+
+
+    <accordion-group>
+    	<accordion-heading>
+            <p style='font-weight:bold; font-size: 13px; margin: 0;'>Product<i class="fa fa-pencil pull-right"></i></p>
+        </accordion-heading>
+        This is just some content to illustrate fancy headings.
+    </accordion-group>
+
+    <accordion-group>
+    	<accordion-heading>
+           <p style='font-weight:bold; font-size: 13px; margin: 0;'>Subscription<i class="fa fa-pencil pull-right"></i></p>
+        </accordion-heading>
+        This is just some content to illustrate fancy headings.
+    </accordion-group>
+
+    <accordion-group>
+    	<accordion-heading>
+            <p style='font-weight:bold; font-size: 13px; margin: 0;'>Payment<i class="fa fa-pencil pull-right"></i></p>
+        </accordion-heading>
+        This is just some content to illustrate fancy headings.
+    </accordion-group>
+
+    <accordion-group>
+    	<accordion-heading>
+            <p style='font-weight:bold; font-size: 13px; margin: 0;'>Payment History<i class="fa fa-pencil pull-right"></i></p>
+        </accordion-heading>
+        This is just some content to illustrate fancy headings.
+    </accordion-group>
+
+  </accordion>
+</div>

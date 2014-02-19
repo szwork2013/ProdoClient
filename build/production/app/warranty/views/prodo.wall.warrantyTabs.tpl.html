@@ -1,0 +1,34 @@
+<!-- /*
+* Overview: Warranty  tabs
+* Warranty tabs for warranty, warranty comments and warranty upload...
+* Dated: 09/12/2013.
+* Author: Bhagyashri Jangam
+* Copyright: Prodonus Software Private Limited and GiantLeap Systems Private Limited 2013
+* Change History:
+*
+* date | author | description 
+*
+* 27-3/2013 | xyx | Add a new property
+* 
+*/--> 
+<div ng-app="prodo.WarrantyApp" id="prodo-comment-container" class="container" style="border: 1px solid #94d2f8; width: 100%;   "  ng-controller="WarrantyController">
+
+     <ul class="nav nav-tabs">
+        <li class="active"><a href="#tabWarrantyComments" data-toggle="tab">Warranty Comments</a></li>
+        <li class=""><a href="#tabWarranty" data-toggle="tab">Warranty</a></li>
+        <li class=""><a href="#tabWarrantyUpload" data-toggle="tab">Warranty Upload</a></li>
+
+    </ul>
+    <div class="tab-content" style="padding-bottom: 9px; border-bottom: 1px solid #ddd;">
+        <div class="tab-pane active" id="tabWarrantyComments" ng-include="'warranty/views/prodo.wall.warrantyComment.tpl.html'">
+            <p>warranty comments</p>
+        </div>
+        <div class="tab-pane" id="tabWarranty" ng-include="'warranty/views/prodo.wall.warranty.tpl.html'">
+            <p>Warranty</p>
+        </div>
+        <div class="tab-pane" id="tabWarrantyUpload" ng-include="'warranty/views/prodo.wall.warrantyUpload.tpl.html'">
+            <p>warranty Upload here</p>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,22 @@
+ <div id="prodo-navbar" class="navbar navbar-inverse navbar-static-top" role="navigation">
+
+        <div><a id="prodo-navbar-brand" class="navbar-brand" ui-sref="prodo.wall"><img style="width: 150px; height:40px;" src="assets/images/prodonus-logo.png"></a></div>
+
+        <p class="navbar-text pull-right">
+          <span ng-show="usersession.isLoggedIn" style="color:#DDE1F0; font-size: 12px;" ng-bind="'Welcome ' + usersession.currentUser.fullname"></span>
+          <button id="prodo-form-button-signin" ng-cloak ng-show="usersession.isLoggedIn" class="btn btn-success" ng-click="logout()">Logout</button>
+          <button style="background:transparent; border: none;" ng-cloak ng-show="usersession.isLoggedIn" class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cogs fa-lg"></i></a>
+              <ul style="text-align: left;" class="dropdown-menu">
+              <li><a ng-click="usersession.getUserDetailSettings()" ui-sref="account.user.general">User Account Settings</a></li>
+              <!-- <li><a ng-show="usersession.currentUser.orgid" ng-click="organizationData.getOrgDetailSettings()" ui-sref="account.org.general">Organization Account Settings</a></li> -->
+              <li class="divider"></li>
+              <li><a href="#">Help</a></li>
+              <li><a href="#">Report a Problem</a></li>
+            </ul>
+          </button>
+          <div prodo-spinner></div>
+
+        </div>  
+
+         

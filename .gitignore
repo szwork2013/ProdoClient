@@ -1,7 +1,9 @@
-/nbproject/private/
-.DS_Store
+node_modules
+Gruntfile.js
+package.json
+README.md
+src
+Premin
 
-commonRoutes.js
-prodoWallRoutes.js
-nbproject
+
 
