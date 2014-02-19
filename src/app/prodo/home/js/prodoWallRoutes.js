@@ -34,8 +34,7 @@ angular.module('prodo.ProdoWallApp')
         'prodo-content' : {
           templateUrl:  'prodo/home/views/prodo.wall.content.container.html'
         }
-      },
-      controller: 'ProdoWallController'
+      }
     })
     .state('prodo.wall.org', {
        templateUrl:  'org/manageorg/views/prodo.wall.org.tpl.html',

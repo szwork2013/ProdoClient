@@ -12,6 +12,7 @@ angular.module('prodo.OrgApp')
   
     $scope.disableEditor = function() {
       $scope.editorEnabled = false;
+      $scope.orggeneralsettingchange = '';
     };
 
     /***
@@ -23,7 +24,7 @@ angular.module('prodo.OrgApp')
         cleanupEventGetOrgAddData();  
     });
     
-
+    $scope.password = '';
     $scope.jsonOrgAccountData = function()
       {
         var orgData = 
@@ -31,7 +32,8 @@ angular.module('prodo.OrgApp')
             organization:
             {
             'name' : $scope.org.name,
-            'description' : $scope.org.description
+            'description' : $scope.org.description,
+            'password': $scope.password
             }
           };
         return JSON.stringify(orgData); 
@@ -42,29 +44,33 @@ angular.module('prodo.OrgApp')
     $scope.handleUpdateOrgResponse = function(data){
       if (data.success) {
 
-        $scope.showAlert('alert-success', data.success.message);   
+        growl.addSuccessMessage(data.success.message);
       } else {
         if (data.error.code== 'AU004') {     // enter valid data
             $log.debug(data.error.code + " " + data.error.message);
-            $scope.showAlert('alert-danger', data.error.message);
+            growl.addErrorMessage(data.error.message);
         } else {
             $log.debug(data.error.message);
-            $scope.showAlert('alert-danger', data.error.message);
+            growl.addErrorMessage(data.error.message);
         }
       }
     };  
 
     $scope.updateOrgAccount = function() {
-      $scope.disableEditor();
-      OrgRegistrationService.saveOrgSettings($scope.jsonOrgAccountData());
-      var cleanupEventUpdateOrgDone = $scope.$on("updateOrgDone", function(event, message){
-        $scope.handleUpdateOrgResponse(message);
-        cleanupEventUpdateOrgDone();  
-      });
-      var cleanupEventUpdateOrgNotDone = $scope.$on("updateOrgNotDone", function(event, message){
-        $scope.showAlert('alert-danger', "Server Error:" + message);
-        cleanupEventUpdateOrgNotDone();     
-      });
+      if ($scope.form.orggeneralsettingform.$valid) {
+        $scope.disableEditor();
+        OrgRegistrationService.saveOrgSettings($scope.jsonOrgAccountData());
+      } else {
+        $scope.orggeneralsettingchange = 'Please pass valid data';
+      }
+        var cleanupEventUpdateOrgDone = $scope.$on("updateOrgDone", function(event, message){
+          $scope.handleUpdateOrgResponse(message);
+          cleanupEventUpdateOrgDone();  
+        });
+        var cleanupEventUpdateOrgNotDone = $scope.$on("updateOrgNotDone", function(event, message){
+          growl.addErrorMessage("Server Error:" + message);
+          cleanupEventUpdateOrgNotDone();     
+        });
   
     }
 
@@ -234,6 +240,98 @@ angular.module('prodo.OrgApp')
   
     }
 
+    // function to handle server side responses
+    $scope.handleGetOrgProductResponse = function(data){
+      if (data.success) {
+        console.log(data.success);
+        $scope.productlist = data.success.product;
+        $scope.showAlert('alert-success', data.success.message);   
+      } else {
+        if (data.error.code== 'AU004') {     // enter valid data
+            $log.debug(data.error.code + " " + data.error.message);
+            $scope.showAlert('alert-danger', data.error.message);
+        } else {
+            $log.debug(data.error.message);
+            $scope.showAlert('alert-danger', data.error.message);
+        }
+      }
+    };  
+
+
+    $scope.getproduct = function() {
+      OrgRegistrationService.getAllProducts();
+      var cleanupEventGetOrgProductDone = $scope.$on("getOrgProductDone", function(event, message){
+        $scope.handleGetOrgProductResponse(message);
+        cleanupEventGetOrgProductDone();   
+      });
+      var cleanupEventGetOrgProductNotDone = $scope.$on("getOrgProductNotDone", function(event, message){
+        $scope.showAlert('alert-danger', "Server Error:" + message);
+        cleanupEventGetOrgProductNotDone();      
+      });
+  
+    }
+
+
+    // function to handle server side responses
+    $scope.handleGetOrgGroupResponse = function(data){
+      if (data.success) {
+        console.log(data.success);
+        $scope.groups = data.success.usergrp;
+        growl.addSuccessMessage(data.success.message);  
+      } else {
+        if (data.error.code== 'AU004') {     // enter valid data
+            $log.debug(data.error.code + " " + data.error.message);
+            growl.addErrorMessage(data.error.message);
+        } else {
+            $log.debug(data.error.message);
+            growl.addErrorMessage(data.error.message);
+        }
+      }
+    };  
+
+
+    $scope.getGroupMembers = function() {
+        OrgRegistrationService.getAllGroups();
+        var cleanupEventGetOrgGroupDone = $scope.$on("getOrgGroupDone", function(event, message){
+          $scope.handleGetOrgGroupResponse(message);
+          cleanupEventGetOrgGroupDone();   
+        });
+        var cleanupEventGetOrgGroupNotDone = $scope.$on("getOrgGroupNotDone", function(event, message){
+          growl.addErrorMessage("Server Error:" + message);
+          cleanupEventGetOrgGroupNotDone();      
+        });
+  
+    }
+
+    // function to handle server side responses
+    $scope.handleDeleteOrgGroupMemberResponse = function(data){
+      if (data.success) {
+        console.log(data.success.message);
+        $scope.showAlert('alert-success', data.success.message);   
+      } else {
+        if (data.error.code== 'AU004') {     // enter valid data
+            $log.debug(data.error.code + " " + data.error.message);
+            $scope.showAlert('alert-danger', data.error.message);
+        } else {
+            $log.debug(data.error.message);
+            $scope.showAlert('alert-danger', data.error.message);
+        }
+      }
+    };
+
+    $scope.deleteGroupMember = function(grpid, userid) {
+      OrgRegistrationService.deleteMember(grpid, userid);
+      var cleanupEventDeleteOrgGroupMemberDone = $scope.$on("deleteOrgGroupMemberDone", function(event, message){
+        $scope.handleDeleteOrgGroupMemberResponse(message);
+        cleanupEventDeleteOrgGroupMemberDone();   
+      });
+      var cleanupEventDeleteOrgGroupMemberNotDone = $scope.$on("deleteOrgGroupMemberNotDone", function(event, message){
+        $scope.showAlert('alert-danger', "Server Error:" + message);
+        cleanupEventDeleteOrgGroupMemberNotDone();      
+      });
+  
+    }
+
     $scope.orginvites=[{
                         'name': '',
                         'orgname': '',
@@ -360,27 +458,33 @@ angular.module('prodo.OrgApp')
     $scope.handleOrgGroupInviteResponse = function(data){
       if (data.success) {
 
-        $scope.showAlert('alert-success', data.success.message);   
+        growl.addSuccessMessage(data.success.message);  
       } else {
         if (data.error.code== 'AU004') {     // enter valid data
             $log.debug(data.error.code + " " + data.error.message);
-            $scope.showAlert('alert-danger', data.error.message);
+            growl.addErrorMessage(data.error.message);
         } else {
             $log.debug(data.error.message);
-            $scope.showAlert('alert-danger', data.error.message);
+            growl.addErrorMessage(data.error.message);
         }
       }
     };  
 
 
     $scope.addGroupInvite = function() {
-      OrgRegistrationService.groupInvites($scope.jsonOrgGroupInvitesData());
+      if ($scope.form.orggroupinvitesform.$valid) {
+        $scope.orggroupinvitesettingchange = '';
+        OrgRegistrationService.groupInvites($scope.jsonOrgGroupInvitesData());
+      } else {
+        $scope.orggroupinvitesettingchange = 'Please pass valid data';
+      }
+      
       var cleanupEventSendOrgGroupInvitesDone = $scope.$on("sendOrgGroupInvitesDone", function(event, data){
         $scope.handleOrgGroupInviteResponse(data); 
         cleanupEventSendOrgGroupInvitesDone();  
       });
       var cleanupEventSendOrgGroupInvitesNotDone = $scope.$on("sendOrgGroupInvitesNotDone", function(event, data){
-        $scope.showAlert('alert-danger', "Server Error:" + data); 
+        growl.addErrorMessage("Server Error:" + message); 
         cleanupEventSendOrgGroupInvitesNotDone();     
       });
     }

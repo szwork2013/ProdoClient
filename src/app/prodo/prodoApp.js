@@ -41,7 +41,7 @@ angular.module('prodo.ProdonusApp', [
   '$logProvider', 'growlProvider', '$httpProvider',
   function ($logProvider, growlProvider) {
     $logProvider.debugEnabled(true);
-    growlProvider.globalTimeToLive(20000);
+    growlProvider.globalTimeToLive(15000);
     growlProvider.onlyUniqueMessages(true);      
     growlProvider.messagesKey("errors");
     growlProvider.messageTextKey("message");
@@ -167,7 +167,6 @@ angular.module('prodo.ProdonusApp', [
       });
 
       var cleanupEventSendOrgData = $rootScope.$on("sendOrgData", function(event, data){
-        $scope.org = data;
         $state.transitionTo('prodo.wall'); 
         cleanupEventSendOrgData();  
 
