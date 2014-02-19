@@ -11,7 +11,6 @@
       </div>
       <!-- <div class="alert alert-warning alert-dismissable" id="errAlert" style=" visibility: hidden;">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> 
-            <span id="errorMsg"></span>
       </div> -->
   </div>
       
@@ -42,8 +41,7 @@
         </div>
         <a ng-hide="editEmail" class="btn btn-primary btn-sm glyphicon glyphicon-edit pull-right" style="border-radius: 10px; margin: 5px;" href="#" ng-click="emailEditor()">Edit</a>
         <div>
-          <p class="text-info">{{generalsettingchange}}</p>
-          <form name="usergeneralsettingform" class="css-form" ng-submit='updateUserEmail()' novalidate>
+          <form name="form.usergeneralsettingform" class="css-form" ng-submit='' novalidate>
             <dl class="dl-horizontal">
               <dt ng-show='user.org.orgid'>Organization Name:</dt>
               <dd ng-show='user.org.orgid'>{{user.org.orgname}}</dd>
@@ -53,13 +51,15 @@
               <br>
               <dt>Email:</dt>
               <dd ng-hide="editEmail">{{user.email}}</dd>
-              <dd ng-show="editEmail"><input name="email" style="width:55%; height:30px; display:block" type="email" class="form-control" ng-model="user.email" required><small style='color:red;' ng-show="form.email.$error.required">Email is required!</small><small style='color:red;' ng-show="form.email.$error.email">Enter valid email!</small>
+              <dd ng-show="editEmail"><input name="email" style="width:55%; height:30px; display:block" type="email" class="form-control" ng-model="user.email" required><small style='color:red;' ng-show="form.usergeneralsettingform.email.$error.required">Email is required!</small><small style='color:red;' ng-show="form.usergeneralsettingform.email.$error.email">Enter valid email!</small>
               </dd>
               <br>
               <dt ng-show="editEmail">Password:</dt>
-              <dd ng-show="editEmail"><input name="password" style="width:55%; height:30px; display:block" class="form-control" type="password" ng-model="user.password" placeholder="Please enter your password" required><small style='color:red;' ng-show="(form.password.$dirty && form.password.$error.required)">Password is required!</small></dd>
+              <dd ng-show="editEmail"><input name="password" style="width:55%; height:30px; display:block" class="form-control" type="password" ng-model="user.password" placeholder="Please enter your password" required><small style='color:red;' ng-show="(form.usergeneralsettingform.password.$dirty && form.usergeneralsettingform.password.$error.required)">Password is required!</small></dd>
+              <br>
+              <dd><p class="text-danger"><small style='color:red;'>{{generalsettingchange}}</small></p></dd>
             </dl>
-              <button ng-show="editEmail" class="btn btn-primary btn-sm glyphicon glyphicon-floppy-save pull-right" style="border-radius: 10px; margin: 5px;">Save</button>
+              <button ng-show="editEmail" class="btn btn-primary btn-sm glyphicon glyphicon-floppy-save pull-right" style="border-radius: 10px; margin: 5px;" ng-click='updateUserEmail()'>Save</button>
               <button ng-show="editEmail" class="btn btn-primary btn-sm glyphicon glyphicon-remove pull-right" style="border-radius: 10px; margin: 5px;" ng-click="emailEditor()">Cancel</button>
           </form>
         </div>
@@ -70,22 +70,23 @@
           <div growl></div>
         </div>
         <div>
-          <p class="text-info">{{passwordsettingchange}}</p>
-          <form name="userpasswordsettingform" ng-submit='changePassword()'>
+          <form name="form.userpasswordsettingform" ng-submit='' novalidate>
             <dl class="dl-horizontal">
               <dt>Current Password:</dt>
-              <dd><input name="currentpwd" type="password" style="width:55%; height:30px; display:block" class="form-control" ng-model="user.currentpassword" placeholder="Please enter your current password" required><small style='color:red;' ng-show="(userpasswordsettingform.currentpwd.$dirty && userpasswordsettingform.currentpwd.$error.required)">Password is required!</small></dd>
+              <dd><input name="currentpwd" type="password" style="width:55%; height:30px; display:block" class="form-control" ng-model="user.currentpassword" placeholder="Please enter your current password" required><small style='color:red;' ng-show="(form.userpasswordsettingform.currentpwd.$dirty && form.userpasswordsettingform.currentpwd.$error.required)">Password is required!</small></dd>
               <br>
               <dt>New Password:</dt>
               <dd><input name="newpwd" type="password" style="width:55%; height:30px; display:block" class="form-control" ng-model="user.newpassword" prodonus-password-validate placeholder="Please enter your new password" required>
-              <small style='color:red;' ng-show="(userpasswordsettingform.newpwd.$dirty && userpasswordsettingform.newpwd.$invalid)">Password should contain atleast 6 characters, a number, alphabet and special symbol.</small></dd>
+              <small style='color:red;' ng-show="(form.userpasswordsettingform.newpwd.$dirty && form.userpasswordsettingform.newpwd.$invalid)">Password should contain atleast 6 characters, a number, alphabet and special symbol.</small></dd>
               <br>
               <dt>Confirm Password:</dt>
-              <dd><input name="confirmpwd" type="password" style="width:55%; height:30px; display:block" class="form-control" ng-model="user.confirmpassword" prodonus-password-check="user.newpassword" placeholder="Please confirm your password" required><small style='color:red;' ng-show="(userpasswordsettingform.confirmpwd.$dirty && (userpasswordsettingform.confirmpwd.$error.required || userpasswordsettingform.confirmpwd.$invalid))">Password is must and should be same as above.</small></dd>
+              <dd><input name="confirmpwd" type="password" style="width:55%; height:30px; display:block" class="form-control" ng-model="user.confirmpassword" prodonus-password-check="user.newpassword" placeholder="Please confirm your password" required><small style='color:red;' ng-show="(form.userpasswordsettingform.confirmpwd.$dirty && (form.userpasswordsettingform.confirmpwd.$error.required || form.userpasswordsettingform.confirmpwd.$invalid))">Password is must and should be same as above.</small></dd>
+              <br>
+              <dd><p class="text-danger"><small style='color:red;'>{{passwordsettingchange}}</small></p></dd>
             </dl>
             <div>
-              <a class="btn btn-primary btn-sm glyphicon glyphicon-floppy-save pull-right" style="border-radius: 10px; margin: 5px;">Save</a>
-              <a class="btn btn-primary btn-sm glyphicon glyphicon-remove pull-right" style="border-radius: 10px; margin: 5px;" ng-click="clear()">Cancel</a>
+              <button class="btn btn-primary btn-sm glyphicon glyphicon-floppy-save pull-right" style="border-radius: 10px; margin: 5px;" ng-click='changePassword()'>Save</button>
+              <button class="btn btn-primary btn-sm glyphicon glyphicon-remove pull-right" style="border-radius: 10px; margin: 5px;" ng-click="clear()">Cancel</button>
             </div>
           </form>
         </div>
@@ -98,16 +99,15 @@
         </div>
         <a ng-hide="editorEnabled" class="btn btn-primary btn-sm glyphicon glyphicon-edit pull-right" style="border-radius: 10px; margin: 5px;" href="#" ng-click="enableEditor()">Edit</a>
         <div>
-        <p class="text-info">{{personalsettingchange}}</p>
-          <form name="userpersonalsettingform" ng-submit='updateUserAccount()'>
+          <form name="form.userpersonalsettingform" ng-submit='' novalidate>
             <dl class="dl-horizontal">
               <dt>Firstname:</dt>
               <dd ng-show="((user.firstname != null) && !editorEnabled)">{{user.firstname}}</dd>
-              <dd ng-show="((user.firstname == null) || editorEnabled)"><input type="text" name="fname" style="width:55%; height:30px; display:block" class="form-control" ng-model="user.firstname" placeholder="firstname" required><small style='color:red;' ng-show="(userpersonalsettingform.fname.$dirty && userpersonalsettingform.fname.$error.required)">Firstname is required!</small></dd>
+              <dd ng-show="((user.firstname == null) || editorEnabled)"><input type="text" name="fname" style="width:55%; height:30px; display:block" class="form-control" ng-model="user.firstname" placeholder="firstname" required><small style='color:red;' ng-show="(form.userpersonalsettingform.fname.$dirty && form.userpersonalsettingform.fname.$error.required)">Firstname is required!</small></dd>
               <br>
               <dt>Lastname:</dt>
               <dd ng-show="((user.lastname != null) && !editorEnabled)">{{user.lastname}}</dd>
-              <dd ng-show="((user.lastname == null) || editorEnabled)"><input type="text" name="lname" style="width:55%; height:30px; display:block" class="form-control" ng-model="user.lastname" placeholder="lastname" required><small style='color:red;' ng-show="(userpersonalsettingform.lname.$dirty && userpersonalsettingform.lname.$error.required)">Lastname is required!</small></dd>
+              <dd ng-show="((user.lastname == null) || editorEnabled)"><input type="text" name="lname" style="width:55%; height:30px; display:block" class="form-control" ng-model="user.lastname" placeholder="lastname" required><small style='color:red;' ng-show="(form.userpersonalsettingform.lname.$dirty && form.userpersonalsettingform.lname.$error.required)">Lastname is required!</small></dd>
               <br>
               <dt>Date Of Birth:</dt>
               <dd ng-show="((user.dob != null) && !editorEnabled)">{{user.dob | date: 'MMM-dd-yyyy'}}</dd>
@@ -120,15 +120,17 @@
               <br>
               <dt>Mobile No:</dt>
               <dd ng-show="((user.mobile != null) && !editorEnabled)">{{user.mobile}}</dd>
-              <dd ng-show="((user.mobile == null) || editorEnabled)"><input type="text" name="mobile" ng-pattern="/^[0-9]{10}$/" style="width:55%; height:30px; display:block" class="form-control" ng-model="user.mobile" placeholder="mobile no."><small style='color:red;' ng-show="(userpersonalsettingform.mobile.$dirty && userpersonalsettingform.mobile.$error.pattern)">Mobile no. should not be more than 10 digits.</small></dd>
+              <dd ng-show="((user.mobile == null) || editorEnabled)"><input type="text" name="mobile" ng-pattern="/^[0-9]{10}$/" style="width:55%; height:30px; display:block" class="form-control" ng-model="user.mobile" placeholder="mobile no."><small style='color:red;' ng-show="(form.userpersonalsettingform.mobile.$dirty && form.userpersonalsettingform.mobile.$error.pattern)">Mobile no. should not be more than 10 digits.</small></dd>
               <br>
               <dt>Phone No:</dt>
               <dd ng-show="((user.phone != null) && !editorEnabled)">{{user.phone}}</dd>
-              <dd ng-show="((user.phone == null) || editorEnabled)"><input type="text" name="phone" ng-pattern="/^[0-9]*$/" style="width:55%; height:30px; display:block" class="form-control" ng-model="user.phone" placeholder="phone no.(020-2123456)"><small style='color:red;' ng-show="(userpersonalsettingform.phone.$dirty && userpersonalsettingform.phone.$error.pattern)">Phone no should only contain digits.</small></dd>
+              <dd ng-show="((user.phone == null) || editorEnabled)"><input type="text" name="phone" ng-pattern="/^[0-9]*$/" style="width:55%; height:30px; display:block" class="form-control" ng-model="user.phone" placeholder="phone no.(020-2123456)"><small style='color:red;' ng-show="(form.userpersonalsettingform.phone.$dirty && form.userpersonalsettingform.phone.$error.pattern)">Phone no should only contain digits.</small></dd>
+              <br>
+              <dd><p class="text-danger"><small style='color:red;'>{{personalsettingchange}}</small></p></dd>
             </dl>
             <div ng-show="((user.firstname == null) || editorEnabled)">
-              <a class="btn btn-primary btn-sm glyphicon glyphicon-floppy-save pull-right" style="border-radius: 10px; margin: 5px;"><div prodo-spinner></div>Save</a>
-              <a class="btn btn-primary btn-sm glyphicon glyphicon-remove pull-right" style="border-radius: 10px; margin: 5px;" ng-click="disableEditor()">Cancel</a>
+              <button class="btn btn-primary btn-sm glyphicon glyphicon-floppy-save pull-right" style="border-radius: 10px; margin: 5px;" ng-click='updateUserAccount()'>Save</button>
+              <button class="btn btn-primary btn-sm glyphicon glyphicon-remove pull-right" style="border-radius: 10px; margin: 5px;" ng-click="disableEditor()">Cancel</button>
             </div>
           </form>
         </div>
@@ -143,27 +145,28 @@
           <div growl></div>
         </div>
         <div ng-show="((user.address.address1 == null) || editAddress)">
-        <p class="text-info">{{locationsettingchange}}</p>
-          <form name="userlocationsettingform" ng-submit='updateUserAddress()'>
+          <form name="form.userlocationsettingform" ng-submit='' novalidate>
             <dl class="dl-horizontal">
               <dt>Address Line1:</dt>
-              <dd><input name="address1" type="text" style="width:55%; height:30px; display:block" class="form-control" ng-model="user.address.address1" placeholder="address line1" required><small style='color:red;' ng-show="(userlocationsettingform.address1.$dirty && userlocationsettingform.address1.$error.required)">Address is required.</small></dd><br>
+              <dd><input name="address1" type="text" style="width:55%; height:30px; display:block" class="form-control" ng-model="user.address.address1" placeholder="address line1" required><small style='color:red;' ng-show="(form.userlocationsettingform.address1.$dirty && form.userlocationsettingform.address1.$error.required)">Address is required.</small></dd><br>
               <dt>Address Line2:</dt>
-              <dd><input name="address2" type="text" style="width:55%; height:30px; display:block" class="form-control" ng-model="user.address.address2" placeholder="address line2" required><small style='color:red;' ng-show="(userlocationsettingform.address2.$dirty && userlocationsettingform.address2.$error.required)">Address is required.</small></dd><br>
+              <dd><input name="address2" type="text" style="width:55%; height:30px; display:block" class="form-control" ng-model="user.address.address2" placeholder="address line2" required><small style='color:red;' ng-show="(form.userlocationsettingform.address2.$dirty && form.userlocationsettingform.address2.$error.required)">Address is required.</small></dd><br>
               <dt>Address Line3:</dt>
               <dd><input name="address3" type="text" style="width:55%; height:30px; display:block" class="form-control" ng-model="user.address.address3" placeholder="address line3"></dd><br>
               <dt>Country:</dt>
-              <dd><input name="country" type="text" ng-pattern="/^[A-z]*$/" style="width:55%; height:30px; display:block" class="form-control" ng-model="user.address.country" placeholder="country" required><small style='color:red;' ng-show="(userlocationsettingform.country.$dirty && userlocationsettingform.country.$invalid)">Country should contain only letters.</small></dd><br>
+              <dd><input name="country" type="text" ng-pattern="/^[A-z]*$/" style="width:55%; height:30px; display:block" class="form-control" ng-model="user.address.country" placeholder="country" required><small style='color:red;' ng-show="(form.userlocationsettingform.country.$dirty && form.userlocationsettingform.country.$invalid)">Country should contain only letters.</small></dd><br>
               <dt>State:</dt>
-              <dd><input name="state" type="text" ng-pattern="/^[A-z]*$/" style="width:55%; height:30px; display:block" class="form-control" ng-model="user.address.state" placeholder="state" required><small style='color:red;' ng-show="(userlocationsettingform.state.$dirty && userlocationsettingform.state.$invalid)">State should contain only letters.</small></dd><br>
+              <dd><input name="state" type="text" ng-pattern="/^[A-z]*$/" style="width:55%; height:30px; display:block" class="form-control" ng-model="user.address.state" placeholder="state" required><small style='color:red;' ng-show="(form.userlocationsettingform.state.$dirty && form.userlocationsettingform.state.$invalid)">State should contain only letters.</small></dd><br>
               <dt>City:</dt>
-              <dd><input name="city" type="text" ng-pattern="/^[A-z]*$/" style="width:55%; height:30px; display:block" class="form-control" ng-model="user.address.city" placeholder="city" required><small style='color:red;' ng-show="(userlocationsettingform.city.$dirty && userlocationsettingform.city.$invalid)">City should contain only letters.</small></dd><br>
+              <dd><input name="city" type="text" ng-pattern="/^[A-z]*$/" style="width:55%; height:30px; display:block" class="form-control" ng-model="user.address.city" placeholder="city" required><small style='color:red;' ng-show="(form.userlocationsettingform.city.$dirty && form.userlocationsettingform.city.$invalid)">City should contain only letters.</small></dd><br>
               <dt>Zipcode:</dt>
-              <dd><input name="zipcode" type="text" ng-pattern="/^[0-9]*$/" style="width:55%; height:30px; display:block" class="form-control" ng-model="user.address.zipcode" placeholder="zipcode"><small style='color:red;' ng-show="(userlocationsettingform.zipcode.$dirty && userlocationsettingform.zipcode.$invalid)">Zipcode should only contain digits.</small></dd>
+              <dd><input name="zipcode" type="text" ng-pattern="/^[0-9]*$/" style="width:55%; height:30px; display:block" class="form-control" ng-model="user.address.zipcode" placeholder="zipcode"><small style='color:red;' ng-show="(form.userlocationsettingform.zipcode.$dirty && form.userlocationsettingform.zipcode.$invalid)">Zipcode should only contain digits.</small></dd>
+              <br>
+              <dd><p class="text-danger"><small style='color:red;'>{{locationsettingchange}}</small></p></dd>
             </dl>
             <div>
-              <a class="btn btn-primary btn-sm glyphicon glyphicon-floppy-save pull-right" style="border-radius: 10px; margin: 5px;">Save</a>
-              <a class="btn btn-primary btn-sm glyphicon glyphicon-remove pull-right" style="border-radius: 10px; margin: 5px;" ng-click="addrEditor()">Cancel</a>
+              <button class="btn btn-primary btn-sm glyphicon glyphicon-floppy-save pull-right" style="border-radius: 10px; margin: 5px;" ng-click='updateUserAddress()'>Save</button>
+              <button class="btn btn-primary btn-sm glyphicon glyphicon-remove pull-right" style="border-radius: 10px; margin: 5px;" ng-click="addrEditor()">Cancel</button>
             </div>
           </form>
         </div>
@@ -190,8 +193,8 @@
         <p style='font-weight:bold; font-size: 13px; margin: 0;'>Invites<i class="fa fa-pencil pull-right"></i></p>
       </accordion-heading>
         <button class="btn btn-info btn-sm" style="background-color:#47707C; border-color:#3C555C; border-radius: 10px; margin: 15px;" ng-click="addUserInvites()"><i style="margin-right: 5px;" class="fa fa-plus-square"></i>Add More Users</button>
-        <p class="text-info">{{invitesettingchange}}</p>
-        <form name="userinvitesfrom" ng-submit='sendUserInvites()'>
+        
+        <form name="form.userinvitesform" ng-submit='' novalidate>
           <table class="table table-condensed">
             <tbody>
             
@@ -199,10 +202,11 @@
                 <td><input class="form-control" ng-model="userinvite.name" type="text" placeholder="Name" required> </td>
                 <td><input class="form-control" ng-model="userinvite.email" type="email" placeholder="Email" required></td>
               </tr>
-            
+              <br>
+              <p class="text-danger"><small style='color:red;'>{{invitesettingchange}}</small></p>
             </tbody>
           </table>
-          <button class="btn btn-info btn-sm glyphicon glyphicon-send pull-right" style="border-radius: 10px; margin: 5px;">Send</button>
+          <button class="btn btn-info btn-sm glyphicon glyphicon-send pull-right" style="border-radius: 10px; margin: 5px;" ng-click='sendUserInvites()'>Send</button>
         </form>
         
         
@@ -218,7 +222,7 @@
         <div ng-show="(user.products_followed.length == 0)">
           <p style="text-align:left; font-size:20px; margin: 20px auto;" class="text-success"><strong><em>You are not following any products.</em></strong></p>
         </div>
-        <div style="width:160px; min-height: 200px; float: left; margin: 5px; border: solid 1px #ccc;" ng-repeat="productf in products_followed">
+        <div style="width:160px; min-height: 200px; float: left; margin: 5px; border: solid 1px #ccc;" ng-repeat="productf in usersession.productfollowlist">
           <p style="margin:5px auto; display:block; text-align:center; font-weight:bold; font-size:12px;">{{productf.name}}</p>
           <img style="margin:0px auto; display:block; width:95%; height: 150px; " src="{{productf.product_logo}}" alt=" No Image" class="img-rounded">
           <button style="margin:5px auto; display:block; height:25px; width: 95%; background-color:#304A61;" class="btn btn-primary btn-sm" ng-click='unfollow(productf)'>unfollow</button>
