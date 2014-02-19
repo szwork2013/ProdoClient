@@ -424,4 +424,37 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
       }
     };
   return indiaData;
-});
+}).directive('generalSearch', [
+  '$http','$rootScope',
+  function ($http,$rootScope) {
+    var search = {
+        restrict: 'A',
+        require: 'ngModel',
+        link: function (scope, ele, attrs, ngModel) {
+          $('#searchText').on('keyup', function (e) {
+            var value = $(this).val().trim();
+            var req = { 'name': value };
+              if(value !=="")
+              {
+                      $http({
+                        method: 'POST',
+                        url: '/api/allproduct/',
+                        data: req
+                      }).success(function (data, status, headers, cfg) {
+                         console.log(data);
+                        $rootScope.enhancement={};
+                        $rootScope.productNames=[];
+                        $rootScope.enhancement=data.name.doc;
+                        $rootScope.productNames=data.success.doc;
+                      }).error(function (data, status, headers, cfg) {
+                        console.log(data);
+                       
+                      });   
+
+             }
+          });
+        }
+      };
+    return search;
+  }
+]);
