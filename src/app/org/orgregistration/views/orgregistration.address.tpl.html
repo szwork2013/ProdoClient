@@ -11,8 +11,9 @@
 	      <div class="control-group" ng-if="toggleAddress">
 
 		      <select id="prodo-form-input-address" type="text" class="form-control" ng-model="org.orgaddresstype" autofocus required>
-		        <option value="Company Address">Company Address</option>
-		        <option value="Service Centers">Service Centers</option></select>
+		        <option value="Company Address" >Company Address</option>
+		        <option value="Service Centers">Service Centers</option>
+		      </select>
 
 					<input id="prodo-form-input-address" name="address1"  type="text" class="form-control" placeholder="Address Line1" ng-model="org.address1"  required />
 						 
@@ -22,9 +23,9 @@
 
 					<input name="country" typeahead="country for country in countries | filter:$viewValue | limitTo:8"  type="text" id="prodo-form-input-address" class="form-control" placeholder="Country" ng-model="org.country" required />
 						 
-					<input name="state"  type="text" id="prodo-form-input-address" class="form-control" placeholder="State" ng-model="org.state" required />
+					<input name="state"  typeahead="state for state in return_states() | filter:$viewValue | limitTo:8"  type="text" id="prodo-form-input-address" type="text" id="prodo-form-input-address" class="form-control" placeholder="State" ng-model="org.state" required />
 
-					<input name="city"  type="text" id="prodo-form-input-address" class="form-control" placeholder="City" ng-model="org.city" required />
+					<input name="city"  typeahead="city for city in return_cities() | filter:$viewValue | limitTo:8"  type="text" id="prodo-form-input-address" type="text" id="prodo-form-input-address" class="form-control" placeholder="City" ng-model="org.city" required />
 				
 					<input name="zipcode" type="text" id="prodo-form-input-address" class="form-control" placeholder="Zip Code" ng-model="org.zipcode" required />
 				
