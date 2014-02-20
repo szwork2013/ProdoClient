@@ -33,6 +33,9 @@ angular.module('prodo.ProdoWallApp')
         },
         'prodo-content' : {
           templateUrl:  'prodo/home/views/prodo.wall.content.container.html'
+        },
+        'prodo-advertisment' : {
+          templateUrl:  'prodo/home/views/prodo.wall.advertisment.tpl.html'
         }
       }
     })
