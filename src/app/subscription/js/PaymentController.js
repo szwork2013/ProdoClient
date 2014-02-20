@@ -5,7 +5,8 @@ angular.module('prodo.SubscriptionApp').controller('PaymentController', [
   '$stateParams',
   '$log',
   'UserSubscriptionService',
-  function ($rootScope, $scope, $state, $stateParams, $log, UserSubscriptionService) {
+  'UserSessionService',
+  function ($rootScope, $scope, $state, $stateParams, $log, UserSubscriptionService, UserSessionService) {
     $scope.subscriptionpayment = {
       planid: $stateParams.planid,
       plantype: $stateParams.plantype
@@ -39,7 +40,7 @@ angular.module('prodo.SubscriptionApp').controller('PaymentController', [
     };
     $scope.handleSubscriptionPaymentResponse = function (data) {
       if (data.success) {
-        $state.transitionTo('prodo.wall');
+        UserSessionService.checkUser();
         $scope.showAlert('alert-success', data.success.message);
       } else {
         if (data.error.code == 'AV001') {

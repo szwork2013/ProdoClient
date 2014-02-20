@@ -1069,23 +1069,10 @@ section:hover #prodo-subscribe-plan-heading{
 #prodo-row{
    margin: 0;
 }
- 
-#prodo-col-md-3{
-  padding: 0;
-  margin-right: 15px;
-}
-
-#prodo-col-md-8{
-  padding: 0;
-  background-color: transparent;
-  margin-right: 15px;
-  border-radius: 5px;
-}
 
 /* Prodo Main View: Sidebar*/
 #prodo-sidebar-list{
-  width: 75%; 
-  margin-left: 70px;
+  width: 100%; 
 }
 
 #prodo-sidebar-list-group-item:last-child {

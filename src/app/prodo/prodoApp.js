@@ -94,6 +94,7 @@ angular.module('prodo.ProdonusApp', [
 
     var cleanupEventSession_Changed = $scope.$on('session-changed', function (event, message) {
         $log.debug(message);
+        console.log(message);
         if (message.success) {
           UserSessionService.authSuccess(message.success.user);
           cleanupEventSession_Changed();
@@ -135,12 +136,12 @@ angular.module('prodo.ProdonusApp', [
           } else if (data.isSubscribed && !data.subscriptionExpired && !data.hasDonePayment) {
             $state.transitionTo('subscription.payment', {
               planid: data.subscription.planid,
-              plantype: data.usertype
+              plantype: data.org.orgtype
             });
           } else if (data.isSubscribed && data.subscriptionExpired) {
             $state.transitionTo('subscription.payment', {
               planid: data.subscription.planid,
-              plantype: data.usertype
+              plantype: data.org.orgtype
             });
           } else if (data.hasDonePayment) {
             $state.transitionTo('prodo.wall');
