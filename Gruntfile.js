@@ -2,47 +2,69 @@
   module.exports = function (grunt) {
     grunt.initConfig({
 
-
+     clean: {
+      build: {
+        src: [ 'build' ]
+      }
+      },
+      
+      shell: {
+        pullLatestProdo: {
+          // options: { stdout: true },
+            command: 
+               'git clone  https://github.com/GiantLeapSystems/prodonus-client-app.git'
+                   },
+         cleanProdo: {
+          // options: { stdout: true },
+            command: 
+                'rm -rf prodonus-client-app'
+                },
+         pushBuild: {
+          // options: { stdout: true },
+            command: 
+                'git push -u origin production'
+                }       
+    },
 
       cssmin: {
         build: {
           files: {
-            'build/production/app/prodonus.min.css': [ 'src/app/assets/css/prodonus.css' ]
+            'build/production/app/prodonus.min.css': [ 'prodonus-client-app/src/app/assets/css/prodonus.css' ]
           }
         }
       },
 
       uglify: { tests: { src: [ 
-        'src/app/prodo/prodoApp.js', 
-        'src/app/user/js/UserRegistrationController.js',
-        'src/app/user/js/UserAccountController.js', 
-        'src/app/user/js/UserSigninController.js',
-        'src/app/user/js/UserService.js',
-        'src/app/org/manageorg/js/OrgAccountController.js',
-        'src/app/org/orgregistration/js/OrgRegistrationController.js',
-        'src/app/org/orgregistration/js/OrgService.js',
-        'src/app/dashboard/js/ProdoDashboardController.js',
-        'src/app/subscription/js/SubscriptionController.js',
-        'src/app/subscription/js/PaymentController.js',
-        'src/app/subscription/js/SubscriptionService.js',
-        'src/app/common/prodoDirective/prodoDirective.js',
-        'src/app/common/admin/js/tagService.js',
-        'src/app/common/admin/js/TagController-Admin.js',
-        'src/app/product/js/DragImageController.js',
-        'src/app/product/js/ProductController.js',
-        'src/app/product/js/ProductCommentController.js',
-        'src/app/product/js/ProductService.js',
-        'src/app/warranty/js/WarrantyController.js',
-        'src/app/warranty/js/WarrantyService.js',
-        'src/app/common/upload/js/uploader.js',
-        'src/app/common/commentsDirective/js/prodoCommentEnterKeyDirective.js',
-        'src/app/common/commentsDirective/js/prodoCommentLimitDirective.js',
-        'src/app/common/commentsDirective/js/prodoUserProfileDataController.js',
-        'src/app/common/search/js/prodoSearchController.js',
-        'src/app/common/search/js/searchService.js'
+        'premin/src/app/prodo/prodoApp.js', 
+        'premin/src/app/user/js/UserRegistrationController.js',
+        'premin/src/app/user/js/UserAccountController.js', 
+        'premin/src/app/user/js/UserSigninController.js',
+        'premin/src/app/user/js/UserService.js',
+        'premin/src/app/org/manageorg/js/OrgAccountController.js',
+        'premin/src/app/org/orgregistration/js/OrgRegistrationController.js',
+        'premin/src/app/org/orgregistration/js/OrgService.js',
+        'premin/src/app/dashboard/js/ProdoDashboardController.js',
+        'premin/src/app/subscription/js/SubscriptionController.js',
+        'premin/src/app/subscription/js/PaymentController.js',
+        'premin/src/app/subscription/js/SubscriptionService.js',
+        'premin/src/app/common/prodoDirective/prodoDirective.js',
+        'premin/src/app/common/admin/js/tagService.js',
+        'premin/src/app/common/admin/js/TagController-Admin.js',
+        'premin/src/app/product/js/DragImageController.js',
+        'premin/src/app/product/js/ProductController.js',
+        'premin/src/app/product/js/ProductCommentController.js',
+        'premin/src/app/product/js/ProductService.js',
+        'premin/src/app/warranty/js/WarrantyController.js',
+        'premin/src/app/warranty/js/WarrantyService.js',
+        'premin/premin/src/app/common/upload/js/uploader.js',
+        'premin/src/app/common/commentsDirective/js/prodoCommentEnterKeyDirective.js',
+        'premin/src/app/common/commentsDirective/js/prodoCommentLimitDirective.js',
+        'premin/src/app/common/commentsDirective/js/prodoUserProfileDataController.js',
+        'premin/src/app/common/search/js/prodoSearchController.js',
+        'premin/src/app/common/search/js/searchService.js'
 
 
-     ],
+        ],
        // uglify: { tests: { src: [ 'src/app/test.js' ],
        dest: 'build/production/app/prodo.min.js' } },
        watch: {
@@ -52,15 +74,45 @@
 
       ngmin: {
       // controllers: {
-      // src: ['src/app/home/prodo/ProdoWallApp.js'],
+      // src: ['prodonus-client-app/src/app/home/prodo/ProdoWallApp.js'],
       // dest: 'src/app/Premin/prodoAppPre.js'
     // }
     
     directives: {
       expand: true,
       
-      src: ['src/app/product/js/ProductController.js'],
-      dest: 'build/production/app/Premin'
+      src: [ 
+      'prodonus-client-app/src/app/prodo/prodoApp.js', 
+      'prodonus-client-app/src/app/user/js/UserRegistrationController.js',
+      'prodonus-client-app/src/app/user/js/UserAccountController.js', 
+      'prodonus-client-app/src/app/user/js/UserSigninController.js',
+      'prodonus-client-app/src/app/user/js/UserService.js',
+      'prodonus-client-app/src/app/org/manageorg/js/OrgAccountController.js',
+      'prodonus-client-app/src/app/org/orgregistration/js/OrgRegistrationController.js',
+      'prodonus-client-app/src/app/org/orgregistration/js/OrgService.js',
+      'prodonus-client-app/src/app/dashboard/js/ProdoDashboardController.js',
+      'prodonus-client-app/src/app/subscription/js/SubscriptionController.js',
+      'prodonus-client-app/src/app/subscription/js/PaymentController.js',
+      'prodonus-client-app/src/app/subscription/js/SubscriptionService.js',
+      'prodonus-client-app/src/app/common/prodoDirective/prodoDirective.js',
+      'prodonus-client-app/src/app/common/admin/js/tagService.js',
+      'prodonus-client-app/src/app/common/admin/js/TagController-Admin.js',
+      'prodonus-client-app/src/app/product/js/DragImageController.js',
+      'prodonus-client-app/src/app/product/js/ProductController.js',
+      'prodonus-client-app/src/app/product/js/ProductCommentController.js',
+      'prodonus-client-app/src/app/product/js/ProductService.js',
+      'prodonus-client-app/src/app/warranty/js/WarrantyController.js',
+      'prodonus-client-app/src/app/warranty/js/WarrantyService.js',
+      'prodonus-client-app/src/app/common/upload/js/uploader.js',
+      'prodonus-client-app/src/app/common/commentsDirective/js/prodoCommentEnterKeyDirective.js',
+      'prodonus-client-app/src/app/common/commentsDirective/js/prodoCommentLimitDirective.js',
+      'prodonus-client-app/src/app/common/commentsDirective/js/prodoUserProfileDataController.js',
+      'prodonus-client-app/src/app/common/search/js/prodoSearchController.js',
+      'prodonus-client-app/src/app/common/search/js/searchService.js'
+
+
+      ],
+      dest: 'premin'
     }
   },
 
@@ -105,7 +157,7 @@
     },
     // Environment targets
     development: [{
-      dest: 'src/app/config/config.js',
+      dest: 'prodonus-client-app/src/app/config/config.js',
       wrap: '"use strict";\n\n <%= __ngModule %>',
       name: 'config',
       constants: {
@@ -134,38 +186,48 @@
     main: {
       files: [
         // includes files within path
-        {expand: true, cwd: 'src/app/assets/', src: ['**'], dest: 'build/production/app/assets/'},
-        {expand: true, flatten: true, src: ['src/app/blog/views/*'], dest: 'build/production/app/blog/views/' , filter: 'isFile'},
-        {expand: true, flatten: true, src: ['src/app/common/commentsDirective/js/prodoCommentDirective.js'], dest: 'build/production/app/common/commentsDirective/js/' , filter: 'isFile' },
-        {expand: true, flatten: true, src: ['src/app/common/commentsDirective/views/*'], dest: 'build/production/app/common/commentsDirective/views/' , filter: 'isFile'},
-        {expand: true, flatten: true, src: ['src/app/common/admin/views/*'], dest: 'build/production/app/common/admin/views/' , filter: 'isFile'},
-        {expand: true, flatten: true, src: ['src/app/common/admin/js/adminRoutes.js'], dest: 'build/production/app/common/admin/js/' , filter: 'isFile'},
-        {expand: true, flatten: true, src: ['src/app/subscription/views/*'], dest: 'build/production/app/subscription/views/' , filter: 'isFile'},
-        {expand: true, flatten: true, src: ['src/app/subscription/js/subscriptionRoutes.js'], dest: 'build/production/app/subscription/js/' , filter: 'isFile'},
-        {expand: true, flatten: true, src: ['src/app/dashboard/json/*'], dest: 'build/production/app/dashboard/json/' , filter: 'isFile'},
-        {expand: true, flatten: true, src: ['src/app/dashboard/views/*'], dest: 'build/production/app/dashboard/views/' , filter: 'isFile'},
-        {expand: true, flatten: true, src: ['src/app/prodo/home/landing/views/*'], dest: 'build/production/app/prodo/home/landing/views/' , filter: 'isFile'},
-        {expand: true, flatten: true, src: ['src/app/prodo/home/js/*'], dest: 'build/production/app/prodo/home/js/' , filter: 'isFile'},
-        {expand: true, flatten: true, src: ['src/app/prodo/home/views/*'], dest: 'build/production/app/prodo/home/views/' , filter: 'isFile'},
-        {expand: true, flatten: true, src: ['src/app/prodo/prodoMainAppRoutes.js'], dest: 'build/production/app/prodo/' , filter: 'isFile'},
-        {expand: true, flatten: true, src: ['src/app/org/manageorg/views/*'], dest: 'build/production/app/org/manageorg/views/' , filter: 'isFile'},
-        {expand: true, flatten: true, src: ['src/app/org/orgregistration/views/*'], dest: 'build/production/app/org/orgregistration/views/' , filter: 'isFile'},
-        {expand: true, flatten: true, src: ['src/app/org/orgregistration/js/OrgRoutes.js'], dest: 'build/production/app/org/orgregistration/js/' , filter: 'isFile'},
-        {expand: true, flatten: true, src: ['src/app/product/views/*'], dest: 'build/production/app/product/views/' , filter: 'isFile'},
-        {expand: true, flatten: true, src: ['src/app/user/views/*'], dest: 'build/production/app/user/views/' , filter: 'isFile'},
-        {expand: true, flatten: true, src: ['src/app/user/js/UserRoutes.js'], dest: 'build/production/app/user/js/' , filter: 'isFile'},
-        {expand: true, cwd: 'src/app/vendor/', src: ['**'], dest: 'build/production/app/vendor/'},
-        {expand: true, flatten: true, src: ['src/app/warranty/views/*'], dest: 'build/production/app/warranty/views/' , filter: 'isFile'}
-        
+        {expand: true, cwd: 'prodonus-client-app/src/app/assets/', src: ['**'], dest: 'build/production/app/assets/'},
+        {expand: true, flatten: true, src: ['preIndex/*'], dest: 'build/production/app/' , filter: 'isFile'},
+        {expand: true, flatten: true, src: ['prodonus-client-app/src/app/blog/views/*'], dest: 'build/production/app/blog/views/' , filter: 'isFile'},
+        {expand: true, flatten: true, src: ['prodonus-client-app/src/app/common/commentsDirective/js/prodoCommentDirective.js'], dest: 'build/production/app/common/commentsDirective/js/' , filter: 'isFile' },
+        {expand: true, flatten: true, src: ['prodonus-client-app/src/app/common/commentsDirective/views/*'], dest: 'build/production/app/common/commentsDirective/views/' , filter: 'isFile'},
+        {expand: true, flatten: true, src: ['prodonus-client-app/src/app/common/admin/views/*'], dest: 'build/production/app/common/admin/views/' , filter: 'isFile'},
+        {expand: true, flatten: true, src: ['prodonus-client-app/src/app/common/admin/js/adminRoutes.js'], dest: 'build/production/app/common/admin/js/' , filter: 'isFile'},
+        {expand: true, flatten: true, src: ['prodonus-client-app/src/app/subscription/views/*'], dest: 'build/production/app/subscription/views/' , filter: 'isFile'},
+        {expand: true, flatten: true, src: ['prodonus-client-app/src/app/subscription/js/subscriptionRoutes.js'], dest: 'build/production/app/subscription/js/' , filter: 'isFile'},
+        {expand: true, flatten: true, src: ['prodonus-client-app/src/app/dashboard/json/*'], dest: 'build/production/app/dashboard/json/' , filter: 'isFile'},
+        {expand: true, flatten: true, src: ['prodonus-client-app/src/app/dashboard/views/*'], dest: 'build/production/app/dashboard/views/' , filter: 'isFile'},
+        {expand: true, flatten: true, src: ['prodonus-client-app/src/app/prodo/landing/views/*'], dest: 'build/production/app/prodo/landing/views/' , filter: 'isFile'},
+        {expand: true, flatten: true, src: ['prodonus-client-app/src/app/prodo/home/js/*'], dest: 'build/production/app/prodo/home/js/' , filter: 'isFile'},
+        {expand: true, flatten: true, src: ['prodonus-client-app/src/app/prodo/home/views/*'], dest: 'build/production/app/prodo/home/views/' , filter: 'isFile'},
+        {expand: true, flatten: true, src: ['prodonus-client-app/src/app/prodo/prodoMainAppRoutes.js'], dest: 'build/production/app/prodo/' , filter: 'isFile'},
+        {expand: true, flatten: true, src: ['prodonus-client-app/src/app/org/manageorg/views/*'], dest: 'build/production/app/org/manageorg/views/' , filter: 'isFile'},
+        {expand: true, flatten: true, src: ['prodonus-client-app/src/app/org/orgregistration/views/*'], dest: 'build/production/app/org/orgregistration/views/' , filter: 'isFile'},
+        {expand: true, flatten: true, src: ['prodonus-client-app/src/app/org/orgregistration/js/OrgRoutes.js'], dest: 'build/production/app/org/orgregistration/js/' , filter: 'isFile'},
+        {expand: true, flatten: true, src: ['prodonus-client-app/src/app/product/views/*'], dest: 'build/production/app/product/views/' , filter: 'isFile'},
+        {expand: true, flatten: true, src: ['prodonus-client-app/src/app/user/views/*'], dest: 'build/production/app/user/views/' , filter: 'isFile'},
+        {expand: true, flatten: true, src: ['prodonus-client-app/src/app/user/js/UserRoutes.js'], dest: 'build/production/app/user/js/' , filter: 'isFile'},
+        {expand: true, cwd: 'prodonus-client-app/src/app/vendor/', src: ['**'], dest: 'build/production/app/vendor/'},
+        {expand: true, flatten: true, src: ['prodonus-client-app/src/app/warranty/views/*'], dest: 'build/production/app/warranty/views/' , filter: 'isFile'}
+
         ]
       }
+      // ,
+      // staging: {
+      //   files: [
+      //   {expand: true, cwd: 'build/production/app/', src: ['**'], dest: 'build/staging/app/'}
+      //   ]
+      // }
     }
+    
 
 
 
   });
 
   // load plugins
+  grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-shell');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-ftp-deploy');
@@ -189,7 +251,7 @@
 
    //  ]);
   grunt.registerTask('serve', function (target) {
-    if (target === 'build/production/app/scripts/config.js') {
+    if (target === 'build/production/app/config/config.js') {
       return grunt.task.run(['build', 'connect:dist:keepalive']);
     }
 
@@ -204,12 +266,16 @@
       ]);
   });
   grunt.registerTask('build', [
-    // 'clean:dist',
+    'shell:cleanProdo',
+    'shell:pullLatestProdo',
+    'clean',
     'ngmin',
-    'copy',
+    'copy:main',
     'uglify',
     'cssmin',
-    'ngconstant:production', // ADD THIS
-    // 'bower-install' 
+    'ngconstant:production',
+    'shell:pushBuild'
+    // 'copy:staging'
+    
     ]);
 };
