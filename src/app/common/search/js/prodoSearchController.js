@@ -20,12 +20,15 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
     $scope.count=0;  //  Used to prevent api from calling if all fields are empty
     var arraywithnames =[];
     $scope.names=[];
+    $scope.message="";//This variable stores the message received from server 
+
+
+
+    //The following function was written to resolve the problem of getting search result in first letter/
+    //Timebeing it is not being used
+    //Need to test it out
           $scope.getSearchResult=function(val)
           {
-
-
-
-
                 $scope.searchCriterion.name=val;
                  return $http({
                 method: 'POST',
@@ -40,40 +43,25 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
                              $scope.names.push(item);
                              }); 
                              console.log(addresses);
-
                              return addresses;
-
 
                 }
                 ).error(function (data, status, headers, cfg) {
                 console.log(data);                     
-                });   
-
-
-
-
-         
+                });        
           };
 
-////////////// Test functions    ///////////////////////////////
-           var dataTEST=[];
-           $scope.a = function()
-           {
-              
-               dataTEST = $scope.getSearchResult("s");
-               console.log("data received from getSearchResult function :"+ dataTEST);
-               //console.log("data in scope : " + $scope.names);
-           };
-
-            // var data111=['omkar','kanekar','a'];
-            // $scope.getSearchResult11=function(val)
-            // {
-               
-            //    return data111;
-            // };
-
-  //////////////////////////////////////////////////////////////////////////////////////////       
-          
+          ////////////// Test functions    ///////////////////////////////
+                   var dataTEST=[];
+                   $scope.a = function()
+                   {
+                      
+                       dataTEST = $scope.getSearchResult("s");
+                       console.log("data received from getSearchResult function :"+ dataTEST);
+                       //console.log("data in scope : " + $scope.names);
+                   };
+          //////////////////////////////////////////////////////////////////////////////////////////       
+                  
 
 
 
@@ -180,6 +168,7 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
                  // $scope.search.productsearchdata= {};
                  $scope.$on('getSearchProductDone', function (event, data) {
                  $scope.result=data.success.doc;
+                 $scope.message="";
                  $scope.message=data.success.message;
                   //alert($scope.message);
                  });
@@ -194,7 +183,7 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
     {   
         $rootScope.product_prodle=dataProdle;
         $rootScope.orgid=dataOrgid;    
-        $('#testmodal').modal('hide');  //code for cloasing modal
+        $('#advancedSearchModal').modal('hide');  //code for cloasing modal
         $('.modal-backdrop').remove(); 
     };
 //This functions resets the advanced search modal
@@ -212,6 +201,7 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
               $scope.search.productsearchdata = {};
               $scope.result=[];
               $scope.org="";
+              $scope.message="";
     };
 
 //This function is called when a product from type-A is selected
