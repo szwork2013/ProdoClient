@@ -161,7 +161,14 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
   var sliderdef = {
       restrict: 'A',
       link: function (scope, ele, attrs, c) {
-        $(ele).layerSlider();
+        $('#layerslider').layerSlider({
+          skin : 'fullwidth',
+          // thumbnailNavigation : 'hover',
+          // // thumbnailNavigation : 'hover',
+          // navPrevNext : true,
+          // navButtons : true,
+
+        });
       }
     };
   return sliderdef;

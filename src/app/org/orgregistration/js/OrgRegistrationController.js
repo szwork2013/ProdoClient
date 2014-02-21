@@ -2,19 +2,17 @@
 *	Org Registration Controller
 **/
 angular.module('prodo.OrgApp')
-	.controller('OrgRegistrationController', ['$scope', 'OrgModel', '$state', '$stateParams', '$log', 'OrgRegistrationService', function($scope, OrgModel, $state, $stateParams, $log, OrgRegistrationService) {
+	.controller('OrgRegistrationController', ['$scope', '$rootScope', 'OrgModel', '$state', '$stateParams', '$log', 'OrgRegistrationService', function($scope, $rootScope, OrgModel, $state, $stateParams, $log, OrgRegistrationService) {
 		
     $scope.org = OrgModel;   // assining OrgModel service to org to update org model data
-    
-    $scope.org.orgtype = $stateParams.plantype;
 
     $scope.countries = [ 'Afghanistan','Albania','Algeria','American Samoa','Andorra','Angola' ,'Anguilla' ,'Antigua and Barbuda', 'Argentina ca','Armenia','Aruba ','Austria','Azerbaijan','Bahamas' ,'Bahrain', 'India']
 
     $scope.goToState = function() {
-      if ($stateParams.plantype == 'manufacturer') {
-        $state.transitionTo('orgregistration.terms', {planid:  $stateParams.planid, plantype: $stateParams.plantype });
+      if ($scope.org.orgtype == 'Manufacturer') {
+        $state.transitionTo('orgregistration.terms');
       } else {
-        $state.transitionTo('orgregistration.finish', {planid:  $stateParams.planid, plantype: $stateParams.plantype });
+        $state.transitionTo('orgregistration.finish');
       }
     }
 
@@ -43,8 +41,7 @@ angular.module('prodo.OrgApp')
 		$scope.handleOrgResponse = function(data){
       if (data.success) {
         $log.debug(data.success);      
-        $state.transitionTo('subscription.payment', {planid:  $stateParams.planid, plantype: $stateParams.plantype });
-        $scope.showAlert('alert-success', data.success.message + "" + "Please make payment to continue with Prodonus");
+        $rootScope.usersession.checkUser();
       } 
       else {
         $log.debug(data.error);
@@ -60,7 +57,7 @@ angular.module('prodo.OrgApp')
             { 
   	          'name':$scope.org.name,
   	          'description':$scope.org.description, 
-  	          'orgtype':$stateParams.plantype,
+  	          'orgtype':$scope.org.orgtype,
   	          'contractid':$scope.org.contractid,
   	          'location': 
                 [ {
@@ -88,11 +85,6 @@ angular.module('prodo.OrgApp')
   	              'invites': $scope.org.invites
                 } ],
               'terms': $scope.org.terms
-            },
-          subscription:
-            {
-              'plantype': $stateParams.plantype,
-              'planid': $stateParams.planid
             }
         }
       return JSON.stringify(orgData); 

@@ -7,6 +7,7 @@ angular.module('prodo.OrgApp')
  .factory('OrgModel', function(){
     return {
       name:"",
+      orgtype: "",
       description:"", 
       contractid:"",
       orginvites: [],

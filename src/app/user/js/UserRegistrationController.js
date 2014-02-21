@@ -3,9 +3,7 @@
 **/
 angular.module('prodo.UserApp')
   .controller('UserRegistrationController', ['$scope', '$state', '$http', '$timeout', '$sce', '$log', 'UserSessionService', 'UserSignupService', 'vcRecaptchaService', 'UserRecaptchaService', function($scope, $state, $http, $timeout, $sce, $log, UserSessionService, UserSignupService, vcRecaptchaService, UserRecaptchaService) {
-    $scope.submitted = false;
-    $scope.user = { terms : true };
-     
+    $scope.submitted = false;     
 
     $scope.user = 
       {
@@ -13,6 +11,7 @@ angular.module('prodo.UserApp')
         'email' :  '',
         'password' :  '',
         'terms' : true,
+        'type': 'business'
       };
 
     // function to clear form data on submit
@@ -45,7 +44,8 @@ angular.module('prodo.UserApp')
             'username' : $scope.user.username,
             'email' : $scope.user.email,
             'password' : $scope.user.password,
-            'terms' : $scope.user.terms 
+            'terms' : $scope.user.terms,
+            'prodousertype' : $scope.user.type
           }  
       };
       return JSON.stringify(userData); 
@@ -61,11 +61,9 @@ angular.module('prodo.UserApp')
         if (data.error.code== 'AU001') {     // user already exist
             $log.debug(data.error.code + " " + data.error.message);
             $scope.showAlert('alert-danger', data.error.message);
-            $state.transitionTo('home.start'); 
         } else if (data.error.code=='AV001') {  // user data invalid
             $log.debug(data.error.code + " " + data.error.message);
             $scope.showAlert('alert-danger', data.error.message);
-            $state.transitionTo('home.start');
         } else if (data.error.code=='AT001') {   // user has not verified
             $log.debug(data.error.code + " " + data.error.message);
             $state.transitionTo('user-content.resetGenerateToken');

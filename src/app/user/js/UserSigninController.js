@@ -2,7 +2,7 @@
 *	User Signin Controller
 **/
 angular.module('prodo.UserApp')
- 	.controller('UserSigninController', ['$scope', '$rootScope', '$state', '$timeout', '$stateParams', '$log', 'UserSessionService', 'OrgRegistrationService', 'UserSubscriptionService', function($scope, $rootScope, $state, $timeout, $stateParams, $log, UserSessionService, OrgRegistrationService, UserSubscriptionService) {
+ 	.controller('UserSigninController', ['$scope', '$rootScope', '$state', '$timeout', '$stateParams', '$log', 'UserSessionService', 'OrgRegistrationService', function($scope, $rootScope, $state, $timeout, $stateParams, $log, UserSessionService, OrgRegistrationService) {
     $scope.submitted = false;  // form submit property is false
     $scope.user = 
       {
@@ -40,43 +40,15 @@ angular.module('prodo.UserApp')
         UserSessionService.authSuccess(data.success.user);
         $scope.showAlert('alert-success', 'Welcome to Prodonus, you have successfully signed up.');
         $scope.clearformData();
-        
       } else {
-        if (data.error.code== 'AU005') {     // user does not exist
-            $log.debug(data.error.code + " " + data.error.message);
-            $scope.showAlert('alert-danger', 'You are not a registered user, please signup first');
-             
-        } else if (data.error.code=='AU002') {  // user password invalid
+        if (data.error.user == undefined) {     
             $log.debug(data.error.code + " " + data.error.message);
             $scope.showAlert('alert-danger', data.error.message);
-
-        } else if (data.error.code=='AV001') {  // enter valid data
-            $log.debug(data.error.code + " " + data.error.message);
-            $scope.showAlert('alert-danger', data.error.message);
-        } else if (data.error.code=='AU006') {  // user signedin using OTP
+        } else if (data.error.user) {
             $log.debug(data.error.code + " " + data.error.message);
             UserSessionService.authSuccess(data.error.user);
             $scope.showAlert('alert-danger', data.error.message);
-        } else if (data.error.code=='AU003') {   // user has not verified
-            $log.debug(data.error.code + " " + data.error.message);
-            $scope.showAlert('alert-danger', 'Please check your email for verification link and activate your account with Prodonus.');
-        } else if (data.error.code=='AS001') {   // user has not subscribed to any plan
-            $log.debug(data.error.code + " " + data.error.message);
-            UserSessionService.authSuccess(data.error.user);
-            $scope.showAlert('alert-danger', data.error.message);
-        } else if (data.error.code=='AS002') { // user subscription expired
-            $log.debug(data.error.code + " " + data.error.message);
-            UserSessionService.authSuccess(data.error.user);
-            $scope.showAlert('alert-danger', data.error.message);  
-        } else if (data.error.code== 'AP001') {    // user has not done any payment
-            $log.debug(data.error.code + " " + data.error.message);
-            UserSessionService.authSuccess(data.error.user);
-            $scope.showAlert('alert-danger', data.error.message);
-        } else {
-            $log.debug(data.error.message);
-            $scope.showAlert('alert-danger', data.error.message);
-
-        }
+        } 
       }
     };  
 
@@ -181,7 +153,7 @@ angular.module('prodo.UserApp')
           if ($rootScope.usersession.currentUser.hasDonePayment && $rootScope.usersession.currentUser.org.orgid) {
             OrgRegistrationService.getOrgDetailSettings();
           } else if (!$rootScope.usersession.currentUser.isSubscribed) {
-            UserSubscriptionService.getPlan();
+            // UserSubscriptionService.getPlan();
           } else if ($rootScope.usersession.currentUser.isSubscribed && !$rootScope.usersession.currentUser.subscriptionExpired && !$rootScope.usersession.currentUser.hasDonePayment) {
             $state.transitionTo('subscription.payment', {
               planid: $rootScope.usersession.currentUser.subscription.planid,

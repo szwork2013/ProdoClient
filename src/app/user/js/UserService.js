@@ -247,17 +247,24 @@ angular.module('prodo.UserApp').factory('UserSessionService', [
     session.authSuccess = function (userData, $scope) {
       session.currentUser = userData;
       session.isLoggedIn = true;
+      console.log(userData);
       $rootScope.$broadcast('session', userData);
     };
     session.authfailed = function () {
       session.resetSession();
     };
     session.checkUser = function () {
-      UserService.IsUserLoggedin.checkUserSession(function (success) {
-        $log.debug(success);
-        $rootScope.$broadcast('session-changed', success);
+      UserService.IsUserLoggedin.checkUserSession(function (result) {
+        $log.debug(result);
+        if (result.success) {
+          session.authSuccess(result.success.user);
+        } else {
+          session.authfailed();
+        }
       }, function (error) {
         $log.debug(error);
+        session.authfailed();
+        $state.transitionTo('home.signup');
         $rootScope.$broadcast('session-changed-failure', error.status);
       });
     };
