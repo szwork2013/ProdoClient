@@ -37,11 +37,14 @@ angular.module('prodo.ProductApp')
 
 			             //socket connect
 			             localStorage.sid = $rootScope.usersession.currentUser.sessionid;
-			             $log.debug(ENV.apiEndpoint);
-			             $scope.socket = io.connect(ENV.apiEndpoint+ENV.port+'/api/prodoapp', {
+			             if ((localStorage.sid !== "") || (localStorage.sid !== " ") || (localStorage.sid !== undefined) || (localStorage.sid !== null)) {
+			              $log.debug(ENV.apiEndpoint);
+			              $scope.socket = io.connect(ENV.apiEndpoint+ENV.port+'/api/prodoapp', {
+			             // $scope.socket = io.connect('www.prodonus.com:8000/api/prodoapp', {
 			                // $scope.socket = io.connect('http://localhost/prodoapp', {
 			                	query: 'session_id=' + localStorage.sid
 			                });
+			         	 }
 			              //socket connect
 
 		                 //socket response when for add comment
@@ -104,10 +107,11 @@ angular.module('prodo.ProductApp')
 		                //get tags from comment text
 		                $scope.commenttextField.userComment="";
 		                $scope.getTagsFromCommentText = function () {
-		                	
-		                	var commenttext = $scope.commenttextField.userComment;
+		                	$log.debug($scope.pretags);
 		                	$scope.mytags = $scope.pretags;
+		                	var commenttext = $scope.commenttextField.userComment;
 		                	var new_arr = [];
+		                	if($scope.commenttextField.userComment){
 		                	var commenttextTags = commenttext.split(' ');
 		                	for (var i = 0; i < commenttextTags.length; i++) {
 		                		for (var j = 0; j < $scope.mytags.length; j++) {
@@ -116,10 +120,12 @@ angular.module('prodo.ProductApp')
 		                			}
 		                		}
 		                	}
+		                	}
 		                	$scope.mytags = new_arr; //tags from comment text
 			                 //feature tags
 			                 $scope.myFeaturetags = $scope.featuretags;
 			                 var new_arr = [];
+			                 if($scope.commenttextField.userComment){
 			                 var commenttextTags = commenttext.split(' ');
 			                 for (var i = 0; i < commenttextTags.length; i++) {
 			                 	for (var j = 0; j < $scope.myFeaturetags.length; j++) {
@@ -128,10 +134,12 @@ angular.module('prodo.ProductApp')
 			                 		}
 			                 	}
 			                 }
+			               }
 			                 $scope.myFeaturetags = new_arr; //feature tags from comment text
 			                 //feature tags
 			                 $log.debug($scope.mytags);
 			                 $log.debug($scope.myFeaturetags);
+			           
 			             };
 			               //get tags from comment text
 
@@ -156,7 +164,7 @@ angular.module('prodo.ProductApp')
 				              $scope.makeTagsPair= function(noun,adj){
 				              	for(var i=0;i<adj.length;i++){
 				              		if(noun[i]==undefined)
-				              			$scope.tagPairs.push({featureid:"1", featurename:"product",tag:adj[i]});
+				              			$scope.tagPairs.push({featureid:"1", featurename:$scope.features[0].featurename,tag:adj[i]});
 				              		else 
 				              			$scope.tagPairs.push({featureid:"1", featurename:noun[i],tag:adj[i]});
 				              	}
@@ -272,6 +280,7 @@ angular.module('prodo.ProductApp')
 
 	                            //get latest comments posted by others
 	                            $scope.getLatestComments = function() {
+	                            	if($rootScope.productCommentResponsearray.length !== 0 ){
 	                            	$log.debug($rootScope.productCommentResponsearray);
 	                            	$scope.reversecomments_l = $scope.productCommentResponsearray.reverse();
 	                            	$log.debug($scope.reversecomments_l);
@@ -284,6 +293,7 @@ angular.module('prodo.ProductApp')
 	                            	$scope.reversecomments_l.length = 0;
 	                            	$scope.count = 0;
 					                //code to get latest comments
+					            }
 					            };
 					             //get latest comments posted by others
 
@@ -377,17 +387,20 @@ angular.module('prodo.ProductApp')
 	                              $scope.getLastCommentId = function(){
 	                              	$log.debug( $scope.productComments);
 	                              	$scope.productComments;
-	                              	var lengthComments=$scope.productComments.length;
-	                              	$log.debug(lengthComments)
-	                              	var lastComment=$scope.productComments[lengthComments-1];
-	                              	$log.debug(lastComment.commentid);
-	                              	return lastComment.commentid;
+	                              	if($scope.productComments.length!== 0){
+		                              	var lengthComments=$scope.productComments.length;
+		                              	$log.debug(lengthComments)
+		                              	var lastComment=$scope.productComments[lengthComments-1];
+		                              	$log.debug(lastComment.commentid);
+		                              	return lastComment.commentid;
+	                               }
 	                              };
 						          //find last comment id
 
 						          $scope.loadMoreComments=function(){
 						          	$("#img-spinner").show(); 
 						          	var lastCommentId=$scope.getLastCommentId();
+						          	if ((lastCommentId !== "") || (lastCommentId !== " ") || (lastCommentId !== undefined) || (lastCommentId !== null)) {
 							        CommentLoadMoreService.loadMoreComments({commentid: lastCommentId},
 							                    	function(result) {
 							                    		$scope.handleLoadMoreCommentResponse(result)
@@ -396,6 +409,7 @@ angular.module('prodo.ProductApp')
 							                    	function(error) {
 							                    		$log.debug(error);
 							                    	});
+							         }
 							        };
 							        $("#img-spinner").hide();
 
