@@ -31,11 +31,11 @@ angular.module('prodo.UserApp')
         }
       }
     }) 
-    .state('account', {
+    .state('account-user', {
       abstract: true,
       templateUrl: 'user/views/user.account.settings.container.html'
     })    
-    .state('account.user', {
+    .state('account-user.user', {
       templateUrl:  'user/views/user.account.settings.tpl.html',
       controller: 'UserAccountController'
     })

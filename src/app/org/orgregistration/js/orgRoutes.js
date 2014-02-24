@@ -28,6 +28,30 @@ angular.module('prodo.OrgApp')
     .state('orgregistration.finish', {
         templateUrl: 'org/orgregistration/views/orgregistration.finish.tpl.html',
         controller: 'OrgRegistrationController'
+    })
+    .state('account-org', {
+      abstract: true,
+      templateUrl: 'org/manageorg/views/org.account.settings.container.html'
     })    
+    .state('account-org.org', {
+      abstract: true,
+      templateUrl:  'org/manageorg/views/org.account.settings.tpl.html',
+      controller: 'OrgAccountController'
+    })
+    .state('account-org.org.detail', {
+       templateUrl:  'org/manageorg/views/org.wall.orgDetails.tpl.html'
+      }) 
+    .state('account-org.org.upload', {
+       templateUrl:  'org/manageorg/views/org.wall.orgUpload.tpl.html'
+      }) 
+    .state('account-org.org.broadcast', {
+       templateUrl:  'org/manageorg/views/org.wall.orgBroadcast.tpl.html'
+      })
+    .state('account-org.org.Productdetail', {
+       templateUrl:  'product/views/prodo.wall.productFeatures.tpl.html'
+      }) 
+    .state('account-org.org.Productupload', {
+       templateUrl:  'product/views/prodo.wall.productUpload.tpl.html'
+      })    
   }]);
  
