@@ -422,6 +422,5 @@ angular.module('prodo.UserApp')
         cleanupEventUnfollowProductNotDone();     
       });
     }
-
 }]);
  
