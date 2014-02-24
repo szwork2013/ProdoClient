@@ -2,7 +2,8 @@ angular.module('prodo.OrgApp')
  .controller('OrgAccountController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$log', 'growl', 'UserSessionService', 'OrgRegistrationService', function($scope, $rootScope, $state, $http, $timeout, $log, growl, UserSessionService, OrgRegistrationService) {
 
     $scope.org = OrgRegistrationService.currentOrgData;
-    $scope.orgaddr = OrgRegistrationService.currentOrgAdd;
+    $scope.hasBroadcast = false;
+    // $scope.orgaddr = OrgRegistrationService.currentOrgAdd;
     $scope.editorEnabled = false;
     $scope.form = {};
   
@@ -14,6 +15,7 @@ angular.module('prodo.OrgApp')
       $scope.editorEnabled = false;
       $scope.orggeneralsettingchange = '';
     };
+
 
     /***
     // Organisation Manage Account Settings function definitions
@@ -489,7 +491,8 @@ angular.module('prodo.OrgApp')
       });
     }
 
-
+$scope.getOrgAddress();
+    $scope.getproduct();
 
 }]);
  
