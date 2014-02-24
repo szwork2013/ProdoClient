@@ -54,7 +54,7 @@
                      <div class="classMain">
                            <h4> Product Recommended </h4>
                                 <div ng-repeat="products in modaluser.products_recommends"   class="effectpic" >
-                                     <center> <p >{{products.name}}</p>
+                                     <center> <p ng-bind="products.name"></p>
                                      <img ng-src="{{products.product_logo}}" class="prodleImage" ng-click="emitProductData(products.prodle,products.orgid)"></center>
                                 </div>
                     </div>

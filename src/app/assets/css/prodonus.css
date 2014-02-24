@@ -1175,8 +1175,8 @@ text {
 #a
 { 
   /*width:720px; */
-  height:400px; 
-  display: inline-block;
+  height:300px; 
+ /* display: inline-block;*/
   /*position : fixed ;*/
   background-position:top;
 } 
