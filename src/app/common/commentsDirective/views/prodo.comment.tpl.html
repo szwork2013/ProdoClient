@@ -46,7 +46,7 @@
                            <h4> Product Followed </h4>
                                 <div ng-repeat="products in modaluser.products_followed"  
                                 class="effectpic" ><center>
-                                      <p >{{products.name}}</p>
+                                      <p ng-bind="products.name"></p>
                                       <img ng-src="{{products.product_logo}}" class="prodleImage" ng-click="emitProductData(products.prodle,products.orgid)"></center>
                                 </div>
                      </div>
