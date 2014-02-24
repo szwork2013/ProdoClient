@@ -5,12 +5,18 @@
     <div class="control-group">
 
       <h4 id="prodo-signup-heading">Talk About Your Products</h4>
-       
-        <input id="prodo-form-input-username-signup" name="username" class="form-control" type="text" placeholder="UserName" ng-model="user.username" ng-pattern="/^[A-Za-z][a-zA-Z0-9]{2,13}$/" prodo-unique required /><i class="fa fa-check" ng-show="signupForm.username.$dirty && signupForm.username.$valid"></i>
 
-        <input id="prodo-form-input-signup" name="email" class="form-control" type="email" placeholder="Email" required ng-model="user.email" /><i class="fa fa-check" ng-show="signupForm.email.$dirty && signupForm.email.$valid"></i>
+        <div style="width: 250px; height: 20px; margin: 10px; display: block;" >
+          <input type="radio" ng-model="user.type" value="business">&nbsp;Business
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" ng-model="user.type" value="individual">&nbsp;Individual
+        </div>
+
+       
+        <input id="prodo-form-input-username-signup" name="username" class="prodo-form-input-signup form-control" type="text" placeholder="UserName" ng-model="user.username" ng-pattern="/^[A-Za-z][a-zA-Z0-9]{2,13}$/" prodo-unique required /><i class="fa fa-check" ng-show="signupForm.username.$dirty && signupForm.username.$valid"></i>
+
+        <input name="email" class="prodo-form-input-signup form-control" type="email" placeholder="Email" required ng-model="user.email" /><i class="fa fa-check" ng-show="signupForm.email.$dirty && signupForm.email.$valid"></i>
       
-        <input id="prodo-form-input-signup" type="password" class="form-control" id="password1" name="password" placeholder="Password" ng-model="user.password" prodonus-password-validate required><i class="fa fa-check" ng-show="signupForm.password.$dirty && signupForm.password.$valid" ></i>
+        <input type="password" class="prodo-form-input-signup form-control" id="password1" name="password" placeholder="Password" ng-model="user.password" prodonus-password-validate required><i class="fa fa-check" ng-show="signupForm.password.$dirty && signupForm.password.$valid" ></i>
 
         <div vc-recaptcha theme="custom" key="6LdDj-oSAAAAAB8dXvPFoG9H9ygL_C-9l4V7lLP7" id="recaptcha_container">
           <div id="recaptcha_image"></div>
@@ -24,7 +30,7 @@
           </div><!-- /input-group -->
         </div>
         
-        <p style="width: 370px;" id="prodo-general-terms">By clicking Sign Up, you agree to our<a ui-sref="messageContent.privacy" id="prodo-general-terms-link" class="link"> Terms</a>&nbsp;and &nbsp;<a ui-sref="messageContent.terms" id="prodo-general-terms-link" class="link">Privacy Policy</a>.</p>
+        <p style="width: 370px;" id="prodo-general-terms">By clicking Sign Up, you agree to our<a href="" ui-sref="footer-content.privacy" class="link prodo-general-terms-link"> Terms</a>&nbsp;and &nbsp;<a href="" ui-sref="footer-content.terms" class="link prodo-general-terms-link">Privacy Policy</a>.</p>
 
     </div>  
     <div ng-show="(signupForm.username.$dirty && signupForm.username.$invalid) || (signupForm.email.$dirty && signupForm.email.$invalid) || (signupForm.password.$dirty && signupForm.password.$invalid) || (signupForm.$invalid && signupForm.submitted)" style="width:250px; min-height: 30px; border-radius: 2px; margin: 10px auto; display: block; text-align:left; font-size: 12px;" class="alert alert-danger">

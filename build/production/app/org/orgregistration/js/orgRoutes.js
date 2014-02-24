@@ -10,29 +10,48 @@ angular.module('prodo.OrgApp')
       abstract: true
     })
     .state('orgregistration.company', {
-      url: '/company/:planid/:plantype',
       templateUrl: 'org/orgregistration/views/orgregistration.company.tpl.html',
       controller: 'OrgRegistrationController'
     }) 
     .state('orgregistration.address', {
-        url: '/address/:planid/:plantype',
         templateUrl:  'org/orgregistration/views/orgregistration.address.tpl.html',
         controller: 'OrgRegistrationController'
     })
     .state('orgregistration.groupuser', {
-        url: '/groupuser/:planid/:plantype',
         templateUrl: 'org/orgregistration/views/orgregistration.groupusers.tpl.html',
         controller: 'OrgRegistrationController'
     })     
     .state('orgregistration.terms', {
-        url: '/terms/:planid/:plantype',
         templateUrl: 'org/orgregistration/views/orgregistration.terms.tpl.html',
         controller: 'OrgRegistrationController'
     })        
     .state('orgregistration.finish', {
-        url: '/finish/:planid/:plantype',
         templateUrl: 'org/orgregistration/views/orgregistration.finish.tpl.html',
         controller: 'OrgRegistrationController'
+    })
+    .state('account-org', {
+      abstract: true,
+      templateUrl: 'org/manageorg/views/org.account.settings.container.html'
     })    
+    .state('account-org.org', {
+      abstract: true,
+      templateUrl:  'org/manageorg/views/org.account.settings.tpl.html',
+      controller: 'OrgAccountController'
+    })
+    .state('account-org.org.detail', {
+       templateUrl:  'org/manageorg/views/org.wall.orgDetails.tpl.html'
+      }) 
+    .state('account-org.org.upload', {
+       templateUrl:  'org/manageorg/views/org.wall.orgUpload.tpl.html'
+      }) 
+    .state('account-org.org.broadcast', {
+       templateUrl:  'org/manageorg/views/org.wall.orgBroadcast.tpl.html'
+      })
+    .state('account-org.org.Productdetail', {
+       templateUrl:  'product/views/prodo.wall.productFeatures.tpl.html'
+      }) 
+    .state('account-org.org.Productupload', {
+       templateUrl:  'product/views/prodo.wall.productUpload.tpl.html'
+      })    
   }]);
  

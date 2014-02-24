@@ -1,25 +1,24 @@
 <!-- Prodonus Home - After Signin -->
-<div id="prodo-container" class="container">
+<div id="prodo-container">
+	<div ui-view="prodo-navbar"></div>
+	<div ui-view="prodo-slider"></div>
+	<br>
+	<div class="container">
+		<div id="prodo-row" class="row">
 
-  <div id="prodo-row" class="row">
-
-		<div id="prodo-col-md-3" class="col-md-3">
+		<div style="padding: 1px;" id="prodo-col-md-2" class="col-md-2 col-md-offset-1">
 			<div ui-view="prodo-sidebar"></div> 
 		</div>
 
-		<div id="prodo-col-md-6" class="col-md-6">
-			<div ui-view="orgnotification"></div>
-			<div ui-view="orglogodisplay"></div>
-			<div ui-view="prodo-navbar"></div>
-			<div ui-view="prodo-slider"></div>
+		<div style="padding: 1px;" id="prodo-col-md-7" class="col-md-7">
 			<div ui-view="prodo-content"></div>
 
 		</div>
 
-		<div id="prodo-col-md-3" class="col-md-3">
+		<div style="padding: 1px;" id="prodo-col-md-2" class="col-md-2">
 			<div ui-view="prodo-advertisment"></div>
 		</div>
 
 	</div>
-
+	</div>
 </div>

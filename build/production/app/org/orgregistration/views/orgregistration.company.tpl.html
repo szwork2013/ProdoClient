@@ -5,9 +5,13 @@
 
     <div class="control-group">
 
-      <h4 id="prodo-company-heading">{{org.orgtype}}</h4>
+      <h4 id="prodo-company-heading">Business</h4>
 
       <hr size=3 width="90%" style="height:1px; margin-top: 0;" noshade>
+
+      <select id="prodo-form-input-company" type="text" class="form-control" ng-model="org.orgtype" required>
+        <option value="Manufacturer">Manufacturer</option>
+        <option value="Company">Company</option></select>
           
       <input id="prodo-form-input-company" name="companyname" type="text" class="form-control" ng-model="org.name" placeholder="Company Name" required />
          
@@ -17,8 +21,6 @@
       
       </div> 
          
-    
-    <button id="prodo-form-company-btn" class="btn btn-md btn-primary" ui-sref="subscription.plans">Previous</button>
     <button id="prodo-form-company-btn" class="btn btn-md btn-primary" ui-sref="orgregistration.address">Next</button>
 
   </form>   <!-- prodo-company-form -->

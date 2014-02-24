@@ -216,7 +216,7 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
   text-align: center;
 }
 /*change the View: signup form input style*/
-#prodo-form-input-signup{
+.prodo-form-input-signup{
 	width:250px;
 	height: 30px;
 	border-radius: 2px;
@@ -225,14 +225,6 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
      
 }
 
-#prodo-form-input-username-signup{
-	width:250px;
-	height: 30px;
-	border-radius: 2px;
-	margin: 10px auto;
-	display: block;
-     
-}
 
 /*change the View: Signup form input button signup style*/
 #prodo-form-button-signup{
@@ -707,7 +699,7 @@ section:hover #prodo-subscribe-plan-heading{
 
 /*change the View: Signup form input button signup style*/
 #prodo-form-company-btn{
-	width:122.5px;
+	width:250px;
 	border-radius: 2px;
 	background-color: #3a92c6;
 	font-size: 15px;
@@ -1084,8 +1076,8 @@ border-bottom-left-radius: 0px;
 /* Prodo Main View: Slider*/
 #prodo-view-slider{
   margin-top: 0px;
-  border: 1px solid #94d2f8;
-  background-color:#1C242F;
+  border: 1px solid transparent;
+  background-color:transparent;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   padding: 5px;
@@ -1103,16 +1095,18 @@ border-bottom-left-radius: 0px;
 #prodo-slider-nav-pills > li > a {
   border-radius: 0px;
   font-weight: bold;
-  color: #BCD4F3;
+  color: #224068;
   padding: 5px 2px;
 }
 
 #prodo-slider-nav-pills > li > a:hover {
-    background-color:  #1C242F;
+    background-color:  transparent;
+    border-radius: 30px;
+    color: black;
 }
 
 #prodo-slider-nav-pills > li.active > a {
-background-color: #ffc634;
+background-color: #91701B;
 color: black;
 border-radius: 30px;
 }
@@ -1133,6 +1127,19 @@ border-radius: 30px;
   border-radius: 10px;
   margin-top: 10px;
   min-height: 50px;
+}
+
+ .right-inner-addon {
+    position: relative;
+}
+.right-inner-addon input {
+    padding-right: 30px;    
+}
+.right-inner-addon i {
+    position: absolute;
+    padding: 10px 290px;
+    pointer-events: none;
+    color: #ccc;
 }
 
 /*Barchart*/
@@ -1161,7 +1168,6 @@ text {
  #prodo-comment-container{
   background-color: #ffffff;
   margin-bottom: 20px;
-  margin-top: 10px;
   border-radius: 10px;
 }
 
@@ -1180,9 +1186,9 @@ text {
 
 #a
 { 
-  width:720px; 
-  height:400px; 
-  display: inline-block;
+  /*width:720px; */
+  height:300px; 
+ /* display: inline-block;*/
   /*position : fixed ;*/
   background-position:top;
 } 
@@ -1981,8 +1987,6 @@ width:10%; height: 10%; float: left; margin: 5px; border: solid 1px #ccc;
 		padding-bottom: 20px;
 		padding-left: 20px;*/
 }
-
-
 
 
 
