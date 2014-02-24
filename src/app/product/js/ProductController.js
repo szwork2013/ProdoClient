@@ -613,7 +613,7 @@
 
               //on product logo hover, show follow product button
               $(document).ready(function(){
-               if ($rootScope.isAdminCheck==true) {
+                      if ($rootScope.isAdminCheck==true) {
                  $("#productLogoUpload").css("display", "inline");  
                  $("#productLogo").hover(function(){
                   $("#productLogoUpload").show();
@@ -626,6 +626,21 @@
                else {
                  $("#productLogoUpload").css("display", "none");
                }
+
+
               });
               //on product logo hover, show follow product button
+          
+              //Product Description height toggle
+               
+              $scope.ShowDescription=function(){
+                
+                if(document.getElementById('prodo-description').style.height ==="15px")
+                $("#prodo-description").css("height", ""); 
+                else 
+                   $("#prodo-description").css("height", "15px"); 
+              };
+
+          
+
           }])
