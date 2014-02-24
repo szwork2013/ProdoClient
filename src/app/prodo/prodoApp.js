@@ -121,7 +121,7 @@ angular.module('prodo.ProdonusApp', [
                 if (data.org) {
                   OrgRegistrationService.getOrgDetailSettings();
                 } else {
-                    $state.transitionTo('prodo.wall');
+                    $state.transitionTo('prodo.wall.org');
                 }
             } 
           } 
@@ -147,7 +147,7 @@ angular.module('prodo.ProdonusApp', [
       });
 
       var cleanupEventSendOrgData = $rootScope.$on("sendOrgData", function(event, data){
-        $state.transitionTo('prodo.wall'); 
+        $state.transitionTo('prodo.wall.org'); 
         cleanupEventSendOrgData();  
 
       });

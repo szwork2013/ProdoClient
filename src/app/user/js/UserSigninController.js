@@ -165,7 +165,7 @@ angular.module('prodo.UserApp')
               plantype: $rootScope.usersession.currentUser.usertype
             });
           } else if ($rootScope.usersession.currentUser.hasDonePayment) {
-            $state.transitionTo('prodo.wall');
+            $state.transitionTo('prodo.wall.org');
           } 
       } else {
         if (data.error.code== 'AV001') {     // enter valid data

@@ -406,7 +406,7 @@ angular.module('prodo.UserApp')
       });
     }
 
-    $scope.unfollow = function (product, prodleindex) {
+    $scope.unfollow = function (product) {
       UserSessionService.unfollowProduct(product.prodle);
       var cleanupEventUnfollowProductDone = $scope.$on("unfollowProductDone", function(event, data){
         $scope.isUnfollowed = true;
@@ -422,6 +422,5 @@ angular.module('prodo.UserApp')
         cleanupEventUnfollowProductNotDone();     
       });
     }
-
 }]);
  

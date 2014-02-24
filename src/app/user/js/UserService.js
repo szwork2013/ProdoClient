@@ -71,8 +71,14 @@ angular.module('prodo.UserApp').factory('UserSessionService', [
             params: { data: '@data' }
           }
         }),
-        Product_Unfollow: $resource('/api/user/followun/:data', {}, {
-          followUnProduct: { 
+        Product_Follow: $resource('/api/user/follow/:data', {}, {
+          followProduct: { 
+            method: 'GET', 
+            params: { data: '@data' }
+          }
+        }),
+        Product_Unfollow: $resource('/api/user/unfollow/:data', {}, {
+          unfollowProduct: { 
             method: 'GET', 
             params: { data: '@data' }
           }
@@ -160,12 +166,22 @@ angular.module('prodo.UserApp').factory('UserSessionService', [
     };
 
     session.unfollowProduct = function (pdata) {
-      UserService.Product_Unfollow.followUnProduct({ data: pdata }, function (success) {
+      UserService.Product_Unfollow.unfollowProduct({ data: pdata }, function (success) {
         $log.debug(success);
         $rootScope.$broadcast('unfollowProductDone', success);
       }, function (error) {
         $log.debug(error);
         $rootScope.$broadcast('unfollowProductNotDone', error);
+      });
+    };
+
+    session.followProduct = function (pdata) {
+      UserService.Product_Follow.followProduct({ data: pdata }, function (success) {
+        $log.debug(success);
+        $rootScope.$broadcast('followProductDone', success);
+      }, function (error) {
+        $log.debug(error);
+        $rootScope.$broadcast('followProductNotDone', error);
       });
     };
 

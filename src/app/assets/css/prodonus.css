@@ -1129,6 +1129,19 @@ border-radius: 30px;
   min-height: 50px;
 }
 
+ .right-inner-addon {
+    position: relative;
+}
+.right-inner-addon input {
+    padding-right: 30px;    
+}
+.right-inner-addon i {
+    position: absolute;
+    padding: 10px 290px;
+    pointer-events: none;
+    color: #ccc;
+}
+
 /*Barchart*/
 
 text {
@@ -1155,7 +1168,6 @@ text {
  #prodo-comment-container{
   background-color: #ffffff;
   margin-bottom: 20px;
-  margin-top: 10px;
   border-radius: 10px;
 }
 
@@ -1994,8 +2006,6 @@ width:10%; height: 10%; float: left; margin: 5px; border: solid 1px #ccc;
 {
 	display: none;
 }
-
-
 
 
 

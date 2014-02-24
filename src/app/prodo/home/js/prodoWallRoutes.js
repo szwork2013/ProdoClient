@@ -25,14 +25,6 @@ angular.module('prodo.ProdoWallApp')
           templateUrl:  'prodo/home/views/prodo.wall.sidebar.tpl.html',
           controller: 'prodoSearchController'
         },
-        'orgnotification' : {
-          templateUrl:  'org/manageorg/views/prodo.wall.orgnotification.tpl.html',
-          controller: 'OrgAccountController'
-        },
-        'orglogodisplay' : {
-          templateUrl:  'org/manageorg/views/prodo.wall.orglogo.tpl.html',
-          controller: 'OrgAccountController'
-        },
         'prodo-slider' : {
           templateUrl:  'prodo/home/views/prodo.wall.slider.tpl.html',
           controller: 'OrgAccountController'
@@ -41,6 +33,7 @@ angular.module('prodo.ProdoWallApp')
           templateUrl:  'prodo/home/views/prodo.wall.navbar.tpl.html'
         },
         'prodo-content' : {
+          abstract: true,
           templateUrl:  'prodo/home/views/prodo.wall.content.container.html'
         },
         'prodo-advertisment' : {

@@ -13,7 +13,7 @@
  */-->
 
  <div ng-app="prodo.ProductApp" id="prodo-comment-container" class="container" style="border: 1px solid #94d2f8; width: 100%;  "   ng-controller="ProductController">
-
+<!-- 
    <ul class="nav nav-tabs" id="prodo-productTabs">
     <li class="active" id="prodoCommentsTab"><a href="#tabComments" data-toggle="tab">Product Comments</a></li>
     <li class="" id="prodoProductFeaturesTab"><a href="#tabProductFeatures" data-toggle="tab" ng-click="checkAdmin()">Product Features</a></li>
@@ -31,6 +31,165 @@
     <div class="tab-pane"  id="tabProductUpload"  ng-include="'product/views/prodo.wall.productUpload.tpl.html'"  >
         <p>product Upload here</p>
     </div>
+</div> -->
+<div growl></div>
+<div id="prodo-ProductDetails">
+<img class="img" id="productLogo"  style=" height: 100px; padding:10px;max-width:500px; cursor: pointer;"   ng-src="{{product.product_logo}}" />
+<strong style="font-size: 30px; margin:20px; text-align:center;">&nbsp;<span ng-bind="product.name"> </strong>
+<br>
+<span  >MODEL NO :&nbsp; <span ng-bind="product.model_no"></span></span>
+<br>
+<span> <i ng-click="ShowDescription();" style="cursor: pointer;" class="fa fa-caret-right fa-2x "></i>Description :
+<p id="prodo-description" style="height:15px; overflow: hidden;  font-size:12px; "  ng-bind="product.description" > 
+
+
+</p> 
+</span>
+
+ </span>
+
+<table class="table child "  id="prodo-ProductFeatureTable" >
+           
+            <tr id="prodo-productbnd" style="background-color: white; display:none;" ng-style="ShowBannedDate(product)">
+              <td>Product Banned on : &nbsp;<span ng-bind="product.banneddate"></span></td>
+            </tr>
+            <tr   id="prodo-productDiscontinued"  >
+              <td style=" background-color: #FFBABA;font-size: 16px;  border-top: 0px solid #ddd; padding:8px; padding-bottom:12px;" ng-style="ShowDiscontinuedSale(product)" >Product Discontinued On &nbsp; <span ng-bind="formatDate(product.sale_discontinuation_date)">
+              </span></td>
+               <td style=" background-color: #FFBABA;font-size: 16px;  border-top: 0px solid #ddd; padding:8px; " ng-style="ShowDiscontinuedSupport(product)">Support Discontinued On  &nbsp;<span ng-bind="formatDate(product.support_discontinuation_date)" > </span></td>
+              </tr>
+                               
+ </table>
+
 </div>
+
+<div id="prodo-ProdoProductComments">
+   
+   <div id="prodo-comment-fixed" style="" ng-controller="ProductCommentController">
+
+
+<!-- tabs -->
+
+ <div class="prodo-comment-Text-tabs " id="tabs" style="align:left;"  >
+
+    <ul id="commentTab" class=" commentTab nav nav-pills" ng-init="tabSearch = false;tabFeature=false;
+    tabComment = true" >
+            
+             <li >
+             <a  style="cursor: pointer; cursor: hand;" ng-click="tabComment = true; tabSearch=false;tabFeature=false;">
+             <div  id="fa-removeComment" name="rm" class=" fa fa-comments-o fa-lg  " ></div></a></li>
+              <li>
+              <a  style="cursor: pointer; cursor: hand;"  ng-click="tabSearch =  true ;
+                tabComment = false;tabFeature=false;">
+                <div id="fa-tagsComment" class="fa fa-search fa-lg"  ></div></a></li>        
+                 <li>
+              <a  style="cursor: pointer; cursor: hand;"  ng-click="tabFeature=true;tabSearch =  false ;
+                tabComment = false;">
+                <div id="fa-tagsFeature" class="fa fa-list fa-lg"  ></div></a></li>        
+              </ul> 
+              <div class="tab-content">
+             
+
+                  <div id="Remove" ng-show="tabComment == 1"   >
+                   
+                   
+
+                            <div id="prodo-comment-enterComment" >
+                            
+                              <span class="label label-info   " ng-bind="300 - commenttextField.userComment.length" ></span> 
+                              <a href="" ng-click="getLatestComments()" > <div class="label label-info "  id="responseComment"  style="display: none">  </div></a>
+
+                              <div ng-controller="DragImageController">
+                               
+                                  <div id="prodo-comment-textBox-container">
+                                    <div id="holder"> 
+                                    
+                                         <textarea id="prodo-comment-Textbox" col="40" type="text" class="form-control " name="txtComment" placeholder="Product Conversation [max 300 characters]"   ng-model="commenttextField.userComment" comment-limit="300" ng-enter="addProductComment()" required  pop-over items="featuretags", title="Select Feature" ></textarea>
+
+
+                                    
+                                      <!-- tags -->
+                                      <div id="prodo-productTags">
+                                        <form  role="form">
+                                          <div  style="width:518px; " >
+                                            <tags-input  add-on-enter="false" add-on-space="true" ng-model="mytags" placeholder="Add tags"  list="pretags" ng-enter="addProductComment()"
+                                            replace-spaces-with-dashes="false"></tags-input>
+                                          </div>
+                                        </form>
+                                      </div>    
+
+                                           <div style="width:75px;" id="CommentImg"   >
+                                                   <a class="close" id= "crossButton"  style="display:none" ng-click="clearReader()">&times;</a> 
+                                                    <img style="display:none;width:50px; height:50px;"  id="prodo-uploadedCommentImage" />
+                                           </div>
+                                          
+                                        </div>
+                                  </div>
+
+                              <!--   <span > 
+                                  tags
+                             
+                                </span> -->
+                              </div>
+                                <p id="upload" class="hidden">
+                                  <label  >
+                                    <br>
+                                    <input type="file"    >
+                                  </label>
+                                </p>
+                                                  
+                            </div> 
+
+                  </div>     
+
+
+                  <div id="Remove" ng-show="tabSearch == 1"  style="padding-bottom: 10px;" >
+
+                 
+                    <br>
+                    <input ng-model="search" class="commentSearchTextbox form-control " id="prodo-comment-search-Textbox"  type="text"   placeholder="Search comments ...">
+
+                
+                </div>
+                <div id="Remove" ng-show="tabFeature == 1"  style="padding-bottom: 10px;">
+                    
+                    <table class="table child " id="prodo-ProductFeatureTable" >
+                       <tr >
+                         <td> <dt>Feature</dt> </td>
+                         <td> <dt>Description </dt></td>
+                        
+                       
+                       </tr>
+                       <tr ng-repeat="feature in features track by $index">
+                         <td  > <span ng-bind="feature.featurename"> </span></td>
+                         <td  > <span ng-bind="feature.featuredescription"> </span></td> 
+                       </tr>
+
+                    </table>
+                </div>
+              </div>
+            </div>
+<!-- tabs -->
+
+  
+  <ul class="media-list "  id="prodo-comment-media-list">
+
+    <div prodo-comments    id="prodo-comment-commentContainer"  >
+
+    </div>  
+  </ul>
+
+  <button class="" id="load-more" ng-click="loadMoreComments()">  
+    <img  id="img-spinner" style="alignment:center; padding :5px;" ng-class="searching && 'active' "                         src="https://raw.github.com/ThomasBurleson/angularJS-TwitterSearch/master/webroot/assets/image/spinner2.gif" alt="Loading"/>
+    Load more...  
+  </button>
+  <div id="loadMoreCommentMsg" style="text-align:center; width:518px; font-family: Helvetica ;"></div>
+</div>
+ 
+
+</div>
+
+
+
 
 </div>
