@@ -304,7 +304,7 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
     };
   return piechart;
 }).directive('prodoProductChart', function () {
-  var g = {
+  var prodoChart = {
       restrict: 'EA',
       link: function (scope, element, attr) {
         var tooltip = d3.select("#a").append("div")   
@@ -316,52 +316,51 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
 
 
 
-        var l = zz.append('circle').attr('cx', 540 + 9).attr('cy', 74).attr('r', 5).style('fill', 'blue');
-        l.on('mouseenter', function () {
-          l.attr('r', 10).style('fill', 'none').style('stroke', 'red').style('stroke-opacity', 0.000001).style('stroke-width', 3).transition().duration(500).attr('r', 5).style('fill', 'blue').style('stroke-opacity', 2);
-          tooltip.text('Front Camera').style('opacity', 2).style("left","540px").style("bottom","265px");
+        var frontCameraCircle = zz.append('circle').attr('cx', 380 + 9).attr('cy', 54).attr('r', 5).style('fill', 'blue');
+        frontCameraCircle.on('mouseenter', function () {
+          frontCameraCircle.attr('r', 10).style('fill', 'none').style('stroke', 'red').style('stroke-opacity', 0.000001).style('stroke-width', 3).transition().duration(500).attr('r', 5).style('fill', 'blue').style('stroke-opacity', 2);
+          tooltip.text('Front Camera').style('opacity', 2).style("left","400px").style("bottom","265px");
           //.style("left", d3.select(this).attr("cx") + "px").style("top", d3.select(this).attr("cy") + "px");
 
           // .style('left', d3.event.pageX + 5 + 'px').style('top', d3.event.pageY + 5 + 'px');
         }).on('mouseout', function () {
-          l.attr('r', 5).style('stroke', 'none');
+          frontCameraCircle.attr('r', 5).style('stroke', 'none');
           tooltip.style('opacity', 0).style("left","0px").style("bottom","0px");
         });
 
 
 
 
-        l2 = zz.append('circle').attr('cx', 52+10+130).attr('cy', 90+90).attr('r', 8).style('fill', 'blue')
-        .on('mouseover', function () {
-          l2.attr('r', 12).style('fill', 'none').style('stroke', 'red').style('stroke-opacity', 0.000001).style('stroke-width', 3).transition().duration(500).attr('r', 8).style('fill', 'blue').style('stroke-opacity', 2);
-          tooltip.text('Screen').style('opacity', 2).style("left","192px").style("bottom","180px");
+      
+        screenCircle = zz.append('circle').attr('cx', 192).attr('cy', 90).attr('r', 5).style('fill', 'blue').on('mouseover', function () {
+          screenCircle.attr('r', 10).style('fill', 'none').style('stroke', 'red').style('stroke-opacity', 0.000001).style('stroke-width', 3).transition().duration(500).attr('r', 5).style('fill', 'blue').style('stroke-opacity', 2);
+          tooltip.text('Screen').style('opacity', 2).style("left","220px").style("bottom","170px");
           // .style('left', d3.event.pageX + 5 + 'px').style('top', d3.event.pageY + 5 + 'px');
         }).on('mouseout', function () {
-          l2.attr('r', 8).style('stroke', 'none');
+          screenCircle.attr('r', 5).style('stroke', 'none');
           tooltip.style('opacity', 0).style("left","0px").style("bottom","0px");
         });
 
 
 
-
-        l3 = zz.append('circle').attr('cx', 220).attr('cy', 290).attr('r', 5).style('fill', 'blue').on('mouseover', function () {
-          l3.attr('r', 10).style('fill', 'none').style('stroke', 'red').style('stroke-opacity', 0.000001).style('stroke-width', 3).transition().duration(500).attr('r', 5).style('fill', 'blue').style('stroke-opacity', 2);
-          tooltip.text('Home Key').style('opacity', 2).style("left","220px").style("bottom","70px");
+        homekeyCircle = zz.append('circle').attr('cx', 160).attr('cy', 200).attr('r', 5).style('fill', 'blue').on('mouseover', function () {
+          homekeyCircle.attr('r', 10).style('fill', 'none').style('stroke', 'red').style('stroke-opacity', 0.000001).style('stroke-width', 3).transition().duration(500).attr('r', 5).style('fill', 'blue').style('stroke-opacity', 2);
+          tooltip.text('Home Key').style('opacity', 2).style("left","200px").style("bottom","70px");
           // .style('left', d3.event.pageX + 5 + 'px').style('top', d3.event.pageY + 5 + 'px');
         }).on('mouseout', function () {
-          l3.attr('r', 5).style('stroke', 'none');
+          homekeyCircle.attr('r', 5).style('stroke', 'none');
           tooltip.style('opacity', 0).style("left","0px").style("bottom","0px");
         });
 
 
 
 
-        l4 = zz.append('circle').attr('cx', 180).attr('cy', 320).attr('r', 4).style('fill', 'blue').on('mouseover', function () {
-          l4.attr('r', 10).style('fill', 'none').style('stroke', 'red').style('stroke-opacity', 0.000001).style('stroke-width', 3).transition().duration(500).attr('r', 4).style('fill', 'blue').style('stroke-opacity', 2);
-          tooltip.text('Mini USB Port').style('opacity', 2).style("left","180px").style("bottom","38px");
+        speakersCircle = zz.append('circle').attr('cx', 140).attr('cy', 239).attr('r', 4).style('fill', 'blue').on('mouseover', function () {
+          speakersCircle.attr('r', 10).style('fill', 'none').style('stroke', 'red').style('stroke-opacity', 0.000001).style('stroke-width', 3).transition().duration(500).attr('r', 4).style('fill', 'blue').style('stroke-opacity', 2);
+          tooltip.text('Speakers').style('opacity', 2).style("left","180px").style("bottom","38px");
           //.style('left', d3.event.pageX + 5 + 'px').style('top', d3.event.pageY + 5 + 'px');
         }).on('mouseout', function () {
-          l4.attr('r', 4).style('stroke', 'none').style("left","0px").style("bottom","0px");
+          speakersCircle.attr('r', 4).style('stroke', 'none').style("left","0px").style("bottom","0px");
           tooltip.style('opacity', 0);
         });
         // l5 = zz.append('circle').attr('cx', 280).attr('cy', 90).attr('r', 4).style('fill', 'blue').on('mouseover', function () {
@@ -387,7 +386,7 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
         // });
       }
     };
-  return g;
+  return prodoChart;
 }).directive('prodoIndia', function () {
   var indiaData = {
       restrict: 'EA',

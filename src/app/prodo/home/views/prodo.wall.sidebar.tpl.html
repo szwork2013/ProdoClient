@@ -92,10 +92,10 @@
                     </div>    
             <!--    <p>Search Criteria:{{search}}</p> -->
                     <div id="prodo-searchResults">
-                          <u> <h5>{{message}}</h5></u>
+                          <u> <h5 ng-bind="message"></h5></u><!-- {{message}}</h5></u> -->
                           <ol>
                           <li ng-repeat="list in result">
-                          <a ng-click="emitProdle(list.prodle,list.orgid)">{{list.name}}</a>
+                          <a ng-click="emitProdle(list.prodle,list.orgid)" ng-bind="list.name"></a>
                           </li> </ol>   
                     </div>
                 </div>  
