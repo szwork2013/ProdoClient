@@ -211,27 +211,28 @@
 
                 //add ,update product
                 $scope.addProduct = function(editStatus)
-                {
+                { 
+                 //Input check validations are on Client side( using Angular validations)
                  $scope.newProduct = {product: {
                   display_name: $scope.display_name,
                   model_no: $scope.product.model_no,
                   name: $scope.product.name,
                   description: $scope.product.description
                 }};
-
+                 $log.debug($scope.orgidFromSession);
                   if(editStatus=='add'){ //add product
                    if ($rootScope.usersession.currentUser.org.isAdmin ==true) {
-                    if ($scope.orgidFromSession === $rootScope.orgid ) {
+                  
                       ProductService.saveProduct({orgid: $scope.orgidFromSession}, $scope.newProduct,
                         function(success) {
                           $log.debug(success);
                               $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
-                              $scope.getProduct(); 
+                               
                             },
                             function(error) {
                               $log.debug(error);
                             });
-                    }
+                    
                   }
                   else  growl.addErrorMessage("You dont have rights to add product...");
                 }
@@ -261,17 +262,20 @@
                   url: '/api/product/' + $rootScope.orgid  ,
                         // data: {'prodleimageids':[ $scope.imgIdsJson]}
                       }).success(function(data, status, headers, cfg) {
-                        $log.debug(data.success.product.length);
+                       if(data.success){
                         if(data.success.product.length==0){ //after deleting product, check for next product from product followed,if no product - display msg
+                           $log.debug(data.success.product.length);
                           temp.innerHTML="<br>Product not available ... Add new product<br><br>";
                           growl.addErrorMessage(" Product not available ...");
                           
                         }
+
                         else // if products followed has product, select latest product
                         {
                           $log.debug(data.success.product[0].prodle);
                           $rootScope.product_prodle=data.success.product[0].prodle;
                         }
+                      }
                         // $log.debug(data);
                       }).error(function(data, status, headers, cfg) { //if error deeting product , from server
                         growl.addErrorMessage(status);
@@ -284,6 +288,7 @@
                     $scope.deleteProduct = function()
                     {
                       growl.addInfoMessage("Deleting product  ...");
+                       if($rootScope.product_prodle!==undefined && $rootScope.product_prodle!==null && $rootScope.product_prodle!==""){
                        if ($rootScope.isAdminCheck==true ) { //if owener of product
                         ProductService.deleteProduct({orgid: $scope.orgidFromSession, prodle: $rootScope.product_prodle},
                          function(success) {
@@ -298,6 +303,8 @@
                       // }
                       else
                         growl.addErrorMessage("You dont have rights to delete this product...");
+
+                     }
                     };
                 //delete product
 
@@ -375,6 +382,7 @@
                   $http({
                     method: 'DELETE',
                     url: ENV.apiEndpoint_notSocket+'/api/image/product/' + $scope.orgidFromSession + '/' + $rootScope.product_prodle +'?prodleimageids='+$scope.imgIds ,
+                     // url: 'www.prodonus.com/api/image/product/' + $scope.orgidFromSession + '/' + $rootScope.product_prodle +'?prodleimageids='+$scope.imgIds ,
                         // data: {'prodleimageids':[ $scope.imgIdsJson]}
                       }).success(function(data, status, headers, cfg) {
                         $log.debug(data);
@@ -504,6 +512,7 @@
             //delete product feature
               $scope.deleteFeature = function(feature){
                 $log.debug("deleting feature");
+                 if(feature!==undefined && feature!==null && feature!==""){
                 growl.addInfoMessage("Deleting product feature ...");
                 $log.debug(feature.featureid);
                 if ($rootScope.isAdminCheck==true){ //if product owner
@@ -525,6 +534,7 @@
                 }
                 else //if not owner display msg
                   growl.addErrorMessage("You dont have rights to delete this feature...");
+              }
               };
              //delete product feature
              
@@ -536,7 +546,7 @@
                   featuredescription: $scope.feature.description
                 }]};
                 $log.debug( $scope.newFeature);
-
+                if($scope.newFeature!==undefined && $scope.newFeature!==null && $scope.newFeature!==""){
                 if(editStatus=='add'){
                   $log.debug("adding");
                   if ($rootScope.isAdminCheck==true){  //if product owner
@@ -557,6 +567,7 @@
                 } //if not owner display msg
                 else  growl.addErrorMessage("You dont have rights to add product feature...");
               }
+              }
               };
               //add product feature
 
@@ -564,6 +575,7 @@
              //update product feature
               $scope.updateProductFeature = function(data, id) {
                 console.log(data);
+                if(data!==undefined && data!==null && data!==""){
                 if ($rootScope.isAdminCheck==true){
                   ProductFeatureService.updateFeature({orgid:$scope.orgidFromSession,prodle:$rootScope.product_prodle,productfeatureid:id},{'productfeature': data},
                     function(success) {
@@ -578,6 +590,7 @@
                                                           });
                 }
                 else  growl.addErrorMessage("You dont have rights to update product feature...");
+              }
               };
               //update product feature
 
@@ -591,8 +604,10 @@
               $scope.disableEditor = function() {
                 $scope.editorEnabled = false;
                 $scope.feature="";
+                 if($rootScope.product_prodle!==undefined && $rootScope.product_prodle!==null && $rootScope.product_prodle!==""){
                 $scope.getProduct();
                 $scope.getProductFeatures();
+              }
               };
               //Edit mode and display mode toggle for product data add , update and diaplay
 

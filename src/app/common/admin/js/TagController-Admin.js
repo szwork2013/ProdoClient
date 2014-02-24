@@ -2,16 +2,15 @@ angular.module('prodo.AdminApp').controller('prodoAdminTagInputController', [
   '$scope',
   '$log',
   '$rootScope',
-  'prodoCommentService',
   'UserSessionService',
   '$http',
   'tagAddService',
-  function ($scope, $log, $rootScope, prodoCommentService, UserSessionService, $http, tagAddService) {
+  function ($scope, $log, $rootScope, UserSessionService, $http, tagAddService) {
     $scope.category_selection;
     $scope.option1;
     $scope.option2;
-    $scope.query = {};
-    $scope.query1 = {};
+    $scope.objectComponents = {};
+    $scope.finalObject = {};
     $scope.tagid;
     $scope.tagname;
     $scope.result;
@@ -44,7 +43,7 @@ angular.module('prodo.AdminApp').controller('prodoAdminTagInputController', [
       } else if ($scope.category_selection === 'Disapproval') {
         $scope.option1 = 'Distraction [10]';
         $scope.option2 = 'Surprise [20]';
-        $scope.option3 = 'Amazement [30]';
+        $scope.option3 = 'Amazement [30]';  
       } else if ($scope.category_selection === 'Awe') {
         $scope.option1 = 'Apprehension [10]';
         $scope.option2 = 'Fear [20]';
@@ -56,12 +55,12 @@ angular.module('prodo.AdminApp').controller('prodoAdminTagInputController', [
       }
     };
     $scope.func = function () {
-      $scope.query.tagname = $scope.tagname;
-      $scope.query.emotions = {};
-      $scope.query.emotions.category = $scope.category_selection;
-      $scope.query.emotions.emotion = $scope.emotion;
-      $scope.query.emotions.level = $scope.level;
-      $scope.query.emotions.result = $scope.result;
+      $scope.objectComponents.tagname = $scope.tagname;
+      $scope.objectComponents.emotions = {};
+      $scope.objectComponents.emotions.category = $scope.category_selection;
+      $scope.objectComponents.emotions.emotion = $scope.emotion;
+      $scope.objectComponents.emotions.level = $scope.level;
+      $scope.objectComponents.emotions.result = $scope.result;
       var fullPath = document.getElementById('4').value;
       if (fullPath) {
         var startIndex = fullPath.indexOf('\\') >= 0 ? fullPath.lastIndexOf('\\') : fullPath.lastIndexOf('/');
@@ -71,10 +70,10 @@ angular.module('prodo.AdminApp').controller('prodoAdminTagInputController', [
         }
         $scope.urll = filename;
       }
-      $scope.query.emotions.emotion_url = $scope.urll;
-      $scope.query1.tagreffdicdata = {};
-      $scope.query1.tagreffdicdata = $scope.query;
-      tagAddService.addTagFunction($scope.query1);
+      $scope.objectComponents.emotions.emotion_url = $scope.urll;
+      $scope.finalObject.tagreffdicdata = {};
+      $scope.finalObject.tagreffdicdata = $scope.objectComponents;
+      tagAddService.addTagFunction($scope.finalObject);
       $scope.$on('getSearchProductDone', function (event, data) {
       });
       $scope.$on('getSearchProductNotDone', function (event, data) {

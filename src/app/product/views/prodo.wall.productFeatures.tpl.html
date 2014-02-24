@@ -28,8 +28,8 @@
       <accordion-group>
       <accordion-heading >
       <p style='font-weight:bold; font-size: 15px; margin: 0;'>Product General &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <span id="prodo-addingProduct" style="color:green" >
-             {{product.status}}&nbsp;&nbsp;&nbsp; </span>
+        <span id="prodo-addingProduct" style="color:green" ng-bind="product.status">
+             &nbsp;&nbsp;&nbsp; </span>
           <i class="fa fa-pencil pull-right"></i></p>
         </accordion-heading>
         
@@ -79,30 +79,30 @@
           <!-- display mode -->
           <table class="table child " ng-hide="editorEnabled" id="prodo-ProductFeatureTable" >
             <tr id="prodo-productbnd" style="background-color: white; display:none;" ng-style="ShowBannedDate(product)">
-              <td>Product Banned on : <span>&nbsp;{{product.banneddate }}</span></td>
+              <td>Product Banned on : &nbsp;<span ng-bind="product.banneddate"></span></td>
             </tr>
             <tr   id="prodo-productDiscontinued"  >
-              <td style=" background-color: #FFBABA;font-size: 16px;  border-top: 0px solid #ddd; padding:8px; padding-bottom:12px;" ng-style="ShowDiscontinuedSale(product)" >Product Discontinued On  <span >&nbsp;{{formatDate(product.sale_discontinuation_date)}}
+              <td style=" background-color: #FFBABA;font-size: 16px;  border-top: 0px solid #ddd; padding:8px; padding-bottom:12px;" ng-style="ShowDiscontinuedSale(product)" >Product Discontinued On &nbsp; <span ng-bind="formatDate(product.sale_discontinuation_date)">
               </span></td></tr>
               <tr   id="prodo-productDiscontinued"  >
-                <td style=" background-color: #FFBABA;font-size: 16px;  border-top: 0px solid #ddd; padding:8px; " ng-style="ShowDiscontinuedSupport(product)">Support Discontinued On  <span  >&nbsp;{{formatDate(product.support_discontinuation_date)}} </span></td>
+                <td style=" background-color: #FFBABA;font-size: 16px;  border-top: 0px solid #ddd; padding:8px; " ng-style="ShowDiscontinuedSupport(product)">Support Discontinued On  &nbsp;<span ng-bind="formatDate(product.support_discontinuation_date)" > </span></td>
               </tr>
               <tr>
                 <td  colspan="2">Product Name :
                  
                   <span   class="collapsed2 " style="cursor:pointer; color:brown" onclick="this.className = this.className == 'collapsed2' ? 'expanded' : 'collapsed2'">
-                    <a onclick="" > <span>&nbsp;{{product.name}} </span></a>
+                    <a onclick="" > &nbsp;<span ng-bind="product.name"> </span></a>
                   </span>
                 </td>
               </tr>
              
               <tr>
-              <td  >Model Name : <span  >&nbsp;{{product.name}} </span></td>
-                <td  >Model No : <span>&nbsp;{{product.model_no}} </span></td>
+              <td  >Model Name :&nbsp; <span ng-bind="product.name" > </span></td>
+                <td  >Model No :&nbsp; <span ng-bind="product.model_no"></span></td>
                 
               </tr>
               <tr>
-                <td  colspan="2">Description : <span>&nbsp; {{product.description}}</span></td>
+                <td  colspan="2">Description : &nbsp;<span ng-bind="product.description"> </span></td>
               </tr>
             </table>
           </div>
@@ -193,11 +193,11 @@
    
    </tr>
    <tr ng-repeat="feature in features track by $index">
-     <td ng-hide="edit" >  {{feature.featurename}}</td>
+     <td ng-hide="edit" > <span ng-bind="feature.featurename"> </span></td>
 
      <td  ng-show="edit" ><input ng-model="feature.featurename"  style="width:150px;" class="form-control"  type="text"   required name="name" /> </td>
      
-     <td ng-hide="edit" > {{feature.featuredescription}}</td> 
+     <td ng-hide="edit" > <span ng-bind="feature.featuredescription"> </span></td> 
 
       <td  ng-show="edit" ><input ng-model="feature.featuredescription" style="width:300px;" class="form-control"  type="text"   required name="name" /> </td>
   
@@ -258,7 +258,7 @@
   <form   name="ProductImg" >
     <div class="checkboxFilter"  style="padding: 10px;">
       <span  id="showHideAllchkLabel" ng-style="checkAdminProductImagesDelete();" >Select All</span>  
-      <input id="showHideAllchk" ng-style="checkAdminProductImagesDelete();"  type="checkbox" ng-click="masterChange();"  name="pinSet ">
+      <input id="showHideAllchk" ng-style="checkAdminProductImagesDelete();"  type="checkbox" ng-click="selectAllImages();"  name="pinSet ">
       &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;            
       <button type="button" class=" btn btn-danger  " id="prodo-deleteProductImage" ng-style="checkAdminProductImagesDelete();" 
      
