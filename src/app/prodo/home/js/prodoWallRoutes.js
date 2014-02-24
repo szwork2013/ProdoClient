@@ -11,6 +11,15 @@ angular.module('prodo.ProdoWallApp')
       abstract: true
     })    
     .state('prodo.wall', {
+      // resolve : { 
+      //        trendingProducts:  function($http){
+      //        return $http({method: 'GET', url: '/api/trendingproducts'})
+      //          .success(function (data) { 
+      //              return data;
+      //          });
+      //    }
+                     
+      //  },
       views: {
         'prodo-sidebar' : {
           templateUrl:  'prodo/home/views/prodo.wall.sidebar.tpl.html',

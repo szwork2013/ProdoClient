@@ -13,11 +13,11 @@
 <div id="prodo-sidebar-followedproductlist-container">
   <div id="prodo-sidebar-list-group" class="list-group">
     <div id="prodo-sidebar-list" class="list" >
-      <a style="background-color: #494F53; font-weight: bold; font-size:12px;" id="prodo-sidebar-list-group-item" class="list-group-item active">Search</a>
+      <a style="background-color: #494F53; font-weight: bold; font-size:12px;" id="prodo-sidebar-list-group-item" class="list-group-item active" ng-bind="title"></a>
       <div  id="prodo-sidebar-list-group-main" class="list-group-item">
 
 
-        <input general-search type="text" class="prodoAdvancedSearchTextbox"  name="product" typeahead="name for name in enhancement | filter : $viewValue | limitTo:10" id="searchText" ng-model="productSearch.product"  style="width:100%" placeholder="Org or Product Search"  typeahead-on-select="sampleDataEmitSearch()" typeahead-loading="loadingLocations" typeahead-wait-ms="720">
+        <input general-search type="text" class="prodoAdvancedSearchTextbox"  name="product" typeahead="name for name in enhancement | filter : $viewValue | limitTo:10" id="searchText" ng-model="productSearch.product"  style="width:100%" placeholder="Org or Product Search"  typeahead-on-select="sampleDataEmitSearch()" ng-click="toggleTitleForDiv()" typeahead-loading="loadingLocations" typeahead-wait-ms="720">
         <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
 
 
@@ -112,9 +112,16 @@
      <!--End of advanced search  --> 
       </div>
     </div>
+    <!-- The following code is written to display trnding products -->
      <div id="prodo-sidebar-list" class="list">
-      <a  ng-repeat="fp in usersession.productfollowlist | limitTo:5" href="#" id="prodo-sidebar-list-group-item" class="list-group-item">coming soon..</a>
+   
+     <div class="list-group-item" ng-repeat="product in trendingProducts"> 
+            <center> <div id="" ng-bind="product.prodle"></div> </center>
+            <center><span class="thinnerFonts" >Followers:<span id="" ng-bind="product.followedcount"></span></span> </center>
+            <center><span class="thinnerFonts leftBorder" >Comments:<span id="" ng-bind="product.commentcount"></span></span></center>
+          
     </div>
+     
   </div>
 </div>
 

@@ -44,5 +44,26 @@ angular.module('prodo.ProdoWallApp')
     return search;
   }
 ])
-
+//This service is written to get data from trending api
+.factory('trendingProductService', [
+  '$rootScope',
+  '$resource',
+  '$http',
+  '$state',
+  '$log',
+    function ($rootScope, $resource, $http, $state, $log) {
+    var trendingProducts = { Product: $resource('/api/trendingproducts', {}, { searchProductByKey: { method: 'GET' } }) };
+    var products = {};
+    products.getTrendingProducts = function () {
+      trendingProducts.Product.searchProductByKey(function (success) {
+        $log.debug(success);
+        $rootScope.$broadcast('gotTrendingProducts', success);
+      }), function (error) {
+        $log.debug(error);
+        $rootScope.$broadcast('notGotTrendingProducts', error);
+      };
+    };
+    return products;
+  }
+])
 
