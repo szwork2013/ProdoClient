@@ -7,7 +7,11 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
   'searchProductService',
   '$http',
   '$resource' ,
-  function ($scope, $log, $rootScope, prodoSearchService, UserSessionService, searchProductService, $http, $resource) {
+  'trendingProductService',
+  'growl',
+
+  
+  function ($scope, $log, $rootScope, prodoSearchService, UserSessionService, searchProductService, $http, $resource,trendingProductService,growl) {
 //Declaration of variables
     $scope.productNames=[];  //Store objects from searchproduct api
     $scope.selected = undefined; 
@@ -21,8 +25,20 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
     var arraywithnames =[];
     $scope.names=[];
     $scope.message="";//This variable stores the message received from server 
+    trendingProductService.getTrendingProducts();  //Calling service to get //Trending Products
 
+    $scope.trendingProducts={};  //This object will store array received from API; This is used in ng-repeat in the template
 
+    $scope.title = "Trending Products"; //  This is the variable to toggle div tag heading (Second Box of sidebar); 
+
+          $scope.$on('gotTrendingProducts', function (event, data) //After getting Data from trending product aPI
+          {
+            $scope.trendingProducts=data.success.ProductTrends;
+          });
+          $scope.$on('notGotTrendingProducts', function (event, data) //Error handling needed for 
+          {
+            growl.addErrorMessage(data);
+          });
 
     //The following function was written to resolve the problem of getting search result in first letter/
     //Timebeing it is not being used
@@ -47,7 +63,7 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
 
                 }
                 ).error(function (data, status, headers, cfg) {
-                console.log(data);                     
+                growl.addErrorMessage(data);                 
                 });        
           };
 
@@ -97,6 +113,10 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
    //       $scope.enhancement=data.name.doc;     //$scope.enhancement is an array which stores name of products from api : used in typeahead
    //       $scope.productNames=data.success.doc;      //$scope.productNames is an array of objectrs which stores information of products result     
    //  });
+
+
+
+
 //The following function is called when search button is clicked from advanced search modal
     $scope.searchProductData = function () 
     {
@@ -173,13 +193,16 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
                   //alert($scope.message);
                  });
                  $scope.$on('getSearchProductNotDone', function (event, data) {
+
+                  growl.addErrorMessage(data);
+
                  });
 
           }
 
     };
 //This function assigns prodles and orgid to rootscope 
-    $scope.emitProdle=function(dataProdle,dataOrgid)
+    $scope.orgProdleEmitter=function(dataProdle,dataOrgid)
     {   
         $rootScope.product_prodle=dataProdle;
         $rootScope.orgid=dataOrgid;    
@@ -204,10 +227,12 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
               $scope.message="";
     };
 
-//This function is called when a product from type-A is selected
+//This function is called when a product from simple search is selected
 //It will search for respective prodle and orgid of product and assign it to rootscope variables
-    $scope.sampleDataEmitSearch = function () 
-    {
+    $scope.quickSearchEmit = function () 
+    {  
+        $rootScope.productSearch.product=$rootScope.productSearch.product.substring(2); //This is written to trim first two characters from string; eg: P-Prodonus Software to Prodonus Software
+       
         angular.forEach($rootScope.productNames, function(state) 
         {
                 if ($rootScope.productSearch.product === state.name) 
@@ -217,7 +242,14 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
                            
                 }
          });
+       
 
+        $scope.title = "Trending Products";
+        $rootScope.productSearch.product="";
+    };
+    $scope.toggleTitleForDiv=function()
+    {
+         $scope.title="Search";
     };
 //End of controller  
 

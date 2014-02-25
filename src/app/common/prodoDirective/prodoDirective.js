@@ -309,7 +309,7 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
 
 
 
-        var frontCameraCircle = zz.append('circle').attr('cx', 380 + 9).attr('cy', 54).attr('r', 5).style('fill', 'blue');
+        var frontCameraCircle = zz.append('circle').attr('cx', 380 + 9).attr('cy', 54).attr('r', 5).style('fill', 'blue').style('position','relative');
         frontCameraCircle.on('mouseenter', function () {
           frontCameraCircle.attr('r', 10).style('fill', 'none').style('stroke', 'red').style('stroke-opacity', 0.000001).style('stroke-width', 3).transition().duration(500).attr('r', 5).style('fill', 'blue').style('stroke-opacity', 2);
           tooltip.text('Front Camera').style('opacity', 2).style("left","400px").style("bottom","265px");
@@ -325,9 +325,9 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
 
 
       
-        screenCircle = zz.append('circle').attr('cx', 192).attr('cy', 90).attr('r', 5).style('fill', 'blue').on('mouseover', function () {
+        screenCircle = zz.append('circle').attr('cx', 192).attr('cy', 90).attr('r', 5).style('fill', 'blue').style('position','relative').on('mouseover', function () {
           screenCircle.attr('r', 10).style('fill', 'none').style('stroke', 'red').style('stroke-opacity', 0.000001).style('stroke-width', 3).transition().duration(500).attr('r', 5).style('fill', 'blue').style('stroke-opacity', 2);
-          tooltip.text('Screen').style('opacity', 2).style("left","220px").style("bottom","170px");
+          tooltip.text('Screen').style('opacity', 2).style("left","200px").style("bottom","220px");
           // .style('left', d3.event.pageX + 5 + 'px').style('top', d3.event.pageY + 5 + 'px');
         }).on('mouseout', function () {
           screenCircle.attr('r', 5).style('stroke', 'none');
@@ -336,21 +336,21 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
 
 
 
-        homekeyCircle = zz.append('circle').attr('cx', 160).attr('cy', 200).attr('r', 5).style('fill', 'blue').on('mouseover', function () {
-          homekeyCircle.attr('r', 10).style('fill', 'none').style('stroke', 'red').style('stroke-opacity', 0.000001).style('stroke-width', 3).transition().duration(500).attr('r', 5).style('fill', 'blue').style('stroke-opacity', 2);
-          tooltip.text('Home Key').style('opacity', 2).style("left","200px").style("bottom","70px");
-          // .style('left', d3.event.pageX + 5 + 'px').style('top', d3.event.pageY + 5 + 'px');
-        }).on('mouseout', function () {
-          homekeyCircle.attr('r', 5).style('stroke', 'none');
-          tooltip.style('opacity', 0).style("left","0px").style("bottom","0px");
-        });
+        // homekeyCircle = zz.append('circle').attr('cx', 160).attr('cy', 200).attr('r', 5).style('fill', 'blue').style('position','relative').on('mouseover', function () {
+        //   homekeyCircle.attr('r', 10).style('fill', 'none').style('stroke', 'red').style('stroke-opacity', 0.000001).style('stroke-width', 3).transition().duration(500).attr('r', 5).style('fill', 'blue').style('stroke-opacity', 2);
+        //   tooltip.text('Home Key').style('opacity', 2).style("left","200px").style("bottom","40px");
+        //   // .style('left', d3.event.pageX + 5 + 'px').style('top', d3.event.pageY + 5 + 'px');
+        // }).on('mouseout', function () {
+        //   homekeyCircle.attr('r', 5).style('stroke', 'none');
+        //   tooltip.style('opacity', 0).style("left","0px").style("bottom","0px");
+        // });
 
 
 
 
-        speakersCircle = zz.append('circle').attr('cx', 140).attr('cy', 239).attr('r', 4).style('fill', 'blue').on('mouseover', function () {
+        speakersCircle = zz.append('circle').attr('cx', 120).attr('cy', 300).attr('r', 4).style('fill', 'blue').style('position','relative').on('mouseover', function () {
           speakersCircle.attr('r', 10).style('fill', 'none').style('stroke', 'red').style('stroke-opacity', 0.000001).style('stroke-width', 3).transition().duration(500).attr('r', 4).style('fill', 'blue').style('stroke-opacity', 2);
-          tooltip.text('Speakers').style('opacity', 2).style("left","180px").style("bottom","38px");
+          tooltip.text('Speakers').style('opacity', 2).style("left","122px").style("bottom","38px");
           //.style('left', d3.event.pageX + 5 + 'px').style('top', d3.event.pageY + 5 + 'px');
         }).on('mouseout', function () {
           speakersCircle.attr('r', 4).style('stroke', 'none').style("left","0px").style("bottom","0px");
@@ -439,7 +439,7 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
     var search = {
         restrict: 'A',
         require: 'ngModel',
-        link: function (scope, ele, attrs, ngModel) {
+        link: function (scope, ele, attrs, ngModel , growl) {
           $('#searchText').on('keyup', function (e) {
             var value = $(this).val().trim();
             var req = { 'name': value };
@@ -456,7 +456,7 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
                         $rootScope.enhancement=data.name.doc;
                         $rootScope.productNames=data.success.doc;
                       }).error(function (data, status, headers, cfg) {
-                        console.log(data);
+                        growl.addErrorMessage(" Something Went Wrong ! Please try after some time");
                        
                       });   
 

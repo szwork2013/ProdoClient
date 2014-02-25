@@ -1186,11 +1186,11 @@ text {
 
 #a
 { 
-  /*width:720px; */
-  height:300px; 
- /* display: inline-block;*/
-  /*position : fixed ;*/
-  background-position:top;
+/*  width:720px; */
+  height:330px;   position : relative ;
+/*  display: inline-block;
+
+  background-position:top;*/
 } 
 
 /*India Chart*/
@@ -1976,7 +1976,10 @@ width:10%; height: 10%; float: left; margin: 5px; border: solid 1px #ccc;
 {
 	height:60px;width:60px;
 }
-
+#prodo-productchart-dashboard
+{
+	min-height: 300px;
+}
 .modalAppearance
 {
 		position: relative;
@@ -1988,9 +1991,29 @@ width:10%; height: 10%; float: left; margin: 5px; border: solid 1px #ccc;
 		padding-left: 20px;*/
 }
 
+/*Trending Products*/
+.thinnerFonts{
+
+	font-size: 12px;
+	font-weight: 20;
+	color: #9797F3;
+}
+.leftBorder
+{
+	border-left: 1px solid black;	
+	padding-left: 4px;
+}
 
 
-
+.hyperlinkPointer
+{
+	cursor: pointer;
+}
+.borderBoxResult
+ {
+ 	background-color:#E4CBF5;
+ 	width:500px;
+ }
 
 
 
