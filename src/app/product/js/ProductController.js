@@ -31,7 +31,7 @@
                 $scope.product = {product: [{}]};
                 $scope.newProduct = {product: [{}]};
                 $scope.type = "product";
-
+                $scope.productlist=[];
                 $rootScope.product_prodle;
                 $rootScope.orgid;
                 $scope.pImages_l = {product_images: [{}]};
@@ -641,6 +641,55 @@
                    $("#prodo-description").css("height", "15px"); 
               };
 
-          
+             //get All products
+                   $scope.getAllProducts = function(){
+                 $http({
+                  method: 'GET',
+                  url: '/api/product/' + $rootScope.orgid  ,
+                        // data: {'prodleimageids':[ $scope.imgIdsJson]}
+                      }).success(function(data, status, headers, cfg) {
+                       if(data.success){
+                        if(data.success.product.length==0){ //after deleting product, check for next product from product followed,if no product - display msg
+                           $log.debug(data.success.product.length);
+                          temp.innerHTML="<br>Product not available ... Add new product<br><br>";
+                          growl.addErrorMessage(" Product not available ...");
+                         }
+
+                        else // if products followed has product, select latest product
+                        {
+                         $scope.productList=data.success.product;
+                         $log.debug("Products List : "+JSON.stringify($scope.productList));
+                        }
+                      }
+                        // $log.debug(data);
+                      }).error(function(data, status, headers, cfg) { //if error deeting product , from server
+                        growl.addErrorMessage(status);
+                        $log.debug(status);
+                      });
+
+                    };
+                 //get All products
+                $scope.getAllProducts ();
+
+                $scope.getSelectedProduct=function(product1){
+                  $rootScope.product_prodle=product1.prodle;
+                };
+
+
+                 //Product List pagination
+                 $scope.currentPage = 0;
+                  $scope.pageSize = 4;
+                  
+                  $scope.numberOfPages=function(){
+                      return Math.ceil($scope.productList.length/$scope.pageSize);                
+                  }
+                 //Product List pagination
+
 
           }])
+ angular.module('prodo.ProductApp').filter('startFrom', function() {
+    return function(input, start) {
+        start = +start; //parse to int
+        return input.slice(start);
+    }
+});
