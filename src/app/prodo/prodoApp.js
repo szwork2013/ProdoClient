@@ -119,7 +119,7 @@ angular.module('prodo.ProdonusApp', [
                   UserSessionService.getProductFollowed($scope.prodlesfollowed);
                 }
                 if (data.org) {
-                  OrgRegistrationService.getOrgDetailSettings();
+                  OrgRegistrationService.getOrgDetailSettings(data.org.orgid);
                 } else {
                     $state.transitionTo('prodo.wall.org');
                 }

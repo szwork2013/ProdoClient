@@ -107,8 +107,8 @@ angular.module('prodo.OrgApp')
         });
     }
 
-    organization.getAllProducts = function() {
-      OrgService.GetOrgProducts.getAllOrgProducts({orgid: $rootScope.usersession.currentUser.org.orgid},     // calling function of UserSigninService to make POST method call to signin user.
+    organization.getAllProducts = function(orgidD) {
+      OrgService.GetOrgProducts.getAllOrgProducts({orgid: orgidD},     // calling function of UserSigninService to make POST method call to signin user.
         function(success){
           $log.debug(success);
           $rootScope.$broadcast("getOrgProductDone", success);
@@ -143,8 +143,8 @@ angular.module('prodo.OrgApp')
         });
       }
 
-      organization.getAllOrgAddress= function () {
-        OrgService.ManageOrgLocation.getAllOrgAddress({orgid: $rootScope.usersession.currentUser.org.orgid},     // calling function of UserSigninService to make POST method call to signin user.
+      organization.getAllOrgAddress= function (orgidD) {
+        OrgService.ManageOrgLocation.getAllOrgAddress({orgid: orgidD},     // calling function of UserSigninService to make POST method call to signin user.
         function(success){
           $log.debug(success);
           $rootScope.$broadcast("getOrgAddressDone", success);
@@ -204,8 +204,8 @@ angular.module('prodo.OrgApp')
         });
       }
 
-      organization.getOrgDetailSettings= function () {
-        OrgService.OrgRegistration.getOrgSettings({orgid: $rootScope.usersession.currentUser.org.orgid},     // calling function of UserSigninService to make POST method call to signin user.
+      organization.getOrgDetailSettings= function (orgidD) {
+        OrgService.OrgRegistration.getOrgSettings({orgid: orgidD},     // calling function of UserSigninService to make POST method call to signin user.
         function(success){
           $log.debug(success);
           $rootScope.$broadcast("getOrgDone", success);

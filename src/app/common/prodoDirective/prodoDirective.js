@@ -161,14 +161,7 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
   var sliderdef = {
       restrict: 'A',
       link: function (scope, ele, attrs, c) {
-        $('#layerslider').layerSlider({
-          skin : 'fullwidth',
-          // thumbnailNavigation : 'hover',
-          // // thumbnailNavigation : 'hover',
-          // navPrevNext : true,
-          // navButtons : true,
-
-        });
+        $('#layerslider').layerSlider();
       }
     };
   return sliderdef;
@@ -446,7 +439,7 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
     var search = {
         restrict: 'A',
         require: 'ngModel',
-        link: function (scope, ele, attrs, ngModel) {
+        link: function (scope, ele, attrs, ngModel , growl) {
           $('#searchText').on('keyup', function (e) {
             var value = $(this).val().trim();
             var req = { 'name': value };
@@ -463,7 +456,7 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
                         $rootScope.enhancement=data.name.doc;
                         $rootScope.productNames=data.success.doc;
                       }).error(function (data, status, headers, cfg) {
-                        console.log(data);
+                        growl.addErrorMessage(" Something Went Wrong ! Please try after some time");
                        
                       });   
 

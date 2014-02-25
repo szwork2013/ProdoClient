@@ -1,9 +1,9 @@
 <div style="border: 1px solid #b3b3b3; border-radius: 5px; padding: 5px; " id="prodo-user-account-container" style="" class="container">
-  <h4 style="font-weight: bold; margin-top: 5px; margin-bottom: 5px;"><center>User Accounts</center></h4>
+  <h4 style="font-weight: bold; margin-top: 5px; margin-bottom: 5px;"><center>USER ACCOUNT</center></h4>
   <div style="height:190px; border-radius: 5px; margin-bottom: 10px;" ng-controller="UploadController">
+    <a class="btn btn-danger btn-sm pull-right" style="border-radius: 10px; margin: 5px; width: 80px; font-size: 12px; font-weight:bold;" href="" data-toggle="modal" data-target="#myModal"><i style="margin-right: 5px;" class="fa fa-trash-o fa-lg"></i>Delete</a>
       <img ng-src="{{user.profile_pic}}" style="width:150px; height:100px; margin: 10px;">
       <h4 style="margin-left: 20px; margin-top: 2px; margin-bottom: 2px;">{{user.username}}</h4>
-      <a class="btn btn-danger btn-sm pull-right" style="border-radius: 10px; margin: 5px;" href="" data-toggle="modal" data-target="#myModal"><i style="margin-right: 5px;" class="fa fa-trash-o fa-lg"></i>Delete</a>
       <div id="uploadWrapper" class="btn btn-success">
         <p><i style="margin-right: 5px;" class="fa fa-upload"></i>Upload Photo</p>
           <input type="file" name="file" ng-file-select="onFileSelect($files)"
@@ -34,20 +34,20 @@
 	<accordion>
     <accordion-group>
     	<accordion-heading>
-        <p style='font-weight:bold; font-size: 13px; margin: 0;'>General Settings<i class="fa fa-pencil pull-right"></i></p>
+        <p style='font-weight:bold; font-size: 13px; margin: 0;'>GENERAL SETTINGS<i class="fa fa-pencil pull-right"></i></p>
       </accordion-heading>
         <div ng-show='hasChangedEmail'>
           <div growl></div>
         </div>
-        <a ng-hide="editEmail" class="btn btn-primary btn-sm glyphicon glyphicon-edit pull-right" style="border-radius: 10px; margin: 5px;" href="#" ng-click="emailEditor()">Edit</a>
+        <a ng-hide="editEmail" class="btn btn-primary btn-sm pull-right" style="border-radius: 10px; margin: 5px; width: 80px; font-size: 12px; font-weight:bold;" href="#" ng-click="emailEditor()"><i style="margin-right: 5px;" class="fa fa-pencil-square-o"></i>Edit</a>
         <div>
           <form name="form.usergeneralsettingform" class="css-form" ng-submit='' novalidate>
             <dl class="dl-horizontal">
-              <dt ng-show='user.org.orgid'>Organization Name:</dt>
-              <dd ng-show='user.org.orgid'>{{user.org.orgname}}</dd>
-              <br>
               <dt>UserName:</dt>
               <dd>{{user.username}}</dd>
+              <br>
+              <dt ng-show='user.org'>Organization Name:</dt>
+              <dd ng-show='user.org'>{{user.org.orgname}}</dd>
               <br>
               <dt>Email:</dt>
               <dd ng-hide="editEmail">{{user.email}}</dd>
@@ -59,8 +59,8 @@
               <br>
               <dd><p class="text-danger"><small style='color:red;'>{{generalsettingchange}}</small></p></dd>
             </dl>
-              <button ng-show="editEmail" class="btn btn-primary btn-sm glyphicon glyphicon-floppy-save pull-right" style="border-radius: 10px; margin: 5px;" ng-click='updateUserEmail()'>Save</button>
-              <button ng-show="editEmail" class="btn btn-primary btn-sm glyphicon glyphicon-remove pull-right" style="border-radius: 10px; margin: 5px;" ng-click="emailEditor()">Cancel</button>
+              <button ng-show="editEmail" class="btn btn-primary btn-sm pull-right" style="border-radius: 10px; margin: 5px; width: 80px; font-size: 12px; font-weight:bold;" ng-click='updateUserEmail()'><i style="margin-right: 5px;" class="fa fa-save"></i>Save</button>
+              <button ng-show="editEmail" class="btn btn-primary btn-sm pull-right" style="border-radius: 10px; margin: 5px; width: 80px; font-size: 12px; font-weight:bold;" ng-click="emailEditor()"><i style="margin-right: 5px;" class="fa fa-times"></i>Cancel</button>
           </form>
         </div>
         <br>
@@ -85,8 +85,8 @@
               <dd><p class="text-danger"><small style='color:red;'>{{passwordsettingchange}}</small></p></dd>
             </dl>
             <div>
-              <button class="btn btn-primary btn-sm glyphicon glyphicon-floppy-save pull-right" style="border-radius: 10px; margin: 5px;" ng-click='changePassword()'>Save</button>
-              <button class="btn btn-primary btn-sm glyphicon glyphicon-remove pull-right" style="border-radius: 10px; margin: 5px;" ng-click="clear()">Cancel</button>
+              <button class="btn btn-primary btn-sm pull-right" style="border-radius: 10px; margin: 5px; width: 80px; font-size: 12px; font-weight:bold;" ng-click='changePassword()'><i style="margin-right: 5px;" class="fa fa-save"></i>Save</button>
+              <button class="btn btn-primary btn-sm pull-right" style="border-radius: 10px; margin: 5px; width: 80px; font-size: 12px; font-weight:bold;" ng-click="clear()"><i style="margin-right: 5px;" class="fa fa-times"></i>Cancel</button>
             </div>
           </form>
         </div>
@@ -97,7 +97,7 @@
         <div ng-show='hasChangedPersonalSettings'>
           <div growl></div>
         </div>
-        <a ng-hide="editorEnabled" class="btn btn-primary btn-sm glyphicon glyphicon-edit pull-right" style="border-radius: 10px; margin: 5px;" href="#" ng-click="enableEditor()">Edit</a>
+        <a ng-hide="(user.firstname == null) || editorEnabled" class="btn btn-primary btn-sm pull-right" style="border-radius: 10px; margin: 5px; width: 80px; font-size: 12px; font-weight:bold;" href="#" ng-click="enableEditor()"><i style="margin-right: 5px;" class="fa fa-pencil-square-o"></i>Edit</a>
         <div>
           <form name="form.userpersonalsettingform" ng-submit='' novalidate>
             <dl class="dl-horizontal">
@@ -129,8 +129,8 @@
               <dd><p class="text-danger"><small style='color:red;'>{{personalsettingchange}}</small></p></dd>
             </dl>
             <div ng-show="((user.firstname == null) || editorEnabled)">
-              <button class="btn btn-primary btn-sm glyphicon glyphicon-floppy-save pull-right" style="border-radius: 10px; margin: 5px;" ng-click='updateUserAccount()'>Save</button>
-              <button class="btn btn-primary btn-sm glyphicon glyphicon-remove pull-right" style="border-radius: 10px; margin: 5px;" ng-click="disableEditor()">Cancel</button>
+              <button class="btn btn-primary btn-sm pull-right" style="border-radius: 10px; margin: 5px; width: 80px; font-size: 12px; font-weight:bold;" ng-click='updateUserAccount()'><i style="margin-right: 5px;" class="fa fa-save"></i>Save</button>
+              <button class="btn btn-primary btn-sm pull-right" style="border-radius: 10px; margin: 5px; width: 80px; font-size: 12px; font-weight:bold;" ng-click="disableEditor()"><i style="margin-right: 5px;" class="fa fa-times"></i>Cancel</button>
             </div>
           </form>
         </div>
@@ -138,7 +138,7 @@
     
     <accordion-group ng-hide="user.org.orgid">
     	<accordion-heading>
-        <p style='font-weight:bold; font-size: 13px; margin: 0;'>Location<i class="fa fa-pencil pull-right"></i></p>
+        <p style='font-weight:bold; font-size: 13px; margin: 0;'>LOCATION<i class="fa fa-pencil pull-right"></i></p>
       </accordion-heading>
         <p style="text-align:center; font-size:15px;" class="text-info"><strong>User Address Settings</strong></p>
         <div ng-show='hasChangedAddress'>
@@ -165,13 +165,13 @@
               <dd><p class="text-danger"><small style='color:red;'>{{locationsettingchange}}</small></p></dd>
             </dl>
             <div>
-              <button class="btn btn-primary btn-sm glyphicon glyphicon-floppy-save pull-right" style="border-radius: 10px; margin: 5px;" ng-click='updateUserAddress()'>Save</button>
-              <button class="btn btn-primary btn-sm glyphicon glyphicon-remove pull-right" style="border-radius: 10px; margin: 5px;" ng-click="addrEditor()">Cancel</button>
+              <button class="btn btn-primary btn-sm pull-right" style="border-radius: 10px; margin: 5px; width: 80px; font-size: 12px; font-weight:bold;" ng-click='updateUserAddress()'><i style="margin-right: 5px;" class="fa fa-save"></i>Save</button>
+              <button class="btn btn-primary btn-sm pull-right" style="border-radius: 10px; margin: 5px; width: 80px; font-size: 12px; font-weight:bold;" ng-click="addrEditor()"><i style="margin-right: 5px;" class="fa fa-times"></i>Cancel</button>
             </div>
           </form>
         </div>
         <div ng-show="((user.address.address1 != null) && !editAddress)">
-          <a ng-hide="editAddress" class="btn btn-primary btn-sm glyphicon glyphicon-edit pull-right" style="border-radius: 10px; margin: 5px;" href="#" ng-click="addrEditor()">Edit</a>
+          <a ng-hide="editAddress" class="btn btn-primary btn-sm pull-right" style="border-radius: 10px; margin: 5px; width: 80px; font-size: 12px; font-weight:bold;" href="#" ng-click="addrEditor()"><i style="margin-right: 5px;" class="fa fa-pencil-square-o"></i>Edit</a>
           <dl class="dl-horizontal">
               <dt>Address:</dt>
               <dd>
@@ -190,7 +190,7 @@
 
     <accordion-group>
     	<accordion-heading>
-        <p style='font-weight:bold; font-size: 13px; margin: 0;'>Invites<i class="fa fa-pencil pull-right"></i></p>
+        <p style='font-weight:bold; font-size: 13px; margin: 0;'>INVITES<i class="fa fa-pencil pull-right"></i></p>
       </accordion-heading>
         <button class="btn btn-info btn-sm" style="background-color:#47707C; border-color:#3C555C; border-radius: 10px; margin: 15px;" ng-click="addUserInvites()"><i style="margin-right: 5px;" class="fa fa-plus-square"></i>Add More Users</button>
         
@@ -206,7 +206,7 @@
               <p class="text-danger"><small style='color:red;'>{{invitesettingchange}}</small></p>
             </tbody>
           </table>
-          <button class="btn btn-info btn-sm glyphicon glyphicon-send pull-right" style="border-radius: 10px; margin: 5px;" ng-click='sendUserInvites()'>Send</button>
+          <button class="btn btn-primary btn-sm pull-right" style="border-radius: 10px; margin: 5px; width: 80px; font-size: 12px; font-weight:bold;" ng-click='sendUserInvites()'><i style="margin-right: 5px;" class="fa fa-share"></i>Send</button>
         </form>
         
         
@@ -214,7 +214,7 @@
 
     <accordion-group>
     	<accordion-heading>
-        <p style='font-weight:bold; font-size: 13px; margin: 0;'>Products Followed<i class="fa fa-pencil pull-right"></i></p>
+        <p style='font-weight:bold; font-size: 13px; margin: 0;'>PRODUCTS FOLLOWED<i class="fa fa-pencil pull-right"></i></p>
       </accordion-heading>
         <div ng-show='isUnfollowed'>
           <div growl></div>
@@ -230,7 +230,7 @@
     </accordion-group>
     <accordion-group>
       <accordion-heading>
-            <p style='font-weight:bold; font-size: 13px; margin: 0;'>Products Recommended<i class="fa fa-pencil pull-right"></i></p>
+            <p style='font-weight:bold; font-size: 13px; margin: 0;'>PRODUCTS RECOMMENDED<i class="fa fa-pencil pull-right"></i></p>
         </accordion-heading>
           <div ng-show="(user.products_recommends.length == 0)">
             <p style="text-align:left; font-size:20px; margin: 20px auto;" class="text-success"><strong><em>You have not recommended any products.</em></strong></p>
@@ -243,7 +243,7 @@
 
     <accordion-group ng-hide='user.org.orgid'>
     	<accordion-heading>
-           <p style='font-weight:bold; font-size: 13px; margin: 0;'>Subscription<i class="fa fa-pencil pull-right"></i></p>
+           <p style='font-weight:bold; font-size: 13px; margin: 0;'>SUBSCRIPTION<i class="fa fa-pencil pull-right"></i></p>
         </accordion-heading>
         <div ng-show="usersession.currentUser.isSubscribed">
           <p style="text-align:left; font-size:20px; margin: 20px auto;" class="text-success"><strong><em>You are currently subscribed for 90-days Free Trial Plan.<br>
@@ -253,7 +253,7 @@
 
     <accordion-group ng-hide='user.org.orgid'>
     	<accordion-heading>
-            <p style='font-weight:bold; font-size: 13px; margin: 0;'>Payment<i class="fa fa-pencil pull-right"></i></p>
+            <p style='font-weight:bold; font-size: 13px; margin: 0;'>PAYMENT<i class="fa fa-pencil pull-right"></i></p>
         </accordion-heading>
         <div ng-show="usersession.currentUser.hasDonePayment">
           <p style="text-align:left; font-size:20px; margin: 20px auto;" class="text-success"><strong><em>You are currently subscribed for 90-days Free Trial Plan.<br>
@@ -263,7 +263,7 @@
 
     <accordion-group ng-hide='user.org.orgid'>
     	<accordion-heading>
-            <p style='font-weight:bold; font-size: 13px; margin: 0;'>Payment History<i class="fa fa-pencil pull-right"></i></p>
+            <p style='font-weight:bold; font-size: 13px; margin: 0;'>PAYMENT HISTORY<i class="fa fa-pencil pull-right"></i></p>
         </accordion-heading>
         <div ng-show="usersession.currentUser.hasDonePayment">
           <p style="text-align:left; font-size:20px; margin: 20px auto;" class="text-success"><strong><em>You are currently subscribed for 90-days Free Trial Plan.<br>

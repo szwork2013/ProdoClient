@@ -1,7 +1,7 @@
 angular.module('prodo.OrgApp')
  .controller('OrgAccountController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$log', 'growl', 'UserSessionService', 'OrgRegistrationService', function($scope, $rootScope, $state, $http, $timeout, $log, growl, UserSessionService, OrgRegistrationService) {
 
-    $scope.org = OrgRegistrationService.currentOrgData;
+    
     $scope.hasBroadcast = false;
     // $scope.orgaddr = OrgRegistrationService.currentOrgAdd;
     $scope.editorEnabled = false;
@@ -26,6 +26,22 @@ angular.module('prodo.OrgApp')
         cleanupEventGetOrgAddData();  
     });
     
+    var cleanupEventSendOrgData = $rootScope.$on("sendOrgData", function(event, data){
+        $scope.org = data;
+        $scope.orgimages= data.org_images;
+        console.log($scope.orgimages);
+        cleanupEventSendOrgData();  
+    });
+
+    var cleanupEventGetOrgDone = $rootScope.$on('getOrgDone', function (event, data) {
+        OrgRegistrationService.updateOrgData(data.success.organization);
+        cleanupEventGetOrgDone();
+      });
+    var cleanupEventGetOrgNotDone = $rootScope.$on('getOrgNotDone', function (event, data) {
+        $scope.showAlert('alert-danger', 'Server Error:' + data);
+        cleanupEventGetOrgNotDone();
+      });
+
     $scope.password = '';
     $scope.jsonOrgAccountData = function()
       {
@@ -94,8 +110,8 @@ angular.module('prodo.OrgApp')
 
 
 
-    $scope.getOrgAddress = function() {
-      OrgRegistrationService.getAllOrgAddress();
+    $scope.getOrgAddress = function(orgid) {
+      OrgRegistrationService.getAllOrgAddress(orgid);
       var cleanupEventGetOrgAddressDone = $scope.$on("getOrgAddressDone", function(event, message){
         $scope.handleOrgAddressResponse(message);
         cleanupEventGetOrgAddressDone();   
@@ -260,8 +276,8 @@ angular.module('prodo.OrgApp')
     };  
 
 
-    $scope.getproduct = function() {
-      OrgRegistrationService.getAllProducts();
+    $scope.getproduct = function(orgid) {
+      OrgRegistrationService.getAllProducts(orgid);
       var cleanupEventGetOrgProductDone = $scope.$on("getOrgProductDone", function(event, message){
         $scope.handleGetOrgProductResponse(message);
         cleanupEventGetOrgProductDone();   
@@ -490,9 +506,8 @@ angular.module('prodo.OrgApp')
         cleanupEventSendOrgGroupInvitesNotDone();     
       });
     }
-
-$scope.getOrgAddress();
-    $scope.getproduct();
-
+OrgRegistrationService.getOrgDetailSettings($rootScope.usersession.currentUser.org.orgid);
+$scope.getOrgAddress($rootScope.usersession.currentUser.org.orgid);
+$scope.getproduct($rootScope.usersession.currentUser.org.orgid);
 }]);
  

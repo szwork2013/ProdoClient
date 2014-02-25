@@ -9,6 +9,7 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
   '$resource' ,
   'trendingProductService',
   'growl',
+
   
   function ($scope, $log, $rootScope, prodoSearchService, UserSessionService, searchProductService, $http, $resource,trendingProductService,growl) {
 //Declaration of variables
@@ -32,7 +33,7 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
 
           $scope.$on('gotTrendingProducts', function (event, data) //After getting Data from trending product aPI
           {
-            $scope.trendingProducts=data;
+            $scope.trendingProducts=data.success.ProductTrends;
           });
           $scope.$on('notGotTrendingProducts', function (event, data) //Error handling needed for 
           {
@@ -201,7 +202,7 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
 
     };
 //This function assigns prodles and orgid to rootscope 
-    $scope.emitProdle=function(dataProdle,dataOrgid)
+    $scope.orgProdleEmitter=function(dataProdle,dataOrgid)
     {   
         $rootScope.product_prodle=dataProdle;
         $rootScope.orgid=dataOrgid;    
@@ -226,9 +227,9 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
               $scope.message="";
     };
 
-//This function is called when a product from type-A is selected
+//This function is called when a product from simple search is selected
 //It will search for respective prodle and orgid of product and assign it to rootscope variables
-    $scope.sampleDataEmitSearch = function () 
+    $scope.quickSearchEmit = function () 
     {  
         $rootScope.productSearch.product=$rootScope.productSearch.product.substring(2); //This is written to trim first two characters from string; eg: P-Prodonus Software to Prodonus Software
        
@@ -244,6 +245,7 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
        
 
         $scope.title = "Trending Products";
+        $rootScope.productSearch.product="";
     };
     $scope.toggleTitleForDiv=function()
     {
