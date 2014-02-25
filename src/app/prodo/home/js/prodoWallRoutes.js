@@ -27,7 +27,7 @@ angular.module('prodo.ProdoWallApp')
         },
         'prodo-slider' : {
           templateUrl:  'prodo/home/views/prodo.wall.slider.tpl.html',
-          controller: 'OrgAccountController'
+          controller: 'OrgAccountController'  
         },
         'prodo-navbar' : {
           templateUrl:  'prodo/home/views/prodo.wall.navbar.tpl.html'
@@ -41,7 +41,7 @@ angular.module('prodo.ProdoWallApp')
         }
       }
     })
-    .state('prodo.wall.org', {
+    .state('prodo.wall.org', { 
        templateUrl:  'org/manageorg/views/prodo.wall.org.tpl.html',
        controller: 'OrgAccountController'
       }) 
@@ -55,6 +55,16 @@ angular.module('prodo.ProdoWallApp')
        templateUrl:  'blog/views/prodo.wall.blog.tpl.html',
       }) 
     .state('prodo.wall.dashboard', {
+      resolve : 
+      { 
+          dataFromService : function($http) 
+                             {
+                                return $http({
+                                              method: 'GET',
+                                              url: '/api/trendingproducts'
+                                            });
+                             },
+      },    
        templateUrl:  'dashboard/views/prodo.wall.dashboard.tpl.html',
        controller: 'ProdoDashboardController'
       }) 

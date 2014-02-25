@@ -1995,18 +1995,25 @@ width:10%; height: 10%; float: left; margin: 5px; border: solid 1px #ccc;
 .thinnerFonts{
 
 	font-size: 12px;
-	font-weight: 50;
+	font-weight: 20;
 	color: #9797F3;
 }
 .leftBorder
 {
-	border-left: 1px;	
-}
-.trendingProductsDiv
-{
-	display: none;
+	border-left: 1px solid black;	
+	padding-left: 4px;
 }
 
+
+.hyperlinkPointer
+{
+	cursor: pointer;
+}
+.borderBoxResult
+ {
+ 	background-color:#E4CBF5;
+ 	width:500px;
+ }
 
 
 

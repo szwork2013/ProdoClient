@@ -48,10 +48,9 @@ angular.module('prodo.ProdoWallApp')
 .factory('trendingProductService', [
   '$rootScope',
   '$resource',
-  '$http',
   '$state',
   '$log',
-    function ($rootScope, $resource, $http, $state, $log) {
+    function ($rootScope, $resource, $state, $log) {
     var trendingProducts = { Product: $resource('/api/trendingproducts', {}, { searchProductByKey: { method: 'GET' } }) };
     var products = {};
     products.getTrendingProducts = function () {
