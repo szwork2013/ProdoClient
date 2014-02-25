@@ -4,7 +4,7 @@
    <div id="prodo-sidebar-list-group" class="list-group">
     <div id="prodo-sidebar-list" class="list">
       <a style="background-color: #494F53; font-weight: bold; font-size:12px;" class="list-group-item active">Products Followed</a>
-      <a  ng-repeat="fp in usersession.productfollowlist | limitTo:5" href="#" id="prodo-sidebar-list-group-item" class="list-group-item" ng-click="emitProdle(fp.prodle,fp.orgid)">{{fp.name}}</a>
+      <a  ng-repeat="fp in usersession.productfollowlist | limitTo:5" href="#" id="prodo-sidebar-list-group-item" class="list-group-item" ng-click="orgProdleEmitter(fp.prodle,fp.orgid)">{{fp.name}}</a>
     </div>
   </div>
 </div>
@@ -13,11 +13,11 @@
 <div id="prodo-sidebar-followedproductlist-container">
   <div id="prodo-sidebar-list-group" class="list-group">
     <div id="prodo-sidebar-list" class="list" >
-      <a style="background-color: #494F53; font-weight: bold; font-size:12px;" id="prodo-sidebar-list-group-item" class="list-group-item active">Search</a>
+      <a style="background-color: #494F53; font-weight: bold; font-size:12px;" id="prodo-sidebar-list-group-item" class="list-group-item active" ng-bind="title"></a>
       <div  id="prodo-sidebar-list-group-main" class="list-group-item">
 
 
-        <input general-search type="text" class="prodoAdvancedSearchTextbox"  name="product" typeahead="name for name in enhancement | filter : $viewValue | limitTo:10" id="searchText" ng-model="productSearch.product"  style="width:100%" placeholder="Org or Product Search"  typeahead-on-select="sampleDataEmitSearch()" typeahead-loading="loadingLocations" typeahead-wait-ms="720">
+        <input general-search type="text" class="prodoAdvancedSearchTextbox"  name="product" typeahead="name for name in enhancement | filter : $viewValue | limitTo:10" id="searchText" ng-model="productSearch.product"  style="width:100%" placeholder="Org or Product Search"  typeahead-on-select="quickSearchEmit()" ng-click="toggleTitleForDiv()" typeahead-loading="loadingLocations" typeahead-wait-ms="720">
         <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
 
 
@@ -91,19 +91,19 @@
                        </div><!-- /.col-lg-6 -->
                     </div>    
             <!--    <p>Search Criteria:{{search}}</p> -->
-                    <div id="prodo-searchResults">
-                          <u> <h5 ng-bind="message"></h5></u><!-- {{message}}</h5></u> -->
+                    <div id="prodo-searchResults"><br>
+                          <div style="" class="borderBoxResult" ng-bind="message"></div><!-- {{message}}</h5></u> -->
                           <ol>
                           <li ng-repeat="list in result">
-                          <a ng-click="emitProdle(list.prodle,list.orgid)" ng-bind="list.name"></a>
+                          <a ng-click="orgProdleEmitter(list.prodle,list.orgid)" ng-bind="list.name"></a>
                           </li> </ol>   
                     </div>
                 </div>  
                                           
                               
                 <div class="modal-footer">
-                  <button class="btn btn-danger" data-dismiss="modal" ng-click="modalReset()">Cancel</button>         
-                   <input type="button" class="btn btn-success" value="Search" ng-click="searchProductData()" id="final" data-dismiss="modal "/>   
+                  <button class="btn btn-info" data-dismiss="modal" ng-click="modalReset()">Cancel</button>         
+                   <input type="button" class="btn btn-info" value="Search" ng-click="searchProductData()" id="final" data-dismiss="modal "/>   
                 </div>        
                     
                 </div><!-- /.modal-content -->
@@ -112,9 +112,21 @@
      <!--End of advanced search  --> 
       </div>
     </div>
+    <!-- The following code is written to display trnding products -->
      <div id="prodo-sidebar-list" class="list">
-      <a  ng-repeat="fp in usersession.productfollowlist | limitTo:5" href="#" id="prodo-sidebar-list-group-item" class="list-group-item">coming soon..</a>
+       <div class="list-group-item hyperlinkPointer" ng-repeat="product in trendingProducts" ng-click="orgProdleEmitter(product.prodle,product.orgid)" > 
+            <center> <div id="" ng-bind="product.name"></div> </center>
+            <center>
+                <span class="thinnerFonts" >Followers:
+                   <span id="" ng-bind="product.followedcount"></span>
+                </span> 
+               <span class="thinnerFonts leftBorder" >Comments:
+                   <span id="" ng-bind="product.commentcount"></span>
+               </span>
+           </center>
+          
     </div>
+     
   </div>
 </div>
 

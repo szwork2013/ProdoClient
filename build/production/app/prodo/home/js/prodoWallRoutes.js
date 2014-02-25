@@ -11,14 +11,22 @@ angular.module('prodo.ProdoWallApp')
       abstract: true
     })    
     .state('prodo.wall', {
+      // resolve : { 
+      //        trendingProducts:  function($http){
+      //        return $http({method: 'GET', url: '/api/trendingproducts'})
+      //          .success(function (data) { 
+      //              return data;
+      //          });
+      //    }
+                     
+      //  },
       views: {
         'prodo-sidebar' : {
           templateUrl:  'prodo/home/views/prodo.wall.sidebar.tpl.html',
           controller: 'prodoSearchController'
         },
         'prodo-slider' : {
-          templateUrl:  'prodo/home/views/prodo.wall.slider.tpl.html',
-          controller: 'OrgAccountController'
+          templateUrl:  'prodo/home/views/prodo.wall.slider.tpl.html'
         },
         'prodo-navbar' : {
           templateUrl:  'prodo/home/views/prodo.wall.navbar.tpl.html'
@@ -30,11 +38,12 @@ angular.module('prodo.ProdoWallApp')
         'prodo-advertisment' : {
           templateUrl:  'prodo/home/views/prodo.wall.advertisment.tpl.html'
         }
-      }
+      },
+      controller: 'ProdoWallController'
     })
-    .state('prodo.wall.org', {
+    .state('prodo.wall.org', { 
        templateUrl:  'org/manageorg/views/prodo.wall.org.tpl.html',
-       controller: 'OrgAccountController'
+       controller: 'ProdoWallController'
       }) 
     .state('prodo.wall.product', {
        templateUrl:  'product/views/prodo.wall.productTabs.tpl.html',
@@ -46,6 +55,16 @@ angular.module('prodo.ProdoWallApp')
        templateUrl:  'blog/views/prodo.wall.blog.tpl.html',
       }) 
     .state('prodo.wall.dashboard', {
+      resolve : 
+      { 
+          dataFromService : function($http) 
+                             {
+                                return $http({
+                                              method: 'GET',
+                                              url: '/api/trendingproducts'
+                                            });
+                             },
+      },    
        templateUrl:  'dashboard/views/prodo.wall.dashboard.tpl.html',
        controller: 'ProdoDashboardController'
       }) 
