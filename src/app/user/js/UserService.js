@@ -327,15 +327,10 @@ angular.module('prodo.UserApp').factory('UserSessionService', [
         $log.debug(data.success);
         $scope.$emit('recaptchaDone', 'Success');
       } else {
-        if (data.error.code == 'AR001') {
-          $log.debug(data.error.code + ' ' + data.error.message);
-          $state.transitionTo('home.start');
-        } else {
           $log.debug(data.error.message);
           $scope.$emit('recaptchaNotDone', 'Failure');
           vcRecaptchaService.reload();
         }
-      }
     };
     return recaptchaService;
   }
