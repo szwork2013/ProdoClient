@@ -2020,6 +2020,10 @@ width:10%; height: 10%; float: left; margin: 5px; border: solid 1px #ccc;
 	color: #FFFFFF;   background-color: #cccccc;border: none; cursor:not-allowed;
 }
 
+.floatLeft
+{
+	float: right;
+}
 
 
 
