@@ -693,7 +693,7 @@
                  //Follow Product
 
                  $scope.CheckIfAlreadyFollowingProduct=function(){
-                  
+
                    var follow;
                    for(i=0 ; i<$scope.ProductsFollowedFromSession.length; i++){
                     if($scope.ProductsFollowedFromSession[i].prodle==$rootScope.product_prodle){
@@ -724,6 +724,11 @@
               };
              //Follow Product
 
+             //
+             $scope.selectedFeature;
+             $scope.getSelectedFeature=function(feature){
+              $scope.selectedFeature=feature;
+             }
 
 
           }]) 
