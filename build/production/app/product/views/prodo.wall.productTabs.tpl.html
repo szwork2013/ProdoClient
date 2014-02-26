@@ -13,29 +13,19 @@
  */-->
 
  <div ng-app="prodo.ProductApp" id="prodo-comment-container" class="container" style="border: 1px solid #94d2f8; width: 100%;  "   ng-controller="ProductController">
-<!-- 
-   <ul class="nav nav-tabs" id="prodo-productTabs">
-    <li class="active" id="prodoCommentsTab"><a href="#tabComments" data-toggle="tab">Product Comments</a></li>
-    <li class="" id="prodoProductFeaturesTab"><a href="#tabProductFeatures" data-toggle="tab" ng-click="checkAdmin()">Product Features</a></li>
-    <li class="" id="prodoUploadTab"><a href="#tabProductUpload" style="display: none" data-toggle="tab"   id="Upload-clck"  >Product Upload</a></li>
 
-</ul>
+
+<!--  -->
+
+
 <div growl></div>
-<div class="tab-content" style="padding-bottom: 9px; border-bottom: 1px solid #ddd;">
-    <div class="tab-pane active" id="tabComments" ng-include="'product/views/prodo.wall.comment.tpl.html'">
-        <p>comments</p>
-    </div>
-    <div class="tab-pane" id="tabProductFeatures" ng-include="'product/views/prodo.wall.productFeatures.tpl.html'">
-        <p>product-features</p>
-    </div>
-    <div class="tab-pane"  id="tabProductUpload"  ng-include="'product/views/prodo.wall.productUpload.tpl.html'"  >
-        <p>product Upload here</p>
-    </div>
-</div> -->
-<div growl></div>
+<br>
 <div id="prodo-ProductDetails">
-<img class="img" id="productLogo"  style=" height: 100px; padding:10px;max-width:500px; cursor: pointer;"   ng-src="{{product.product_logo}}" />
-<strong style="font-size: 30px; margin:20px; text-align:center;">&nbsp;<span ng-bind="product.name"> </strong>
+<div >
+<img class="img" id="productLogo"  style=" height: 100px; padding:10px;max-width:200px; cursor: pointer;"   ng-src="{{product.product_logo}}" />
+<strong style="font-size: 20px; margin:20px;max-width:200px; text-align:center;">&nbsp;<span ng-bind="product.name.substring(0,20)"> </strong>
+<a href="" ng-style="CheckIfAlreadyFollowingProduct()" ng-click="followCurrentProduct()" class="pull-right btn btn-primary btn-sm">  Follow </a>
+</span>
 <br>
 <span  >MODEL NO :&nbsp; <span ng-bind="product.model_no"></span></span>
 <br>

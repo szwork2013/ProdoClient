@@ -11,15 +11,6 @@ angular.module('prodo.ProdoWallApp')
       abstract: true
     })    
     .state('prodo.wall', {
-      // resolve : { 
-      //        trendingProducts:  function($http){
-      //        return $http({method: 'GET', url: '/api/trendingproducts'})
-      //          .success(function (data) { 
-      //              return data;
-      //          });
-      //    }
-                     
-      //  },
       views: {
         'prodo-sidebar' : {
           templateUrl:  'prodo/home/views/prodo.wall.sidebar.tpl.html',
@@ -43,7 +34,24 @@ angular.module('prodo.ProdoWallApp')
     })
     .state('prodo.wall.org', { 
        templateUrl:  'org/manageorg/views/prodo.wall.org.tpl.html',
-       controller: 'ProdoWallController'
+        controller: 'ProdoWallController',
+       resolve: {
+          orgdata: function(OrgRegistrationService, $rootScope) {
+                        console.log("Resolving dependency...");
+                       return OrgRegistrationService.getOrgDetailSettings($rootScope.orgid);
+                        
+                    },
+          orgproductdata: function(OrgRegistrationService, $rootScope) {
+              console.log("Resolving dependency...");
+             return OrgRegistrationService.getAllProducts($rootScope.orgid);
+              
+          },
+          orgaddressdata: function(OrgRegistrationService, $rootScope) {
+              console.log("Resolving dependency...");
+             return OrgRegistrationService.getAllOrgAddress($rootScope.orgid);
+              
+          }
+        }
       }) 
     .state('prodo.wall.product', {
        templateUrl:  'product/views/prodo.wall.productTabs.tpl.html',
@@ -57,13 +65,13 @@ angular.module('prodo.ProdoWallApp')
     .state('prodo.wall.dashboard', {
       resolve : 
       { 
-          dataFromService : function($http) 
-                             {
-                                return $http({
-                                              method: 'GET',
-                                              url: '/api/trendingproducts'
-                                            });
-                             },
+        dataFromService : function($http) 
+         {
+            return $http({
+                          method: 'GET',
+                          url: '/api/trendingproducts'
+                        });
+         },
       },    
        templateUrl:  'dashboard/views/prodo.wall.dashboard.tpl.html',
        controller: 'ProdoDashboardController'

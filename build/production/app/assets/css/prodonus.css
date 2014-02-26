@@ -1487,6 +1487,7 @@ text-align: center;
 padding: 10px 0;
 font-size:30px;
 cursor: pointer;
+
 width: 518px;
     /*box-shadow: inset 1px 1px rgba(0, 0, 0, 0.4), inset -1px -1px rgba(0, 0, 0, 0.4);*/ }  
 #load-more:hover            { color:#666; }   
@@ -2015,9 +2016,9 @@ width:10%; height: 10%; float: left; margin: 5px; border: solid 1px #ccc;
  	width:500px;
  }
 
-
-
-
+.arrowBtn:disabled {
+	color: #FFFFFF;   background-color: #cccccc;border: none; cursor:not-allowed;
+}
 
 
 
