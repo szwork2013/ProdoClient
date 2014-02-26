@@ -724,11 +724,12 @@
               };
              //Follow Product
 
-             //
+             //delete feature modal data passing
              $scope.selectedFeature;
              $scope.getSelectedFeature=function(feature){
               $scope.selectedFeature=feature;
-             }
+             };
+              //delete feature modal data passing
 
 
           }]) 
