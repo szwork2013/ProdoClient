@@ -152,7 +152,7 @@
                       }
                     } 
                     //if no comments , dont show load more comments button
-                    if(successData.success.product.product_comments.length==0){
+                    if(successData.success.product.product_comments.length<5){
                       $("#load-more").css("display", "none");
                     }
                     else  $("#load-more").css("display", "inline");
