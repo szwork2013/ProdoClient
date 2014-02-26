@@ -43,6 +43,7 @@
                 $scope.grpnameFromSession;
                 $scope.orgnameFromSession;
                 $scope.orgidFromSession;
+                $scope.ProductsFollowedFromSession=[];
                 $scope.socket;
 
 
@@ -97,6 +98,9 @@
                 }
                 $scope.userIDFromSession = $rootScope.usersession.currentUser.userid;
                 $scope.usernameFromSession = $rootScope.usersession.currentUser.username;
+                $scope.ProductsFollowedFromSession = $rootScope.usersession.currentUser.products_followed;
+
+                $log.debug("Products  f.. "+JSON.stringify( $scope.ProductsFollowedFromSession));
               }
               $scope.getUserDetails();
                //get login details
@@ -185,7 +189,7 @@
                        growl.addErrorMessage( "Server Error:" + error.status);
                      }
                    });
-                }
+  }
                 //get product function declaration  
 
 
@@ -220,15 +224,15 @@
                   name: $scope.product.name,
                   description: $scope.product.description
                 }};
-                 $log.debug($scope.orgidFromSession);
+                $log.debug($scope.orgidFromSession);
                   if(editStatus=='add'){ //add product
                    if ($rootScope.usersession.currentUser.org.isAdmin ==true) {
-                  
-                      ProductService.saveProduct({orgid: $scope.orgidFromSession}, $scope.newProduct,
-                        function(success) {
-                          $log.debug(success);
+
+                    ProductService.saveProduct({orgid: $scope.orgidFromSession}, $scope.newProduct,
+                      function(success) {
+                        $log.debug(success);
                               $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
-                               
+
                             },
                             function(error) {
                               $log.debug(error);
@@ -265,11 +269,11 @@
                       }).success(function(data, status, headers, cfg) {
                        if(data.success){
                         if(data.success.product.length==0){ //after deleting product, check for next product from product followed,if no product - display msg
-                           $log.debug(data.success.product.length);
-                          temp.innerHTML="<br>Product not available ... Add new product<br><br>";
-                          growl.addErrorMessage(" Product not available ...");
-                          
-                        }
+                         $log.debug(data.success.product.length);
+                         temp.innerHTML="<br>Product not available ... Add new product<br><br>";
+                         growl.addErrorMessage(" Product not available ...");
+
+                       }
 
                         else // if products followed has product, select latest product
                         {
@@ -289,7 +293,7 @@
                     $scope.deleteProduct = function()
                     {
                       growl.addInfoMessage("Deleting product  ...");
-                       if($rootScope.product_prodle!==undefined && $rootScope.product_prodle!==null && $rootScope.product_prodle!==""){
+                      if($rootScope.product_prodle!==undefined && $rootScope.product_prodle!==null && $rootScope.product_prodle!==""){
                        if ($rootScope.isAdminCheck==true ) { //if owener of product
                         ProductService.deleteProduct({orgid: $scope.orgidFromSession, prodle: $rootScope.product_prodle},
                          function(success) {
@@ -305,8 +309,8 @@
                       else
                         growl.addErrorMessage("You dont have rights to delete this product...");
 
-                     }
-                    };
+                    }
+                  };
                 //delete product
 
                 //clear text fields of product
@@ -476,29 +480,29 @@
               }
             };
              //if product admin, show delete images options
-            
+
             //get Product features
-             $scope.features=[];
-             $scope.PFeatures=[];
-             $scope.getProductFeatures=function(){
+            $scope.features=[];
+            $scope.PFeatures=[];
+            $scope.getProductFeatures=function(){
               if($rootScope.product_prodle!==""){
                ProductFeatureService.getFeature({orgid: $rootScope.orgid, prodle: $rootScope.product_prodle},
                 function(successData) {
                   if (successData.success == undefined){
                    if($rootScope.usersession.currentUser.org.isAdmin==true) { 
                    //admin tasks
-                   }
-                    else { }
-                  }
-                 else {
-                  $log.debug("success    "+JSON.stringify(successData));
-                  $scope.features=[];
-                  $scope.featuretags=[];
-                  for(i=0;i<successData.success.productfeature.length;i++){
-                    $scope.features.push(successData.success.productfeature[i]);
-                    $scope.PFeatures.push(successData.success.productfeature[i]);
-                    $scope.featuretags.push(successData.success.productfeature[i].featurename);
-                    }
+                 }
+                 else { }
+               }
+             else {
+              $log.debug("success    "+JSON.stringify(successData));
+              $scope.features=[];
+              $scope.featuretags=[];
+              for(i=0;i<successData.success.productfeature.length;i++){
+                $scope.features.push(successData.success.productfeature[i]);
+                $scope.PFeatures.push(successData.success.productfeature[i]);
+                $scope.featuretags.push(successData.success.productfeature[i].featurename);
+              }
                        // $scope.features= JSON.stringify($scope.features);
                        $log.debug("pf  "+ $scope.featuretags);
                      }
@@ -506,14 +510,14 @@
                    function(error) {
                      growl.addErrorMessage("Server Error:" + error.status);
                    });
-                }
-              };
+  }
+};
             //get Product features
 
             //delete product feature
-              $scope.deleteFeature = function(feature){
-                $log.debug("deleting feature");
-                 if(feature!==undefined && feature!==null && feature!==""){
+            $scope.deleteFeature = function(feature){
+              $log.debug("deleting feature");
+              if(feature!==undefined && feature!==null && feature!==""){
                 growl.addInfoMessage("Deleting product feature ...");
                 $log.debug(feature.featureid);
                 if ($rootScope.isAdminCheck==true){ //if product owner
@@ -536,18 +540,18 @@
                 else //if not owner display msg
                   growl.addErrorMessage("You dont have rights to delete this feature...");
               }
-              };
+            };
              //delete product feature
              
              //add product feature
-              $scope.addProductFeature=function(editStatus){
-                $scope.newFeature={};
-                $scope.newFeature = {productfeature: [{
-                  featurename: $scope.feature.name,
-                  featuredescription: $scope.feature.description
-                }]};
-                $log.debug( $scope.newFeature);
-                if($scope.newFeature!==undefined && $scope.newFeature!==null && $scope.newFeature!==""){
+             $scope.addProductFeature=function(editStatus){
+              $scope.newFeature={};
+              $scope.newFeature = {productfeature: [{
+                featurename: $scope.feature.name,
+                featuredescription: $scope.feature.description
+              }]};
+              $log.debug( $scope.newFeature);
+              if($scope.newFeature!==undefined && $scope.newFeature!==null && $scope.newFeature!==""){
                 if(editStatus=='add'){
                   $log.debug("adding");
                   if ($rootScope.isAdminCheck==true){  //if product owner
@@ -568,15 +572,15 @@
                 } //if not owner display msg
                 else  growl.addErrorMessage("You dont have rights to add product feature...");
               }
-              }
-              };
+            }
+          };
               //add product feature
 
 
              //update product feature
-              $scope.updateProductFeature = function(data, id) {
-                console.log(data);
-                if(data!==undefined && data!==null && data!==""){
+             $scope.updateProductFeature = function(data, id) {
+              console.log(data);
+              if(data!==undefined && data!==null && data!==""){
                 if ($rootScope.isAdminCheck==true){
                   ProductFeatureService.updateFeature({orgid:$scope.orgidFromSession,prodle:$rootScope.product_prodle,productfeatureid:id},{'productfeature': data},
                     function(success) {
@@ -589,10 +593,10 @@
                                                             $log.debug(error);
                                                             growl.addErrorMessage(error);
                                                           });
-                }
-                else  growl.addErrorMessage("You dont have rights to update product feature...");
-              }
-              };
+  }
+  else  growl.addErrorMessage("You dont have rights to update product feature...");
+}
+};
               //update product feature
 
 
@@ -605,16 +609,16 @@
               $scope.disableEditor = function() {
                 $scope.editorEnabled = false;
                 $scope.feature="";
-                 if($rootScope.product_prodle!==undefined && $rootScope.product_prodle!==null && $rootScope.product_prodle!==""){
-                $scope.getProduct();
-                $scope.getProductFeatures();
-              }
+                if($rootScope.product_prodle!==undefined && $rootScope.product_prodle!==null && $rootScope.product_prodle!==""){
+                  $scope.getProduct();
+                  $scope.getProductFeatures();
+                }
               };
               //Edit mode and display mode toggle for product data add , update and diaplay
 
               //on product logo hover, show follow product button
               $(document).ready(function(){
-                      if ($rootScope.isAdminCheck==true) {
+                if ($rootScope.isAdminCheck==true) {
                  $("#productLogoUpload").css("display", "inline");  
                  $("#productLogo").hover(function(){
                   $("#productLogoUpload").show();
@@ -629,39 +633,39 @@
                }
 
 
-              });
+             });
               //on product logo hover, show follow product button
-          
+
               //Product Description height toggle
-               
+
               $scope.ShowDescription=function(){
-                
+
                 if(document.getElementById('prodo-description').style.height ==="15px")
-                $("#prodo-description").css("height", ""); 
+                  $("#prodo-description").css("height", ""); 
                 else 
-                   $("#prodo-description").css("height", "15px"); 
-              };
+                 $("#prodo-description").css("height", "15px"); 
+             };
 
              //get All products
-                   $scope.getAllProducts = function(){
-                 $http({
-                  method: 'GET',
-                  url: '/api/product/' + $rootScope.orgid  ,
+             $scope.getAllProducts = function(){
+               $http({
+                method: 'GET',
+                url: '/api/product/' + $rootScope.orgid  ,
                         // data: {'prodleimageids':[ $scope.imgIdsJson]}
                       }).success(function(data, status, headers, cfg) {
                        if(data.success){
                         if(data.success.product.length==0){ //after deleting product, check for next product from product followed,if no product - display msg
-                           $log.debug(data.success.product.length);
-                          temp.innerHTML="<br>Product not available ... Add new product<br><br>";
-                          growl.addErrorMessage(" Product not available ...");
-                         }
+                         $log.debug(data.success.product.length);
+                         temp.innerHTML="<br>Product not available ... Add new product<br><br>";
+                         growl.addErrorMessage(" Product not available ...");
+                       }
 
                         else // if products followed has product, select latest product
                         {
                          $scope.productList=data.success.product;
                          $log.debug("Products List : "+JSON.stringify($scope.productList));
-                        }
-                      }
+                       }
+                     }
                         // $log.debug(data);
                       }).error(function(data, status, headers, cfg) { //if error deeting product , from server
                         growl.addErrorMessage(status);
@@ -670,27 +674,65 @@
 
                     };
                  //get All products
-                $scope.getAllProducts ();
+                 $scope.getAllProducts ();
 
-                $scope.getSelectedProduct=function(product1){
+                 $scope.getSelectedProduct=function(product1){
                   $rootScope.product_prodle=product1.prodle;
                 };
 
 
                  //Product List pagination
-                 $scope.currentPage = 0;
-                  $scope.pageSize = 4;
-                  
-                  $scope.numberOfPages=function(){
-                      return Math.ceil($scope.productList.length/$scope.pageSize);                
-                  }
+                 $scope.currentPage = 1;
+                 $scope.pageSize = 4;
+
+                 $scope.numberOfPages=function(){
+                  return Math.ceil($scope.productList.length/$scope.pageSize);                
+                };
                  //Product List pagination
 
+                 //Follow Product
 
-          }])
- angular.module('prodo.ProductApp').filter('startFrom', function() {
-    return function(input, start) {
+                 $scope.CheckIfAlreadyFollowingProduct=function(){
+                  
+                   var follow;
+                   for(i=0 ; i<$scope.ProductsFollowedFromSession.length; i++){
+                    if($scope.ProductsFollowedFromSession[i].prodle==$rootScope.product_prodle){
+                      follow=true;
+                    }
+                  }
+                  if(follow==true){
+                    return{display: "none" } 
+
+                  }
+                  else return{display: "inline" } 
+                };
+
+                $scope.followCurrentProduct=function(){
+                 $log.debug("following");
+                 var follow;
+                 for(i=0 ; i<$scope.ProductsFollowedFromSession.length; i++){
+                  if($scope.ProductsFollowedFromSession[i].prodle==$rootScope.product_prodle){
+
+                    follow=true;
+
+                  }
+                }
+                if(follow==true){
+                  $rootScope.usersession.followProduct($rootScope.product_prodle);
+                  growl.addSuccessMessage("Follwing product");
+                }
+              };
+             //Follow Product
+
+
+
+          }]) 
+
+    angular.module('prodo.ProductApp').filter('startFrom', function() {
+      return function(input, start) {
+        if(input !== undefined && start !==undefined){
         start = +start; //parse to int
         return input.slice(start);
+      }
     }
-});
+  })
