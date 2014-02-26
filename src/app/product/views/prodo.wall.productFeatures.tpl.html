@@ -15,26 +15,26 @@
     <!-- All Product List -->
     <br>
          <div style=" height:130px;width:auto;">
-          <div style="float: left; margin-top:15px; cursor:pointer" ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
-         <i style="color:gray; font-weight:weight:lighter" class="fa fa-chevron-left fa-5x"></i> 
-        </div>
+          <button class="arrowBtn" ng-show="productList.length > 4 " style="float: left; margin-top:35px;margin-right:40px; cursor:pointer" ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1" >
+         <i style="color:gray; font-weight:weight:lighter" class="fa fa-chevron-left fa-3x"></i> 
+        </button>
          <a ng-click="enableEditor() ;  editStatus='add'; clearText(); " style="cursor:pointer" data-toggle="collapse" data-target="#Edit" >
-        <div style="display:inline-block;width:100px; height: 100px; float: left; margin: 5px; border: solid 1px #ccc;">
+        <div style="display:inline-block;width:100px; height: 110px; float: left; margin: 5px; border: solid 1px #ccc;">
         <p style="margin:5px auto; display:block; text-align:center; font-weight:bold; font-size:12px;">Add Product</p>
-         <div style="margin:0px auto; display:block; width:95%; height: 85%;  " align="center" class="img-rounded fa fa-plus fa-4x"></div>
+         <div style="margin:0px auto; display:block; width:95%; height: 73%;  " align="center" class="img-rounded fa fa-plus fa-4x"></div>
       </div>
       </a>
 
-	      <div style=" display:inline-block;width:100px; height: 100px; float: left; margin: 5px; border: solid 1px #ccc;" ng-repeat="product1 in productList  | startFrom:currentPage*pageSize | limitTo:pageSize" >
+	      <div style=" display:inline-block;width:100px; height: 110px; float: left; margin: 5px; border: solid 1px #ccc;" ng-repeat="product1 in productList  | startFrom:currentPage*pageSize | limitTo:pageSize" >
 	      <a ng-click="getSelectedProduct(product1);" href="" style="cursor:pointer">
           <p style="margin:5px auto; display:block; text-align:center; font-weight:bold; font-size:12px;">{{product1.name}}</p>
-          <img style="margin:0px auto; display:block; width:95%; height: 85%; " ng-src="{{product1.product_logo}}" alt=" No Image" class="img-rounded">
+          <img style="margin:0px auto; display:block; width:95%; height: 73%; " ng-src="{{product1.product_logo}}" alt=" No Image" class="img-rounded">
           </a>
 
         </div>
-          <div style="float: right; margin-top:15px; cursor:pointer" ng-disabled="currentPage >= productList.length/pageSize - 1" ng-click="currentPage=currentPage+1">
-        <i style="color:gray; font-weight:weight:lighter" class="fa fa-chevron-right fa-5x"></i> 
-      </div>
+          <button class="arrowBtn"  ng-show="productList.length > 4 " style="float: right; margin-top:35px; cursor:pointer" ng-disabled="currentPage >= productList.length/pageSize - 1" ng-click="currentPage=currentPage+1" >
+        <i style="color:gray; font-weight:weight:lighter" class=" fa fa-chevron-right fa-3x"></i> 
+      </button>
    
    
        </div>

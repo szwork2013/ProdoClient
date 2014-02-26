@@ -688,7 +688,7 @@
 
 
                  //Product List pagination
-                 $scope.currentPage = 1;
+                 $scope.currentPage = 0;
                  $scope.pageSize = 4;
 
                  $scope.numberOfPages=function(){
