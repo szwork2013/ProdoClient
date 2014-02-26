@@ -249,7 +249,7 @@
 		    <div class="checkboxFilter"  >
            <div class= "pull-right" ng-show="pImages_l.length!==0">
 		      <span class= "" id="showHideAllchkLabel" ng-style="checkAdminProductImagesDelete();" >Select All</span>  
-		      <input class= "" id="showHideAllchk" ng-style="checkAdminProductImagesDelete();"  type="checkbox" ng-click="selectAllImages();"  name="pinSet ">
+		      <input class= "" id="showHideAllchk" ng-style="checkAdminProductImagesDelete();"  type="checkbox" ng-click="selectAllImages(); checkedAllIndex(pImages_l)"  name="pinSet ">
 		      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;            
 		      <button type="button" class="btn btn-danger btn-sm " id="prodo-deleteProductImage" ng-style="checkAdminProductImagesDelete();" ng-click="checkImageSelectedToDelete()"  >
 		        Delete &nbsp; <i class="fa fa-trash-o"></i> 
@@ -259,7 +259,7 @@
 		      <div style="width:100%; height:100%;">
 		      <div class="thumb" ng-repeat="img in pImages_l"    >
 		        <img class="img" style="width: 150px; height: 150px;"  ng-src="{{img.image}}" />
-		        <input type="checkbox" ng-style="checkAdminProductImagesDelete();"ss value="{{img.imageid}}" name="imgSet" class="imgToggles" id="imgchk"  ng-click="checkedIndex(img)">
+		        <input type="checkbox" ng-style="checkAdminProductImagesDelete();" value="{{img.imageid}}" name="imgSet" class="imgToggles" id="imgchk"  ng-click="checkedIndex(img)">
 		      </div>
 		      </div><br>
 		    </div>
@@ -291,7 +291,7 @@
          
          	  <!-- Uploads -->
         <div    ng-app="prodo.UploadApp" ng-controller="UploadController"  >
-        <h4 style="color: #686114;">Upload</h4>
+        <h4 style="color: #686114;">UPLOAD</h4>
 
         <table  style="font-size: 14PX;" class="table table-hover table-bordered">
         <tr>
