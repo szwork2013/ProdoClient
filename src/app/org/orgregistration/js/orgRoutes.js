@@ -49,9 +49,6 @@ angular.module('prodo.OrgApp')
       })
     .state('account-org.org.Productdetail', {
        templateUrl:  'product/views/prodo.wall.productFeatures.tpl.html'
-      }) 
-    .state('account-org.org.Productupload', {
-       templateUrl:  'product/views/prodo.wall.productUpload.tpl.html'
-      })    
+      })  
   }]);
  

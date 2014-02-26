@@ -1,11 +1,14 @@
 angular.module('prodo.ProdoWallApp')
-	.controller('ProdoWallController', ['$rootScope', '$scope', '$state', '$log', 'OrgRegistrationService', function($rootScope, $scope, $state, $log, OrgRegistrationService) {
+	.controller('ProdoWallController', ['$rootScope', '$scope', '$state', '$log', 'OrgRegistrationService', 'orgdata', function($rootScope, $scope, $state, $log, OrgRegistrationService,orgdata) {
+		$scope.gists = orgdata;
+		console.log($scope.gists);
 
-		$rootScope.$watch('orgid', function() {
-      OrgRegistrationService.getOrgDetailSettings($rootScope.orgid);
-     	OrgRegistrationService.getAllOrgAddress($rootScope.orgid);
-    	OrgRegistrationService.getAllProducts($rootScope.orgid); 
-  });
+	// $rootScope.$watch('orgid', function() {
+	// 	console.log($rootScope.orgid);
+ //      OrgRegistrationService.getOrgDetailSettings($rootScope.orgid);
+ //     	OrgRegistrationService.getAllOrgAddress($rootScope.orgid);
+ //    	OrgRegistrationService.getAllProducts($rootScope.orgid); 
+ //  });
 
 
 		// function to handle server side responses
@@ -56,7 +59,6 @@ angular.module('prodo.ProdoWallApp')
     // function to handle server side responses
     $scope.handleGetOrgProductResponse = function(data){
       if (data.success) {
-        console.log(data.success);
         $scope.productlist = data.success.product;
         $scope.showAlert('alert-success', data.success.message);   
       } else {

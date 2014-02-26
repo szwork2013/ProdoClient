@@ -5,7 +5,6 @@ angular.module('prodo.OrgApp')
 	.controller('OrgRegistrationController', ['$scope', '$rootScope', 'OrgModel', '$state', '$stateParams', '$log', 'OrgRegistrationService', function($scope, $rootScope, OrgModel, $state, $stateParams, $log, OrgRegistrationService) {
 		
     $scope.org = OrgModel;   // assining OrgModel service to org to update org model data
-    $scope.org.orgtype = $stateParams.plantype;
     $scope.countries=[ 'Afghanistan', 
                         'Albania', 
                         'Algeria', 
@@ -381,6 +380,32 @@ $scope.selected_country="";
         $scope.showAlert('alert-danger', data.error.message);
       }
     };
+
+    var cleanupEventSessionDone = $rootScope.$on('session', function (event, data) {
+        $log.debug(data);
+        if ($rootScope.usersession.isLoggedIn) {
+          if (data.prodousertype == 'business' && data.hasDonePayment) {
+            if (data.products_followed == null && data.products_followed == undefined) {
+              $log.debug('There is some problem with the database. Please contact support.')
+            } else if (data.products_followed.length > 0) {
+                var n = data.products_followed.length - 1;
+                console.log(n);
+                $rootScope.orgid= data.products_followed[n].orgid;
+                $rootScope.product_prodle= data.products_followed[n].prodle;
+                for (var i=0;i<data.products_followed.length;i++){
+                  if(data.products_followed[i] && data.products_followed[i].prodle){
+                    var prodle = data.products_followed[i].prodle;
+                  }
+                  $scope.prodlesfollowed.push(prodle);
+                }
+                  UserSessionService.getProductFollowed($scope.prodlesfollowed);
+                }
+                  $rootScope.orgid = data.org.orgid;
+                  $state.transitionTo('prodo.wall.org');
+            } 
+          } 
+        cleanupEventSessionDone();
+      });
 
     // function to send user data n stringify in json format
     $scope.jsonOrgData = function() {

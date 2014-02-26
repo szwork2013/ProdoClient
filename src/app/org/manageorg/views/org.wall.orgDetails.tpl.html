@@ -1,5 +1,4 @@
 <div style="padding: 5px; " id="prodo-user-account-container" style="" class="container">
-  <h4 style="font-weight: bold; margin-top: 5px; margin-bottom: 5px;"><center>ORGANIZATION ACCOUNT</center></h4>
   <div style="height:120px; border-radius: 5px; margin-bottom: 10px;">
   		<img ng-src="{{org.org_logo}}" style="width: 160px; height:80px; margin: 20px; ">
   		<a class="btn btn-danger btn-sm pull-right" style="border-radius: 10px; margin: 5px; width: 80px; font-size: 12px; font-weight:bold;" href="" data-toggle="modal" data-target="#myModal"><i style="margin-right: 5px;" class="fa fa-trash-o fa-lg"></i>Delete</a>
@@ -225,7 +224,7 @@
 
     <accordion-group>
     	<accordion-heading>
-            <p style='font-weight:bold; font-size: 13px; margin: 0;'>OTHER ORGANIZATION INVITES<i class="fa fa-pencil pull-right"></i></p>
+            <p style='font-weight:bold; font-size: 13px; margin: 0;'>NEW ORGANIZATION INVITES<i class="fa fa-pencil pull-right"></i></p>
         </accordion-heading>
         <button class="btn btn-info btn-sm" style="background-color:#47707C; border-color:#3C555C; border-radius: 10px; margin: 15px;" ng-click="addMoreInvites()"><i style="margin-right: 5px;" class="fa fa-plus-square"></i>Add More Invites</button>
         <table class="table table-condensed">
@@ -298,6 +297,66 @@
           <p style="text-align:left; font-size:20px; margin: 20px auto;" class="text-success"><strong><em>You are currently subscribed for 90-days Free Trial Plan.<br>
           No payment has been taken during trial plan.</em></strong></p>
         </div>
+    </accordion-group>
+
+    <accordion-group>
+      <accordion-heading>
+            <p style='font-weight:bold; font-size: 13px; margin: 0;'>ORGANIZATION ARTWORK UPLOAD<i class="fa fa-pencil pull-right"></i></p>
+        </accordion-heading>
+        
+
+<br>
+<div id="prodo-productFeature-fixed"   ng-app="prodo.UploadApp" ng-controller="UploadController"  >
+  <form    >
+    <br>
+    
+      
+      <div class="control-group"  ><div style="font-size:22px; text-align: left; padding-left:152px;" id="prodo-upload-SelectUploadBtn">  Upload  org logo</div><br>
+
+      <center>  
+        <div class="controls" > 
+          <span class="btn btn-info fileinput-button" style="width: 400px;" >
+            <i class="glyphicon glyphicon-upload "></i>
+            <input   type="file" name="file" ng-file-select="onFileSelect($files)" multiple ng-click="uploadSrc = 'orglogo';">
+            <span>Select Logo</span>
+          </span>
+        </div>
+      
+    </center>
+    </div>
+  </form>
+
+  <form    >
+    <br>
+    
+      
+      <div class="control-group"  ><div style="font-size:22px; text-align: left; padding-left:152px;" id="prodo-upload-SelectUploadBtn"> Select files to upload </div><br>
+
+      <center>  
+        <div class="controls" > 
+          <span class="btn btn-info fileinput-button" style="width: 400px;" >
+            <i class="glyphicon glyphicon-upload "></i>
+            <input   type="file" name="file" ng-file-select="onFileSelect($files)" multiple ng-click="uploadSrc = 'org';">
+            <span>Select Files</span>
+          </span>
+        </div>
+      
+
+      
+    </center>
+    </div>
+  </form><br><br>
+  <center>
+
+<div class="alert alert-warning alert-dismissable" id="errAlert" style=" visibility: hidden;">
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> 
+</div>
+  
+    <div id="FileName" > 
+    </div>
+  
+ </center>
+</div>
     </accordion-group>
 
   </accordion>

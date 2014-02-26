@@ -28,8 +28,6 @@ angular.module('prodo.OrgApp')
     
     var cleanupEventSendOrgData = $rootScope.$on("sendOrgData", function(event, data){
         $scope.org = data;
-        $scope.orgimages= data.org_images;
-        console.log($scope.orgimages);
         cleanupEventSendOrgData();  
     });
 
@@ -261,7 +259,6 @@ angular.module('prodo.OrgApp')
     // function to handle server side responses
     $scope.handleGetOrgProductResponse = function(data){
       if (data.success) {
-        console.log(data.success);
         $scope.productlist = data.success.product;
         $scope.showAlert('alert-success', data.success.message);   
       } else {
