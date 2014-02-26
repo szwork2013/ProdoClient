@@ -80,35 +80,43 @@ angular.module('prodo.UserApp')
         var jsondata=$scope.jsonUserData();
         $log.debug('User Data entered successfully');
         UserRecaptchaService.validate($scope);
-        var cleanupEventRecaptchaNotDone = $scope.$on("recaptchaNotDone", function(event, message){
-          $scope.hideSpinner();
-          $scope.showAlert('alert-danger', 'Recaptcha failed, please try again');
-          cleanupEventRecaptchaNotDone();
-        });
-        var cleanupEventRecaptchaFailure = $scope.$on("recaptchaFailure", function(event, message){
-          $scope.hideSpinner();
-          $scope.showAlert('alert-danger', "Server is not responding. Error:" + message);
-          cleanupEventRecaptchaFailure();
-        });
-        var cleanupEventRecaptchaDone = $scope.$on("recaptchaDone", function(event, message){
-          UserSignupService.saveUser(jsondata,    // calling function of UserSignupService to make POST method call to signup user.
-          function(success){
-            $scope.hideSpinner();
-            $log.debug(success);
-            $scope.handleSignupResponse(success); 
-            cleanupEventRecaptchaDone();     // calling function to handle success and error responses from server side on POST method success.
-          },
-          function(error){
-            $scope.hideSpinner();
-            $log.debug(error);
-            $scope.showAlert('alert-danger', "Server Error:" + error.status);
-            cleanupEventRecaptchaDone();
-          });  
-        });
       } else {
         $scope.signupForm.submitted = true;
       }
     }
+
+    var cleanupEventRecaptchaNotDone = $scope.$on("recaptchaNotDone", function(event, message){
+      $scope.hideSpinner();
+      $scope.showAlert('alert-danger', 'Recaptcha failed, please try again');
+      cleanupEventRecaptchaNotDone();
+    });
+
+    var cleanupEventRecaptchaFailure = $scope.$on("recaptchaFailure", function(event, message){
+      $scope.hideSpinner();
+      $scope.showAlert('alert-danger', "Server is not responding. Error:" + message);
+      cleanupEventRecaptchaFailure();
+    });
+
+    var cleanupEventRecaptchaDone = $scope.$on("recaptchaDone", function(event, message){
+      UserSessionService.signupUser($scope.jsonUserData());    // calling function of UserSignupService to make POST method call to signup user.
+        cleanupEventRecaptchaDone(); 
+    });
+
+    var cleanupEventSignupDone = $scope.$on("signupDone", function(event, message){
+      $scope.hideSpinner();
+      $log.debug(message);
+      $scope.handleSignupResponse(message);
+      cleanupEventSignupDone();
+    });
+
+    var cleanupEventSignupNotDone = $scope.$on("signupNotDone", function(event, message){
+      $scope.hideSpinner();
+      $log.debug(message);
+      $scope.showAlert('alert-danger', "Server Error:" + message.status);
+      cleanupEventSignupNotDone();
+    });
+
+
 
     // function to send and stringify user email to Rest APIs for token regenerate
     $scope.jsonRegenerateTokenData = function()

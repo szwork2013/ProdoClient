@@ -94,6 +94,16 @@ angular.module('prodo.UserApp').factory('UserSessionService', [
     session.isLoggedIn = false;
     session.currentUser = null;
     session.productfollowlist = {};
+
+    session.signupUser = function (userdata) {
+      UserService.Signup.saveUser(userdata, function (success) {
+        $log.debug(success);
+        $rootScope.$broadcast('signupDone', success);
+      }, function (error) {
+        $log.debug(error);
+        $rootScope.$broadcast('signupNotDone', error.status);
+      });
+    };
     session.signinUser = function (userdata) {
       UserService.Signin.signinUser(userdata, function (success) {
         $log.debug(success);

@@ -108,8 +108,10 @@ angular.module('prodo.ProdonusApp', [
                 if (data.products_followed == null && data.products_followed == undefined) {
                   $log.debug('There is some problem with the database. Please contact support.')
                 } else if (data.products_followed.length > 0) {
-                    $rootScope.orgid= data.products_followed[0].orgid;
-                    $rootScope.product_prodle= data.products_followed[0].prodle;
+                    var n = data.products_followed.length - 1;
+                    console.log(n);
+                    $rootScope.orgid= data.products_followed[n].orgid;
+                    $rootScope.product_prodle= data.products_followed[n].prodle;
                     for (var i=0;i<data.products_followed.length;i++){
                       if(data.products_followed[i] && data.products_followed[i].prodle){
                         var prodle = data.products_followed[i].prodle;
@@ -119,8 +121,13 @@ angular.module('prodo.ProdonusApp', [
                   UserSessionService.getProductFollowed($scope.prodlesfollowed);
                 }
                 if (data.org) {
-                  OrgRegistrationService.getOrgDetailSettings(data.org.orgid);
-                } else {
+                  $rootScope.orgid = data.org.orgid;
+                  $state.transitionTo('prodo.wall.org');
+                  // OrgRegistrationService.getOrgDetailSettings($rootScope.orgid);
+                } else if (data.products_followed.length > 0) {
+                    var n = data.products_followed.length - 1;
+                    console.log(n);
+                    $rootScope.orgid= data.products_followed[n].orgid;
                     $state.transitionTo('prodo.wall.org');
                 }
             } 
