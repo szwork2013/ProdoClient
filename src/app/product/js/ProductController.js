@@ -152,6 +152,7 @@
                       }
                     } 
                     //if no comments , dont show load more comments button
+                    $("#loadMoreCommentMsg").css("display", "none");
                     if(successData.success.product.product_comments.length<5){
                       $("#load-more").css("display", "none");
                     }

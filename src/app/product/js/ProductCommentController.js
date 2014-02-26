@@ -364,6 +364,8 @@ angular.module('prodo.ProductApp')
 	                              	}
 	                              	else 
 	                              	{
+	                              		$("#loadMoreCommentMsg").css("display", "block");
+	                              		$("#load-more").css("display","none");
 	                              		if(result.error.code=='AC002'){
 
 	                              			$("#loadMoreCommentMsg").html(result.error.message);
