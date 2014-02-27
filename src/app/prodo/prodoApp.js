@@ -109,10 +109,8 @@ angular.module('prodo.ProdonusApp', [
                   $log.debug('There is some problem with the database. Please contact support.')
                 } else if (data.products_followed.length > 0) {
                     var n = data.products_followed.length - 1;
-                    console.log(n);
                     $rootScope.orgid= data.products_followed[n].orgid;
                     $rootScope.product_prodle= data.products_followed[n].prodle;
-                    console.log($rootScope.product_prodle);
                     for (var i=0;i<data.products_followed.length;i++){
                       if(data.products_followed[i] && data.products_followed[i].prodle){
                         var prodle = data.products_followed[i].prodle;
@@ -127,7 +125,6 @@ angular.module('prodo.ProdonusApp', [
                   // OrgRegistrationService.getOrgDetailSettings($rootScope.orgid);
                 } else if (data.products_followed.length > 0) {
                     var n = data.products_followed.length - 1;
-                    console.log(n);
                     $rootScope.orgid= data.products_followed[n].orgid;
                     $state.transitionTo('prodo.wall.org');
                 }

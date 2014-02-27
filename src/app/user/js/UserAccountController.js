@@ -292,6 +292,7 @@ angular.module('prodo.UserApp')
     // function to handle server side responses
     $scope.handleGetUserResponse = function(data){
       if (data.success) {
+          console.log(data.success.user)
           $scope.user = data.success.user;
           var d=new Date(data.success.user.dob);
           var year=d.getFullYear();

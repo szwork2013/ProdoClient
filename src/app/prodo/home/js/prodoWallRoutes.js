@@ -34,12 +34,18 @@ angular.module('prodo.ProdoWallApp')
     })
     .state('prodo.wall.org', { 
        templateUrl:  'org/manageorg/views/prodo.wall.org.tpl.html',
-        controller: 'ProdoWallController',
+       controller: 'ProdoWallController',
        resolve: {
-          orgdata: function(OrgRegistrationService, $rootScope) {
+          orgdata: function(OrgService, $rootScope) {
+            console.log('hi-1');
+             return OrgService.org_data.getOrgSettings({orgid: $rootScope.orgid}).$promise;
+          },
+
+          orgdata1: function(OrgRegistrationService, $rootScope) {
                         console.log("Resolving dependency...");
-                       return OrgRegistrationService.getOrgDetailSettings($rootScope.orgid);
-                        
+                        var n = OrgRegistrationService.getOrgDetailSettings($rootScope.orgid);
+                       console.log(n)
+                       return n; 
                     },
           orgproductdata: function(OrgRegistrationService, $rootScope) {
               console.log("Resolving dependency...");
@@ -50,7 +56,10 @@ angular.module('prodo.ProdoWallApp')
               console.log("Resolving dependency...");
              return OrgRegistrationService.getAllOrgAddress($rootScope.orgid);
               
-          }
+          },
+          test: function(){
+              console.log("test")
+            }
         }
       }) 
     .state('prodo.wall.product', {
