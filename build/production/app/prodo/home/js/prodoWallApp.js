@@ -1,7 +1,6 @@
 angular.module('prodo.ProdoWallApp')
-	.controller('ProdoWallController', ['$rootScope', '$scope', '$state', '$log', 'OrgRegistrationService', 'orgdata', function($rootScope, $scope, $state, $log, OrgRegistrationService,orgdata) {
-		$scope.gists = orgdata;
-		console.log($scope.gists);
+	.controller('ProdoWallController', ['$rootScope', '$scope', '$state', '$log', 'OrgRegistrationService', 'orgdata', 'orgdata1', function($rootScope, $scope, $state, $log, OrgRegistrationService,orgdata, orgdata1) {
+		console.log(orgdata.success.organization);
 
 	// $rootScope.$watch('orgid', function() {
 	// 	console.log($rootScope.orgid);

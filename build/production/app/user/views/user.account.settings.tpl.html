@@ -46,9 +46,6 @@
               <dt>UserName:</dt>
               <dd>{{user.username}}</dd>
               <br>
-              <dt ng-show='user.org'>Organization Name:</dt>
-              <dd ng-show='user.org'>{{user.org.orgname}}</dd>
-              <br>
               <dt>Email:</dt>
               <dd ng-hide="editEmail">{{user.email}}</dd>
               <dd ng-show="editEmail"><input name="email" style="width:55%; height:30px; display:block" type="email" class="form-control" ng-model="user.email" required><small style='color:red;' ng-show="form.usergeneralsettingform.email.$error.required">Email is required!</small><small style='color:red;' ng-show="form.usergeneralsettingform.email.$error.email">Enter valid email!</small>
@@ -56,6 +53,9 @@
               <br>
               <dt ng-show="editEmail">Password:</dt>
               <dd ng-show="editEmail"><input name="password" style="width:55%; height:30px; display:block" class="form-control" type="password" ng-model="user.password" placeholder="Please enter your password" required><small style='color:red;' ng-show="(form.usergeneralsettingform.password.$dirty && form.usergeneralsettingform.password.$error.required)">Password is required!</small></dd>
+              <br>
+              <dt ng-show="(user.org.orgid != null)">Organization Name:</dt>
+              <dd ng-show="(user.org.orgid != null)">{{user.org.orgname}}</dd>
               <br>
               <dd><p class="text-danger"><small style='color:red;'>{{generalsettingchange}}</small></p></dd>
             </dl>
