@@ -166,23 +166,24 @@
                   }
                 };
                 //error handling for add product
-
+             
                 //add ,update product
                 $scope.addProduct = function(editStatus)
                 { 
-                    
+
                   
                    $("productExtraInfo").css("display", "none");
                    $("#ErrMsging").css("display", "none");
                  //Input check validations are on Client side( using Angular validations)
-                 $scope.newProduct = {product: {
+                
+                $log.debug($scope.orgidFromSession);
+                  if(editStatus=='add'){ //add product
+                     $scope.newProduct = {product: {
                   display_name: $scope.display_name,
                   model_no: $scope.product.model_no,
                   name: $scope.product.name,
                   description: $scope.product.description
                 }};
-                $log.debug($scope.orgidFromSession);
-                  if(editStatus=='add'){ //add product
                    if ($rootScope.usersession.currentUser.org.isAdmin ==true) {
 
                     ProductService.saveProduct({orgid: $scope.orgidFromSession}, $scope.newProduct,
@@ -199,6 +200,15 @@
                   else  growl.addErrorMessage("You dont have rights to add product...");
                 }
                 else if(editStatus=='update'){ //update product
+                   $scope.newProduct = {product: {
+                  display_name: $scope.display_name,
+                  model_no: $scope.product.model_no,
+                  name: $scope.product.name,
+                  description: $scope.product.description,
+                  support_discontinuation_date:$scope.product.supDis,
+                  sale_discontinuation_date:$scope.product.prodDis,
+                  banneddate:$scope.product.banneddate
+                }};
                   if ($rootScope.usersession.currentUser.org.isAdmin ==true) {
                     if ($scope.orgidFromSession === $rootScope.orgid ) {
                      ProductService.updateProduct({orgid:$scope.orgidFromSession,prodle:$rootScope.product_prodle}, $scope.newProduct,
@@ -282,27 +292,7 @@
                  }
                 //clear text fields of product
 
-                // display DiscontinuedSupport fields if product id discontinued
-                $scope.ShowDiscontinuedSupport=function(product){
-                 if (product.support_discontinuation_date) return{display: "inline" } 
-                   else return{display: "none" } 
-                 };
-                 // display DiscontinuedSupport fields if product is discontinued
-
-                 // display DiscontinuedSale fields if product is discontinued 
-                 $scope.ShowDiscontinuedSale=function(product){
-                   if (product.sale_discontinuation_date) return{display: "inline" } 
-                     else return{display: "none" }              
-                   };
-                  // display DiscontinuedSale fields if product is discontinued 
-
-                  // display BannedDate fields if product is banned   
-                  $scope.ShowBannedDate=function(product){
-                   if (product.banneddate) {
-                    return{display: "inline" } 
-                  }
-                };
-                 // display BannedDate fields if product is banned    
+               
 
                  //toggle to select all product iamges
                  $scope.selectAllImages = function() { 
@@ -695,7 +685,12 @@
               $scope.selectedFeature=feature;
              };
               //delete feature modal data passing
-
+             
+              //date format
+               $scope.formatDate=function(time){
+                return(moment(time).format('DD MMM YYYY'));
+               };
+               //date format
 
           }]) 
 

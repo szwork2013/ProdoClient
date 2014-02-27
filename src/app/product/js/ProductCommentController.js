@@ -362,11 +362,7 @@ angular.module('prodo.ProductApp')
 	                             };
 					             //if error adding comment  show retry icon
 
-	                             //date format
-	                             $scope.formatDate=function(time){
-	                             	return(moment(time).format('DD MMM YYYY'));
-	                             };
-	                             //date format
+	                            
 
 	                              //Load more comments handler
 	                              $scope.handleLoadMoreCommentResponse=function(result){
