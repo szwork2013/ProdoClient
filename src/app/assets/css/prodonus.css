@@ -198,7 +198,7 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
 
 /*change the View: signup div style*/
 #prodo-view-signup{
-  border: 1px solid #94d2f8;
+  border: 1px solid #DBDBD4;
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
   border-radius: 6px; 
@@ -300,7 +300,7 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
 }
 
 #prodo-view-signin{
-  border: 1px solid #94d2f8;
+  border: 1px solid #DBDBD4;
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
   border-radius: 6px; 
@@ -383,7 +383,7 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
 	color: #2b8dc0;
 }
 #prodo-view-forgotPassword{
-	border: 1px solid #94d2f8;
+	border: 1px solid #DBDBD4;
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
   border-radius: 6px; 
@@ -433,7 +433,7 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
 	color: #2b8dc0;
 }
 #prodo-view-resetPassword{
-	border: 1px solid #94d2f8;
+	border: 1px solid #DBDBD4;
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
   border-radius: 6px; 
@@ -646,7 +646,7 @@ section:hover #prodo-subscribe-plan-heading{
 **/
 
 #prodo-company-container{
-	border: 1px solid #94d2f8;
+	border: 1px solid #DBDBD4;
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
   border-radius: 6px; 
@@ -725,7 +725,7 @@ section:hover #prodo-subscribe-plan-heading{
 **/
 
 #prodo-address-container{
-	border: 1px solid #94d2f8;
+	border: 1px solid #DBDBD4;
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
   border-radius: 6px; 
@@ -804,7 +804,7 @@ section:hover #prodo-subscribe-plan-heading{
 **/
 
 #prodo-groupuser-container{
-	border: 1px solid #94d2f8;
+	border: 1px solid #DBDBD4;
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
   border-radius: 6px; 
@@ -857,7 +857,7 @@ section:hover #prodo-subscribe-plan-heading{
 **/
 
 #prodo-term-container{
-	border: 1px solid #94d2f8;
+	border: 1px solid #DBDBD4;
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
   border-radius: 6px; 
@@ -934,7 +934,7 @@ section:hover #prodo-subscribe-plan-heading{
 **/
 
 #prodo-payment-container{
-	border: 1px solid #94d2f8;
+	border: 1px solid #DBDBD4;
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
   border-radius: 6px; 
@@ -1000,7 +1000,7 @@ section:hover #prodo-subscribe-plan-heading{
 **/
 
 #prodo-summary-container{
-	border: 1px solid #94d2f8;
+	border: 1px solid #DBDBD4;
 	-webkit-border-radius: 6px;
 	-moz-border-radius: 6px;
   border-radius: 6px; 
@@ -2020,8 +2020,21 @@ width:10%; height: 10%; float: left; margin: 5px; border: solid 1px #ccc;
 	color: #FFFFFF;   background-color: #cccccc;border: none; cursor:not-allowed;
 }
 
+.floatLeft
+{
+	float: right;
+}
 
-
+.errorClassMessage
+{
+	 	background-color:#F59C9C;
+}
+.texttest
+{
+	float:left;
+	width:50%;
+	text-align:center;
+}
 
 
 

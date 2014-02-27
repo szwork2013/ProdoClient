@@ -440,27 +440,59 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
         restrict: 'A',
         require: 'ngModel',
         link: function (scope, ele, attrs, ngModel , growl) {
-          $('#searchText').on('keyup', function (e) {
+
+          $('#searchText').on('keyup', function (e) {  
+   
+            $rootScope.errors="";
             var value = $(this).val().trim();
-            var req = { 'name': value };
+            var req = { 'name': value , 'orgid' : $rootScope.orgid};
+            console.log("Json" + JSON.stringify(req));
               if(value !=="")
               {
                       $http({
                         method: 'POST',
                         url: '/api/allproduct/',
                         data: req
-                      }).success(function (data, status, headers, cfg) {
-                         console.log(data);
+                      }).success(function (data) {
+                        if(data.error)
+                        {
+                             if(data.error.code==="AD001")                       
+                            {
+                                  $rootScope.errors="Please assign orgid";
+                                  //alert("No orgid");
+                            }
+                        }
+                        else if(data.success)
+                        {
+                            if(data.name.doc.length===0)
+                            {
+                                      if(value==="")
+                                      {
+                                         $rootScope.errors="";
+                                      }
+                                      else
+                                      {
+                                          $rootScope.errors="No products found for \n '" + $rootScope.organizationData.currentOrgData.name+"'";
+
+                                      }
+                            }
+                        
+                         
+                        }
                         $rootScope.enhancement={};
                         $rootScope.productNames=[];
                         $rootScope.enhancement=data.name.doc;
-                        $rootScope.productNames=data.success.doc;
-                      }).error(function (data, status, headers, cfg) {
-                        growl.addErrorMessage(" Something Went Wrong ! Please try after some time");
-                       
+                        $rootScope.productNames=data.success.doc;                
+                      }).error(function (data) {
+                         $rootScope.errors="Server Error";       
                       });   
 
              }
+           
+             // else
+             // {
+             //          $('#refreshIcon').css('display','none');
+             // }
           });
         }
       };

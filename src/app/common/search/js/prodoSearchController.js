@@ -9,14 +9,13 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
   '$resource' ,
   'trendingProductService',
   'growl',
-
-  
   function ($scope, $log, $rootScope, prodoSearchService, UserSessionService, searchProductService, $http, $resource,trendingProductService,growl) {
 //Declaration of variables
+console.log("rootscope"+$rootScope.orgid);
     $scope.productNames=[];  //Store objects from searchproduct api
     $scope.selected = undefined; 
     $scope.tempnames=[]; 
-    $scope.search = {}; //Object for storing search query string
+    $scope.search = {}; //Object for .onstoring search query string
     $scope.result=[];
     $rootScope.productSearch={product:""};    // Roostscope to transfer prodle data to productcontroller
     $rootScope.enhancement={};    // Temporary variable to display product names
@@ -26,10 +25,11 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
     $scope.names=[];
     $scope.message="";//This variable stores the message received from server 
     trendingProductService.getTrendingProducts();  //Calling service to get //Trending Products
-
+    $scope.followed_products={};
     $scope.trendingProducts={};  //This object will store array received from API; This is used in ng-repeat in the template
-
+    $rootScope.errors="";
     $scope.title = "Trending Products"; //  This is the variable to toggle div tag heading (Second Box of sidebar); 
+    $scope.followed_products;
 
           $scope.$on('gotTrendingProducts', function (event, data) //After getting Data from trending product aPI
           {
@@ -37,7 +37,7 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
           });
           $scope.$on('notGotTrendingProducts', function (event, data) //Error handling needed for 
           {
-            growl.addErrorMessage(data);
+            $rootScope.errors="Server Error";
           });
 
     //The following function was written to resolve the problem of getting search result in first letter/
@@ -63,7 +63,7 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
 
                 }
                 ).error(function (data, status, headers, cfg) {
-                growl.addErrorMessage(data);                 
+                            $rootScope.errors="Server Error";              
                 });        
           };
 
@@ -120,6 +120,8 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
 //The following function is called when search button is clicked from advanced search modal
     $scope.searchProductData = function () 
     {
+         // $('#productSearchResult').css("display","none");
+         // $('#orgSearchResult').css("display","none");
          $scope.count=0;
          $scope.search.productsearchdata={};
          if ($scope.product_name !== '') 
@@ -183,18 +185,18 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
           }
          else
          {         
-                 console.log("Json file " + JSON.stringify($scope.search));
                  prodoSearchService.searchProduct($scope.search);    //Calling searchproduct api for advanced search; Format for input is {productsearchdata:{''}}
                  // $scope.search.productsearchdata= {};
                  $scope.$on('getSearchProductDone', function (event, data) {
                  $scope.result=data.success.doc;
+             
                  $scope.message="";
                  $scope.message=data.success.message;
                   //alert($scope.message);
                  });
                  $scope.$on('getSearchProductNotDone', function (event, data) {
 
-                  growl.addErrorMessage(data);
+                  $rootScope.errors="Server Error";
 
                  });
 
@@ -225,13 +227,15 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
               $scope.result=[];
               $scope.org="";
               $scope.message="";
+              // $('#productSearchResult').css("display","none");
+              // $('#orgSearchResult').css("display","none");
     };
 
 //This function is called when a product from simple search is selected
 //It will search for respective prodle and orgid of product and assign it to rootscope variables
     $scope.quickSearchEmit = function () 
     {  
-        $rootScope.productSearch.product=$rootScope.productSearch.product.substring(2); //This is written to trim first two characters from string; eg: P-Prodonus Software to Prodonus Software
+       // $rootScope.productSearch.product=$rootScope.productSearch.product.substring(2); //This is written to trim first two characters from string; eg: P-Prodonus Software to Prodonus Software
        
         angular.forEach($rootScope.productNames, function(state) 
         {
@@ -243,13 +247,31 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
                 }
          });
        
-
         $scope.title = "Trending Products";
         $rootScope.productSearch.product="";
     };
     $scope.toggleTitleForDiv=function()
     {
          $scope.title="Search";
+         $rootScope.errors="";
+    };
+    // $scope.callOrgDetailsAPI=function(orgid,orgname)
+    // {
+    //     var dataForOrgproductsAPI={};
+    //     dataForOrgproductsAPI.orgname=orgname;
+    //     dataForOrgproductsAPI.orgid=orgid;
+    //     getOrgProductDetails.searchProductOrg(dataForOrgproductsAPI);
+    // };
+    $scope.unfollowProduct = function (product) { 
+
+        UserSessionService.unfollowProduct(product.prodle);
+        var cleanupEventRegenerateTokenNotDone = $scope.$on("unfollowProductDone", function(event, data)
+        {
+                var index = UserSessionService.productfollowlist.indexOf(product);
+                UserSessionService.productfollowlist.splice(index, 1);
+                cleanupEventRegenerateTokenNotDone(); 
+        });
+  
     };
 //End of controller  
 
