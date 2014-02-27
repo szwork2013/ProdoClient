@@ -11,10 +11,11 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
   'growl',
   function ($scope, $log, $rootScope, prodoSearchService, UserSessionService, searchProductService, $http, $resource,trendingProductService,growl) {
 //Declaration of variables
+console.log("rootscope"+$rootScope.orgid);
     $scope.productNames=[];  //Store objects from searchproduct api
     $scope.selected = undefined; 
     $scope.tempnames=[]; 
-    $scope.search = {}; //Object for storing search query string
+    $scope.search = {}; //Object for .onstoring search query string
     $scope.result=[];
     $rootScope.productSearch={product:""};    // Roostscope to transfer prodle data to productcontroller
     $rootScope.enhancement={};    // Temporary variable to display product names
@@ -26,7 +27,7 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
     trendingProductService.getTrendingProducts();  //Calling service to get //Trending Products
     $scope.followed_products={};
     $scope.trendingProducts={};  //This object will store array received from API; This is used in ng-repeat in the template
-    $scope.errors="";
+    $rootScope.errors="";
     $scope.title = "Trending Products"; //  This is the variable to toggle div tag heading (Second Box of sidebar); 
     $scope.followed_products;
 
@@ -36,7 +37,7 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
           });
           $scope.$on('notGotTrendingProducts', function (event, data) //Error handling needed for 
           {
-            $scope.errors="Server Error";
+            $rootScope.errors="Server Error";
           });
 
     //The following function was written to resolve the problem of getting search result in first letter/
@@ -62,7 +63,7 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
 
                 }
                 ).error(function (data, status, headers, cfg) {
-                growl.addErrorMessage(data);                 
+                            $rootScope.errors="Server Error";              
                 });        
           };
 
@@ -195,7 +196,7 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
                  });
                  $scope.$on('getSearchProductNotDone', function (event, data) {
 
-                  $scope.errors="Server Error";
+                  $rootScope.errors="Server Error";
 
                  });
 
@@ -252,6 +253,7 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
     $scope.toggleTitleForDiv=function()
     {
          $scope.title="Search";
+         $rootScope.errors="";
     };
     // $scope.callOrgDetailsAPI=function(orgid,orgname)
     // {

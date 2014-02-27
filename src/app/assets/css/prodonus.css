@@ -2025,7 +2025,16 @@ width:10%; height: 10%; float: left; margin: 5px; border: solid 1px #ccc;
 	float: right;
 }
 
-
+.errorClassMessage
+{
+	 	background-color:#F59C9C;
+}
+.texttest
+{
+	float:left;
+	width:50%;
+	text-align:center;
+}
 
 
 
