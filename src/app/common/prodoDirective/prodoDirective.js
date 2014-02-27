@@ -441,8 +441,7 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
         require: 'ngModel',
         link: function (scope, ele, attrs, ngModel , growl) {
 
-          $('#searchText').on('keyup', function (e) {  
-   
+          $('#searchText').on('keyup', function (e) {  console.log("data from resolve-----------"+$rootScope.errors);
             $rootScope.errors="";
             var value = $(this).val().trim();
             var req = { 'name': value , 'orgid' : $rootScope.orgid};
@@ -467,7 +466,7 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
                             if(data.name.doc.length===0)
                             {
                                       if(value==="")
-                                      {
+                                      {  console.log("true");
                                          $rootScope.errors="";
                                       }
                                       else
@@ -484,7 +483,8 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
                         $rootScope.enhancement=data.name.doc;
                         $rootScope.productNames=data.success.doc;                
                       }).error(function (data) {
-                         $rootScope.errors="Server Error";       
+                         $rootScope.errors="Server Error";
+                        // $("#sidebarErrors").addClass("serverClassMessage");       
                       });   
 
              }
