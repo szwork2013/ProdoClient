@@ -442,22 +442,23 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
         link: function (scope, ele, attrs, ngModel , growl) {
           $('#searchText').on('keyup', function (e) {
             var value = $(this).val().trim();
-            var req = { 'name': value };
+            var req = { 'name': value , 'orgid' : $rootScope.orgid};
+            console.log("Json" + JSON.stringify(req));
               if(value !=="")
               {
                       $http({
                         method: 'POST',
                         url: '/api/allproduct/',
                         data: req
-                      }).success(function (data, status, headers, cfg) {
+                      }).success(function (data) {
                          console.log(data);
                         $rootScope.enhancement={};
                         $rootScope.productNames=[];
                         $rootScope.enhancement=data.name.doc;
                         $rootScope.productNames=data.success.doc;
-                      }).error(function (data, status, headers, cfg) {
-                        growl.addErrorMessage(" Something Went Wrong ! Please try after some time");
-                       
+
+                      }).error(function (data) {
+                         scope.errors="Server Error";       
                       });   
 
              }

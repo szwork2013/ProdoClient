@@ -353,12 +353,18 @@
                     $('.imgToggles').prop('checked', true)
                   }
                 };
+                $scope.checkedAllIndex=function(imgs){
+                  for(i=0;i<imgs.length;i++){
+                    $scope.chckedIndexs.push(imgs[i]);
+                  }
+                };
 
                //get selected image for delete
                $scope.chckedIndexs=[];
                $scope.checkedIndex = function (img) {
                  if ($scope.chckedIndexs.indexOf(img) === -1) {
                    $scope.chckedIndexs.push(img);
+                   $log.debug($scope.chckedIndexs);
                  }
                  else {
                    $scope.chckedIndexs.splice($scope.chckedIndexs.indexOf(img), 1);
@@ -682,7 +688,7 @@
 
 
                  //Product List pagination
-                 $scope.currentPage = 1;
+                 $scope.currentPage = 0;
                  $scope.pageSize = 4;
 
                  $scope.numberOfPages=function(){
@@ -724,11 +730,12 @@
               };
              //Follow Product
 
-             //
+             //delete feature modal data passing
              $scope.selectedFeature;
              $scope.getSelectedFeature=function(feature){
               $scope.selectedFeature=feature;
-             }
+             };
+              //delete feature modal data passing
 
 
           }]) 

@@ -264,16 +264,31 @@ angular.module('prodo.ProductApp')
 				                						}};
 				                						$rootScope.file_data="";
 				                					}
-				                					$log.debug($scope.newProductComment);
-				                					$scope.socket.emit('addComment', $rootScope.product_prodle, $scope.newProductComment.product_comment);
-				                					$scope.productComments.unshift($scope.newProductComment_image.product_comment);
-				                					$scope.commenttextField.userComment = "";
-				                					$scope.tagPairs=[];
-				                					$rootScope.count=0;
-				                					document.getElementById('prodo-comment-commentContainer').style.marginTop='0px';
-				                					document.getElementById("crossButton").style.display="none";
-				                					$("#prodo-uploadedCommentImage").css("display", "none");      
-				                					$scope.mytags="";
+
+				                					var follow;
+									                   for(i=0 ; i<$scope.ProductsFollowedFromSession.length; i++){
+									                    if($scope.ProductsFollowedFromSession[i].prodle==$rootScope.product_prodle){
+									                      follow=true;
+									                    }
+									                  }
+									                  if(follow==true){
+		                                                    $log.debug($scope.newProductComment);
+						                					$scope.socket.emit('addComment', $rootScope.product_prodle, $scope.newProductComment.product_comment);
+						                					$scope.productComments.unshift($scope.newProductComment_image.product_comment);
+						                					$scope.commenttextField.userComment = "";
+						                					$scope.tagPairs=[];
+						                					$rootScope.count=0;
+						                					document.getElementById('prodo-comment-commentContainer').style.marginTop='0px';
+						                					document.getElementById("crossButton").style.display="none";
+						                					$("#prodo-uploadedCommentImage").css("display", "none");      
+						                					$scope.mytags="";
+									                  }else{
+                                                        growl.addErrorMessage("Please follow this product to start commenting...");
+									                  }
+
+
+
+				                				
 				                				}
 				                			};
 		                       //Add comment function
