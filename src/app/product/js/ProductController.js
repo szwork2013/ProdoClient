@@ -664,18 +664,11 @@
 
                 $scope.followCurrentProduct=function(){
                  $log.debug("following");
-                 var follow;
-                 for(i=0 ; i<$scope.ProductsFollowedFromSession.length; i++){
-                  if($scope.ProductsFollowedFromSession[i].prodle==$rootScope.product_prodle){
-
-                    follow=true;
-
-                  }
-                }
-                if(follow==true){
+                
+            
                   $rootScope.usersession.followProduct($rootScope.product_prodle);
                   growl.addSuccessMessage("Follwing product");
-                }
+                
               };
              //Follow Product
 
