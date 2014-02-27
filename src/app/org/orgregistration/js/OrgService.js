@@ -35,7 +35,15 @@ angular.module('prodo.OrgApp')
       terms: "" 
     }
   })
- 
+ .factory('OrgService', [
+  '$resource',
+  function ($resource) {
+    var OrgS = {
+        org_data: $resource('/api/organization/:orgid', {}, { getOrgSettings: { method: 'GET'} })
+    }
+    return OrgS;
+  }
+])
 // factory service to make call to REST APIs using $resource
  .factory('OrgRegistrationService', ['$rootScope', '$resource', '$log', '$state', function($rootScope, $resource, $log, $state) {
     var OrgService = 

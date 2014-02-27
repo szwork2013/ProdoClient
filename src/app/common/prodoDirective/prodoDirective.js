@@ -161,7 +161,55 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
   var sliderdef = {
       restrict: 'A',
       link: function (scope, ele, attrs, c) {
-        $('#layerslider').layerSlider();
+        $('#layerslider').layerSlider({
+          autoStart               : true,
+    responsive              : true,
+    responsiveUnder         : 0,
+    sublayerContainer       : 0,
+    firstLayer              : 1,
+    twoWaySlideshow         : false,
+    randomSlideshow         : false,
+    keybNav                 : true,
+    touchNav                : true,
+    imgPreload              : true,
+    navPrevNext             : true,
+    navStartStop            : true,
+    navButtons              : true,
+    thumbnailNavigation     : 'hover',
+    tnWidth                 : 100,
+    tnHeight                : 60,
+    tnContainerWidth        : '60%',
+    tnActiveOpacity         : 35,
+    tnInactiveOpacity       : 100,
+    hoverPrevNext           : true,
+    hoverBottomNav          : true,
+    pauseOnHover            : true,
+    globalBGColor           : 'transparent',
+    globalBGImage           : false,
+    animateFirstLayer       : true,
+    yourLogo                : false,
+    yourLogoStyle           : 'position: absolute; z-index: 1001; left: 10px; top: 10px;',
+    yourLogoLink            : false,
+    yourLogoTarget          : '_blank',
+    loops                   : 0,
+    forceLoopNum            : true,
+    autoPlayVideos          : true,
+    autoPauseSlideshow      : 'auto',
+    showBarTimer        : false,
+    showCircleTimer     : false,
+ 
+    // you can change this settings separately by layers or sublayers with using html style attribute
+ 
+    slideDirection          : 'right',
+    slideDelay              : 4000,
+    durationIn              : 1000,
+    durationOut             : 1000,
+    easingIn                : 'easeInOutQuint',
+    easingOut               : 'easeInOutQuint',
+    delayIn                 : 0,
+    delayOut                : 0
+
+        });
       }
     };
   return sliderdef;
@@ -441,8 +489,7 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
         require: 'ngModel',
         link: function (scope, ele, attrs, ngModel , growl) {
 
-          $('#searchText').on('keyup', function (e) {  
-   
+          $('#searchText').on('keyup', function (e) {  console.log("data from resolve-----------"+$rootScope.errors);
             $rootScope.errors="";
             var value = $(this).val().trim();
             var req = { 'name': value , 'orgid' : $rootScope.orgid};
@@ -467,7 +514,7 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
                             if(data.name.doc.length===0)
                             {
                                       if(value==="")
-                                      {
+                                      {  console.log("true");
                                          $rootScope.errors="";
                                       }
                                       else
@@ -484,7 +531,8 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
                         $rootScope.enhancement=data.name.doc;
                         $rootScope.productNames=data.success.doc;                
                       }).error(function (data) {
-                         $rootScope.errors="Server Error";       
+                         $rootScope.errors="Server Error";
+                        // $("#sidebarErrors").addClass("serverClassMessage");       
                       });   
 
              }

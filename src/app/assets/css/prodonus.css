@@ -2028,17 +2028,12 @@ width:10%; height: 10%; float: left; margin: 5px; border: solid 1px #ccc;
 
 .errorClassMessage
 {
-	 	background-color:#F59C9C;
-}
-.texttest
-{
-	float:left;
-	width:50%;
-	text-align:center;
+	 	background-color:#3a87ad;
 }
 
 .controls-upload{
 	text-align: left;
 	padding-left: 40px;
 }
+
 
