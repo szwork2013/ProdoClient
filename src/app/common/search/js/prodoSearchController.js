@@ -14,22 +14,21 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
 console.log("rootscope"+$rootScope.orgid);
     $scope.productNames=[];  //Store objects from searchproduct api
     $scope.selected = undefined; 
-    $scope.tempnames=[]; 
+    //$scope.tempnames=[]; 
     $scope.search = {}; //Object for .onstoring search query string
     $scope.result=[];
     $rootScope.productSearch={product:""};    // Roostscope to transfer prodle data to productcontroller
     $rootScope.enhancement={};    // Temporary variable to display product names
     $scope.searchCriterion={};
     $scope.count=0;  //  Used to prevent api from calling if all fields are empty
-    var arraywithnames =[];
-    $scope.names=[];
+    $scope.names=[];   //testing
     $scope.message="";//This variable stores the message received from server 
     trendingProductService.getTrendingProducts();  //Calling service to get //Trending Products
-    $scope.followed_products={};
+    //$scope.followed_products={};
     $scope.trendingProducts={};  //This object will store array received from API; This is used in ng-repeat in the template
     $rootScope.errors="";
     $scope.title = "Trending Products"; //  This is the variable to toggle div tag heading (Second Box of sidebar); 
-    $scope.followed_products;
+
 
           $scope.$on('gotTrendingProducts', function (event, data) //After getting Data from trending product aPI
           {
@@ -43,29 +42,33 @@ console.log("rootscope"+$rootScope.orgid);
     //The following function was written to resolve the problem of getting search result in first letter/
     //Timebeing it is not being used
     //Need to test it out
-          $scope.getSearchResult=function(val)
+    $scope.getSearchResult=function(val)
+    {
+          $scope.searchCriterion.name=val;
+           return $http({
+          method: 'POST',
+          url: '/api/allproduct/',
+          data: $scope.searchCriterion
+          }).success(function (data, status, headers, cfg) 
           {
-                $scope.searchCriterion.name=val;
-                 return $http({
-                method: 'POST',
-                url: '/api/allproduct/',
-                data: $scope.searchCriterion
-                }).success(function (data, status, headers, cfg) 
-                {
 
-                             var addresses = [];  $scope.names=[];
-                             angular.forEach(data.name.doc, function(item){
-                             addresses.push(item);
-                             $scope.names.push(item);
-                             }); 
-                             console.log(addresses);
-                             return addresses;
+                       var addresses = [];  $scope.names=[];
+                       angular.forEach(data.name.doc, function(item){
+                       addresses.push(item);
+                       $scope.names.push(item);
+                       }); 
+                       console.log(addresses);
+                       return addresses;
 
-                }
-                ).error(function (data, status, headers, cfg) {
-                            $rootScope.errors="Server Error";              
-                });        
-          };
+          }
+          ).error(function (data, status, headers, cfg) {
+                      $rootScope.errors="Server Error";           
+          });        
+    };
+
+
+
+
 
           ////////////// Test functions    ///////////////////////////////
                    var dataTEST=[];
@@ -78,6 +81,10 @@ console.log("rootscope"+$rootScope.orgid);
                    };
           //////////////////////////////////////////////////////////////////////////////////////////       
                   
+
+
+
+
 
 
 
@@ -203,6 +210,10 @@ console.log("rootscope"+$rootScope.orgid);
           }
 
     };
+
+
+
+
 //This function assigns prodles and orgid to rootscope 
     $scope.orgProdleEmitter=function(dataProdle,dataOrgid)
     {   
@@ -211,6 +222,10 @@ console.log("rootscope"+$rootScope.orgid);
         $('#advancedSearchModal').modal('hide');  //code for cloasing modal
         $('.modal-backdrop').remove(); 
     };
+
+
+
+
 //This functions resets the advanced search modal
     $scope.modalReset = function () 
     {
@@ -231,6 +246,9 @@ console.log("rootscope"+$rootScope.orgid);
               // $('#orgSearchResult').css("display","none");
     };
 
+
+
+
 //This function is called when a product from simple search is selected
 //It will search for respective prodle and orgid of product and assign it to rootscope variables
     $scope.quickSearchEmit = function () 
@@ -250,6 +268,10 @@ console.log("rootscope"+$rootScope.orgid);
         $scope.title = "Trending Products";
         $rootScope.productSearch.product="";
     };
+
+
+
+
     $scope.toggleTitleForDiv=function()
     {
          $scope.title="Search";
@@ -262,18 +284,26 @@ console.log("rootscope"+$rootScope.orgid);
     //     dataForOrgproductsAPI.orgid=orgid;
     //     getOrgProductDetails.searchProductOrg(dataForOrgproductsAPI);
     // };
+
+
+
+    //This function is called unfollow product from sidebar; When unfollow button is clicked list from productfollowedlist is spliced;
     $scope.unfollowProduct = function (product) { 
 
         UserSessionService.unfollowProduct(product.prodle);
-        var cleanupEventRegenerateTokenNotDone = $scope.$on("unfollowProductDone", function(event, data)
+        var clearresponse = $scope.$on("unfollowProductDone", function(event, data)
         {
                 var index = UserSessionService.productfollowlist.indexOf(product);
                 UserSessionService.productfollowlist.splice(index, 1);
-                cleanupEventRegenerateTokenNotDone(); 
+                clearresponse(); 
         });
   
     };
-//End of controller  
 
+
+
+
+//End of controller  
+         
   }
 ]);
