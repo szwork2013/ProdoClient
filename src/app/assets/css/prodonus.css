@@ -2017,7 +2017,8 @@ width:10%; height: 10%; float: left; margin: 5px; border: solid 1px #ccc;
  }
 
 .arrowBtn:disabled {
-	color: #FFFFFF;   background-color: #cccccc;border: none; cursor:not-allowed;
+	/*color: #FFFFFF;   background-color: #cccccc;border: none; cursor:not-allowed;*/
+	visibility: hidden;
 }
 
 .floatLeft
@@ -2036,5 +2037,8 @@ width:10%; height: 10%; float: left; margin: 5px; border: solid 1px #ccc;
 	text-align:center;
 }
 
-
+.controls-upload{
+	text-align: left;
+	padding-left: 40px;
+}
 

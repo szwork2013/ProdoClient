@@ -24,11 +24,11 @@
 <div id="prodo-ProductDetails">
 <div >
 <img class="img" id="productLogo"  style=" height: 100px; padding:10px;max-width:200px; cursor: pointer;"   ng-src="{{product.product_logo}}" />
-<strong style="font-size: 20px; margin:20px;max-width:200px; text-align:center;">&nbsp;<span ng-bind="product.name.substring(0,20)"> </span></strong>
+<strong style="font-size: 20px; margin:20px;max-width:200px; text-align:center; color:#82805F">&nbsp;<span ng-bind="product.name.substring(0,20)"> </span></strong>
 <a href="" ng-style="CheckIfAlreadyFollowingProduct()" ng-click="followCurrentProduct()" class="pull-right btn btn-primary btn-sm">  Follow </a>
 
 <br>
-<span  >MODEL NO :&nbsp; <span ng-bind="product.model_no"></span>
+<span style="color:#82805F"" >MODEL NO :&nbsp; <span ng-bind="product.model_no"></span>
 <br>
 <span> <i ng-click="ShowDescription();" style="cursor: pointer;" class="fa fa-caret-right fa-2x "></i>Description :
 <p id="prodo-description" style="height:15px; overflow: hidden;  font-size:12px; "  ng-bind="product.description" > 
@@ -168,9 +168,10 @@
   </ul>
 
   <button class="" id="load-more" ng-click="loadMoreComments()">  
-    <img  id="img-spinner" style="alignment:center; padding :5px;" ng-class="searching && 'active' "                         src="https://raw.github.com/ThomasBurleson/angularJS-TwitterSearch/master/webroot/assets/image/spinner2.gif" alt="Loading"/>
-    Load more...  
+       <span id="img-spinner" > <i style="color:gray;" class="fa fa-spinner fa-spin"> </i></span>
+       Load more...
   </button>
+ 
   <div id="loadMoreCommentMsg" style="text-align:center; width:518px; font-family: Helvetica ;"></div>
 </div>
  

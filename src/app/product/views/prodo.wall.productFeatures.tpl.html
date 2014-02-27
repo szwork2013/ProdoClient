@@ -18,10 +18,10 @@
 <br>
 
          <div style=" height:130px;width:auto;">
-          <button class="arrowBtn" ng-show="productList.length > 4 " style="float: left; margin-top:35px;margin-right:40px; cursor:pointer; font-size:50px;color:gray;" ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1" > <
+          <button class="arrowBtn" ng-show="productList.length > 4 " style="float: left; margin-top:35px;margin-right:40px; cursor:pointer; font-size:50px;color:gray; background-color:white;" ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1" > <
         <!--  <i style="color:gray; font-weight:weight:lighter" class="fa fa-chevron-left fa-3x"></i>  -->
         </button>
-         <a ng-click="enableEditor() ;  editStatus='add'; clearText(); " style="cursor:pointer" data-toggle="collapse" data-target="#Edit" >
+         <a onclick="  $('#ErrMsging').css('display', 'none');$('#prodo-ProductDetails').show(); $('#productExtraInfo').css('display','none');" ng-click=" enableEditor() ;  editStatus='add'; clearText();  " style="cursor:pointer" data-toggle="collapse" data-target="#Edit" >
         <div style="display:inline-block;width:100px; height: 110px; float: left; margin: 5px; border: solid 1px #ccc;">
         <p style="margin:5px auto; display:block; text-align:center; font-weight:bold; font-size:12px;">Add Product</p>
          <div style="margin:0px auto; display:block; width:95%; height: 73%;  " align="center" class="img-rounded fa fa-plus fa-4x"></div>
@@ -35,7 +35,7 @@
           </a>
 
         </div>
-          <button class="arrowBtn"  ng-show="productList.length > 4 " style="float: right; margin-top:35px; cursor:pointer ; font-size:50px;color:gray;" ng-disabled="currentPage >= productList.length/pageSize - 1" ng-click="currentPage=currentPage+1" > >
+          <button class="arrowBtn"  ng-show="productList.length > 4 " style="float: right; margin-top:35px; cursor:pointer ; font-size:50px;color:gray; background-color:white;" ng-disabled="currentPage >= productList.length/pageSize - 1" ng-click="currentPage=currentPage+1" > >
         <!-- <i style="color:gray; font-weight:weight:lighter" class=" fa fa-chevron-right fa-3x"></i>  -->
       </button>
    
@@ -46,7 +46,7 @@
                 <hr>
 
 
-<div id="prodo-ProductDetails">
+<div id="prodo-ProductDetails" style="display:block">
      <!-- All Product List -->
      <!-- General -->
         <h4 style="color: #686114;">GENERAL</h4>
@@ -55,13 +55,10 @@
 
          
 
-          <div style="float:right; padding-left:10px; padding-bottom:20px;"   id="prodo.productAdmin" ng-style="checkAdmintoUpdateProduct();">
-           
-           
+          <div style="float:right; padding-left:10px; padding-bottom:20px;" class="pull-right"  id="prodo.productAdmin" ng-style="checkAdmintoUpdateProduct();">
           
-
-            <a href="" class="btn btn-primary btn-sm pull-right" ng-click="editStatus='update' ; enableEditor() ;  " data-toggle="collapse" data-target="#Edit" > Update &nbsp;<i class="fa fa-pencil-square-o "></i></a>
-            <a href="" class="btn btn-danger btn-sm pull-right" data-toggle="modal" data-target="#myModal">  Delete &nbsp; <i class="fa fa-trash-o"></i> </a>  
+            <a href="" class="btn btn-primary btn-sm " ng-click="editStatus='update' ; enableEditor() ;  " data-toggle="collapse" data-target="#Edit" onclick="$('#prodo-productDiscontinuedUpdate').show();"> Update &nbsp;<i class="fa fa-pencil-square-o "></i></a>
+            <a href="" class="btn btn-danger btn-sm " data-toggle="modal" data-target="#myModal">  Delete &nbsp; <i class="fa fa-trash-o"></i> </a> 
             <br>
           </div>
            
@@ -78,8 +75,8 @@
             Are you sure you want to delete ?
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default glyphicon glyphicon-remove" data-dismiss="modal"></button>
-            <button type="button" class="btn btn-danger glyphicon glyphicon-trash " ng-click="deleteProduct();" data-dismiss="modal" ></button>
+            <button type="button" class="btn btn-default " data-dismiss="modal"> Cancel &nbsp; <i class=" glyphicon glyphicon-remove"></i></button>
+            <button type="button" class="btn btn-danger  " ng-click="deleteProduct();" data-dismiss="modal" > Delete  &nbsp; <i class=" glyphicon glyphicon-trash"></i></button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
@@ -119,7 +116,7 @@
             <div class="prodo-product-general " >
               
               <table class="table child table-hover table-bordered" style="font-size: 14PX;" id="prodo-ProductFeatureTable">
-                <tr style=" background-color: #FFBABA; display: none" id="prodo-productDiscontinued"  >
+                <tr style=" background-color: #FFBABA; display: none" id="prodo-productDiscontinuedUpdate"  >
                   <td  >Product Discontinued   <input  id="prodo-product-features_textfield" type="text" class="form-control" ng-model="product.prodDis" style="float: right" name="prodDis"   /></td>
                   <td  >Support Discontinued   <input id="prodo-product-features_textfield" type="text" class="form-control" ng-model="product.supDis" style="float: right" name="supDis"  /></td>
                 </tr>
@@ -141,8 +138,8 @@
                 <tr ><td colspan="2">
               <!--   <button type="submit" class="btn btn-info" style="width: 550px;"  ng-click=" $parent.isEditing = false" >Save</button>
             -->
-            <a  ng-click="addProduct(editStatus);disableEditor();" class="btn btn-default btn-sm fa fa-floppy-o pull-right" style=" margin: 5px;"   ></a>
-            <a class="btn btn-default btn-sm glyphicon glyphicon-remove pull-right"  style=" margin: 5px;"  ng-click="disableEditor()"></a>
+            <a  ng-click="addProduct(editStatus);disableEditor();" class="btn btn-primary btn-sm  pull-right" style=" margin: 5px;"   >Save &nbsp;<i class="fa fa-floppy-o"></i></a>
+            <a onclick="$('#productExtraInfo').css('display','block');" class="btn btn-default btn-sm  pull-right"  style=" margin: 5px;"  ng-click="disableEditor()" > Cancel &nbsp;<i class="glyphicon glyphicon-remove"></i></a>
           </td>
         </tr>
       </table>
@@ -155,6 +152,7 @@
       <div style="clear:both;"></div>
 
 <hr>
+<div id="productExtraInfo">
        <!-- Features -->
         <h4 style="color: #686114;">FEATURES</h4>
          
@@ -175,8 +173,8 @@
 			  
 			    <tr style="font-size: 14PX;" ><td colspan="2">
 			   
-			    <a  ng-click="addProductFeature(editStatus);disableEditor(); " class="btn btn-default btn-sm fa fa-floppy-o pull-right" style=" margin: 5px;"  ></a>
-			    <a class="btn btn-default btn-sm glyphicon glyphicon-remove pull-right" style=" margin: 5px;" ng-click="disableEditor() ; "></a>
+			    <a  ng-click="addProductFeature(editStatus);disableEditor(); " class="btn btn-primary btn-sm  pull-right" style=" margin: 5px;"  > Save &nbsp;<i class="fa fa-floppy-o"></i></a>
+			    <a class="btn btn-default btn-sm  pull-right" style=" margin: 5px;" ng-click="disableEditor() ; "> Cancel&nbsp;<i class="glyphicon glyphicon-remove"></i></a>
 			  </td>
 			</tr>
 			</table>
@@ -220,8 +218,8 @@
 			            Are you sure you want to delete {{selectedFeature.featurename}} product feature ?
 			          </div>
 			          <div class="modal-footer">
-			            <button type="button" class="btn btn-default glyphicon glyphicon-remove" data-dismiss="modal"></button>
-			            <button type="button" class="btn btn-danger glyphicon glyphicon-trash"  ng-click="deleteFeature(selectedFeature)" data-dismiss="modal" ></button>
+			            <button type="button" class="btn btn-default " data-dismiss="modal">Cancel&nbsp;<i class="glyphicon glyphicon-remove"></i></button>
+			            <button type="button" class="btn btn-danger "  ng-click="deleteFeature(selectedFeature)" data-dismiss="modal" >Delete&nbsp;<i class="glyphicon glyphicon-trash"></i></button>
 			          </div>
 			        </div><!-- /.modal-content -->
 			      </div><!-- /.modal-dialog -->
@@ -283,8 +281,8 @@
 		            Are you sure you want to delete selected images?
 		          </div>
 		          <div class="modal-footer">
-		            <button type="button" class="btn btn-default glyphicon glyphicon-remove" data-dismiss="modal"></button>
-		            <button type="button" class="btn btn-danger glyphicon glyphicon-trash"  ng-click="deleteProductImages($index);" data-dismiss="modal" ></button>
+		            <button type="button" class="btn btn-default " data-dismiss="modal"> Cancel &nbsp;<i class="glyphicon glyphicon-remove"></i></button>
+		            <button type="button" class="btn btn-danger "  ng-click="deleteProductImages($index);" data-dismiss="modal" >Delete &nbsp;<i class="glyphicon glyphicon-trash"></i></button>
 		          </div>
 		        </div><!-- /.modal-content -->
 		      </div><!-- /.modal-dialog -->
@@ -303,7 +301,7 @@
 		  <td>Logo</td>
 		  <td>
           <div class="controls" > 
-      <span class="btn btn-info fileinput-button" style="width: 200px;" >
+      <span class="btn btn-primary fileinput-button controls-upload" style="width: 200px;" >
         <i class="glyphicon glyphicon-upload "></i>
         <input   type="file" name="file" ng-file-select="onFileSelect($files)"  ng-click="uploadSrc = 'productlogo';">
         <span>Upload Logo</span>
@@ -316,7 +314,7 @@
 		  <td>Art Work</td>
 		  <td>
           <div class="controls" > 
-	      <span class="btn btn-info fileinput-button" style="width: 200px;" >
+	      <span class="btn btn-primary fileinput-button controls-upload" style="width: 200px;" >
 	        <i class="glyphicon glyphicon-upload "></i>
 	        <input   type="file" name="file" ng-file-select="onFileSelect($files)" multiple ng-click="uploadSrc = 'product';">
 	        <span>Upload Art Work</span>
@@ -329,7 +327,7 @@
 		  <td>Data</td>
 		  <td>
           <div class="controls" > 
-      <span class="btn btn-info fileinput-button" style="width: 200px;" >
+      <span class="btn btn-primary fileinput-button controls-upload" style="width: 200px;" >
         <i class="glyphicon glyphicon-upload "></i>
         <input   type="file" name="file" ng-file-select="onFileSelect($files)" multiple ng-click="uploadSrc = 'productlogo';">
         <span>Upload Product</span>
@@ -345,6 +343,8 @@
   </div>
   </center>
         </div>
+</div>
+
 </div>
 </div>
 

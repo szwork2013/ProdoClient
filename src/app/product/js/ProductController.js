@@ -103,6 +103,7 @@
                    }
                    else {
                      $("#prodo-ProductDetails").css("display", "block");
+                      $("productExtraInfo").css("display", "block");
                       $("#ErrMsging").css("display", "none");
                     $log.debug(successData.success.product);
                     $scope.getProductFeatures();
@@ -169,6 +170,10 @@
                 //add ,update product
                 $scope.addProduct = function(editStatus)
                 { 
+                    
+                  
+                   $("productExtraInfo").css("display", "none");
+                   $("#ErrMsging").css("display", "none");
                  //Input check validations are on Client side( using Angular validations)
                  $scope.newProduct = {product: {
                   display_name: $scope.display_name,
@@ -545,18 +550,18 @@
                   ProductFeatureService.updateFeature({orgid:$scope.orgidFromSession,prodle:$rootScope.product_prodle,productfeatureid:id},{'productfeature': data},
                     function(success) {
                       $log.debug(success);
-                                                            $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
-                                                            // $scope.features.push($scope.newFeature);
-                                                            growl.addSuccessMessage(success.success.message);                                                               
-                                                          },
-                                                          function(error) {
-                                                            $log.debug(error);
-                                                            growl.addErrorMessage(error);
-                                                          });
-  }
-  else  growl.addErrorMessage("You dont have rights to update product feature...");
-}
-};
+                      $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
+                      // $scope.features.push($scope.newFeature);
+                      growl.addSuccessMessage(success.success.message);                                                               
+                    },
+                    function(error) {
+                      $log.debug(error);
+                      growl.addErrorMessage(error);
+                    });
+                }
+                else  growl.addErrorMessage("You dont have rights to update product feature...");
+              }
+              };
               //update product feature
 
 
