@@ -19,23 +19,21 @@
 
 
 <div growl></div>
+<div id="ErrMsging" style="font-family: Helvetica ;font-size:18px; padding :10px; margin-top:20px; margin-bottom:20px;"></div>
 <br>
 <div id="prodo-ProductDetails">
 <div >
 <img class="img" id="productLogo"  style=" height: 100px; padding:10px;max-width:200px; cursor: pointer;"   ng-src="{{product.product_logo}}" />
-<strong style="font-size: 20px; margin:20px;max-width:200px; text-align:center;">&nbsp;<span ng-bind="product.name.substring(0,20)"> </strong>
+<strong style="font-size: 20px; margin:20px;max-width:200px; text-align:center;">&nbsp;<span ng-bind="product.name.substring(0,20)"> </span></strong>
 <a href="" ng-style="CheckIfAlreadyFollowingProduct()" ng-click="followCurrentProduct()" class="pull-right btn btn-primary btn-sm">  Follow </a>
-</span>
+
 <br>
-<span  >MODEL NO :&nbsp; <span ng-bind="product.model_no"></span></span>
+<span  >MODEL NO :&nbsp; <span ng-bind="product.model_no"></span>
 <br>
 <span> <i ng-click="ShowDescription();" style="cursor: pointer;" class="fa fa-caret-right fa-2x "></i>Description :
 <p id="prodo-description" style="height:15px; overflow: hidden;  font-size:12px; "  ng-bind="product.description" > 
-
-
 </p> 
 </span>
-
  </span>
 
 <table class="table child "  id="prodo-ProductFeatureTable" >

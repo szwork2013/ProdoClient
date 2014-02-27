@@ -52,36 +52,22 @@
 
                //watch prodle if changed by user by product search or any other source
                $rootScope.$watch('product_prodle', function() {  
-                $log.debug("Listening");
-                growl.addInfoMessage("Getting product details");
+                $log.debug("Listening" + $rootScope.product_prodle);
+                // growl.addInfoMessage("Getting product details");
                 $scope.features=[];
                 $("#productLogo").attr('src', '');
                 var temp=document.getElementById('prodo-comment-container');
                 if($rootScope.product_prodle!==undefined && $rootScope.product_prodle!==null && $rootScope.product_prodle!==""){
                     $scope.getProduct(); //if product available, call getproduct
                   }
-                    else{    //if product not available,  dont show comment tab and rest product related views
-                     if($rootScope.usersession.currentUser.org){
-                      if($rootScope.usersession.currentUser.org.isAdmin==true){ //if isAdmin, show upload and product add options
-                       $("#prodo-ProductFeatureTable").css("display", "none"); 
-                       $("#prodoCommentsTab").css("display", "none");
-                       $("#tabComments").css("display", "none");
-                       $("#prodoUploadTab").css("display", "inline");    
-                       $("#Upload-clck").css("display", "block");
-                       $("#prodoProductFeaturesTab").css("display", "inline");
-                       $("#prodo.productAdmin").css("display", "none"); 
-                       $("#prodo.productAdminAddProduct").css("display", "inline"); 
-                     }
-                     else {  //if not admin , show msg to follow product
-                       temp.innerHTML="<br>Please start following a product using search....<br><br>";
-                       growl.addErrorMessage(" Product not available ....");
-                     }
+                   
+                   else { //show msg to follow product
+                    $("#prodo-ProductDetails").css("display", "none");
+                    $("#ErrMsging").css("display", "block");
+                     document.getElementById("ErrMsging").innerHTML="You are not following any product , Please start following product....";
+                    growl.addErrorMessage(" You are not following any product , Please start following product....");
                    }
-                   else { //if not admin , show msg to follow product
-                     temp.innerHTML="<br>Please start following a product using search....<br><br>";
-                     growl.addErrorMessage(" Product not available ....");
-                   }
-                 }
+                 
                });
 
               //get login details
@@ -110,30 +96,14 @@
                  ProductService.getProduct({orgid: $rootScope.orgid, prodle: $rootScope.product_prodle},
                   function(successData) {
                     if (successData.success == undefined){  //if not product
-                      var temp=document.getElementById('prodo-comment-container');
-                      $log.debug(temp);
-                      if($rootScope.usersession.currentUser.org){
-                        if($rootScope.usersession.currentUser.org.isAdmin==true)  //if isAdmin, show upload and product add options
-                        {
-                          $("#prodoCommentsTab").css("display", "none");
-                          $("#tabComments").css("display", "none");
-                          $("#prodoUploadTab").css("display", "inline"); 
-                          $("#Upload-clck").css("display", "block");
-                          $("#prodoProductFeaturesTab").css("display", "inline");
-                          $("#prodo.productAdmin").css("display", "none"); 
-                          $("#prodo.productAdminAddProduct").css("display", "inline"); 
-                        }
-                        else { //if not admin , show msg to follow product
-                         temp.innerHTML="<br>Please start following a product using search....<br><br>";
-                         growl.addErrorMessage(" Product not available ....");
-                       }
-                     }
-                     else { //if not admin , show msg to follow product
-                       temp.innerHTML="<br>Please start following a product using search...<br><br>";
-                       growl.addErrorMessage(" Product not available ....");
-                     }
+                     $("#prodo-ProductDetails").css("display", "none");
+                      $("#ErrMsging").css("display", "block");
+                      document.getElementById("ErrMsging").innerHTML="Product not available....";
+                    growl.addErrorMessage(" Product not available....");
                    }
                    else {
+                     $("#prodo-ProductDetails").css("display", "block");
+                      $("#ErrMsging").css("display", "none");
                     $log.debug(successData.success.product);
                     $scope.getProductFeatures();
                     $scope.checkAdminProductUpload();
@@ -164,32 +134,14 @@
                   }
                 },
                 function(error) {  //if error geting product
-                 var temp=document.getElementById('prodo-comment-container');
-                 $log.debug(temp);
-                 if($rootScope.usersession.currentUser.org){
-                  if($rootScope.usersession.currentUser.org.isAdmin==true){ //if product owener, allow to add and upload product
-                    $("#prodoCommentsTab").css("display", "none");
-                    $("#tabComments").css("display", "none");
-                    $("#prodoUploadTab").css("display", "inline");    
-                    $("#Upload-clck").css("display", "block");
-                    $("#prodoProductFeaturesTab").css("display", "inline");
-                    // $("#prodo.productAdmin").css("display", "none"); 
-                    $("#prodo.productAdminAddProduct").css("display", "inline"); 
-                  }
-                       else { //if not admin , show msg to follow product
-                         temp.innerHTML="<br>Please start following a product using search....<br><br>";
-                         growl.addErrorMessage(" Product not available ....");
-                       }
-                     }
-                     else { //if not admin , show msg to follow product
+               
                        $log.debug(error);
-                       var temp=document.getElementById('prodo-comment-container');
-                       $log.debug(temp);
-                       temp.innerHTML="<br> Server error please try after some time<br><br>";
-                       growl.addErrorMessage( "Server Error:" + error.status);
-                     }
-                   });
-  }
+                        $("#prodo-ProductDetails").css("display", "none");
+                         $("#ErrMsging").css("display", "inline");
+                         document.getElementById("ErrMsging").innerHTML="Server Error:" + error.status;
+                        growl.addErrorMessage( "Server Error:" + error.status);
+                    });
+            }
                 //get product function declaration  
 
 
@@ -270,8 +222,10 @@
                        if(data.success){
                         if(data.success.product.length==0){ //after deleting product, check for next product from product followed,if no product - display msg
                          $log.debug(data.success.product.length);
-                         temp.innerHTML="<br>Product not available ... Add new product<br><br>";
-                         growl.addErrorMessage(" Product not available ...");
+                          $("#prodo-ProductDetails").css("display", "none");
+                         $("#ErrMsging").css("display", "inline");
+                         document.getElementById("ErrMsging").innerHTML="Product not available , Add new product ...";
+                         growl.addErrorMessage(" Product not available , Add new product ...");
 
                        }
 
@@ -530,18 +484,18 @@
                   ProductFeatureService.deleteFeature({orgid: $scope.orgidFromSession, prodle: $rootScope.product_prodle ,productfeatureid:feature.featureid},
                     function(success) {
                       $log.debug(JSON.stringify( success));
-                                                      //client side delete
-                                                      var index = $scope.features.indexOf(feature);
-                                                      if (index != -1)
-                                                        $scope.features.splice(index, 1);
-                                                      growl.addSuccessMessage(success.success.message);
+                      //client side delete
+                      var index = $scope.features.indexOf(feature);
+                      if (index != -1)
+                        $scope.features.splice(index, 1);
+                      growl.addSuccessMessage(success.success.message);
 
-                                                    },
-                                                    function(error){
-                                                     $log.debug(JSON.stringify( error));
-                                                     growl.addErrorMessage(error)
+                    },
+                    function(error){
+                     $log.debug(JSON.stringify( error));
+                     growl.addErrorMessage(error)
 
-                                                   });
+                   });
                 }
                 else //if not owner display msg
                   growl.addErrorMessage("You dont have rights to delete this feature...");
@@ -564,17 +518,17 @@
                     ProductFeatureService.saveFeature({orgid: $scope.orgidFromSession , prodle:$rootScope.product_prodle}, $scope.newFeature,
                       function(success) {
                         $log.debug(success);
-                                                          $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
-                                                          $log.debug("new Feature : "+JSON.stringify( $scope.newFeature.productfeature[0]));
-                                                          $scope.features.push($scope.newFeature.productfeature[0]);
-                                                          growl.addSuccessMessage("Feature added successfully");
-                                                          $log.debug($scope.features);
-                                                          $scope.feature="";
-                                                        },
-                                                        function(error) {
-                                                          growl.addErrorMessage(error);
-                                                          $log.debug(error);
-                                                        });
+                        $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
+                        $log.debug("new Feature : "+JSON.stringify( $scope.newFeature.productfeature[0]));
+                        $scope.features.push($scope.newFeature.productfeature[0]);
+                        growl.addSuccessMessage("Feature added successfully");
+                        $log.debug($scope.features);
+                        $scope.feature="";
+                      },
+                      function(error) {
+                        growl.addErrorMessage(error);
+                        $log.debug(error);
+                      });
                 } //if not owner display msg
                 else  growl.addErrorMessage("You dont have rights to add product feature...");
               }
