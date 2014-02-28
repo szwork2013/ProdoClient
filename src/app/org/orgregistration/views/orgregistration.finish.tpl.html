@@ -61,10 +61,7 @@
 	 			<tbody>
 	 				<tr id="prodo-summary-datarow">
 	 					<td>Contact No.</td>
-	 					<td>{{org.contact_numbers.customerhelpline1}}</td>
-	 					<td>{{org.contact_numbers.customerhelpline2}}</td>
-	 					<td>{{org.contact_numbers.customerhelpline3}}</td>
-	 					<td>{{org.contact_numbers.customerhelpline4}}</td>
+	 					<td ng-repeat='contact in org.contacts'>{{contact.customerhelpline}}</td>
 	 				</tr>
 	 			</tbody>
 

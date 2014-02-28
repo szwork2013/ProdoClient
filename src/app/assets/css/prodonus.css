@@ -61,8 +61,8 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
 /*change the navbar style*/
 #prodo-navbar {
 	height: 40px;
-	margin-bottom: 10px;
-	background: -webkit-linear-gradient(#424040,#000000);
+	margin-bottom: 0px;
+	background-color: #005387;
   }
 
 
@@ -72,7 +72,25 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
 	font:italic bold 20px/30px Georgia,serif;
 	padding: 5px 10px;
   }
- 
+
+#prodo-navbar-text {
+	color: white;
+	font-weight: bold;
+	font-size: 14px;
+} 
+
+#prodo-navbar-link1 {
+	color: white;
+	font-weight: bold;
+	font-size: 14px;
+}
+
+#prodo-navbar-link2 {
+	color: white;
+	font-weight: bold;
+	font-size: 14px;
+} 
+
 /*Advanced Search CSS*/
 .prodoAdvancedSearchTextbox { 
 
@@ -88,7 +106,7 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
 
 
 
-
+/*
 
 .prodo-button {
 	-moz-box-shadow:inset 0px 0px 0px 0px #bee2f9;
@@ -137,7 +155,7 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
 .prodo-button:active {
 	position:relative;
 	top:1px;
-}
+}*/
   #prodo-form-button-logout{
 	width: 60px;
 	height: 25px;
@@ -202,7 +220,6 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
   border-radius: 6px; 
-  background-color: #f3f5f3;
   width: 350px;
   min-height: 400px;
   margin-top: 50px;
@@ -245,7 +262,7 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
 	font-size: 25px;
 	line-height: 20px;
 	padding: 10px;
-	color: #2b8dc0;
+	color: #585E61;
 }
 
 /*change signup terms style*/  
@@ -294,7 +311,7 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
 	font-size: 25px;
 	line-height: 20px;
 	padding: 5px;
-	color: #2b8dc0;
+	color: #585E61;
 	text-align: left;
 	margin: 10px;
 }
@@ -304,7 +321,6 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
   border-radius: 6px; 
-  background-color: #f3f5f3;
   width: 350px;
   min-height: 400px;
   margin-top: 50px;
@@ -1073,6 +1089,14 @@ border-bottom-right-radius: 0px;
 border-bottom-left-radius: 0px;
 }
 
+#prodo-view-navbar{
+  margin-top: 0px;
+  border: 1px solid #0A3151;
+  background-color:#0A3151;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
 /* Prodo Main View: Slider*/
 #prodo-view-slider{
   margin-top: 0px;
@@ -1095,19 +1119,19 @@ border-bottom-left-radius: 0px;
 #prodo-slider-nav-pills > li > a {
   border-radius: 0px;
   font-weight: bold;
-  color: #224068;
+  color: white;
   padding: 5px 2px;
 }
 
 #prodo-slider-nav-pills > li > a:hover {
     background-color:  transparent;
     border-radius: 30px;
-    color: black;
+    color: rgb(194, 214, 206);
 }
 
 #prodo-slider-nav-pills > li.active > a {
-background-color: #91701B;
-color: black;
+background-color: transparent;
+color: rgb(199, 163, 18);
 border-radius: 30px;
 }
 
@@ -1880,11 +1904,7 @@ width:10%; height: 10%; float: left; margin: 5px; border: solid 1px #ccc;
   	-ms-transition: all 1s ease;
   	transition: all 1s ease;
   	display:inline-block;
-  	border:2px solid;
-  	padding-top:5px;
-    width:100px ; 
-    padding-bottom:5px;
-    margin:9px;
+    margin:5px;
 }
 
 .effectpic:hover {
@@ -1899,7 +1919,11 @@ width:10%; height: 10%; float: left; margin: 5px; border: solid 1px #ccc;
 
 .classMain
 {
-	min-height:20px;width:100%;border:3px solid white;padding-left:5px;padding-bottom:5px;
+	min-height:20px;
+	width:100%;
+ 
+	padding-left:5px;
+
 }
 
 .profileImage
@@ -1909,7 +1933,7 @@ width:10%; height: 10%; float: left; margin: 5px; border: solid 1px #ccc;
 
 .prodleImage
 {
-	height:60px;width:60px;
+	height:50px;width:50px;
 }
 #prodo-productchart-dashboard
 {
@@ -1970,6 +1994,36 @@ width:10%; height: 10%; float: left; margin: 5px; border: solid 1px #ccc;
 	padding-left: 40px;
 }
 
+#lineHr
+{
+border-top: 1px solid #eee;
+padding-bottom:5px;
+}
+#userProfilePic
+{
+	height:100px;
+	width:100px;
+}
+.closeButtonModal
+{
+	float:right;
+	padding-right:5px;
+	padding-bottom: 5px; 
+}
+.modal_footer
+{
+padding: 5px 5px 5px;
+margin-top: 15px;
+text-align: right;
+text-align: right;
+}
+.modalHeading
+{
+	font-family: monospace;
+	font-size: 15px;
+	color: #262669;
+}
+
 
 .prodo-registration-Wizard-title
 {
@@ -1978,3 +2032,4 @@ width:10%; height: 10%; float: left; margin: 5px; border: solid 1px #ccc;
 .prodo-registration-Wizard-after{
 	style="color :rgb(200, 219, 200)";
 }
+

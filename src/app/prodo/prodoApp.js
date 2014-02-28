@@ -81,15 +81,15 @@ angular.module('prodo.ProdonusApp', [
       $state.transitionTo('home.signup');
     };
 
-    $scope.$watch('locationPath', function(path) {
-      $location.path(path);
-    });
+    // $scope.$watch('locationPath', function(path) {
+    //   $location.path(path);
+    // });
   
-    $scope.$watch(function() {
-      return $location.path();
-    }, function(path) {
-    $scope.locationPath = path;
-    });
+    // $scope.$watch(function() {
+    //   return $location.path();
+    // }, function(path) {
+    // $scope.locationPath = path;
+    // });
 
     var cleanupEventSession_Changed_Failure = $scope.$on('session-changed-failure', function (event, message) {
         $scope.showAlert('alert-danger', 'Server Error: ' + message);
@@ -97,42 +97,37 @@ angular.module('prodo.ProdonusApp', [
       });
 
     var cleanupEventSessionDone = $rootScope.$on('session', function (event, data) {
-        $log.debug(data);
-        if ($rootScope.usersession.isLoggedIn) {
-          if ($scope.locationPath == '/message/resetpassword') {
-            $state.transitionTo('user-content.resetpassword');
-          } else {
-            if (data.prodousertype == 'business' && data.org == undefined) {
-              $state.transitionTo('orgregistration.company');
-            } else if ((data.prodousertype == 'business' || data.prodousertype == 'individual')  && data.hasDonePayment) {
-                if (data.products_followed == null && data.products_followed == undefined) {
-                  $log.debug('There is some problem with the database. Please contact support.')
-                } else if (data.products_followed.length > 0) {
-                    var n = data.products_followed.length - 1;
-                    $rootScope.orgid= data.products_followed[n].orgid;
-                    $rootScope.product_prodle= data.products_followed[n].prodle;
-                    for (var i=0;i<data.products_followed.length;i++){
-                      if(data.products_followed[i] && data.products_followed[i].prodle){
-                        var prodle = data.products_followed[i].prodle;
-                      }
-                      $scope.prodlesfollowed.push(prodle);
-                    }
-                  UserSessionService.getProductFollowed($scope.prodlesfollowed);
+      $log.debug(data);
+      if ($rootScope.usersession.isLoggedIn) {
+        if (data.prodousertype == 'business' && data.org == undefined) {
+          $state.transitionTo('orgregistration.company');
+        } else if ((data.prodousertype == 'business' || data.prodousertype == 'individual')  && data.hasDonePayment) {
+            if (data.products_followed == null && data.products_followed == undefined) {
+              $log.debug('There is some problem with the database. Please contact support.')
+            } else if (data.products_followed.length > 0) {
+                var n = data.products_followed.length - 1;
+                $rootScope.orgid= data.products_followed[n].orgid;
+                $rootScope.product_prodle= data.products_followed[n].prodle;
+                for (var i=0;i<data.products_followed.length;i++){
+                  if(data.products_followed[i] && data.products_followed[i].prodle){
+                    var prodle = data.products_followed[i].prodle;
+                  }
+                  $scope.prodlesfollowed.push(prodle);
                 }
-                if (data.org) {
-                  $rootScope.orgid = data.org.orgid;
-                  $state.transitionTo('prodo.wall.org');
-                  // OrgRegistrationService.getOrgDetailSettings($rootScope.orgid);
-                } else if (data.products_followed.length > 0) {
-                    var n = data.products_followed.length - 1;
-                    $rootScope.orgid= data.products_followed[n].orgid;
-                    $state.transitionTo('prodo.wall.org');
-                }
-            } 
-          } 
-        }
-        cleanupEventSessionDone();
-      });
+              UserSessionService.getProductFollowed($scope.prodlesfollowed);
+            }
+            if (data.org) {
+              $rootScope.orgid = data.org.orgid;
+              $state.transitionTo('prodo.wall.org');
+            } else if (data.products_followed.length > 0) {
+                var n = data.products_followed.length - 1;
+                $rootScope.orgid= data.products_followed[n].orgid;
+                $state.transitionTo('prodo.wall.org');
+            }
+        } 
+      }
+      cleanupEventSessionDone();
+    });
     $scope.handleGetOrgResponse = function (data) {
       if (data.success) {
         OrgRegistrationService.updateOrgData(data.success.organization);
@@ -159,6 +154,7 @@ angular.module('prodo.ProdonusApp', [
     $scope.logout = function () {
       UserSessionService.logoutUser();
       var cleanupEventLogoutDone = $scope.$on('logoutDone', function (event, message) {
+          console.log($rootScope.usersession.isLoggedIn)
           $state.transitionTo('home.signup');
           $scope.showAlert('alert-success', message);
           cleanupEventLogoutDone();
