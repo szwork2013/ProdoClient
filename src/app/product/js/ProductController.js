@@ -84,9 +84,9 @@
                 }
                 $scope.userIDFromSession = $rootScope.usersession.currentUser.userid;
                 $scope.usernameFromSession = $rootScope.usersession.currentUser.username;
-                $scope.ProductsFollowedFromSession = $rootScope.usersession.currentUser.products_followed;
-
-                $log.debug("Products  f.. "+JSON.stringify( $scope.ProductsFollowedFromSession));
+                // $scope.ProductsFollowedFromSession = $rootScope.usersession.currentUser.products_followed;
+               $scope.ProductsFollowedFromSession= UserSessionService.productfollowlist
+                // $log.debug("Products  f.. "+JSON.stringify( $scope.ProductsFollowedFromSession));
               }
               $scope.getUserDetails();
                //get login details
@@ -103,6 +103,7 @@
                    }
                    else {
                      $("#prodo-ProductDetails").css("display", "block");
+                      $("productExtraInfo").css("display", "block");
                       $("#ErrMsging").css("display", "none");
                     $log.debug(successData.success.product);
                     $scope.getProductFeatures();
@@ -165,19 +166,24 @@
                   }
                 };
                 //error handling for add product
-
+             
                 //add ,update product
                 $scope.addProduct = function(editStatus)
                 { 
+
+                  
+                   $("productExtraInfo").css("display", "none");
+                   $("#ErrMsging").css("display", "none");
                  //Input check validations are on Client side( using Angular validations)
-                 $scope.newProduct = {product: {
+                
+                $log.debug($scope.orgidFromSession);
+                  if(editStatus=='add'){ //add product
+                     $scope.newProduct = {product: {
                   display_name: $scope.display_name,
                   model_no: $scope.product.model_no,
                   name: $scope.product.name,
                   description: $scope.product.description
                 }};
-                $log.debug($scope.orgidFromSession);
-                  if(editStatus=='add'){ //add product
                    if ($rootScope.usersession.currentUser.org.isAdmin ==true) {
 
                     ProductService.saveProduct({orgid: $scope.orgidFromSession}, $scope.newProduct,
@@ -194,6 +200,15 @@
                   else  growl.addErrorMessage("You dont have rights to add product...");
                 }
                 else if(editStatus=='update'){ //update product
+                   $scope.newProduct = {product: {
+                  display_name: $scope.display_name,
+                  model_no: $scope.product.model_no,
+                  name: $scope.product.name,
+                  description: $scope.product.description,
+                  support_discontinuation_date:$scope.product.supDis,
+                  sale_discontinuation_date:$scope.product.prodDis,
+                  banneddate:$scope.product.banneddate
+                }};
                   if ($rootScope.usersession.currentUser.org.isAdmin ==true) {
                     if ($scope.orgidFromSession === $rootScope.orgid ) {
                      ProductService.updateProduct({orgid:$scope.orgidFromSession,prodle:$rootScope.product_prodle}, $scope.newProduct,
@@ -277,27 +292,7 @@
                  }
                 //clear text fields of product
 
-                // display DiscontinuedSupport fields if product id discontinued
-                $scope.ShowDiscontinuedSupport=function(product){
-                 if (product.support_discontinuation_date) return{display: "inline" } 
-                   else return{display: "none" } 
-                 };
-                 // display DiscontinuedSupport fields if product is discontinued
-
-                 // display DiscontinuedSale fields if product is discontinued 
-                 $scope.ShowDiscontinuedSale=function(product){
-                   if (product.sale_discontinuation_date) return{display: "inline" } 
-                     else return{display: "none" }              
-                   };
-                  // display DiscontinuedSale fields if product is discontinued 
-
-                  // display BannedDate fields if product is banned   
-                  $scope.ShowBannedDate=function(product){
-                   if (product.banneddate) {
-                    return{display: "inline" } 
-                  }
-                };
-                 // display BannedDate fields if product is banned    
+               
 
                  //toggle to select all product iamges
                  $scope.selectAllImages = function() { 
@@ -455,7 +450,7 @@
                  else { }
                }
              else {
-              $log.debug("success    "+JSON.stringify(successData));
+              // $log.debug("success    "+JSON.stringify(successData));
               $scope.features=[];
               $scope.featuretags=[];
               for(i=0;i<successData.success.productfeature.length;i++){
@@ -545,18 +540,18 @@
                   ProductFeatureService.updateFeature({orgid:$scope.orgidFromSession,prodle:$rootScope.product_prodle,productfeatureid:id},{'productfeature': data},
                     function(success) {
                       $log.debug(success);
-                                                            $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
-                                                            // $scope.features.push($scope.newFeature);
-                                                            growl.addSuccessMessage(success.success.message);                                                               
-                                                          },
-                                                          function(error) {
-                                                            $log.debug(error);
-                                                            growl.addErrorMessage(error);
-                                                          });
-  }
-  else  growl.addErrorMessage("You dont have rights to update product feature...");
-}
-};
+                      $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
+                      // $scope.features.push($scope.newFeature);
+                      growl.addSuccessMessage(success.success.message);                                                               
+                    },
+                    function(error) {
+                      $log.debug(error);
+                      growl.addErrorMessage(error);
+                    });
+                }
+                else  growl.addErrorMessage("You dont have rights to update product feature...");
+              }
+              };
               //update product feature
 
 
@@ -623,7 +618,7 @@
                         else // if products followed has product, select latest product
                         {
                          $scope.productList=data.success.product;
-                         $log.debug("Products List : "+JSON.stringify($scope.productList));
+                         // $log.debug("Products List : "+JSON.stringify($scope.productList));
                        }
                      }
                         // $log.debug(data);
@@ -655,6 +650,7 @@
                  $scope.CheckIfAlreadyFollowingProduct=function(){
 
                    var follow;
+                   $log.debug("following : "+ JSON.stringify($scope.ProductsFollowedFromSession))
                    for(i=0 ; i<$scope.ProductsFollowedFromSession.length; i++){
                     if($scope.ProductsFollowedFromSession[i].prodle==$rootScope.product_prodle){
                       follow=true;
@@ -669,18 +665,13 @@
 
                 $scope.followCurrentProduct=function(){
                  $log.debug("following");
-                 var follow;
-                 for(i=0 ; i<$scope.ProductsFollowedFromSession.length; i++){
-                  if($scope.ProductsFollowedFromSession[i].prodle==$rootScope.product_prodle){
-
-                    follow=true;
-
-                  }
-                }
-                if(follow==true){
+                
+            
                   $rootScope.usersession.followProduct($rootScope.product_prodle);
                   growl.addSuccessMessage("Follwing product");
-                }
+                  UserSessionService.productfollowlist.push($scope.product);
+                  $("#prodo-followBtn").css("display","none");
+                
               };
              //Follow Product
 
@@ -690,7 +681,12 @@
               $scope.selectedFeature=feature;
              };
               //delete feature modal data passing
-
+             
+              //date format
+               $scope.formatDate=function(time){
+                return(moment(time).format('DD MMM YYYY'));
+               };
+               //date format
 
           }]) 
 

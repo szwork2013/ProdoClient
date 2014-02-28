@@ -14,21 +14,18 @@
 
  <div ng-app="prodo.ProductApp" id="prodo-comment-container" class="container" style="border: 1px solid #94d2f8; width: 100%;  "   ng-controller="ProductController">
 
-
 <!--  -->
-
-
-<div growl></div>
+  <div growl></div>
 <div id="ErrMsging" style="font-family: Helvetica ;font-size:18px; padding :10px; margin-top:20px; margin-bottom:20px;"></div>
 <br>
 <div id="prodo-ProductDetails">
 <div >
 <img class="img" id="productLogo"  style=" height: 100px; padding:10px;max-width:200px; cursor: pointer;"   ng-src="{{product.product_logo}}" />
-<strong style="font-size: 20px; margin:20px;max-width:200px; text-align:center;">&nbsp;<span ng-bind="product.name.substring(0,20)"> </span></strong>
-<a href="" ng-style="CheckIfAlreadyFollowingProduct()" ng-click="followCurrentProduct()" class="pull-right btn btn-primary btn-sm">  Follow </a>
+<strong style="font-size: 20px; margin:20px;max-width:200px; text-align:center; color:#82805F">&nbsp;<span ng-bind="product.name.substring(0,20)"> </span></strong>
+<a href="" ng-style="CheckIfAlreadyFollowingProduct()" id="prodo-followBtn" ng-click="followCurrentProduct()"   class="pull-right btn btn-primary btn-sm">  Follow </a>
 
 <br>
-<span  >MODEL NO :&nbsp; <span ng-bind="product.model_no"></span>
+<span style="color:#82805F"" >MODEL NO :&nbsp; <span ng-bind="product.model_no"></span>
 <br>
 <span> <i ng-click="ShowDescription();" style="cursor: pointer;" class="fa fa-caret-right fa-2x "></i>Description :
 <p id="prodo-description" style="height:15px; overflow: hidden;  font-size:12px; "  ng-bind="product.description" > 
@@ -38,13 +35,13 @@
 
 <table class="table child "  id="prodo-ProductFeatureTable" >
            
-            <tr id="prodo-productbnd" style="background-color: white; display:none;" ng-style="ShowBannedDate(product)">
+            <tr id="prodo-productbnd" ng-show="product.banneddate" style="background-color: white; display:none;" ng-style="ShowBannedDate(product)">
               <td>Product Banned on : &nbsp;<span ng-bind="product.banneddate"></span></td>
             </tr>
             <tr   id="prodo-productDiscontinued"  >
-              <td style=" background-color: #FFBABA;font-size: 16px;  border-top: 0px solid #ddd; padding:8px; padding-bottom:12px;" ng-style="ShowDiscontinuedSale(product)" >Product Discontinued On &nbsp; <span ng-bind="formatDate(product.sale_discontinuation_date)">
+              <td style=" background-color: #FFBABA;font-size: 16px;  border-top: 0px solid #ddd; padding:8px; padding-bottom:12px;" ng-show="product.sale_discontinuation_date" ng-style="ShowDiscontinuedSale(product)" >Product Discontinued On &nbsp; <span ng-bind="formatDate(product.sale_discontinuation_date)">
               </span></td>
-               <td style=" background-color: #FFBABA;font-size: 16px;  border-top: 0px solid #ddd; padding:8px; " ng-style="ShowDiscontinuedSupport(product)">Support Discontinued On  &nbsp;<span ng-bind="formatDate(product.support_discontinuation_date)" > </span></td>
+               <td style=" background-color: #FFBABA;font-size: 16px;  border-top: 0px solid #ddd; padding:8px; " ng-show="product.support_discontinuation_date" ng-style="ShowDiscontinuedSupport(product)">Support Discontinued On  &nbsp;<span ng-bind="formatDate(product.support_discontinuation_date)" > </span></td>
               </tr>
                                
  </table>
@@ -168,9 +165,10 @@
   </ul>
 
   <button class="" id="load-more" ng-click="loadMoreComments()">  
-    <img  id="img-spinner" style="alignment:center; padding :5px;" ng-class="searching && 'active' "                         src="https://raw.github.com/ThomasBurleson/angularJS-TwitterSearch/master/webroot/assets/image/spinner2.gif" alt="Loading"/>
-    Load more...  
+       <span id="img-spinner" > <i style="color:gray;" class="fa fa-spinner fa-spin"> </i></span>
+       Load more...
   </button>
+ 
   <div id="loadMoreCommentMsg" style="text-align:center; width:518px; font-family: Helvetica ;"></div>
 </div>
  

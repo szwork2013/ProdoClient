@@ -1970,11 +1970,7 @@ width:10%; height: 10%; float: left; margin: 5px; border: solid 1px #ccc;
   	-ms-transition: all 1s ease;
   	transition: all 1s ease;
   	display:inline-block;
-  	border:2px solid;
-  	padding-top:5px;
-    width:100px ; 
-    padding-bottom:5px;
-    margin:9px;
+    margin:5px;
 }
 
 .effectpic:hover {
@@ -1989,7 +1985,11 @@ width:10%; height: 10%; float: left; margin: 5px; border: solid 1px #ccc;
 
 .classMain
 {
-	min-height:20px;width:100%;border:3px solid white;padding-left:5px;padding-bottom:5px;
+	min-height:20px;
+	width:100%;
+ 
+	padding-left:5px;
+
 }
 
 .profileImage
@@ -1999,7 +1999,7 @@ width:10%; height: 10%; float: left; margin: 5px; border: solid 1px #ccc;
 
 .prodleImage
 {
-	height:60px;width:60px;
+	height:50px;width:50px;
 }
 #prodo-productchart-dashboard
 {
@@ -2041,7 +2041,8 @@ width:10%; height: 10%; float: left; margin: 5px; border: solid 1px #ccc;
  }
 
 .arrowBtn:disabled {
-	color: #FFFFFF;   background-color: #cccccc;border: none; cursor:not-allowed;
+	/*color: #FFFFFF;   background-color: #cccccc;border: none; cursor:not-allowed;*/
+	visibility: hidden;
 }
 
 .floatLeft
@@ -2054,6 +2055,47 @@ width:10%; height: 10%; float: left; margin: 5px; border: solid 1px #ccc;
 	 	background-color:#3a87ad;
 }
 
+.controls-upload{
+	text-align: left;
+	padding-left: 40px;
+}
+
+#lineHr
+{
+border-top: 1px solid #eee;
+padding-bottom:5px;
+}
+#userProfilePic
+{
+	height:100px;
+	width:100px;
+}
+.closeButtonModal
+{
+	float:right;
+	padding-right:5px;
+	padding-bottom: 5px; 
+}
+.modal_footer
+{
+padding: 5px 5px 5px;
+margin-top: 15px;
+text-align: right;
+text-align: right;
+}
+.modalHeading
+{
+	font-family: monospace;
+	font-size: 15px;
+	color: #262669;
+}
 
 
+.prodo-registration-Wizard-title
+{
+	font-size:16px;
+}
+.prodo-registration-Wizard-after{
+	style="color :rgb(200, 219, 200)";
+}
 
