@@ -14,18 +14,15 @@
 
  <div ng-app="prodo.ProductApp" id="prodo-comment-container" class="container" style="border: 1px solid #94d2f8; width: 100%;  "   ng-controller="ProductController">
 
-
 <!--  -->
-
-
-<div growl></div>
+  <div growl></div>
 <div id="ErrMsging" style="font-family: Helvetica ;font-size:18px; padding :10px; margin-top:20px; margin-bottom:20px;"></div>
 <br>
 <div id="prodo-ProductDetails">
 <div >
 <img class="img" id="productLogo"  style=" height: 100px; padding:10px;max-width:200px; cursor: pointer;"   ng-src="{{product.product_logo}}" />
 <strong style="font-size: 20px; margin:20px;max-width:200px; text-align:center; color:#82805F">&nbsp;<span ng-bind="product.name.substring(0,20)"> </span></strong>
-<a href="" ng-style="CheckIfAlreadyFollowingProduct()" ng-click="followCurrentProduct()"   class="pull-right btn btn-primary btn-sm">  Follow </a>
+<a href="" ng-style="CheckIfAlreadyFollowingProduct()" id="prodo-followBtn" ng-click="followCurrentProduct()"   class="pull-right btn btn-primary btn-sm">  Follow </a>
 
 <br>
 <span style="color:#82805F"" >MODEL NO :&nbsp; <span ng-bind="product.model_no"></span>

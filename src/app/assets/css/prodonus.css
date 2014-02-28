@@ -2037,3 +2037,10 @@ width:10%; height: 10%; float: left; margin: 5px; border: solid 1px #ccc;
 }
 
 
+.prodo-registration-Wizard-title
+{
+	font-size:16px;
+}
+.prodo-registration-Wizard-after{
+	style="color :rgb(200, 219, 200)";
+}
