@@ -40,30 +40,37 @@ angular.module('prodo.UserApp')
       controller: 'UserAccountController'
     })
     .state('user-content', {
+      url: '/user',
       abstract: true,
       templateUrl: 'user/views/user.content.container.html'
     }) 
     .state('user-content.emailverification', {
+      url: '/verification',
       templateUrl: 'user/views/user.signup.verification.tpl.html',
       controller: 'UserRegistrationController'
     })  
     .state('user-content.activateaccount', {
+      url: '/activateaccount',
       templateUrl: 'user/views/user.signup.activateaccount.tpl.html',
       controller: 'UserRegistrationController'
     }) 
     .state('user-content.regeneratetoken', {
+      url: '/regeneratetoken',
       templateUrl: 'user/views/user.signup.regeneratetoken.tpl.html',
       controller: 'UserRegistrationController'
     })    
     .state('user-content.forgotpassword', {
+      url: '/forgotpassword',
       templateUrl: 'user/views/user.signin.forgotpassword.tpl.html',
       controller: 'UserSigninController'
     })    
     .state('user-content.resetpassword', {
+      url: '/resetpassword',
       templateUrl: 'user/views/user.signin.resetpassword.tpl.html',
       controller: 'UserSigninController'
     }) 
-    .state('user-content.passwordgeneratetoken', {
+    .state('user-content.passwordregeneratetoken', {
+      url: '/passwordregeneratetoken',
       templateUrl: 'user/views/user.signin.forgotpassword.regeneratetoken.tpl.html',
       controller: 'UserSigninController'
     })  
