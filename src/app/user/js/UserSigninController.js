@@ -39,15 +39,20 @@ angular.module('prodo.UserApp')
       if (data.success) {
         UserSessionService.authSuccess(data.success.user);
         $scope.showAlert('alert-success', 'Welcome to Prodonus, you have successfully signed up.');
-        $scope.clearformData();
       } else {
         if (data.error.user == undefined) {     
             $log.debug(data.error.code + " " + data.error.message);
             $scope.showAlert('alert-danger', data.error.message);
         } else if (data.error.user) {
-            $log.debug(data.error.code + " " + data.error.message);
-            UserSessionService.authSuccess(data.error.user);
-            $scope.showAlert('alert-danger', data.error.message);
+          if (data.error.code == 'AW001') {
+              $log.debug(data.error.code + " " + data.error.message);
+              UserSessionService.authSuccess(data.error.user);
+              $scope.showAlert('alert-info', data.error.message);
+          } else {
+              $log.debug(data.error.code + " " + data.error.message);
+              UserSessionService.authSuccess(data.error.user);
+              $scope.showAlert('alert-danger', data.error.message);
+          }
         } 
       }
     };  

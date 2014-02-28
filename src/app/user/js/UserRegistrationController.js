@@ -55,7 +55,6 @@ angular.module('prodo.UserApp')
     $scope.handleSignupResponse = function(data){
       if (data.success) {
         $state.transitionTo('user-content.emailverification');
-        $scope.clearformData();    // on successfull signup transition occurs to verification page 
 
       } else {
         if (data.error.code== 'AU001') {     // user already exist

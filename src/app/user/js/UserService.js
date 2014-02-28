@@ -273,8 +273,9 @@ angular.module('prodo.UserApp').factory('UserSessionService', [
     session.authSuccess = function (userData, $scope) {
       session.currentUser = userData;
       session.isLoggedIn = true;
-      console.log(userData);
+      console.log('before ' + userData);
       $rootScope.$broadcast('session', userData);
+      console.log('after ' + userData);
     };
     session.authfailed = function () {
       session.resetSession();
