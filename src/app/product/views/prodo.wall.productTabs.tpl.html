@@ -12,36 +12,36 @@
  * 
  */-->
 
- <div ng-app="prodo.ProductApp" id="prodo-comment-container" class="container" style="border: 1px solid #94d2f8; width: 100%;  "   ng-controller="ProductController">
+ <div ng-app="prodo.ProductApp" id="prodo-comment-container" class="container prodo-ProductContainer"   ng-controller="ProductController">
 
 <!--  -->
   <div growl></div>
-<div id="ErrMsging" style="font-family: Helvetica ;font-size:18px; padding :10px; margin-top:20px; margin-bottom:20px;"></div>
+<div id="ErrMsging" class="prodo-ErrMsging"></div>
 <br>
 <div id="prodo-ProductDetails">
 <div >
-<img class="img" id="productLogo"  style=" height: 100px; padding:10px;max-width:200px; cursor: pointer;"   ng-src="{{product.product_logo}}" />
-<strong style="font-size: 20px; margin:20px;max-width:200px; text-align:center; color:#82805F">&nbsp;<span ng-bind="product.name.substring(0,20)"> </span></strong>
+<img class="img prodo-productLogoDisplay" id="productLogo" ng-src="{{product.product_logo}}" />
+<strong class="prodo-productNameStrong" >&nbsp;<span ng-bind="product.name.substring(0,20)"> </span></strong>
 <a href="" ng-style="CheckIfAlreadyFollowingProduct()" id="prodo-followBtn" ng-click="followCurrentProduct()"   class="pull-right btn btn-primary btn-sm">  Follow </a>
 
 <br>
-<span style="color:#82805F"" >MODEL NO :&nbsp; <span ng-bind="product.model_no"></span>
+<span class="prodo-Modelno" >MODEL NO :&nbsp; <span ng-bind="product.model_no"></span>
 <br>
-<span> <i ng-click="ShowDescription();" style="cursor: pointer;" class="fa fa-caret-right fa-2x "></i>Description :
-<p id="prodo-description" style="height:15px; overflow: hidden;  font-size:12px; "  ng-bind="product.description" > 
+<span> <i ng-click="ShowDescription();" class="fa fa-caret-right fa-2x prodo-cursor"></i>Description :
+<p id="prodo-description" class="prodo-description" ng-bind="product.description" > 
 </p> 
 </span>
  </span>
 
 <table class="table child "  id="prodo-ProductFeatureTable" >
            
-            <tr id="prodo-productbnd" ng-show="product.banneddate" style="background-color: white; display:none;" ng-style="ShowBannedDate(product)">
-              <td>Product Banned on : &nbsp;<span ng-bind="product.banneddate"></span></td>
+            <tr id="prodo-productbnd" class="prodo-productTabledis"  ng-show="product.banneddate">
+              <td>Product Banned on : &nbsp;<span ng-bind="formatDate(product.banneddate)"></span></td>
             </tr>
             <tr   id="prodo-productDiscontinued"  >
-              <td style=" background-color: #FFBABA;font-size: 16px;  border-top: 0px solid #ddd; padding:8px; padding-bottom:12px;" ng-show="product.sale_discontinuation_date" ng-style="ShowDiscontinuedSale(product)" >Product Discontinued On &nbsp; <span ng-bind="formatDate(product.sale_discontinuation_date)">
+              <td class="prodo-productTabledis"  ng-show="product.sale_discontinuation_date"  >Product Discontinued On &nbsp; <span ng-bind="formatDate(product.sale_discontinuation_date)">
               </span></td>
-               <td style=" background-color: #FFBABA;font-size: 16px;  border-top: 0px solid #ddd; padding:8px; " ng-show="product.support_discontinuation_date" ng-style="ShowDiscontinuedSupport(product)">Support Discontinued On  &nbsp;<span ng-bind="formatDate(product.support_discontinuation_date)" > </span></td>
+               <td class="prodo-productTabledis" ng-show="product.support_discontinuation_date" >Support Discontinued On  &nbsp;<span ng-bind="formatDate(product.support_discontinuation_date)" > </span></td>
               </tr>
                                
  </table>
@@ -50,25 +50,25 @@
 
 <div id="prodo-ProdoProductComments">
    
-   <div id="prodo-comment-fixed" style="" ng-controller="ProductCommentController">
+   <div id="prodo-comment-fixed" ng-controller="ProductCommentController">
 
 
 <!-- tabs -->
 
- <div class="prodo-comment-Text-tabs " id="tabs" style="align:left;"  >
+ <div class="prodo-comment-Text-tabs " id="tabs">
 
     <ul id="commentTab" class=" commentTab nav nav-pills" ng-init="tabSearch = false;tabFeature=false;
     tabComment = true" >
             
              <li >
-             <a  style="cursor: pointer; cursor: hand;" ng-click="tabComment = true; tabSearch=false;tabFeature=false;">
+             <a  class="prodo-cursor"  ng-click="tabComment = true; tabSearch=false;tabFeature=false;">
              <div  id="fa-removeComment" name="rm" class=" fa fa-comments-o fa-lg  " ></div></a></li>
               <li>
-              <a  style="cursor: pointer; cursor: hand;"  ng-click="tabSearch =  true ;
+              <a  class="prodo-cursor" ng-click="tabSearch =  true ;
                 tabComment = false;tabFeature=false;">
                 <div id="fa-tagsComment" class="fa fa-search fa-lg"  ></div></a></li>        
                  <li>
-              <a  style="cursor: pointer; cursor: hand;"  ng-click="tabFeature=true;tabSearch =  false ;
+              <a  class="prodo-cursor"  ng-click="tabFeature=true;tabSearch =  false ;
                 tabComment = false;">
                 <div id="fa-tagsFeature" class="fa fa-list fa-lg"  ></div></a></li>        
               </ul> 
@@ -82,7 +82,7 @@
                             <div id="prodo-comment-enterComment" >
                             
                               <span class="label label-info   " ng-bind="300 - commenttextField.userComment.length" ></span> 
-                              <a href="" ng-click="getLatestComments()" > <div class="label label-info "  id="responseComment"  style="display: none">  </div></a>
+                              <a href="" ng-click="getLatestComments()" > <div class="label label-info prodo-display-discont"  id="responseComment" >  </div></a>
 
                               <div ng-controller="DragImageController">
                                
@@ -96,16 +96,16 @@
                                       <!-- tags -->
                                       <div id="prodo-productTags">
                                         <form  role="form">
-                                          <div  style="width:518px; " >
+                                          <div  class="prodo-TagsBox" >
                                             <tags-input  add-on-enter="false" add-on-space="true" ng-model="mytags" placeholder="Add tags"  list="pretags" ng-enter="addProductComment()"
                                             replace-spaces-with-dashes="false"></tags-input>
                                           </div>
                                         </form>
                                       </div>    
 
-                                           <div style="width:75px;" id="CommentImg"   >
-                                                   <a class="close" id= "crossButton"  style="display:none" ng-click="clearReader()">&times;</a> 
-                                                    <img style="display:none;width:50px; height:50px;"  id="prodo-uploadedCommentImage" />
+                                           <div class="prodo-CommentImgPrePosting" id="CommentImg"   >
+                                                   <a class="close prodo-display-discont" id= "crossButton" ng-click="clearReader()">&times;</a> 
+                                                    <img class="prodo-uploadedImg" id="prodo-uploadedCommentImage" />
                                            </div>
                                           
                                         </div>
@@ -128,7 +128,7 @@
                   </div>     
 
 
-                  <div id="Remove" ng-show="tabSearch == 1"  style="padding-bottom: 10px;" >
+                  <div id="Remove" ng-show="tabSearch == 1" class="prodo-padding-bottom"  >
 
                  
                     <br>
@@ -136,7 +136,7 @@
 
                 
                 </div>
-                <div id="Remove" ng-show="tabFeature == 1"  style="padding-bottom: 10px;">
+                <div id="Remove" ng-show="tabFeature == 1" class="prodo-padding-bottom" >
                     
                     <table class="table child " id="prodo-ProductFeatureTable" >
                        <tr >
@@ -165,11 +165,11 @@
   </ul>
 
   <button class="" id="load-more" ng-click="loadMoreComments()">  
-       <span id="img-spinner" > <i style="color:gray;" class="fa fa-spinner fa-spin"> </i></span>
+       <span id="img-spinner" > <i  class=" prodo-loadmoreColor fa fa-spinner fa-spin "> </i></span>
        Load more...
   </button>
  
-  <div id="loadMoreCommentMsg" style="text-align:center; width:518px; font-family: Helvetica ;"></div>
+  <div id="loadMoreCommentMsg" class="prodo-loadmoreMsg" ></div>
 </div>
  
 

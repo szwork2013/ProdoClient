@@ -1454,9 +1454,16 @@ ul {list-style-type: none; }
 #prodo-comment-commentContainer{ width:550px;}
 #prodo-comment-addButton{width:400px; }
 #prodo-comment-tags{ font-size:11px; font-family: Helvetica ; }
-#prodo-comment-tabs{height: 10px;}
+#prodo-comment-tabs{height: 10px; align:left;}
 #prodo-comment-timePosted{font-size:10px; }
 #fa-removeComment:hover{}
+.prodo-userAvatar{height:50px; width:50px}
+.prodo-modal-user{ left:200px}
+.prodo-userImg{height:90px;width:90px;}
+.responseComment{display: none}
+.prodo-commentRetry{display: none; cursor: pointer; cursor: hand;}
+.prodo-cursor{cursor: pointer; cursor: hand;}
+.prodo-comment-img{max-width:450px;}
 
 ul#commentTab li a:hover,ul#commentTab li.active a{
   border-bottom-color: red;
@@ -1534,136 +1541,66 @@ width: 518px;
 
  /* Prodo-Comment-CSS*/
 
- 
- 
-/* #prodo-productFeature-fixed{font-family: Helvetica ; margin-left:17px;  padding: 20px;float:left; width: 85%;}*/
-/*#prodo-ProductFeatureTable tr:nth-child(odd){ background-color:#f5f5f5; font-size: 12px; }*/
-#prodo-ProductFeatureTable tr:nth-child(even)    { background-color:white; font-size: 12px;  }
+ /* Prodo-ProductFeature-CSS*/ 
+#prodo-ProductFeatureTable tr:nth-child(even)    { background-color:white;  }
 #prodo-ProductFeatureTable{border: 3px;word-wrap: break-word;  }
-
-/*.tableProduct  :hover  tr{background-color:#f5f5f5;}*/
-/*.tableProduct tr:first-child{background-color:black; color: wheat; font-size: 16px;}*/
-
-
-
-/*.prodo-product-general.closed button {color: red;}   stand-in for showing an up/down arrow or something*/
-
-.prodo-product-general.closedPG .child { display:none; }
-.prodo-product-general.closedF .child { display:none; }
-.prodo-product-general.closedC .child { display:none; }
-.prodo-product-general.closedSb .child { display:none; }
-.prodo-product-general.closedPr .child { display:none; }
-.prodo-product-general.closedPimgs .child { display:none; }
 #prodo-product-features_textfield{width: 160px; height: 30PX; font-size: 12PX; display:inline-block;}
 #prodo-product-featuresDescription_textfield{ height:75px;border-radius:10px;font-size:12px; font-family: Helvetica ;  max-height: 75;max-width: 518;resize: none;}
 #prodo-product-productgeneralbtn{text-align: left; height: 37px; width: 560px; background-color: #f3f5f3; color: black; font-size: 16px;box-shadow: 5px 5px 3px #888888;}
 #prodo-product-productgeneralbtn:hover{ background-color: activeborder;}
 .thumb { width:160px; float: left;margin-left: 5px; border: solid 1px #ccc;}
-.collapsed2 div{
-display:none;
-}
- .tab-content{ border-bottom: 0px solid white;}
+.collapsed2 div{display:none;}
+.tab-content{ border-bottom: 0px solid white;}
+.collapsed2:hover:after{content: " Click here to follow";border: solid 1px #ccc;padding:5px;}
+.prodo-ErrMsging{font-family: Helvetica ;font-size:18px; padding :10px; margin-top:20px; margin-bottom:20px;}
+.prodo-productListCorousel{ height:130px;width:auto;}
+.prodo-arrowbtnLeft{float: left; margin-top:35px;margin-right:40px; cursor:pointer; font-size:50px;color:gray; background-color:white;}
+.prodo-arrowbtnRight{float: right; margin-top:35px; cursor:pointer ; font-size:50px;color:gray; background-color:white;}
+.prodo-productThumbnailView{display:inline-block;width:100px; height: 110px; float: left; margin: 5px; border: solid 1px #ccc;}
+.prodo-AddProductBtn{ margin:5px auto; display:block; text-align:center; font-weight:bold; font-size:12px;}
+.prodo-productThumbnailImg{margin:0px auto; display:block; width:95%; height: 73%;  }
+.prodo-ProductDetails{display:block}
+.prodo-headings{color: #686114;margin-bottom: -19px;}
+.prodo-headings2{color: #686114;}
+.prodo.productAdmin1{float:right; padding-left:10px; padding-bottom:20px;}
+.btn-bottom-margin{margin-bottom:20px;}
+.prodo-productTabledis{background-color: #FFBABA; font-size:16px;}
+.prodo-display-discont{display: none;}
+.prodo-display-right{float: right}
+.prodo-margin5{margin: 5px;}
+.prodo-productTableFont{font-size:14px;}
+.prodo-AdminFearuresAdd{float:right; padding-bottom:20px;}
+.prodo-productFeatureName{width:150px;}
+.prodo-productFeaturedescription{width:300px; }
+.prodo-productImgThumbnail{width: 150px; height: 150px;}
+.prodo-uploadBtnWidth{ width: 200px;}
+.clearBoth{clear:both;}
+.prodo-TagsBox{width:518px; }
+.prodo-CommentImgPrePosting{width:75px;}
+.prodo-uploadedImg{display:none;width:50px; height:50px;}
+.prodo-padding-bottom{padding-bottom: 10px;}
+.prodo-loadmoreColor{color:gray;}
+.prodo-loadmoreMsg{text-align:center; width:518px; font-family: Helvetica ;}
 
-.collapsed2:hover:after{
-    content: " Click here to follow";
-    border: solid 1px #ccc;
-    padding:5px;
-
-    
-}
-
-/* starting animations */
- 
-
-.closedPG{   -webkit-transition : ease-in 1s;
-  -moz-transition: ease-in 1s;
-  -ms-transition: ease-in 1s;
-  -o-transition: ease-in 1s;
-  transition: ease-in 1s;
-}
- 
-.closedPG.ng-enter{
-  opacity: 0;
-}
- 
-.closedPG.ng-enter-active{
-  opacity: 1;
-}
- 
+.prodo-ProductContainer{border: 1px solid #94d2f8; width: 100%; }
+.prodo-productLogoDisplay{height: 100px; padding:10px;max-width:200px; cursor: pointer;}
+.prodo-productNameStrong{font-size: 20px; margin:20px;max-width:200px; text-align:center; color:#82805F}
+.prodo-Modelno{color:#82805F}
+.prodo-description{height:15px; overflow: hidden;  font-size:12px;}
+.prodo-comment-Text-tabs {align:left;}
 
 
-.closedC{   -webkit-transition : linear 1s;
-  -moz-transition: linear 1s;
-  -ms-transition: linear 1s;
-  -o-transition: linear 1s;
-  transition: linear 1s;
-}
- 
-.closedC.ng-enter{
-  opacity: 0;
-}
- 
-.closedC.ng-enter-active{
-  opacity: 1;
-}
-.closedF{   -webkit-transition : linear 1s;
-  -moz-transition: linear 1s;
-  -ms-transition: linear 1s;
-  -o-transition: linear 1s;
-  transition: linear 1s;
-}
- 
-.closedF.ng-enter{
-  opacity: 0;
-}
- 
-.closedF.ng-enter-active{
-  opacity: 1;
-}
-  
- 
+ /* Prodo-ProductFeature-CSS*/ 
 
-.closedSb{   -webkit-transition : linear 1s;
-  -moz-transition: linear 1s;
-  -ms-transition: linear 1s;
-  -o-transition: linear 1s;
-  transition: linear 1s;
-}
- 
-.closedSb.ng-enter{
-  opacity: 0;
-}
- 
-.closedSb.ng-enter-active{
-  opacity: 1;
-}
- 
- 
-.closedPr{   -webkit-transition : linear 1s;
-  -moz-transition: linear 1s;
-  -ms-transition: linear 1s;
-  -o-transition: linear 1s;
-  transition: linear 1s;
-}
- 
-.closedPr.ng-enter{
-  opacity: 0;
-}
- 
-.closedPr.ng-enter-active{
-  opacity: 1;
-}
- 
-.closedPimgs{   -webkit-transition : linear 1s;
-  -moz-transition: linear 1s;
-  -ms-transition: linear 1s;
-  -o-transition: linear 1s;
-  transition: linear 1s;
-}
- 
-.closedPimgs.ng-enter{
-  opacity: 0;
-}.productFollowedImage
+
+
+
+
+
+
+
+
+.productFollowedImage
 {
   height : 100px;
   width : 100px ;
@@ -1699,10 +1636,7 @@ display:none;
   
 }
  
-.closedPimgs.ng-enter-active{
-  opacity: 1;
-} 
- /* Prodo-ProductFeature-CSS*/ 
+
 
 
  

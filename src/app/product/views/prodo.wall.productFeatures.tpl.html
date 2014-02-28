@@ -15,51 +15,53 @@
     <!-- All Product List -->
   
 
-    <div id="ErrMsging" style="font-family: Helvetica ;font-size:18px; padding :10px; margin-top:20px; margin-bottom:20px;"></div>
+    <div id="ErrMsging" class="prodo-ErrMsging" ></div>
 <br>
 
-         <div style=" height:130px;width:auto;">
-          <button class="arrowBtn" ng-show="productList.length > 4 " style="float: left; margin-top:35px;margin-right:40px; cursor:pointer; font-size:50px;color:gray; background-color:white;" ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1" > <
+         <div class="prodo-productListCorousel" >
+          <button class="arrowBtn prodo-arrowbtnLeft" ng-show="productList.length > 4 " ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1" > <
         <!--  <i style="color:gray; font-weight:weight:lighter" class="fa fa-chevron-left fa-3x"></i>  -->
         </button>
-         <a onclick="  $('#ErrMsging').css('display', 'none');$('#prodo-ProductDetails').show(); $('#productExtraInfo').css('display','none'); $('#prodo-productDiscontinuedUpdate').hide();" ng-click=" enableEditor() ;  editStatus='add'; clearText();  " style="cursor:pointer" data-toggle="collapse" data-target="#Edit" >
-        <div style="display:inline-block;width:100px; height: 110px; float: left; margin: 5px; border: solid 1px #ccc;">
-        <p style="margin:5px auto; display:block; text-align:center; font-weight:bold; font-size:12px;">Add Product</p>
-         <div style="margin:0px auto; display:block; width:95%; height: 73%;  " align="center" class="img-rounded fa fa-plus fa-4x"></div>
+         <a onclick="  $('#ErrMsging').css('display', 'none');$('#prodo-ProductDetails').show(); $('#productExtraInfo').css('display','none'); $('#prodo-productDiscontinuedUpdate').hide();" ng-click=" enableEditor() ;  editStatus='add'; clearText();  " class="prodo-cursor"  data-toggle="collapse" data-target="#Edit" >
+        <div class="prodo-productThumbnailView" >
+        <p class="prodo-AddProductBtn" >Add Product</p>
+         <div class="prodo-productThumbnailImg"  align="center" class="img-rounded fa fa-plus fa-4x"></div>
       </div>
       </a>
 
-	      <div style=" display:inline-block;width:100px; height: 110px; float: left; margin: 5px; border: solid 1px #ccc;" ng-repeat="product1 in productList  | startFrom:currentPage*pageSize | limitTo:pageSize" >
-	      <a ng-click="getSelectedProduct(product1);" href="" style="cursor:pointer">
-          <p style="margin:5px auto; display:block; text-align:center; font-weight:bold; font-size:12px;">{{product1.name}}</p>
-          <img style="margin:0px auto; display:block; width:95%; height: 73%; " ng-src="{{product1.product_logo}}" alt=" No Image" class="img-rounded">
+	      <div class="prodo-productThumbnailView"  ng-repeat="product1 in productList  | startFrom:currentPage*pageSize | limitTo:pageSize" >
+	      <a ng-click="getSelectedProduct(product1);" class="prodo-cursor"  href="" >
+          <p class="prodo-AddProductBtn">{{product1.name}}</p>
+          <img class="prodo-productThumbnailImg" ng-src="{{product1.product_logo}}" alt=" No Image" class="img-rounded">
           </a>
 
         </div>
-          <button class="arrowBtn"  ng-show="productList.length > 4 " style="float: right; margin-top:35px; cursor:pointer ; font-size:50px;color:gray; background-color:white;" ng-disabled="currentPage >= productList.length/pageSize - 1" ng-click="currentPage=currentPage+1" > >
+          <button class="arrowBtn prodo-arrowbtnRight"  ng-show="productList.length > 4 " ng-disabled="currentPage >= productList.length/pageSize - 1" ng-click="currentPage=currentPage+1" > >
         <!-- <i style="color:gray; font-weight:weight:lighter" class=" fa fa-chevron-right fa-3x"></i>  -->
       </button>
    
    
        </div>
        
-        <div style="clear:both;"></div>
+        <div class="clearBoth"></div>
+
                 <hr>
 
 
-<div id="prodo-ProductDetails" style="display:block">
+<div id="prodo-ProductDetails" class="prodo-ProductDetails">
      <!-- All Product List -->
      <!-- General -->
-        <h4 style="color: #686114;">GENERAL</h4>
+       
          <div class="prodo-product-general "  >
+          <h4 class="prodo-headings">GENERAL</h4>  
           <!-- admin tasks -->
 
          
 
-          <div style="float:right; padding-left:10px; padding-bottom:20px;" class="pull-right"  id="prodo.productAdmin" ng-style="checkAdmintoUpdateProduct();">
+          <div  class="prodo.productAdmin1 pull-right "  id="prodo.productAdmin" ng-style="checkAdmintoUpdateProduct();" >
           
-            <a href="" class="btn btn-primary btn-sm " ng-click="editStatus='update' ; enableEditor() ;  " data-toggle="collapse" data-target="#Edit" onclick="$('.prodo-productDiscontinuedUpdate').show();"> Update &nbsp;<i class="fa fa-pencil-square-o "></i></a>
-            <a href="" class="btn btn-danger btn-sm " data-toggle="modal" data-target="#myModal">  Delete &nbsp; <i class="fa fa-trash-o"></i> </a> 
+            <a href="" class="btn btn-primary btn-sm btn-bottom-margin" ng-click="editStatus='update' ; enableEditor() ;  " data-toggle="collapse" data-target="#Edit" onclick="$('.prodo-productDiscontinuedUpdate').show();"> Update &nbsp;<i class="fa fa-pencil-square-o "></i></a>
+            <a href="" class="btn btn-danger btn-sm btn-bottom-margin" data-toggle="modal" data-target="#myModal">  Delete &nbsp; <i class="fa fa-trash-o"></i> </a> 
             <br>
           </div>
            
@@ -87,24 +89,24 @@
           
 
           <!-- display mode -->
-          <table class="table child table-bordered table-hover" style="font-size: 14PX;" ng-hide="editorEnabled" id="prodo-ProductFeatureTable" >
-            <tr id="prodo-productbnd" style="background-color: white; font-size: 14PX;" ng-show="product.banneddate">
+          <table class="prodo-productTableFont  table child table-bordered table-hover"  ng-hide="editorEnabled" id="prodo-ProductFeatureTable" >
+            <tr id="prodo-productbnd" class="prodo-productTabledis"  ng-show="product.banneddate">
               <td>Product Banned on : &nbsp;<span ng-bind="formatDate(product.banneddate)"></span></td>
             </tr>
-            <tr   id="prodo-productDiscontinued"  >
-              <td style=" background-color: #FFBABA;font-size: 16px;  border-top: 0px solid #ddd; padding:8px; padding-bottom:12px;" ng-show="product.sale_discontinuation_date" >Product Discontinued On &nbsp; <span ng-bind="formatDate(product.sale_discontinuation_date)"></td>
+            <tr  id="prodo-productDiscontinued" class="prodo-productTabledis" >
+              <td class="prodo-productTabledis" ng-show="product.sale_discontinuation_date" >Product Discontinued On &nbsp; <span ng-bind="formatDate(product.sale_discontinuation_date)"></td>
             
-                <td style=" background-color: #FFBABA;font-size: 16px;  border-top: 0px solid #ddd; padding:8px; " ng-show="product.support_discontinuation_date">Support Discontinued On  &nbsp;<span ng-bind="formatDate(product.support_discontinuation_date)" > </span></td>
+                <td class="prodo-productTabledis" ng-show="product.support_discontinuation_date">Support Discontinued On  &nbsp;<span ng-bind="formatDate(product.support_discontinuation_date)" > </span></td>
               </tr>
              
              
-              <tr style="font-size: 14PX;" >
-              <td  >Product Name :&nbsp; <span ng-bind="product.name" > </span></td>
-                <td  >Model No :&nbsp; <span ng-bind="product.model_no"></span></td>
+              <tr class="prodo-productTableFont" >
+              <td  class="prodo-productTableFont" >Product Name :&nbsp; <span ng-bind="product.name" > </span></td>
+                <td  class="prodo-productTableFont" >Model No :&nbsp; <span ng-bind="product.model_no"></span></td>
                 
               </tr>
-              <tr style="font-size: 14PX;" >
-                <td  colspan="2">Description : &nbsp;<span ng-bind="product.description"> </span></td>
+              <tr  class="prodo-productTableFont" >
+                <td    colspan="2" class="prodo-productTableFont">Description : &nbsp;<span ng-bind="product.description"> </span></td>
               </tr>
             </table>
           </div>
@@ -115,23 +117,23 @@
           <form    id="Edit" class="collapse"  ng-show="editorEnabled" ng-switch="isEditing" name="productForm" >
             <div class="prodo-product-general " >
               
-              <table class="table child table-hover table-bordered" style="font-size: 14PX;" id="prodo-ProductFeatureTable">
-              <tr class="prodo-productDiscontinuedUpdate" style=" background-color: #FFBABA; display: none" id="prodo-productDiscontinuedUpdate"  >
-                  <td >Product Banned on  <input  id="prodo-product-features_textfield" type="text" class="form-control" ng-model="product.banneddate" style="float: right" name="banneddate"   /></td>
+              <table class="table child table-hover table-bordered prodo-productTableFont" id="prodo-ProductFeatureTable">
+              <tr class="prodo-productDiscontinuedUpdate prodo-productTabledis prodo-display-discont " id="prodo-productDiscontinuedUpdate"  >
+                  <td >Product Banned on  <input  id="prodo-product-features_textfield" type="text" class="form-control prodo-display-right" ng-model="product.banneddate" name="banneddate"   /></td>
                  
                 </tr>
-                <tr style=" background-color: #FFBABA; display: none" class="prodo-productDiscontinuedUpdate"  >
-                  <td  >Product Discontinued   <input  id="prodo-product-features_textfield" type="text" class="form-control" ng-model="product.prodDis" style="float: right" name="prodDis"   /></td>
-                  <td  >Support Discontinued   <input id="prodo-product-features_textfield" type="text" class="form-control" ng-model="product.supDis" style="float: right" name="supDis"  /></td>
+                <tr  class="prodo-productDiscontinuedUpdate prodo-productTabledis prodo-display-discont "  >
+                  <td class="prodo-productTabledis" >Product Discontinued   <input  id="prodo-product-features_textfield" type="text" class="form-control prodo-display-right" ng-model="product.prodDis" name="prodDis"   /></td>
+                  <td class="prodo-productTabledis" >Support Discontinued   <input id="prodo-product-features_textfield" type="text" class="form-control prodo-display-right" ng-model="product.supDis" name="supDis"  /></td>
                 </tr>
                 <tr>
-                  <td >   Product Name <input ng-model="product.name"   id="prodo-product-features_textfield" class="form-control"  type="text" style="float: right"  required name="name" />  </td>
+                  <td >   Product Name <input ng-model="product.name"   id="prodo-product-features_textfield" class="form-control prodo-display-right"  type="text"   required name="name" />  </td>
                  
                 </tr>
                 <tr>
-                  <td  >Model No  <input id="prodo-product-features_textfield" type="text" class="form-control" ng-model="product.model_no" style="float: right; " required name="model_no" /></td>
+                  <td  >Model No  <input id="prodo-product-features_textfield" type="text" class="form-control prodo-display-right" ng-model="product.model_no"  required name="model_no" /></td>
 
-                  <td  >Model Name  <input id="prodo-product-features_textfield" type="text" class="form-control" ng-model="product.display_name" style="float: right" required name="display_name" /></td>
+                  <td  >Model Name  <input id="prodo-product-features_textfield" type="text" class="form-control prodo-display-right" ng-model="product.display_name" required name="display_name" /></td>
                 </tr>
                 <tr>
                   <td  colspan="2">Description   <textarea  type="text" id="prodo-product-featuresDescription_textfield" class="form-control"  ng-model="product.description" required name="description" col="40"  ></textarea>
@@ -142,8 +144,8 @@
                 <tr ><td colspan="2">
               <!--   <button type="submit" class="btn btn-info" style="width: 550px;"  ng-click=" $parent.isEditing = false" >Save</button>
             -->
-            <a  ng-click="addProduct(editStatus);disableEditor();" class="btn btn-primary btn-sm  pull-right" style=" margin: 5px;"   >Save &nbsp;<i class="fa fa-floppy-o"></i></a>
-            <a onclick="$('#productExtraInfo').css('display','block');" class="btn btn-default btn-sm  pull-right"  style=" margin: 5px;"  ng-click="disableEditor()" > Cancel &nbsp;<i class="glyphicon glyphicon-remove"></i></a>
+            <a  ng-click="addProduct(editStatus);disableEditor();" class="btn btn-primary btn-sm  pull-right prodo-margin5"   >Save &nbsp;<i class="fa fa-floppy-o"></i></a>
+            <a onclick="$('#productExtraInfo').css('display','block');" class="btn btn-default btn-sm  pull-right prodo-margin5"  ng-click="disableEditor()" > Cancel &nbsp;<i class="glyphicon glyphicon-remove"></i></a>
           </td>
         </tr>
       </table>
@@ -153,32 +155,32 @@
   <!-- edit mode -->
 
      <!-- General -->  
-      <div style="clear:both;"></div>
+     <div class="clearBoth"></div>
 
 <hr>
 <div id="productExtraInfo">
        <!-- Features -->
-        <h4 style="color: #686114;">FEATURES</h4>
+        <h4 class="prodo-headings">FEATURES</h4>
          
-         <div style="float:right; padding-bottom:20px;" ng-style="checkAdmintoUpdateProduct();" id="prodo.productAdmin">
+         <div class="prodo-AdminFearuresAdd" ng-style="checkAdmintoUpdateProduct();" id="prodo.productAdmin">
 			    <a href="" class="btn btn-primary btn-sm pull-right" data-toggle="collapse" data-target="#Editfeature" ng-click="enableEditor() ;  editStatus='add';  " > Add &nbsp; <i class="fa fa-plus-square"></i></a>
 			  </div>
 
 			  <form    id="Editfeature" class="collapse"  ng-show="editorEnabled"  name="productFeaturesForm" >
-			    <table class="table child table-hover table-bordered" style="font-size: 14PX;" id="prodo-ProductFeatureTable" >
-			      <tr style="font-size: 14PX;" >
+			    <table class="table child table-hover table-bordered"  id="prodo-ProductFeatureTable" >
+			      <tr class="prodo-productTableFont" >
 			        <td >   Feature name&nbsp;&nbsp;&nbsp; <input ng-model="feature.name"   id="prodo-product-features_textfield" class="form-control"  type="text"   required name="name" />  </td>
 			    
 			      </tr>
-			      <tr style="font-size: 14PX;" >
+			      <tr class="prodo-productTableFont" >
 			        <td  colspan="2">Description   <textarea  type="text" id="prodo-product-featuresDescription_textfield" class="form-control"  ng-model="feature.description" required name="description" col="40"  > </textarea>
 			        </td>
 			      </tr> 
 			  
-			    <tr style="font-size: 14PX;" ><td colspan="2">
+			    <tr  class="prodo-productTableFont"><td colspan="2">
 			   
-			    <a  ng-click="addProductFeature(editStatus);disableEditor(); " class="btn btn-primary btn-sm  pull-right" style=" margin: 5px;"  > Save &nbsp;<i class="fa fa-floppy-o"></i></a>
-			    <a class="btn btn-default btn-sm  pull-right" style=" margin: 5px;" ng-click="disableEditor() ; "> Cancel&nbsp;<i class="glyphicon glyphicon-remove"></i></a>
+			    <a  ng-click="addProductFeature(editStatus);disableEditor(); " class="btn btn-primary btn-sm  pull-right prodo-margin5" > Save &nbsp;<i class="fa fa-floppy-o"></i></a>
+			    <a class="btn btn-default btn-sm  pull-right prodo-margin5" ng-click="disableEditor() ; "> Cancel&nbsp;<i class="glyphicon glyphicon-remove"></i></a>
 			  </td>
 			</tr>
 			</table>
@@ -186,21 +188,21 @@
 			</form>
 
 
-			<table class="table child table-hover table-bordered"  style="font-size: 14PX;" id="prodo-ProductFeatureTable">
-			   <tr style="font-size: 14PX;" >
+			<table class="table child table-hover table-bordered prodo-productTableFont" id="prodo-ProductFeatureTable">
+			   <tr  class="prodo-productTableFont" >
 			     <td> <dt>Feature</dt> </td>
 			     <td> <dt>Description </dt></td>
 			     <td ng-style="checkAdmintoUpdateProduct();"> <dt>Option</dt> </td>
 			   
 			   </tr>
-			   <tr style="font-size: 14PX;"  ng-repeat="feature in features track by $index">
+			   <tr  class="prodo-productTableFont" ng-repeat="feature in features track by $index">
 			     <td ng-hide="edit" > <span ng-bind="feature.featurename"> </span></td>
 
-			     <td  ng-show="edit" ><input ng-model="feature.featurename"  style="width:150px;" class="form-control"  type="text"   required name="name" /> </td>
+			     <td  ng-show="edit" ><input ng-model="feature.featurename"  class="form-control prodo-productFeatureName"  type="text"   required name="name" /> </td>
 			     
 			     <td ng-hide="edit" > <span ng-bind="feature.featuredescription"> </span></td> 
 
-			      <td  ng-show="edit" ><input ng-model="feature.featuredescription" style="width:300px;" class="form-control"  type="text"   required name="name" /> </td>
+			      <td  ng-show="edit" ><input ng-model="feature.featuredescription" class="form-control prodo-productFeaturedescription"  type="text"   required name="name" /> </td>
 			  
 
 			    <td ng-hide="edit" ng-style="checkAdmintoUpdateProduct();">
@@ -233,8 +235,8 @@
 			    </td>
 			    <td ng-show="edit">
 			  
-			       <a id="Editfeature1" ng-click="updateProductFeature(feature,feature.featureid);edit = ! edit;" class="btn btn-default  btn-sm fa fa-floppy-o " style="margin: 5px;"  ></a>
-			      <a id="Editfeature1" class="btn btn-default  btn-sm glyphicon glyphicon-remove " style=" margin: 5px;" ng-click="edit = ! edit; getProductFeatures(); "></a>
+			       <a id="Editfeature1" ng-click="updateProductFeature(feature,feature.featureid);edit = ! edit;" class="btn btn-default  btn-sm fa fa-floppy-o prodo-margin5"  ></a>
+			      <a id="Editfeature1" class="btn btn-default  btn-sm glyphicon glyphicon-remove prodo-margin5" ng-click="edit = ! edit; getProductFeatures(); "></a>
 			       
 
 			    </td>
@@ -242,14 +244,15 @@
 			   </tr>
 
 			</table>
-          <div style="clear:both;"></div>
+       <div class="clearBoth"></div>
 
          <!-- Features -->
-         <hr>
+     
 
            <!-- Images -->
             <div ng-show="pImages_l.length!==0" >
-        <h4 style="color: #686114;">IMAGES</h4>
+                <hr>
+        <h4 class="prodo-headings" >IMAGES</h4>
             
            
 		  <form   name="ProductImg" >
@@ -262,16 +265,16 @@
 		        Delete &nbsp; <i class="fa fa-trash-o"></i> 
 		      </button> 
 
-		      </div><div style="clear:both;"></div>
-		      <div style="width:100%; height:100%;">
+		      </div><div class="clearBoth"></div>
+		      <div >
 		      <div class="thumb" ng-repeat="img in pImages_l"    >
-		        <img class="img" style="width: 150px; height: 150px;"  ng-src="{{img.image}}" />
+		        <img class="img prodo-productImgThumbnail"  ng-src="{{img.image}}" />
 		        <input type="checkbox" ng-style="checkAdminProductImagesDelete();" value="{{img.imageid}}" name="imgSet" class="imgToggles" id="imgchk"  ng-click="checkedIndex(img)">
 		      </div>
 		      </div><br>
 		    </div>
 		  </form>
-		</div>    <div style="clear:both;"></div>
+		</div>    <div class="clearBoth"></div>
 
 		 <!-- Modal -->
 		    <div class="modal fade" id="imgDelModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -298,14 +301,14 @@
          
          	  <!-- Uploads -->
         <div    ng-app="prodo.UploadApp" ng-controller="UploadController"  >
-        <h4 style="color: #686114;">UPLOAD</h4>
+        <h4 class="prodo-headings2" >UPLOAD</h4>
 
-        <table  style="font-size: 14PX;" class="table table-hover table-bordered">
+        <table   class="table table-hover table-bordered prodo-productTableFont">
         <tr>
 		  <td>Logo</td>
 		  <td>
           <div class="controls" > 
-      <span class="btn btn-primary fileinput-button controls-upload" style="width: 200px;" >
+      <span class="btn btn-primary fileinput-button controls-upload prodo-uploadBtnWidth" >
         <i class="glyphicon glyphicon-upload "></i>
         <input   type="file" name="file" ng-file-select="onFileSelect($files)"  ng-click="uploadSrc = 'productlogo';">
         <span>Upload Logo</span>
@@ -318,7 +321,7 @@
 		  <td>Art Work</td>
 		  <td>
           <div class="controls" > 
-	      <span class="btn btn-primary fileinput-button controls-upload" style="width: 200px;" >
+	      <span class="btn btn-primary fileinput-button controls-upload prodo-uploadBtnWidth" >
 	        <i class="glyphicon glyphicon-upload "></i>
 	        <input   type="file" name="file" ng-file-select="onFileSelect($files)" multiple ng-click="uploadSrc = 'product';">
 	        <span>Upload Art Work</span>
@@ -331,7 +334,7 @@
 		  <td>Data</td>
 		  <td>
           <div class="controls" > 
-      <span class="btn btn-primary fileinput-button controls-upload" style="width: 200px;" >
+      <span class="btn btn-primary fileinput-button controls-upload prodo-uploadBtnWidth" >
         <i class="glyphicon glyphicon-upload "></i>
         <input   type="file" name="file" ng-file-select="onFileSelect($files)" multiple ng-click="uploadSrc = 'productlogo';">
         <span>Upload Product</span>

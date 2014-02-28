@@ -22,13 +22,13 @@
 
       <a class="pull-left" href="#"  ng-click="userProfileModal(comment.user.userid)" ng-controller="prodoUserProfileDataController"  id="triggerModal">
 
-      <img class="media-object" id="img-user" ng-src="{{comment.user.profilepic}}" alt="User"  style="height:50px; width:50px" id="triggerModals" data-toggle="modal" data-target="#profileInfoModal" /> 
+      <img class="media-object prodo-userAvatar" id="img-user" ng-src="{{comment.user.profilepic}}" alt="User" id="triggerModals" data-toggle="modal" data-target="#profileInfoModal" /> 
         
       </a>
 
 <!-- modal -->
 
-      <div id = "profileInfoModal" class="modal fade" style="left:200px" >
+      <div id = "profileInfoModal" class="prodo-modal-user modal fade" >
        <div class="modal-dialog"> 
         <div class="modal-content"> 
               <div class="modal-header">
@@ -39,7 +39,7 @@
              <div class="modal-body" ng-controller="prodoUserProfileDataController">                 
                             <div class="classMain">
                                   <h5 ng-bind=" modaluser.username"></h5>
-                                  <img ng-src="{{modaluser.profile_pic}}" style="height:90px;width:90px; "/>
+                                  <img ng-src="{{modaluser.profile_pic}}" class="prodo-userImg" />
                             </div>
                      <br><hr>
                      <div  class="classMain">
@@ -77,16 +77,16 @@
 
   <div class="pull-right" id="prodo-comment-timePosted" ><span ng-bind="fromNow(comment.datecreated)"></span></div> </div>
   <div class="pull-left" id="prodo-comment-row-fluid" > <span ng-bind="comment.commenttext"></span></div><br>
-  <div class="label label-warning"   id="responseComment"  style="display: none">  </div>
-  <a   id="retryIcon" ng-click="addProductComment();" style="display: none; cursor: pointer; cursor: hand;" > <span class="glyphicon glyphicon-refresh "></span> </a>
-  <div class="prodo-comment-tabs " id="tabs" style="align:left;"  >
+  <div class=" responseComment label label-warning"   id="responseComment"  >  </div>
+  <a   id="retryIcon" ng-click="addProductComment();" class="prodo-commentRetry"  > <span class="glyphicon glyphicon-refresh "></span> </a>
+  <div class="prodo-comment-tabs " id="tabs"  >
     <ul id="commentNavTab" class="nav nav-pills" ng-init="tabCommentTags = false;
     tabCommentRemove = false" >
              <!--    <li><a    ng-click="tabCommentTags = tabCommentTags === false ? true : false;
              tabCommentRemove = false;"><div id="fa-tagsComment" class="fa fa-tags"  ></div></a></li> -->
-             <li ng-style="hideIfNotUser(comment.user.userid)" ><a  style="cursor: pointer; cursor: hand;" ng-click="tabCommentRemove = tabCommentRemove === false ? true : false;
+             <li ng-style="hideIfNotUser(comment.user.userid)" ><a class="prodo-cursor" ng-click="tabCommentRemove = tabCommentRemove === false ? true : false;
               tabCommentImg = false;"><div  id="fa-removeComment" name="rm" class=" fa fa-trash-o  "  ></div></a></li>
-              <li><a  style="cursor: pointer; cursor: hand;" ng-style="hideIfNotImage(comment.comment_image[0].image)"  ng-click="tabCommentImg = tabCommentImg === true ? false : true;
+              <li><a   ng-style="hideIfNotImage(comment.comment_image[0].image)"  ng-click="tabCommentImg = tabCommentImg === true ? false : true;
                 tabCommentRemove = false;"><div id="fa-tagsComment" class="fa fa-picture-o"  ></div></a></li>        
               </ul> 
               <div class="tab-content">
@@ -108,13 +108,13 @@
                   <div id="Remove" ng-show="tabCommentImg == 1"   >
 
                    <div id="img2" >
-                    <img style=" max-width:450px;"  id="img-user" ng-src="{{comment.comment_image[0].image}}"   ng-click="captureCommentImageHere(comment.comment_image[0].image)" data-toggle="modal" data-target="#commentImageModal" /> 
+                    <img  class="prodo-comment-img" id="img-user" ng-src="{{comment.comment_image[0].image}}"   ng-click="captureCommentImageHere(comment.comment_image[0].image)" data-toggle="modal" data-target="#commentImageModal" /> 
 
                   </div>      
                 </div>
 <!-- Code for comment image modal -->
 
-                    <div id = "commentImageModal" class="modal fade" style="left:200px" >
+                    <div id = "commentImageModal" class="prodo-modal-user modal fade" >
                       <div class="modal-dialog"> 
                         <div class="modal-content"> 
 
