@@ -35,11 +35,7 @@
 
 	      <div class="control-group" ng-if="toggleContact">
 
-					<input id="prodo-form-input-address" name="contact" type="text" class="form-control" placeholder="Customer HelpLine" ng-model="org.contact.customerhelpline1" autofocus required/>
-
-					<input id="prodo-form-input-address" name="contact" type="text" class="form-control" placeholder="Customer HelpLine" ng-model="org.contact.customerhelpline2" required/>
-
-					<input id="prodo-form-input-address" name="contact" type="text" class="form-control" placeholder="Customer HelpLine" ng-model="org.contact.customerhelpline3" required/>
+					<input ng-repeat='contact in org.contacts' id="prodo-form-input-address" name="contact" type="text" class="form-control" placeholder="Customer HelpLine" ng-model="contact.customerhelpline" />
 						 
 				</div>	<!-- control group div -->
 

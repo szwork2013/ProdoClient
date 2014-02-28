@@ -432,9 +432,7 @@ $scope.selected_country="";
                   }, 
                 'contacts': 
                 [ 
-                 {'customerhelpline' : $scope.org.contact.customerhelpline1 },
-                 {'customerhelpline' : $scope.org.contact.customerhelpline2 },
-                 {'customerhelpline' : $scope.org.contact.customerhelpline3 }
+                 {'customerhelpline' : $scope.org.contacts }
                 ]
               } ],
   	          'usergrp': 

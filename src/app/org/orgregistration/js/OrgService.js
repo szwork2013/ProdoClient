@@ -26,10 +26,7 @@ angular.module('prodo.OrgApp')
       timezone : "",
       region: "",
       geo: {latitude: 2 , longitude: 1},
-      contact: {
-                       customerhelpline1 : "",
-                       customerhelpline2 : "",
-                       customerhelpline3 : ""},
+      contacts:[{customerhelpline : ""},{customerhelpline : ""},{customerhelpline : ""}], 
       grpname:"",
       invites:"",
       terms: "" 
