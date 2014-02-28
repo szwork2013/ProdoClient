@@ -84,9 +84,9 @@
                 }
                 $scope.userIDFromSession = $rootScope.usersession.currentUser.userid;
                 $scope.usernameFromSession = $rootScope.usersession.currentUser.username;
-                $scope.ProductsFollowedFromSession = $rootScope.usersession.currentUser.products_followed;
-
-                $log.debug("Products  f.. "+JSON.stringify( $scope.ProductsFollowedFromSession));
+                // $scope.ProductsFollowedFromSession = $rootScope.usersession.currentUser.products_followed;
+               $scope.ProductsFollowedFromSession= UserSessionService.productfollowlist
+                // $log.debug("Products  f.. "+JSON.stringify( $scope.ProductsFollowedFromSession));
               }
               $scope.getUserDetails();
                //get login details
@@ -450,7 +450,7 @@
                  else { }
                }
              else {
-              $log.debug("success    "+JSON.stringify(successData));
+              // $log.debug("success    "+JSON.stringify(successData));
               $scope.features=[];
               $scope.featuretags=[];
               for(i=0;i<successData.success.productfeature.length;i++){
@@ -618,7 +618,7 @@
                         else // if products followed has product, select latest product
                         {
                          $scope.productList=data.success.product;
-                         $log.debug("Products List : "+JSON.stringify($scope.productList));
+                         // $log.debug("Products List : "+JSON.stringify($scope.productList));
                        }
                      }
                         // $log.debug(data);
@@ -650,6 +650,7 @@
                  $scope.CheckIfAlreadyFollowingProduct=function(){
 
                    var follow;
+                   $log.debug("following : "+ JSON.stringify($scope.ProductsFollowedFromSession))
                    for(i=0 ; i<$scope.ProductsFollowedFromSession.length; i++){
                     if($scope.ProductsFollowedFromSession[i].prodle==$rootScope.product_prodle){
                       follow=true;
@@ -668,6 +669,8 @@
             
                   $rootScope.usersession.followProduct($rootScope.product_prodle);
                   growl.addSuccessMessage("Follwing product");
+                  UserSessionService.productfollowlist.push($scope.product);
+                  $("#prodo-followBtn").css("display","none");
                 
               };
              //Follow Product

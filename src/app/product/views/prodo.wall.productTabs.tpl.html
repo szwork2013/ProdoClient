@@ -25,7 +25,7 @@
 <div >
 <img class="img" id="productLogo"  style=" height: 100px; padding:10px;max-width:200px; cursor: pointer;"   ng-src="{{product.product_logo}}" />
 <strong style="font-size: 20px; margin:20px;max-width:200px; text-align:center; color:#82805F">&nbsp;<span ng-bind="product.name.substring(0,20)"> </span></strong>
-<a href="" ng-style="CheckIfAlreadyFollowingProduct()" ng-click="followCurrentProduct()" class="pull-right btn btn-primary btn-sm">  Follow </a>
+<a href="" ng-style="CheckIfAlreadyFollowingProduct()" ng-click="followCurrentProduct()"   class="pull-right btn btn-primary btn-sm">  Follow </a>
 
 <br>
 <span style="color:#82805F"" >MODEL NO :&nbsp; <span ng-bind="product.model_no"></span>
@@ -38,13 +38,13 @@
 
 <table class="table child "  id="prodo-ProductFeatureTable" >
            
-            <tr id="prodo-productbnd" style="background-color: white; display:none;" ng-style="ShowBannedDate(product)">
+            <tr id="prodo-productbnd" ng-show="product.banneddate" style="background-color: white; display:none;" ng-style="ShowBannedDate(product)">
               <td>Product Banned on : &nbsp;<span ng-bind="product.banneddate"></span></td>
             </tr>
             <tr   id="prodo-productDiscontinued"  >
-              <td style=" background-color: #FFBABA;font-size: 16px;  border-top: 0px solid #ddd; padding:8px; padding-bottom:12px;" ng-style="ShowDiscontinuedSale(product)" >Product Discontinued On &nbsp; <span ng-bind="formatDate(product.sale_discontinuation_date)">
+              <td style=" background-color: #FFBABA;font-size: 16px;  border-top: 0px solid #ddd; padding:8px; padding-bottom:12px;" ng-show="product.sale_discontinuation_date" ng-style="ShowDiscontinuedSale(product)" >Product Discontinued On &nbsp; <span ng-bind="formatDate(product.sale_discontinuation_date)">
               </span></td>
-               <td style=" background-color: #FFBABA;font-size: 16px;  border-top: 0px solid #ddd; padding:8px; " ng-style="ShowDiscontinuedSupport(product)">Support Discontinued On  &nbsp;<span ng-bind="formatDate(product.support_discontinuation_date)" > </span></td>
+               <td style=" background-color: #FFBABA;font-size: 16px;  border-top: 0px solid #ddd; padding:8px; " ng-show="product.support_discontinuation_date" ng-style="ShowDiscontinuedSupport(product)">Support Discontinued On  &nbsp;<span ng-bind="formatDate(product.support_discontinuation_date)" > </span></td>
               </tr>
                                
  </table>
