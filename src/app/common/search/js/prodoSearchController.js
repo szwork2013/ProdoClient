@@ -199,6 +199,7 @@ console.log("rootscope"+$rootScope.orgid);
              
                  $scope.message="";
                  $scope.message=data.success.message;
+                 console.log("data received from api "+ JSON.stringify($scope.result));
                   //alert($scope.message);
                  });
                  $scope.$on('getSearchProductNotDone', function (event, data) {
