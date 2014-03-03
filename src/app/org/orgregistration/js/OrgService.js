@@ -36,7 +36,9 @@ angular.module('prodo.OrgApp')
   '$resource',
   function ($resource) {
     var OrgS = {
-        org_data: $resource('/api/organization/:orgid', {}, { getOrgSettings: { method: 'GET'} })
+        org_data: $resource('/api/organization/:orgid', {}, { getOrgSettings: { method: 'GET'} }),
+        ManageOrgLocation: $resource('/api/orgaddress/:orgid/:orgaddressid', {}, { getAllOrgAddress: { method: 'GET'} }),
+        GetOrgProducts: $resource('/api/product/:orgid', {}, { getAllOrgProducts: { method: 'GET'} })
     }
     return OrgS;
   }
