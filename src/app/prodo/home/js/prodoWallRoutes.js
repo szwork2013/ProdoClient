@@ -11,6 +11,7 @@ angular.module('prodo.ProdoWallApp')
       abstract: true
     })    
     .state('prodo.wall', {
+      controller: 'ProdoWallController',
       views: {
         'prodo-sidebar' : {
           templateUrl:  'prodo/home/views/prodo.wall.sidebar.tpl.html',
@@ -29,37 +30,24 @@ angular.module('prodo.ProdoWallApp')
         'prodo-advertisment' : {
           templateUrl:  'prodo/home/views/prodo.wall.advertisment.tpl.html'
         }
-      },
-      controller: 'ProdoWallController'
+      }
     })
     .state('prodo.wall.org', { 
        templateUrl:  'org/manageorg/views/prodo.wall.org.tpl.html',
        controller: 'ProdoWallController',
        resolve: {
           orgdata: function(OrgService, $rootScope) {
-            console.log('hi-1');
-             return OrgService.org_data.getOrgSettings({orgid: $rootScope.orgid}).$promise;
+            console.log('orgdata');
+            return OrgService.org_data.getOrgSettings({orgid: $rootScope.orgid}).$promise;
           },
-
-          orgdata1: function(OrgRegistrationService, $rootScope) {
-                        console.log("Resolving dependency...");
-                        var n = OrgRegistrationService.getOrgDetailSettings($rootScope.orgid);
-                       console.log(n)
-                       return n; 
-                    },
-          orgproductdata: function(OrgRegistrationService, $rootScope) {
-              console.log("Resolving dependency...");
-             return OrgRegistrationService.getAllProducts($rootScope.orgid);
-              
+          orgaddr: function(OrgService, $rootScope) {
+            console.log('orgaddr');
+            return OrgService.ManageOrgLocation.getAllOrgAddress({orgid: $rootScope.orgid}).$promise;
           },
-          orgaddressdata: function(OrgRegistrationService, $rootScope) {
-              console.log("Resolving dependency...");
-             return OrgRegistrationService.getAllOrgAddress($rootScope.orgid);
-              
-          },
-          test: function(){
-              console.log("test")
-            }
+          orgproduct: function(OrgService, $rootScope) {
+            console.log('orgproduct');
+            return OrgService.GetOrgProducts.getAllOrgProducts({orgid: $rootScope.orgid}).$promise;
+          }
         }
       }) 
     .state('prodo.wall.product', {

@@ -29,15 +29,11 @@
         {{addr.address.address2}},<br>
         {{addr.address.address3}}, {{addr.address.city}}<br>
         {{addr.address.state}}, {{addr.address.country}}<br>
-        <abbr title="Zipcode">Z:</abbr> {{addr.address.zipcode}}
+        Zipcode: {{addr.address.zipcode}}
       </address>
     </dd>
     <dt>Contact:</dt>
-    <dd>
-      <address>
-        {{addr.contacts[0].customerhelpline}}<br>{{addr.contacts[1].customerhelpline}}<br>{{addr.contacts[2].customerhelpline}}
-      </address>
-    </dd>
+    <dd ng-repeat='contact in addr.contacts'>{{contact.customerhelpline}}</dd>
   </dl>
 	</div>
 	</div>

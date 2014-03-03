@@ -799,9 +799,9 @@ text-align: left;
 #prodo-address-text{
 	font-weight: normal;
 	font-size: 10px;
-	line-height: 5px;
+	text-align: left;
 	padding-top: 10px;
-	margin-right: 40px;
+	margin-left: 60px;
 	color: #595365;
 }
 
@@ -1627,7 +1627,9 @@ width: 518px;
 
  /* Prodo-ProductFeature-CSS*/ 
 
-
+.regStatusArrows{
+	background: black;width: 65%;height: 2px;position: relative;top: -40px;left: 120px;
+}
 
 
 

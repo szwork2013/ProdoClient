@@ -1,14 +1,47 @@
 angular.module('prodo.ProdoWallApp')
-	.controller('ProdoWallController', ['$rootScope', '$scope', '$state', '$log', 'OrgRegistrationService', 'orgdata', 'orgdata1', function($rootScope, $scope, $state, $log, OrgRegistrationService,orgdata, orgdata1) {
-		console.log(orgdata.success.organization);
+	.controller('ProdoWallController', ['$rootScope', '$scope', '$state', '$log', 'OrgRegistrationService', 'orgdata', 'orgaddr', 'orgproduct', '$stateParams', function($rootScope, $scope, $state, $log, OrgRegistrationService, orgdata, orgaddr, orgproduct, $stateParams) {
 
-	// $rootScope.$watch('orgid', function() {
-	// 	console.log($rootScope.orgid);
- //      OrgRegistrationService.getOrgDetailSettings($rootScope.orgid);
- //     	OrgRegistrationService.getAllOrgAddress($rootScope.orgid);
- //    	OrgRegistrationService.getAllProducts($rootScope.orgid); 
- //  });
+    console.log(orgproduct);
 
+    if (orgproduct.error) {
+      alert('No product available');
+    } else {
+        $scope.productlist = orgproduct.success.product; 
+    }
+
+    if (orgdata.success.organization.org_images.length == 0) {
+        $rootScope.images = [ {
+          image: 'http://www.bestflashstock.com/components/com_virtuemart/shop_image/product/Product_Banner_w_4d0fb60464521.jpg'
+        } ] 
+      } else {
+        $rootScope.images = orgdata.success.organization.org_images;
+        console.log($rootScope.images);
+      }
+
+  	$rootScope.$watch('orgid', function() {
+  		$scope.reload();
+    });
+
+    $scope.$state = $state;
+
+    $scope.$watch('$state.$current.locals.globals.orgdata', function (orgdata) {
+      $rootScope.orgdata = orgdata.success.organization;
+      console.log($rootScope.orgdata);
+    });
+
+    $scope.$watch('$state.$current.locals.globals.orgaddr', function (orgaddr) {
+      $scope.orgaddr = orgaddr.success.orgaddress;
+      console.log($scope.orgaddr);
+    });
+
+    // $scope.$watch('$state.$current.locals.globals.orgproduct', function (orgproduct) {
+    //   $scope.productlist = orgproduct.success.product;
+    //   console.log($scope.productlist);
+    // });
+
+    $scope.reload = function() {
+      $state.reload();
+    };
 
 		// function to handle server side responses
     $scope.handleOrgAddressResponse = function(data){
@@ -34,12 +67,6 @@ angular.module('prodo.ProdoWallApp')
         $scope.showAlert('alert-danger', "Server Error:" + message);
         cleanupEventGetOrgAddressNotDone();      
       });
-  
-
-		var cleanupEventGetOrgAddData = $rootScope.$on("getOrgAddData", function(event, data){
-        $scope.orgaddr = data;
-        cleanupEventGetOrgAddData();  
-    });
 
     var cleanupEventSendOrgData = $rootScope.$on("sendOrgData", function(event, data){
         $scope.orgdata = data;
