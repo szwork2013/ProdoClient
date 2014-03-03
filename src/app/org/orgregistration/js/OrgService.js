@@ -27,8 +27,6 @@ angular.module('prodo.OrgApp')
       region: "",
       geo: {latitude: 2 , longitude: 1},
       contacts:[{customerhelpline : ""},{customerhelpline : ""},{customerhelpline : ""}], 
-      grpname:"",
-      invites:"",
       terms: "" 
     }
   })

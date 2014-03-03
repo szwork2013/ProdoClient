@@ -2,7 +2,7 @@
 *	Org Registration Controller
 **/
 angular.module('prodo.OrgApp')
-	.controller('OrgRegistrationController', ['$scope', '$rootScope', 'OrgModel', '$state', '$stateParams', '$log', 'OrgRegistrationService', function($scope, $rootScope, OrgModel, $state, $stateParams, $log, OrgRegistrationService) {
+	.controller('OrgRegistrationController', ['$scope', '$rootScope', 'OrgModel', '$state', '$stateParams', '$log', 'OrgRegistrationService', 'UserSessionService', function($scope, $rootScope, OrgModel, $state, $stateParams, $log, OrgRegistrationService, UserSessionService) {
 		
     $scope.org = OrgModel;   // assining OrgModel service to org to update org model data
     $scope.countries=[ 'Afghanistan', 
@@ -430,10 +430,7 @@ $scope.selected_country="";
       	          'state': $scope.org.state,
       	          'zipcode': $scope.org.zipcode 
                   }, 
-                'contacts': 
-                [ 
-                 {'customerhelpline' : $scope.org.contacts }
-                ]
+                'contacts':$scope.org.contacts
               } ],
   	          'usergrp': 
                 [ {
