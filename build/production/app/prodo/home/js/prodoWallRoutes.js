@@ -47,7 +47,6 @@ angular.module('prodo.ProdoWallApp')
           orgproduct: function(OrgService, $rootScope) {
             console.log('orgproduct');
             return OrgService.GetOrgProducts.getAllOrgProducts({orgid: $rootScope.orgid}).$promise;
-              
           }
         }
       }) 

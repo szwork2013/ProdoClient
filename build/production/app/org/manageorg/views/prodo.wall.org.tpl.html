@@ -33,11 +33,7 @@
       </address>
     </dd>
     <dt>Contact:</dt>
-    <dd>
-      <address>
-        {{addr.contacts[0].customerhelpline}}<br>{{addr.contacts[1].customerhelpline}}<br>{{addr.contacts[2].customerhelpline}}
-      </address>
-    </dd>
+    <dd ng-repeat='contact in addr.contacts'>{{contact.customerhelpline}}</dd>
   </dl>
 	</div>
 	</div>
