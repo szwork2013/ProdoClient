@@ -1616,7 +1616,9 @@ width: 518px;
 
  /* Prodo-ProductFeature-CSS*/ 
 
-
+.regStatusArrows{
+	background: black;width: 65%;height: 2px;position: relative;top: -40px;left: 120px;
+}
 
 
 
