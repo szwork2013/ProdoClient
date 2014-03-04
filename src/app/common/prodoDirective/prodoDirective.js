@@ -490,7 +490,7 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
         link: function (scope, ele, attrs, ngModel , growl) {
 
           $('#searchText').on('keyup', function (e) { 
-            $rootScope.errors="";
+            scope.errors="";
             var value = $(this).val().trim();
             var req = { 'name': value , 'orgid' : $rootScope.orgid};
             console.log("Json" + JSON.stringify(req));
@@ -505,7 +505,7 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
                         {
                              if(data.error.code==="AD001")                       
                             {
-                                  $rootScope.errors="Please assign orgid";
+                                  scope.errors="Please assign orgid";
                                   //alert("No orgid");
                             }
                         }
@@ -515,24 +515,28 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
                             { 
                                       if(value==="")
                                       {  
-                                         $rootScope.errors="";
+                                         scope.errors="";
                                       }
                                       else
                                       {
-                                          // 
-                                          $rootScope.errors="No products found for \n '" + $rootScope.orgdata.name+"'";
                                           
+                                          scope.errors="No products found for \n '" + $rootScope.orgdata.name+"'";
+                                             window.setTimeout(function() {                                            
+                                                    
+
+                                                    scope.toggleTitleForDiv();
+                                             }, 1000);
                                       }
                             }
                         
                          
                         }
-                        $rootScope.enhancement={};
-                        $rootScope.productNames=[];
-                        $rootScope.enhancement=data.name.doc;
-                        $rootScope.productNames=data.success.doc;                
+                        scope.enhancement={};
+                        scope.productNames=[];
+                        scope.enhancement=data.name.doc;
+                        scope.productNames=data.success.doc;                
                       }).error(function (data) {
-                         $rootScope.errors="Server Error";
+                         scope.errors="Server Error";
                         // $("#sidebarErrors").addClass("serverClassMessage");       
                       });   
 

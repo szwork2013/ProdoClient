@@ -52,7 +52,7 @@
 
                //watch prodle if changed by user by product search or any other source
                $rootScope.$watch('product_prodle', function() {  
-                $log.debug("Listening" + $rootScope.product_prodle);
+                // $log.debug("Listening" + $rootScope.product_prodle);
                 // growl.addInfoMessage("Getting product details");
                 $scope.features=[];
                 $("#productLogo").attr('src', '');
@@ -64,8 +64,8 @@
                    else { //show msg to follow product
                     $("#prodo-ProductDetails").css("display", "none");
                     $("#ErrMsging").css("display", "block");
-                     document.getElementById("ErrMsging").innerHTML="You are not following any product , Please start following product....";
-                    growl.addErrorMessage(" You are not following any product , Please start following product....");
+                     document.getElementById("ErrMsging").innerHTML="Product not available";
+                    // growl.addErrorMessage(" You are not following any product , Please start following product....");
                    }
                  
                });
@@ -98,14 +98,15 @@
                     if (successData.success == undefined){  //if not product
                      $("#prodo-ProductDetails").css("display", "none");
                       $("#ErrMsging").css("display", "block");
+                      if(document.getElementById("ErrMsging")!==null)
                       document.getElementById("ErrMsging").innerHTML="Product not available....";
-                    growl.addErrorMessage(" Product not available....");
+                    // growl.addErrorMessage(" Product not available....");
                    }
                    else {
                      $("#prodo-ProductDetails").css("display", "block");
                       $("productExtraInfo").css("display", "block");
                       $("#ErrMsging").css("display", "none");
-                    $log.debug(successData.success.product);
+                    // $log.debug(successData.success.product);
                     $scope.getProductFeatures();
                     $scope.checkAdminProductUpload();
                     $("#prodo-ProductFeatureTable").css("display", "table"); 
@@ -140,7 +141,7 @@
                         $("#prodo-ProductDetails").css("display", "none");
                          $("#ErrMsging").css("display", "inline");
                          document.getElementById("ErrMsging").innerHTML="Server Error:" + error.status;
-                        growl.addErrorMessage( "Server Error:" + error.status);
+                        // growl.addErrorMessage( "Server Error:" + error.status);
                     });
             }
                 //get product function declaration  
@@ -176,7 +177,7 @@
                    $("#ErrMsging").css("display", "none");
                  //Input check validations are on Client side( using Angular validations)
                 
-                $log.debug($scope.orgidFromSession);
+                // $log.debug($scope.orgidFromSession);
                   if(editStatus=='add'){ //add product
                      $scope.newProduct = {product: {
                    model_no: $scope.product.model_no,
@@ -187,7 +188,7 @@
 
                     ProductService.saveProduct({orgid: $scope.orgidFromSession}, $scope.newProduct,
                       function(success) {
-                        $log.debug(success);
+                        // $log.debug(success);
                               $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
 
                             },
@@ -211,7 +212,7 @@
                     if ($scope.orgidFromSession === $rootScope.orgid ) {
                      ProductService.updateProduct({orgid:$scope.orgidFromSession,prodle:$rootScope.product_prodle}, $scope.newProduct,
                       function(success) {
-                        $log.debug(success);
+                        // $log.debug(success);
                               $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
                               $scope.getProduct($rootScope.product_prodle,$rootScope.orgid); 
                             },
@@ -234,17 +235,17 @@
                       }).success(function(data, status, headers, cfg) {
                        if(data.success){
                         if(data.success.product.length==0){ //after deleting product, check for next product from product followed,if no product - display msg
-                         $log.debug(data.success.product.length);
+                         // $log.debug(data.success.product.length);
                           $("#prodo-ProductDetails").css("display", "none");
                          $("#ErrMsging").css("display", "inline");
                          document.getElementById("ErrMsging").innerHTML="Product not available , Add new product ...";
-                         growl.addErrorMessage(" Product not available , Add new product ...");
+                         // growl.addErrorMessage(" Product not available , Add new product ...");
 
                        }
 
                         else // if products followed has product, select latest product
                         {
-                          $log.debug(data.success.product[0].prodle);
+                          // $log.debug(data.success.product[0].prodle);
                           $rootScope.product_prodle=data.success.product[0].prodle;
                         }
                       }
@@ -264,7 +265,7 @@
                        if ($rootScope.isAdminCheck==true ) { //if owener of product
                         ProductService.deleteProduct({orgid: $scope.orgidFromSession, prodle: $rootScope.product_prodle},
                          function(success) {
-                          $log.debug(JSON.stringify( success));
+                          // $log.debug(JSON.stringify( success));
                           growl.addSuccessMessage("Product deleted successfully...");
                           $scope.handleProductDeleted();
                         },
@@ -283,7 +284,6 @@
                 //clear text fields of product
                 $scope.clearText=function(){   
                    // prodo-product-features_textfield
-                   $log.debug("clearig");
                    $scope.product="";
                    $scope.pImages_l="";
                    $scope.features="";
@@ -311,18 +311,19 @@
                $scope.checkedIndex = function (img) {
                  if ($scope.chckedIndexs.indexOf(img) === -1) {
                    $scope.chckedIndexs.push(img);
-                   $log.debug($scope.chckedIndexs);
+                   // $log.debug($scope.chckedIndexs);
                  }
                  else {
                    $scope.chckedIndexs.splice($scope.chckedIndexs.indexOf(img), 1);
                  }
-                 $log.debug($scope.chckedIndexs);
+                 // $log.debug($scope.chckedIndexs);
                };
                //get selected image for delete
 
               //delete images
               $scope.deleteProductImages = function(index) {
-                  //get selected ids to delete images
+                    if ($rootScope.isAdminCheck==true ) {
+                   //get selected ids to delete images
                   growl.addInfoMessage("Deleting product images ...");
                   $scope.imgIds = [{}];
                   $scope.ids;
@@ -331,7 +332,7 @@
                     $scope.ids=  $(this).val();               
                   });
                   angular.forEach($scope.chckedIndexs, function (value, index) {
-                    $log.debug("value= "+value);
+                    // $log.debug("value= "+value);
                     var index = $scope.pImages_l.indexOf(value);
                     $scope.pImages_l.splice($scope.pImages_l.indexOf(value), 1);
                   });
@@ -343,12 +344,15 @@
                      // url: 'www.prodonus.com/api/image/product/' + $scope.orgidFromSession + '/' + $rootScope.product_prodle +'?prodleimageids='+$scope.imgIds ,
                         // data: {'prodleimageids':[ $scope.imgIdsJson]}
                       }).success(function(data, status, headers, cfg) {
-                        $log.debug(data);
+                        // $log.debug(data);
                         growl.addSuccessMessage("Images deleted successfully...");
                       }).error(function(data, status, headers, cfg) {
-                       $log.debug(status);
+                       // $log.debug(status);
                        growl.addErrorMessage(status);
                      });
+                    }
+                    else
+                      growl.addErrorMessage("You dont have rights to delete this feature");
                     };
                   //delete images
 
@@ -457,7 +461,7 @@
                 $scope.featuretags.push(successData.success.productfeature[i].featurename);
               }
                        // $scope.features= JSON.stringify($scope.features);
-                       $log.debug("pf  "+ $scope.featuretags);
+                       // $log.debug("pf  "+ $scope.featuretags);
                      }
                    },
                    function(error) {
@@ -469,14 +473,14 @@
 
             //delete product feature
             $scope.deleteFeature = function(feature){
-              $log.debug("deleting feature");
+              // $log.debug("deleting feature");
               if(feature!==undefined && feature!==null && feature!==""){
                 growl.addInfoMessage("Deleting product feature ...");
-                $log.debug(feature.featureid);
+                // $log.debug(feature.featureid);
                 if ($rootScope.isAdminCheck==true){ //if product owner
                   ProductFeatureService.deleteFeature({orgid: $scope.orgidFromSession, prodle: $rootScope.product_prodle ,productfeatureid:feature.featureid},
                     function(success) {
-                      $log.debug(JSON.stringify( success));
+                      // $log.debug(JSON.stringify( success));
                       //client side delete
                       var index = $scope.features.indexOf(feature);
                       if (index != -1)
@@ -503,14 +507,14 @@
                 featurename: $scope.feature.name,
                 featuredescription: $scope.feature.description
               }]};
-              $log.debug( $scope.newFeature);
+              // $log.debug( $scope.newFeature);
               if($scope.newFeature!==undefined && $scope.newFeature!==null && $scope.newFeature!==""){
                 if(editStatus=='add'){
-                  $log.debug("adding");
+                  // $log.debug("adding");
                   if ($rootScope.isAdminCheck==true){  //if product owner
                     ProductFeatureService.saveFeature({orgid: $scope.orgidFromSession , prodle:$rootScope.product_prodle}, $scope.newFeature,
                       function(success) {
-                        $log.debug(success);
+                        // $log.debug(success);
                         $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
                         $log.debug("new Feature : "+JSON.stringify( $scope.newFeature.productfeature[0]));
                         $scope.features.push($scope.newFeature.productfeature[0]);
@@ -537,7 +541,7 @@
                 if ($rootScope.isAdminCheck==true){
                   ProductFeatureService.updateFeature({orgid:$scope.orgidFromSession,prodle:$rootScope.product_prodle,productfeatureid:id},{'productfeature': data},
                     function(success) {
-                      $log.debug(success);
+                      // $log.debug(success);
                       $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
                       // $scope.features.push($scope.newFeature);
                       growl.addSuccessMessage(success.success.message);                                                               
@@ -622,7 +626,7 @@
                       }).success(function(data, status, headers, cfg) {
                        if(data.success){
                         if(data.success.product.length==0){ //after deleting product, check for next product from product followed,if no product - display msg
-                         $log.debug(data.success.product.length);
+                         // $log.debug(data.success.product.length);
                          temp.innerHTML="<br>Product not available ... Add new product<br><br>";
                          growl.addErrorMessage(" Product not available ...");
                        }
@@ -662,7 +666,7 @@
                  $scope.CheckIfAlreadyFollowingProduct=function(){
 
                    var follow;
-                   $log.debug("following : "+ JSON.stringify($scope.ProductsFollowedFromSession))
+                   // $log.debug("following : "+ JSON.stringify($scope.ProductsFollowedFromSession))
                    for(i=0 ; i<$scope.ProductsFollowedFromSession.length; i++){
                     if($scope.ProductsFollowedFromSession[i].prodle==$rootScope.product_prodle){
                       follow=true;
@@ -676,7 +680,7 @@
                 };
 
                 $scope.followCurrentProduct=function(){
-                 $log.debug("following");
+                 // $log.debug("following");
                 
             
                   $rootScope.usersession.followProduct($rootScope.product_prodle);
@@ -705,6 +709,15 @@
                 return(moment(time).format('DD MMM YYYY'));
                };
                //date format
+
+               $scope.orgProductDetails=function(){
+                // $log.debug(JSON.stringify($scope.productList[0]));
+                $rootScope.product_prodle=$scope.productList[0].prodle;
+                $rootScope.orgid=$scope.orgidFromSession;
+                $scope.getProduct($scope.productList[0].prodle,$scope.orgidFromSession)
+                // $log.debug("prodle "+$rootScope.product_prodle);
+                 // $log.debug($rootScope.orgid);
+               }
 
           }]) 
 

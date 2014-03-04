@@ -3,7 +3,7 @@
     <ul class="nav nav-tabs nav-justified">
         <li class="active"><a showtab="" href="" ui-sref="account-org.org.detail">Organization</a>
         </li>
-        <li><a showtab="" href="" ui-sref="account-org.org.Productdetail">Product</a>
+        <li ng-controller="ProductController"><a ng-click="orgProductDetails()" showtab="" href="" ui-sref="account-org.org.Productdetail">Product</a>
         </li>
         <li><a showtab="" href="" ui-sref="account-org.org.broadcast">Broadcast</a>
         </li>

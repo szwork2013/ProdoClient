@@ -4,9 +4,12 @@
    <div id="prodo-sidebar-list-group" class="list-group">
     <div id="prodo-sidebar-list" class="list">
       <a style="background-color: #494F53; font-weight: bold; font-size:16px; text-align: center; "  class="list-group-item active" >Products Followed</a>
-      <div ng-repeat="fp in usersession.productfollowlist | limitTo:5" href="#" id="prodo-sidebar-list-group-item" class="list-group-item " ng-if="fp.name != 'Prodonus Software'"> 
+      <div ng-repeat="fp in usersession.productfollowlist | limitTo:limit" href="#" id="prodo-sidebar-list-group-item" class="list-group-item " ng-if="fp.name != 'Prodonus Software'"> 
       <a   ng-click="orgProdleEmitter(fp.prodle,fp.orgid)" class="hyperlinkPointer" ng-bind="fp.name"></a><button class="btn btn-default btn-xs floatLeft" ng-click="unfollowProduct(fp)">Unfollow</button>
       </div>
+      <a  class="list-group-item hyperlinkPointer" ng-if="usersession.productfollowlist.length>6" ng-click="loadMoreFollowedProduct()"> <center id="tabMore">More </center></a>
+   
+
     </div>
   </div>
 </div>
@@ -20,7 +23,7 @@
                 
                      <input general-search type="text" class="prodoAdvancedSearchTextbox"  name="product" typeahead="name for name in enhancement | filter : $viewValue | limitTo:10" id="searchText" ng-model="productSearch.product"  style="width:100%" placeholder="Context Search"  typeahead-on-select="quickSearchEmit()" ng-click="toggleTitleForDiv()" typeahead-loading="loadingLocations" typeahead-wait-ms="720" >
                    <!--   <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh" id="refreshIcon"></i> -->
-                <div ng-bind="errors" class="errorClassMessage" id="sidebarErrors"></div>
+               
 
 
 <!-- 
@@ -40,14 +43,16 @@
 
    <!--  <p ng-click="a()">test</p> -->
         <a data-toggle="modal"  data-target="#advancedSearchModal" ng-click="modalReset()" class="hyperlinkPointer">Advanced Search</a>
+         <div ng-bind="errors" class="errorClassMessage" id="sidebarErrors" ng-click="toggleTitleForDiv()"></div>
         <!-- start of advanced search -->
          <div id = "advancedSearchModal" class="modal fade" >      <!-- Modal Code Starts for Advansed-Search -->
             <div class="modal-dialog">
               <div class="modal-content">
                 <div>
-                  <h4 align="center">Advanced Search </h4>                
+                  <h4 align="center">Advanced Search </h4>   
+                  <div id="lineHr"></div>             
                 </div>  
-                 <hr>
+                
 
                   <div class="modalAppearance">
                           <p>*Type Comma (,) between all the words you want.Eg: Apple Iphone , Samsung Galaxy Pro</p>            
@@ -102,25 +107,32 @@
                           </li> </ol>    -->
 
                         
-               <ol>
-                          <li ng-repeat="list in result">
-                             
-                                 <span ng-bind="list.name" ng-if="list.products!==undefined" class="organisationSearchResult"></span>
-                                 <a ng-bind="list.name" ng-click="orgProdleEmitter(list.prodle,list.orgid)" ng-if="list.products===undefined" class="hyperlinkPointer"></a>
-                                   <ol type="i">
+                                   <ol class="resultScrollable">
+                                      <li ng-repeat="list in result">
+                                         
+                                             <span ng-bind="list.name" ng-if="list.products!==undefined" class="organisationSearchResult"></span>
+                                             <a ng-bind="list.name" ng-click="orgProdleEmitter(list.prodle,list.orgid)" ng-if="list.products===undefined" class="hyperlinkPointer">
+                                             </a>
+                                             <div style="width:500px;" ng-if="list.products===undefined" >[ Description : <span ng-bind="list.description"></span> ]</div>
 
-                                           <li ng-repeat="product_list in list.products">
-                                                   <a ng-bind="product_list.name" ng-click="orgProdleEmitter(product_list.prodle,list.orgid)" ng-if='product_list.name!==""' class="hyperlinkPointer"></a>
-                                                  [ Info:<span ng-bind="product_list.description"></span> ]
-                                           </li>
-                                   </ol>
-                         
-                         </li>
+                                              <div style="width:450px;" ng-if=" list.info!==undefined && list.info ==='No products exist for this organisation' ">[ Info : <span ng-bind="list.info"></span> ]</div>
+                                            
+                                                    <ol type="i">
+                                                       <li ng-repeat="product_list in list.products" class="productSearchResult" ng-if="product_list.name!==''">
+                                                               <a ng-bind="product_list.name" ng-click="orgProdleEmitter(product_list.prodle,list.orgid)" ng-if='product_list.name!==""' class="hyperlinkPointer"></a>
+                                                              <div style="width:450px;" >[ Description : <span ng-bind="product_list.description" ></span> ]</div>
+                                                     <!--          <div style="width:450px;" ng-if=" product_list.description ==='No products exist for this organisation' ">[ Info : <span ng-bind="product_list.description"></span> ]</div> -->
+                                                       </li>
+                                                    </ol>
+                                             
+                                      </li>    
 
-               </ol>   
+                                   </ol>   
 
 
-                    </div>
+                      </div>
+
+
                 </div>  
                                           
                               

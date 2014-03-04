@@ -32,7 +32,7 @@
 	      <div class="prodo-productThumbnailView"  ng-repeat="product1 in productList  | startFrom:currentPage*pageSize | limitTo:pageSize" >
 	      <a ng-click="getSelectedProduct(product1);" class="prodo-cursor"  href="" >
           <p class="prodo-AddProductBtn" >{{product1.name.substring(0,15)}}</p>
-          <img class="prodo-productThumbnailImg" ng-src="{{product1.product_logo}}" alt=" No Image" class="img-rounded">
+          <img class="prodo-productThumbnailImg" ng-src="{{product1.product_logo.image}}" alt=" No Image" class="img-rounded">
           </a>
 
         </div>
@@ -76,6 +76,7 @@
             <h4 class="modal-title" id="myModalLabel">Delete Product</h4>
           </div>
           <div class="modal-body">
+            Once deleted this product, It won't be accessible .<br>
             Are you sure you want to delete ?
           </div>
           <div class="modal-footer">
@@ -120,22 +121,24 @@
               
               <table class="table child table-hover table-bordered prodo-productTableFont" id="prodo-ProductFeatureTable">
               <tr class="prodo-productDiscontinuedUpdate prodo-productTabledis prodo-display-discont " id="prodo-productDiscontinuedUpdate"  >
-                  <td >Product Banned on  <input  id="prodo-product-features_textfield" type="text" class="form-control prodo-display-right" ng-model="product.banneddate" name="banneddate"   /></td>
+                  <td >Product Banned on  <input  id="prodo-product-features_textfield" type="date" class="form-control prodo-display-right" ng-model="product.banneddate" name="banneddate"   /></td>
                  
                 </tr>
                 <tr  class="prodo-productDiscontinuedUpdate prodo-productTabledis prodo-display-discont "  >
-                  <td class="prodo-productTabledis" >Product Discontinued   <input  id="prodo-product-features_textfield" type="text" class="form-control prodo-display-right" ng-model="product.prodDis" name="prodDis"   /></td>
-                  <td class="prodo-productTabledis" >Support Discontinued   <input id="prodo-product-features_textfield" type="text" class="form-control prodo-display-right" ng-model="product.supDis" name="supDis"  /></td>
+                  <td class="prodo-productTabledis" >Product Discontinued   <input  id="prodo-product-features_textfield" type="date" class="form-control prodo-display-right" ng-model="product.prodDis" name="prodDis"   /></td>
+                  <td class="prodo-productTabledis" >Support Discontinued   <input id="prodo-product-features_textfield" type="date" class="form-control prodo-display-right" ng-model="product.supDis" name="supDis"  /></td>
                 </tr>
                 <tr>
-                  <td >   Product Name <input ng-model="product.name"   id="prodo-product-features_textfield" class="form-control prodo-display-right"  type="text"    name="name" required />  </td>
+                  <td >   Product Name <input ng-model="product.name" ng-minlength="2"
+    ng-maxlength="50"  id="prodo-product-features_textfield" class="form-control prodo-display-right"  type="text"    name="name" required />  </td>
                 
-                  <td  >Model No  <input id="prodo-product-features_textfield" type="text" class="form-control prodo-display-right" ng-model="product.model_no"   name="model_no" required /></td>
+                  <td  >Model No  <input id="prodo-product-features_textfield" type="text" ng-minlength="2" ng-maxlength="50"class="form-control prodo-display-right" ng-model="product.model_no"   name="model_no" required /></td>
 
                   
                 </tr>
                 <tr>
-                  <td  colspan="2">Description   <textarea  type="text" id="prodo-product-featuresDescription_textfield" class="form-control"  ng-model="product.description" required name="description" col="40"  ></textarea>
+                  <td  colspan="2">Description   <textarea  type="text" ng-minlength="2"
+    ng-maxlength="100" id="prodo-product-featuresDescription_textfield" class="form-control"  ng-model="product.description" required name="description" col="40"  ></textarea>
 
 
                   </td>
@@ -168,11 +171,12 @@
 			  <form    id="Editfeature" ng-show="editorEnabledF ==true"  name="productFeaturesForm" >
 			    <table class="table child table-hover table-bordered"  id="prodo-ProductFeatureTable" >
 			      <tr class="prodo-productTableFont" >
-			        <td >   Feature name&nbsp;&nbsp;&nbsp; <input ng-model="feature.name"   id="prodo-product-features_textfield" class="form-control"  type="text"   required name="name" />  </td>
+			        <td >   Feature name&nbsp;&nbsp;&nbsp; <input ng-model="feature.name"   id="prodo-product-features_textfield" class="form-control" ng-minlength="2"
+    ng-maxlength="20" type="text"   required name="name" />  </td>
 			    
 			      </tr>
 			      <tr class="prodo-productTableFont" >
-			        <td  colspan="2">Description   <textarea  type="text" id="prodo-product-featuresDescription_textfield" class="form-control"  ng-model="feature.description" required name="description" col="40"  > </textarea>
+			        <td  colspan="2">Description   <textarea  type="text" id="prodo-product-featuresDescription_textfield" class="form-control"  ng-model="feature.description" ng-minlength="2" ng-maxlength="50" required name="description" col="40"  > </textarea>
 			        </td>
 			      </tr> 
 			  
@@ -186,7 +190,7 @@
 
 			</form>
 
-
+      <form name="productFeatureUpdate" >
 			<table class="table child table-hover table-bordered prodo-productTableFont" id="prodo-ProductFeatureTable">
 			   <tr  class="prodo-productTableFont" >
 			     <td> <dt>Feature</dt> </td>
@@ -197,11 +201,13 @@
 			   <tr  class="prodo-productTableFont" ng-repeat="feature in features track by $index">
 			     <td ng-hide="edit" > <span ng-bind="feature.featurename"> </span></td>
 
-			     <td  ng-show="edit" ><input ng-model="feature.featurename"  class="form-control prodo-productFeatureName"  type="text"   required name="name" /> </td>
+			     <td  ng-show="edit" ><input ng-model="feature.featurename"  class="form-control prodo-productFeatureName"  type="text" ng-minlength="2"
+    ng-maxlength="20"  required name="name" /> </td>
 			     
 			     <td ng-hide="edit" > <span ng-bind="feature.featuredescription"> </span></td> 
 
-			      <td  ng-show="edit" ><input ng-model="feature.featuredescription" class="form-control prodo-productFeaturedescription"  type="text"   required name="name" /> </td>
+			      <td  ng-show="edit" ><input ng-model="feature.featuredescription" class="form-control prodo-productFeaturedescription" ng-minlength="2"
+    ng-maxlength="50" type="text"   required name="name" /> </td>
 			  
 
 			    <td ng-hide="edit" ng-style="checkAdmintoUpdateProduct();">
@@ -216,11 +222,13 @@
 			        <div class="modal-content">
 			          <div class="modal-header">
 			            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-			            <h4 class="modal-title" id="myModalLabel">Delete product feature</h4>
+			            <h4 class="modal-title" id="myModalLabel">Delete Product Feature</h4>
 
 			          </div>
 			          <div class="modal-body">
-			            Are you sure you want to delete {{selectedFeature.featurename}} product feature ?
+                 Once deleted this product feature " {{selectedFeature.featurename}}  ", It won't be accessible .<br>
+                 Are you sure you want to delete ?
+			           
 			          </div>
 			          <div class="modal-footer">
 			            <button type="button" class="btn btn-default " data-dismiss="modal">Cancel&nbsp;<i class="glyphicon glyphicon-remove"></i></button>
@@ -234,7 +242,7 @@
 			    </td>
 			    <td ng-show="edit">
 			  
-			       <a id="Editfeature1" ng-click="updateProductFeature(feature,feature.featureid);edit = ! edit;" class="btn btn-default  btn-sm fa fa-floppy-o prodo-margin5"  ></a>
+			       <a id="Editfeature1" ng-click="updateProductFeature(feature,feature.featureid);edit = ! edit;" class="btn btn-default  btn-sm fa fa-floppy-o prodo-margin5" ng-disabled="productFeatureUpdate.$invalid" ></a>
 			      <a id="Editfeature1" class="btn btn-default  btn-sm glyphicon glyphicon-remove prodo-margin5" ng-click="edit = ! edit; getProductFeatures(); "></a>
 			       
 
@@ -243,6 +251,7 @@
 			   </tr>
 
 			</table>
+      </form>
        <div class="clearBoth"></div>
 
          <!-- Features -->
