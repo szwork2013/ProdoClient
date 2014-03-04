@@ -23,5 +23,9 @@ angular.module('prodo.AdminApp')
       url: '/admin-payment',
       templateUrl: 'common/admin/views/prodo.payment.tpl.html'
     })  
+     .state('admin.organisation', {
+      url: '/admin-organisation',
+      templateUrl: 'common/admin/views/prodo.org_details.tpl.html'
+    })  
     
   }]);

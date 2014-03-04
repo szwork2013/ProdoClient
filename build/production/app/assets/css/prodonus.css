@@ -100,6 +100,7 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
     height:25px; 
     width: 500px; 
     border-radius: 5px;
+    margin-bottom: 4px ;
     /* */
   } 
 
@@ -1626,6 +1627,22 @@ width: 518px;
 .productDisplay{margin-top: 20px;}
 
 
+.modal-header {
+background-color: #f5f5f5;
+padding: 3px;
+text-align: center;
+}
+.modal-content {
+width:70%;
+left:15%;
+}
+.modal-footer {
+padding: 5px;
+}
+input.ng-dirty.ng-invalid {
+    border:1px solid #ff8080;
+}
+
  /* Prodo-ProductFeature-CSS*/ 
 
 .regStatusArrows{
@@ -2003,6 +2020,7 @@ width:10%; height: 10%; float: left; margin: 5px; border: solid 1px #ccc;
 .errorClassMessage
 {
 	 	background-color:#3a87ad;
+	 	color: cyan ;
 }
 
 .controls-upload{
@@ -2049,6 +2067,21 @@ text-align: right;
 	padding-left:5px;
 
 }
+.resultScrollable
+{
+	   overflow: scroll;
+	   max-height: 200px;
+       width : 500px ;
+}
+
+.modal-footer 
+{
+		padding: 5px 5px 5px;
+		margin-top: 15px;
+		text-align: right;
+		border-top: 1px solid #e5e5e5;
+}
+
 .organisationSearchResult
 {
      font-size : medium;
@@ -2058,8 +2091,9 @@ text-align: right;
 .productSearchResult
 {
      font-weight: 300 ;
+  
+  
 }
-
 .prodo-registration-Wizard-title
 {
 	font-size:16px;
@@ -2067,5 +2101,4 @@ text-align: right;
 .prodo-registration-Wizard-after{
 	style="color :rgb(200, 219, 200)";
 }
-
 
