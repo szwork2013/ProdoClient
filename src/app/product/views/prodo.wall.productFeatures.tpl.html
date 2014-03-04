@@ -32,7 +32,7 @@
 	      <div class="prodo-productThumbnailView"  ng-repeat="product1 in productList  | startFrom:currentPage*pageSize | limitTo:pageSize" >
 	      <a ng-click="getSelectedProduct(product1);" class="prodo-cursor"  href="" >
           <p class="prodo-AddProductBtn" >{{product1.name.substring(0,15)}}</p>
-          <img class="prodo-productThumbnailImg" ng-src="{{product1.product_logo}}" alt=" No Image" class="img-rounded">
+          <img class="prodo-productThumbnailImg" ng-src="{{product1.product_logo.image}}" alt=" No Image" class="img-rounded">
           </a>
 
         </div>
