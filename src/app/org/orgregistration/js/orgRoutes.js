@@ -35,14 +35,11 @@ angular.module('prodo.OrgApp')
     })    
     .state('account-org.org', {
       abstract: true,
-      templateUrl:  'org/manageorg/views/org.account.settings.tpl.html',
-      controller: 'OrgAccountController'
+      templateUrl:  'org/manageorg/views/org.account.settings.tpl.html'
     })
     .state('account-org.org.detail', {
-       templateUrl:  'org/manageorg/views/org.wall.orgDetails.tpl.html'
-      }) 
-    .state('account-org.org.upload', {
-       templateUrl:  'org/manageorg/views/org.wall.orgUpload.tpl.html'
+       templateUrl:  'org/manageorg/views/org.wall.orgDetails.tpl.html',
+       controller: 'OrgAccountController'
       }) 
     .state('account-org.org.broadcast', {
        templateUrl:  'org/manageorg/views/org.wall.orgBroadcast.tpl.html'

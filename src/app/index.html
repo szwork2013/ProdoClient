@@ -48,7 +48,7 @@
       <div id="prodo-navbar-container" class="prodo-navbar-container">
         <a id="prodo-navbar-brand" class="navbar-brand" ui-sref="prodo.wall.org"><img style="width:100px; height:40px; " src="assets/images/prodonus.png"></a>
       
-        <p ng-hide="usersession.isLoggedIn" id="prodo-navbar-text" class="navbar-text navbar-right prodo-navbar-text"><a href="" ui-sref="home.signin" id="prodo-navbar-link1" class="navbar-link">Sign In</a>&nbsp;|&nbsp;<a href="" ui-sref="home.signup" id="prodo-navbar-link2" class="navbar-link">Sign Up</a></p>
+        <p ng-hide="usersession.isLoggedIn" id="prodo-navbar-text" class="navbar-text navbar-right prodo-navbar-text"><a href="" ng-click='showSignin()' id="prodo-navbar-link1" class="navbar-link">Sign In</a>&nbsp;|&nbsp;<a href="" ng-click='showSignup()' id="prodo-navbar-link2" class="navbar-link">Sign Up</a></p>
       </div>
 
      <!--  <div ng-hide="usersession.isLoggedIn">
