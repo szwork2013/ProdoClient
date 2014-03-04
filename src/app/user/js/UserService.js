@@ -93,7 +93,7 @@ angular.module('prodo.UserApp').factory('UserSessionService', [
     var session = {};
     session.isLoggedIn = false;
     session.currentUser = null;
-    session.productfollowlist = {};
+    session.productfollowlist = [];
 
     session.signupUser = function (userdata) {
       UserService.Signup.saveUser(userdata, function (success) {
@@ -273,27 +273,25 @@ angular.module('prodo.UserApp').factory('UserSessionService', [
     session.authSuccess = function (userData, $scope) {
       session.currentUser = userData;
       session.isLoggedIn = true;
-      console.log('before ' + userData);
       $rootScope.$broadcast('session', userData);
-      console.log('after ' + userData);
     };
     session.authfailed = function () {
       session.resetSession();
     };
     session.checkUser = function () {
-      UserService.IsUserLoggedin.checkUserSession(function (result) {
-        $log.debug(result);
-        if (result.success) {
-          session.authSuccess(result.success.user);
-        } else {
-          session.authfailed();
-        }
-      }, function (error) {
-        $log.debug(error);
-        session.authfailed();
-        $state.transitionTo('home.signup');
-        $rootScope.$broadcast('session-changed-failure', error.status);
-      });
+      return UserService.IsUserLoggedin.checkUserSession();
+      //   $log.debug(result);
+      //   if (result.success) {
+      //     session.authSuccess(result.success.user);
+      //   } else {
+      //     session.authfailed();
+      //   }
+      // }, function (error) {
+      //   $log.debug(error);
+      //   session.authfailed();
+      //   $state.transitionTo('home.signup');
+      //   $rootScope.$broadcast('session-changed-failure', error.status);
+      // });
     };
     return session;
   }

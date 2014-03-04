@@ -11,7 +11,6 @@ angular.module('prodo.ProdoWallApp')
       abstract: true
     })    
     .state('prodo.wall', {
-      controller: 'ProdoWallController',
       views: {
         'prodo-sidebar' : {
           templateUrl:  'prodo/home/views/prodo.wall.sidebar.tpl.html',
@@ -37,15 +36,12 @@ angular.module('prodo.ProdoWallApp')
        controller: 'ProdoWallController',
        resolve: {
           orgdata: function(OrgService, $rootScope) {
-            console.log('orgdata');
             return OrgService.org_data.getOrgSettings({orgid: $rootScope.orgid}).$promise;
           },
           orgaddr: function(OrgService, $rootScope) {
-            console.log('orgaddr');
             return OrgService.ManageOrgLocation.getAllOrgAddress({orgid: $rootScope.orgid}).$promise;
           },
           orgproduct: function(OrgService, $rootScope) {
-            console.log('orgproduct');
             return OrgService.GetOrgProducts.getAllOrgProducts({orgid: $rootScope.orgid}).$promise;
           }
         }

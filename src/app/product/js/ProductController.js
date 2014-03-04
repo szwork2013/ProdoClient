@@ -58,7 +58,7 @@
                 $("#productLogo").attr('src', '');
                 var temp=document.getElementById('prodo-comment-container');
                 if($rootScope.product_prodle!==undefined && $rootScope.product_prodle!==null && $rootScope.product_prodle!==""){
-                    $scope.getProduct(); //if product available, call getproduct
+                    $scope.getProduct($rootScope.product_prodle,$rootScope.orgid); //if product available, call getproduct
                   }
                    
                    else { //show msg to follow product
@@ -92,8 +92,8 @@
                //get login details
 
 
-               $scope.getProduct = function(){
-                 ProductService.getProduct({orgid: $rootScope.orgid, prodle: $rootScope.product_prodle},
+               $scope.getProduct = function(l_prodle,l_orgid){
+                 ProductService.getProduct({orgid: l_orgid, prodle: l_prodle},
                   function(successData) {
                     if (successData.success == undefined){  //if not product
                      $("#prodo-ProductDetails").css("display", "none");
@@ -179,8 +179,7 @@
                 $log.debug($scope.orgidFromSession);
                   if(editStatus=='add'){ //add product
                      $scope.newProduct = {product: {
-                  display_name: $scope.display_name,
-                  model_no: $scope.product.model_no,
+                   model_no: $scope.product.model_no,
                   name: $scope.product.name,
                   description: $scope.product.description
                 }};
@@ -201,7 +200,6 @@
                 }
                 else if(editStatus=='update'){ //update product
                    $scope.newProduct = {product: {
-                  display_name: $scope.display_name,
                   model_no: $scope.product.model_no,
                   name: $scope.product.name,
                   description: $scope.product.description,
@@ -215,7 +213,7 @@
                       function(success) {
                         $log.debug(success);
                               $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
-                              $scope.getProduct(); 
+                              $scope.getProduct($rootScope.product_prodle,$rootScope.orgid); 
                             },
                             function(error) {
                               $log.debug(error);
@@ -557,15 +555,29 @@
 
               //Edit mode and display mode toggle for product data add , update and diaplay
               $scope.editorEnabled = false;
+               $scope.editorEnabledF=false;
               $scope.enableEditor = function() {
                 $scope.editorEnabled = true;
-                growl.addInfoMessage("   Adding product data.....");
+                 growl.addInfoMessage("   Adding product data.....");
               };
               $scope.disableEditor = function() {
                 $scope.editorEnabled = false;
                 $scope.feature="";
                 if($rootScope.product_prodle!==undefined && $rootScope.product_prodle!==null && $rootScope.product_prodle!==""){
-                  $scope.getProduct();
+                  $scope.getProduct($rootScope.product_prodle,$rootScope.orgid); 
+                  $scope.getProductFeatures();
+                }
+              };
+
+               $scope.enableEditorFeature = function() {
+                $scope.editorEnabledF=true;
+                growl.addInfoMessage("   Adding product data.....");
+              };
+              $scope.disableEditorFeature = function() {
+                $scope.editorEnabledF=false;
+                $scope.feature="";
+                if($rootScope.product_prodle!==undefined && $rootScope.product_prodle!==null && $rootScope.product_prodle!==""){
+                  $scope.getProduct($rootScope.product_prodle,$rootScope.orgid); 
                   $scope.getProductFeatures();
                 }
               };
@@ -668,9 +680,15 @@
                 
             
                   $rootScope.usersession.followProduct($rootScope.product_prodle);
-                  growl.addSuccessMessage("Follwing product");
-                  UserSessionService.productfollowlist.push($scope.product);
-                  $("#prodo-followBtn").css("display","none");
+                
+                  $rootScope.$on('followProductDone',function(event, data){
+                    if(data.success){
+                    growl.addSuccessMessage("Follwing product");
+                    UserSessionService.productfollowlist.push($scope.product);
+                    $("#prodo-followBtn").css("display","none");
+                   }
+                  });
+                  
                 
               };
              //Follow Product
