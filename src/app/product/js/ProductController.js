@@ -58,7 +58,7 @@
                 $("#productLogo").attr('src', '');
                 var temp=document.getElementById('prodo-comment-container');
                 if($rootScope.product_prodle!==undefined && $rootScope.product_prodle!==null && $rootScope.product_prodle!==""){
-                    $scope.getProduct(); //if product available, call getproduct
+                    $scope.getProduct($rootScope.product_prodle,$rootScope.orgid); //if product available, call getproduct
                   }
                    
                    else { //show msg to follow product
@@ -92,8 +92,8 @@
                //get login details
 
 
-               $scope.getProduct = function(){
-                 ProductService.getProduct({orgid: $rootScope.orgid, prodle: $rootScope.product_prodle},
+               $scope.getProduct = function(l_prodle,l_orgid){
+                 ProductService.getProduct({orgid: l_orgid, prodle: l_prodle},
                   function(successData) {
                     if (successData.success == undefined){  //if not product
                      $("#prodo-ProductDetails").css("display", "none");
@@ -213,7 +213,7 @@
                       function(success) {
                         $log.debug(success);
                               $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
-                              $scope.getProduct(); 
+                              $scope.getProduct($rootScope.product_prodle,$rootScope.orgid); 
                             },
                             function(error) {
                               $log.debug(error);
@@ -564,7 +564,7 @@
                 $scope.editorEnabled = false;
                 $scope.feature="";
                 if($rootScope.product_prodle!==undefined && $rootScope.product_prodle!==null && $rootScope.product_prodle!==""){
-                  $scope.getProduct();
+                  $scope.getProduct($rootScope.product_prodle,$rootScope.orgid); 
                   $scope.getProductFeatures();
                 }
               };
@@ -577,7 +577,7 @@
                 $scope.editorEnabledF=false;
                 $scope.feature="";
                 if($rootScope.product_prodle!==undefined && $rootScope.product_prodle!==null && $rootScope.product_prodle!==""){
-                  $scope.getProduct();
+                  $scope.getProduct($rootScope.product_prodle,$rootScope.orgid); 
                   $scope.getProductFeatures();
                 }
               };

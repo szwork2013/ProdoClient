@@ -1,6 +1,6 @@
 "use strict";
 
- angular.module("config", [])
+ angular.module("configSocket", [])
 
 .constant("ENV", {
   "name": "development",
