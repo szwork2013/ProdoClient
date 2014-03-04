@@ -16,13 +16,14 @@ angular.module('prodo.ProdoWallApp')
 
     $scope.$watch('$state.$current.locals.globals.orgdata', function (orgdata) {
       $rootScope.orgdata = orgdata.success.organization;
-      if (orgdata.success.organization.org_images.length == 0) {
-        $rootScope.images = [ {
-          image: 'http://www.bestflashstock.com/components/com_virtuemart/shop_image/product/Product_Banner_w_4d0fb60464521.jpg'
-        } ] 
-      } else {
-        $rootScope.images = orgdata.success.organization.org_images;
-      }
+      $rootScope.images = orgdata.success.organization.org_images;
+      // if (orgdata.success.organization.org_images.length == 0) {
+      //   $rootScope.images = [ {
+      //     image: 'http://www.bestflashstock.com/components/com_virtuemart/shop_image/product/Product_Banner_w_4d0fb60464521.jpg'
+      //   } ] 
+      // } else {
+      //   $rootScope.images = orgdata.success.organization.org_images;
+      // }
     });
 
     $scope.$watch('$state.$current.locals.globals.orgaddr', function (orgaddr) {
