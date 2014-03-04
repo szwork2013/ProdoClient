@@ -22,16 +22,16 @@
           <button class="arrowBtn prodo-arrowbtnLeft" ng-show="productList.length > 4 " ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1" > <
         <!--  <i style="color:gray; font-weight:weight:lighter" class="fa fa-chevron-left fa-3x"></i>  -->
         </button>
-         <a onclick="  $('#ErrMsging').css('display', 'none');$('#prodo-ProductDetails').show(); $('#productExtraInfo').css('display','none'); $('#prodo-productDiscontinuedUpdate').hide();" ng-click=" enableEditor() ;  editStatus='add'; clearText();  " class="prodo-cursor"  data-toggle="collapse" data-target="#Edit" >
+         <a onclick="  $('#ErrMsging').css('display', 'none');$('#prodo-ProductDetails').show(); $('#productExtraInfo').css('display','none'); $('#prodo-productDiscontinuedUpdate').hide();" ng-click=" enableEditor() ;  editStatus='add'; clearText();  " class="prodo-cursor" >
         <div class="prodo-productThumbnailView" >
         <p class="prodo-AddProductBtn" >Add Product</p>
-         <div class="prodo-productThumbnailImg"  align="center" class="img-rounded fa fa-plus fa-4x"></div>
+         <div class="prodo-productThumbnailImg fa fa-plus fa-4x img-rounded"  align="center" ></div>
       </div>
       </a>
 
 	      <div class="prodo-productThumbnailView"  ng-repeat="product1 in productList  | startFrom:currentPage*pageSize | limitTo:pageSize" >
 	      <a ng-click="getSelectedProduct(product1);" class="prodo-cursor"  href="" >
-          <p class="prodo-AddProductBtn">{{product1.name}}</p>
+          <p class="prodo-AddProductBtn" >{{product1.name.substring(0,15)}}</p>
           <img class="prodo-productThumbnailImg" ng-src="{{product1.product_logo}}" alt=" No Image" class="img-rounded">
           </a>
 
@@ -54,13 +54,14 @@
        
          <div class="prodo-product-general "  >
           <h4 class="prodo-headings">GENERAL</h4>  
+
           <!-- admin tasks -->
 
          
 
-          <div  class="prodo.productAdmin1 pull-right "  id="prodo.productAdmin" ng-style="checkAdmintoUpdateProduct();" >
+          <div ng-show="product" class="prodo.productAdmin1 pull-right "  id="prodo.productAdmin" ng-style="checkAdmintoUpdateProduct();" >
           
-            <a href="" class="btn btn-primary btn-sm btn-bottom-margin" ng-click="editStatus='update' ; enableEditor() ;  " data-toggle="collapse" data-target="#Edit" onclick="$('.prodo-productDiscontinuedUpdate').show();"> Update &nbsp;<i class="fa fa-pencil-square-o "></i></a>
+            <a href="" class="btn btn-primary btn-sm btn-bottom-margin" ng-click="editStatus='update' ; enableEditor() ;  "  onclick="$('.prodo-productDiscontinuedUpdate').show();"> Update &nbsp;<i class="fa fa-pencil-square-o "></i></a>
             <a href="" class="btn btn-danger btn-sm btn-bottom-margin" data-toggle="modal" data-target="#myModal">  Delete &nbsp; <i class="fa fa-trash-o"></i> </a> 
             <br>
           </div>
@@ -89,7 +90,7 @@
           
 
           <!-- display mode -->
-          <table class="prodo-productTableFont  table child table-bordered table-hover"  ng-hide="editorEnabled" id="prodo-ProductFeatureTable" >
+          <table class="  prodo-productTableFont  table child table-bordered table-hover "  ng-hide="editorEnabled" id="prodo-ProductFeatureTable" >
             <tr id="prodo-productbnd" class="prodo-productTabledis"  ng-show="product.banneddate">
               <td>Product Banned on : &nbsp;<span ng-bind="formatDate(product.banneddate)"></span></td>
             </tr>
@@ -114,8 +115,8 @@
           <!-- display mode -->
          
           <!-- edit mode -->
-          <form    id="Edit" class="collapse"  ng-show="editorEnabled" ng-switch="isEditing" name="productForm" >
-            <div class="prodo-product-general " >
+          <form  id="Edit"  ng-show="editorEnabled==true"  name="productForm" >
+            <div class="prodo-product-general productDisplay " >
               
               <table class="table child table-hover table-bordered prodo-productTableFont" id="prodo-ProductFeatureTable">
               <tr class="prodo-productDiscontinuedUpdate prodo-productTabledis prodo-display-discont " id="prodo-productDiscontinuedUpdate"  >
@@ -127,13 +128,11 @@
                   <td class="prodo-productTabledis" >Support Discontinued   <input id="prodo-product-features_textfield" type="text" class="form-control prodo-display-right" ng-model="product.supDis" name="supDis"  /></td>
                 </tr>
                 <tr>
-                  <td >   Product Name <input ng-model="product.name"   id="prodo-product-features_textfield" class="form-control prodo-display-right"  type="text"   required name="name" />  </td>
-                 
-                </tr>
-                <tr>
-                  <td  >Model No  <input id="prodo-product-features_textfield" type="text" class="form-control prodo-display-right" ng-model="product.model_no"  required name="model_no" /></td>
+                  <td >   Product Name <input ng-model="product.name"   id="prodo-product-features_textfield" class="form-control prodo-display-right"  type="text"    name="name" required />  </td>
+                
+                  <td  >Model No  <input id="prodo-product-features_textfield" type="text" class="form-control prodo-display-right" ng-model="product.model_no"   name="model_no" required /></td>
 
-                  <td  >Model Name  <input id="prodo-product-features_textfield" type="text" class="form-control prodo-display-right" ng-model="product.display_name" required name="display_name" /></td>
+                  
                 </tr>
                 <tr>
                   <td  colspan="2">Description   <textarea  type="text" id="prodo-product-featuresDescription_textfield" class="form-control"  ng-model="product.description" required name="description" col="40"  ></textarea>
@@ -144,7 +143,7 @@
                 <tr ><td colspan="2">
               <!--   <button type="submit" class="btn btn-info" style="width: 550px;"  ng-click=" $parent.isEditing = false" >Save</button>
             -->
-            <a  ng-click="addProduct(editStatus);disableEditor();" class="btn btn-primary btn-sm  pull-right prodo-margin5"   >Save &nbsp;<i class="fa fa-floppy-o"></i></a>
+            <a  ng-disabled="productForm.$invalid" ng-click="addProduct(editStatus);disableEditor();" onclick="$('#productExtraInfo').css('display','block');" class="btn btn-primary btn-sm  pull-right prodo-margin5"   >Save &nbsp;<i class="fa fa-floppy-o"></i></a>
             <a onclick="$('#productExtraInfo').css('display','block');" class="btn btn-default btn-sm  pull-right prodo-margin5"  ng-click="disableEditor()" > Cancel &nbsp;<i class="glyphicon glyphicon-remove"></i></a>
           </td>
         </tr>
@@ -163,10 +162,10 @@
         <h4 class="prodo-headings">FEATURES</h4>
          
          <div class="prodo-AdminFearuresAdd" ng-style="checkAdmintoUpdateProduct();" id="prodo.productAdmin">
-			    <a href="" class="btn btn-primary btn-sm pull-right" data-toggle="collapse" data-target="#Editfeature" ng-click="enableEditor() ;  editStatus='add';  " > Add &nbsp; <i class="fa fa-plus-square"></i></a>
+			    <a href="" class="btn btn-primary btn-sm pull-right" ng-click="enableEditorFeature() ;  editStatus='add';  " > Add &nbsp; <i class="fa fa-plus-square"></i></a>
 			  </div>
 
-			  <form    id="Editfeature" class="collapse"  ng-show="editorEnabled"  name="productFeaturesForm" >
+			  <form    id="Editfeature" ng-show="editorEnabledF ==true"  name="productFeaturesForm" >
 			    <table class="table child table-hover table-bordered"  id="prodo-ProductFeatureTable" >
 			      <tr class="prodo-productTableFont" >
 			        <td >   Feature name&nbsp;&nbsp;&nbsp; <input ng-model="feature.name"   id="prodo-product-features_textfield" class="form-control"  type="text"   required name="name" />  </td>
@@ -179,8 +178,8 @@
 			  
 			    <tr  class="prodo-productTableFont"><td colspan="2">
 			   
-			    <a  ng-click="addProductFeature(editStatus);disableEditor(); " class="btn btn-primary btn-sm  pull-right prodo-margin5" > Save &nbsp;<i class="fa fa-floppy-o"></i></a>
-			    <a class="btn btn-default btn-sm  pull-right prodo-margin5" ng-click="disableEditor() ; "> Cancel&nbsp;<i class="glyphicon glyphicon-remove"></i></a>
+			    <a   ng-disabled="productFeaturesForm.$invalid" ng-click="addProductFeature(editStatus);disableEditorFeature(); " class="btn btn-primary btn-sm  pull-right prodo-margin5" > Save &nbsp;<i class="fa fa-floppy-o"></i></a>
+			    <a class="btn btn-default btn-sm  pull-right prodo-margin5" ng-click="disableEditorFeature() ; "> Cancel&nbsp;<i class="glyphicon glyphicon-remove"></i></a>
 			  </td>
 			</tr>
 			</table>

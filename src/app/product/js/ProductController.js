@@ -179,8 +179,7 @@
                 $log.debug($scope.orgidFromSession);
                   if(editStatus=='add'){ //add product
                      $scope.newProduct = {product: {
-                  display_name: $scope.display_name,
-                  model_no: $scope.product.model_no,
+                   model_no: $scope.product.model_no,
                   name: $scope.product.name,
                   description: $scope.product.description
                 }};
@@ -201,7 +200,6 @@
                 }
                 else if(editStatus=='update'){ //update product
                    $scope.newProduct = {product: {
-                  display_name: $scope.display_name,
                   model_no: $scope.product.model_no,
                   name: $scope.product.name,
                   description: $scope.product.description,
@@ -557,12 +555,26 @@
 
               //Edit mode and display mode toggle for product data add , update and diaplay
               $scope.editorEnabled = false;
+               $scope.editorEnabledF=false;
               $scope.enableEditor = function() {
                 $scope.editorEnabled = true;
-                growl.addInfoMessage("   Adding product data.....");
+                 growl.addInfoMessage("   Adding product data.....");
               };
               $scope.disableEditor = function() {
                 $scope.editorEnabled = false;
+                $scope.feature="";
+                if($rootScope.product_prodle!==undefined && $rootScope.product_prodle!==null && $rootScope.product_prodle!==""){
+                  $scope.getProduct();
+                  $scope.getProductFeatures();
+                }
+              };
+
+               $scope.enableEditorFeature = function() {
+                $scope.editorEnabledF=true;
+                growl.addInfoMessage("   Adding product data.....");
+              };
+              $scope.disableEditorFeature = function() {
+                $scope.editorEnabledF=false;
                 $scope.feature="";
                 if($rootScope.product_prodle!==undefined && $rootScope.product_prodle!==null && $rootScope.product_prodle!==""){
                   $scope.getProduct();
@@ -668,9 +680,15 @@
                 
             
                   $rootScope.usersession.followProduct($rootScope.product_prodle);
-                  growl.addSuccessMessage("Follwing product");
-                  UserSessionService.productfollowlist.push($scope.product);
-                  $("#prodo-followBtn").css("display","none");
+                
+                  $rootScope.$on('followProductDone',function(event, data){
+                    if(data.success){
+                    growl.addSuccessMessage("Follwing product");
+                    UserSessionService.productfollowlist.push($scope.product);
+                    $("#prodo-followBtn").css("display","none");
+                   }
+                  });
+                  
                 
               };
              //Follow Product
