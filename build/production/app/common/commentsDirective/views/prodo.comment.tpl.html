@@ -48,7 +48,7 @@
                      <div  class="classMain">
                            <h5 ng-bind="ProductsFollowedMessage">  </h5>
                                 <div ng-repeat="products in modaluser.products_followed"  
-                                class="effectpic" ng-if="products.name != 'Prodonus Pro'">
+                                class="effectpic" ng-if="products.name != 'Prodonus Software'">
                                 <center>
                                      
                                       <img ng-src="{{products.product_logo}}" class="prodleImage" ng-click="emitProductData(products.prodle,products.orgid)">
@@ -70,7 +70,7 @@
 
              <div class="modal_footer">
                     <div id="lineHr"></div>  
-              <button class="btn btn-info " data-dismiss="modal" ng-click="refresh">Close</button>  
+              <button class="btn btn-info " data-dismiss="modal" >Close</button>  
              </div>        
 
            </div><!-- /.modal-content -->

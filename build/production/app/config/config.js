@@ -1,13 +1,12 @@
 "use strict";
 
- angular.module("config", [])
+ angular.module("configSocket", [])
 
-.constant("ENV", "production")
-
-.constant("apiEndpoint", "http://www.prodonus.com")
-
-.constant("apiEndpoint_notSocket", "http://www.prodonus.com")
-
-.constant("port", ":8000")
+.constant("ENV", {
+  "name": "production",
+  "apiEndpoint": "http://www.prodonus.com",
+  "apiEndpoint_notSocket": "http://www.prodonus.com",
+  "port": ":8000"
+})
 
 ;

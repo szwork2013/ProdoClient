@@ -775,6 +775,18 @@ section:hover #prodo-subscribe-plan-heading{
   margin: 0 auto;
   text-align: center;
 }
+
+.dropdown-menu>li>a {
+display: block;
+padding: 3px 20px;
+clear: both;
+font-weight: normal;
+line-height: 1.428571429;
+color: #333;
+white-space: nowrap;
+text-align: left; 
+}
+
 /*change the View: signup form input style*/
 #prodo-form-input-address{
 	width:250px;
@@ -782,7 +794,6 @@ section:hover #prodo-subscribe-plan-heading{
 	border-radius: 2px;
 	margin: 10px auto;
 	display: block;
-     
 }
 
 #prodo-address-text{
@@ -1612,6 +1623,7 @@ width: 518px;
 .prodo-Modelno{color:#82805F}
 .prodo-description{height:15px; overflow: hidden;  font-size:12px;}
 .prodo-comment-Text-tabs {align:left;}
+.productDisplay{margin-top: 20px;}
 
 
  /* Prodo-ProductFeature-CSS*/ 
@@ -1900,11 +1912,11 @@ width:10%; height: 10%; float: left; margin: 5px; border: solid 1px #ccc;
 
 .effectpic {
      background-color: transparent;
-	-webkit-transition: all 1s ease;
+	/*-webkit-transition: all 1s ease;
   	-moz-transition: all 1s ease;
   	-o-transition: all 1s ease;
   	-ms-transition: all 1s ease;
-  	transition: all 1s ease;
+  	transition: all 1s ease;*/
   	display:inline-block;
     margin:5px;
 }
@@ -1912,9 +1924,9 @@ width:10%; height: 10%; float: left; margin: 5px; border: solid 1px #ccc;
 .effectpic:hover {
 	cursor: pointer;
     background-color: white;
-    transform:scale(1.5);
+  /*  transform:scale(1.5);
  
-    -webkit-transform:scale(1.2); /* Safari and Chrome */
+    -webkit-transform:scale(1.2);*/ /* Safari and Chrome */
   
 }
 
@@ -1974,6 +1986,8 @@ width:10%; height: 10%; float: left; margin: 5px; border: solid 1px #ccc;
  {
  	background-color:#E4CBF5;
  	width:500px;
+ 	font-size : medium;
+   font-family : serif;
  }
 
 .arrowBtn:disabled {
@@ -2021,11 +2035,30 @@ text-align: right;
 }
 .modalHeading
 {
-	font-family: monospace;
-	font-size: 15px;
-	color: #262669;
+	font-family: serif;
+	font-size: 30px;
+	color: #757577;
+	font-weight: bold;
 }
 
+.userDetailsModalPanel
+{
+	min-height:20px;
+	width:100%;
+    background-color:ghostwhite;
+	padding-left:5px;
+
+}
+.organisationSearchResult
+{
+     font-size : medium;
+     font-family : serif;
+     font-weight: 500;
+}
+.productSearchResult
+{
+     font-weight: 300 ;
+}
 
 .prodo-registration-Wizard-title
 {
@@ -2034,4 +2067,5 @@ text-align: right;
 .prodo-registration-Wizard-after{
 	style="color :rgb(200, 219, 200)";
 }
+
 
