@@ -28,7 +28,8 @@ console.log("rootscope"+$rootScope.orgid);
     $scope.trendingProducts={};  //This object will store array received from API; This is used in ng-repeat in the template
     $scope.errors="";
     $scope.title = "Trending Products"; //  This is the variable to toggle div tag heading (Second Box of sidebar); 
-
+    $scope.limit=6;
+    
 
           $scope.$on('gotTrendingProducts', function (event, data) //After getting Data from trending product aPI
           {
@@ -302,7 +303,23 @@ console.log("rootscope"+$rootScope.orgid);
   
     };
 
+    $scope.loadMoreFollowedProduct=function()
+    {
 
+        if($scope.limit===100)
+        {
+        document.getElementById('tabMore').innerHTML="More"
+          $scope.limit=6;
+         
+        }
+        else if($scope.limit===6)
+        {
+                document.getElementById('tabMore').innerHTML="Less";
+                $scope.limit=100;
+              
+        }
+
+    };
 
 
 //End of controller  

@@ -4,9 +4,12 @@
    <div id="prodo-sidebar-list-group" class="list-group">
     <div id="prodo-sidebar-list" class="list">
       <a style="background-color: #494F53; font-weight: bold; font-size:16px; text-align: center; "  class="list-group-item active" >Products Followed</a>
-      <div ng-repeat="fp in usersession.productfollowlist | limitTo:5" href="#" id="prodo-sidebar-list-group-item" class="list-group-item " ng-if="fp.name != 'Prodonus Software'"> 
+      <div ng-repeat="fp in usersession.productfollowlist | limitTo:limit" href="#" id="prodo-sidebar-list-group-item" class="list-group-item " ng-if="fp.name != 'Prodonus Software'"> 
       <a   ng-click="orgProdleEmitter(fp.prodle,fp.orgid)" class="hyperlinkPointer" ng-bind="fp.name"></a><button class="btn btn-default btn-xs floatLeft" ng-click="unfollowProduct(fp)">Unfollow</button>
       </div>
+      <a  class="list-group-item hyperlinkPointer" ng-if="usersession.productfollowlist.length>6" ng-click="loadMoreFollowedProduct()"> <center id="tabMore">More </center></a>
+   
+
     </div>
   </div>
 </div>
