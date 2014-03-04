@@ -38,7 +38,7 @@ angular.module('prodo.ProductApp')
 			             //socket connect
 			             localStorage.sid = $rootScope.usersession.currentUser.sessionid;
 			             if ((localStorage.sid !== "") || (localStorage.sid !== " ") || (localStorage.sid !== undefined) || (localStorage.sid !== null)) {
-			              $log.debug(ENV.apiEndpoint);
+			              $log.debug("Socket = "+ ENV.apiEndpoint);
 			              $scope.socket = io.connect(ENV.apiEndpoint+ENV.port+'/api/prodoapp', {
 			             // $scope.socket = io.connect('www.prodonus.com:8000/api/prodoapp', {
 			                // $scope.socket = io.connect('http://localhost/prodoapp', {
