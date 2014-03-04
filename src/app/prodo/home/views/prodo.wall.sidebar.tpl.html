@@ -120,7 +120,7 @@
                                                     <ol type="i">
                                                        <li ng-repeat="product_list in list.products" class="productSearchResult" ng-if="product_list.name!==''">
                                                                <a ng-bind="product_list.name" ng-click="orgProdleEmitter(product_list.prodle,list.orgid)" ng-if='product_list.name!==""' class="hyperlinkPointer"></a>
-                                                              <div style="width:450px;" ng-if="product_list.description!==''">[ Description : <span ng-bind="product_list.description" ></span> ]</div>
+                                                              <div style="width:450px;" >[ Description : <span ng-bind="product_list.description" ></span> ]</div>
                                                      <!--          <div style="width:450px;" ng-if=" product_list.description ==='No products exist for this organisation' ">[ Info : <span ng-bind="product_list.description"></span> ]</div> -->
                                                        </li>
                                                     </ol>
