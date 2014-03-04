@@ -39,7 +39,7 @@
 
 
    <!--  <p ng-click="a()">test</p> -->
-        <a data-toggle="modal"  data-target="#advancedSearchModal" ng-click="modalReset()" >Advanced Search</a>
+        <a data-toggle="modal"  data-target="#advancedSearchModal" ng-click="modalReset()" class="hyperlinkPointer">Advanced Search</a>
         <!-- start of advanced search -->
          <div id = "advancedSearchModal" class="modal fade" >      <!-- Modal Code Starts for Advansed-Search -->
             <div class="modal-dialog">
@@ -105,13 +105,13 @@
                <ol>
                           <li ng-repeat="list in result">
                              
-
-                                 <span ng-bind="list.name"></span>
+                                 <span ng-bind="list.name" ng-if="list.products!==undefined" class="organisationSearchResult"></span>
+                                 <a ng-bind="list.name" ng-click="orgProdleEmitter(list.prodle,list.orgid)" ng-if="list.products===undefined" class="hyperlinkPointer"></a>
                                    <ol type="i">
 
                                            <li ng-repeat="product_list in list.products">
-                                                   <span ng-bind="product_list.name"></span>
-                                                  Description: <span ng-bind="product_list.description"></span>
+                                                   <a ng-bind="product_list.name" ng-click="orgProdleEmitter(product_list.prodle,list.orgid)" ng-if='product_list.name!==""' class="hyperlinkPointer"></a>
+                                                  [ Info:<span ng-bind="product_list.description"></span> ]
                                            </li>
                                    </ol>
                          

@@ -1985,6 +1985,8 @@ width:10%; height: 10%; float: left; margin: 5px; border: solid 1px #ccc;
  {
  	background-color:#E4CBF5;
  	width:500px;
+ 	font-size : medium;
+   font-family : serif;
  }
 
 .arrowBtn:disabled {
@@ -2038,14 +2040,6 @@ text-align: right;
 	font-weight: bold;
 }
 
-
-.prodo-registration-Wizard-title
-{
-	font-size:16px;
-}
-.prodo-registration-Wizard-after{
-	style="color :rgb(200, 219, 200)";
-}
 .userDetailsModalPanel
 {
 	min-height:20px;
@@ -2053,6 +2047,24 @@ text-align: right;
     background-color:ghostwhite;
 	padding-left:5px;
 
+}
+.organisationSearchResult
+{
+     font-size : medium;
+     font-family : serif;
+     font-weight: 500;
+}
+.productSearchResult
+{
+     font-weight: 300 ;
+}
+
+.prodo-registration-Wizard-title
+{
+	font-size:16px;
+}
+.prodo-registration-Wizard-after{
+	style="color :rgb(200, 219, 200)";
 }
 
 
