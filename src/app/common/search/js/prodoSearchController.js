@@ -196,9 +196,10 @@ console.log("rootscope"+$rootScope.orgid);
                  // $scope.search.productsearchdata= {};
                  $scope.$on('getSearchProductDone', function (event, data) {
                  $scope.result=data.success.doc;
-             
+                 
                  $scope.message="";
                  $scope.message=data.success.message;
+                 console.log("data received from api --------------------------"+ JSON.stringify($scope.result));
                   //alert($scope.message);
                  });
                  $scope.$on('getSearchProductNotDone', function (event, data) {
@@ -217,6 +218,7 @@ console.log("rootscope"+$rootScope.orgid);
 //This function assigns prodles and orgid to rootscope 
     $scope.orgProdleEmitter=function(dataProdle,dataOrgid)
     {   
+
         $rootScope.product_prodle=dataProdle;
         $rootScope.orgid=dataOrgid;    
         $('#advancedSearchModal').modal('hide');  //code for cloasing modal

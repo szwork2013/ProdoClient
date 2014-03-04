@@ -489,7 +489,7 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
         require: 'ngModel',
         link: function (scope, ele, attrs, ngModel , growl) {
 
-          $('#searchText').on('keyup', function (e) {  console.log("data from resolve-----------"+$rootScope.errors);
+          $('#searchText').on('keyup', function (e) { 
             $rootScope.errors="";
             var value = $(this).val().trim();
             var req = { 'name': value , 'orgid' : $rootScope.orgid};
@@ -510,17 +510,18 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
                             }
                         }
                         else if(data.success)
-                        {
+                        { 
                             if(data.name.doc.length===0)
-                            {
+                            { 
                                       if(value==="")
-                                      {  console.log("true");
+                                      {  
                                          $rootScope.errors="";
                                       }
                                       else
                                       {
-                                          $rootScope.errors="No products found for \n '" + $rootScope.organizationData.currentOrgData.name+"'";
-
+                                          // 
+                                          $rootScope.errors="No products found for \n '" + $rootScope.orgdata.name+"'";
+                                          
                                       }
                             }
                         
