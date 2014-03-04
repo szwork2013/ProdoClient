@@ -17,8 +17,8 @@ console.log("rootscope"+$rootScope.orgid);
     //$scope.tempnames=[]; 
     $scope.search = {}; //Object for .onstoring search query string
     $scope.result=[];
-    $rootScope.productSearch={product:""};    // Roostscope to transfer prodle data to productcontroller
-    $rootScope.enhancement={};    // Temporary variable to display product names
+    $scope.productSearch={product:""};    // Roostscope to transfer prodle data to productcontroller
+    $scope.enhancement={};    // Temporary variable to display product names
     $scope.searchCriterion={};
     $scope.count=0;  //  Used to prevent api from calling if all fields are empty
     $scope.names=[];   //testing
@@ -26,9 +26,10 @@ console.log("rootscope"+$rootScope.orgid);
     trendingProductService.getTrendingProducts();  //Calling service to get //Trending Products
     //$scope.followed_products={};
     $scope.trendingProducts={};  //This object will store array received from API; This is used in ng-repeat in the template
-    $rootScope.errors="";
+    $scope.errors="";
     $scope.title = "Trending Products"; //  This is the variable to toggle div tag heading (Second Box of sidebar); 
-
+    $scope.limit=6;
+    
 
           $scope.$on('gotTrendingProducts', function (event, data) //After getting Data from trending product aPI
           {
@@ -36,7 +37,7 @@ console.log("rootscope"+$rootScope.orgid);
           });
           $scope.$on('notGotTrendingProducts', function (event, data) //Error handling needed for 
           {
-            $rootScope.errors="Server Error";
+            $scope.errors="Server Error";
           });
 
     //The following function was written to resolve the problem of getting search result in first letter/
@@ -62,7 +63,7 @@ console.log("rootscope"+$rootScope.orgid);
 
           }
           ).error(function (data, status, headers, cfg) {
-                      $rootScope.errors="Server Error";           
+                      $scope.errors="Server Error";           
           });        
     };
 
@@ -204,7 +205,7 @@ console.log("rootscope"+$rootScope.orgid);
                  });
                  $scope.$on('getSearchProductNotDone', function (event, data) {
 
-                  $rootScope.errors="Server Error";
+                  $scope.errors="Server Error";
 
                  });
 
@@ -257,9 +258,9 @@ console.log("rootscope"+$rootScope.orgid);
     {  
        // $rootScope.productSearch.product=$rootScope.productSearch.product.substring(2); //This is written to trim first two characters from string; eg: P-Prodonus Software to Prodonus Software
        
-        angular.forEach($rootScope.productNames, function(state) 
+        angular.forEach($scope.productNames, function(state) 
         {
-                if ($rootScope.productSearch.product === state.name) 
+                if ($scope.productSearch.product === state.name) 
                 {               
                     $rootScope.product_prodle=state.prodle;
                     $rootScope.orgid=state.orgid;
@@ -268,7 +269,7 @@ console.log("rootscope"+$rootScope.orgid);
          });
        
         $scope.title = "Trending Products";
-        $rootScope.productSearch.product="";
+        $scope.productSearch.product="";
     };
 
 
@@ -277,7 +278,7 @@ console.log("rootscope"+$rootScope.orgid);
     $scope.toggleTitleForDiv=function()
     {
          $scope.title="Search";
-         $rootScope.errors="";
+         $scope.errors="";
     };
     // $scope.callOrgDetailsAPI=function(orgid,orgname)
     // {
@@ -302,7 +303,23 @@ console.log("rootscope"+$rootScope.orgid);
   
     };
 
+    $scope.loadMoreFollowedProduct=function()
+    {
 
+        if($scope.limit===100)
+        {
+        document.getElementById('tabMore').innerHTML="More"
+          $scope.limit=6;
+         
+        }
+        else if($scope.limit===6)
+        {
+                document.getElementById('tabMore').innerHTML="Less";
+                $scope.limit=100;
+              
+        }
+
+    };
 
 
 //End of controller  
