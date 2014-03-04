@@ -34,12 +34,27 @@ angular.module('prodo.OrgApp')
       templateUrl: 'org/manageorg/views/org.account.settings.container.html'
     })    
     .state('account-org.org', {
-      abstract: true,
-      templateUrl:  'org/manageorg/views/org.account.settings.tpl.html'
+      templateUrl:  'org/manageorg/views/org.account.settings.tpl.html',
+      abstract: true
     })
     .state('account-org.org.detail', {
        templateUrl:  'org/manageorg/views/org.wall.orgDetails.tpl.html',
-       controller: 'OrgAccountController'
+       controller: 'OrgAccountController',
+       resolve: {
+          OrgService: 'OrgService',
+          currentorgdata: function(OrgService, $rootScope) {
+            return  OrgService.org_data.getOrgSettings({orgid: $rootScope.usersession.currentUser.org.orgid}).$promise;
+          },
+          currentorgaddr: function(OrgService, $rootScope) {
+            return  OrgService.ManageOrgLocation.getAllOrgAddress({orgid: $rootScope.usersession.currentUser.org.orgid}).$promise;
+          },
+          currentorgproduct: function(OrgService, $rootScope) {
+            return  OrgService.GetOrgProducts.getAllOrgProducts({orgid: $rootScope.usersession.currentUser.org.orgid}).$promise;
+          },
+          currentorggroup: function(OrgService, $rootScope) {
+            return OrgService.GetOrgGroupMembers.getGroupDetails({orgid: $rootScope.usersession.currentUser.org.orgid}).$promise;
+          }
+        }
       }) 
     .state('account-org.org.broadcast', {
        templateUrl:  'org/manageorg/views/org.wall.orgBroadcast.tpl.html'

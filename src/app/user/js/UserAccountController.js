@@ -294,14 +294,16 @@ angular.module('prodo.UserApp')
       if (data.success) {
           console.log(data.success.user)
           $scope.user = data.success.user;
-          var d=new Date(data.success.user.dob);
-          var year=d.getFullYear();
-          var month=d.getMonth()+1;
-          if (month<10){
-            month="0" + month;
-          }
-          var day=d.getDate();
-          $scope.user.dob = year + "-" + month + "-" + day;
+          if (data.success.user.dob != null) {
+            var d=new Date(data.success.user.dob);
+            var year=d.getFullYear();
+            var month=d.getMonth()+1;
+            if (month<10){
+              month="0" + month;
+            }
+            var day=d.getDate();
+            $scope.user.dob = year + "-" + month + "-" + day;
+          };
           if ($scope.user.products_recommends.length > 0) {
             for (var i=0;i<$scope.user.products_recommends.length;i++){
               if($scope.user.products_recommends[i] && $scope.user.products_recommends[i].prodle){

@@ -7,23 +7,28 @@ angular.module('prodo.ProdoWallApp')
         $scope.productlist = orgproduct.success.product; 
     }
 
+    $scope.updateimages = function(data) {
+      console.log(data);
+      if (data.length == 0) {
+        $rootScope.images = [ {
+          image: 'http://www.bestflashstock.com/components/com_virtuemart/shop_image/product/Product_Banner_w_4d0fb60464521.jpg'
+        } ] 
+      } else {
+        $rootScope.images = data;
+      }
+    };
     
-  	$rootScope.$watch('orgid', function() {
-  		$scope.reload();
-    });
 
     $scope.$state = $state;
-
+    
+  	$rootScope.$watch('orgid', function() {
+  		$state.reload();
+    });
+    // $rootScope.images = orgdata.success.organization.org_images;
     $scope.$watch('$state.$current.locals.globals.orgdata', function (orgdata) {
       $rootScope.orgdata = orgdata.success.organization;
-      $rootScope.images = orgdata.success.organization.org_images;
-      // if (orgdata.success.organization.org_images.length == 0) {
-      //   $rootScope.images = [ {
-      //     image: 'http://www.bestflashstock.com/components/com_virtuemart/shop_image/product/Product_Banner_w_4d0fb60464521.jpg'
-      //   } ] 
-      // } else {
-      //   $rootScope.images = orgdata.success.organization.org_images;
-      // }
+      $scope.updateimages(orgdata.success.organization.org_images);
+      console.log($rootScope.orgdata);
     });
 
     $scope.$watch('$state.$current.locals.globals.orgaddr', function (orgaddr) {
@@ -33,10 +38,6 @@ angular.module('prodo.ProdoWallApp')
     $scope.$watch('$state.$current.locals.globals.orgproduct', function (orgproduct) {
       $scope.productlist = orgproduct.success.product;
     });
-
-    $scope.reload = function() {
-      $state.reload();
-    };
 
 		// function to handle server side responses
     $scope.handleOrgAddressResponse = function(data){

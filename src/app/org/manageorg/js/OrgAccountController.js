@@ -1,9 +1,7 @@
 angular.module('prodo.OrgApp')
- .controller('OrgAccountController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$log', 'growl', 'UserSessionService', 'OrgRegistrationService', function($scope, $rootScope, $state, $http, $timeout, $log, growl, UserSessionService, OrgRegistrationService) {
-
+ .controller('OrgAccountController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$log', 'growl', 'UserSessionService', 'OrgRegistrationService', 'OrgService', 'currentorgdata', 'currentorgaddr', 'currentorgproduct', 'currentorggroup', function($scope, $rootScope, $state, $http, $timeout, $log, growl, UserSessionService, OrgRegistrationService, OrgService, currentorgdata, currentorgaddr, currentorgproduct, currentorggroup) {
     
     $scope.hasBroadcast = false;
-    // $scope.orgaddr = OrgRegistrationService.currentOrgAdd;
     $scope.editorEnabled = false;
     $scope.form = {};
   
@@ -20,26 +18,12 @@ angular.module('prodo.OrgApp')
     /***
     // Organisation Manage Account Settings function definitions
     ***/
-
-    var cleanupEventGetOrgAddData = $rootScope.$on("getOrgAddData", function(event, data){
-        $scope.orgaddr = data;
-        cleanupEventGetOrgAddData();  
-    });
+    $scope.org = currentorgdata.success.organization;
+    $scope.productlist = currentorgproduct.success.product;
+    $scope.groups = currentorggroup.success.usergrp;
+    $scope.orgaddr = currentorgaddr.success.orgaddress;
+    OrgRegistrationService.updateOrgData(currentorgdata.success.organization);
     
-    var cleanupEventSendOrgData = $rootScope.$on("sendOrgData", function(event, data){
-        $scope.org = data;
-        cleanupEventSendOrgData();  
-    });
-
-    var cleanupEventGetOrgDone = $rootScope.$on('getOrgDone', function (event, data) {
-        OrgRegistrationService.updateOrgData(data.success.organization);
-        cleanupEventGetOrgDone();
-      });
-    var cleanupEventGetOrgNotDone = $rootScope.$on('getOrgNotDone', function (event, data) {
-        $scope.showAlert('alert-danger', 'Server Error:' + data);
-        cleanupEventGetOrgNotDone();
-      });
-
     $scope.password = '';
     $scope.jsonOrgAccountData = function()
       {
@@ -87,37 +71,6 @@ angular.module('prodo.OrgApp')
           growl.addErrorMessage("Server Error:" + message);
           cleanupEventUpdateOrgNotDone();     
         });
-  
-    }
-
-    // function to handle server side responses
-    $scope.handleOrgAddressResponse = function(data){
-      if (data.success) {
-        OrgRegistrationService.updateOrgAdd(data.success.orgaddress);
-        $scope.showAlert('alert-success', data.success.message);   
-      } else {
-        if (data.error.code== 'AU004') {     // enter valid data
-            $log.debug(data.error.code + " " + data.error.message);
-            $scope.showAlert('alert-danger', data.error.message);
-        } else {
-            $log.debug(data.error.message);
-            $scope.showAlert('alert-danger', data.error.message);
-        }
-      }
-    };  
-
-
-
-    $scope.getOrgAddress = function(orgid) {
-      OrgRegistrationService.getAllOrgAddress(orgid);
-      var cleanupEventGetOrgAddressDone = $scope.$on("getOrgAddressDone", function(event, message){
-        $scope.handleOrgAddressResponse(message);
-        cleanupEventGetOrgAddressDone();   
-      });
-      var cleanupEventGetOrgAddressNotDone = $scope.$on("getOrgAddressNotDone", function(event, message){
-        $scope.showAlert('alert-danger', "Server Error:" + message);
-        cleanupEventGetOrgAddressNotDone();      
-      });
   
     }
 
@@ -253,68 +206,6 @@ angular.module('prodo.OrgApp')
         $scope.showAlert('alert-danger', "Server Error:" + message);   
         cleanupEventDeleteOrgAddressNotDone();
       });
-  
-    }
-
-    // function to handle server side responses
-    $scope.handleGetOrgProductResponse = function(data){
-      if (data.success) {
-        $scope.productlist = data.success.product;
-        $scope.showAlert('alert-success', data.success.message);   
-      } else {
-        if (data.error.code== 'AU004') {     // enter valid data
-            $log.debug(data.error.code + " " + data.error.message);
-            $scope.showAlert('alert-danger', data.error.message);
-        } else {
-            $log.debug(data.error.message);
-            $scope.showAlert('alert-danger', data.error.message);
-        }
-      }
-    };  
-
-
-    $scope.getproduct = function(orgid) {
-      OrgRegistrationService.getAllProducts(orgid);
-      var cleanupEventGetOrgProductDone = $scope.$on("getOrgProductDone", function(event, message){
-        $scope.handleGetOrgProductResponse(message);
-        cleanupEventGetOrgProductDone();   
-      });
-      var cleanupEventGetOrgProductNotDone = $scope.$on("getOrgProductNotDone", function(event, message){
-        $scope.showAlert('alert-danger', "Server Error:" + message);
-        cleanupEventGetOrgProductNotDone();      
-      });
-  
-    }
-
-
-    // function to handle server side responses
-    $scope.handleGetOrgGroupResponse = function(data){
-      if (data.success) {
-        console.log(data.success);
-        $scope.groups = data.success.usergrp;
-        growl.addSuccessMessage(data.success.message);  
-      } else {
-        if (data.error.code== 'AU004') {     // enter valid data
-            $log.debug(data.error.code + " " + data.error.message);
-            growl.addErrorMessage(data.error.message);
-        } else {
-            $log.debug(data.error.message);
-            growl.addErrorMessage(data.error.message);
-        }
-      }
-    };  
-
-
-    $scope.getGroupMembers = function() {
-        OrgRegistrationService.getAllGroups();
-        var cleanupEventGetOrgGroupDone = $scope.$on("getOrgGroupDone", function(event, message){
-          $scope.handleGetOrgGroupResponse(message);
-          cleanupEventGetOrgGroupDone();   
-        });
-        var cleanupEventGetOrgGroupNotDone = $scope.$on("getOrgGroupNotDone", function(event, message){
-          growl.addErrorMessage("Server Error:" + message);
-          cleanupEventGetOrgGroupNotDone();      
-        });
   
     }
 
@@ -503,8 +394,5 @@ angular.module('prodo.OrgApp')
         cleanupEventSendOrgGroupInvitesNotDone();     
       });
     }
-OrgRegistrationService.getOrgDetailSettings($rootScope.usersession.currentUser.org.orgid);
-$scope.getOrgAddress($rootScope.usersession.currentUser.org.orgid);
-$scope.getproduct($rootScope.usersession.currentUser.org.orgid);
 }]);
  
