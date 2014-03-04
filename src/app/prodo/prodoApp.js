@@ -36,12 +36,12 @@ angular.module('prodo.ProdonusApp', [
   'prodo.AdminApp',
   'prodo.SubscriptionApp',
   'prodo.UploadApp',
-  'config'
+  'configSocket'
 ]).config([
   '$logProvider', 'growlProvider', '$httpProvider',
   function ($logProvider, growlProvider) {
     $logProvider.debugEnabled(true);
-    growlProvider.globalTimeToLive(15000);
+    growlProvider.globalTimeToLive(5000);
     growlProvider.onlyUniqueMessages(true);      
     growlProvider.messagesKey("errors");
     growlProvider.messageTextKey("message");
@@ -54,7 +54,6 @@ angular.module('prodo.ProdonusApp', [
   '$log',
   'growl',
   function ($rootScope, UserSessionService, OrgRegistrationService, $log, growl) {
-    UserSessionService.checkUser();
     $rootScope.usersession = UserSessionService;
     $rootScope.organizationData = OrgRegistrationService;
     $rootScope.$log = $log;
@@ -70,33 +69,20 @@ angular.module('prodo.ProdonusApp', [
   'OrgRegistrationService',
   function ($scope, $rootScope, $state, $log, $location, growl, UserSessionService, OrgRegistrationService) {
     $state.transitionTo('home.signup');
-    $scope.isShown = false;
     $scope.prodlesfollowed = [{}];
     $scope.showSignin = function () {
-      $scope.isShown = true;
       $state.transitionTo('home.signin');
     };
     $scope.showSignup = function () {
-      $scope.isShown = false;
       $state.transitionTo('home.signup');
     };
 
-    // $scope.$watch('locationPath', function(path) {
-    //   $location.path(path);
-    // });
-  
-    // $scope.$watch(function() {
-    //   return $location.path();
-    // }, function(path) {
-    // $scope.locationPath = path;
-    // });
+    // var cleanupEventSession_Changed_Failure = $scope.$on('session-changed-failure', function (event, message) {
+    //     $scope.showAlert('alert-danger', 'Server Error: ' + message);
+    //     cleanupEventSession_Changed_Failure();
+    //   });
 
-    var cleanupEventSession_Changed_Failure = $scope.$on('session-changed-failure', function (event, message) {
-        $scope.showAlert('alert-danger', 'Server Error: ' + message);
-        cleanupEventSession_Changed_Failure();
-      });
-
-    var cleanupEventSessionDone = $rootScope.$on('session', function (event, data) {
+    var cleanupEventSessionDone = $scope.$on('session', function (event, data) {
       $log.debug(data);
       if ($rootScope.usersession.isLoggedIn) {
         if (data.prodousertype == 'business' && data.org == undefined) {
