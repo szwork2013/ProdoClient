@@ -279,9 +279,13 @@ angular.module('prodo.UserApp').factory('UserSessionService', [
       session.resetSession();
     };
     session.checkUser = function () {
-      UserService.IsUserLoggedin.checkUserSession(function (success) {
-        $log.debug(success);
-        $rootScope.$broadcast('session-changed', success);
+      UserService.IsUserLoggedin.checkUserSession(function (result) {
+        $log.debug(result);
+        if (result.success) {
+          session.authSuccess(result.success.user);
+        } else {
+          session.authfailed();
+        }
       }, function (error) {
         $log.debug(error);
         $rootScope.$broadcast('session-changed-failure', error.status);

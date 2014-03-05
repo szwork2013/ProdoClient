@@ -311,9 +311,9 @@ $scope.selected_country="";
     
     $scope.goToState = function() {
       if ($scope.org.orgtype == 'Manufacturer') {
-        $state.transitionTo('orgregistration.terms');
+        $state.transitionTo('prodo.orgregistration.terms');
       } else {
-        $state.transitionTo('orgregistration.finish');
+        $state.transitionTo('prodo.orgregistration.finish');
       }
     }
 
@@ -371,6 +371,7 @@ $scope.selected_country="";
 
     // function to handle server side responses on org resgistration submit
 		$scope.handleOrgResponse = function(data){
+      console.log(data);
       if (data.success) {
         $log.debug(data.success);      
         $rootScope.usersession.checkUser();
@@ -401,7 +402,7 @@ $scope.selected_country="";
                   UserSessionService.getProductFollowed($scope.prodlesfollowed);
                 }
                   $rootScope.orgid = data.org.orgid;
-                  $state.transitionTo('prodo.wall.org');
+                  $state.transitionTo('prodo.home.wall.org');
             } 
           } 
         cleanupEventSessionDone();
@@ -447,6 +448,7 @@ $scope.selected_country="";
     $scope.registerOrg = function() {
       OrgRegistrationService.RegisterOrg($scope.jsonOrgData()); // calling POST method REST APIs to save org data through OrgResgistrationService
         var cleanupEventOrgRegistrationDone = $scope.$on("orgRegistrationDone", function(event, message){
+        console.log(message);
         $scope.handleOrgResponse(message);
         cleanupEventOrgRegistrationDone();   
       });

@@ -69,29 +69,18 @@ angular.module('prodo.ProdonusApp', [
   'UserSessionService',
   'OrgRegistrationService',
   function ($scope, $rootScope, $state, $log, $location, growl, UserSessionService, OrgRegistrationService) {
-    $state.transitionTo('home.signup');
+    $state.transitionTo('prodo.landing.signup');
     $scope.prodlesfollowed = [{}];
     $scope.showSignin = function () {
-      $state.transitionTo('home.signin');
+      $state.transitionTo('prodo.landing.signin');
     };
     $scope.showSignup = function () {
-      $state.transitionTo('home.signup');
+      $state.transitionTo('prodo.landing.signup');
     };
 
-    var cleanupEventSession_Changed = $scope.$on('session-changed', function (event, message) {
-        $log.debug(message);
-        if (message.success) {
-          UserSessionService.authSuccess(message.success.user);
-          cleanupEventSession_Changed();
-        } else {
-          UserSessionService.authfailed();
-          cleanupEventSession_Changed();
-        }
-        ;
-      });
     var cleanupEventSession_Changed_Failure = $scope.$on('session-changed-failure', function (event, message) {
         UserSessionService.authfailed();
-        $state.transitionTo('home.signup');
+        $state.transitionTo('prodo.landing.signup');
         $scope.showAlert('alert-danger', 'Server Error: ' + message);
         cleanupEventSession_Changed_Failure();
       });
@@ -100,7 +89,7 @@ angular.module('prodo.ProdonusApp', [
       $log.debug(data);
       if ($rootScope.usersession.isLoggedIn) {
         if (data.prodousertype == 'business' && data.org == undefined) {
-          $state.transitionTo('orgregistration.company');
+          $state.transitionTo('prodo.orgregistration.company');
         } else if ((data.prodousertype == 'business' || data.prodousertype == 'individual')  && data.hasDonePayment) {
             if (data.products_followed == null && data.products_followed == undefined) {
               $log.debug('There is some problem with the database. Please contact support.')
@@ -118,44 +107,44 @@ angular.module('prodo.ProdonusApp', [
             }
             if (data.org) {
               $rootScope.orgid = data.org.orgid;
-              $state.transitionTo('prodo.wall.org');
+              $state.transitionTo('prodo.home.wall.org');
             } else if (data.products_followed.length > 0) {
                 var n = data.products_followed.length - 1;
                 $rootScope.orgid= data.products_followed[n].orgid;
-                $state.transitionTo('prodo.wall.org');
+                $state.transitionTo('prodo.home.wall.org');
             }
         } 
       }
       cleanupEventSessionDone();
     });
-    $scope.handleGetOrgResponse = function (data) {
-      if (data.success) {
-        OrgRegistrationService.updateOrgData(data.success.organization);
-        $scope.showAlert('alert-success', data.success.message);
-      } else {
-        $log.debug(data.error.message);
-        $scope.showAlert('alert-danger', data.error.message);
-      }
-    };
-    var cleanupEventGetOrgDone = $rootScope.$on('getOrgDone', function (event, message) {
-        $scope.handleGetOrgResponse(message);
-        cleanupEventGetOrgDone();
-      });
-    var cleanupEventGetOrgNotDone = $rootScope.$on('getOrgNotDone', function (event, message) {
-        $scope.showAlert('alert-danger', 'Server Error:' + message);
-        cleanupEventGetOrgNotDone();
-      });
+    // $scope.handleGetOrgResponse = function (data) {
+    //   if (data.success) {
+    //     OrgRegistrationService.updateOrgData(data.success.organization);
+    //     $scope.showAlert('alert-success', data.success.message);
+    //   } else {
+    //     $log.debug(data.error.message);
+    //     $scope.showAlert('alert-danger', data.error.message);
+    //   }
+    // };
+    // var cleanupEventGetOrgDone = $rootScope.$on('getOrgDone', function (event, message) {
+    //     $scope.handleGetOrgResponse(message);
+    //     cleanupEventGetOrgDone();
+    //   });
+    // var cleanupEventGetOrgNotDone = $rootScope.$on('getOrgNotDone', function (event, message) {
+    //     $scope.showAlert('alert-danger', 'Server Error:' + message);
+    //     cleanupEventGetOrgNotDone();
+    //   });
 
-      var cleanupEventSendOrgData = $rootScope.$on("sendOrgData", function(event, data){
-        $state.transitionTo('prodo.wall.org'); 
-        cleanupEventSendOrgData();  
+    //   var cleanupEventSendOrgData = $rootScope.$on("sendOrgData", function(event, data){
+    //     $state.transitionTo('prodo.home.wall.product'); 
+    //     cleanupEventSendOrgData();  
 
-      });
+    //   });
     $scope.logout = function () {
       UserSessionService.logoutUser();
       var cleanupEventLogoutDone = $scope.$on('logoutDone', function (event, message) {
           console.log($rootScope.usersession.isLoggedIn)
-          $state.transitionTo('home.signup');
+          $state.transitionTo('prodo.landing.signup');
           $scope.showAlert('alert-success', message);
           cleanupEventLogoutDone();
         });

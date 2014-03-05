@@ -1,0 +1,65 @@
+ <div id="prodo-navbar" class="navbar navbar-inverse navbar-static-top prodo-navbar" role="navigation">
+      <div id="prodo-navbar-container" class="prodo-navbar-container">
+        <a id="prodo-navbar-brand" class="navbar-brand" ui-sref="prodo.home.wall.org"><img style="width:100px; height:40px; " src="assets/images/prodonus.png"></a>
+      
+        <p ng-hide="usersession.isLoggedIn" id="prodo-navbar-text" class="navbar-text navbar-right prodo-navbar-text"><a href="" ng-click='showSignin()' id="prodo-navbar-link1" class="navbar-link">Sign In</a>&nbsp;|&nbsp;<a href="" ng-click='showSignup()' id="prodo-navbar-link2" class="navbar-link">Sign Up</a></p>
+      </div>
+
+     <!--  <div ng-hide="usersession.isLoggedIn">
+        <p id="prodo-navbar-text" class="navbar-text navbar-right"><a href="" ui-sref="home.signin" class="navbar-link">Sign In</a>&nbsp;|&nbsp;<a href="" ui-sref="home.signup" class="navbar-link">Sign Up</a></p>
+      </div> -->
+
+      <ul ng-cloak ng-show="usersession.isLoggedIn" class="nav navbar-nav navbar-right">
+        <li><a style="color:#E0E6EE;" class="btn" ui-sref="prodo.home.wall.org"><i style="margin-right:5px; color:#96989B;" class="fa fa-home"></i>Home</a></li>
+        <li class="dropdown">
+          <a style="color:#E0E6EE;" href="#" class="dropdown-toggle" data-toggle="dropdown"><strong>{{usersession.currentUser.username}}</strong><b class="caret"></b></a>
+            <ul style="text-align: left;" class="dropdown-menu">
+              <li><a ng-click="usersession.getUserDetailSettings()" ui-sref="prodo.account-user.user"><i style="margin-right:10px; color:#96989B;" class="fa fa-cog fa-lg"></i>User Account</a></li>
+              <li><a ng-show='usersession.currentUser.org.isAdmin' ui-sref="prodo.account-org.org.detail"><i style="margin-right:10px; color:#96989B;" class="fa fa-cog fa-lg"></i>Org Account</a></li>
+              <li class="divider"></li>
+              <li><a href="" ng-click="logout()"><img style="margin-right:10px;" src="assets/images/logout.png">Logout</a></li>
+            </ul>
+        </li>
+      </ul>
+         
+    </div>
+    
+    <div prodo-alert-message></div>
+    <div id="prodo-main-view">    
+      <div ui-view></div> 
+    </div> 
+
+    <div id="footer" >   
+      <div id="prodo-row-footer" class="row"> 
+        <div id="footer-col-md-2" class="col-md-2 col-md-offset-2"> 
+          <nav><h5 id="footer-nav-heading" class="">About</h5> 
+            <ul id="footer-nav-list"> 
+              <li><a href=""  class="" ui-sref="prodo.footer-content.aboutus">About Us</a></li> 
+              <li><a href="" class="" ui-sref="prodo.footer-content.privacy">Privacy</a></li> 
+              <li><a href="" class="" ui-sref="prodo.footer-content.terms">Terms</a></li></ul> 
+          </nav> 
+        </div> 
+            <div class="col-md-2"> 
+                <nav><h5 id="footer-nav-heading" class="">Connect With Us</h5> 
+                    <ul id="footer-nav-list"> 
+                        <li><a href="" class="" ui-sref="prodo.footer-content.business">Business</a></li> 
+                        <li><a href="" class="" ui-sref="prodo.footer-content.advertising">Advertising</a></li> 
+                        <li><a href="" class="" ui-sref="prodo.footer-content.application">Author-Application</a></li> 
+                    </ul> 
+                </nav> 
+            </div> 
+
+            <div class="col-md-2"> 
+                <nav><h5 id="footer-nav-heading" class="">Help</h5> 
+                    <ul id="footer-nav-list"> 
+                        <li><a href="" class="" ui-sref="prodo.footer-content.support">Support</a></li> 
+                        <li><a href="" class="" ui-sref="prodo.footer-content.contactus">Contact Us</a></li> 
+                    </ul> 
+                </nav> 
+            </div> 
+
+          </div> 
+
+            <p id="prodo-copyright" >&copy; Prodonus Software Private Limited, 2014. All rights reserved | made in pune, India.</p> 
+
+        </div> 

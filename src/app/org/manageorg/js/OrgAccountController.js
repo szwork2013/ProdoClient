@@ -66,7 +66,7 @@ angular.module('prodo.OrgApp')
         $scope.disableEditor();
         OrgRegistrationService.saveOrgSettings($scope.jsonOrgAccountData());
       } else {
-        $scope.orggeneralsettingchange = 'Please pass valid data';
+        $scope.orggeneralsettingchange = 'Please enter valid data';
       }
         var cleanupEventUpdateOrgDone = $scope.$on("updateOrgDone", function(event, message){
           $scope.handleUpdateOrgResponse(message);
@@ -387,7 +387,7 @@ angular.module('prodo.OrgApp')
         $scope.orggroupinvitesettingchange = '';
         OrgRegistrationService.groupInvites($scope.jsonOrgGroupInvitesData());
       } else {
-        $scope.orggroupinvitesettingchange = 'Please pass valid data';
+        $scope.orggroupinvitesettingchange = 'Please enter valid data';
       }
       
       var cleanupEventSendOrgGroupInvitesDone = $scope.$on("sendOrgGroupInvitesDone", function(event, data){
