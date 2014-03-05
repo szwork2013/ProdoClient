@@ -43,7 +43,7 @@
 
    <!--  <p ng-click="a()">test</p> -->
         <a data-toggle="modal"  data-target="#advancedSearchModal" ng-click="modalReset()" class="hyperlinkPointer">Advanced Search</a>
-         <div ng-bind="errors" class="errorClassMessage" id="sidebarErrors" ng-click="toggleTitleForDiv()"></div>
+         <div ng-bind="errors" class="errorClassMessage cursorResize" id="sidebarErrors" ng-click="toggleTitleForDiv()"></div>
         <!-- start of advanced search -->
          <div id = "advancedSearchModal" class="modal fade" >      <!-- Modal Code Starts for Advansed-Search -->
             <div class="modal-dialog">
@@ -56,17 +56,17 @@
 
                   <div class="modalAppearance">
                           <p>*Type Comma (,) between all the words you want.Eg: Apple Iphone , Samsung Galaxy Pro</p>            
-                    <div class="row">         
-                      <div class="col-lg-6">
-                        <div class="input-group">                         
+                    <div class="row advanceSearchTextbox">         
+                      <div class="col-lg-6 advanceSearchText">
+                        <div class="input-group advanceSearchText">                         
                             <input type="text" class="prodoAdvancedSearchTextbox" placeholder="Organization Name [ eg:Prodonus]" id="textBoxOrgName" ng-model="org"/>
                         </div>
                       </div>
                     </div>   
                     <br>
-                    <div class="row">         
-                      <div class="col-lg-6">
-                        <div class="input-group">
+                    <div class="row advanceSearchTextbox">         
+                      <div class="col-lg-6 advanceSearchText">
+                        <div class="input-group advanceSearchText">
                       
                             <input type="text" class="prodoAdvancedSearchTextbox" placeholder="Product Name [ eg:Samsung,Nokia ]" id="textBoxProductName" ng-model="product_name">
                             
@@ -74,32 +74,32 @@
                       </div>
                     </div>    
                     <br>
-                    <div class="row">         
-                      <div class="col-lg-6"> 
-                        <div class="input-group">
+                    <div class="row advanceSearchTextbox">         
+                      <div class="col-lg-6 advanceSearchText"> 
+                        <div class="input-group advanceSearchText">
                             <input type="text" class="prodoAdvancedSearchTextbox"  placeholder="Feature [ eg:JBL Speaker,BOSE Speakers ]" id="textBoxFeatureName"  ng-model="feature" >                                       
                          </div><!-- /input-group -->
                       </div><!-- /.col-lg-6 -->
                     </div>    
                     <br>
-                    <div class="row">         
-                      <div class="col-lg-6">
-                         <div class="input-group">
+                    <div class="row advanceSearchTextbox">         
+                      <div class="col-lg-6 advanceSearchText">
+                         <div class="input-group advanceSearchText">
                            <input type="text" class="prodoAdvancedSearchTextbox" placeholder="Category [ eg:Mobiles,Tablets]" id="textBoxCategoryName" ng-model="category">           
                         </div><!-- /input-group --> 
-                        </div>   &nbsp;
+                        </div> 
                     </div>  
                     <br>  
-                    <div class="row">          
-                       <div class="col-lg-6">
-                          <div class="input-group">
+                    <div class="row advanceSearchTextbox">          
+                       <div class="col-lg-6 advanceSearchText">
+                          <div class="input-group advanceSearchText">
                              <input type="text" placeholder="Please Enter Exact   Model Number [ eg:Grang Duos,S4 ]"  ng-model="model_number" id="textBoxModelNumber" class="prodoAdvancedSearchTextbox">              
                           </div><!-- /input-group -->
                        </div><!-- /.col-lg-6 -->
                     </div>    
             <!--    <p>Search Criteria:{{search}}</p> -->
                     <div id="prodo-searchResults"><br>
-                          <div style="" class="borderBoxResult" ng-bind="message"></div><!-- {{message}}</h5></u> -->
+                          <div style="" class="borderBoxResult advanceSearchResult" ng-bind="message"></div><!-- {{message}}</h5></u> -->
                        <!--    <ol>
                           <li ng-repeat="list in result">
                           <a ng-click="orgProdleEmitter(list.prodle,list.orgid)" ng-bind="list.name" ></a>        
@@ -113,14 +113,14 @@
                                              <span ng-bind="list.name" ng-if="list.products!==undefined" class="organisationSearchResult"></span>
                                              <a ng-bind="list.name" ng-click="orgProdleEmitter(list.prodle,list.orgid)" ng-if="list.products===undefined" class="hyperlinkPointer">
                                              </a>
-                                             <div style="width:500px;" ng-if="list.products===undefined" >[ Description : <span ng-bind="list.description"></span> ]</div>
+                                             <div style="width:100%;" ng-if="list.products===undefined" >[ Description : <span ng-bind="list.description"></span> ]</div>
 
-                                              <div style="width:450px;" ng-if=" list.info!==undefined && list.info ==='No products exist for this organisation' ">[ Info : <span ng-bind="list.info"></span> ]</div>
+                                              <div style="width:100%;" ng-if=" list.info!==undefined && list.info ==='No products exist for this organisation' ">[ Info : <span ng-bind="list.info"></span> ]</div>
                                             
                                                     <ol type="i">
                                                        <li ng-repeat="product_list in list.products" class="productSearchResult" ng-if="product_list.name!==''">
                                                                <a ng-bind="product_list.name" ng-click="orgProdleEmitter(product_list.prodle,list.orgid)" ng-if='product_list.name!==""' class="hyperlinkPointer"></a>
-                                                              <div style="width:450px;" >[ Description : <span ng-bind="product_list.description" ></span> ]</div>
+                                                              <div style="width:98%" >[ Description : <span ng-bind="product_list.description" ></span> ]</div>
                                                      <!--          <div style="width:450px;" ng-if=" product_list.description ==='No products exist for this organisation' ">[ Info : <span ng-bind="product_list.description"></span> ]</div> -->
                                                        </li>
                                                     </ol>

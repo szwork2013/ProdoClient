@@ -98,7 +98,7 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
     outline:0; 
     /*padding-left: 25px;*/
     height:25px; 
-    width: 500px; 
+    width: 100%; 
     border-radius: 5px;
     margin-bottom: 4px ;
     /* */
@@ -1632,10 +1632,10 @@ background-color: #f5f5f5;
 padding: 3px;
 text-align: center;
 }
-.modal-content {
+/*.modal-content {
 width:70%;
 left:15%;
-}
+}*/
 .modal-footer {
 padding: 5px;
 }
@@ -2002,7 +2002,7 @@ width:10%; height: 10%; float: left; margin: 5px; border: solid 1px #ccc;
 .borderBoxResult
  {
  	background-color:#E4CBF5;
- 	width:500px;
+ 	width:100%;
  	font-size : medium;
    font-family : serif;
  }
@@ -2058,7 +2058,10 @@ text-align: right;
 	color: #757577;
 	font-weight: bold;
 }
-
+.cursorResize
+{
+	cursor:pointer;
+}
 .userDetailsModalPanel
 {
 	min-height:20px;
@@ -2071,7 +2074,7 @@ text-align: right;
 {
 	   overflow: scroll;
 	   max-height: 200px;
-       width : 500px ;
+       width : 100% ;
 }
 
 .modal-footer 
@@ -2092,7 +2095,18 @@ text-align: right;
 {
      font-weight: 300 ;
   
-  
+}
+#advanceSearchTextbox
+{
+	width : 100%;
+}
+.advanceSearchText
+{
+    width:98%;
+}
+.advanceSearchResult
+{
+	width : 94%;
 }
 .prodo-registration-Wizard-title
 {
