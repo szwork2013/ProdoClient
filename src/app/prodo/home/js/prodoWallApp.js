@@ -1,11 +1,7 @@
 angular.module('prodo.ProdoWallApp')
 	.controller('ProdoWallController', ['$rootScope', '$scope', '$state', '$log', 'OrgRegistrationService', 'orgdata', 'orgaddr', 'orgproduct', '$stateParams', function($rootScope, $scope, $state, $log, OrgRegistrationService, orgdata, orgaddr, orgproduct, $stateParams) {
 
-    if (orgproduct.error) {
-      console.log('No product available');
-    } else {
-        $scope.productlist = orgproduct.success.product; 
-    }
+    $scope.productlist = [];
 
     $scope.updateimages = function(data) {
       console.log(data);
@@ -36,7 +32,11 @@ angular.module('prodo.ProdoWallApp')
     });
 
     $scope.$watch('$state.$current.locals.globals.orgproduct', function (orgproduct) {
-      $scope.productlist = orgproduct.success.product;
+      if (orgproduct.error) {
+            console.log('No product available');
+          } else {
+              $scope.productlist = orgproduct.success.product; 
+          }
     });
 
 		// function to handle server side responses

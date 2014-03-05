@@ -1,6 +1,6 @@
 angular.module('prodo.OrgApp')
  .controller('OrgAccountController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$log', 'growl', 'UserSessionService', 'OrgRegistrationService', 'OrgService', 'currentorgdata', 'currentorgaddr', 'currentorgproduct', 'currentorggroup', function($scope, $rootScope, $state, $http, $timeout, $log, growl, UserSessionService, OrgRegistrationService, OrgService, currentorgdata, currentorgaddr, currentorgproduct, currentorggroup) {
-    
+    $scope.productlist = [];
     $scope.hasBroadcast = false;
     $scope.editorEnabled = false;
     $scope.form = {};
@@ -18,8 +18,13 @@ angular.module('prodo.OrgApp')
     /***
     // Organisation Manage Account Settings function definitions
     ***/
+    if (currentorgproduct.error) {
+      console.log('no product available');
+    } else {
+      $scope.productlist = currentorgproduct.success.product;
+    }
     $scope.org = currentorgdata.success.organization;
-    $scope.productlist = currentorgproduct.success.product;
+    
     $scope.groups = currentorggroup.success.usergrp;
     $scope.orgaddr = currentorgaddr.success.orgaddress;
     OrgRegistrationService.updateOrgData(currentorgdata.success.organization);

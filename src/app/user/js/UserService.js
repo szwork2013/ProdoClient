@@ -279,19 +279,13 @@ angular.module('prodo.UserApp').factory('UserSessionService', [
       session.resetSession();
     };
     session.checkUser = function () {
-      return UserService.IsUserLoggedin.checkUserSession();
-      //   $log.debug(result);
-      //   if (result.success) {
-      //     session.authSuccess(result.success.user);
-      //   } else {
-      //     session.authfailed();
-      //   }
-      // }, function (error) {
-      //   $log.debug(error);
-      //   session.authfailed();
-      //   $state.transitionTo('home.signup');
-      //   $rootScope.$broadcast('session-changed-failure', error.status);
-      // });
+      UserService.IsUserLoggedin.checkUserSession(function (success) {
+        $log.debug(success);
+        $rootScope.$broadcast('session-changed', success);
+      }, function (error) {
+        $log.debug(error);
+        $rootScope.$broadcast('session-changed-failure', error.status);
+      });
     };
     return session;
   }

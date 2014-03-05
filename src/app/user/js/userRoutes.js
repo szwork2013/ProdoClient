@@ -8,22 +8,7 @@ angular.module('prodo.UserApp')
   $stateProvider
   	.state('home', {
       abstract: true,
-      templateUrl: 'user/views/user.registration.container.html',
-      controller: 'ProdoMainController',
-      resolve: {
-          checkuser: function(UserSessionService, $rootScope) {
-            console.log('checkuser');
-            var d = UserSessionService.checkUser().$promise;
-            return d;
-          },
-          checkAuthSuccess: function(UserSessionService, $rootScope, checkuser){
-            if (checkuser.success) {
-             return UserSessionService.authSuccess(checkuser.success.user);
-            } else {
-             return UserSessionService.authfailed();
-            }
-          }
-        }
+      templateUrl: 'user/views/user.registration.container.html'
     })    
     .state('home.signup', {
       views: {

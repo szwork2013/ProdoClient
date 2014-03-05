@@ -54,6 +54,7 @@ angular.module('prodo.ProdonusApp', [
   '$log',
   'growl',
   function ($rootScope, UserSessionService, OrgRegistrationService, $log, growl) {
+    UserSessionService.checkUser();
     $rootScope.usersession = UserSessionService;
     $rootScope.organizationData = OrgRegistrationService;
     $rootScope.$log = $log;
@@ -77,10 +78,23 @@ angular.module('prodo.ProdonusApp', [
       $state.transitionTo('home.signup');
     };
 
-    // var cleanupEventSession_Changed_Failure = $scope.$on('session-changed-failure', function (event, message) {
-    //     $scope.showAlert('alert-danger', 'Server Error: ' + message);
-    //     cleanupEventSession_Changed_Failure();
-    //   });
+    var cleanupEventSession_Changed = $scope.$on('session-changed', function (event, message) {
+        $log.debug(message);
+        if (message.success) {
+          UserSessionService.authSuccess(message.success.user);
+          cleanupEventSession_Changed();
+        } else {
+          UserSessionService.authfailed();
+          cleanupEventSession_Changed();
+        }
+        ;
+      });
+    var cleanupEventSession_Changed_Failure = $scope.$on('session-changed-failure', function (event, message) {
+        UserSessionService.authfailed();
+        $state.transitionTo('home.signup');
+        $scope.showAlert('alert-danger', 'Server Error: ' + message);
+        cleanupEventSession_Changed_Failure();
+      });
 
     var cleanupEventSessionDone = $scope.$on('session', function (event, data) {
       $log.debug(data);
