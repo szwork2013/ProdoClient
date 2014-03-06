@@ -405,7 +405,6 @@ $scope.selected_country="";
                   $state.transitionTo('prodo.home.wall.org');
             } 
           } 
-        cleanupEventSessionDone();
       });
 
     // function to send user data n stringify in json format
@@ -446,15 +445,21 @@ $scope.selected_country="";
   
     // function to register Organisation on sumbit
     $scope.registerOrg = function() {
-      OrgRegistrationService.RegisterOrg($scope.jsonOrgData()); // calling POST method REST APIs to save org data through OrgResgistrationService
-        var cleanupEventOrgRegistrationDone = $scope.$on("orgRegistrationDone", function(event, message){
-        console.log(message);
-        $scope.handleOrgResponse(message);
-        cleanupEventOrgRegistrationDone();   
-      });
-      var cleanupEventOrgRegistrationNotDone = $scope.$on("orgRegistrationNotDone", function(event, message){
-        $scope.showAlert('alert-danger', "Server Error:" + message); 
-        cleanupEventOrgRegistrationNotDone();     
-      }); 
+      OrgRegistrationService.RegisterOrg($scope.jsonOrgData()); // calling POST method REST APIs to save org data through OrgResgistrationService 
     }
+
+    var cleanupEventOrgRegistrationDone = $scope.$on("orgRegistrationDone", function(event, message){
+      console.log(message);
+      $scope.handleOrgResponse(message);
+    });
+    var cleanupEventOrgRegistrationNotDone = $scope.$on("orgRegistrationNotDone", function(event, message){
+      $scope.showAlert('alert-danger', "Server Error:" + message);  
+    });  
+    
+    $scope.$on('$destroy', function(event, message) {
+      cleanupEventSessionDone();      
+      cleanupEventOrgRegistrationDone();         
+      cleanupEventOrgRegistrationNotDone();  
+    });
+
   }]);

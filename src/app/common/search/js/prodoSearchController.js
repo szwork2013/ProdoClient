@@ -31,14 +31,15 @@ console.log("rootscope"+$rootScope.orgid);
     $scope.limit=6;
     
 
-          $scope.$on('gotTrendingProducts', function (event, data) //After getting Data from trending product aPI
-          {
-            $scope.trendingProducts=data.success.ProductTrends;
-          });
-          $scope.$on('notGotTrendingProducts', function (event, data) //Error handling needed for 
-          {
-            $scope.errors="Server Error";
-          });
+    var cleanGotTrendingProducts = $scope.$on('gotTrendingProducts', function (event, data) //After getting Data from trending product aPI
+    {
+      $scope.trendingProducts=data.success.ProductTrends;
+    });
+    
+    var cleanNotGotTrendingProducts = $scope.$on('notGotTrendingProducts', function (event, data) //Error handling needed for 
+    {
+      $scope.errors="Server Error";
+    });
 
     //The following function was written to resolve the problem of getting search result in first letter/
     //Timebeing it is not being used
@@ -195,26 +196,20 @@ console.log("rootscope"+$rootScope.orgid);
          {         
                  prodoSearchService.searchProduct($scope.search);    //Calling searchproduct api for advanced search; Format for input is {productsearchdata:{''}}
                  // $scope.search.productsearchdata= {};
-                 $scope.$on('getSearchProductDone', function (event, data) {
-                 $scope.result=data.success.doc;
-                 
-                 $scope.message="";
-                 $scope.message=data.success.message;
-                 console.log("data received from api --------------------------"+ JSON.stringify($scope.result));
-                  //alert($scope.message);
-                 });
-                 $scope.$on('getSearchProductNotDone', function (event, data) {
-
-                  $scope.errors="Server Error";
-
-                 });
-
           }
-
     };
+   var cleanGetSearchProductDone = $scope.$on('getSearchProductDone', function (event, data) {
+     $scope.result=data.success.doc;
+     
+     $scope.message="";
+     $scope.message=data.success.message;
+     console.log("data received from api --------------------------"+ JSON.stringify($scope.result));
+      //alert($scope.message);
+   });
 
-
-
+   var cleanGetSearchProductNotDone = $scope.$on('getSearchProductNotDone', function (event, data) {
+      $scope.errors="Server Error";
+   });
 
 //This function assigns prodles and orgid to rootscope 
     $scope.orgProdleEmitter=function(dataProdle,dataOrgid)
@@ -292,19 +287,14 @@ console.log("rootscope"+$rootScope.orgid);
 
     //This function is called unfollow product from sidebar; When unfollow button is clicked list from productfollowedlist is spliced;
     $scope.unfollowProduct = function (product) { 
-
-        UserSessionService.unfollowProduct(product.prodle);
-        var clearresponse = $scope.$on("unfollowProductDone", function(event, data)
-        {
-                var index = UserSessionService.productfollowlist.indexOf(product);
-                UserSessionService.productfollowlist.splice(index, 1);
-                clearresponse(); 
-        });
-  
+      UserSessionService.unfollowProduct(product.prodle);
     };
+    var cleanUnfollowProductDone = $scope.$on("unfollowProductDone", function(event, data){
+      var index = UserSessionService.productfollowlist.indexOf(product);
+      UserSessionService.productfollowlist.splice(index, 1);
+    });
 
-    $scope.loadMoreFollowedProduct=function()
-    {
+    $scope.loadMoreFollowedProduct=function() {
 
         if($scope.limit===100)
         {
@@ -321,8 +311,14 @@ console.log("rootscope"+$rootScope.orgid);
 
     };
 
+    $scope.$on('$destroy', function(event, message) {
+      cleanGotTrendingProducts();
+      cleanNotGotTrendingProducts();      
+      cleanGetSearchProductDone();
+      cleanGetSearchProductNotDone();      
+      cleanUnfollowProductDone(); 
+    });
 
-//End of controller  
-         
+//End of controller         
   }
 ]);

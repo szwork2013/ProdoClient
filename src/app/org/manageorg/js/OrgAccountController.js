@@ -67,17 +67,14 @@ angular.module('prodo.OrgApp')
         OrgRegistrationService.saveOrgSettings($scope.jsonOrgAccountData());
       } else {
         $scope.orggeneralsettingchange = 'Please enter valid data';
-      }
-        var cleanupEventUpdateOrgDone = $scope.$on("updateOrgDone", function(event, message){
-          $scope.handleUpdateOrgResponse(message);
-          cleanupEventUpdateOrgDone();  
-        });
-        var cleanupEventUpdateOrgNotDone = $scope.$on("updateOrgNotDone", function(event, message){
-          growl.addErrorMessage("Server Error:" + message);
-          cleanupEventUpdateOrgNotDone();     
-        });
-  
+      }  
     }
+    var cleanupEventUpdateOrgDone = $scope.$on("updateOrgDone", function(event, message){
+      $scope.handleUpdateOrgResponse(message);    
+    });
+    var cleanupEventUpdateOrgNotDone = $scope.$on("updateOrgNotDone", function(event, message){
+      growl.addErrorMessage("Server Error:" + message);    
+    });    
 
     $scope.jsonOrgAddressData = function()
       {
@@ -127,16 +124,13 @@ angular.module('prodo.OrgApp')
 
     $scope.addOrgAddress = function() {
       OrgRegistrationService.saveOrgAddress($scope.jsonOrgAddressData());
-      var cleanupEventAddOrgAddressDone = $scope.$on("addOrgAddressDone", function(event, message){
-        $scope.handleAddOrgAddressResponse(message);
-        cleanupEventAddOrgAddressDone();   
-      });
-      var cleanupEventAddOrgAddressNotDone = $scope.$on("addOrgAddressNotDone", function(event, message){
-        $scope.showAlert('alert-danger', "Server Error:" + message);
-        cleanupEventAddOrgAddressNotDone();      
-      });
-  
     }
+    var cleanupEventAddOrgAddressDone = $scope.$on("addOrgAddressDone", function(event, message){
+      $scope.handleAddOrgAddressResponse(message);  
+    });
+    var cleanupEventAddOrgAddressNotDone = $scope.$on("addOrgAddressNotDone", function(event, message){
+      $scope.showAlert('alert-danger', "Server Error:" + message);     
+    });
 
     // function to handle server side responses
     $scope.handleUpdateOrgAddressResponse = function(data){
@@ -158,15 +152,13 @@ angular.module('prodo.OrgApp')
     $scope.updateAddress = function(addressId) {
       console.log($scope.jsonOrgAddressData());
       OrgRegistrationService.updateOrgAddress($scope.jsonOrgAddressData(), addressId);
-      var cleanupEventUpdateOrgAddressDone = $scope.$on("updateOrgAddressDone", function(event, message){
-        $scope.handleUpdateOrgAddressResponse(message); 
-        cleanupEventUpdateOrgAddressDone();  
-      });
-      var cleanupEventUpdateOrgAddressNotDone = $scope.$on("updateOrgAddressNotDone", function(event, message){
-        $scope.showAlert('alert-danger', "Server Error:" + message); 
-        cleanupEventUpdateOrgAddressNotDone();     
-      });
     }
+    var cleanupEventUpdateOrgAddressDone = $scope.$on("updateOrgAddressDone", function(event, message){
+      $scope.handleUpdateOrgAddressResponse(message); 
+    });
+    var cleanupEventUpdateOrgAddressNotDone = $scope.$on("updateOrgAddressNotDone", function(event, message){
+      $scope.showAlert('alert-danger', "Server Error:" + message);     
+    });    
 
     // function to handle server side responses
     $scope.handleDeleteOrgResponse = function(data){
@@ -180,16 +172,13 @@ angular.module('prodo.OrgApp')
 
     $scope.deleteOrgAccount = function() {
       OrgRegistrationService.removeOrgSettings();
-      var cleanupEventDeleteOrgDone = $scope.$on("deleteOrgDone", function(event, message){
-        $scope.handleDeleteOrgResponse(message);
-        cleanupEventDeleteOrgDone();   
-      });
-      var cleanupEventDeleteOrgNotDone = $scope.$on("deleteOrgNotDone", function(event, message){
-        $scope.showAlert('alert-danger', "Server Error:" + message);
-        cleanupEventDeleteOrgNotDone();  
-      });
-  
     }
+    var cleanupEventDeleteOrgDone = $scope.$on("deleteOrgDone", function(event, message){
+      $scope.handleDeleteOrgResponse(message); 
+    });
+    var cleanupEventDeleteOrgNotDone = $scope.$on("deleteOrgNotDone", function(event, message){
+      $scope.showAlert('alert-danger', "Server Error:" + message);
+    });    
 
     // function to handle server side responses
     $scope.handleDeleteOrgAddressResponse = function(data){
@@ -203,16 +192,13 @@ angular.module('prodo.OrgApp')
 
     $scope.deleteOrgAddress = function(addressId) {
       OrgRegistrationService.removeOrgAddress(addressId);
-      var cleanupEventDeleteOrgAddressDone = $scope.$on("deleteOrgAddressDone", function(event, message){
-        $scope.handleDeleteOrgResponse(message);   
-        cleanupEventDeleteOrgAddressDone();
-      });
-      var cleanupEventDeleteOrgAddressNotDone = $scope.$on("deleteOrgAddressNotDone", function(event, message){
-        $scope.showAlert('alert-danger', "Server Error:" + message);   
-        cleanupEventDeleteOrgAddressNotDone();
-      });
-  
     }
+    var cleanupEventDeleteOrgAddressDone = $scope.$on("deleteOrgAddressDone", function(event, message){
+      $scope.handleDeleteOrgResponse(message);   
+    });
+    var cleanupEventDeleteOrgAddressNotDone = $scope.$on("deleteOrgAddressNotDone", function(event, message){
+      $scope.showAlert('alert-danger', "Server Error:" + message);   
+    });
 
     // function to handle server side responses
     $scope.handleDeleteOrgGroupMemberResponse = function(data){
@@ -231,17 +217,14 @@ angular.module('prodo.OrgApp')
     };
 
     $scope.deleteGroupMember = function(grpid, userid) {
-      OrgRegistrationService.deleteMember(grpid, userid);
-      var cleanupEventDeleteOrgGroupMemberDone = $scope.$on("deleteOrgGroupMemberDone", function(event, message){
-        $scope.handleDeleteOrgGroupMemberResponse(message);
-        cleanupEventDeleteOrgGroupMemberDone();   
-      });
-      var cleanupEventDeleteOrgGroupMemberNotDone = $scope.$on("deleteOrgGroupMemberNotDone", function(event, message){
-        $scope.showAlert('alert-danger', "Server Error:" + message);
-        cleanupEventDeleteOrgGroupMemberNotDone();      
-      });
-  
+      OrgRegistrationService.deleteMember(grpid, userid); 
     }
+    var cleanupEventDeleteOrgGroupMemberDone = $scope.$on("deleteOrgGroupMemberDone", function(event, message){
+      $scope.handleDeleteOrgGroupMemberResponse(message);  
+    });
+    var cleanupEventDeleteOrgGroupMemberNotDone = $scope.$on("deleteOrgGroupMemberNotDone", function(event, message){
+      $scope.showAlert('alert-danger', "Server Error:" + message);      
+    });    
 
     $scope.orginvites=[{
                         'name': '',
@@ -265,7 +248,6 @@ angular.module('prodo.OrgApp')
     // function to handle server side responses
     $scope.handleOrgInviteResponse = function(data){
       if (data.success) {
-
         $scope.showAlert('alert-success', data.success.message);   
       } else {
         if (data.error.code== 'AU004') {     // enter valid data
@@ -282,15 +264,14 @@ angular.module('prodo.OrgApp')
     $scope.sendOrgInvites = function() {
       console.log($scope.jsonOrgInvitesData());
       OrgRegistrationService.sendInvites($scope.jsonOrgInvitesData());
-      var cleanupEventSendOrgInvitesDone = $scope.$on("sendOrgInvitesDone", function(event, data){
-        $scope.handleOrgInviteResponse(data); 
-        cleanupEventSendOrgInvitesDone();  
-      });
-      var cleanupEventSendOrgInvitesNotDone = $scope.$on("sendOrgInvitesNotDone", function(event, data){
-        $scope.showAlert('alert-danger', "Server Error:" + data); 
-        cleanupEventSendOrgInvitesNotDone();     
-      });
     }
+
+    var cleanupEventSendOrgInvitesDone = $scope.$on("sendOrgInvitesDone", function(event, data){
+      $scope.handleOrgInviteResponse(data);  
+    });
+    var cleanupEventSendOrgInvitesNotDone = $scope.$on("sendOrgInvitesNotDone", function(event, data){
+      $scope.showAlert('alert-danger', "Server Error:" + data);    
+    });
 
     $scope.customerinvites=[{
                         'name': '',
@@ -330,16 +311,14 @@ angular.module('prodo.OrgApp')
     $scope.orgCustomerInvites = function() {
       console.log($scope.jsonOrgInvitesData());
       OrgRegistrationService.sendCustomerInvites($scope.jsonOrgCustomerInvitesData());
-      var cleanupEventSendOrgCustomerInvitesDone = $scope.$on("sendOrgCustomerInvitesDone", function(event, data){
-        $scope.handleOrgCustomerInviteResponse(data); 
-        cleanupEventSendOrgCustomerInvitesDone();  
-      });
-      var cleanupEventSendOrgCustomerInvitesNotDone = $scope.$on("sendOrgCustomerInvitesNotDone", function(event, data){
-        $scope.showAlert('alert-danger', "Server Error:" + data); 
-        cleanupEventSendOrgCustomerInvitesNotDone();     
-      });
     }
 
+    var cleanupEventSendOrgCustomerInvitesDone = $scope.$on("sendOrgCustomerInvitesDone", function(event, data){
+      $scope.handleOrgCustomerInviteResponse(data);   
+    });
+    var cleanupEventSendOrgCustomerInvitesNotDone = $scope.$on("sendOrgCustomerInvitesNotDone", function(event, data){
+      $scope.showAlert('alert-danger', "Server Error:" + data);     
+    });    
 
     $scope.showInvites = false;
 
@@ -368,7 +347,6 @@ angular.module('prodo.OrgApp')
     // function to handle server side responses
     $scope.handleOrgGroupInviteResponse = function(data){
       if (data.success) {
-
         growl.addSuccessMessage(data.success.message);  
       } else {
         if (data.error.code== 'AU004') {     // enter valid data
@@ -381,7 +359,6 @@ angular.module('prodo.OrgApp')
       }
     };  
 
-
     $scope.addGroupInvite = function() {
       if ($scope.form.orggroupinvitesform.$valid) {
         $scope.orggroupinvitesettingchange = '';
@@ -389,15 +366,34 @@ angular.module('prodo.OrgApp')
       } else {
         $scope.orggroupinvitesettingchange = 'Please enter valid data';
       }
-      
-      var cleanupEventSendOrgGroupInvitesDone = $scope.$on("sendOrgGroupInvitesDone", function(event, data){
-        $scope.handleOrgGroupInviteResponse(data); 
-        cleanupEventSendOrgGroupInvitesDone();  
-      });
-      var cleanupEventSendOrgGroupInvitesNotDone = $scope.$on("sendOrgGroupInvitesNotDone", function(event, data){
-        growl.addErrorMessage("Server Error:" + message); 
-        cleanupEventSendOrgGroupInvitesNotDone();     
-      });
     }
+
+    var cleanupEventSendOrgGroupInvitesDone = $scope.$on("sendOrgGroupInvitesDone", function(event, data){
+      $scope.handleOrgGroupInviteResponse(data); 
+    });
+    var cleanupEventSendOrgGroupInvitesNotDone = $scope.$on("sendOrgGroupInvitesNotDone", function(event, data){
+      growl.addErrorMessage("Server Error:" + message);           
+    });
+
+    $scope.$on('$destroy', function(event, message) {
+      cleanupEventUpdateOrgDone();      
+      cleanupEventUpdateOrgNotDone();       
+      cleanupEventAddOrgAddressDone();  
+      cleanupEventAddOrgAddressNotDone();       
+      cleanupEventUpdateOrgAddressDone();        
+      cleanupEventUpdateOrgAddressNotDone();      
+      cleanupEventDeleteOrgDone();        
+      cleanupEventDeleteOrgNotDone();        
+      cleanupEventDeleteOrgAddressDone();      
+      cleanupEventDeleteOrgAddressNotDone();      
+      cleanupEventDeleteOrgGroupMemberDone();       
+      cleanupEventDeleteOrgGroupMemberNotDone();      
+      cleanupEventSendOrgInvitesDone();       
+      cleanupEventSendOrgInvitesNotDone();        
+      cleanupEventSendOrgCustomerInvitesDone();
+      cleanupEventSendOrgCustomerInvitesNotDone();       
+      cleanupEventSendOrgGroupInvitesDone();        
+      cleanupEventSendOrgGroupInvitesNotDone();
+    });
 }]);
  
