@@ -8,8 +8,7 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
   '$http',
   '$resource' ,
   'trendingProductService',
-  'growl',
-  function ($scope, $log, $rootScope, prodoSearchService, UserSessionService, searchProductService, $http, $resource,trendingProductService,growl) {
+  function ($scope, $log, $rootScope, prodoSearchService, UserSessionService, searchProductService, $http, $resource,trendingProductService) {
 //Declaration of variables
 console.log("rootscope"+$rootScope.orgid);
     $scope.productNames=[];  //Store objects from searchproduct api
@@ -31,12 +30,12 @@ console.log("rootscope"+$rootScope.orgid);
     $scope.limit=6;
     
 
-    var cleanGotTrendingProducts = $scope.$on('gotTrendingProducts', function (event, data) //After getting Data from trending product aPI
+    var cleanEventGotTrendingProducts = $scope.$on('gotTrendingProducts', function (event, data) //After getting Data from trending product aPI
     {
       $scope.trendingProducts=data.success.ProductTrends;
     });
     
-    var cleanNotGotTrendingProducts = $scope.$on('notGotTrendingProducts', function (event, data) //Error handling needed for 
+    var cleanEventNotGotTrendingProducts = $scope.$on('notGotTrendingProducts', function (event, data) //Error handling needed for 
     {
       $scope.errors="Server Error";
     });
@@ -130,7 +129,9 @@ console.log("rootscope"+$rootScope.orgid);
     $scope.searchProductData = function () 
     {
          // $('#productSearchResult').css("display","none");
-         // $('#orgSearchResult').css("display","none");
+         // $('#orgSearchResult').css("display","none");      
+         $scope.message="";
+         $scope.result=[];
          $scope.count=0;
          $scope.search.productsearchdata={};
          if ($scope.product_name !== '') 
@@ -198,7 +199,7 @@ console.log("rootscope"+$rootScope.orgid);
                  // $scope.search.productsearchdata= {};
           }
     };
-   var cleanGetSearchProductDone = $scope.$on('getSearchProductDone', function (event, data) {
+   var cleanEventGetSearchProductDone = $scope.$on('getSearchProductDone', function (event, data) {
      $scope.result=data.success.doc;
      
      $scope.message="";
@@ -207,7 +208,7 @@ console.log("rootscope"+$rootScope.orgid);
       //alert($scope.message);
    });
 
-   var cleanGetSearchProductNotDone = $scope.$on('getSearchProductNotDone', function (event, data) {
+   var cleanEventGetSearchProductNotDone = $scope.$on('getSearchProductNotDone', function (event, data) {
       $scope.errors="Server Error";
    });
 
@@ -289,7 +290,7 @@ console.log("rootscope"+$rootScope.orgid);
     $scope.unfollowProduct = function (product) { 
       UserSessionService.unfollowProduct(product.prodle);
     };
-    var cleanUnfollowProductDone = $scope.$on("unfollowProductDone", function(event, data){
+    var cleanEventUnfollEventowProductDone = $scope.$on("unfollowProductDone", function(event, data){
       var index = UserSessionService.productfollowlist.indexOf(product);
       UserSessionService.productfollowlist.splice(index, 1);
     });
@@ -298,8 +299,8 @@ console.log("rootscope"+$rootScope.orgid);
 
         if($scope.limit===100)
         {
-        document.getElementById('tabMore').innerHTML="More"
-          $scope.limit=6;
+                document.getElementById('tabMore').innerHTML="More"
+                $scope.limit=6;
          
         }
         else if($scope.limit===6)
@@ -312,11 +313,11 @@ console.log("rootscope"+$rootScope.orgid);
     };
 
     $scope.$on('$destroy', function(event, message) {
-      cleanGotTrendingProducts();
-      cleanNotGotTrendingProducts();      
-      cleanGetSearchProductDone();
-      cleanGetSearchProductNotDone();      
-      cleanUnfollowProductDone(); 
+      cleanEventGotTrendingProducts();
+      cleanEventNotGotTrendingProducts();      
+      cleanEventGetSearchProductDone();
+      cleanEventGetSearchProductNotDone();      
+      cleanEventUnfollowProductDone(); 
     });
 
 //End of controller         
