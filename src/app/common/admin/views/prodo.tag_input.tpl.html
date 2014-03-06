@@ -4,7 +4,8 @@
 
   <!--   <p>Tag ID:<input type="text" id="tagid" ng-model="tagid"> </p>  <br>   -->
            <p>Tag Name:<input type="text" id="tagName" ng-model="tagname"> </p>
-   <br>  
+           <br>  
+             
              Category:
                      <select ng-model="category_selection" ng-mouseout="setEmotion()"> 
                                <option>-</option>
@@ -18,27 +19,27 @@
                                <option>Submission</option>
                      </select>
        
-           <br> <br> <br>
+             <br> <br> <br>
+
              Emotion:
                        <select ng-model="emotionvalueinsert" ng-mouseout="funct()" id="1"> 
                                 <option ng-bind="option1"></option>
                                 <option ng-bind="option2"></option>  
                                 <option ng-bind="option3"></option>
                        </select><!-- --{{emotion}} -->
-                       
-                       
-       <br><br><br>  
+                                             
+             <br><br><br>  
    
-  Level:<select ng-model="level">
-   <option>-</option>
-   <option>10</option>
-   <option>20</option>
-   <option>30</option>
+            Level:<select ng-model="level">
+             <option>-</option>
+             <option>10</option>
+             <option>20</option>
+             <option>30</option>
    
-  </select> 
+             </select> 
     
-     
-   <br><br>  <br>  
+
+             <br><br><br>  
    
               Result: 
                         <select ng-model="result">
@@ -48,16 +49,14 @@
                                    <option>Neutral</option>
                          </select>
                          
-               <br><br>  <br>  
-   
-   
-            <!--    <input type="text" placeholder="Browse Image" > -->
-               
+               <br><br><br>  
+            <!--    <input type="text" placeholder="Browse Image" > -->    
                <input type="file" id="4"><br><br>
-               <button ng-click="func()">Submit</button><br><br>
+               <button ng-click="submitTag()">Submit</button><br><br>
+
                {{query1}}
 
 
 
-        </div>
+</div>
    

@@ -6,20 +6,35 @@ angular.module('prodo.AdminApp').controller('prodoAdminTagInputController', [
   '$http',
   'tagAddService',
   function ($scope, $log, $rootScope, UserSessionService, $http, tagAddService) {
+
     $scope.category_selection;
+
     $scope.option1;
+
     $scope.option2;
+
     $scope.objectComponents = {};
-    $scope.finalObject = {};
+
+    $scope.tagInfo = {};
+
     $scope.tagid;
+
     $scope.tagname;
+
     $scope.result;
+
     $scope.level;
+
     $scope.emotion;
+
     $scope.urls;
+
     $scope.emotionvalueinsert;
-    $scope.urll;
+
+    $scope.trimmedURL;
+
     $scope.setEmotion = function () {
+
       if ($scope.category_selection === 'Love') {
         $scope.option1 = 'Serenity [10]';
         $scope.option2 = 'Joy [20]';
@@ -54,42 +69,40 @@ angular.module('prodo.AdminApp').controller('prodoAdminTagInputController', [
         $scope.option3 = 'Adoration [30]';
       }
     };
-    $scope.func = function () {
-      $scope.objectComponents.tagname = $scope.tagname;
-      $scope.objectComponents.emotions = {};
-      $scope.objectComponents.emotions.category = $scope.category_selection;
-      $scope.objectComponents.emotions.emotion = $scope.emotion;
-      $scope.objectComponents.emotions.level = $scope.level;
-      $scope.objectComponents.emotions.result = $scope.result;
-      var fullPath = document.getElementById('4').value;
-      if (fullPath) {
-        var startIndex = fullPath.indexOf('\\') >= 0 ? fullPath.lastIndexOf('\\') : fullPath.lastIndexOf('/');
-        var filename = fullPath.substring(startIndex);
-        if (filename.indexOf('\\') === 0 || filename.indexOf('/') === 0) {
-          filename = filename.substring(1);
-        }
-        $scope.urll = filename;
-      }
-      $scope.objectComponents.emotions.emotion_url = $scope.urll;
-      $scope.finalObject.tagreffdicdata = {};
-      $scope.finalObject.tagreffdicdata = $scope.objectComponents;
-      tagAddService.addTagFunction($scope.finalObject);
 
-      var cleanEventGetSearchProductDone = $scope.$on('getSearchProductDone', function (event, data) {
-      });
-      
-      var cleanEventGetSearchProductNotDone =  $scope.$on('getSearchProductNotDone', function (event, data) {
-      });
-    };
-    $scope.funct = function () {
-      var e = document.getElementById('1');
-      var strUser = e.options[e.selectedIndex].text;
-      $scope.emotion = strUser;
+    $scope.submitTag = function () {
+        $scope.objectComponents.tagname = $scope.tagname;
+        $scope.objectComponents.emotions = {};
+        $scope.objectComponents.emotions.category = $scope.category_selection;
+        $scope.objectComponents.emotions.emotion = $scope.emotion;
+        $scope.objectComponents.emotions.level = $scope.level;
+        $scope.objectComponents.emotions.result = $scope.result;
+
+        var fullPath = document.getElementById('4').value;
+        if (fullPath) {
+          var startIndex = fullPath.indexOf('\\') >= 0 ? fullPath.lastIndexOf('\\') : fullPath.lastIndexOf('/');
+          var filename = fullPath.substring(startIndex);
+          if (filename.indexOf('\\') === 0 || filename.indexOf('/') === 0) {
+            filename = filename.substring(1);
+          }
+          $scope.trimmedURL = filename;
+        }
+
+        $scope.objectComponents.emotions.emotion_url = $scope.trimmedURL;
+        $scope.tagInfo.tagreffdicdata = {};
+        $scope.tagInfo.tagreffdicdata = $scope.objectComponents;
+        tagAddService.addTagFunction($scope.tagInfo);
+
+        // var cleanEventGetSearchProductDone = $scope.$on('getSearchProductDone', function (event, data) {
+        // });
+        
+        // var cleanEventGetSearchProductNotDone =  $scope.$on('getSearchProductNotDone', function (event, data) {
+        // });
     };
 
     $scope.$on('$destroy', function(event, message) {
-      cleanEventGetSearchProductDone();
-      cleanEventGetSearchProductNotDone
+        // cleanEventGetSearchProductDone();
+        // cleanEventGetSearchProductNotDone();
     });
   }
 ]);

@@ -490,64 +490,51 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
         link: function (scope, ele, attrs, ngModel , growl) {
 
           $('#searchText').on('keyup', function (e) { 
-            scope.errors="";
-            var value = $(this).val().trim();
-            var req = { 'name': value , 'orgid' : $rootScope.orgid};
-            console.log("Json" + JSON.stringify(req));
-              if(value !=="")
-              {
-                      $http({
-                        method: 'POST',
-                        url: '/api/allproduct/',
-                        data: req
-                      }).success(function (data) {
-                        if(data.error)
-                        {
-                             if(data.error.code==="AD001")                       
-                            {
-                                  scope.errors="Please assign orgid";
-                                  //alert("No orgid");
-                            }
-                        }
-                        else if(data.success)
-                        { 
-                            if(data.name.doc.length===0)
-                            { 
-                                      if(value==="")
-                                      {  
-                                         scope.errors="";
-                                      }
-                                      else
-                                      {
-                                          
-                                          scope.errors="No products found for \n '" + $rootScope.orgdata.name+"'";
-                                             window.setTimeout(function() {                                            
-                                                    
-
-                                                    scope.toggleTitleForDiv();
-                                             }, 1000);
-                                      }
-                            }
-                        
-                         
-                        }
-                        scope.enhancement={};
-                        scope.productNames=[];
-                        scope.enhancement=data.name.doc;
-                        scope.productNames=data.success.doc;                
-                      }).error(function (data) {
-                         scope.errors="Server Error";
-                        // $("#sidebarErrors").addClass("serverClassMessage");       
-                      });   
-
-             }
-           
-             // else
-             // {
-             //          $('#refreshIcon').css('display','none');
-             // }
-          });
-        }
+                      scope.errors="";
+                      var value = $(this).val().trim();
+                      var req = { 'name': value , 'orgid' : $rootScope.orgid};
+                      if(value !=="")
+                      {
+                         $http({
+                         method: 'POST',
+                         url: '/api/allproduct/',
+                         data: req
+                         }).success(function (data) 
+                         {
+                         if(data.error)
+                              {
+                                  if(data.error.code==="AD001")                       
+                                  {
+                                      scope.errors="Please assign orgid";
+                                   }
+                              }
+                         else if(data.success)
+                               { 
+                                   if(data.name.doc.length===0)
+                                   { 
+                                        if(value==="")
+                                        {  
+                                              scope.errors="";
+                                        }
+                                        else
+                                        {                                
+                                        scope.errors="No products found for \n '" + $rootScope.orgdata.name+"'";
+                                           window.setTimeout(function() {                                            
+                                           scope.toggleTitleForDiv();
+                                           }, 1000);
+                                        }
+                                    }                                                                  
+                                  }
+                          scope.enhancement={};
+                          scope.productNames=[];
+                          scope.enhancement=data.name.doc;
+                          scope.productNames=data.success.doc;                
+                          }).error(function (data) {
+                                   scope.errors="Server Error";                                 
+                          });   
+                       }
+            });
+          }
       };
     return search;
   }

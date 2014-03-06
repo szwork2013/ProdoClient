@@ -3,61 +3,62 @@ angular.module('prodo.CommonApp').controller('prodoUserProfileDataController', [
   '$log',
   '$rootScope',
   'UserSessionService',
-  '$http',
-  function ($scope, $log, $rootScope, UserSessionService, $http) 
+  function ($scope, $log, $rootScope, UserSessionService) 
   {
-    $rootScope.modaluser = {products_followed:""};
-    $rootScope.ProductsFollowedMessage="";
-    $rootScope.ProductsRecommendedMessage="";
+
+    $scope.modaluser = {products_followed:""};
+
+    $scope.ProductsFollowedMessage="";
+
+    $scope.ProductsRecommendedMessage="";
+
     $scope.userProfileModal = function (data) 
     {                              
-              UserSessionService.getUserProfileData(data);
-              //$rootScope.modaluser = {};
+        UserSessionService.getUserProfileData(data);
     };
 
     var clearEventGetUserDataNotDone = $scope.$on('getUserDataNotDone', function (event, data) {
     });
 
     var clearEventGetUserDataDone = $scope.$on('getUserDataDone', function (event, data) {  
-      $rootScope.modaluser = data.success.user;
-      if($rootScope.modaluser.products_followed.length===0)
-      {
-        $rootScope.ProductsFollowedMessage="NO PRODUCTS FOLLOWED";
-      }
-      else if($rootScope.modaluser.products_followed.length===1 && $rootScope.modaluser.products_followed[0].name==="Prodonus Software")
-      {    console.log("here");
-        $rootScope.ProductsFollowedMessage="NO PRODUCTS FOLLOWED";
-      }
-      else
-      {
-        $rootScope.ProductsFollowedMessage="PRODUCTS FOLLOWED";
-      }
-      if($rootScope.modaluser.products_recommends.length===0)
-      {
-        $rootScope.ProductsRecommendedMessage="";
-      }
-      else
-      {
-        $rootScope.ProductsRecommendedMessage="RECOMMENDED PRODUCTS";
-      }
-  });
+        $scope.modaluser = data.success.user;
+        if($scope.modaluser.products_followed.length === 0)
+        {
+          $scope.ProductsFollowedMessage = "NO PRODUCTS FOLLOWED";
+        }
+        else if($scope.modaluser.products_followed.length === 1 && $scope.modaluser.products_followed[0].name === "Prodonus Software")
+        {   
+          $scope.ProductsFollowedMessage = "NO PRODUCTS FOLLOWED";
+        }
+        else
+        {
+          $scope.ProductsFollowedMessage = "PRODUCTS FOLLOWED";
+        }
+        if($scope.modaluser.products_recommends.length===0)
+        {
+          $scope.ProductsRecommendedMessage = "";
+        }
+        else
+        {
+          $scope.ProductsRecommendedMessage = "RECOMMENDED PRODUCTS";
+        }
+    });
 
-    $scope.emitProductData=function(prodle,orgid)
+    $scope.emitProductData = function(prodle,orgid)
     {
-        // data9 = {prodle: prodle,orgid:orgid};
-        $rootScope.product_prodle=prodle;
-        $rootScope.orgid=orgid;
-        // $rootScope.$emit('product', data9);
-        // console.log("Emit" +data9.prodle); 
+        $scope.product_prodle = prodle;
+        $scope.orgid = orgid;
         $('#profileInfoModal').modal('hide');
         $('.modal-backdrop').remove(); 
     };
   
-  $scope.$on('$destroy', function(event, message) {
-    clearEventGetUserDataNotDone();  
-    clearEventGetUserDataDone(); 
-  });
+    $scope.$on('$destroy', function(event, message) {
+        clearEventGetUserDataNotDone();  
+        clearEventGetUserDataDone(); 
+    });
+
   }
+
 ]);
 
 
