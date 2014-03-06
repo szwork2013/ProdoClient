@@ -157,7 +157,12 @@ angular.module('prodo.UserApp').factory('UserSessionService', [
     session.getProductFollowed = function (prodledata) {
       UserService.Product_Followed.getProduct_Followed({ data: prodledata }, function (success) {
         $log.debug(success);
-        session.productfollowlist = success.success.products;
+        if (success.error) {
+          console.log('No products followed');
+        } else {
+          session.productfollowlist = success.success.products;
+        }
+        
         $rootScope.$broadcast('getProductFollowedDone', success);
       }, function (error) {
         $log.debug(error);

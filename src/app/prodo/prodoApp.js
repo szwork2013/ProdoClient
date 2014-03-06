@@ -104,7 +104,7 @@ angular.module('prodo.ProdonusApp', [
                 }
               UserSessionService.getProductFollowed($scope.prodlesfollowed);
             }
-            if (data.org) {
+            if (data.org && data.org.orgtype == 'Manufacturer') {
               $rootScope.orgid = data.org.orgid;
               $state.transitionTo('prodo.home.wall.org');
             } else if (data.products_followed.length > 0) {
