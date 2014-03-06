@@ -35,6 +35,8 @@
                 $rootScope.product_prodle;
                 $rootScope.orgid;
                 $scope.pImages_l = {product_images: [{}]};
+                $scope.currentProdle;
+                $scope.currentOrgid;
                 // $scope.uploadSrc="product";
 
                 //user
@@ -93,13 +95,14 @@
 
 
                $scope.getProduct = function(l_prodle,l_orgid){
+                   $log.debug("1 prodle "+l_prodle + "orgid "+ l_orgid);
                  ProductService.getProduct({orgid: l_orgid, prodle: l_prodle},
                   function(successData) {
                     if (successData.success == undefined){  //if not product
                      $("#prodo-ProductDetails").css("display", "none");
                       $("#ErrMsging").css("display", "block");
                       if(document.getElementById("ErrMsging")!==null)
-                      document.getElementById("ErrMsging").innerHTML="Product not available....";
+                      document.getElementById("ErrMsging").innerHTML="Product not available , please select product....";
                     // growl.addErrorMessage(" Product not available....");
                    }
                    else {
@@ -107,13 +110,13 @@
                       $("productExtraInfo").css("display", "block");
                       $("#ErrMsging").css("display", "none");
                     // $log.debug(successData.success.product);
-                    $scope.getProductFeatures();
+                    $scope.getProductFeatures(l_prodle,l_orgid);
                     $scope.checkAdminProductUpload();
                     $("#prodo-ProductFeatureTable").css("display", "table"); 
                     // $("#prodoCommentsTab").css("display", "inline");
                     // $("#tabComments").css("display", "inline");
                     $scope.product = successData.success.product;
-                    $rootScope.product_prodle = successData.success.product.prodle;
+                    // $rootScope.product_prodle = successData.success.product.prodle;
                     $scope.productComments = successData.success.product.product_comments;
                     $scope.pImages_l = successData.success.product.product_images;
                     $("#prodo-addingProduct").text($scope.product.status);
@@ -121,7 +124,7 @@
                     //check owner of product
                     if($rootScope.usersession.currentUser.org){
                       if ($rootScope.usersession.currentUser.org.isAdmin==true) {
-                        if ($scope.orgidFromSession === $rootScope.orgid ) {
+                        if ($scope.orgidFromSession === $scope.currentOrgid ) {
                           $rootScope.isAdminCheck=true;
                         }
                         else   $rootScope.isAdminCheck=false;
@@ -209,12 +212,12 @@
                   banneddate:$scope.product.banneddate
                 }};
                   if ($rootScope.usersession.currentUser.org.isAdmin ==true) {
-                    if ($scope.orgidFromSession === $rootScope.orgid ) {
-                     ProductService.updateProduct({orgid:$scope.orgidFromSession,prodle:$rootScope.product_prodle}, $scope.newProduct,
+                    if ($scope.orgidFromSession === $scope.currentOrgid ) {
+                     ProductService.updateProduct({orgid:$scope.orgidFromSession,prodle:$scope.currentProdle}, $scope.newProduct,
                       function(success) {
                         // $log.debug(success);
                               $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
-                              $scope.getProduct($rootScope.product_prodle,$rootScope.orgid); 
+                              $scope.getProduct($scope.currentProdle,$scope.currentOrgid); 
                             },
                             function(error) {
                               $log.debug(error);
@@ -228,14 +231,16 @@
 
                 //delete product
                 $scope.handleProductDeleted=function(){
+                    $log.debug(JSON.stringify($scope.currentOrgid));
                  $http({
                   method: 'GET',
-                  url: '/api/product/' + $rootScope.orgid  ,
+                  url: '/api/product/' + $scope.currentOrgid  ,
                         // data: {'prodleimageids':[ $scope.imgIdsJson]}
                       }).success(function(data, status, headers, cfg) {
                        if(data.success){
+                        $log.debug(JSON.stringify(data.success));
                         if(data.success.product.length==0){ //after deleting product, check for next product from product followed,if no product - display msg
-                         // $log.debug(data.success.product.length);
+                         $log.debug(data.success.product.length);
                           $("#prodo-ProductDetails").css("display", "none");
                          $("#ErrMsging").css("display", "inline");
                          document.getElementById("ErrMsging").innerHTML="Product not available , Add new product ...";
@@ -245,28 +250,30 @@
 
                         else // if products followed has product, select latest product
                         {
-                          // $log.debug(data.success.product[0].prodle);
-                          $rootScope.product_prodle=data.success.product[0].prodle;
+                          $log.debug(data.success.product[0].prodle);
+                          $scope.currentProdle=data.success.product[0].prodle;
+                          $scope.getProduct($scope.currentProdle,$scope.currentOrgid);
                         }
                       }
                         // $log.debug(data);
-                      }).error(function(data, status, headers, cfg) { //if error deeting product , from server
+                      }).error(function(data, status, headers, cfg) { //if error deleting product , from server
                         growl.addErrorMessage(status);
                         $log.debug(status);
                       });
-
+                     
                     };
 
 
                     $scope.deleteProduct = function()
                     {
                       growl.addInfoMessage("Deleting product  ...");
-                      if($rootScope.product_prodle!==undefined && $rootScope.product_prodle!==null && $rootScope.product_prodle!==""){
+                      if($scope.currentProdle!==undefined && $scope.currentProdle!==null && $scope.currentProdle!==""){
                        if ($rootScope.isAdminCheck==true ) { //if owener of product
-                        ProductService.deleteProduct({orgid: $scope.orgidFromSession, prodle: $rootScope.product_prodle},
+                        ProductService.deleteProduct({orgid: $scope.orgidFromSession, prodle: $scope.currentProdle},
                          function(success) {
-                          // $log.debug(JSON.stringify( success));
+                          $log.debug(JSON.stringify( success));
                           growl.addSuccessMessage("Product deleted successfully...");
+                              $("#prodo-ProductDetails").css("display", "none");
                           $scope.handleProductDeleted();
                         },
                         function(error){
@@ -340,8 +347,8 @@
                   $scope.temp={prodleimageids:$scope.imgIds}
                   $http({
                     method: 'DELETE',
-                    url: ENV.apiEndpoint_notSocket+'/api/image/product/' + $scope.orgidFromSession + '/' + $rootScope.product_prodle +'?prodleimageids='+$scope.imgIds ,
-                     // url: 'www.prodonus.com/api/image/product/' + $scope.orgidFromSession + '/' + $rootScope.product_prodle +'?prodleimageids='+$scope.imgIds ,
+                    url: ENV.apiEndpoint_notSocket+'/api/image/product/' + $scope.orgidFromSession + '/' + $scope.currentProdle +'?prodleimageids='+$scope.imgIds ,
+                     // url: 'www.prodonus.com/api/image/product/' + $scope.orgidFromSession + '/' + $scope.currentProdle +'?prodleimageids='+$scope.imgIds ,
                         // data: {'prodleimageids':[ $scope.imgIdsJson]}
                       }).success(function(data, status, headers, cfg) {
                         // $log.debug(data);
@@ -361,7 +368,7 @@
                   $scope.checkAdmintoUpdateProduct=function(){
                     if($rootScope.usersession.currentUser.org){
                       if ($rootScope.usersession.currentUser.org.isAdmin==true) {
-                        if ($scope.orgidFromSession === $rootScope.orgid ) {
+                        if ($scope.orgidFromSession === $scope.currentOrgid ) {
                           $rootScope.isAdminCheck=true;
                           return{display: "block"}
                         }
@@ -380,7 +387,7 @@
                   $scope.checkAdmin = function() {
                    if($rootScope.usersession.currentUser.org){
                     if ($rootScope.usersession.currentUser.org.isAdmin==true) {
-                      if ($scope.orgidFromSession === $rootScope.orgid ) {
+                      if ($scope.orgidFromSession === $scope.currentOrgid ) {
                         $rootScope.isAdminCheck=true;
                       }
                     }
@@ -403,7 +410,7 @@
                 $scope.checkAdminProductUpload=function() {
                   if($rootScope.usersession.currentUser.org){
                     if ($rootScope.usersession.currentUser.org.isAdmin==true) {
-                      if ($scope.orgidFromSession === $rootScope.orgid ) {
+                      if ($scope.orgidFromSession === $scope.currentOrgid ) {
                         $rootScope.isAdminCheck=true;
                       }
                     }
@@ -441,9 +448,9 @@
             //get Product features
             $scope.features=[];
             $scope.PFeatures=[];
-            $scope.getProductFeatures=function(){
-              if($rootScope.product_prodle!==""){
-               ProductFeatureService.getFeature({orgid: $rootScope.orgid, prodle: $rootScope.product_prodle},
+            $scope.getProductFeatures=function(prodle,orgid){
+              if(prodle!==""){
+               ProductFeatureService.getFeature({orgid: orgid, prodle:prodle},
                 function(successData) {
                   if (successData.success == undefined){
                    if($rootScope.usersession.currentUser.org.isAdmin==true) { 
@@ -478,7 +485,7 @@
                 growl.addInfoMessage("Deleting product feature ...");
                 // $log.debug(feature.featureid);
                 if ($rootScope.isAdminCheck==true){ //if product owner
-                  ProductFeatureService.deleteFeature({orgid: $scope.orgidFromSession, prodle: $rootScope.product_prodle ,productfeatureid:feature.featureid},
+                  ProductFeatureService.deleteFeature({orgid: $scope.orgidFromSession, prodle:$scope.currentProdle ,productfeatureid:feature.featureid},
                     function(success) {
                       // $log.debug(JSON.stringify( success));
                       //client side delete
@@ -490,7 +497,7 @@
                     },
                     function(error){
                      $log.debug(JSON.stringify( error));
-                     growl.addErrorMessage(error)
+                     growl.addErrorMessage(JSON.stringify( error))
 
                    });
                 }
@@ -512,7 +519,7 @@
                 if(editStatus=='add'){
                   // $log.debug("adding");
                   if ($rootScope.isAdminCheck==true){  //if product owner
-                    ProductFeatureService.saveFeature({orgid: $scope.orgidFromSession , prodle:$rootScope.product_prodle}, $scope.newFeature,
+                    ProductFeatureService.saveFeature({orgid: $scope.orgidFromSession , prodle:$scope.currentProdle}, $scope.newFeature,
                       function(success) {
                         // $log.debug(success);
                         $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
@@ -539,7 +546,7 @@
               console.log(data);
               if(data!==undefined && data!==null && data!==""){
                 if ($rootScope.isAdminCheck==true){
-                  ProductFeatureService.updateFeature({orgid:$scope.orgidFromSession,prodle:$rootScope.product_prodle,productfeatureid:id},{'productfeature': data},
+                  ProductFeatureService.updateFeature({orgid:$scope.orgidFromSession,prodle:$scope.currentProdle,productfeatureid:id },{'productfeature': data},
                     function(success) {
                       // $log.debug(success);
                       $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
@@ -567,9 +574,9 @@
               $scope.disableEditor = function() {
                 $scope.editorEnabled = false;
                 $scope.feature="";
-                if($rootScope.product_prodle!==undefined && $rootScope.product_prodle!==null && $rootScope.product_prodle!==""){
-                  $scope.getProduct($rootScope.product_prodle,$rootScope.orgid); 
-                  $scope.getProductFeatures();
+                if($scope.currentProdle!==undefined && $scope.currentProdle!==null && $scope.currentProdle!==""){
+                  $scope.getProduct($scope.currentProdle,$scope.currentOrgid); 
+                  $scope.getProductFeatures($scope.currentProdle,$scope.currentOrgid);
                 }
               };
 
@@ -580,9 +587,9 @@
               $scope.disableEditorFeature = function() {
                 $scope.editorEnabledF=false;
                 $scope.feature="";
-                if($rootScope.product_prodle!==undefined && $rootScope.product_prodle!==null && $rootScope.product_prodle!==""){
-                  $scope.getProduct($rootScope.product_prodle,$rootScope.orgid); 
-                  $scope.getProductFeatures();
+               if($scope.currentProdle!==undefined && $scope.currentProdle!==null && $scope.currentProdle!==""){
+                  $scope.getProduct($scope.currentProdle,$scope.currentOrgid); 
+                  $scope.getProductFeatures($scope.currentProdle,$scope.currentOrgid);
                 }
               };
               //Edit mode and display mode toggle for product data add , update and diaplay
@@ -621,7 +628,7 @@
              $scope.getAllProducts = function(){
                $http({
                 method: 'GET',
-                url: '/api/product/' + $rootScope.orgid  ,
+                url: '/api/product/' + $scope.orgidFromSession  ,
                         // data: {'prodleimageids':[ $scope.imgIdsJson]}
                       }).success(function(data, status, headers, cfg) {
                        if(data.success){
@@ -648,7 +655,9 @@
                  $scope.getAllProducts ();
 
                  $scope.getSelectedProduct=function(product1){
-                  $rootScope.product_prodle=product1.prodle;
+                   $scope.currentProdle=product1.prodle;
+                   $scope.currentOrgid=$scope.orgidFromSession;
+                   $scope.getProduct($scope.currentProdle,$scope.currentOrgid); 
                 };
 
 
@@ -709,22 +718,23 @@
                 return(moment(time).format('DD MMM YYYY'));
                };
                //date format
-
+            
+              //get all org products
                $scope.orgProductDetails=function(){
-                // $log.debug(JSON.stringify($scope.productList[0]));
-                $rootScope.product_prodle=$scope.productList[0].prodle;
-                $rootScope.orgid=$scope.orgidFromSession;
-                $scope.getProduct($scope.productList[0].prodle,$scope.orgidFromSession)
-                // $log.debug("prodle "+$rootScope.product_prodle);
-                 // $log.debug($rootScope.orgid);
-               }
+                if($scope.productList !== undefined){
+                $log.debug("prodle "+$scope.productList[0].prodle + "orgid "+ $scope.orgidFromSession);
+                $scope.currentProdle=$scope.productList[0].prodle;
+                $scope.currentOrgid=$scope.orgidFromSession;
+                $scope.getProduct($scope.currentProdle,$scope.currentOrgid); 
+                }
+               };
 
           }]) 
 
     angular.module('prodo.ProductApp').filter('startFrom', function() {
       return function(input, start) {
         if(input !== undefined && start !==undefined){
-        start = +start; //parse to int
+        start = +start; 
         return input.slice(start);
       }
     }
