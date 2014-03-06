@@ -48,7 +48,7 @@
                      <div  class="classMain">
                            <h5 ng-bind="ProductsFollowedMessage">  </h5>
                                 <div ng-repeat="products in modaluser.products_followed"  
-                                class="effectpic" ng-if="products.name != 'Prodonus Software'">
+                                class="modalProductPic" ng-if="products.name != 'Prodonus Software'">
                                 <center>
                                      
                                       <img ng-src="{{products.product_logo}}" class="prodleImage" ng-click="emitProductData(products.prodle,products.orgid)">
@@ -59,7 +59,7 @@
                 
                      <div class="classMain">
                            <h5 ng-bind="ProductsRecommendedMessage">  </h5>
-                                <div ng-repeat="products in modaluser.products_recommends"   class="effectpic" >
+                                <div ng-repeat="products in modaluser.products_recommends"   class="modalProductPic" >
                                      <center>
                                        <img ng-src="{{products.product_logo}}" class="prodleImage" ng-click="emitProductData(products.prodle,products.orgid)">
                                         <p ><span ng-bind="products.name" class="thinnerFonts"></span> </p>

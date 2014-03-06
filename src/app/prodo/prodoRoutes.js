@@ -175,7 +175,15 @@ angular.module('prodo.ProdonusApp')
       })
     .state('prodo.account-org.org.Productdetail', {
        templateUrl:  'product/views/prodo.wall.productFeatures.tpl.html',
-       controller: 'ProductController'
+       controller: 'ManageProductController',
+       resolve: {
+          OrgService: 'OrgService',
+          orgproductdata: function(OrgService, $rootScope) {
+            console.log('getting product');
+            return OrgService.GetOrgProducts.getAllOrgProducts({orgid: $rootScope.usersession.currentUser.org.orgid}).$promise;
+           
+          }
+        }
       })
 
     /* ----ProdoHome Wall Routes---- */
@@ -221,6 +229,7 @@ angular.module('prodo.ProdonusApp')
       }) 
     .state('prodo.home.wall.product', {
        templateUrl:  'product/views/prodo.wall.productTabs.tpl.html',
+       controller: 'ProductController'
       }) 
      .state('prodo.home.wall.warranty', {
        templateUrl:  'warranty/views/prodo.wall.warrantyTabs.tpl.html',
