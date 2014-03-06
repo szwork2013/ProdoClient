@@ -100,7 +100,7 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
     height:25px; 
     width: 100%; 
     border-radius: 5px;
-    margin-bottom: 4px ;
+    margin-bottom: 20px ;
     /* */
   } 
 
@@ -1584,7 +1584,7 @@ width:10%; height: 10%; float: left; margin: 5px; border: solid 1px #ccc;
 
 
 
-.effectpic {
+.modalProductPic {
      background-color: transparent;
 	/*-webkit-transition: all 1s ease;
   	-moz-transition: all 1s ease;
@@ -1595,7 +1595,7 @@ width:10%; height: 10%; float: left; margin: 5px; border: solid 1px #ccc;
     margin:5px;
 }
 
-.effectpic:hover {
+.modalProductPic:hover {
 	cursor: pointer;
     background-color: white;
   /*  transform:scale(1.5);
@@ -1729,9 +1729,10 @@ text-align: right;
 }
 .resultScrollable
 {
-	   overflow: scroll;
+	   overflow-y: auto;
 	   max-height: 200px;
        width : 100% ;
+       overflow-x:hidden;
 }
 
 .modal-footer 
@@ -1753,9 +1754,21 @@ text-align: right;
      font-weight: 300 ;
   
 }
-#advanceSearchTextbox
+.textBoxContainer
 {
-	width : 100%;
+	width : 98%;
+	padding-right: 20px;
+}
+
+.prodoNormalSearchTextbox
+{
+    border: 1px solid #999; 
+    outline:0; 
+    /*padding-left: 25px;*/
+    height:25px; 
+    width: 100%; 
+    border-radius: 5px;
+    margin-bottom: 10px ;
 }
 .advanceSearchText
 {
@@ -1764,6 +1777,10 @@ text-align: right;
 .advanceSearchResult
 {
 	width : 94%;
+}
+#prodo-searchResults
+{
+    margin-top: -20px;
 }
 .prodo-registration-Wizard-title
 {

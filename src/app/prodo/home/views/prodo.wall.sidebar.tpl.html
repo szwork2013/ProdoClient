@@ -21,7 +21,7 @@
             <a style="background-color: #494F53; font-weight: bold; font-size:16px; text-align: center;" id="prodo-sidebar-list-group-item" class="list-group-item active" ng-bind="title"></a>
             <div  id="prodo-sidebar-list-group-main" class="list-group-item">
                 
-                     <input general-search type="text" class="prodoAdvancedSearchTextbox"  name="product" typeahead="name for name in enhancement | filter : $viewValue | limitTo:10" id="searchText" ng-model="productSearch.product"  style="width:100%" placeholder="Context Search"  typeahead-on-select="quickSearchEmit()" ng-click="toggleTitleForDiv()" typeahead-loading="loadingLocations" typeahead-wait-ms="720" >
+                     <input general-search type="text" class="prodoNormalSearchTextbox"  name="product" typeahead="name for name in enhancement | filter : $viewValue | limitTo:10" id="searchText" ng-model="productSearch.product"  style="width:100%" placeholder="Context Search"  typeahead-on-select="quickSearchEmit()" ng-click="toggleTitleForDiv()" typeahead-loading="loadingLocations" typeahead-wait-ms="720" >
                    <!--   <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh" id="refreshIcon"></i> -->
                
 
@@ -42,127 +42,83 @@
 
 
    <!--  <p ng-click="a()">test</p> -->
-        <a data-toggle="modal"  data-target="#advancedSearchModal" ng-click="modalReset()" class="hyperlinkPointer">Advanced Search</a>
-         <div ng-bind="errors" class="errorClassMessage cursorResize" id="sidebarErrors" ng-click="toggleTitleForDiv()"></div>
-        <!-- start of advanced search -->
-         <div id = "advancedSearchModal" class="modal fade" >      <!-- Modal Code Starts for Advansed-Search -->
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div>
-                  <h4 align="center">Advanced Search </h4>   
-                  <div id="lineHr"></div>             
-                </div>  
-                
-
-                  <div class="modalAppearance">
-                          <p>*Type Comma (,) between all the words you want.Eg: Apple Iphone , Samsung Galaxy Pro</p>            
-                    <div class="row advanceSearchTextbox">         
-                      <div class="col-lg-6 advanceSearchText">
-                        <div class="input-group advanceSearchText">                         
-                            <input type="text" class="prodoAdvancedSearchTextbox" placeholder="Organization Name [ eg:Prodonus]" id="textBoxOrgName" ng-model="org"/>
-                        </div>
-                      </div>
-                    </div>   
-                    <br>
-                    <div class="row advanceSearchTextbox">         
-                      <div class="col-lg-6 advanceSearchText">
-                        <div class="input-group advanceSearchText">
-                      
-                            <input type="text" class="prodoAdvancedSearchTextbox" placeholder="Product Name [ eg:Samsung,Nokia ]" id="textBoxProductName" ng-model="product_name">
-                            
-                       </div>
-                      </div>
-                    </div>    
-                    <br>
-                    <div class="row advanceSearchTextbox">         
-                      <div class="col-lg-6 advanceSearchText"> 
-                        <div class="input-group advanceSearchText">
-                            <input type="text" class="prodoAdvancedSearchTextbox"  placeholder="Feature [ eg:JBL Speaker,BOSE Speakers ]" id="textBoxFeatureName"  ng-model="feature" >                                       
-                         </div><!-- /input-group -->
-                      </div><!-- /.col-lg-6 -->
-                    </div>    
-                    <br>
-                    <div class="row advanceSearchTextbox">         
-                      <div class="col-lg-6 advanceSearchText">
-                         <div class="input-group advanceSearchText">
-                           <input type="text" class="prodoAdvancedSearchTextbox" placeholder="Category [ eg:Mobiles,Tablets]" id="textBoxCategoryName" ng-model="category">           
-                        </div><!-- /input-group --> 
-                        </div> 
-                    </div>  
-                    <br>  
-                    <div class="row advanceSearchTextbox">          
-                       <div class="col-lg-6 advanceSearchText">
-                          <div class="input-group advanceSearchText">
-                             <input type="text" placeholder="Please Enter Exact   Model Number [ eg:Grang Duos,S4 ]"  ng-model="model_number" id="textBoxModelNumber" class="prodoAdvancedSearchTextbox">              
-                          </div><!-- /input-group -->
-                       </div><!-- /.col-lg-6 -->
-                    </div>    
-            <!--    <p>Search Criteria:{{search}}</p> -->
-                    <div id="prodo-searchResults"><br>
-                          <div style="" class="borderBoxResult advanceSearchResult" ng-bind="message"></div><!-- {{message}}</h5></u> -->
-                       <!--    <ol>
-                          <li ng-repeat="list in result">
-                          <a ng-click="orgProdleEmitter(list.prodle,list.orgid)" ng-bind="list.name" ></a>        
-                          <a ng-click="orgProdleEmitter(list.prodle,list.orgid)" ng-bind="list.name" id="orgSearchResult"></a> 
-                          </li> </ol>    -->
-
-                        
-                                   <ol class="resultScrollable">
-                                      <li ng-repeat="list in result">
-                                         
-                                             <span ng-bind="list.name" ng-if="list.products!==undefined" class="organisationSearchResult"></span>
-                                             <a ng-bind="list.name" ng-click="orgProdleEmitter(list.prodle,list.orgid)" ng-if="list.products===undefined" class="hyperlinkPointer">
-                                             </a>
-                                             <div style="width:100%;" ng-if="list.products===undefined" >[ Description : <span ng-bind="list.description"></span> ]</div>
-
-                                              <div style="width:100%;" ng-if=" list.info!==undefined && list.info ==='No products exist for this organisation' ">[ Info : <span ng-bind="list.info"></span> ]</div>
-                                            
-                                                    <ol type="i">
-                                                       <li ng-repeat="product_list in list.products" class="productSearchResult" ng-if="product_list.name!==''">
-                                                               <a ng-bind="product_list.name" ng-click="orgProdleEmitter(product_list.prodle,list.orgid)" ng-if='product_list.name!==""' class="hyperlinkPointer"></a>
-                                                              <div style="width:98%" >[ Description : <span ng-bind="product_list.description" ></span> ]</div>
-                                                     <!--          <div style="width:450px;" ng-if=" product_list.description ==='No products exist for this organisation' ">[ Info : <span ng-bind="product_list.description"></span> ]</div> -->
-                                                       </li>
-                                                    </ol>
-                                             
-                                      </li>    
-
-                                   </ol>   
-
-
-                      </div>
-
-
-                </div>  
-                                          
+                      <a data-toggle="modal"  data-target="#advancedSearchModal" ng-click="modalReset()" class="hyperlinkPointer">Advanced Search</a>
+                       <div ng-bind="errors" class="errorClassMessage cursorResize" id="sidebarErrors" ng-click="toggleTitleForDiv()"></div>
+   <!-- start of advanced search -->
+                       <div id = "advancedSearchModal" class="modal fade" >      <!-- Modal Code Starts for Advansed-Search -->
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div>
+                                <h4 align="center">Advanced Search </h4>   
+                                <div id="lineHr"></div>             
+                              </div>  
                               
-                <div class="modal-footer">
-                  <button class="btn btn-info" data-dismiss="modal" ng-click="modalReset()">Cancel</button>         
-                   <input type="button" class="btn btn-info" value="Search" ng-click="searchProductData()" id="final" data-dismiss="modal "/>   
-                </div>        
-                    
-                </div><!-- /.modal-content -->
-          </div><!-- /.modal-dialog -->
-      </div><!-- /.modal -->
-     <!--End of advanced search  --> 
-      </div>
-    </div>
+
+                                <div class="modalAppearance">
+                                        <div>*Type Comma (,) between all the words you want.Eg: Apple Iphone , Samsung Galaxy Pro</div>            
+                                  <div class="textBoxContainer" >                                                  
+                                          <input type="text" class="prodoAdvancedSearchTextbox" placeholder="Organization Name [ eg:Prodonus]" id="textBoxOrgName" ng-model="org"/>       
+
+                                          <input type="text" class="prodoAdvancedSearchTextbox" placeholder="Product Name [ eg:Samsung,Nokia ]" id="textBoxProductName" ng-model="product_name"> 
+
+                                          <input type="text" class="prodoAdvancedSearchTextbox"  placeholder="Feature [ eg:JBL Speaker,BOSE Speakers ]" id="textBoxFeatureName"  ng-model="feature" >   
+
+                                         <input type="text" class="prodoAdvancedSearchTextbox" placeholder="Category [ eg:Mobiles,Tablets]" id="textBoxCategoryName" ng-model="category">           
+
+                                           <input type="text" placeholder="Please Enter Exact   Model Number [ eg:Grang Duos,S4 ]"  ng-model="model_number" id="textBoxModelNumber" class="prodoAdvancedSearchTextbox">              
+                                  </div>    
+
+
+                                  <div id="prodo-searchResults"><br>
+                                        <div style="" class="borderBoxResult advanceSearchResult" ng-bind="message"></div>                      
+                                                 <ol class="resultScrollable">
+                                                    <li ng-repeat="list in result">
+                                                       
+                                                           <span ng-bind="list.name" ng-if="list.products!==undefined" class="organisationSearchResult"></span>
+                                                           <a ng-bind="list.name" ng-click="orgProdleEmitter(list.prodle,list.orgid)" ng-if="list.products===undefined" class="hyperlinkPointer">
+                                                           </a>
+                                                           <div style="width:100%;" ng-if="list.products===undefined" >[ Description : <span ng-bind="list.description"></span> ]</div>
+
+                                                            <div style="width:100%;" ng-if=" list.info!==undefined && list.info ==='No products exist for this organisation' ">[ Info : <span ng-bind="list.info"></span> ]</div>
+                                                          
+                                                                  <ol type="i">
+                                                                     <li ng-repeat="product_list in list.products" class="productSearchResult" ng-if="product_list.name!==''">
+                                                                             <a ng-bind="product_list.name" ng-click="orgProdleEmitter(product_list.prodle,list.orgid)" ng-if='product_list.name!==""' class="hyperlinkPointer"></a>
+                                                                            <div style="width:98%" >[ Description : <span ng-bind="product_list.description" ></span> ]</div>
+                                                            
+                                                                     </li>
+                                                                  </ol>                                                      
+                                                    </li>    
+                                                 </ol>   
+                                    </div>
+                              </div>                                                                                                 
+                              <div class="modal-footer">
+                                <button class="btn btn-info" data-dismiss="modal" ng-click="modalReset()">Cancel</button>         
+                                 <input type="button" class="btn btn-info" value="Search" ng-click="searchProductData()" id="final" data-dismiss="modal "/>   
+                              </div>                                       
+                           </div>
+                        </div>
+                     </div>
+<!--End of advanced search  --> 
+                </div>
+        </div>
+
+
     <!-- The following code is written to display trnding products -->
-     <div id="prodo-sidebar-list" class="list">
-       <div class="list-group-item hyperlinkPointer" ng-repeat="product in trendingProducts" ng-click="orgProdleEmitter(product.prodle,product.orgid)" > 
-            <center> <div id="" ng-bind="product.name"></div> </center>
-            <center>
-                <span class="thinnerFonts" >Followers:
-                   <span id="" ng-bind="product.followedcount"></span>
-                </span> 
-               <span class="thinnerFonts leftBorder" >Comments:
-                   <span id="" ng-bind="product.commentcount"></span>
-               </span>
-           </center>
-          
+           <div id="prodo-sidebar-list" class="list">
+             <div class="list-group-item hyperlinkPointer" ng-repeat="product in trendingProducts" ng-click="orgProdleEmitter(product.prodle,product.orgid)" > 
+                  <center> <div id="" ng-bind="product.name"></div> </center>
+                  <center>
+                      <span class="thinnerFonts" >Followers:
+                         <span id="" ng-bind="product.followedcount"></span>
+                      </span> 
+                     <span class="thinnerFonts leftBorder" >Comments:
+                         <span id="" ng-bind="product.commentcount"></span>
+                     </span>
+                 </center>           
+              </div>           
+          </div>
     </div>
-     
-  </div>
 </div>
 
 <!-- Product trending list code -->

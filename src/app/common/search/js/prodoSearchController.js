@@ -8,8 +8,7 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
   '$http',
   '$resource' ,
   'trendingProductService',
-  'growl',
-  function ($scope, $log, $rootScope, prodoSearchService, UserSessionService, searchProductService, $http, $resource,trendingProductService,growl) {
+  function ($scope, $log, $rootScope, prodoSearchService, UserSessionService, searchProductService, $http, $resource,trendingProductService) {
 //Declaration of variables
 console.log("rootscope"+$rootScope.orgid);
     $scope.productNames=[];  //Store objects from searchproduct api
@@ -129,7 +128,9 @@ console.log("rootscope"+$rootScope.orgid);
     $scope.searchProductData = function () 
     {
          // $('#productSearchResult').css("display","none");
-         // $('#orgSearchResult').css("display","none");
+         // $('#orgSearchResult').css("display","none");      
+         $scope.message="";
+         $scope.result=[];
          $scope.count=0;
          $scope.search.productsearchdata={};
          if ($scope.product_name !== '') 
@@ -305,11 +306,10 @@ console.log("rootscope"+$rootScope.orgid);
 
     $scope.loadMoreFollowedProduct=function()
     {
-
         if($scope.limit===100)
         {
-        document.getElementById('tabMore').innerHTML="More"
-          $scope.limit=6;
+                document.getElementById('tabMore').innerHTML="More"
+                $scope.limit=6;
          
         }
         else if($scope.limit===6)
