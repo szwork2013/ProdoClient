@@ -54,7 +54,7 @@ angular.module('prodo.UserApp')
     // function to handle server side responses
     $scope.handleSignupResponse = function(data){
       if (data.success) {
-        $state.transitionTo('user-content.emailverification');
+        $state.transitionTo('prodo.user-content.emailverification');
 
       } else {
         if (data.error.code== 'AU001') {     // user already exist
@@ -87,35 +87,30 @@ angular.module('prodo.UserApp')
     var cleanupEventRecaptchaNotDone = $scope.$on("recaptchaNotDone", function(event, message){
       $scope.hideSpinner();
       $scope.showAlert('alert-danger', 'Recaptcha failed, please try again');
-      cleanupEventRecaptchaNotDone();
+      
     });
 
     var cleanupEventRecaptchaFailure = $scope.$on("recaptchaFailure", function(event, message){
       $scope.hideSpinner();
       $scope.showAlert('alert-danger', "Server is not responding. Error:" + message);
-      cleanupEventRecaptchaFailure();
     });
 
     var cleanupEventRecaptchaDone = $scope.$on("recaptchaDone", function(event, message){
-      UserSessionService.signupUser($scope.jsonUserData());    // calling function of UserSignupService to make POST method call to signup user.
-        cleanupEventRecaptchaDone(); 
+      $scope.hideSpinner();
+      UserSessionService.signupUser($scope.jsonUserData());    // calling function of UserSignupService to make POST method call to signup user.       
     });
 
     var cleanupEventSignupDone = $scope.$on("signupDone", function(event, message){
       $scope.hideSpinner();
       $log.debug(message);
       $scope.handleSignupResponse(message);
-      cleanupEventSignupDone();
     });
 
     var cleanupEventSignupNotDone = $scope.$on("signupNotDone", function(event, message){
       $scope.hideSpinner();
       $log.debug(message);
       $scope.showAlert('alert-danger', "Server Error:" + message.status);
-      cleanupEventSignupNotDone();
     });
-
-
 
     // function to send and stringify user email to Rest APIs for token regenerate
     $scope.jsonRegenerateTokenData = function()
@@ -149,20 +144,27 @@ angular.module('prodo.UserApp')
       $scope.showSpinner();
 
       UserSessionService.regenerateTokenUser($scope.jsonRegenerateTokenData());
-
-      var cleanupEventRegenerateTokenDone = $scope.$on("regenerateTokenDone", function(event, message){
-        $scope.clearformData();
-        $scope.hideSpinner();
-        $scope.handleRegenerateTokenResponse(message);
-        cleanupEventRegenerateTokenDone();   
-      });
-
-      var cleanupEventRegenerateTokenNotDone = $scope.$on("regenerateTokenNotDone", function(event, message){
-        $scope.clearformData();
-        $scope.hideSpinner(); 
-        cleanupEventRegenerateTokenNotDone(); 
-      });
     }
+
+    var cleanupEventRegenerateTokenDone = $scope.$on("regenerateTokenDone", function(event, message){
+      $scope.clearformData();
+      $scope.hideSpinner();
+      $scope.handleRegenerateTokenResponse(message);        
+    });
+
+    var cleanupEventRegenerateTokenNotDone = $scope.$on("regenerateTokenNotDone", function(event, message){
+      $scope.clearformData();
+      $scope.hideSpinner(); 
+    });
+    $scope.$on('$destroy', function(event, message) {
+      cleanupEventRecaptchaNotDone();
+      cleanupEventRecaptchaFailure();
+      cleanupEventRecaptchaDone(); 
+      cleanupEventSignupDone();
+      cleanupEventSignupNotDone();
+      cleanupEventRegenerateTokenDone();
+      cleanupEventRegenerateTokenNotDone(); 
+    });
 
   }]);
  

@@ -63,25 +63,20 @@ angular.module('prodo.UserApp')
         $scope.showSpinner();
         $log.debug('User Data entered successfully');
         UserSessionService.signinUser($scope.jsonUserSigninData());
-
-        var cleanupEventSigninDone = $scope.$on("signinDone", function(event, message){
-          $scope.hideSpinner();
-          $scope.handleSigninResponse(message);
-          cleanupEventSigninDone(); 
-        });
-
-        var cleanupEventSigninNotDone = $scope.$on("signinNotDone", function(event, message){
-          $scope.clearformData();
-          $scope.hideSpinner();
-          $scope.showAlert('alert-danger', "Server Error:" + message);
-          cleanupEventSigninNotDone();
-        });
       } else {
         $scope.signinForm.submitted = true;
       }
     }
+    var cleanupEventSigninDone = $scope.$on("signinDone", function(event, message){
+      $scope.hideSpinner();
+      $scope.handleSigninResponse(message);
+    });
 
-     
+    var cleanupEventSigninNotDone = $scope.$on("signinNotDone", function(event, message){
+      $scope.clearformData();
+      $scope.hideSpinner();
+      $scope.showAlert('alert-danger', "Server Error:" + message);
+    });
 
     // function to send and stringify user signin data to Rest APIs
     $scope.jsonForgotPasswordData = function()
@@ -122,20 +117,18 @@ angular.module('prodo.UserApp')
     $scope.forgotpassword = function() {
       $scope.showSpinner();
       UserSessionService.forgotPasswordUser($scope.jsonForgotPasswordData());
-      var cleanupEventForgotPasswordDone = $scope.$on("forgotPasswordDone", function(event, message){
+    }
+    var cleanupEventForgotPasswordDone = $scope.$on("forgotPasswordDone", function(event, message){
         $scope.clearformData();
         $scope.hideSpinner();
         $scope.handleForgotPasswordResponse(message);
-        cleanupEventForgotPasswordDone();   
-      });
-      var cleanupEventForgotPasswordNotDone = $scope.$on("forgotPasswordNotDone", function(event, message){
+    });
+    
+    var cleanupEventForgotPasswordNotDone = $scope.$on("forgotPasswordNotDone", function(event, message){
         $scope.clearformData();
         $scope.hideSpinner();
         $scope.showAlert('alert-danger', "Server Error:" + message);
-        cleanupEventForgotPasswordNotDone();
-
       });
-    }
 
     // function to send and stringify user reset password data to Rest APIs
     $scope.jsonResetPasswordData = function()
@@ -187,25 +180,32 @@ angular.module('prodo.UserApp')
     // function for resetpassword to Prodonus App using REST APIs and performs form validation.
     $scope.resetpassword = function() {
       if ($scope.resetPasswordForm.$valid) {
-      $scope.showSpinner();
-      UserSessionService.resetPasswordUser($scope.jsonResetPasswordData());
-      var cleanupEventResetPasswordDone = $scope.$on("resetPasswordDone", function(event, message){
-        $scope.clearformData();
-        $scope.handleResetPasswordResponse(message);  
-        cleanupEventResetPasswordDone(); 
-      });
-      var cleanupEventResetPasswordNotDone = $scope.$on("resetPasswordNotDone", function(event, message){
-        $scope.clearformData();
-        $scope.hideSpinner();
-        $scope.showAlert('alert-danger', "Server Error:" + message);
-        cleanupEventResetPasswordNotDone();
-
-      });
-
+        $scope.showSpinner();
+        UserSessionService.resetPasswordUser($scope.jsonResetPasswordData());
       } else {
         $scope.resetPasswordForm.submitted = true;
       }
     }
+
+    var cleanupEventResetPasswordDone = $scope.$on("resetPasswordDone", function(event, message){
+        $scope.clearformData();
+        $scope.handleResetPasswordResponse(message);  
+    });
+
+    var cleanupEventResetPasswordNotDone = $scope.$on("resetPasswordNotDone", function(event, message){
+        $scope.clearformData();
+        $scope.hideSpinner();
+        $scope.showAlert('alert-danger', "Server Error:" + message);
+    });
+
+    $scope.$on('$destroy', function(event, message) {
+      cleanupEventSigninDone(); 
+      cleanupEventSigninNotDone();      
+      cleanupEventForgotPasswordDone();
+      cleanupEventForgotPasswordNotDone();      
+      cleanupEventResetPasswordDone(); 
+      cleanupEventResetPasswordNotDone();
+    });
 
 }]);
  

@@ -3,7 +3,8 @@
 **/
 angular.module('prodo.OrgApp')
 	.controller('OrgRegistrationController', ['$scope', '$rootScope', 'OrgModel', '$state', '$stateParams', '$log', 'OrgRegistrationService', 'UserSessionService', function($scope, $rootScope, OrgModel, $state, $stateParams, $log, OrgRegistrationService, UserSessionService) {
-		
+
+    $scope.errmessage = '';
     $scope.org = OrgModel;   // assining OrgModel service to org to update org model data
     $scope.countries=[ 'Afghanistan', 
                         'Albania', 
@@ -308,14 +309,48 @@ angular.module('prodo.OrgApp')
                             'Panaji', 
                             'Pune'] ;                          
 $scope.selected_country="";
-    
-    $scope.goToState = function() {
-      if ($scope.org.orgtype == 'Manufacturer') {
-        $state.transitionTo('prodo.orgregistration.terms');
+
+    $scope.submitted = false;   
+
+    $scope.goToAddress = function() {
+      if ($scope.OrgCompanyForm.$valid){
+        $scope.errmessage = '';
+        $state.transitionTo('prodo.orgregistration.address');
       } else {
-        $state.transitionTo('prodo.orgregistration.finish');
+        $scope.submitted = true;
+        $scope.errmessage = 'Please enter correct data.';   
       }
-    }
+    };
+
+    $scope.goToGroupuser = function() {
+      if ($scope.OrgAddressForm.$valid){
+        $scope.errmessage = '';
+        $state.transitionTo('prodo.orgregistration.groupuser'); 
+      } else {
+        $scope.errmessage = 'Please enter correct data.';
+        $scope.submitted = true;   
+      }
+    };
+
+    $scope.goToState = function() {
+      if ($scope.OrgGroupuserForm.$valid) {
+          $scope.errmessage = '';
+          if ($scope.org.orgtype == 'Manufacturer') {
+            $state.transitionTo('prodo.orgregistration.terms');
+          } else {
+            $state.transitionTo('prodo.orgregistration.finish');
+          }
+      } else {
+        $scope.errmessage = 'Please enter correct data.';
+        $scope.submitted = true;   
+      }
+    };
+
+    $scope.goToSummary = function() {
+      if ($scope.org.terms){
+        $state.transitionTo('prodo.orgregistration.finish'); 
+      }
+    };
 
     $scope.return_states=function()
     {    
