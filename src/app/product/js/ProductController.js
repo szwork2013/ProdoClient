@@ -685,12 +685,16 @@
             
                   $rootScope.usersession.followProduct($rootScope.product_prodle);
                 
-                  $rootScope.$on('followProductDone',function(event, data){
-                    if(data.success){
-                    growl.addSuccessMessage("Follwing product");
-                    UserSessionService.productfollowlist.push($scope.product);
-                    $("#prodo-followBtn").css("display","none");
-                   }
+                  var cleanEventFollowProductDone = $rootScope.$on('followProductDone',function(event, data){
+                      if(data.success){
+                        growl.addSuccessMessage("Follwing product");
+                        UserSessionService.productfollowlist.push($scope.product);
+                        $("#prodo-followBtn").css("display","none");
+                     }
+                  });
+
+                  $rootScope.$on('$destroy', function(event, message) {
+                    cleanEventFollowProductDone();
                   });
                   
                 

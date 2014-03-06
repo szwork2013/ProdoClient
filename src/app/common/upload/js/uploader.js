@@ -269,17 +269,8 @@ else
 }
 });
 
-
-//  var cleanupEventFileProgress=
-$scope.$on("fileProgress", function(e, progress) {
-
-    //  $scope.progressbar = progress.loaded / progress.total;
-    // cleanupEventFileProgress();
-  });
-
-
-
 }]);
+
 angular.module('prodo.UploadApp')
 .directive('ngFileSelect', ['fileReader', function( ) {
   return {

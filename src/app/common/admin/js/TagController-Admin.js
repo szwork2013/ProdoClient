@@ -74,9 +74,11 @@ angular.module('prodo.AdminApp').controller('prodoAdminTagInputController', [
       $scope.finalObject.tagreffdicdata = {};
       $scope.finalObject.tagreffdicdata = $scope.objectComponents;
       tagAddService.addTagFunction($scope.finalObject);
-      $scope.$on('getSearchProductDone', function (event, data) {
+
+      var cleanEventGetSearchProductDone = $scope.$on('getSearchProductDone', function (event, data) {
       });
-      $scope.$on('getSearchProductNotDone', function (event, data) {
+      
+      var cleanEventGetSearchProductNotDone =  $scope.$on('getSearchProductNotDone', function (event, data) {
       });
     };
     $scope.funct = function () {
@@ -84,5 +86,10 @@ angular.module('prodo.AdminApp').controller('prodoAdminTagInputController', [
       var strUser = e.options[e.selectedIndex].text;
       $scope.emotion = strUser;
     };
+
+    $scope.$on('$destroy', function(event, message) {
+      cleanEventGetSearchProductDone();
+      cleanEventGetSearchProductNotDone
+    });
   }
 ]);

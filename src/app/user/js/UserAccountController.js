@@ -81,22 +81,19 @@ angular.module('prodo.UserApp')
         $scope.disableEditor();
         UserSessionService.saveUserSettings($scope.jsonUserAccountData());
       } else {
-          $scope.personalsettingchange = 'Please pass valid data.'
+          $scope.personalsettingchange = 'Please enter valid data.'
       }
-      var cleanupEventUpdateUserDone = $scope.$on("updateUserDone", function(event, message){
-        $scope.hasChangedPersonalSettings = true;
-        $scope.handleUpdateUserResponse(message); 
-        cleanupEventUpdateUserDone();     
+    }
+
+    var cleanupEventUpdateUserDone = $scope.$on("updateUserDone", function(event, message){
+      $scope.hasChangedPersonalSettings = true;
+      $scope.handleUpdateUserResponse(message);     
     });
 
-      var cleanupEventUpdateUserNotDone = $scope.$on("updateUserNotDone", function(event, message){
-        $scope.hasChangedPersonalSettings = true;
-        growl.addErrorMessage("Server Error:" + message);
-        cleanupEventUpdateUserNotDone();
-
-      });
-  
-    }
+    var cleanupEventUpdateUserNotDone = $scope.$on("updateUserNotDone", function(event, message){
+      $scope.hasChangedPersonalSettings = true;
+      growl.addErrorMessage("Server Error:" + message);
+    });
 
     $scope.jsonUpdateEmailData = function()
       {
@@ -133,22 +130,19 @@ angular.module('prodo.UserApp')
         $scope.emailEditor();
         UserSessionService.updateEmail($scope.jsonUpdateEmailData());
       } else {
-          $scope.generalsettingchange = 'Please pass valid data.';
+          $scope.generalsettingchange = 'Please enter valid data.';
       }
-      var cleanupEventUpdateUserEmailDone = $scope.$on("updateUserEmailDone", function(event, message){
-        $scope.hasChangedEmail = true;
-        $scope.handleUpdateUserEmailResponse(message); 
-        cleanupEventUpdateUserEmailDone();     
+    }
+
+    var cleanupEventUpdateUserEmailDone = $scope.$on("updateUserEmailDone", function(event, message){
+      $scope.hasChangedEmail = true;
+      $scope.handleUpdateUserEmailResponse(message); 
     });
 
-      var cleanupEventUpdateUserEmailNotDone = $scope.$on("updateUserEmailNotDone", function(event, message){
-        $scope.hasChangedEmail = true;
-        growl.addErrorMessage("Server Error:" + message);
-        cleanupEventUpdateUserEmailNotDone();
-
-      });
-  
-    }
+    var cleanupEventUpdateUserEmailNotDone = $scope.$on("updateUserEmailNotDone", function(event, message){
+      $scope.hasChangedEmail = true;
+      growl.addErrorMessage("Server Error:" + message);   
+    });
 
     $scope.jsonUpdatePasswordData = function()
       {
@@ -192,23 +186,21 @@ angular.module('prodo.UserApp')
         $scope.passwordsettingchange = '';
         UserSessionService.updatePassword($scope.jsonUpdatePasswordData());
       } else {
-          $scope.passwordsettingchange = 'Please pass valid data.'
+          $scope.passwordsettingchange = 'Please enter valid data.'
       }
-      var cleanupEventUpdateUserPasswordDone = $scope.$on("updateUserPasswordDone", function(event, message){
-        $scope.hasChangedPassword = true;
-        $scope.handleUpdateUserPasswordResponse(message); 
-        $scope.clear();
-        cleanupEventUpdateUserPasswordDone();     
+    }
+
+    var cleanupEventUpdateUserPasswordDone = $scope.$on("updateUserPasswordDone", function(event, message){
+      $scope.hasChangedPassword = true;
+      $scope.handleUpdateUserPasswordResponse(message); 
+      $scope.clear();  
     });
 
-      var cleanupEventUpdateUserPasswordNotDone = $scope.$on("updateUserPasswordNotDone", function(event, message){
-        $scope.hasChangedPassword = true;
-        growl.addErrorMessage("Server Error:" + message);
-        cleanupEventUpdateUserPasswordNotDone();
+    var cleanupEventUpdateUserPasswordNotDone = $scope.$on("updateUserPasswordNotDone", function(event, message){
+      $scope.hasChangedPassword = true;
+      growl.addErrorMessage("Server Error:" + message);
+    });
 
-      });
-  
-    }
 
     // function to send and stringify user email to Rest APIs for user account update
     $scope.jsonUserAddressData = function()
@@ -237,55 +229,45 @@ angular.module('prodo.UserApp')
         $scope.addrEditor();
         UserSessionService.saveUserSettings($scope.jsonUserAddressData());
       } else {
-          $scope.locationsettingchange = 'Please pass valid data.'
-      }
-      var cleanupEventUpdateUserDone = $scope.$on("updateUserDone", function(event, message){
-        hasChangedAddress = true;
-        $scope.handleUpdateUserResponse(message); 
-        cleanupEventUpdateUserDone();     
-    });
-
-      var cleanupEventUpdateUserNotDone = $scope.$on("updateUserNotDone", function(event, message){
-        hasChangedAddress = true;
-        growl.addErrorMessage("Server Error:" + message);
-        cleanupEventUpdateUserNotDone();
-
-      });
-  
+          $scope.locationsettingchange = 'Please enter valid data.'
+      } 
     }
 
+    var cleanupEventUpdateUserDone = $scope.$on("updateUserDone", function(event, message){
+      hasChangedAddress = true;
+      $scope.handleUpdateUserResponse(message);          
+    });
+
+    var cleanupEventUpdateUserNotDone = $scope.$on("updateUserNotDone", function(event, message){
+      hasChangedAddress = true;
+      growl.addErrorMessage("Server Error:" + message);
+    });
 
     // function to handle server side responses
     $scope.handleDeleteUserResponse = function(data){
       if (data.success) {
         UserSessionService.logoutUser();
-        var cleanupEventLogoutDone = $scope.$on("logoutDone", function(event, message){
-        $state.transitionTo('home.start');
-        $scope.showAlert('alert-success', message);
-        cleanupEventLogoutDone();
-
-      });
         $scope.showAlert('alert-success', data.success.message);   
       } else {
-            $log.debug(data.error.message);
-            $scope.showAlert('alert-danger', data.error.message);
-        }
+        $log.debug(data.error.message);
+        $scope.showAlert('alert-danger', data.error.message);
+      }
     };
+    var cleanupEventLogoutDone = $scope.$on("logoutDone", function(event, message){
+      $state.transitionTo('prodo.landing.signin');
+      $scope.showAlert('alert-success', message);   
+    });
 
     $scope.deleteUserAccount = function() {
-
       UserSessionService.removeUserSettings();
-      var cleanupEventDeleteUserDone = $scope.$on("deleteUserDone", function(event, message){
-        $scope.handleDeleteUserResponse(message);
-        cleanupEventDeleteUserDone();   
-      });
-      var cleanupEventDeleteUserNotDone = $scope.$on("deleteUserNotDone", function(event, message){
-        $scope.showAlert('alert-danger', "Server Error:" + message);
-        cleanupEventDeleteUserNotDone();
-
-      });
-  
     }
+
+    var cleanupEventDeleteUserDone = $scope.$on("deleteUserDone", function(event, message){
+      $scope.handleDeleteUserResponse(message);     
+    });
+    var cleanupEventDeleteUserNotDone = $scope.$on("deleteUserNotDone", function(event, message){
+      $scope.showAlert('alert-danger', "Server Error:" + message);
+    });
 
     $scope.prodlesrecommend = [{}];
 
@@ -324,34 +306,28 @@ angular.module('prodo.UserApp')
     $scope.products_followed = [];
     var cleanupEventGetProductFollowedDone = $rootScope.$on("getProductFollowedDone", function(event, data){
       $scope.products_followed = data.success.products;
-      $scope.showAlert('alert-success', data.success.message);  
-      cleanupEventGetProductFollowedDone();  
+      $scope.showAlert('alert-success', data.success.message);    
     });
 
     var cleanupEventGetProductFollowedNotDone = $rootScope.$on("getProductFollowedNotDone", function(event, data){
-      $scope.showAlert('alert-error', data.error.message);  
-      cleanupEventGetProductFollowedNotDone();  
+      $scope.showAlert('alert-error', data.error.message);               
     });
 
     var cleanupEventGetProductRecommendDone = $rootScope.$on("getProductRecommendDone", function(event, data){
       $scope.products_recommends = data.success.products;
-      $scope.showAlert('alert-success', data.success.message);  
-      cleanupEventGetProductRecommendDone();  
-    });;
+      $scope.showAlert('alert-success', data.success.message);         
+    });
 
     var cleanupEventGetProductRecommendNotDone = $rootScope.$on("getProductRecommendNotDone", function(event, data){
-      $scope.showAlert('alert-error', data.error.message);  
-      cleanupEventGetProductRecommendNotDone();  
+      $scope.showAlert('alert-error', data.error.message);      
     });
 
     var cleanupEventGetUserDone = $rootScope.$on("getUserDone", function(event, message){
-      $scope.handleGetUserResponse(message); 
-      cleanupEventGetUserDone();  
+      $scope.handleGetUserResponse(message);   
     });
 
     var cleanupEventGetUserNotDone = $rootScope.$on("getUserNotDone", function(event, message){
-      $scope.showAlert('alert-danger', "Server Error:" + message);
-      cleanupEventGetUserNotDone();
+      $scope.showAlert('alert-danger', "Server Error:" + message);   
     });
 
     $scope.userinvites=[{
@@ -396,34 +372,55 @@ angular.module('prodo.UserApp')
       } else {
           $scope.invitesettingchange = 'Please pass valid data.'
       }
-      
-      var cleanupEventSendUserInvitesDone = $scope.$on("sendUserInvitesDone", function(event, data){
-        $scope.isInvites = true;
-        $scope.handleUserInviteResponse(data); 
-        cleanupEventSendUserInvitesDone();  
-      });
-      var cleanupEventSendUserInvitesNotDone = $scope.$on("sendUserInvitesNotDone", function(event, data){
-        $scope.isInvites = true;
-        growl.addErrorMessage("Server Error:" + data); 
-        cleanupEventSendUserInvitesNotDone();     
-      });
     }
+
+    var cleanupEventSendUserInvitesDone = $scope.$on("sendUserInvitesDone", function(event, data){
+      $scope.isInvites = true;
+      $scope.handleUserInviteResponse(data);   
+    });
+    var cleanupEventSendUserInvitesNotDone = $scope.$on("sendUserInvitesNotDone", function(event, data){
+      $scope.isInvites = true;
+      growl.addErrorMessage("Server Error:" + data);    
+    });
 
     $scope.unfollow = function (product) {
       UserSessionService.unfollowProduct(product.prodle);
-      var cleanupEventUnfollowProductDone = $scope.$on("unfollowProductDone", function(event, data){
-        $scope.isUnfollowed = true;
-        growl.addSuccessMessage('You have successfully unfollowed product:' + ' ' + product.name);
-        var products_followed = $scope.products_followed;
-          for (var i = 0, ii = products_followed.length; i < ii; i++) {
-            if (product === products_followed[i]) { products_followed.splice(i, 1); }
-          }   
-        cleanupEventUnfollowProductDone();  
-      });
-      var cleanupEventUnfollowProductNotDone = $scope.$on("unfollowProductNotDone", function(event, data){
-        growl.addErrorMessage("Server Error:" + message); 
-        cleanupEventUnfollowProductNotDone();     
-      });
     }
+
+    var cleanupEventUnfollowProductDone = $scope.$on("unfollowProductDone", function(event, data){
+      $scope.isUnfollowed = true;
+      growl.addSuccessMessage('You have successfully unfollowed product:' + ' ' + product.name);
+      var products_followed = $scope.products_followed;
+        for (var i = 0, ii = products_followed.length; i < ii; i++) {
+          if (product === products_followed[i]) { products_followed.splice(i, 1); }
+        }      
+    });
+    var cleanupEventUnfollowProductNotDone = $scope.$on("unfollowProductNotDone", function(event, data){
+      growl.addErrorMessage("Server Error:" + message);   
+    });
+
+    $scope.$on('$destroy', function(event, message) {
+      cleanupEventUpdateUserDone();     
+      cleanupEventUpdateUserNotDone();   
+      cleanupEventUpdateUserEmailDone(); 
+      cleanupEventUpdateUserEmailNotDone();
+      cleanupEventUpdateUserPasswordDone();
+      cleanupEventUpdateUserPasswordNotDone();  
+      cleanupEventUpdateUserDone(); 
+      cleanupEventUpdateUserNotDone(); 
+      cleanupEventDeleteUserDone();   
+      cleanupEventDeleteUserNotDone();
+      cleanupEventLogoutDone();                           
+      cleanupEventGetProductFollowedDone();
+      cleanupEventGetProductFollowedNotDone(); 
+      cleanupEventGetProductRecommendDone(); 
+      cleanupEventGetProductRecommendNotDone();
+      cleanupEventGetUserDone();    
+      cleanupEventGetUserNotDone();       
+      cleanupEventSendUserInvitesDone();      
+      cleanupEventSendUserInvitesNotDone();      
+      cleanupEventUnfollowProductDone(); 
+      cleanupEventUnfollowProductNotDone();  
+    });
 }]);
  

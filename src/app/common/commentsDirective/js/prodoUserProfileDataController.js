@@ -13,37 +13,35 @@ angular.module('prodo.CommonApp').controller('prodoUserProfileDataController', [
     {                              
               UserSessionService.getUserProfileData(data);
               //$rootScope.modaluser = {};
-              $scope.$on('getUserDataNotDone', function (event, data) {
-              });
-
-
-              var clearresponse = $scope.$on('getUserDataDone', function (event, data) {  
-              $rootScope.modaluser = data.success.user;
-              if($rootScope.modaluser.products_followed.length===0)
-              {
-                $rootScope.ProductsFollowedMessage="NO PRODUCTS FOLLOWED";
-              }
-              else if($rootScope.modaluser.products_followed.length===1 && $rootScope.modaluser.products_followed[0].name==="Prodonus Software")
-              {    console.log("here");
-                $rootScope.ProductsFollowedMessage="NO PRODUCTS FOLLOWED";
-              }
-              else
-              {
-                $rootScope.ProductsFollowedMessage="PRODUCTS FOLLOWED";
-              }
-              if($rootScope.modaluser.products_recommends.length===0)
-              {
-                $rootScope.ProductsRecommendedMessage="";
-              }
-              else
-              {
-                $rootScope.ProductsRecommendedMessage="RECOMMENDED PRODUCTS";
-              }
-              clearresponse(); 
-            });
-
-
     };
+
+    var clearEventGetUserDataNotDone = $scope.$on('getUserDataNotDone', function (event, data) {
+    });
+
+    var clearEventGetUserDataDone = $scope.$on('getUserDataDone', function (event, data) {  
+      $rootScope.modaluser = data.success.user;
+      if($rootScope.modaluser.products_followed.length===0)
+      {
+        $rootScope.ProductsFollowedMessage="NO PRODUCTS FOLLOWED";
+      }
+      else if($rootScope.modaluser.products_followed.length===1 && $rootScope.modaluser.products_followed[0].name==="Prodonus Software")
+      {    console.log("here");
+        $rootScope.ProductsFollowedMessage="NO PRODUCTS FOLLOWED";
+      }
+      else
+      {
+        $rootScope.ProductsFollowedMessage="PRODUCTS FOLLOWED";
+      }
+      if($rootScope.modaluser.products_recommends.length===0)
+      {
+        $rootScope.ProductsRecommendedMessage="";
+      }
+      else
+      {
+        $rootScope.ProductsRecommendedMessage="RECOMMENDED PRODUCTS";
+      }
+  });
+
     $scope.emitProductData=function(prodle,orgid)
     {
         // data9 = {prodle: prodle,orgid:orgid};
@@ -55,10 +53,10 @@ angular.module('prodo.CommonApp').controller('prodoUserProfileDataController', [
         $('.modal-backdrop').remove(); 
     };
   
-
-
-
-
+  $scope.$on('$destroy', function(event, message) {
+    clearEventGetUserDataNotDone();  
+    clearEventGetUserDataDone(); 
+  });
   }
 ]);
 
