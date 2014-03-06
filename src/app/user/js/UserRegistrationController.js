@@ -54,7 +54,7 @@ angular.module('prodo.UserApp')
     // function to handle server side responses
     $scope.handleSignupResponse = function(data){
       if (data.success) {
-        $state.transitionTo('user-content.emailverification');
+        $state.transitionTo('prodo.user-content.emailverification');
 
       } else {
         if (data.error.code== 'AU001') {     // user already exist

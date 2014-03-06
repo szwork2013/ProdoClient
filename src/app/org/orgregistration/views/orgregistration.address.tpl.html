@@ -1,49 +1,54 @@
-prodo.<!--Template for Organisation Address Details view wizard-->
-<div id="prodo-address-container" class="container">
+<!--Template for Organisation Address Details view wizard-->
+<div id="prodo-address-wizard-container" class="prodo-wizard-container container">
 
-  <form id="prodo-form-address" name="prodoOrgAddressForm" class="css-form" ng-submit="" novalidate>
+	<div class="prodo-wizard">
 
-      <h4 id="prodo-address-heading">Location</h4>
+    <h4 id="prodo-address-heading" class="prodo-wizard-heading">Location</h4>
 
-      <hr size=3 width="90%" style="height:1px; margin-top: 0;" noshade>
+   	<hr class="prodo-wizard-hr" size=3 noshade>
 
-      <button id="prodo-form-addressbtn" ng-click="toggleAddress = !toggleAddress"><i class="fa fa-plus-square "></i> &nbsp;&nbsp; Address</button>
+  	<form id="prodo-form-address" name="OrgAddressForm" class="prodo-wizard-css-form css-form" ng-submit="" novalidate>
+  		<p class="error-message"><small>{{errmessage}}</small></p>
+      <button class="prodo-wizard-address-btn btn btn-default" ng-click="toggleAddress = !toggleAddress"><i class="fa fa-plus-square "></i> &nbsp;&nbsp; Address</button>
+
 	      <div class="control-group" ng-if="toggleAddress">
 
-		      <select id="prodo-form-input-address" type="text" class="form-control" ng-model="org.orgaddresstype" autofocus required>
+		      <select type="text" name="orgaddresstype" class="prodo-wizard-form-control form-control" ng-model="org.orgaddresstype" autofocus required>
 		        <option value="Company Address" >Company Address</option>
 		        <option value="Service Centers">Service Centers</option>
-		      </select>
+		      </select><i class="fa fa-check" ng-show="OrgAddressForm.orgaddresstype.$dirty && OrgAddressForm.orgaddresstype.$valid"></i>
 
-					<input id="prodo-form-input-address" name="address1"  type="text" class="form-control" placeholder="Address Line1" ng-model="org.address1"  required />
+					<input name="address1"  type="text" class="prodo-wizard-form-control form-control" placeholder="Address Line1" ng-model="org.address1"  required /><i class="fa fa-check" ng-show="OrgAddressForm.address1.$dirty && OrgAddressForm.address1.$valid"></i>
 						 
-					<input name="address2"  type="text" id="prodo-form-input-address" class="form-control" placeholder="Address Line2" ng-model="org.address2" />
+					<input name="address2"  type="text" class="prodo-wizard-form-control form-control" placeholder="Address Line2" ng-model="org.address2" /><i class="fa fa-check" ng-show="OrgAddressForm.address2.$dirty && OrgAddressForm.address2.$valid"></i>
 
-					<input name="address3"  type="text" id="prodo-form-input-address" class="form-control" placeholder="Address Line3" ng-model="org.address3" />
+					<input name="address3"  type="text" class="prodo-wizard-form-control form-control" placeholder="Address Line3" ng-model="org.address3" /><i class="fa fa-check" ng-show="OrgAddressForm.address3.$dirty && OrgAddressForm.address3.$valid"></i>
 
-					<input name="country" typeahead="country for country in countries | filter:$viewValue | limitTo:8"  type="text" id="prodo-form-input-address" class="form-control" placeholder="Country" ng-model="org.country" required />
+					<input name="country" ng-pattern="/^[A-z]*$/" typeahead="country for country in countries | filter:$viewValue | limitTo:8"  type="text" class="prodo-wizard-form-control form-control" placeholder="Country" ng-model="org.country" required /><i class="fa fa-check" ng-show="OrgAddressForm.country.$dirty && OrgAddressForm.country.$valid"></i>
 						 
-					<input name="state"  typeahead="state for state in return_states() | filter:$viewValue | limitTo:8"  type="text" id="prodo-form-input-address" type="text" id="prodo-form-input-address" class="form-control" placeholder="State" ng-model="org.state" required />
+					<input name="state" ng-pattern="/^[A-z]*$/"  typeahead="state for state in return_states() | filter:$viewValue | limitTo:8"  type="text" type="text" class="prodo-wizard-form-control form-control" placeholder="State" ng-model="org.state" required /><i class="fa fa-check" ng-show="OrgAddressForm.state.$dirty && OrgAddressForm.state.$valid"></i>
 
-					<input name="city"  typeahead="city for city in return_cities() | filter:$viewValue | limitTo:8"  type="text" id="prodo-form-input-address" type="text" id="prodo-form-input-address" class="form-control" placeholder="City" ng-model="org.city" required />
+					<input name="city" ng-pattern="/^[A-z]*$/"  typeahead="city for city in return_cities() | filter:$viewValue | limitTo:8"  type="text" type="text" class="prodo-wizard-form-control form-control" placeholder="City" ng-model="org.city" required /><i class="fa fa-check" ng-show="OrgAddressForm.city.$dirty && OrgAddressForm.city.$valid"></i>
 				
-					<input name="zipcode" type="text" id="prodo-form-input-address" class="form-control" placeholder="Zip Code" ng-model="org.zipcode" required />
+					<input name="zipcode" type="text" class="prodo-wizard-form-control form-control" placeholder="Zip Code" ng-pattern="/^[0-9]{5,10}$/" ng-model="org.zipcode" required /><i class="fa fa-check" ng-show="OrgAddressForm.zipcode.$dirty && OrgAddressForm.zipcode.$valid"></i>
 				
 				</div> 
 			 
-			<button id="prodo-form-addressbtn" ng-click="toggleContact = !toggleContact"><i class="fa fa-plus-square "></i> &nbsp;&nbsp; Contact</button>
+			<button class="prodo-wizard-address-btn btn btn-default" ng-click="toggleContact = !toggleContact"><i class="fa fa-plus-square "></i> &nbsp;&nbsp; Contact</button>
 
 	      <div class="control-group" ng-if="toggleContact">
 
-					<input ng-repeat='contact in org.contacts' id="prodo-form-input-address" name="contact" type="text" class="form-control" placeholder="Customer HelpLine" ng-model="contact.customerhelpline" />
+					<input ng-repeat='contact in org.contacts' name="contact" type="text" class="prodo-wizard-form-control form-control" ng-pattern="/^[0-9]{10,15}$/" placeholder="Customer HelpLine" ng-model="contact.customerhelpline" /><i class="fa fa-check" ng-show="OrgAddressForm.contact.$dirty && OrgAddressForm.contact.$valid"></i>
 						 
 				</div>	<!-- control group div -->
 
 			<p id="prodo-address-text">To upload more address, please use manage account settings after registration.</p>
    
-    <button id="prodo-form-address-btn" class="btn btn-md btn-primary" type="submit" ui-sref="prodo.orgregistration.company">Previous</button>
-    <button id="prodo-form-address-btn" class="btn btn-md btn-primary" onclick="$('#reg-address').css('color','#01DF74')"  type="submit" ui-sref="prodo.orgregistration.groupuser">Next</button>
+    	<button class="prodo-wizard-btn btn btn-md btn-primary" type="submit" ui-sref="prodo.orgregistration.company">Previous</button>
+    	<button class="prodo-wizard-btn btn btn-md btn-primary" onclick="$('#reg-address').css('color','#01DF74')"  type="submit" ng-click="goToGroupuser()">Next</button>
     
   </form>		<!-- prodo-address-form -->
+
+  </div>
 
 </div>   <!-- prodo-address-container div

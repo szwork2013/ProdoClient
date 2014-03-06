@@ -77,7 +77,7 @@ angular.module('prodo.ProdonusApp', [
     $scope.showSignup = function () {
       $state.transitionTo('prodo.landing.signup');
     };
-
+    
     var cleanupEventSession_Changed_Failure = $scope.$on('session-changed-failure', function (event, message) {
         UserSessionService.authfailed();
         $state.transitionTo('prodo.landing.signup');
