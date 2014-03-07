@@ -49,7 +49,7 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
   $scope.title = "Trending Products"; 
   //  This is the variable to toggle div tag heading (Second Box of sidebar); 
   
-  $scope.limit = 6;
+  $scope.limit = 5;
     
 
   var cleanEventGotTrendingProducts = $scope.$on('gotTrendingProducts', function (event, data) 
@@ -195,24 +195,24 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
   };
     
   //This function is called unfollow product from sidebar; When unfollow button is clicked list from productfollowedlist is spliced;
-  $scope.unfollowProduct = function (product) { 
+  $scope.unfollowProduct = function (product, indexOfProduct) { 
       UserSessionService.unfollowProduct(product.prodle);
       };
 
-  var cleanEventUnfollEventowProductDone = $scope.$on("unfollowProductDone", function(event, data){
-      var index = UserSessionService.productfollowlist.indexOf(product);
-      UserSessionService.productfollowlist.splice(index, 1);
+  var cleanEventUnfollowProductDone = $scope.$on("unfollowProductDone", function(event, data, product, indexOfProduct){
+      //var index = $rootScope.usersession.productfollowlist.indexOf(indexOfProduct);
+      $rootScope.usersession.productfollowlist.splice(indexOfProduct, 1);
       });
 
   $scope.loadMoreFollowedProduct=function() {
       if($scope.limit === 100)
       {
             document.getElementById('tabMore').innerHTML = "More"
-            $scope.limit = 6;     
+            $scope.limit = 5;     
       }
-      else if($scope.limit === 6)
+      else if($scope.limit === 5)
       {
-            document.getElementById('tabMore').innerHTM = "Less";
+            document.getElementById('tabMore').innerHTML= "Less";
             $scope.limit = 100;     
       }
   };
