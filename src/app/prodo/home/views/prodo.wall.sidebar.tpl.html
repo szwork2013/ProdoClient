@@ -114,7 +114,25 @@
                          <span id="" ng-bind="product.commentcount"></span>
                      </span>
                  </center>           
-              </div>           
+              </div> 
+
+        <div class="list-group-item hyperlinkPointer" ng-repeat="product in trendingProducts" ng-click="orgProdleEmitter(product.prodle,product.orgid)" > 
+            <table style=" width: 100%; color: black;text-align: center">
+              <tr style="">
+                 <td colspan ="2" style="">
+                    <div style="font-size: 12px; text-align: center" ng-bind="product.name"></div>
+                 </td>
+              </tr> 
+              <tr>
+                  <td style="border-right:1px solid #dbdbdb;">
+                    <div style="font-size: 18px;" ng-bind="product.followedcount"></div><div style="font-size: 10px;"> Followers</div> 
+                  </td>
+                  <td>
+                     <div style="font-size: 18px;" ng-bind="product.commentcount"></div><div style="font-size: 10px;"> Comments</div> 
+                  </td>
+                </tr>
+             </table>
+          </div>
           </div>
     </div>
 </div>
