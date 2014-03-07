@@ -488,7 +488,7 @@ $scope.selected_country="";
       $scope.handleOrgResponse(message);
     });
     var cleanupEventOrgRegistrationNotDone = $scope.$on("orgRegistrationNotDone", function(event, message){
-      $scope.showAlert('alert-danger', "Server Error:" + message);  
+      $scope.showAlert('alert-danger', "It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message);  
     });  
     
     $scope.$on('$destroy', function(event, message) {
