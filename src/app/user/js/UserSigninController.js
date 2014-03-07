@@ -68,8 +68,8 @@ angular.module('prodo.UserApp')
       }
     }
     var cleanupEventSigninDone = $scope.$on("signinDone", function(event, message){
-      $scope.hideSpinner();
       $scope.handleSigninResponse(message);
+      $scope.hideSpinner();
     });
 
     var cleanupEventSigninNotDone = $scope.$on("signinNotDone", function(event, message){

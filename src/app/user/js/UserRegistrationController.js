@@ -96,14 +96,14 @@ angular.module('prodo.UserApp')
     });
 
     var cleanupEventRecaptchaDone = $scope.$on("recaptchaDone", function(event, message){
-      $scope.hideSpinner();
       UserSessionService.signupUser($scope.jsonUserData());    // calling function of UserSignupService to make POST method call to signup user.       
+      $scope.hideSpinner();
     });
 
     var cleanupEventSignupDone = $scope.$on("signupDone", function(event, message){
-      $scope.hideSpinner();
       $log.debug(message);
       $scope.handleSignupResponse(message);
+      $scope.hideSpinner();      
     });
 
     var cleanupEventSignupNotDone = $scope.$on("signupNotDone", function(event, message){
@@ -148,14 +148,15 @@ angular.module('prodo.UserApp')
 
     var cleanupEventRegenerateTokenDone = $scope.$on("regenerateTokenDone", function(event, message){
       $scope.clearformData();
-      $scope.hideSpinner();
-      $scope.handleRegenerateTokenResponse(message);        
+      $scope.handleRegenerateTokenResponse(message);  
+      $scope.hideSpinner();           
     });
 
     var cleanupEventRegenerateTokenNotDone = $scope.$on("regenerateTokenNotDone", function(event, message){
       $scope.clearformData();
       $scope.hideSpinner(); 
     });
+    
     $scope.$on('$destroy', function(event, message) {
       cleanupEventRecaptchaNotDone();
       cleanupEventRecaptchaFailure();
