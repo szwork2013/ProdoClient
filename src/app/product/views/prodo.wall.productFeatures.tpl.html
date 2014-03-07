@@ -258,14 +258,14 @@
      
 
            <!-- Images -->
-            <div ng-show="pImages_l.length!==0" >
+            <div ng-show="product.product_images" >
                 <hr>
-        <h4 class="prodo-headings" >IMAGES</h4>
+            <h4 class="prodo-headings" >IMAGES</h4>
             
            
       <form   name="ProductImg" >
         <div class="checkboxFilter"  >
-           <div class= "pull-right" ng-show="pImages_l.length!==0">
+           <div class= "pull-right" ng-show="product.product_images">
           <span class= "" id="showHideAllchkLabel" ng-style="checkAdminProductImagesDelete();" >Select All</span>  
           <input class= "" id="showHideAllchk" ng-style="checkAdminProductImagesDelete();"  type="checkbox" ng-click="selectAllImages(); checkedAllIndex(pImages_l)"  name="pinSet ">
           &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;            

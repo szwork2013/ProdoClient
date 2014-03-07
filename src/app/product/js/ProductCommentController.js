@@ -295,9 +295,6 @@ $scope.addProductComment = function () {
       growl.addErrorMessage("Please follow this product to start commenting...");
     }
 
-
-
-
   }
 };
 //Add comment function
