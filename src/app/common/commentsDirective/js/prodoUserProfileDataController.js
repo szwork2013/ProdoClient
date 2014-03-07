@@ -46,8 +46,8 @@ angular.module('prodo.CommonApp').controller('prodoUserProfileDataController', [
 
     $scope.emitProductData = function(prodle,orgid)
     {
-        $scope.product_prodle = prodle;
-        $scope.orgid = orgid;
+        $rootScope.product_prodle = prodle;
+        $rootScope.orgid = orgid;
         $('#profileInfoModal').modal('hide');
         $('.modal-backdrop').remove(); 
     };
