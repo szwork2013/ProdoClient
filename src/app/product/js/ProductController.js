@@ -115,6 +115,7 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
         $scope.product = successData.success.product;
         // $rootScope.product_prodle = successData.success.product.prodle;
         $scope.productComments = successData.success.product.product_comments;
+        console.log( $scope.productComments);
         $scope.pImages_l = successData.success.product.product_images;
         $("#prodo-addingProduct").text($scope.product.status);
 
@@ -129,10 +130,13 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
         //if no comments , dont show load more comments button
         $("#loadMoreCommentMsg").css("display", "none");
         if (successData.success.product.product_comments) {
-          if (successData.success.product.product_comments.length < 5) {
+          if (successData.success.product.product_comments.length < 4) {
             $("#load-more").css("display", "none");
           } else $("#load-more").css("display", "inline");
-        } else $("#load-more").css("display", "inline");
+        } 
+        if(successData.success.product.product_comments==undefined){
+              $("#loadMoreCommentMsg").css("display", "none");
+        }
       }
     }, function (error) { //if error geting product
       $log.debug(error);
