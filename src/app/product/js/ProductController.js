@@ -204,15 +204,20 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
   $scope.followCurrentProduct = function () {
     // $log.debug("following");
     $rootScope.usersession.followProduct($rootScope.product_prodle);
-    $rootScope.$on('followProductDone', function (event, data) {
-      if (data.success) {
+  };
+
+  var cleanEventFollowProductDone = $scope.$on('followProductDone', function (event, data) {
+    if (data.success) {
         growl.addSuccessMessage("Follwing product");
         UserSessionService.productfollowlist.push($scope.product);
         $("#prodo-followBtn").css("display", "none");
       }
     });
 
-  };
+  $scope.$on('$destroy', function(event, message) {
+      cleanEventFollowProductDone();
+  });
+
   //Follow Product
   //date format
   $scope.formatDate = function (time) {
