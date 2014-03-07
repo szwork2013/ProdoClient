@@ -75,10 +75,10 @@ angular.module('prodo.UserApp')
     var cleanupEventSigninNotDone = $scope.$on("signinNotDone", function(event, message){
       $scope.clearformData();
       $scope.hideSpinner();
-      $scope.showAlert('alert-danger', "Server Error:" + message);
+      $scope.showAlert('alert-danger', "It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message);
     });
 
-    // function to send and stringify user signin data to Rest APIs
+    // function to send and stringify user signin data to Rest APIsIt looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message
     $scope.jsonForgotPasswordData = function()
       {
         var userData = 
@@ -127,7 +127,7 @@ angular.module('prodo.UserApp')
     var cleanupEventForgotPasswordNotDone = $scope.$on("forgotPasswordNotDone", function(event, message){
         $scope.clearformData();
         $scope.hideSpinner();
-        $scope.showAlert('alert-danger', "Server Error:" + message);
+        $scope.showAlert('alert-danger', "It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message);
       });
 
     // function to send and stringify user reset password data to Rest APIs
@@ -195,7 +195,7 @@ angular.module('prodo.UserApp')
     var cleanupEventResetPasswordNotDone = $scope.$on("resetPasswordNotDone", function(event, message){
         $scope.clearformData();
         $scope.hideSpinner();
-        $scope.showAlert('alert-danger', "Server Error:" + message);
+        $scope.showAlert('alert-danger', "It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message);
     });
 
     $scope.$on('$destroy', function(event, message) {

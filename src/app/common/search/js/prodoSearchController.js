@@ -142,7 +142,7 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
      });
 
      var cleanEventGetSearchProductNotDone = $scope.$on('getSearchProductNotDone', function (event, data) {
-      $scope.errors = "Server Error";
+      $scope.errors = "It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it.";
      });
 
   //This function assigns prodles and orgid to rootscope 
