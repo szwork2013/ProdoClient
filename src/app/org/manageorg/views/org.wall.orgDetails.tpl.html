@@ -222,7 +222,7 @@
         </div>
     </accordion-group>
 
-    <accordion-group>
+    <accordion-group ng-hide="usersession.currentUser.org.orgtype != 'Manufacturer' ">
     	<accordion-heading>
             <p style='font-weight:bold; font-size: 13px; margin: 0;'>NEW ORGANIZATION INVITES<i class="fa fa-pencil pull-right"></i></p>
         </accordion-heading>
@@ -239,7 +239,7 @@
         <button class="btn btn-primary btn-sm pull-right" style="border-radius: 10px; margin: 5px; width: 80px; font-size: 12px; font-weight:bold;" ng-click="sendOrgInvites()"><i style="margin-right: 5px;" class="fa fa-share"></i>Send</button>
     </accordion-group>
 
-    <accordion-group>
+    <accordion-group ng-hide="usersession.currentUser.org.orgtype != 'Manufacturer' ">
       <accordion-heading>
             <p style='font-weight:bold; font-size: 13px; margin: 0;'>ORGANIZATION CUSTOMER INVITES<i class="fa fa-pencil pull-right"></i></p>
       </accordion-heading>
@@ -256,7 +256,7 @@
     </accordion-group>
 
 
-    <accordion-group>
+    <accordion-group ng-hide="usersession.currentUser.org.orgtype != 'Manufacturer' ">
     	<accordion-heading>
             <p style='font-weight:bold; font-size: 13px; margin: 0;'>PRODUCT<i class="fa fa-pencil pull-right"></i></p>
         </accordion-heading>
@@ -299,7 +299,7 @@
         </div>
     </accordion-group>
 
-    <accordion-group>
+    <accordion-group ng-hide="usersession.currentUser.org.orgtype != 'Manufacturer' ">
       <accordion-heading>
             <p style='font-weight:bold; font-size: 13px; margin: 0;'>ORGANIZATION ARTWORK UPLOAD<i class="fa fa-pencil pull-right"></i></p>
         </accordion-heading>

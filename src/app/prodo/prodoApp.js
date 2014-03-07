@@ -77,12 +77,11 @@ angular.module('prodo.ProdonusApp', [
     $scope.showSignup = function () {
       $state.transitionTo('prodo.landing.signup');
     };
-
+    
     var cleanupEventSession_Changed_Failure = $scope.$on('session-changed-failure', function (event, message) {
         UserSessionService.authfailed();
         $state.transitionTo('prodo.landing.signup');
         $scope.showAlert('alert-danger', 'Server Error: ' + message);
-        cleanupEventSession_Changed_Failure();
       });
 
     var cleanupEventSessionDone = $scope.$on('session', function (event, data) {
@@ -105,7 +104,7 @@ angular.module('prodo.ProdonusApp', [
                 }
               UserSessionService.getProductFollowed($scope.prodlesfollowed);
             }
-            if (data.org) {
+            if (data.org && data.org.orgtype == 'Manufacturer') {
               $rootScope.orgid = data.org.orgid;
               $state.transitionTo('prodo.home.wall.org');
             } else if (data.products_followed.length > 0) {
@@ -115,7 +114,6 @@ angular.module('prodo.ProdonusApp', [
             }
         } 
       }
-      cleanupEventSessionDone();
     });
     // $scope.handleGetOrgResponse = function (data) {
     //   if (data.success) {
@@ -142,16 +140,21 @@ angular.module('prodo.ProdonusApp', [
     //   });
     $scope.logout = function () {
       UserSessionService.logoutUser();
-      var cleanupEventLogoutDone = $scope.$on('logoutDone', function (event, message) {
-          console.log($rootScope.usersession.isLoggedIn)
-          $state.transitionTo('prodo.landing.signup');
-          $scope.showAlert('alert-success', message);
-          cleanupEventLogoutDone();
-        });
-      var cleanupEventLogoutNotDone = $scope.$on('logoutNotDone', function (event, message) {
-          $scope.showAlert('alert-danger', 'Server Error:' + message);
-          cleanupEventLogoutNotDone();
-        });
     };
+    var cleanupEventLogoutDone = $scope.$on('logoutDone', function (event, message) {
+      console.log($rootScope.usersession.isLoggedIn)
+      $state.transitionTo('prodo.landing.signup');
+      $scope.showAlert('alert-success', message); 
+    });
+    var cleanupEventLogoutNotDone = $scope.$on('logoutNotDone', function (event, message) {
+      $scope.showAlert('alert-danger', 'Server Error:' + message);
+    });
+
+    $scope.$on('$destroy', function(event, message) {
+      cleanupEventSession_Changed_Failure(); 
+      cleanupEventSessionDone();           
+      cleanupEventLogoutDone();
+      cleanupEventLogoutNotDone();      
+    });
   }
 ]);

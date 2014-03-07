@@ -3,10 +3,8 @@ angular.module('prodo.ProdoWallApp')
 .factory('prodoSearchService', [
   '$rootScope',
   '$resource',
-  '$http',
-  '$state',
   '$log',
-  function ($rootScope, $resource, $http, $state, $log) {
+  function ($rootScope, $resource, $log) {
     var searchService = { Product: $resource('/api/searchproduct', {}, { searchProductByKey: { method: 'POST' } }) };
     var search = {};
     search.searchProduct = function (productData) {
@@ -26,10 +24,8 @@ angular.module('prodo.ProdoWallApp')
 .factory('searchProductService', [
   '$rootScope',
   '$resource',
-  '$http',
-  '$state',
   '$log',
-     function ($rootScope, $resource, $http, $state, $log) {
+     function ($rootScope, $resource, $log) {
     var searchService = { Product: $resource('/api/allproduct', {}, { searchProductByKey: { method: 'POST' } }) };
     var search = {};
     search.searchProduct = function (searchData) {
@@ -48,9 +44,8 @@ angular.module('prodo.ProdoWallApp')
 .factory('trendingProductService', [
   '$rootScope',
   '$resource',
-  '$state',
   '$log',
-    function ($rootScope, $resource, $state, $log) {
+    function ($rootScope, $resource, $log) {
     var trendingProducts = { Product: $resource('/api/trendingproducts', {}, { searchProductByKey: { method: 'GET' } }) };
     var products = {};
     products.getTrendingProducts = function () {

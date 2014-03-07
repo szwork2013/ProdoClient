@@ -288,18 +288,10 @@ angular.module('prodo.UploadApp')
     }
   });
 
-
-  //  var cleanupEventFileProgress=
-  $scope.$on("fileProgress", function (e, progress) {
-
-    //  $scope.progressbar = progress.loaded / progress.total;
-    // cleanupEventFileProgress();
-  });
-
-
-
 }]);
-angular.module('prodo.UploadApp').directive('ngFileSelect', ['fileReader', function () {
+
+angular.module('prodo.UploadApp')
+.directive('ngFileSelect', ['fileReader', function( ) {
   return {
     link: function ($scope, el) {
       el.bind("change", function (e) {

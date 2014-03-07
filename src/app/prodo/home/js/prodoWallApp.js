@@ -4,18 +4,37 @@ angular.module('prodo.ProdoWallApp')
     $rootScope.orgdata = {};
     $scope.orgaddr = [];
     $scope.productlist = [];
+    $rootScope.images = [];
 
     $scope.updateimages = function(data) {
-      console.log(data);
-      if (data.length == 0) {
-        $rootScope.images = [ {
-          image: 'http://www.bestflashstock.com/components/com_virtuemart/shop_image/product/Product_Banner_w_4d0fb60464521.jpg'
-        } ] 
-      } else {
+      $rootScope.manageSlider="";   // Added this variable to check conditions in tpl
+      $rootScope.manageSlider=data;  // Added this variable to check conditions in tpl
+      if (data.length !== 0) 
+      {
+        $rootScope.images = "";     // Omkar: To clear previous images
         $rootScope.images = data;
+      }
+      else if (data.length===0)
+      {
+        $rootScope.images = "";    // Omkar: To clear previous images
+        $rootScope.images= [{image: 'http://placehold.it/500x200/fgfgfg' }];    // This will be shown when org images are not there    
       }
     };
     
+
+
+
+    // Neha's previous update images function
+                  //  $scope.updateimages = function(data) {
+                  //   console.log(data);
+                  //   if (data.length == 0) {
+                  //     $rootScope.images = [ {
+                  //       image: 'http://www.bestflashstock.com/components/com_virtuemart/shop_image/product/Product_Banner_w_4d0fb60464521.jpg'
+                  //     } ] 
+                  //   } else {
+                  //     $rootScope.images = data;
+                  //   }
+                  // };
 
     $scope.$state = $state;
     

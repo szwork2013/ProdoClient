@@ -8,6 +8,7 @@ angular.module('prodo.ProdonusApp')
   $stateProvider
     .state('prodo', {
       templateUrl: 'prodo/prodo.main.container.html',
+      url: '',
       abstract: true
     })
 

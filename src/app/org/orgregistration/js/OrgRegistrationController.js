@@ -3,7 +3,8 @@
 **/
 angular.module('prodo.OrgApp')
 	.controller('OrgRegistrationController', ['$scope', '$rootScope', 'OrgModel', '$state', '$stateParams', '$log', 'OrgRegistrationService', 'UserSessionService', function($scope, $rootScope, OrgModel, $state, $stateParams, $log, OrgRegistrationService, UserSessionService) {
-		
+
+    $scope.errmessage = '';
     $scope.org = OrgModel;   // assining OrgModel service to org to update org model data
     $scope.countries=[ 'Afghanistan', 
                         'Albania', 
@@ -308,14 +309,48 @@ angular.module('prodo.OrgApp')
                             'Panaji', 
                             'Pune'] ;                          
 $scope.selected_country="";
-    
-    $scope.goToState = function() {
-      if ($scope.org.orgtype == 'Manufacturer') {
-        $state.transitionTo('prodo.orgregistration.terms');
+
+    $scope.submitted = false;   
+
+    $scope.goToAddress = function() {
+      if ($scope.OrgCompanyForm.$valid){
+        $scope.errmessage = '';
+        $state.transitionTo('prodo.orgregistration.address');
       } else {
-        $state.transitionTo('prodo.orgregistration.finish');
+        $scope.submitted = true;
+        $scope.errmessage = 'Please enter correct data.';   
       }
-    }
+    };
+
+    $scope.goToGroupuser = function() {
+      if ($scope.OrgAddressForm.$valid){
+        $scope.errmessage = '';
+        $state.transitionTo('prodo.orgregistration.groupuser'); 
+      } else {
+        $scope.errmessage = 'Please enter correct data.';
+        $scope.submitted = true;   
+      }
+    };
+
+    $scope.goToState = function() {
+      if ($scope.OrgGroupuserForm.$valid) {
+          $scope.errmessage = '';
+          if ($scope.org.orgtype == 'Manufacturer') {
+            $state.transitionTo('prodo.orgregistration.terms');
+          } else {
+            $state.transitionTo('prodo.orgregistration.finish');
+          }
+      } else {
+        $scope.errmessage = 'Please enter correct data.';
+        $scope.submitted = true;   
+      }
+    };
+
+    $scope.goToSummary = function() {
+      if ($scope.org.terms){
+        $state.transitionTo('prodo.orgregistration.finish'); 
+      }
+    };
 
     $scope.return_states=function()
     {    
@@ -405,7 +440,6 @@ $scope.selected_country="";
                   $state.transitionTo('prodo.home.wall.org');
             } 
           } 
-        cleanupEventSessionDone();
       });
 
     // function to send user data n stringify in json format
@@ -446,15 +480,21 @@ $scope.selected_country="";
   
     // function to register Organisation on sumbit
     $scope.registerOrg = function() {
-      OrgRegistrationService.RegisterOrg($scope.jsonOrgData()); // calling POST method REST APIs to save org data through OrgResgistrationService
-        var cleanupEventOrgRegistrationDone = $scope.$on("orgRegistrationDone", function(event, message){
-        console.log(message);
-        $scope.handleOrgResponse(message);
-        cleanupEventOrgRegistrationDone();   
-      });
-      var cleanupEventOrgRegistrationNotDone = $scope.$on("orgRegistrationNotDone", function(event, message){
-        $scope.showAlert('alert-danger', "Server Error:" + message); 
-        cleanupEventOrgRegistrationNotDone();     
-      }); 
+      OrgRegistrationService.RegisterOrg($scope.jsonOrgData()); // calling POST method REST APIs to save org data through OrgResgistrationService 
     }
+
+    var cleanupEventOrgRegistrationDone = $scope.$on("orgRegistrationDone", function(event, message){
+      console.log(message);
+      $scope.handleOrgResponse(message);
+    });
+    var cleanupEventOrgRegistrationNotDone = $scope.$on("orgRegistrationNotDone", function(event, message){
+      $scope.showAlert('alert-danger', "Server Error:" + message);  
+    });  
+    
+    $scope.$on('$destroy', function(event, message) {
+      cleanupEventSessionDone();      
+      cleanupEventOrgRegistrationDone();         
+      cleanupEventOrgRegistrationNotDone();  
+    });
+
   }]);

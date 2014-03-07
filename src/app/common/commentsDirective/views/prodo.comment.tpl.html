@@ -29,52 +29,53 @@
 <!-- modal -->
 
       <div id = "profileInfoModal" class="prodo-modal-user modal fade" >
-       <div class="modal-dialog"> 
-        <div class="modal-content"> 
-              <div style="font-size:19px;" align="center">
-              User Profile 
-             </div> 
-        <div id="lineHr"></div>
 
+           <div class="modal-dialog"> 
+                <div class="modal-content" style="left:-10%"> 
+                      <div style="font-size:19px;" align="center">
+                           User Profile 
+                      </div> 
 
+                      <div id="lineHr"></div>
 
-             <div  ng-controller="prodoUserProfileDataController">                 
-                            <div class="classMain">                              
-                             <center>      <img ng-src="{{modaluser.profile_pic}}" id="userProfilePic"/> </center>
-                              <center>     <h5 ng-bind=" modaluser.username" class="modalHeading"></h5> </center>
+                      <div  ng-controller="prodoUserProfileDataController">                 
+                                          <div class="classMain">                              
+                                                 <center> <img ng-src="{{modaluser.profile_pic.image}}" id="userProfilePic"/> </center>
+                                                 <center> <h5 ng-bind=" modaluser.username" class="modalHeading"></h5> </center>
+                                          </div>
 
-                            </div>
-         <div id="lineHr"></div>                    
-                     <div  class="classMain">
-                           <h5 ng-bind="ProductsFollowedMessage">  </h5>
-                                <div ng-repeat="products in modaluser.products_followed"  
-                                class="modalProductPic" ng-if="products.name != 'Prodonus Software'">
-                                <center>
-                                     
-                                      <img ng-src="{{products.product_logo}}" class="prodleImage" ng-click="emitProductData(products.prodle,products.orgid)">
-                                      <p ><span ng-bind="products.name" class="thinnerFonts"></span></p>
-                                </center>
-                                </div>
-                     </div>
-                
-                     <div class="classMain">
-                           <h5 ng-bind="ProductsRecommendedMessage">  </h5>
-                                <div ng-repeat="products in modaluser.products_recommends"   class="modalProductPic" >
-                                     <center>
-                                       <img ng-src="{{products.product_logo}}" class="prodleImage" ng-click="emitProductData(products.prodle,products.orgid)">
-                                        <p ><span ng-bind="products.name" class="thinnerFonts"></span> </p>
-                                      </center>
-                                </div>
-                    </div>
-             </div>  
+                                           <div id="lineHr"></div>   
 
-             <div class="modal_footer">
-                    <div id="lineHr"></div>  
-              <button class="btn btn-info " data-dismiss="modal" >Close</button>  
-             </div>        
+                                           <div  class="classMain">
+                                                 <h5 ng-bind="ProductsFollowedMessage">  </h5>
+                                                  <div ng-repeat="products in modaluser.products_followed"  class="modalProductPic" ng-if="products.name != 'Prodonus Software'">
+                                                      <center>
+                                                           
+                                                            <img ng-src="{{products.product_logo}}" class="prodleImage" ng-click="emitProductData(products.prodle,products.orgid)">
+                                                            <p ><span ng-bind="products.name" class="thinnerFonts"></span></p>
+                                                      </center>
+                                                  </div>
+                                           </div>
+                                      
+                                           <div class="classMain">
+                                                 <h5 ng-bind="ProductsRecommendedMessage">  </h5>
+                                                      <div ng-repeat="products in modaluser.products_recommends"   class="modalProductPic" >
+                                                           <center>
+                                                              <img ng-src="{{products.product_logo}}" class="prodleImage" ng-click="emitProductData(products.prodle,products.orgid)">
+                                                              <p ><span ng-bind="products.name" class="thinnerFonts"></span> </p>
+                                                            </center>
+                                                      </div>
+                                          </div>
+                     </div>  
 
-           </div><!-- /.modal-content -->
-         </div><!-- /.modal-dialog -->
+                     <div class="modal_footer">
+                            <div id="lineHr"></div>  
+                            <button class="btn btn-info " data-dismiss="modal" >Close</button>  
+                     </div>        
+
+                  </div><!-- /.modal-content -->
+              </div><!-- /.modal-dialog -->
+
        </div><!-- /.modal -->
 
 
@@ -117,23 +118,11 @@
                   <div id="Remove" ng-show="tabCommentImg == 1"   >
 
                    <div id="img2" >
-                    <img  class="prodo-comment-img" id="img-user" ng-src="{{comment.comment_image[0].image}}"   ng-click="captureCommentImageHere(comment.comment_image[0].image)" data-toggle="modal" data-target="#commentImageModal" /> 
+                    <img  class="prodo-comment-img" id="img-user" ng-src="{{comment.comment_image[0].image}}"     /> 
 
                   </div>      
                 </div>
-<!-- Code for comment image modal -->
 
-                    <div id = "commentImageModal" class="prodo-modal-user modal fade" >
-                      <div class="modal-dialog"> 
-                        <div class="modal-content"> 
-
-                            <img ng-src="{{commentImageShow}}" />
-                        </div>
-                      </div>
-                    </div>
-
-
-<!--  -->
 
 
 

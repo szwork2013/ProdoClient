@@ -100,7 +100,7 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
     height:25px; 
     width: 100%; 
     border-radius: 5px;
-    margin-bottom: 4px ;
+    margin-bottom: 20px ;
     /* */
   } 
 
@@ -173,6 +173,11 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
 #prodo-main-view {
 	min-height:100%;
 	padding-bottom: 50px;
+}
+
+#prodo-main-container-view {
+	min-height:100%;
+	padding-bottom: 5px;
 }
 
 /****
@@ -532,201 +537,30 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
 }
 
 
-
-
-
 /**
-*	Subscription
+*	Orgregistration
 **/
 
-/*change the Subscription row style*/
- 
-
-#prodo-view-subscription{
-	/*height: 620px;*/
-  /*background-color: #ffffff;*/
-
-}
-#prodo-row-subscription{
-	margin: 0;
-
-}
-
-#prodo-subscription-col-md-2{
-	/*background-color: #f9f9f9;*/
-	/*height: 620px;*/
-}
-
-#prodo-subscription-col-md-8{
-	padding: 0;
-	margin: 0;
-	position: relative; 
-	background-color: #ffffff;
-	min-height: 540px;
-	/*height: 620px;*/
-}
-
-#prodo-subscription-heading{
-	text-align: center;
-  	margin: 0px;
-}
-
-#prodo-subscription{
-  margin-top: 25px;
-  padding-left: 65px;
- }
-
-.jumbotron-subscribe{
-  width: 210px;
-  float: left;
-  min-height: 300px;
-  margin-left: 2px;
-  margin-bottom: 30px;
-  padding: 0;
-  background-color: #F9F4F2;
-  position: relative;
-  border-radius: 10px;
- }
- 
-#prodo-subscribe-plan-heading{
-	font-weight: normal;
-	/*margin-left: 20px;*/
-	font-size: 20px;
-	line-height: 20px;
-  width: 210px;
-  height:50px;
-  background-color: #5E9489;
-  color: #ffffff;
-  text-align: center;
-  border-radius: 10px;
-  border-bottom-style: inset;
-  border-bottom-left-radius: 0px;
-  border-bottom-right-radius: 0px; 
-  text-transform: capitalize;
-  padding: 10px;
-  /*font:bold 20px/30px Georgia,serif;*/
-}
-section:hover{
-  transform: scale(1.02);
-	-webkit-transform: scale(1.02); /* Safari and Chrome */  
-  tranform-style:preserve-3d;
-  background-color: #F8F0C8 ;
-  position:relative;
-  left:0px;
-  top:0px;
-  z-index:1;
-}
- 
-section:hover #prodo-subscribe-plan-heading{
-    
-  background-color: #3E8960 ;
-}
-
-#prodo-subscribe-text{
-  text-align: center;
-  color: #929C93;
-}
-
-#prodo-subscription-hr{
-  width: 150px;
-  border-top: 1px solid #D8D0D0;
-  margin-top: 10px;
-  margin-bottom: 10px;
- }
-
-.subscribe-plan-list{
-  font-size: 15px;
-  color: #404541; 
-}
-
-#prodo-subscribe-btn{
-	width: 150px;
-  border-radius: 4px;
-	background-color: #3a92c6;
-	font-size: 20px;
-	font: bold;
-	position: relative;
-	display: block;
-  margin: 20px auto;
-	text-align: center;
-}
-
-
-.usd{
-  color: #2366AD;
-  font:italic bold 20px/30px Georgia,serif;
-  margin: 5px;
-}
-
-/**
-*	Subscription.company
-**/
-
-#prodo-company-container{
+.prodo-wizard-container{
 	border: 1px solid #DBDBD4;
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
   border-radius: 6px; 
-  background-color: #f3f5f3;
-  width: 400px;
+  width: 80%;
   min-height: 450px;
   display: block;
   margin: 50px auto;
   text-align: center;
 }
  
-#prodo-form-company{
+.prodo-wizard-css-form{
 	display: block;
-    margin: 0 auto;
-    text-align: center;
-}
-/*change the View: signup form input style*/
-#prodo-form-input-company{
-	width:250px;
-	height: 30px;
-	border-radius: 2px;
-	margin: 10px auto;
-	display: block;
-     
+  margin: 0 auto;
+  text-align: center;
 }
 
-#prodo-form-input-textarea-company{
-	width:250px;
-	height: 100px;
-	border-radius: 2px;
-	margin: 10px auto;
-	display: block;
-     
-}
 
-#prodo-form-company-addressbtn{
-	text-align: left; 
-	height: 30px;
-	width: 250px; 
-	background-color: #f3f5f3; 
-	color: black; 
-	margin: 10px auto;
-	font-size: 16px;
-	box-shadow: 5px 5px 3px #888888;
-}
-
-#prodo-form-company-addressbtn:hover{
- background-color: activeborder;
-}
-
-/*change the View: Signup form input button signup style*/
-#prodo-form-company-btn{
-	width:250px;
-	border-radius: 2px;
-	background-color: #3a92c6;
-	font-size: 15px;
-	position: relative;
-  margin: 20px auto;
-	text-align: center;
-  }
-
-/*change the View: Signup form heading style*/  
-#prodo-company-heading{
+.prodo-wizard-heading{
 	font-weight: normal;
 	font-size: 25px;
 	line-height: 20px;
@@ -736,46 +570,56 @@ section:hover #prodo-subscribe-plan-heading{
 	margin: 10px;
 }
 
- 
+.prodo-wizard-hr{
+	height:1px; margin-top: 0; width: 90%;
+}
+
+
+.prodo-wizard-form-control{
+	width:50%;
+	height: 30px;
+	border-radius: 3px;
+	margin: 10px auto;
+	display: block;
+     
+}
+
+#prodo-company-wizard-btn{
+	width:50%;
+	border-radius: 3px;
+	background-color: #3a92c6;
+	font-size: 15px;
+	font: bold;
+  margin: 10px auto;
+	text-align: center;
+  }
+
+.prodo-wizard-btn{
+	width:25%;
+	border-radius: 2px;
+	background-color: #3a92c6;
+	font-size: 15px;
+	font: bold;
+  margin: 10px auto;
+	text-align: center;
+}
+
 /**
 *	Subscription.address
 **/
 
-#prodo-address-container{
-	border: 1px solid #DBDBD4;
-  -webkit-border-radius: 6px;
-  -moz-border-radius: 6px;
-  border-radius: 6px; 
-  background-color: #f3f5f3;
-  width: 400px;
-  min-height: 450px;
-  display: block;
-  margin: 50px auto;
-  text-align: center;
-}
-
-#prodo-form-addressbtn{
-	text-align: left; 
+.prodo-wizard-address-btn{
+	width:50%;
 	height: 30px;
-	width: 250px; 
+	border-radius: 3px;
+	margin: 10px auto;
+	display: block;
+	text-align: left;  
 	background-color: #f3f5f3; 
 	color: black; 
-	margin: 10px auto;
 	font-size: 16px;
-	box-shadow: 5px 5px 3px #888888;
 }
 
-#prodo-form-addressbtn:hover{
- background-color: activeborder;
-}
-
-
- 
-#prodo-form-address{
-	display: block;
-  margin: 0 auto;
-  text-align: center;
-}
 
 .dropdown-menu>li>a {
 display: block;
@@ -788,116 +632,27 @@ white-space: nowrap;
 text-align: left; 
 }
 
-/*change the View: signup form input style*/
-#prodo-form-input-address{
-	width:250px;
-	height: 30px;
-	border-radius: 2px;
-	margin: 10px auto;
-	display: block;
-}
 
 #prodo-address-text{
 	font-weight: normal;
 	font-size: 10px;
-	text-align: left;
 	padding-top: 10px;
-	margin-left: 60px;
+	margin-left: 50px;
 	color: #595365;
 }
 
-/*change the View: Signup form input button signup style*/
-#prodo-form-address-btn{
-	width:122.5px;
-	border-radius: 2px;
-	background-color: #3a92c6;
-	font-size: 15px;
-	position: relative;
-  margin: 20px auto;
-	text-align: center;
-  }
-
-/*change the View: Signup form heading style*/  
-#prodo-address-heading{
+.error-message{
 	font-weight: normal;
-	font-size: 25px;
-	line-height: 20px;
-	padding: 5px;
-	color: #2b8dc0;
+	padding-top: 10px;
+	margin-left: 160px;
 	text-align: left;
-	margin: 10px;
-}
-/**
-*	Subscription.groupuser
-**/
-
-#prodo-groupuser-container{
-	border: 1px solid #DBDBD4;
-  -webkit-border-radius: 6px;
-  -moz-border-radius: 6px;
-  border-radius: 6px; 
-  background-color: #f3f5f3;
-  width: 400px;
-  min-height: 450px;
-  display: block;
-  margin: 50px auto;
-  text-align: center;
-}
- 
-#prodo-form-groupuser{
-	display: block;
-  margin: 0 auto;
-  text-align: center;
-}
-/*change the View: signup form input style*/
-#prodo-form-input-groupuser{
-	width:250px;
-	height: 30px;
-	border-radius: 2px;
-	margin: 10px auto;
-	display: block;
-     
+	color: rgb(211, 41, 41);
 }
 
-/*change the View: Signup form input button signup style*/
-#prodo-form-groupuser-btn{
-	width:122.5px;
-	border-radius: 2px;
-	background-color: #3a92c6;
-	font-size: 15px;
-	position: relative;
-  margin: 20px auto;
-	text-align: center;
-  }
-
-/*change the View: Signup form heading style*/  
-#prodo-groupuser-heading{
-	font-weight: normal;
-	font-size: 25px;
-	line-height: 20px;
-	padding: 5px;
-	color: #2b8dc0;
-	text-align: left;
-	margin: 10px;
-}
 /**
 *	Subscription.term
 **/
 
-#prodo-term-container{
-	border: 1px solid #DBDBD4;
-  -webkit-border-radius: 6px;
-  -moz-border-radius: 6px;
-  border-radius: 6px; 
-  background-color: #f3f5f3;
-  width: 400px;
-  height: 450px;
-  display: block;
-  margin: 50px auto;
-  text-align: center;
-  font-size: 12px;
-}
- 
 #prodo-form-term{
 	display: block;
   margin: 0 auto;
@@ -914,11 +669,6 @@ text-align: left;
 	text-align: left;
 }
 
-/*#prodo-privacy-term{
-	overflow-y: scroll; 
-	height:280px;
-	text-align: left;
-}*/
 /*change the View: Signup form input button signup style*/
 #prodo-form-term-btn{
 	width:122.5px;
@@ -958,128 +708,35 @@ text-align: left;
 }
 
 /**
-*	Subscription.payment
-**/
-
-#prodo-payment-container{
-	border: 1px solid #DBDBD4;
-  -webkit-border-radius: 6px;
-  -moz-border-radius: 6px;
-  border-radius: 6px; 
-  background-color: #f3f5f3;
-  width: 550px;
-  height: 450px;
-	display: block;
-	margin: 50px auto;
-	text-align: center;
-	font-size: 12px;
-}
- 
-#prodo-form-payment{
-	display: block;
-  margin: 0 auto;
-  text-align: center;
-   
-}
-
-#prodo-form-input-payment {
-	width:180px;
-	height: 30px;
-	border-radius: 2px;
-	margin: 10px auto;
-	display: inline-block;
-}
- 
-
-#prodo-form-payment-btn {
-	height: 30px;
-	background-color: #7d8386;
-	font-size: 15px;
-  margin: 10px auto;
-	text-align: center;
-	color: white;
-  }
-
-/*change the View: Signup form input button signup style*/
-#prodo-form-payment-submit-btn{
-	width:250px;
-	border-radius: 2px;
-	background-color: #3a92c6;
-	font-size: 15px;
-	position: relative;
-	display: block;
-  margin: 20px auto;
-	text-align: center;
-  }
-
-/*change the View: Signup form heading style*/  
-#prodo-payment-heading{
-	font-weight: normal;
-	font-size: 25px;
-	line-height: 20px;
-	padding: 5px;
-	color: #2b8dc0;
-	text-align: left;
-	margin: 10px;
-}
-
-/**
 *	Subscription.finish
 **/
 
-#prodo-summary-container{
+.prodo-wizard-table-container{
 	border: 1px solid #DBDBD4;
 	-webkit-border-radius: 6px;
 	-moz-border-radius: 6px;
-  border-radius: 6px; 
-  background-color: #f3f5f3;
-  width: 400px;
-  height: 450px;
-  display: block;
-  margin: 50px auto;
-  text-align: center;
-  font-size: 12px;
+  border-radius: 6px;
 }
 
-#prodo-summary{
-	overflow-y: scroll; 
-	height:300px;
-	text-align: left;
-}
-
-#prodo-form-summary-table{
-	overflow-y: scroll; 
-	height:280px;
-}
-
-#prodo-summary-header{
-	background-color: #b3b3b3;	 
-}
-
-#prodo-form-summary-datarow{
-	 
-}
-
-/*change the View: Signup form input button signup style*/
-#prodo-form-summary-btn{
-	width:122.5px;
-	border-radius: 2px;
-	background-color: #3a92c6;
+.prodo-wizard-tbl-header{
+	padding: 2px;
 	font-size: 15px;
-	position: relative;
-  margin: 20px auto;
-	text-align: center;
-  }
 
-/*change the View: Subscription:summary heading style*/  
-#prodo-summary-heading{
-	font-weight: normal;
-	font-size: 25px;
-	line-height: 20px;
-	padding: 5px;
-	color: #2b8dc0;
-	text-align: left;
+}
+
+.prodo-wizard-table{
 	margin: 10px;
+}
+
+.prodo-wizard-table-tr{
+	text-align: left;
+	font-size: 12px;
+}
+
+.prodo-wizard-table-td{
+	text-align: left;
+	font-size: 14px;
+	width: 35%;
 }
 
 /**
@@ -1173,7 +830,7 @@ border-radius: 30px;
 }
 .right-inner-addon i {
     position: absolute;
-    padding: 10px 290px;
+    padding: 10px 250px;
     pointer-events: none;
     color: #ccc;
 }
@@ -1928,7 +1585,7 @@ width:10%; height: 10%; float: left; margin: 5px; border: solid 1px #ccc;
 
 
 
-.effectpic {
+.modalProductPic {
      background-color: transparent;
 	/*-webkit-transition: all 1s ease;
   	-moz-transition: all 1s ease;
@@ -1939,7 +1596,7 @@ width:10%; height: 10%; float: left; margin: 5px; border: solid 1px #ccc;
     margin:5px;
 }
 
-.effectpic:hover {
+.modalProductPic:hover {
 	cursor: pointer;
     background-color: white;
   /*  transform:scale(1.5);
@@ -2073,9 +1730,10 @@ text-align: right;
 }
 .resultScrollable
 {
-	   overflow: scroll;
+	   overflow-y: auto;
 	   max-height: 200px;
        width : 100% ;
+       overflow-x:hidden;
 }
 
 .modal-footer 
@@ -2097,9 +1755,21 @@ text-align: right;
      font-weight: 300 ;
   
 }
-#advanceSearchTextbox
+.textBoxContainer
 {
-	width : 100%;
+	width : 98%;
+	padding-right: 20px;
+}
+
+.prodoNormalSearchTextbox
+{
+    border: 1px solid #999; 
+    outline:0; 
+    /*padding-left: 25px;*/
+    height:25px; 
+    width: 100%; 
+    border-radius: 5px;
+    margin-bottom: 10px ;
 }
 .advanceSearchText
 {
@@ -2108,6 +1778,10 @@ text-align: right;
 .advanceSearchResult
 {
 	width : 94%;
+}
+#prodo-searchResults
+{
+    margin-top: -20px;
 }
 .prodo-registration-Wizard-title
 {
