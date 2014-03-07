@@ -91,7 +91,7 @@ angular.module('prodo.UserApp')
 
     var cleanupEventUpdateUserNotDone = $scope.$on("updateUserNotDone", function(event, message){
       $scope.hasChangedPersonalSettings = true;
-      growl.addErrorMessage("Server Error:" + message);
+      growl.addErrorMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message);
     });
 
     $scope.jsonUpdateEmailData = function()
@@ -140,7 +140,7 @@ angular.module('prodo.UserApp')
 
     var cleanupEventUpdateUserEmailNotDone = $scope.$on("updateUserEmailNotDone", function(event, message){
       $scope.hasChangedEmail = true;
-      growl.addErrorMessage("Server Error:" + message);   
+      growl.addErrorMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message);   
     });
 
     $scope.jsonUpdatePasswordData = function()
@@ -197,7 +197,7 @@ angular.module('prodo.UserApp')
 
     var cleanupEventUpdateUserPasswordNotDone = $scope.$on("updateUserPasswordNotDone", function(event, message){
       $scope.hasChangedPassword = true;
-      growl.addErrorMessage("Server Error:" + message);
+      growl.addErrorMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message);
     });
 
 
@@ -239,7 +239,7 @@ angular.module('prodo.UserApp')
 
     var cleanupEventUpdateUserNotDone = $scope.$on("updateUserNotDone", function(event, message){
       hasChangedAddress = true;
-      growl.addErrorMessage("Server Error:" + message);
+      growl.addErrorMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message);
     });
 
     // function to handle server side responses
@@ -265,7 +265,7 @@ angular.module('prodo.UserApp')
       $scope.handleDeleteUserResponse(message);     
     });
     var cleanupEventDeleteUserNotDone = $scope.$on("deleteUserNotDone", function(event, message){
-      $scope.showAlert('alert-danger', "Server Error:" + message);
+      $scope.showAlert('alert-danger', "It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message);
     });
 
     $scope.prodlesrecommend = [{}];
@@ -326,7 +326,7 @@ angular.module('prodo.UserApp')
     });
 
     var cleanupEventGetUserNotDone = $rootScope.$on("getUserNotDone", function(event, message){
-      $scope.showAlert('alert-danger', "Server Error:" + message);   
+      $scope.showAlert('alert-danger', "It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message);   
     });
 
     $scope.userinvites=[{
@@ -379,7 +379,7 @@ angular.module('prodo.UserApp')
     });
     var cleanupEventSendUserInvitesNotDone = $scope.$on("sendUserInvitesNotDone", function(event, data){
       $scope.isInvites = true;
-      growl.addErrorMessage("Server Error:" + data);    
+      growl.addErrorMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + data);    
     });
 
     $scope.unfollow = function (product) {
@@ -395,7 +395,7 @@ angular.module('prodo.UserApp')
         }      
     });
     var cleanupEventUnfollowProductNotDone = $scope.$on("unfollowProductNotDone", function(event, data){
-      growl.addErrorMessage("Server Error:" + message);   
+      growl.addErrorMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + data);   
     });
 
     $scope.$on('$destroy', function(event, message) {
