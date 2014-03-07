@@ -120,11 +120,11 @@
             <div class="prodo-product-general productDisplay " >
               
               <table class="table child table-hover table-bordered prodo-productTableFont" id="prodo-ProductFeatureTable">
-              <tr class="prodo-productDiscontinuedUpdate prodo-productTabledis prodo-display-discont " id="prodo-productDiscontinuedUpdate"  >
+              <tr ng-show="editStatus=='update'" class="prodo-productDiscontinuedUpdate prodo-productTabledis prodo-display-discont " id="prodo-productDiscontinuedUpdate"  >
                   <td >Product Banned on  <input  id="prodo-product-features_textfield" type="date" class="form-control prodo-display-right" ng-model="product.banneddate" name="banneddate"   /></td>
                  
                 </tr>
-                <tr  class="prodo-productDiscontinuedUpdate prodo-productTabledis prodo-display-discont "  >
+                <tr   ng-show="editStatus=='update'"  class="prodo-productDiscontinuedUpdate prodo-productTabledis prodo-display-discont "  >
                   <td class="prodo-productTabledis" >Product Discontinued   <input  id="prodo-product-features_textfield" type="date" class="form-control prodo-display-right" ng-model="product.prodDis" name="prodDis"   /></td>
                   <td class="prodo-productTabledis" >Support Discontinued   <input id="prodo-product-features_textfield" type="date" class="form-control prodo-display-right" ng-model="product.supDis" name="supDis"  /></td>
                 </tr>

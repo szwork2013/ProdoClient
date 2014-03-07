@@ -54,42 +54,22 @@
                 $scope.$watch('$state.$current.locals.globals.allproductdata', function (allproductdata) {
                     if (allproductdata.error) {
                          temp.innerHTML="<br>Product not available ... Add new product<br><br>";
-                                
-                        }
+                      }
                          else {
                             $scope.productlist = allproductdata.success.product; 
                             if($scope.productlist.length==0){ //after deleting product, check for next product from product followed,if no product - display msg
                             temp.innerHTML="<br>Product not available ... Add new product<br><br>";
-                            growl.addErrorMessage(" Product not available ...");
+                            // growl.addErrorMessage(" Product not available ...");
                           }
                              if($scope.productlist.length !== 0){
-                              $log.debug("prodle "+$scope.productlist[0].prodle + "orgid "+ $scope.orgidFromSession);
-                              $scope.currentProdle=$scope.productlist[0].prodle;
-                              $scope.currentOrgid=$scope.orgidFromSession;
+                               $log.debug("prodle "+$scope.productlist.length);
+                              $log.debug("prodle "+$scope.productlist[$scope.productlist.length-1].prodle + "orgid "+ $scope.orgidFromSession);
+                              $scope.currentProdle=$scope.productlist[$scope.productlist.length-1].prodle;
+                              $scope.currentOrgid=$scope.productlist[$scope.productlist.length-1].orgid;
                               $scope.getProduct($scope.currentProdle,$scope.currentOrgid); 
                               }
                         }
                   });
-
-               // //watch prodle if changed by user by product search or any other source
-               // $rootScope.$watch('product_prodle', function() {  
-               //  // $log.debug("Listening" + $rootScope.product_prodle);
-               //  // growl.addInfoMessage("Getting product details");
-               //  $scope.features=[];
-               //  $("#productLogo").attr('src', '');
-               //  var temp=document.getElementById('prodo-comment-container');
-               //  if($rootScope.product_prodle!==undefined && $rootScope.product_prodle!==null && $rootScope.product_prodle!==""){
-               //      $scope.getProduct($rootScope.product_prodle,$rootScope.orgid); //if product available, call getproduct
-               //    }
-                   
-               //     else { //show msg to follow product
-               //      $("#prodo-ProductDetails").css("display", "none");
-               //      $("#ErrMsging").css("display", "block");
-               //       document.getElementById("ErrMsging").innerHTML="Product not available";
-               //      // growl.addErrorMessage(" You are not following any product , Please start following product....");
-               //     }
-                 
-               // });
 
               //get login details
               $scope.getUserDetails = function( ) {
@@ -130,16 +110,11 @@
                       $("#ErrMsging").css("display", "none");
                     // $log.debug(successData.success.product);
                     $scope.getProductFeatures(l_prodle,l_orgid);
-                    $scope.checkAdminProductUpload();
                     $("#prodo-ProductFeatureTable").css("display", "table"); 
-                    // $("#prodoCommentsTab").css("display", "inline");
-                    // $("#tabComments").css("display", "inline");
                     $scope.product = successData.success.product;
-                    // $rootScope.product_prodle = successData.success.product.prodle;
                     $scope.productComments = successData.success.product.product_comments;
                     $scope.pImages_l = successData.success.product.product_images;
                     $("#prodo-addingProduct").text($scope.product.status);
-
                     //check owner of product
                     if($rootScope.usersession.currentUser.org){
                       if ($rootScope.usersession.currentUser.org.isAdmin==true) {
@@ -149,14 +124,7 @@
                         else   $rootScope.isAdminCheck=false;
                       }
                     } 
-                    //if no comments , dont show load more comments button
-                    $("#loadMoreCommentMsg").css("display", "none");
-                    if(successData.success.product.product_comments.length<5){
-                      $("#load-more").css("display", "none");
-                    }
-                    else  $("#load-more").css("display", "inline");
-                  }
-                },
+                  },
                 function(error) {  //if error geting product
                
                        $log.debug(error);
@@ -208,7 +176,7 @@
 
                     ProductService.saveProduct({orgid: $scope.orgidFromSession}, $scope.newProduct,
                       function(success) {
-                        // $log.debug(success);
+                        $log.debug(success);
                               $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
 
                             },
@@ -245,42 +213,6 @@
                }
 
              };
-
-                //delete product
-                $scope.handleProductDeleted=function(){
-                    $log.debug(JSON.stringify($scope.currentOrgid));
-                 $http({
-                  method: 'GET',
-                  url: '/api/product/' + $scope.currentOrgid  ,
-                        // data: {'prodleimageids':[ $scope.imgIdsJson]}
-                      }).success(function(data, status, headers, cfg) {
-                       if(data.success){
-                        $log.debug(JSON.stringify(data.success));
-                        if(data.success.product.length==0){ //after deleting product, check for next product from product followed,if no product - display msg
-                         $log.debug(data.success.product.length);
-                          $("#prodo-ProductDetails").css("display", "none");
-                         $("#ErrMsging").css("display", "inline");
-                         document.getElementById("ErrMsging").innerHTML="Product not available , Add new product ...";
-                         // growl.addErrorMessage(" Product not available , Add new product ...");
-
-                       }
-
-                        else // if products followed has product, select latest product
-                        {
-                          $log.debug(data.success.product[0].prodle);
-                          $scope.currentProdle=data.success.product[0].prodle;
-                          $scope.getProduct($scope.currentProdle,$scope.currentOrgid);
-                        }
-                      }
-                        // $log.debug(data);
-                      }).error(function(data, status, headers, cfg) { //if error deleting product , from server
-                        growl.addErrorMessage(status);
-                        $log.debug(status);
-                      });
-                     
-                    };
-
-
                     $scope.deleteProduct = function()
                     {
                       growl.addInfoMessage("Deleting product  ...");
@@ -301,7 +233,6 @@
                       // }
                       else
                         growl.addErrorMessage("You dont have rights to delete this product...");
-
                     }
                   };
                 //delete product
@@ -314,8 +245,6 @@
                    $scope.features="";
                  }
                 //clear text fields of product
-
-               
 
                  //toggle to select all product iamges
                  $scope.selectAllImages = function() { 
@@ -424,20 +353,7 @@
                    }
                  };
 
-                //if product owner, show upload optoin
-                $scope.checkAdminProductUpload=function() {
-                  if($rootScope.usersession.currentUser.org){
-                    if ($rootScope.usersession.currentUser.org.isAdmin==true) {
-                      if ($scope.orgidFromSession === $scope.currentOrgid ) {
-                        $rootScope.isAdminCheck=true;
-                      }
-                    }
-                  } 
-                  if ($rootScope.isAdminCheck==true)
-                    $("#Upload-clck").css("display", "block");      
-
-                };
-               //if product owner, show upload optoin
+            
 
               //Delete product image validation
               $scope.checkImageSelectedToDelete=function(){
@@ -635,7 +551,7 @@
        
                  $scope.getSelectedProduct=function(product1){
                    $scope.currentProdle=product1.prodle;
-                   $scope.currentOrgid=$scope.orgidFromSession;
+                   $scope.currentOrgid=product1.orgid;
                    $scope.getProduct($scope.currentProdle,$scope.currentOrgid); 
                 };
 
@@ -643,15 +559,12 @@
                  //Product List pagination
                  $scope.currentPage = 0;
                  $scope.pageSize = 4;
-
                  $scope.numberOfPages=function(){
                   return Math.ceil($scope.productlist.length/$scope.pageSize);                
                 };
                  //Product List pagination
 
-                 
-
-             //delete feature modal data passing
+              //delete feature modal data passing
              $scope.selectedFeature;
              $scope.getSelectedFeature=function(feature){
               $scope.selectedFeature=feature;
