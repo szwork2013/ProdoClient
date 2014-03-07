@@ -202,6 +202,7 @@
     	<accordion-heading>
             <p style='font-weight:bold; font-size: 13px; margin: 0;'>ADD USER TO GROUP<i class="fa fa-pencil pull-right"></i></p>
         </accordion-heading>
+        <div ng-show='(form.orgnewgroupinvitesform.submitted || form.orggroupinvitesform.submitted)' growl></div>
          <div id="invites">
           <table class="table table-striped" ng-repeat="member in groups">
             <thead ng-show='{{member.grpmembers.length}}>0'>
@@ -214,7 +215,7 @@
               <tr ng-repeat="grpmember in member.grpmembers">
                 <td style="width:40%">{{member.grpname}}</td>
                 <td style="width:40%">{{grpmember.email}}</td>
-                <td style="width:20%"><button class="btn btn-danger btn-sm pull-right" style="border-radius: 10px; margin: 5px; width: 80px; font-size: 12px; font-weight:bold;" ng-click="deleteGroupMember(member.grpid, grpmember.userid)"><i style="margin-right: 5px;" class="fa fa-trash-o fa-lg"></i>Delete</button></td>
+                <td style="width:20%"><button ng-hide="((member.grpname = 'admin') || (member.grpname = 'Admin'))" class="btn btn-danger btn-sm pull-right" style="border-radius: 10px; margin: 5px; width: 80px; font-size: 12px; font-weight:bold;" ng-click="deleteGroupMember(member.grpid, grpmember.userid)"><i style="margin-right: 5px;" class="fa fa-trash-o fa-lg"></i>Delete</button></td>
               </tr>
             </tbody>
           </table>
