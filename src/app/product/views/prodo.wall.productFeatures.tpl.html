@@ -32,7 +32,7 @@
         <div class="prodo-productThumbnailView"  ng-repeat="product1 in productlist  | startFrom:currentPage*pageSize | limitTo:pageSize" >
         <a ng-click="getSelectedProduct(product1);" class="prodo-cursor"  href="" >
           <p class="prodo-AddProductBtn" >{{product1.name.substring(0,15)}}</p>
-          <img class="prodo-productThumbnailImg" ng-src="{{product1.product_logo.image}}" alt=" No Image" class="img-rounded">
+          <img  ng-src="{{product1.product_logo.image}}" alt-SRC src="http://placehold.it/94x79"  class="prodo-productThumbnailImg img-rounded">
           </a>
 
         </div>
@@ -130,15 +130,15 @@
                 </tr>
                 <tr>
                   <td >   Product Name <input ng-model="product.name" ng-minlength="2"
-    ng-maxlength="50"  id="prodo-product-features_textfield" class="form-control prodo-display-right"  type="text"    name="name" required />  </td>
+    ng-maxlength="50"  id="prodo-product-features_textfield" class="form-control prodo-display-right prodo-validation"  type="text"    name="name" required />  </td>
                 
-                  <td  >Model No  <input id="prodo-product-features_textfield" type="text" ng-minlength="2" ng-maxlength="50"class="form-control prodo-display-right" ng-model="product.model_no"   name="model_no" required /></td>
+                  <td  >Model No  <input id="prodo-product-features_textfield" type="text" ng-minlength="2" ng-maxlength="50"class="form-control prodo-display-right prodo-validation" ng-model="product.model_no"   name="model_no" required /></td>
 
                   
                 </tr>
                 <tr>
                   <td  colspan="2">Description   <textarea  type="text" ng-minlength="2"
-    ng-maxlength="100" id="prodo-product-featuresDescription_textfield" class="form-control"  ng-model="product.description" required name="description" col="40"  ></textarea>
+    ng-maxlength="100" id="prodo-product-featuresDescription_textfield" class="form-control prodo-validation"  ng-model="product.description" required name="description" col="40"  ></textarea>
 
 
                   </td>
@@ -171,12 +171,12 @@
         <form    id="Editfeature" ng-show="editorEnabledF ==true"  name="productFeaturesForm" >
           <table class="table child table-hover table-bordered"  id="prodo-ProductFeatureTable" >
             <tr class="prodo-productTableFont" >
-              <td >   Feature name&nbsp;&nbsp;&nbsp; <input ng-model="feature.name"   id="prodo-product-features_textfield" class="form-control" ng-minlength="2"
+              <td >   Feature name&nbsp;&nbsp;&nbsp; <input ng-model="feature.name"   id="prodo-product-features_textfield" class="form-control prodo-validation" 
     ng-maxlength="20" type="text"   required name="name" />  </td>
           
             </tr>
             <tr class="prodo-productTableFont" >
-              <td  colspan="2">Description   <textarea  type="text" id="prodo-product-featuresDescription_textfield" class="form-control"  ng-model="feature.description" ng-minlength="2" ng-maxlength="50" required name="description" col="40"  > </textarea>
+              <td  colspan="2">Description   <textarea  type="text" id="prodo-product-featuresDescription_textfield" class="form-control prodo-validation"  ng-model="feature.description"  ng-maxlength="50" required name="description" col="40"  > </textarea>
               </td>
             </tr> 
         
@@ -201,13 +201,11 @@
          <tr  class="prodo-productTableFont" ng-repeat="feature in features track by $index">
            <td ng-hide="edit" > <span ng-bind="feature.featurename"> </span></td>
 
-           <td  ng-show="edit" ><input ng-model="feature.featurename"  class="form-control prodo-productFeatureName"  type="text" ng-minlength="2"
-    ng-maxlength="20"  required name="name" /> </td>
+           <td  ng-show="edit" ><input ng-model="feature.featurename"  class="form-control prodo-productFeatureName prodo-validation"  type="text"  ng-maxlength="20"  required name="name" /> </td>
            
            <td ng-hide="edit" > <span ng-bind="feature.featuredescription"> </span></td> 
 
-            <td  ng-show="edit" ><input ng-model="feature.featuredescription" class="form-control prodo-productFeaturedescription" ng-minlength="2"
-    ng-maxlength="50" type="text"   required name="name" /> </td>
+            <td  ng-show="edit" ><input ng-model="feature.featuredescription" class="form-control prodo-productFeaturedescription prodo-validation"  ng-maxlength="50" type="text"   required name="name" /> </td>
         
 
           <td ng-hide="edit" ng-style="checkAdmintoUpdateProduct();">
@@ -243,7 +241,7 @@
           <td ng-show="edit">
         
              <a id="Editfeature1" ng-click="updateProductFeature(feature,feature.featureid);edit = ! edit;" class="btn btn-default  btn-sm fa fa-floppy-o prodo-margin5" ng-disabled="productFeatureUpdate.$invalid" ></a>
-            <a id="Editfeature1" class="btn btn-default  btn-sm glyphicon glyphicon-remove prodo-margin5" ng-click="edit = ! edit; getProductFeatures(); "></a>
+            <a id="Editfeature1" class="btn btn-default  btn-sm glyphicon glyphicon-remove prodo-margin5" ng-click="edit = ! edit; getProductFeatures(product.prodle,product.orgid); "></a>
              
 
           </td>

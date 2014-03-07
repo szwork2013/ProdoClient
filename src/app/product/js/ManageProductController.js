@@ -14,19 +14,18 @@
      .controller('ManageProductController', ['$scope','$log', '$rootScope', 'ProductService', 'UserSessionService','$http','CommentLoadMoreService','ENV','TagReffDictionaryService','ProductFeatureService', 'growl','allproductdata','$state',function($scope, $log,$rootScope, ProductService, UserSessionService,$http,CommentLoadMoreService,ENV,TagReffDictionaryService,ProductFeatureService,growl,allproductdata,$state) {
 
                  $scope.$state=$state;
-                 console.log(allproductdata);
                 //comments
-                $scope.productComments = {comments: [{}]};
-                $scope.newProductComment = [];
-                $rootScope.productCommentResponsearray = [];
-                $scope.mytags;
-                $scope.myFeaturetags;
-                $scope.count = 0;
-                $scope.commenttextField = {userComment: ''};
-                $scope.pretags=[];
-                $scope.featuretags=[];
-                $scope.productcommentResponseListener;
-                $scope.tagPairs= [];
+                // $scope.productComments = {comments: [{}]};
+                // $scope.newProductComment = [];
+                // $rootScope.productCommentResponsearray = [];
+                // $scope.mytags;
+                // $scope.myFeaturetags;
+                // $scope.count = 0;
+                // $scope.commenttextField = {userComment: ''};
+                // $scope.pretags=[];
+                // $scope.featuretags=[];
+                // $scope.productcommentResponseListener;
+                // $scope.tagPairs= [];
 
                 //product
                 $scope.editStatus;
@@ -62,7 +61,7 @@
                             // growl.addErrorMessage(" Product not available ...");
                           }
                              if($scope.productlist.length !== 0){
-                               $log.debug("prodle "+$scope.productlist.length);
+                              $log.debug("prodle "+$scope.productlist.length);
                               $log.debug("prodle "+$scope.productlist[$scope.productlist.length-1].prodle + "orgid "+ $scope.orgidFromSession);
                               $scope.currentProdle=$scope.productlist[$scope.productlist.length-1].prodle;
                               $scope.currentOrgid=$scope.productlist[$scope.productlist.length-1].orgid;
@@ -124,8 +123,8 @@
                         else   $rootScope.isAdminCheck=false;
                       }
                     } 
-                  },
-                function(error) {  //if error geting product
+                  }
+                  },function(error) {  //if error geting product
                
                        $log.debug(error);
                         $("#prodo-ProductDetails").css("display", "none");
