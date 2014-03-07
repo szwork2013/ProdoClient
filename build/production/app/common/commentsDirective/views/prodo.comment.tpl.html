@@ -1,144 +1,146 @@
 <!--/*
-* Overview: comment Template
-* Its a comment template which displays comments
-* Dated: 29/10/2013.
-* Author: Bhagyashri Jangam
-* Copyright: Prodonus Software Private Limited and GiantLeap Systems Private Limited 2013
-* Change History:
-*
-* date | author | description 
-*
-* 27-3/2013 | xyx | Add a new property
-* 
-*/-->
-
+  * Overview: comment Template
+  * Its a comment template which displays comments
+  * Dated: 29/10/2013.
+  * Author: Bhagyashri Jangam
+  * Copyright: Prodonus Software Private Limited and GiantLeap Systems Private Limited 2013
+  * Change History:
+  *
+  * date | author | description 
+  *
+  * 27-3/2013 | xyx | Add a new property
+  * 
+  */-->
 <li  id="prodo-comment-media"  class="media list-animate-item" ng-repeat="comment in productComments | filter:{commenttext:search}" >
-
-   <!--  <a class="pull-left" href="#">
-        <img class="media-object" id="img-user" style="height:60px; width:50px" ng-src="{{comment.user.profilepic}}" alt="User"/> 
-      </a> -->
-
- 
-
-      <a class="pull-left" href="#"  ng-click="userProfileModal(comment.user.userid)" ng-controller="prodoUserProfileDataController"  id="triggerModal">
-
-      <img class="media-object prodo-userAvatar" id="img-user" ng-src="{{comment.user.profilepic}}" alt="User" id="triggerModals" data-toggle="modal" data-target="#profileInfoModal" /> 
-        
-      </a>
-
-<!-- modal -->
-
-      <div id = "profileInfoModal" class="prodo-modal-user modal fade" >
-       <div class="modal-dialog"> 
-        <div class="modal-content"> 
-              <div style="font-size:19px;" align="center">
-              User Profile 
-             </div> 
+  <!--  <a class="pull-left" href="#">
+    <img class="media-object" id="img-user" style="height:60px; width:50px" ng-src="{{comment.user.profilepic}}" alt="User"/> 
+    </a> -->
+  <a class="pull-left" href="#"  ng-click="userProfileModal(comment.user.userid)" ng-controller="prodoUserProfileDataController"  id="triggerModal">
+  <img class="media-object prodo-userAvatar" id="img-user" ng-src="{{comment.user.profilepic}}"  alt-SRC src="../assets/images/avatar.jpg" id="triggerModals" data-toggle="modal" data-target="#profileInfoModal" /> 
+  </a>
+  <!-- modal -->
+  <div id = "profileInfoModal" class="prodo-modal-user modal fade" >
+    <div class="modal-dialog">
+      <div class="modal-content" style="left:-10%">
+        <div style="font-size:19px;" align="center">
+          User Profile 
+        </div>
         <div id="lineHr"></div>
+        <div  ng-controller="prodoUserProfileDataController">
+          <div class="classMain">
+            <center> <img ng-src="{{modaluser.profile_pic.image}}" id="userProfilePic"/> </center>
+            <center>
+              <h5 ng-bind=" modaluser.username" class="modalHeading"></h5>
+            </center>
+          </div>
+          <div id="lineHr"></div>
+          <div  class="classMain">
+            <h5 ng-bind="ProductsFollowedMessage">  </h5>
+            <div ng-repeat="products in modaluser.products_followed"  class="modalProductPic" ng-if="products.name != 'Prodonus Software'">
+              <center>
+                <img ng-src="{{products.product_logo}}" class="prodleImage" ng-click="emitProductData(products.prodle,products.orgid)">
+                <p ><span ng-bind="products.name" class="thinnerFonts"></span></p>
+              </center>
+            </div>
+          </div>
+          <div class="classMain">
+            <h5 ng-bind="ProductsRecommendedMessage">  </h5>
+            <div ng-repeat="products in modaluser.products_recommends"   class="modalProductPic" >
+              <center>
+                <img ng-src="{{products.product_logo}}" class="prodleImage" ng-click="emitProductData(products.prodle,products.orgid)">
+                <p ><span ng-bind="products.name" class="thinnerFonts"></span> </p>
+              </center>
+            </div>
+          </div>
+        </div>
+        <div class="modal_footer">
+          <div id="lineHr"></div>
+          <button class="btn btn-info " data-dismiss="modal" >Close</button>  
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+  <!-- modal -->
+  <div class="media-body">
+  <div>
+    <div class=" pull-left " id="prodo-comment-userName"  ><span ng-bind="comment.user.username.substring(0,15)"></span></div>
+    <div ng-style="hideIfNoOrg(comment.user.orgname)" id="prodo-comment-companyName" class="pull-left"   >  &nbsp; &nbsp; &nbsp; &nbsp; @ <span ng-bind="toCamelCase(comment.user.orgname).substring(0,15)"></span>
 
+    </div>
+    <div id="prodo-comment-companyName"  ng-style="hideIfNogrp(comment.user.grpname)"> &nbsp; &nbsp;- &nbsp; <span ng-bind="comment.user.grpname.substring(0,15)"></span>
 
-
-             <div  ng-controller="prodoUserProfileDataController">                 
-                            <div class="classMain">                              
-                             <center>      <img ng-src="{{modaluser.profile_pic}}" id="userProfilePic"/> </center>
-                              <center>     <h5 ng-bind=" modaluser.username" class="modalHeading"></h5> </center>
-
-                            </div>
-         <div id="lineHr"></div>                    
-                     <div  class="classMain">
-                           <h5 ng-bind="ProductsFollowedMessage">  </h5>
-                                <div ng-repeat="products in modaluser.products_followed"  
-                                class="effectpic" ng-if="products.name != 'Prodonus Software'">
-                                <center>
-                                     
-                                      <img ng-src="{{products.product_logo}}" class="prodleImage" ng-click="emitProductData(products.prodle,products.orgid)">
-                                      <p ><span ng-bind="products.name" class="thinnerFonts"></span></p>
-                                </center>
-                                </div>
-                     </div>
-                
-                     <div class="classMain">
-                           <h5 ng-bind="ProductsRecommendedMessage">  </h5>
-                                <div ng-repeat="products in modaluser.products_recommends"   class="effectpic" >
-                                     <center>
-                                       <img ng-src="{{products.product_logo}}" class="prodleImage" ng-click="emitProductData(products.prodle,products.orgid)">
-                                        <p ><span ng-bind="products.name" class="thinnerFonts"></span> </p>
-                                      </center>
-                                </div>
-                    </div>
-             </div>  
-
-             <div class="modal_footer">
-                    <div id="lineHr"></div>  
-              <button class="btn btn-info " data-dismiss="modal" >Close</button>  
-             </div>        
-
-           </div><!-- /.modal-content -->
-         </div><!-- /.modal-dialog -->
-       </div><!-- /.modal -->
-
-
-<!-- modal -->
-
-<div class="media-body"><div>
-  <div class=" pull-left " id="prodo-comment-userName"  ><span ng-bind="comment.user.username.substring(0,15)"></span></div>
-  <div ng-style="hideIfNoOrg(comment.user.orgname)" id="prodo-comment-companyName" class="pull-left"   >  &nbsp; &nbsp; &nbsp; &nbsp; @ <span ng-bind="toCamelCase(comment.user.orgname).substring(0,15)"></span></div> <div id="prodo-comment-companyName"  ng-style="hideIfNogrp(comment.user.grpname)"> &nbsp; &nbsp;- &nbsp; <span ng-bind="comment.user.grpname.substring(0,15)"></span></div>  
-
-  <div class="pull-right" id="prodo-comment-timePosted" ><span ng-bind="fromNow(comment.datecreated)"></span></div> </div>
-  <div class="pull-left" id="prodo-comment-row-fluid" > <span ng-bind="comment.commenttext"></span></div><br>
-  <div class=" responseComment label label-warning"   id="responseComment"  >  </div>
-  <a   id="retryIcon" ng-click="addProductComment();" class="prodo-commentRetry"  > <span class="glyphicon glyphicon-refresh "></span> </a>
-  <div class="prodo-comment-tabs " id="tabs"  >
-    <ul id="commentNavTab" class="nav nav-pills" ng-init="tabCommentTags = false;
-    tabCommentRemove = false" >
-             <!--    <li><a    ng-click="tabCommentTags = tabCommentTags === false ? true : false;
-             tabCommentRemove = false;"><div id="fa-tagsComment" class="fa fa-tags"  ></div></a></li> -->
-             <li ng-style="hideIfNotUser(comment.user.userid)" ><a class="prodo-cursor" ng-click="tabCommentRemove = tabCommentRemove === false ? true : false;
-              tabCommentImg = false;"><div  id="fa-removeComment" name="rm" class=" fa fa-trash-o  "  ></div></a></li>
-              <li><a   ng-style="hideIfNotImage(comment.comment_image[0].image)"  ng-click="tabCommentImg = tabCommentImg === true ? false : true;
-                tabCommentRemove = false;"><div id="fa-tagsComment" class="fa fa-picture-o"  ></div></a></li>        
-              </ul> 
-              <div class="tab-content">
-              <!--   <div id="Tag" ng-show="tabCommentTags == 1" >
-                    <form class="form-horizontal" role="form">
-                        <div class="form-group"   >
-                            <tags-input   ng-model="comment.tags" placeholder="Add tags" list="pretags" min-length="5"
-                                         replace-spaces-with-dashes="false"></tags-input>
-                        </div>
-                    </form>
-                  </div> -->
-
-                  <div id="Remove" ng-show="tabCommentRemove == 1"   >
-                    Are you sure you want to delete this comment ?
-                    <a href="" ng-click="deleteProductComment(comment)"> Yes</a>
-                  </div>     
-
-
-                  <div id="Remove" ng-show="tabCommentImg == 1"   >
-
-                   <div id="img2" >
-                    <img  class="prodo-comment-img" id="img-user" ng-src="{{comment.comment_image[0].image}}"   ng-click="captureCommentImageHere(comment.comment_image[0].image)" data-toggle="modal" data-target="#commentImageModal" /> 
-
-                  </div>      
-                </div>
-<!-- Code for comment image modal -->
-
-                    <div id = "commentImageModal" class="prodo-modal-user modal fade" >
-                      <div class="modal-dialog"> 
-                        <div class="modal-content"> 
-
-                            <img ng-src="{{commentImageShow}}" />
-                        </div>
-                      </div>
-                    </div>
-
-
+      <!--  -->
+ <ul id="commentNavTab" class="nav nav-pills pull-right" ng-init="tabCommentTags = false;
+      tabCommentRemove = false" >
+      <!--    <li><a    ng-click="tabCommentTags = tabCommentTags === false ? true : false;
+        tabCommentRemove = false;"><div id="fa-tagsComment" class="fa fa-tags"  ></div></a></li> -->
+     <li>
+        <a   ng-style="hideIfNotImage(comment.comment_image[0].image)"  ng-click="tabCommentImg = tabCommentImg === true ? false : true;
+          tabCommentRemove = false;">
+          <div id="fa-tagsComment" class="fa fa-picture-o"  ></div>
+        </a>
+      </li>
+      <li ng-style="hideIfNotUser(comment.user.userid)" >
+        <a class="prodo-cursor" ng-click="tabCommentRemove = tabCommentRemove === false ? true : false;
+          tabCommentImg = false;">
+          <div  id="fa-removeComment" name="rm" class=" fa fa-trash-o  "  ></div>
+        </a>
+      </li>
+      
+    </ul>
 <!--  -->
 
 
 
-              </div>
+    </div>
+  
+  </div>
+  <div class="pull-left" id="prodo-comment-row-fluid" > <span ng-bind="comment.commenttext"></span></div>
+  <br>
+  <div class=" responseComment label label-warning"   id="responseComment"  >  </div>
+  <a   id="retryIcon" ng-click="addProductComment();" class="prodo-commentRetry"  > <span class="glyphicon glyphicon-refresh "></span> </a>
+    <div class="pull-right" id="prodo-comment-timePosted" ><span ng-bind="fromNow(comment.datecreated)"></span></div>
+  <div class="prodo-comment-tabs " id="tabs"  >
+   <!--  <ul id="commentNavTab" class="nav nav-pills" ng-init="tabCommentTags = false;
+      tabCommentRemove = false" > -->
+      <!--    <li><a    ng-click="tabCommentTags = tabCommentTags === false ? true : false;
+        tabCommentRemove = false;"><div id="fa-tagsComment" class="fa fa-tags"  ></div></a></li> -->
+     <!--  <li ng-style="hideIfNotUser(comment.user.userid)" >
+        <a class="prodo-cursor" ng-click="tabCommentRemove = tabCommentRemove === false ? true : false;
+          tabCommentImg = false;">
+          <div  id="fa-removeComment" name="rm" class=" fa fa-trash-o  "  ></div>
+        </a>
+      </li>
+      <li>
+        <a   ng-style="hideIfNotImage(comment.comment_image[0].image)"  ng-click="tabCommentImg = tabCommentImg === true ? false : true;
+          tabCommentRemove = false;">
+          <div id="fa-tagsComment" class="fa fa-picture-o"  ></div>
+        </a>
+      </li>
+    </ul> -->
+    <div style="clear:both"></div>
+    <div class="tab-content">
+      <!--   <div id="Tag" ng-show="tabCommentTags == 1" >
+        <form class="form-horizontal" role="form">
+            <div class="form-group"   >
+                <tags-input   ng-model="comment.tags" placeholder="Add tags" list="pretags" min-length="5"
+                             replace-spaces-with-dashes="false"></tags-input>
             </div>
-          </li>
+        </form>
+        </div> -->
 
-
+      <div id="Remove" ng-show="tabCommentRemove == 1" class="prodo-CommentDeleteMsg" >
+         Are you sure you want to delete this comment ?
+        <a href="" ng-click="deleteProductComment(comment)"> Yes</a>
+      </div>
+      <div id="Remove" ng-show="tabCommentImg == 1"   >
+        <div id="img2" >
+          <img  class="prodo-comment-img" id="img-user" ng-src="{{comment.comment_image[0].image}}"     /> 
+        </div>
+      </div>
+    </div>
+  </div>
+</li>

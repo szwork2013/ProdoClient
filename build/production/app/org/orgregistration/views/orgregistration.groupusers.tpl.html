@@ -1,24 +1,28 @@
 <!-- Template for Organisation Group Users Details view wizard-->
-<div id="prodo-groupuser-container" class="container">
+<div id="prodo-groupuser-wizard-container" class="prodo-wizard-container container">
 
-  <form id="prodo-form-groupuser" name="prodoOrgGroupuserForm" class="css-form" ng-submit="" novalidate>
+  <div class="prodo-wizard">
 
-    <div class="control-group">
+    <h4 id="prodo-groupuser-heading" class="prodo-wizard-heading">Group User</h4>
 
-      <h4 id="prodo-groupuser-heading">Group User</h4>
+    <hr class="prodo-wizard-hr" size=3 noshade>
 
-      <hr size=3 width="90%" style="height:1px; margin-top: 0;" noshade>
+    <form id="prodo-form-groupuser" name="OrgGroupuserForm" class="prodo-wizard-css-form css-form" ng-submit="" novalidate>
+    <p class="error-message"><small>{{errmessage}}</small></p>
+      <div class="control-group">
 
-      <input id="prodo-form-input-groupuser" type="text" name="groupname" class="form-control" placeholder="Group Name" ng-model="org.grpname"  autofocus required/>
+        <input type="text" name="groupname" class="prodo-wizard-form-control form-control" placeholder="Group Name" ng-model="org.grpname"  autofocus required/><i class="fa fa-check" ng-show="OrgGroupuserForm.groupname.$dirty && OrgGroupuserForm.groupname.$valid"></i>
 
-      <input id="prodo-form-input-groupuser" name="invites" type="text" class="form-control" placeholder="Send invites(use company emailid's)" ng-model="org.invites" prodonus-multi-email-validate required/>
+        <input name="invites" type="text" class="prodo-wizard-form-control form-control" placeholder="Send invites(use company emailId's seperated by comma(,))" ng-model="org.invites" prodonus-multi-email-validate required/><i class="fa fa-check" ng-show="OrgGroupuserForm.invites.$dirty && OrgGroupuserForm.invites.$valid"></i>
          
-    </div>    <!-- control group  div -->
-     
-    <button id="prodo-form-groupuser-btn" class="btn btn-md btn-primary" type="submit" ui-sref="orgregistration.address">Previous</button>
+      </div>
 
-    <button id="prodo-form-groupuser-btn" class="btn btn-md btn-primary"  onclick="$('#reg-groupUsers').css('color','#01DF74')"  type="submit" ng-click="goToState()">Next</button>
-  
-  </form>   <!-- prodo-groupusers-form -->
+      <button class="prodo-wizard-btn btn btn-md btn-primary" type="submit" ui-sref="prodo.orgregistration.address">Previous</button>
+
+      <button class="prodo-wizard-btn btn btn-md btn-primary"  onclick="$('#reg-groupUsers').css('color','#01DF74')"  type="submit" ng-click="goToState()">Next</button>
+
+    </form>   <!-- prodo-groupusers-form -->
+      
+  </div>
 
 </div>   <!-- prodo-groupusers-container div -->

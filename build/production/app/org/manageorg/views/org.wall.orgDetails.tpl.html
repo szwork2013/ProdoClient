@@ -1,6 +1,6 @@
 <div style="padding: 5px; " id="prodo-user-account-container" style="" class="container">
   <div style="height:120px; border-radius: 5px; margin-bottom: 10px;">
-  		<img ng-src="{{org.org_logo}}" style="width: 160px; height:80px; margin: 20px; ">
+  		<img ng-src="{{org.org_logo.image}}" style="width: 160px; height:80px; margin: 20px; ">
   		<a class="btn btn-danger btn-sm pull-right" style="border-radius: 10px; margin: 5px; width: 80px; font-size: 12px; font-weight:bold;" href="" data-toggle="modal" data-target="#myModal"><i style="margin-right: 5px;" class="fa fa-trash-o fa-lg"></i>Delete</a>
   	</div>
 
@@ -186,7 +186,7 @@
 
     <accordion-group>
     	<accordion-heading>
-            <p ng-click="getGroupMembers()" style='font-weight:bold; font-size: 13px; margin: 0;'>GROUPS<i class="fa fa-pencil pull-right"></i></p>
+            <p style='font-weight:bold; font-size: 13px; margin: 0;'>GROUPS<i class="fa fa-pencil pull-right"></i></p>
         </accordion-heading>
         <button class="btn btn-info btn-sm" style="background-color:#47707C; border-color:#3C555C; border-radius: 10px; margin: 15px;" ng-click="addInvites()"><i style="margin-right: 5px;" class="fa fa-plus-square"></i>Add Groups</button>
         <form name="form.orggroupinvitesform" ng-submit='' novalidate>
@@ -222,7 +222,7 @@
         </div>
     </accordion-group>
 
-    <accordion-group>
+    <accordion-group ng-hide="usersession.currentUser.org.orgtype != 'Manufacturer' ">
     	<accordion-heading>
             <p style='font-weight:bold; font-size: 13px; margin: 0;'>NEW ORGANIZATION INVITES<i class="fa fa-pencil pull-right"></i></p>
         </accordion-heading>
@@ -239,7 +239,7 @@
         <button class="btn btn-primary btn-sm pull-right" style="border-radius: 10px; margin: 5px; width: 80px; font-size: 12px; font-weight:bold;" ng-click="sendOrgInvites()"><i style="margin-right: 5px;" class="fa fa-share"></i>Send</button>
     </accordion-group>
 
-    <accordion-group>
+    <accordion-group ng-hide="usersession.currentUser.org.orgtype != 'Manufacturer' ">
       <accordion-heading>
             <p style='font-weight:bold; font-size: 13px; margin: 0;'>ORGANIZATION CUSTOMER INVITES<i class="fa fa-pencil pull-right"></i></p>
       </accordion-heading>
@@ -256,7 +256,7 @@
     </accordion-group>
 
 
-    <accordion-group>
+    <accordion-group ng-hide="usersession.currentUser.org.orgtype != 'Manufacturer' ">
     	<accordion-heading>
             <p style='font-weight:bold; font-size: 13px; margin: 0;'>PRODUCT<i class="fa fa-pencil pull-right"></i></p>
         </accordion-heading>
@@ -299,7 +299,7 @@
         </div>
     </accordion-group>
 
-    <accordion-group>
+    <accordion-group ng-hide="usersession.currentUser.org.orgtype != 'Manufacturer' ">
       <accordion-heading>
             <p style='font-weight:bold; font-size: 13px; margin: 0;'>ORGANIZATION ARTWORK UPLOAD<i class="fa fa-pencil pull-right"></i></p>
         </accordion-heading>

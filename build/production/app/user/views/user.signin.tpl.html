@@ -7,7 +7,7 @@
 
       <h4 id="prodo-signin-heading">Sign In</h4>
 
-      <hr size=3 width="90%" style="height:1px; margin-top: 0;" noshade>
+      <hr class="prodo-wizard-hr" size=3 noshade>
 
       <input id="prodo-input-signin" name="username" class="form-control" type="text" placeholder="Email or username" required ng-model="user.email" /> 
     
@@ -18,7 +18,7 @@
         <input id="prodo-input-remember-signin" type="checkbox" ng-model="user.remember">&nbsp;Remember me
       </label>
 
-      <a href="" id="prodo-signin-forgot-link" ui-sref="user-content.forgotpassword">forgot password?</a>
+      <a href="" id="prodo-signin-forgot-link" ui-sref="prodo.user-content.forgotpassword">forgot password?</a>
 
     </div> 
     <div ng-show="(signinForm.username.$dirty && signinForm.username.$invalid) || (signinForm.password.$dirty && signinForm.password.$invalid) || (signinForm.$invalid && signinForm.submitted)" style="width:250px; min-height: 30px; border-radius: 2px; margin: 10px auto; display: block; text-align:left; font-size: 12px;" class="alert alert-danger">

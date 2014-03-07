@@ -1,11 +1,13 @@
 <div id="prodo-comment-container" class="container tab-content" style="border: 1px solid #b3b3b3; min-height: 50px;">  
   <div style="margin-top: 5px;" class="tabbable boxed parentTabs">
     <ul class="nav nav-tabs nav-justified">
-        <li class="active"><a showtab="" href="" ui-sref="account-org.org.detail">Organization</a>
+        <li class="active"><a showtab="" href="" ui-sref="prodo.account-org.org.detail">Organization</a>
         </li>
-        <li ng-controller="ProductController"><a ng-click="orgProductDetails()" showtab="" href="" ui-sref="account-org.org.Productdetail">Product</a>
+
+        <li ng-show=" usersession.currentUser.org.orgtype == 'Manufacturer' "><a ng-click="orgProductDetails()" showtab="" href="" ui-sref="prodo.account-org.org.Productdetail">Product</a>
+
         </li>
-        <li><a showtab="" href="" ui-sref="account-org.org.broadcast">Broadcast</a>
+        <li ng-show="usersession.currentUser.org.orgtype == 'Manufacturer' "><a showtab="" href="" ui-sref="prodo.account-org.org.broadcast">Broadcast</a>
         </li>
     </ul>
 </div>
@@ -13,5 +15,4 @@
     <div growl></div>
     <div ui-view></div>
   </div>
-
 </div>

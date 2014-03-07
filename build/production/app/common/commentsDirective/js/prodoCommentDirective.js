@@ -111,57 +111,18 @@
 };
 });
 
-  // var itemsTemplate = "<ul class='unstyled'><li ng-repeat='item in items'>
-     //     <input type='checkbox' value='{{item}}' ng-click='getProductFeatureFromList(item)' />  
-     //    {{item}} </li></ul>";
-  angular.module('prodo.CommonApp').directive('popOver', function ($compile) {
-  
-        var itemsTemplate = "<ul class='unstyled'><li ng-repeat='item in items'>{{item}} </li></ul>";
-        var getTemplate = function (contentType) {
-            var template = '';
-            switch (contentType) {
-                case 'items':
-                    template = itemsTemplate;
-                    break;
-            }
-            return template;
+angular.module('prodo.ProductApp').directive('altSrc', function() {
+  return {
+    link: function(scope, element, attrs) {
+      var defaultSrc = attrs.src;
+      element.bind('error', function() {
+        if(attrs.errSrc) {
+            element.attr('src', attrs.errSrc);
         }
-        return {
-            restrict: "A",
-            transclude: true,
-            template: "<span ng-transclude></span>",
-            link: function (scope, element, attrs) {
-                var popOverContent;
-                if (scope.items) {
-                    var html = getTemplate("items");
-                    popOverContent = $compile(html)(scope);                    
-                }
-                var options = {
-                    content: popOverContent,
-                    placement: "right",
-                    html: true,
-                    title: scope.title
-                };
-                $(element).popover(options);
-                        scope.featuresList=[];
-              scope.getProductFeatureFromList = function (f) {
-               if (scope.featuresList.indexOf(f) === -1) {
-                 scope.featuresList.push(f);
-               }
-               else {
-                 scope.featuresList.splice(scope.featuresList.indexOf(f), 1);
-               }
-               console.debug(scope.featuresList);
-              
-               $('#prodo-comment-Textbox').val(function(index, value) {
-                  return value +" "+ scope.featuresList;
-              });
-             } 
-            },
-     
-            scope: {
-                items: '=',
-                title: '@'
-            }
-        };
-    });
+        else if(attrs.src) {
+            element.attr('src', defaultSrc);
+        }
+      });
+    }
+  }
+});

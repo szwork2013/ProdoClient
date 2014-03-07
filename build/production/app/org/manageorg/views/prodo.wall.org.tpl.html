@@ -1,7 +1,7 @@
 <div id="prodo-comment-container" class="container" style="border: 1px solid #E7EDF1;">
 
 	<div style="padding: 10px;" id="prodo-view-orlogodisplay" class="container">
-		<img style="width: 90px; height: 50px;" ng-src="{{orgdata.org_logo}}">
+		<img style="width: 90px; height: 50px;" ng-src="{{orgdata.org_logo.image}}">
 		<strong style="font-size: 25px; margin:20px; text-align:center;">{{orgdata.name}}</strong>
 	</div>
 
@@ -47,7 +47,7 @@
   	<div class="bar">
   		<div class="right-inner-addon ">
     		<i class="fa fa-search"></i>
-    		<input style='width:50%;' type="search" class="form-control" placeholder="Search" ng-model="searchAddress"/>
+    		<input style='width:270px;' type="search" class="form-control" placeholder="Search" ng-model="searchAddress"/>
 			</div>
     </div>
     <br>
@@ -82,6 +82,7 @@
   <br>
   <h5 style="color: #86846E; margin-bottom: 2px;">PRODUCTS</h5>
   <hr size=3 width="100%;" style="background-color:#BDBDBD; height:1px; margin-top: 0;" noshade>
+    <div ng-show='productlist.length == 0'> <p style="text-align:left; font-size:20px; margin: 20px auto;" class="text-success"><strong><em>Currently no products available.</em></strong></p></div>
   	<div style="width:160px; min-height: 200px; float: left; margin: 5px; border: solid 1px #ccc;" ng-repeat="product in productlist">
 	    <p style="margin:5px auto; display:block; text-align:center; font-weight:bold; font-size:12px;">{{product.name}}</p>
 	    <img style="margin:0px auto; display:block; width:95%; height: 150px; " src="{{product.product_logo}}" alt=" No Image" class="img-rounded">
