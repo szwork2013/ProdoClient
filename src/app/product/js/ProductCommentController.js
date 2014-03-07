@@ -401,6 +401,7 @@ $("#load-more").show();
 $scope.getLastCommentId = function () {
   $log.debug($scope.productComments);
   $scope.productComments;
+  if($scope.productComments){
   if ($scope.productComments.length !== 0) {
     var lengthComments = $scope.productComments.length;
     $log.debug(lengthComments)
@@ -408,6 +409,7 @@ $scope.getLastCommentId = function () {
     $log.debug(lastComment.commentid);
     return lastComment.commentid;
   }
+}
 };
 //find last comment id
 $scope.loadMoreComments = function () {

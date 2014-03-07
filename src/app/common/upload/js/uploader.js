@@ -27,7 +27,6 @@ angular.module('prodo.UploadApp')
     $scope.progressbar = 0;
     $log.debug("source: " + $scope.uploadSrc);
     $log.debug("getFile called ... " + a);
-
     fileReader.readAsBinaryString(a, $scope).then(function (result) {
       $log.debug("reader called ... " + a);
       var action;
@@ -160,7 +159,7 @@ angular.module('prodo.UploadApp')
     } else {
       $scope.imageSrc = JSON.stringify(imagelocation);
       $log.debug("getting response for product upload  " + $scope.imageSrc);
-
+       growl.addSuccessMessage("File uploaded");
       $scope.counter++;
       $log.debug($scope.counter);
       if ($scope.counter < $scope.fileLength) {
@@ -258,8 +257,6 @@ angular.module('prodo.UploadApp')
   });
 
 
-
-
   $scope.socket.removeAllListeners('userUploadResponse');
   $scope.socket.on('userUploadResponse', function (error, imagelocation) {
     if (error) {
@@ -300,14 +297,8 @@ angular.module('prodo.UploadApp')
         $scope.fileLength = (e.srcElement || e.target).files;
         //console.log("counter= " + $scope.counter);
         $scope.file = (e.srcElement || e.target).files;
-
         if ($scope.uploadSrc == "user") $scope.getFile($scope.file[0]);
-
-
-
         var addUploads = function (i) {
-
-
             var FileName = document.createElement("label");
             FileName.type = 'label';
             var title = document.createTextNode("File " + i.name);
@@ -316,28 +307,20 @@ angular.module('prodo.UploadApp')
             FileName.setAttribute("style", "text-align:left");
             var fn = document.getElementById("FileName");
             fn.appendChild(FileName);
-
             fn.style.width = '400px';
-
             var progressbarc = document.createElement("div");
             progressbarc.className = ' progress progress-info progress-striped active';
             progressbarc.id = "a2" + i.name;
             progressbarc.style.textAlign = "left";
             fn.appendChild(progressbarc);
-
             var progressbar = document.createElement("div");
             progressbar.className = 'bar';
             progressbar.id = 'bar';
             var a = document.getElementById("a2" + i.name);
             progressbar.style.width = '300px';
-
             a.appendChild(progressbar);
-
-
-
             var progress = setInterval(function () {
               var $bar = $('.bar');
-
               if ($bar.width() == 400) {
                 clearInterval(progress);
                 $('.progress').removeClass('active');
@@ -347,7 +330,6 @@ angular.module('prodo.UploadApp')
               //    $bar.text($bar.width() / 4 + "%");
             }, 800);
 
-
             FileName = "";
             title = "";
             fn = "";
@@ -355,17 +337,13 @@ angular.module('prodo.UploadApp')
             progressbar = "";
             progress = "";
             a = "";
-
           }
 
-
-          //                  $scope.$watch(function() {
         for (var i = 0; i <= $scope.file.length; i++) {
           addUploads($scope.file[i]);
           $scope.getFile($scope.file[i]);
         }
-        //                  }, true);
-      })
+     })
     }
   }
 }]);
@@ -395,7 +373,6 @@ angular.module('prodo.UploadApp')
             });
           };
         };
-
       var getReader = function (deferred, scope) {
           var reader = new FileReader();
           reader.onload = onLoad(reader, deferred, scope);
