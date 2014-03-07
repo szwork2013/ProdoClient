@@ -1639,7 +1639,8 @@ left:15%;
 .modal-footer {
 padding: 5px;
 }
-input.ng-dirty.ng-invalid {
+
+.prodo-validation.ng-dirty.ng-invalid {
     border:1px solid #ff8080;
 }
 

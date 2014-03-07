@@ -127,15 +127,18 @@ $scope.getProduct = function (l_prodle, l_orgid) {
           } else $rootScope.isAdminCheck = false;
         }
       }
-      //if no comments , dont show load more comments button
-      $("#loadMoreCommentMsg").css("display", "none");
-      if (successData.success.product.product_comments) {
-        if (successData.success.product.product_comments.length < 5) {
-          $("#load-more").css("display", "none");
-        } else $("#load-more").css("display", "inline");
-      }
-    }
-  }, function (error) { //if error geting product
+    //if no comments , dont show load more comments button
+                $("#loadMoreCommentMsg").css("display", "none");
+                if(successData.success.product.product_comments){
+                if(successData.success.product.product_comments.length<5){
+                  $("#load-more").css("display", "none");
+                }
+                 else  $("#load-more").css("display", "inline");
+              }
+                else  $("#load-more").css("display", "inline");
+              }
+            },
+        function (error) { //if error geting product
     $log.debug(error);
     $("#prodo-ProductDetails").css("display", "none");
     $("#ErrMsging").css("display", "inline");

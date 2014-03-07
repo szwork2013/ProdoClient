@@ -11,7 +11,7 @@
 * 
 */
 angular.module('prodo.ProductApp')
-.controller('ProductCommentController', ['$scope', '$log', '$rootScope', 'ProductService', 'UserSessionService', '$http', 'CommentLoadMoreService', 'ENV', 'TagReffDictionaryService', 'ProductFeatureService', 'growl', 'orgproductdata', '$state', function ($scope, $log, $rootScope, ProductService, UserSessionService, $http, CommentLoadMoreService, ENV, TagReffDictionaryService, ProductFeatureService, growl, orgproductdata, $state) {
+.controller('ProductCommentController', ['$scope', '$log', '$rootScope', 'ProductService', 'UserSessionService', '$http', 'CommentLoadMoreService', 'ENV', 'TagReffDictionaryService', 'ProductFeatureService', 'growl',  function ($scope, $log, $rootScope, ProductService, UserSessionService, $http, CommentLoadMoreService, ENV, TagReffDictionaryService, ProductFeatureService, growl) {
 
 //get predefined tags
 TagReffDictionaryService.getAllTags(
@@ -201,7 +201,7 @@ $scope.addProductComment = function () {
             username: $scope.usernameFromSession,
             orgname: $scope.orgnameFromSession,
             grpname: $scope.grpnameFromSession,
-            profilepic: $rootScope.usersession.currentUser.profile_pic
+            profilepic: $rootScope.usersession.currentUser.profile_pic.image
           },
           commentid: guid(),
           type: $scope.type,
@@ -220,7 +220,7 @@ $scope.addProductComment = function () {
             username: $scope.usernameFromSession,
             orgname: $scope.orgnameFromSession,
             grpname: $scope.grpnameFromSession,
-            profilepic: $rootScope.usersession.currentUser.profile_pic
+            profilepic: $rootScope.usersession.currentUser.profile_pic.image
           },
           commentid: guid(),
           type: $scope.type,
@@ -241,7 +241,7 @@ $scope.addProductComment = function () {
             username: $scope.usernameFromSession,
             orgname: $scope.orgnameFromSession,
             grpname: $scope.grpnameFromSession,
-            profilepic: $rootScope.usersession.currentUser.profile_pic
+            profilepic: $rootScope.usersession.currentUser.profile_pic.image
           },
           commentid: guid(),
           type: $scope.type,
@@ -260,7 +260,7 @@ $scope.addProductComment = function () {
             username: $scope.usernameFromSession,
             orgname: $scope.orgnameFromSession,
             grpname: $scope.grpnameFromSession,
-            profilepic: $rootScope.usersession.currentUser.profile_pic
+            profilepic: $rootScope.usersession.currentUser.profile_pic.image
           },
           commentid: guid(),
           type: $scope.type,
@@ -294,9 +294,6 @@ $scope.addProductComment = function () {
     } else {
       growl.addErrorMessage("Please follow this product to start commenting...");
     }
-
-
-
 
   }
 };
