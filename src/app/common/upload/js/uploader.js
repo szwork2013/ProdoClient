@@ -188,6 +188,7 @@ angular.module('prodo.UploadApp')
     } else {
       $scope.imageSrc = JSON.stringify(imagelocation);
       $log.debug("getting response for logo upload  " + $scope.imageSrc);
+       growl.addErrorMessage("Logo Uploaded successfully...");
       $scope.imageSrc = imagelocation;
       $scope.counter++;
       $log.debug($scope.counter);
