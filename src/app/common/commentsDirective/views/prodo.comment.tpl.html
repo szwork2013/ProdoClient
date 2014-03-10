@@ -38,16 +38,16 @@
             <h5 ng-bind="ProductsFollowedMessage">  </h5>
             <div ng-repeat="products in modaluser.products_followed"  class="modalProductPic" ng-if="products.name != 'Prodonus Software'">
               <center>
-                <img ng-src="{{products.product_logo}}" class="prodleImage" ng-click="emitProductData(products.prodle,products.orgid)">
+                <img ng-src="{{products.product_logo.image}}" class="prodleImage" ng-click="emitProductData(products.prodle,products.orgid)">
                 <p ><span ng-bind="products.name" class="thinnerFonts"></span></p>
               </center>
             </div>
           </div>
-          <div class="classMain">
+          <div class="classMain" ng-if="modaluser.products_recommends.length!==0">
             <h5 ng-bind="ProductsRecommendedMessage">  </h5>
             <div ng-repeat="products in modaluser.products_recommends"   class="modalProductPic" >
               <center>
-                <img ng-src="{{products.product_logo}}" class="prodleImage" ng-click="emitProductData(products.prodle,products.orgid)">
+                <img ng-src="{{products.product_logo.image}}" class="prodleImage" ng-click="emitProductData(products.prodle,products.orgid)">
                 <p ><span ng-bind="products.name" class="thinnerFonts"></span> </p>
               </center>
             </div>
