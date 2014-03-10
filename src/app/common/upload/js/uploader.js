@@ -416,7 +416,7 @@ angular.module('prodo.UploadApp')
 
            var progress = setInterval(function() {
               var $bar = $('.bar');
-              
+              $bar.width()='0%'
               if ($bar.width()==400) {
                   clearInterval(progress);
                   $('.progress').removeClass('active');

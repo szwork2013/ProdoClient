@@ -44,10 +44,14 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
 
   $scope.$watch('$state.$current.locals.globals.allproductdata', function (allproductdata) {
     if (allproductdata.error) {
+        $("#prodo-ProductDetails").css("display", "none");
+        $("#ErrMsging").css("display", "block");
       document.getElementById("ErrMsging").innerHTML = "<br>Product not available ... Add new product<br><br>";
     } else {
       $scope.productlist = allproductdata.success.product;
       if ($scope.productlist.length == 0) { //after deleting product, check for next product from product followed,if no product - display msg
+         $("#prodo-ProductDetails").css("display", "none");
+        $("#ErrMsging").css("display", "block");
         document.getElementById("ErrMsging").innerHTML = "<br>Product not available ... Add new product<br><br>";
         // growl.addErrorMessage(" Product not available ...");
       }
@@ -489,6 +493,11 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
     if ($scope.currentProdle !== undefined && $scope.currentProdle !== null && $scope.currentProdle !== "") {
       $scope.getProduct($scope.currentProdle, $scope.currentOrgid);
       $scope.getProductFeatures($scope.currentProdle, $scope.currentOrgid);
+    }
+    else{
+       $("#prodo-ProductDetails").css("display", "none");
+        $("#ErrMsging").css("display", "block");
+      document.getElementById("ErrMsging").innerHTML = "<br>Product not available ... Add new product<br><br>";
     }
   };
 
