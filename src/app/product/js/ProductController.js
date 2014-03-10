@@ -129,6 +129,7 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
         }
         //if no comments , dont show load more comments button
         $("#loadMoreCommentMsg").css("display", "none");
+        $log.debug("COmments :   "+successData.success.product.product_comments);
         if (successData.success.product.product_comments) {
           if (successData.success.product.product_comments.length < 4) {
             $("#load-more").css("display", "none");
