@@ -50,7 +50,9 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
   //  This is the variable to toggle div tag heading (Second Box of sidebar); 
   
   $scope.limit = 5;
-    
+
+  var indexOfUnfollowedProduct=0;
+ 
 
   var cleanEventGotTrendingProducts = $scope.$on('gotTrendingProducts', function (event, data) 
   {
@@ -193,16 +195,17 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
       $scope.title = "Search";
       $scope.errors = "";
   };
-    
+   
   //This function is called unfollow product from sidebar; When unfollow button is clicked list from productfollowedlist is spliced;
-  $scope.unfollowProduct = function (product, indexOfProduct) { 
+  $scope.unfollowProduct = function (product) { 
       UserSessionService.unfollowProduct(product.prodle);
-      };
+      indexOfUnfollowedProduct = $rootScope.usersession.productfollowlist.indexOf(product);
+   };
 
-  var cleanEventUnfollowProductDone = $scope.$on("unfollowProductDone", function(event, data, product, indexOfProduct){
-      //var index = $rootScope.usersession.productfollowlist.indexOf(indexOfProduct);
-      $rootScope.usersession.productfollowlist.splice(indexOfProduct, 1);
+  var cleanEventUnfollowProductDone = $scope.$on("unfollowProductDone", function(event){
+      $rootScope.usersession.productfollowlist.splice(indexOfUnfollowedProduct, 1);
       });
+
 
   $scope.loadMoreFollowedProduct=function() {
       if($scope.limit === 100)
