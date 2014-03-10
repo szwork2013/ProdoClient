@@ -4,6 +4,10 @@ angular.module('prodo.OrgApp')
     $scope.hasBroadcast = false;
     $scope.editorEnabled = false;
     $scope.form = {};
+    $scope.submitted= false;
+    $scope.user = {
+      password: ''
+    }
   
     $scope.enableEditor = function() {
       $scope.editorEnabled = true;
@@ -11,7 +15,8 @@ angular.module('prodo.OrgApp')
   
     $scope.disableEditor = function() {
       $scope.editorEnabled = false;
-      $scope.orggeneralsettingchange = '';
+      $scope.user = { password: ''};
+      $scope.orggeneralsettingchange.submitted = false;
     };
 
 
@@ -29,7 +34,6 @@ angular.module('prodo.OrgApp')
     $scope.orgaddr = currentorgaddr.success.orgaddress;
     OrgRegistrationService.updateOrgData(currentorgdata.success.organization);
     
-    $scope.password = '';
     $scope.jsonOrgAccountData = function()
       {
         var orgData = 
@@ -38,17 +42,18 @@ angular.module('prodo.OrgApp')
             {
             'name' : $scope.org.name,
             'description' : $scope.org.description,
-            'password': $scope.password
+            'password': $scope.user.password
             }
           };
         return JSON.stringify(orgData); 
       }
+      console.log($scope.jsonOrgAccountData());
      
 
     // function to handle server side responses
     $scope.handleUpdateOrgResponse = function(data){
       if (data.success) {
-
+        $scope.disableEditor();
         growl.addSuccessMessage(data.success.message);
       } else {
         if (data.error.code== 'AU004') {     // enter valid data
@@ -63,10 +68,10 @@ angular.module('prodo.OrgApp')
 
     $scope.updateOrgAccount = function() {
       if ($scope.form.orggeneralsettingform.$valid) {
-        $scope.disableEditor();
+        $scope.form.orggeneralsettingform.submitted= true;
         OrgRegistrationService.saveOrgSettings($scope.jsonOrgAccountData());
       } else {
-        $scope.orggeneralsettingchange = 'Please enter valid data';
+        $scope.form.orggeneralsettingform.submitted= true;
       }  
     }
     var cleanupEventUpdateOrgDone = $scope.$on("updateOrgDone", function(event, message){
@@ -320,33 +325,54 @@ angular.module('prodo.OrgApp')
       $scope.showAlert('alert-danger', "It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + data);     
     });    
 
-    $scope.showInvites = false;
+    $scope.showExistingInvites = false;
+    $scope.showNewInvites = false;
 
-    $scope.addInvites = function() {
-      $scope.showInvites = true;
+    $scope.addExistingInvites = function() {
+      $scope.showExistingInvites = true;
+    }
+
+    $scope.addNewInvites = function() {
+      $scope.showNewInvites = true;
     }
 
     $scope.group = {
-                      'grpname': '',
-                      'invites': ''
-    }
+                    'newgroupname': '',
+                    'grouppname': '',
+                    'invites': '',
+                    'newinvites': ''
+    };
 
-    $scope.jsonOrgGroupInvitesData = function()
-      {
-        var orgGroupInvite = 
+    $scope.jsonOrgExistingGroupInvitesData = function() {
+      var orgGroupInvite = 
+        {
+          usergrp:
           {
-            usergrp:
-            {
-             'grpname': $scope.group.grpname,
-             'invites': $scope.group.invites
-            }
+           'grpname': $scope.group.groupname,
+           'invites': $scope.group.invites
           }
-        return JSON.stringify(orgGroupInvite); 
-      }
+        }
+      return JSON.stringify(orgGroupInvite); 
+    };
+
+    $scope.jsonOrgNewGroupInvitesData = function() {
+      var orgGroupInvite = 
+        {
+          usergrp:
+          {
+           'grpname': $scope.group.newgroupname,
+           'invites': $scope.group.newinvites
+          }
+        }
+      return JSON.stringify(orgGroupInvite); 
+    };
 
     // function to handle server side responses
     $scope.handleOrgGroupInviteResponse = function(data){
       if (data.success) {
+        $scope.showExistingInvites = false;
+        $scope.showNewInvites = false;
+        $scope.group = {'newgroupname': '', 'grouppname': '', 'invites': '', 'newinvites': ''};
         growl.addSuccessMessage(data.success.message);  
       } else {
         if (data.error.code== 'AU004') {     // enter valid data
@@ -360,13 +386,22 @@ angular.module('prodo.OrgApp')
     };  
 
     $scope.addGroupInvite = function() {
-      if ($scope.form.orggroupinvitesform.$valid) {
-        $scope.orggroupinvitesettingchange = '';
-        OrgRegistrationService.groupInvites($scope.jsonOrgGroupInvitesData());
-      } else {
-        $scope.orggroupinvitesettingchange = 'Please enter valid data';
+      if ($scope.form.orggroupinvitesform) {
+        if ($scope.form.orggroupinvitesform.$valid) {
+          $scope.form.orggroupinvitesform = true;
+          OrgRegistrationService.groupInvites($scope.jsonOrgExistingGroupInvitesData());
+        } else{
+          $scope.form.orggroupinvitesform.submitted = true;
+        }
+      } else if ($scope.form.orgnewgroupinvitesform) {
+          if ($scope.form.orgnewgroupinvitesform.$valid) {
+            OrgRegistrationService.groupInvites($scope.jsonOrgExistingGroupInvitesData());
+            $scope.form.orgnewgroupinvitesform = true;
+          } else {
+            $scope.form.orgnewgroupinvitesform = true;
+          }
       }
-    }
+    };
 
     var cleanupEventSendOrgGroupInvitesDone = $scope.$on("sendOrgGroupInvitesDone", function(event, data){
       $scope.handleOrgGroupInviteResponse(data); 

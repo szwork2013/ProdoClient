@@ -1,10 +1,11 @@
 angular.module('prodo.ProdoWallApp')
-	.controller('ProdoWallController', ['$rootScope', '$scope', '$state', '$log', 'OrgRegistrationService', 'orgdata', 'orgaddr', 'orgproduct', '$stateParams', function($rootScope, $scope, $state, $log, OrgRegistrationService, orgdata, orgaddr, orgproduct, $stateParams) {
+	.controller('ProdoWallController', ['$rootScope', '$scope', '$state', '$log', 'UserSessionService', 'orgdata', 'orgaddr', 'orgproduct', '$stateParams', 'growl', function($rootScope, $scope, $state, $log, UserSessionService, orgdata, orgaddr, orgproduct, $stateParams, growl) {
 
     $rootScope.orgdata = {};
     $scope.orgaddr = [];
     $scope.productlist = [];
     $rootScope.images = [];
+    $scope.isFollowing = false;
 
     $scope.updateimages = function(data) {
       $rootScope.manageSlider="";   // Added this variable to check conditions in tpl
@@ -44,6 +45,9 @@ angular.module('prodo.ProdoWallApp')
     // $rootScope.images = orgdata.success.organization.org_images;
     $scope.$watch('$state.$current.locals.globals.orgdata', function (orgdata) {
       $rootScope.orgdata = orgdata.success.organization;
+      if (orgdata.success.organization.org_logo == undefined) {
+        $rootScope.orgdata.org_logo = {image: 'http://placehold.it/300x200/b3b3b3'}
+      }
       $scope.updateimages(orgdata.success.organization.org_images);
       console.log($rootScope.orgdata);
     });
@@ -54,10 +58,37 @@ angular.module('prodo.ProdoWallApp')
 
     $scope.$watch('$state.$current.locals.globals.orgproduct', function (orgproduct) {
       if (orgproduct.error) {
-            console.log('No product available');
-          } else {
-              $scope.productlist = orgproduct.success.product; 
-          }
+        console.log('No product available');
+      } else {
+        $scope.productlist = orgproduct.success.product; 
+      }
+    });
+
+    $scope.handlefollowproductResponse = function(data){
+      if (data.success) {
+        growl.addSuccessMessage(data.success.message);    
+      } else {
+          $log.debug(data.error.message);
+          growl.addErrorMessage(data.error.message); 
+        }
+    }; 
+
+    $scope.follow = function(prodle){
+      UserSessionService.followProduct(prodle);
+    }
+
+    var cleanupEventFollowProductDone = $scope.$on('followProductDone', function(event, data) {
+        $scope.isFollowing = true;
+        $scope.handlefollowproductResponse(data);
+    });
+    var cleanupEventFollowProductNotDone = $scope.$on('followProductNotDone', function(event, data) {
+      $scope.isFollowing = true;
+      growl.addErrorMessage('There is some server error.');
+    });
+
+    $scope.$on('$destroy', function(event, data) {
+      cleanupEventFollowProductDone(); 
+      cleanupEventFollowProductNotDone();               
     });
 
 	}]);

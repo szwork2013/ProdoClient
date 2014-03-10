@@ -62,8 +62,7 @@ angular.module('prodo.UserApp')
     // function to handle server side responses
     $scope.handleUpdateUserResponse = function(data){
       if (data.success) {
-        growl.addSuccessMessage(data.success.message); 
-        $scope.showAlert('alert-success', data.success.message);   
+        growl.addSuccessMessage(data.success.message);   
       } else {
         if (data.error.code== 'AU004') {     // enter valid data
             $log.debug(data.error.code + " " + data.error.message);

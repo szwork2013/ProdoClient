@@ -1,7 +1,7 @@
 <div id="prodo-comment-container" class="container tab-content" style="border: 1px solid #b3b3b3; min-height: 50px;">  
   <div style="margin-top: 5px;" class="tabbable boxed parentTabs">
-    <ul class="nav nav-tabs nav-justified">
-        <li class="active"><a showtab="" href="" ui-sref="prodo.account-org.org.detail">Organization</a>
+    <ul style="font-weight: bold; font-size:15px;" class="nav nav-tabs nav-justified">
+        <li class="active"><a showtab="" href="" ui-sref="prodo.account-org.org.detail">{{usersession.currentUser.org.orgtype}}</a>
         </li>
 
         <li ng-show=" usersession.currentUser.org.orgtype == 'Manufacturer' "><a ng-click="orgProductDetails()" showtab="" href="" ui-sref="prodo.account-org.org.Productdetail">Product</a>
@@ -12,7 +12,6 @@
     </ul>
 </div>
   <div class="tab-content" style="padding-bottom: 9px; border-bottom: 1px solid #ddd;">
-    <div growl></div>
     <div ui-view></div>
   </div>
 </div>
