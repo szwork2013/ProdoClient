@@ -49,7 +49,7 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
   $scope.title = "Trending Products"; 
   //  This is the variable to toggle div tag heading (Second Box of sidebar); 
   
-  $scope.limit = 5;
+  $scope.followedProductsCount = 5;
 
   var indexOfUnfollowedProduct=0;
  
@@ -208,15 +208,15 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
 
 
   $scope.loadMoreFollowedProduct=function() {
-      if($scope.limit === 100)
+      if($scope.followedProductsCount === 100)
       {
             document.getElementById('tabMore').innerHTML = "More"
-            $scope.limit = 5;     
+            $scope.followedProductsCount = 5;     
       }
-      else if($scope.limit === 5)
+      else if($scope.followedProductsCount === 5)
       {
             document.getElementById('tabMore').innerHTML= "Less";
-            $scope.limit = 100;     
+            $scope.followedProductsCount = 100;     
       }
   };
 

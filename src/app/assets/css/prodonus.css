@@ -1673,7 +1673,7 @@ width:10%; height: 10%; float: left; margin: 5px; border: solid 1px #ccc;
 	visibility: hidden;
 }
 
-.floatLeft
+.floatRight
 {
 	float: right;
 }
@@ -1760,8 +1760,15 @@ text-align: right;
 }
 .textBoxContainer
 {
-	width : 98%;
+	width : 100%;
 	padding-right: 20px;
+}
+
+.modalMessageContainer
+{
+	width : 100%;
+	padding-right: 20px;
+	margin-bottom: 10px;
 }
 
 .prodoNormalSearchTextbox
