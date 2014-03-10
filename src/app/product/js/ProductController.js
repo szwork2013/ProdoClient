@@ -128,15 +128,17 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
           }
         }
         //if no comments , dont show load more comments button
-        $("#loadMoreCommentMsg").css("display", "none");
-        if (successData.success.product.product_comments) {
-          if (successData.success.product.product_comments.length < 4) {
-            $("#load-more").css("display", "none");
-          } else $("#load-more").css("display", "inline");
-        } 
-        if(successData.success.product.product_comments==undefined){
-              $("#loadMoreCommentMsg").css("display", "none");
-        }
+        // $("#loadMoreCommentMsg").css("display", "none");
+        $log.debug("COmments :   "+successData.success.product.product_comments);
+        // if((successData.success.product.product_comments==undefined) || (successData.success.product.product_comments==null)||(successData.success.product.product_comments=="")){
+        //       $("#loadMoreCommentMsg").css("display", "none");
+        // }
+        // if (successData.success.product.product_comments) {
+        //   if (successData.success.product.product_comments.length > 4) {
+        //     $("#load-more").css("display", "inline");
+        //   } 
+        // } 
+        
       }
     }, function (error) { //if error geting product
       $log.debug(error);
