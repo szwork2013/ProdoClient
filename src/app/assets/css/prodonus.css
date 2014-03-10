@@ -1286,7 +1286,7 @@ width: 518px;
 .prodo-comment-Text-tabs {align:left;}
 .productDisplay{margin-top: 20px;}
 .prodo-CommentDeleteMsg{font-size: 12px;padding-top: 20px;padding-bottom: 20px;background-color: gainsboro;padding-left: 10px;}
-
+.prodo-productThumbnailView:hover{zoom:0.9;-webkit-transform: scale( 0.9); -moz-transform: scale(0.9);}
 .modal-header {
 background-color: #f5f5f5;
 padding: 3px;
