@@ -1599,6 +1599,11 @@ width:10%; height: 10%; float: left; margin: 5px; border: solid 1px #ccc;
   	transition: all 1s ease;*/
   	display:inline-block;
     margin:5px;
+    width: 50px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+
 }
 
 .modalProductPic:hover {
@@ -1647,9 +1652,10 @@ width:10%; height: 10%; float: left; margin: 5px; border: solid 1px #ccc;
 /*Trending Products*/
 .thinnerFonts{
 
-	font-size: 12px;
+	font-size: 10px;
 	font-weight: 20;
 	color: #9797F3;
+
 }
 .leftBorder
 {
@@ -1667,7 +1673,7 @@ width:10%; height: 10%; float: left; margin: 5px; border: solid 1px #ccc;
  	background-color:#E4CBF5;
  	width:100%;
  	font-size : medium;
-   font-family : serif;
+    font-family : serif;
  }
 
 .arrowBtn:disabled {
@@ -1675,7 +1681,7 @@ width:10%; height: 10%; float: left; margin: 5px; border: solid 1px #ccc;
 	visibility: hidden;
 }
 
-.floatLeft
+.floatRight
 {
 	float: right;
 }
@@ -1762,8 +1768,15 @@ text-align: right;
 }
 .textBoxContainer
 {
-	width : 98%;
+	width : 100%;
 	padding-right: 20px;
+}
+
+.modalMessageContainer
+{
+	width : 100%;
+	padding-right: 20px;
+	margin-bottom: 10px;
 }
 
 .prodoNormalSearchTextbox
@@ -1784,6 +1797,30 @@ text-align: right;
 {
 	width : 94%;
 }
+.sidebarTableStyling
+{
+		width: 100%; 
+		color: black;
+		text-align: center;}
+.sidebarTableDataStyling
+{
+	text-align: left;
+	width:77%;
+}	
+	/*Search div box*/
+.searchDivHeading
+{
+		background-color: #494F53;
+       font-weight: bold; 
+       font-size:16px; 
+       text-align: center;
+}
+.unfollowButton
+{
+	background-color: #304A61;
+    color: white;
+}
+
 #prodo-searchResults
 {
     margin-top: -20px;
