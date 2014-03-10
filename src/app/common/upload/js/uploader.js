@@ -113,7 +113,7 @@ angular.module('prodo.UploadApp')
              UploadErrMsg.innerHTML = 'Image size must ne less than 1MB';
             $("#bar").hide();
           }
-        } else if ($scope.uploadSrc == "orglogo") { // upload product logo
+        } else if ($scope.uploadSrc == "orglogo") { // upload org logo
           if (($scope.file.size / 1024 < 1024)) {
             action = {
               orglogo: {
@@ -146,7 +146,7 @@ angular.module('prodo.UploadApp')
             // growl.addErrorMessage("Image size must ne less than 10MB");
             $("#bar").hide();
           }
-        } else if ($scope.uploadSrc == "org") { // upload product
+        } else if ($scope.uploadSrc == "org") { // upload org
           if (($scope.file.size / 1024 < 10240)) {
             action = {
               org: {
