@@ -75,7 +75,7 @@ angular.module('prodo.UploadApp')
               product: {
                 userid: $rootScope.usersession.currentUser.userid,
                 orgid: $rootScope.usersession.currentUser.org.orgid,
-                prodle: $scope.product_prodle
+                prodle: $rootScope.currentProdleRoot
               }
             };
           } else {
@@ -104,7 +104,7 @@ angular.module('prodo.UploadApp')
               productlogo: {
                 userid: $rootScope.usersession.currentUser.userid,
                 orgid: $rootScope.usersession.currentUser.org.orgid,
-                prodle: $scope.product_prodle
+                prodle: $rootScope.currentProdleRoot
               }
             };
           } else {
@@ -137,7 +137,7 @@ angular.module('prodo.UploadApp')
               product: {
                 userid: $rootScope.usersession.currentUser.userid,
                 orgid: $rootScope.usersession.currentUser.org.orgid,
-                prodle: $scope.product_prodle
+                prodle: $rootScope.currentProdleRoot
               }
             };
           } else {
@@ -230,7 +230,7 @@ $scope.productUploadResponseHandler=function(error, imagelocation){
         //    $scope.getFile($scope.counter);
       } else $scope.counter = 0;
     }
-    
+
 };
 
 $scope.productUploadLogoResponseHandler=function(error, imagelocation){
@@ -260,7 +260,6 @@ $scope.productUploadLogoResponseHandler=function(error, imagelocation){
       // growl.addSuccessMessage("File Uploaded successfully...");
       $scope.enableSuccessMsg();
       UploadSuccessMsg.innerHTML = 'File Uploaded successfully...';
-      
       $scope.imageSrc = imagelocation;
       $scope.counter++;
       $log.debug($scope.counter);
@@ -386,22 +385,25 @@ angular.module('prodo.UploadApp')
       el.bind("change", function (e) {
         $scope.file = (e.srcElement || e.target).files;
         //console.log($scope.file);
+         document.getElementById("FileName").innerHTML="";
         $scope.fileLength = (e.srcElement || e.target).files;
         //console.log("counter= " + $scope.counter);
         $scope.file = (e.srcElement || e.target).files;
         if ($scope.uploadSrc == "user") $scope.getFile($scope.file[0]);
         var addUploads = function (i) {
+          var fn = document.getElementById("FileName");
+            $("#FileName").show();
+
             var FileName = document.createElement("label");
             FileName.type = 'label';
             var title = document.createTextNode("File " + i.name);
             FileName.appendChild(title);
             FileName.name = 'label';
             FileName.setAttribute("style", "text-align:left");
-            var fn = document.getElementById("FileName");
             fn.appendChild(FileName);
             fn.style.width = '400px';
             var progressbarc = document.createElement("div");
-            progressbarc.className = ' progress progress-info progress-striped active';
+            progressbarc.className = ' progress progress-info  active';
             progressbarc.id = "a2" + i.name;
             progressbarc.style.textAlign = "left";
             fn.appendChild(progressbarc);
@@ -411,16 +413,19 @@ angular.module('prodo.UploadApp')
             var a = document.getElementById("a2" + i.name);
             progressbar.style.width = '300px';
             a.appendChild(progressbar);
-            var progress = setInterval(function () {
+
+           var progress = setInterval(function() {
               var $bar = $('.bar');
-              if ($bar.width() == 400) {
-                clearInterval(progress);
-                $('.progress').removeClass('active');
+              
+              if ($bar.width()==400) {
+                  clearInterval(progress);
+                  $('.progress').removeClass('active');
               } else {
-                $bar.width($bar.width() + 40);
+                  $bar.width($bar.width()+40);
               }
-              //    $bar.text($bar.width() / 4 + "%");
-            }, 800);
+              $bar.text($bar.width()/4 + "%");
+          }, 800);
+
 
             FileName = "";
             title = "";
@@ -429,6 +434,9 @@ angular.module('prodo.UploadApp')
             progressbar = "";
             progress = "";
             a = "";
+            // $("#FileName").fadeToggle(10000);
+              setTimeout(function(){ jQuery("#FileName").hide(); }, 4000);
+            // $('#FileName').fadeOut(6000);
           }
 
         for (var i = 0; i <= $scope.file.length; i++) {
@@ -446,6 +454,7 @@ angular.module('prodo.UploadApp')
           return function () {
             scope.$apply(function () {
               deferred.resolve(reader.result);
+              // document.getElementById('FileName').innerHTML="";
             });
           };
         };

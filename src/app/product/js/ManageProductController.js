@@ -56,6 +56,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
         $log.debug("prodle " + $scope.productlist[$scope.productlist.length - 1].prodle + "orgid " + $scope.orgidFromSession);
         $scope.currentProdle = $scope.productlist[$scope.productlist.length - 1].prodle;
         $scope.currentOrgid = $scope.productlist[$scope.productlist.length - 1].orgid;
+        $rootScope.currentProdleRoot = $scope.productlist[$scope.productlist.length - 1].prodle;
         $scope.getProduct($scope.currentProdle, $scope.currentOrgid);
       }
     }
