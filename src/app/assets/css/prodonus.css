@@ -1379,6 +1379,8 @@ list-animate-item-warranty {
 }
 
 
+.spanErr{display:none;}
+.spanSuccess{display:none;}
 
 .fileinput-button 
 {

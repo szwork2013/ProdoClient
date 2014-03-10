@@ -23,6 +23,23 @@ angular.module('prodo.UploadApp')
   $scope.uploadSrc;
   $scope.progressbar = 0;
   $scope.counter = 0;
+
+  var UploadErrMsg = document.getElementById('UploadErrMsg');
+   var UploadSuccessMsg=document.getElementById('UploadSuccessMsg');
+  
+  $scope.enableErrorMsg=function(){
+     $(".spanErr").css("display", "block");
+     $(".alert-danger").removeClass("in").show();
+     $(".alert-danger").delay(3000).addClass("in").fadeOut(2000);
+    
+  };
+  $scope.enableSuccessMsg=function(){
+    $(".spanSuccess").css("display", "block");
+    $(".alert-success").removeClass("in").show();
+    $(".alert-success").delay(3000).addClass("in").fadeOut(2000);
+    
+  };
+
   $scope.getFile = function (a) {
     $scope.progressbar = 0;
     $log.debug("source: " + $scope.uploadSrc);
@@ -47,7 +64,9 @@ angular.module('prodo.UploadApp')
               }
             };
           } else {
-            growl.addErrorMessage("Image size must ne less than 500KB");
+             $scope.enableErrorMsg();
+             UploadErrMsg.innerHTML = 'Image size must ne less than 500KB';
+            // growl.addErrorMessage("Image size must ne less than 500KB");
             $("#bar").hide();
           }
         } else if ($scope.uploadSrc == "product") { // upload product
@@ -60,7 +79,9 @@ angular.module('prodo.UploadApp')
               }
             };
           } else {
-            growl.addErrorMessage("Image size must ne less than 2MB");
+             $scope.enableErrorMsg();
+             UploadErrMsg.innerHTML = 'Image size must ne less than 2MB';
+            // growl.addErrorMessage("Image size must ne less than 2MB");
             $("#bar").hide();
           }
         } else if ($scope.uploadSrc == "org") { // upload org
@@ -72,7 +93,9 @@ angular.module('prodo.UploadApp')
               }
             };
           } else {
-            growl.addErrorMessage("Image size must ne less than 2MB");
+            $scope.enableErrorMsg();
+             UploadErrMsg.innerHTML = 'Image size must ne less than 2MB';
+            // growl.addErrorMessage("Image size must ne less than 2MB");
             $("#bar").hide();
           }
         } else if ($scope.uploadSrc == "productlogo") { // upload product logo
@@ -85,7 +108,9 @@ angular.module('prodo.UploadApp')
               }
             };
           } else {
-            growl.addErrorMessage("Image size must ne less than 1MB");
+            // growl.addErrorMessage("Image size must ne less than 1MB");
+             $scope.enableErrorMsg();
+             UploadErrMsg.innerHTML = 'Image size must ne less than 1MB';
             $("#bar").hide();
           }
         } else if ($scope.uploadSrc == "orglogo") { // upload product logo
@@ -97,7 +122,9 @@ angular.module('prodo.UploadApp')
               }
             };
           } else {
-            growl.addErrorMessage("Image size must ne less than 1MB");
+            $scope.enableErrorMsg();
+             UploadErrMsg.innerHTML = 'Image size must ne less than 1MB';
+            // growl.addErrorMessage("Image size must ne less than 1MB");
             $("#bar").hide();
           }
         }
@@ -114,7 +141,9 @@ angular.module('prodo.UploadApp')
               }
             };
           } else {
-            growl.addErrorMessage("Image size must ne less than 10MB");
+            $scope.enableErrorMsg();
+             UploadErrMsg.innerHTML = 'Image size must ne less than 10MB';
+            // growl.addErrorMessage("Image size must ne less than 10MB");
             $("#bar").hide();
           }
         } else if ($scope.uploadSrc == "org") { // upload product
@@ -126,40 +155,74 @@ angular.module('prodo.UploadApp')
               }
             };
           } else {
-            growl.addErrorMessage("Image size must ne less than 10MB");
+             $scope.enableErrorMsg();
+             UploadErrMsg.innerHTML = 'Image size must ne less than 10MB';
+            // growl.addErrorMessage("Image size must ne less than 10MB");
             $("#bar").hide();
           }
         } else {
-          growl.addErrorMessage("Please upload file of images type...");
+           $scope.enableErrorMsg();
+            UploadErrMsg.innerHTML = 'Please upload file of images type...';
+          // growl.addErrorMessage("Please upload file of images type...");
           $("#bar").hide();
         }
 
       }
+       // growl.addSuccessMessage("Uploading data");
       $scope.socket.emit('uploadFiles', file_data, action);
       $log.debug("pic emitted");
     });
     //            fileReader.readAsBinaryString($scope.file[a], $scope);
   };
+
   $scope.socket.removeAllListeners('productUploadResponse');
   $scope.socket.on('productUploadResponse', function (error, imagelocation) {
-    if (error) {
+   $scope.productUploadResponseHandler(error, imagelocation);
+  });
+    $scope.socket.removeAllListeners('productUploadLogoResponse');
+  $scope.socket.on('productUploadLogoResponse', function (error, imagelocation) {
+     $scope.productUploadLogoResponseHandler(error, imagelocation);
+  });
+   $scope.socket.removeAllListeners('orgUploadsResponse');
+  $scope.socket.on('orgUploadResponse', function (error, imagelocation) {
+    $scope.orgUploadResponseHandler(error, imagelocation);
+  });
+   $scope.socket.removeAllListeners('orgUploadLogoResponse');
+  $scope.socket.on('orgUploadLogoResponse', function (error, imagelocation) {
+  $scope.orgUploadLogoResponseHandler(error, imagelocation);
+  });
+   $scope.socket.removeAllListeners('userUploadResponse');
+  $scope.socket.on('userUploadResponse', function (error, imagelocation) {
+    $scope.userUploadResponseHandler(error, imagelocation);
+  });
+
+$scope.productUploadResponseHandler=function(error, imagelocation){
+ if (error) {
       $("#bar").hide();
 
       if (error.error.code == 'AP003') { // user already exist
         $log.debug(error.error.code + " " + error.error.message);
-        growl.addErrorMessage("Error while uploading " + $scope.file.name + " " + error.error.message);
+        $scope.enableErrorMsg();
+        UploadErrMsg.innerHTML = "Error while uploading " + $scope.file.name + " " + error.error.message;
+        // growl.addErrorMessage("Error while uploading " + $scope.file.name + " " + error.error.message);
       } else if (error.error.code == 'AV001') { // user data invalid
         $log.debug(error.error.code + " " + error.error.message);
-        growl.addErrorMessage(" Error while uploading " + $scope.file.name + " " + error.error.message);
+        $scope.enableErrorMsg();
+        UploadErrMsg.innerHTML = "Error while uploading "+ $scope.file.name + " " + error.error.message;
+        // growl.addErrorMessage(" Error while uploading " + $scope.file.name + " " + error.error.message);
       } else {
         $log.debug(error.error.message);
-        growl.addErrorMessage("Error while uploading " + $scope.file.name + " " + error.error.message);
+        $scope.enableErrorMsg();
+        UploadErrMsg.innerHTML = "Error while uploading "+ $scope.file.name + " " + error.error.message;
+        // growl.addErrorMessage("Error while uploading " + $scope.file.name + " " + error.error.message);
       }
 
     } else {
       $scope.imageSrc = JSON.stringify(imagelocation);
       $log.debug("getting response for product upload  " + $scope.imageSrc);
-       growl.addSuccessMessage("File uploaded");
+      $scope.enableSuccessMsg();
+      UploadSuccessMsg.innerHTML = 'File Uploaded successfully...';
+      // growl.addSuccessMessage("File Uploaded successfully...");
       $scope.counter++;
       $log.debug($scope.counter);
       if ($scope.counter < $scope.fileLength) {
@@ -167,28 +230,36 @@ angular.module('prodo.UploadApp')
         //    $scope.getFile($scope.counter);
       } else $scope.counter = 0;
     }
-  });
+};
 
-  $scope.socket.removeAllListeners('productUploadLogoResponse');
-  $scope.socket.on('productUploadLogoResponse', function (error, imagelocation) {
+$scope.productUploadLogoResponseHandler=function(error, imagelocation){
+         // growl.addSuccessMessage("after uploading");
     if (error) {
       $("#bar").hide();
-
-      if (error.error.code == 'AP003') { // user already exist
+     if (error.error.code == 'AP003') { // user already exist
         $log.debug(error.error.code + " " + error.error.message);
-        growl.addErrorMessage("Error while uploading " + $scope.file.name + " " + error.error.message);
+         $scope.enableErrorMsg();
+        UploadErrMsg.innerHTML = "Error while uploading "+ $scope.file.name + " " + error.error.message;
+        // growl.addErrorMessage("Error while uploading " + $scope.file.name + " " + error.error.message);
       } else if (error.error.code == 'AV001') { // user data invalid
         $log.debug(error.error.code + " " + error.error.message);
-        growl.addErrorMessage("Error while uploading " + $scope.file.name + " " + error.error.message);
+        $scope.enableErrorMsg();
+        UploadErrMsg.innerHTML = "Error while uploading "+ $scope.file.name + " " + error.error.message;
+        // growl.addErrorMessage("Error while uploading " + $scope.file.name + " " + error.error.message);
       } else {
         $log.debug(error.error.message);
-        growl.addErrorMessage("Error while uploading " + $scope.file.name + " " + error.error.message);
+         $scope.enableErrorMsg();
+        UploadErrMsg.innerHTML = "Error while uploading "+ $scope.file.name + " " + error.error.message;
+        // growl.addErrorMessage("Error while uploading " + $scope.file.name + " " + error.error.message);
 
       }
     } else {
       $scope.imageSrc = JSON.stringify(imagelocation);
       $log.debug("getting response for logo upload  " + $scope.imageSrc);
-       growl.addErrorMessage("Logo Uploaded successfully...");
+      // growl.addSuccessMessage("File Uploaded successfully...");
+      $scope.enableSuccessMsg();
+      UploadSuccessMsg.innerHTML = 'File Uploaded successfully...';
+
       $scope.imageSrc = imagelocation;
       $scope.counter++;
       $log.debug($scope.counter);
@@ -197,28 +268,33 @@ angular.module('prodo.UploadApp')
         //    $scope.getFile($scope.counter);
       } else $scope.counter = 0;
     }
-  });
-
-
-
-  $scope.socket.removeAllListeners('orgUploadsResponse');
-  $scope.socket.on('orgUploadResponse', function (error, imagelocation) {
-    if (error) {
+};
+ 
+  $scope.orgUploadResponseHandler=function(error, imagelocation){
+   if (error) {
       $("#bar").hide();
 
       if (error.error.code == 'AP003') { // user already exist
         $log.debug(error.error.code + " " + error.error.message);
-        growl.addErrorMessage("Error while uploading " + $scope.file.name + " " + error.error.message);
+        $scope.enableErrorMsg();
+        UploadErrMsg.innerHTML = "Error while uploading "+ $scope.file.name + " " + error.error.message;
+        // growl.addErrorMessage("Error while uploading " + $scope.file.name + " " + error.error.message);
       } else if (error.error.code == 'AV001') { // user data invalid
         $log.debug(error.error.code + " " + error.error.message);
-        growl.addErrorMessage("Error while uploading " + $scope.file.name + " " + error.error.message);
+        $scope.enableErrorMsg();
+        UploadErrMsg.innerHTML = "Error while uploading "+ $scope.file.name + " " + error.error.message;
+        // growl.addErrorMessage("Error while uploading " + $scope.file.name + " " + error.error.message);
       } else {
         $log.debug(error.error.message);
-        growl.addErrorMessage("Error while uploading " + $scope.file.name + " " + error.error.message);
+        $scope.enableErrorMsg();
+        UploadErrMsg.innerHTML = "Error while uploading "+ $scope.file.name + " " + error.error.message;
+        // growl.addErrorMessage("Error while uploading " + $scope.file.name + " " + error.error.message);
       }
 
     } else {
       $log.debug("getting response for org upload  " + imagelocation);
+      $scope.enableSuccessMsg();
+      UploadSuccessMsg.innerHTML = 'File Uploaded successfully...';
       $scope.imageSrc = imagelocation;
       $scope.counter++;
       $log.debug($scope.counter);
@@ -227,26 +303,34 @@ angular.module('prodo.UploadApp')
         //    $scope.getFile($scope.counter);
       } else $scope.counter = 0;
     }
-  });
+  };
 
-  $scope.socket.removeAllListeners('orgUploadLogoResponse');
-  $scope.socket.on('orgUploadLogoResponse', function (error, imagelocation) {
-    if (error) {
+   $scope.orgUploadLogoResponseHandler=function(error, imagelocation){
+       if (error) {
       $("#bar").hide();
 
       if (error.error.code == 'AP003') { // user already exist
         $log.debug(error.error.code + " " + error.error.message);
-        growl.addErrorMessage("Error while uploading " + $scope.file.name + " " + error.error.message);
+        $scope.enableErrorMsg();
+        UploadErrMsg.innerHTML = "Error while uploading "+ $scope.file.name + " " + error.error.message;
+        // growl.addErrorMessage("Error while uploading " + $scope.file.name + " " + error.error.message);
       } else if (error.error.code == 'AV001') { // user data invalid
         $log.debug(error.error.code + " " + error.error.message);
-        growl.addErrorMessage("Error while uploading " + $scope.file.name + " " + error.error.message);
+        $scope.enableErrorMsg();
+        UploadErrMsg.innerHTML = "Error while uploading "+ $scope.file.name + " " + error.error.message;
+        // growl.addErrorMessage("Error while uploading " + $scope.file.name + " " + error.error.message);
       } else {
         $log.debug(error.error.message);
-        growl.addErrorMessage("Error while uploading " + $scope.file.name + " " + error.error.message);
+        $scope.enableErrorMsg();
+        UploadErrMsg.innerHTML = "Error while uploading "+ $scope.file.name + " " + error.error.message;
+        // growl.addErrorMessage("Error while uploading " + $scope.file.name + " " + error.error.message);
       }
 
     } else {
       $log.debug("getting response for org upload logo " + imagelocation);
+      // growl.addSuccessMessage("File uploaded");
+      $scope.enableSuccessMsg();
+      UploadSuccessMsg.innerHTML = 'File Uploaded successfully...';
       $scope.imageSrc = imagelocation;
       $scope.counter++;
       $log.debug($scope.counter);
@@ -255,27 +339,33 @@ angular.module('prodo.UploadApp')
         //    $scope.getFile($scope.counter);
       } else $scope.counter = 0;
     }
-  });
+  };
 
-
-  $scope.socket.removeAllListeners('userUploadResponse');
-  $scope.socket.on('userUploadResponse', function (error, imagelocation) {
-    if (error) {
+     $scope.userUploadResponseHandler=function(error, imagelocation){
+     if (error) {
       $("#bar").hide();
 
       if (error.error.code == 'AP003') { // user already exist
         $log.debug(error.error.code + " " + error.error.message);
-        growl.addErrorMessage("Error while uploading " + $scope.file.name + " " + error.error.message);
+        $scope.enableErrorMsg();
+        UploadErrMsg.innerHTML = "Error while uploading "+ $scope.file.name + " " + error.error.message;
+        // growl.addErrorMessage("Error while uploading " + $scope.file.name + " " + error.error.message);
       } else if (error.error.code == 'AV001') { // user data invalid
         $log.debug(error.error.code + " " + error.error.message);
-        growl.addErrorMessage("Error while uploading " + $scope.file.name + " " + error.error.message);
+        $scope.enableErrorMsg();
+        UploadErrMsg.innerHTML = "Error while uploading "+ $scope.file.name + " " + error.error.message;
+        // growl.addErrorMessage("Error while uploading " + $scope.file.name + " " + error.error.message);
       } else {
         $log.debug(error.error.message);
-        growl.addErrorMessage("Error while uploading " + $scope.file.name + " " + error.error.message);
+        $scope.enableErrorMsg();
+        UploadErrMsg.innerHTML = "Error while uploading "+ $scope.file.name + " " + error.error.message;
+        // growl.addErrorMessage("Error while uploading " + $scope.file.name + " " + error.error.message);
       }
 
     } else {
       $log.debug("getting response for user upload  " + imagelocation);
+      $scope.enableSuccessMsg();
+      UploadSuccessMsg.innerHTML = 'File Uploaded successfully...';
       $scope.imageSrc = imagelocation;
       $scope.counter++;
       $log.debug($scope.counter);
@@ -284,7 +374,7 @@ angular.module('prodo.UploadApp')
         //    $scope.getFile($scope.counter);
       } else $scope.counter = 0;
     }
-  });
+  };
 
 }]);
 
