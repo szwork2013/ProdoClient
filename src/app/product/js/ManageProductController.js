@@ -44,11 +44,11 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
 
   $scope.$watch('$state.$current.locals.globals.allproductdata', function (allproductdata) {
     if (allproductdata.error) {
-      temp.innerHTML = "<br>Product not available ... Add new product<br><br>";
+      document.getElementById("ErrMsging").innerHTML = "<br>Product not available ... Add new product<br><br>";
     } else {
       $scope.productlist = allproductdata.success.product;
       if ($scope.productlist.length == 0) { //after deleting product, check for next product from product followed,if no product - display msg
-        temp.innerHTML = "<br>Product not available ... Add new product<br><br>";
+        document.getElementById("ErrMsging").innerHTML = "<br>Product not available ... Add new product<br><br>";
         // growl.addErrorMessage(" Product not available ...");
       }
       if ($scope.productlist.length !== 0) {
