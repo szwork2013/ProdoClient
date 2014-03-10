@@ -30,13 +30,13 @@ angular.module('prodo.UploadApp')
   $scope.enableErrorMsg=function(){
      $(".spanErr").css("display", "block");
      $(".alert-danger").removeClass("in").show();
-     $(".alert-danger").delay(3000).addClass("in").fadeOut(2000);
+     $(".alert-danger").delay(5000).addClass("in").fadeOut(2000);
     
   };
   $scope.enableSuccessMsg=function(){
     $(".spanSuccess").css("display", "block");
     $(".alert-success").removeClass("in").show();
-    $(".alert-success").delay(3000).addClass("in").fadeOut(2000);
+    $(".alert-success").delay(5000).addClass("in").fadeOut(2000);
     
   };
 
@@ -230,6 +230,7 @@ $scope.productUploadResponseHandler=function(error, imagelocation){
         //    $scope.getFile($scope.counter);
       } else $scope.counter = 0;
     }
+    
 };
 
 $scope.productUploadLogoResponseHandler=function(error, imagelocation){
@@ -259,7 +260,7 @@ $scope.productUploadLogoResponseHandler=function(error, imagelocation){
       // growl.addSuccessMessage("File Uploaded successfully...");
       $scope.enableSuccessMsg();
       UploadSuccessMsg.innerHTML = 'File Uploaded successfully...';
-
+      
       $scope.imageSrc = imagelocation;
       $scope.counter++;
       $log.debug($scope.counter);
