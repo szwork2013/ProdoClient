@@ -418,30 +418,29 @@ angular.module('prodo.UploadApp')
          
            
             var perc =  '100';
-            var userInput = 2;  // in seconds
-            var speed = userInput * 10;
+            var userInput = (i.size/1024)/100;  // in seconds
+            var speed = userInput * 20;
             var currentPerc = 0;
-            var progress = setInterval(function() {
-                if (currentPerc >= perc) {
+        
+
+           var progress = setInterval(function() {
+              var $bar = $('.bar');
+                   if (currentPerc >= perc) {
                     clearInterval(progress);
+                     $('.progress').removeClass('active');
                 } else {
                     currentPerc += 1;
                      $bar.css('width', (currentPerc) + '%');
                 }
                  $bar.text((currentPerc) + '%');
+
+                  // if(currentPerc==100){
+                  //   setTimeout(function(){ jQuery("#FileName").hide(); },1000);
+                  // }
+
             }, speed);
 
-          //  var progress = setInterval(function() {
-          //     var $bar = $('.bar');
-          //     if ($bar.width()==400) {
-          //      clearInterval(progress);
-          //      $('.progress').removeClass('active');
-          //     } else {
-          //         $bar.width($bar.width()+40);
-          //     }
-          //     $bar.text($bar.width()/4 + "%");
-          // }, 800);
-
+           
 
             FileName = "";
             title = "";
@@ -450,8 +449,12 @@ angular.module('prodo.UploadApp')
             progressbar = "";
             progress = "";
             a = "";
+            // perc="";
+            // userInput="";
+            // speed="";
+             // currentPerc="";
           
-              // setTimeout(function(){ jQuery("#FileName").hide(); }, 7000);
+              
           }
 
         for (var i = 0; i <= $scope.file.length; i++) {

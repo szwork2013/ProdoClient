@@ -283,7 +283,14 @@ $scope.addProductComment = function () {
     if (follow == true) {
       $log.debug($scope.newProductComment);
       $scope.socket.emit('addComment', $rootScope.product_prodle, $scope.newProductComment.product_comment);
-      $scope.productComments.unshift($scope.newProductComment_image.product_comment);
+       if($scope.productComments == undefined ){
+        $scope.productComments = [];
+        $scope.productComments.unshift($scope.newProductComment_image.product_comment);
+        }
+        else{
+           $scope.productComments.unshift($scope.newProductComment_image.product_comment);
+        }
+     
       $scope.commenttextField.userComment = "";
       $scope.tagPairs = [];
       $rootScope.count = 0;
