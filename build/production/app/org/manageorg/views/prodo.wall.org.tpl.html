@@ -13,7 +13,7 @@
 
 	<div>
 		<br>
-	<h5 style="color: #86846E; margin-bottom: 2px;">BASIC INFO</h5>
+	<h5 style="color: #86846E; margin-bottom: 2px;">COMPANY DETAILS</h5>
   <hr size=3 width="100%;" style="background-color:#BDBDBD; height:1px; margin-top: 0;" noshade>
 	<dl class="dl-horizontal">
 	  <dt>Description:</dt>
@@ -37,56 +37,58 @@
   </dl>
 	</div>
 	</div>
-
-	<br>
-	 <div>
-	<h5 style="color: #86846E; margin-bottom: 2px;">SERVICE CENTERS</h5>
-  <hr size=3 width="100%;" style="background-color:#BDBDBD; height:1px; margin-top: 0;" noshade>
-
- 
-  	<div class="bar">
-  		<div class="right-inner-addon ">
-    		<i class="fa fa-search"></i>
-    		<input style='width:270px;' type="search" class="form-control" placeholder="Search" ng-model="searchAddress"/>
-			</div>
-    </div>
+   
+	<div ng-hide="(orgAd.loctype != 'Service Centers')">
     <br>
-    <table ng-show="(orgAd.loctype == 'Service Centers')" class="table table-condensed" ng-repeat="orgAd in orgaddr">
-      <tr style="font-weight: bold">
-        <td style="width:5%">#</td>
-        <td style="width:35%">Address</td>
-        <td style="width:20%">Country</td>
-        <td style="width:20%">State</td>
-        <td style="width:20%">Contacts</td>
-      </tr>
-      <tbody>
-        <tr ng-repeat="addr in orgAd.location | filter:searchAddress">
-        <td>{{$index + 1}}</td>
-        <td>
-          {{addr.address.address1}},<br>{{addr.address.address2}},<br>{{addr.address.address3}},<br>{{addr.address.city}},{{addr.address.zipcode}}
-        </td>
-        <td>
-          {{addr.address.country}}
-        </td>
-        <td>
-          {{addr.address.state}}
-        </td>
-        <td>
-          {{addr.contacts[0].customerhelpline}}<br>{{addr.contacts[1].customerhelpline}}<br>{{addr.contacts[2].customerhelpline}}
-        </td>
-      </tr>
-    </tbody>
-  </table>
-	</div>
+  	<h5 style="color: #86846E; margin-bottom: 2px;">SERVICE CENTERS</h5>
+    <hr size=3 width="100%;" style="background-color:#BDBDBD; height:1px; margin-top: 0;" noshade>
+
+   
+    	<div class="bar">
+    		<div class="right-inner-addon ">
+      		<i class="fa fa-search"></i>
+      		<input style='width:270px;' type="search" class="form-control" placeholder="Search" ng-model="searchAddress"/>
+  			</div>
+      </div>
+      <br>
+      <table ng-show="(orgAd.loctype == 'Service Centers')" class="table table-condensed" ng-repeat="orgAd in orgaddr">
+        <tr style="font-weight: bold">
+          <td style="width:5%">#</td>
+          <td style="width:35%">Address</td>
+          <td style="width:20%">Country</td>
+          <td style="width:20%">State</td>
+          <td style="width:20%">Contacts</td>
+        </tr>
+        <tbody>
+          <tr ng-repeat="addr in orgAd.location | filter:searchAddress">
+          <td>{{$index + 1}}</td>
+          <td>
+            {{addr.address.address1}},<br>{{addr.address.address2}},<br>{{addr.address.address3}},<br>{{addr.address.city}},{{addr.address.zipcode}}
+          </td>
+          <td>
+            {{addr.address.country}}
+          </td>
+          <td>
+            {{addr.address.state}}
+          </td>
+          <td>
+            {{addr.contacts[0].customerhelpline}}<br>{{addr.contacts[1].customerhelpline}}<br>{{addr.contacts[2].customerhelpline}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  	</div>
 
   <br>
   <h5 style="color: #86846E; margin-bottom: 2px;">PRODUCTS</h5>
-  <hr size=3 width="100%;" style="background-color:#BDBDBD; height:1px; margin-top: 0;" noshade>
+  <hr size=3 width="100%;" style="background-color:#BDBDBD; height:1px; margin: 2px auto;" noshade>
+  <div ng-show='isFollowing' growl></div>
     <div ng-show='productlist.length == 0'> <p style="text-align:left; font-size:20px; margin: 20px auto;" class="text-success"><strong><em>Currently no products available.</em></strong></p></div>
   	<div style="width:160px; min-height: 200px; float: left; margin: 5px; border: solid 1px #ccc;" ng-repeat="product in productlist">
-	    <p style="margin:5px auto; display:block; text-align:center; font-weight:bold; font-size:12px;">{{product.name}}</p>
-	    <img style="margin:0px auto; display:block; width:95%; height: 150px; " src="{{product.product_logo}}" alt=" No Image" class="img-rounded">
-	    <button style="margin:5px auto; display:block; height:25px; width: 95%; background-color:#304A61;" class="btn btn-primary btn-sm" ng-click='usersession.followProduct(product.prodle)'>Follow</button>
+	    <p style="margin:5px auto; display:block; text-align:left; font-weight:bold; font-size:14px;">{{product.name}}</p>
+	    <img ng-show="product.product_logo" style="margin:0px auto; display:block; width:95%; height: 150px; " src="{{product.product_logo.image}}" alt=" No Image" class="img-rounded">
+      <img ng-hide="product.product_logo" style="margin:0px auto; display:block; width:95%; height: 150px; " src="../../../assets/images/if_no_logo_images_available.gif" alt=" No Image" class="img-rounded">
+	    <button class="prodo-follow-btn btn btn-primary btn-sm" ng-click='follow(product)'>Follow</button>
 	  </div>
 
 </div>

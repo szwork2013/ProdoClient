@@ -14,6 +14,7 @@
 <div ng-app="prodo.ProductApp" id="prodo-comment-container" class="container prodo-ProductContainer" ng-controller="ProductController" >
 <!--  -->
 <div growl></div>
+  
 <div id="ErrMsging" class="prodo-ErrMsging"></div>
 <br>
 <div id="prodo-ProductDetails">
@@ -26,8 +27,8 @@
       MODEL NO :&nbsp; <span ng-bind="product.model_no"></span>
       <br>
       <span>
-        <i ng-click="ShowDescription();" class="fa fa-caret-right fa-2x prodo-cursor"></i>Description :
-        <p id="prodo-description" class="prodo-description" ng-bind="product.description" > </p>
+        <!-- <i ng-click="ShowDescription();" class="fa fa-caret-right fa-2x prodo-cursor"></i> -->Description :
+        <span id="prodo-description" class="prodo-description" ng-bind="product.description" > </span>
       </span>
     </span>
     <table class="table child "  id="prodo-ProductFeatureTable" >
@@ -46,25 +47,20 @@
     <div id="prodo-comment-fixed" ng-controller="ProductCommentController">
       <!-- tabs -->
       <div class="prodo-comment-Text-tabs " id="tabs">
-        <ul id="commentTab" class=" commentTab nav nav-pills" ng-init="tabSearch = false;tabFeature=false;
+        <ul id="commentTab" class=" commentTab nav nav-pills" ng-init="tabSearch = false;
           tabComment = true" >
           <li >
-            <a  class="prodo-cursor"  ng-click="tabComment = true; tabSearch=false;tabFeature=false;">
+            <a  class="prodo-cursor"  ng-click="tabComment = true; tabSearch=false;">
               <div  id="fa-removeComment" name="rm" class=" fa fa-comments-o fa-lg  " ></div>
             </a>
           </li>
           <li>
             <a  class="prodo-cursor" ng-click="tabSearch =  true ;
-              tabComment = false;tabFeature=false;">
+              tabComment = false;">
               <div id="fa-tagsComment" class="fa fa-search fa-lg"  ></div>
             </a>
           </li>
-          <li>
-            <a  class="prodo-cursor"  ng-click="tabFeature=true;tabSearch =  false ;
-              tabComment = false;">
-              <div id="fa-tagsFeature" class="fa fa-list fa-lg"  ></div>
-            </a>
-          </li>
+         
         </ul>
         <div class="tab-content">
           <div id="Remove" ng-show="tabComment == 1"   >
@@ -75,8 +71,17 @@
               </a>
               <div ng-controller="DragImageController">
                 <div id="prodo-comment-textBox-container">
+                    <div collapse="isCollapsed" style="width:80%;margin-left:30px;"> 
+                     <b> Select the feature to talk on </b>
+                     <p style="font-size:7px;">Features are vertically scrollable</p>
+                           <ul style="max-height:60px;overflow-x:hidden; overflow-y: auto;">
+                              <li ng-repeat="feature in features track by $index" ng-click="addFeatureToComment(feature.featurename)" class="hyperlinkPointer"> 
+                              <span ng-bind="feature.featurename" style="font-size:12px;"> </span>
+                              </li>
+                           </ul>
+                      </div>
                   <div id="holder">
-                    <textarea id="prodo-comment-Textbox" col="40" type="text" class="form-control " name="txtComment" placeholder="Product Conversation [max 300 characters]"   ng-model="commenttextField.userComment" comment-limit="300" ng-enter="addProductComment()" required  pop-over items="featuretags", title="Select Feature" ></textarea>
+                    <textarea id="prodo-comment-Textbox" col="40" type="text" class="form-control " name="txtComment" placeholder="Product Conversation [max 300 characters]"   ng-model="commenttextField.userComment" comment-limit="300" ng-enter="addProductComment();hideFeature()" required  pop-over items="featuretags", title="Select Feature" ng-click="showFeature()"></textarea>  
                     <!-- tags -->
                     <div id="prodo-productTags">
                       <form  role="form">
@@ -109,30 +114,21 @@
             <br>
             <input ng-model="search" class="commentSearchTextbox form-control " id="prodo-comment-search-Textbox"  type="text"   placeholder="Search comments ...">
           </div>
-          <div id="Remove" ng-show="tabFeature == 1" class="prodo-padding-bottom" >
-            <table class="table child " id="prodo-ProductFeatureTable" >
-              <tr >
-                <td>
-                  <dt>Feature</dt>
-                </td>
-                <td>
-                  <dt>Description </dt>
-                </td>
-              </tr>
-              <tr ng-repeat="feature in features track by $index">
-                <td  > <span ng-bind="feature.featurename"> </span></td>
-                <td  > <span ng-bind="feature.featuredescription"> </span></td>
-              </tr>
-            </table>
-          </div>
+    
         </div>
       </div>
       <!-- tabs -->
+      <div class="span4 spanCommentIMGErr " >
+      <div class="alert alert-danger fade" id="text">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <strong><div id="UploadCommentIMGErrMsg"></div></strong>
+      </div>
+    </div>
       <ul class="media-list "  id="prodo-comment-media-list">
         <div prodo-comments    id="prodo-comment-commentContainer"  >
         </div>
       </ul>
-      <button class="" id="load-more" ng-click="loadMoreComments()">  
+      <button class="" id="load-more" ng-click="loadMoreComments()" ng-show="productComments.length>4">  
       <span id="img-spinner" > <i  class=" prodo-loadmoreColor fa fa-spinner fa-spin "> </i></span>
       Load more...
       </button>

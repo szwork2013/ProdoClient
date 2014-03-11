@@ -1,10 +1,11 @@
 angular.module('prodo.ProdoWallApp')
-	.controller('ProdoWallController', ['$rootScope', '$scope', '$state', '$log', 'OrgRegistrationService', 'orgdata', 'orgaddr', 'orgproduct', '$stateParams', function($rootScope, $scope, $state, $log, OrgRegistrationService, orgdata, orgaddr, orgproduct, $stateParams) {
+	.controller('ProdoWallController', ['$rootScope', '$scope', '$state', '$log', 'UserSessionService', 'orgdata', 'orgaddr', 'orgproduct', '$stateParams', 'growl', function($rootScope, $scope, $state, $log, UserSessionService, orgdata, orgaddr, orgproduct, $stateParams, growl) {
 
     $rootScope.orgdata = {};
     $scope.orgaddr = [];
     $scope.productlist = [];
     $rootScope.images = [];
+    $scope.isFollowing = false;
 
     $scope.updateimages = function(data) {
       $rootScope.manageSlider="";   // Added this variable to check conditions in tpl
@@ -17,7 +18,7 @@ angular.module('prodo.ProdoWallApp')
       else if (data.length===0)
       {
         $rootScope.images = "";    // Omkar: To clear previous images
-        $rootScope.images= [{image: 'http://placehold.it/500x200/fgfgfg' }];    // This will be shown when org images are not there    
+        $rootScope.images= [{image: '../../../assets/images/if_no_org_images_available.gif' }];    // This will be shown when org images are not there    
       }
     };
     
@@ -44,8 +45,11 @@ angular.module('prodo.ProdoWallApp')
     // $rootScope.images = orgdata.success.organization.org_images;
     $scope.$watch('$state.$current.locals.globals.orgdata', function (orgdata) {
       $rootScope.orgdata = orgdata.success.organization;
+      if (orgdata.success.organization.org_logo == undefined) {
+        $rootScope.orgdata.org_logo = {image: '../../../assets/images/if_no_logo_images_available.gif'}
+      }
       $scope.updateimages(orgdata.success.organization.org_images);
-      console.log($rootScope.orgdata);
+      $log.debug($rootScope.orgdata);
     });
 
     $scope.$watch('$state.$current.locals.globals.orgaddr', function (orgaddr) {
@@ -54,10 +58,38 @@ angular.module('prodo.ProdoWallApp')
 
     $scope.$watch('$state.$current.locals.globals.orgproduct', function (orgproduct) {
       if (orgproduct.error) {
-            console.log('No product available');
-          } else {
-              $scope.productlist = orgproduct.success.product; 
-          }
+        $log.debug('No product available');
+      } else {
+        $scope.productlist = orgproduct.success.product; 
+      }
+    });
+
+    $scope.handlefollowproductResponse = function(data, product){
+      if (data.success) {
+        UserSessionService.productfollowlist.push(product);
+        growl.addSuccessMessage('You have successfully followed' + ' ' + product.name);    
+      } else {
+          $log.debug(data.error.message);
+          growl.addErrorMessage(data.error.message); 
+      }
+    }; 
+
+    $scope.follow = function(product){
+      UserSessionService.followProduct(product.prodle, product);
+    };
+
+    var cleanupEventFollowProductDone = $scope.$on('followProductDone', function(event, data, product) {
+          $scope.isFollowing = true;
+          $scope.handlefollowproductResponse(data, product);
+      });
+    var cleanupEventFollowProductNotDone = $scope.$on('followProductNotDone', function(event, data) {
+        $scope.isFollowing = true;
+        growl.addErrorMessage('There is some server error.');
+      });    
+
+    $scope.$on('$destroy', function(event, data) {
+      cleanupEventFollowProductDone(); 
+      cleanupEventFollowProductNotDone();               
     });
 
 	}]);
