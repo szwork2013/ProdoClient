@@ -25,6 +25,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   $scope.type = "product";
   $scope.productlist = [];
   $rootScope.product_prodle;
+  $scope.newProduct_ResponseProdle="";
   $rootScope.orgid;
   $scope.pImages_l = {
     product_images: [{}]
@@ -56,12 +57,18 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
         // growl.addErrorMessage(" Product not available ...");
       }
       if ($scope.productlist.length !== 0) {
-        $log.debug("prodle " + $scope.productlist.length);
+         // $log.debug("ADDED."+$scope.newProduct_ResponseProdle);
+        // $log.debug("prodle " + $scope.productlist.length);
         $log.debug("prodle " + $scope.productlist[$scope.productlist.length - 1].prodle + "orgid " + $scope.orgidFromSession);
         $scope.currentProdle = $scope.productlist[$scope.productlist.length - 1].prodle;
         $scope.currentOrgid = $scope.productlist[$scope.productlist.length - 1].orgid;
         $rootScope.currentProdleRoot = $scope.productlist[$scope.productlist.length - 1].prodle;
-        $scope.getProduct($scope.currentProdle, $scope.currentOrgid);
+        if($scope.newProduct_ResponseProdle!=="" ){
+          $scope.getProduct($scope.newProduct_ResponseProdle, $scope.currentOrgid);
+          $scope.newProduct_ResponseProdle="";
+        }
+        else
+          $scope.getProduct($scope.currentProdle, $scope.currentOrgid);
       }
     }
   });
@@ -87,7 +94,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   //get login details
 
   $scope.getProduct = function (l_prodle, l_orgid) {
-    $log.debug("1 prodle " + l_prodle + "orgid " + l_orgid);
+    // $log.debug("1 prodle " + l_prodle + "orgid " + l_orgid);
     ProductService.getProduct({
       orgid: l_orgid,
       prodle: l_prodle
@@ -167,9 +174,12 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
         ProductService.saveProduct({
           orgid: $scope.orgidFromSession
         }, $scope.newProduct, function (success) {
-          $log.debug(success);
-          $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
+          if(success.success){
+           $scope.newProduct_ResponseProdle=success.success.prodle;
+          }
+         $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
         }, function (error) {
+          growl.addErrorMessage(error);
           $log.debug(error);
         });
 
@@ -191,11 +201,13 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
             orgid: $scope.orgidFromSession,
             prodle: $scope.currentProdle
           }, $scope.newProduct, function (success) {
-            // $log.debug(success);
+            $scope.newProduct_ResponseProdle=$scope.currentProdle;
+             $log.debug(success);
             $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
             $scope.getProduct($scope.currentProdle, $scope.currentOrgid);
           }, function (error) {
             $log.debug(error);
+            growl.addErrorMessage(error);
           });
         }
       } else growl.addErrorMessage("You dont have rights to update this product...");
@@ -217,6 +229,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
           // $scope.handleProductDeleted();
         }, function (error) {
           $log.debug(JSON.stringify(error));
+           growl.addErrorMessage(error);
         });
       }
       // }

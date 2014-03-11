@@ -412,18 +412,35 @@ angular.module('prodo.UploadApp')
             progressbar.id = 'bar';
             var a = document.getElementById("a2" + i.name);
             progressbar.style.width = '300px';
+            var $bar = $('.bar');
             a.appendChild(progressbar);
+            $('.bar').css('width','0%');
+         
+           
+            var perc =  '100';
+            var userInput = 2;  // in seconds
+            var speed = userInput * 10;
+            var currentPerc = 0;
+            var progress = setInterval(function() {
+                if (currentPerc >= perc) {
+                    clearInterval(progress);
+                } else {
+                    currentPerc += 1;
+                     $bar.css('width', (currentPerc) + '%');
+                }
+                 $bar.text((currentPerc) + '%');
+            }, speed);
 
-           var progress = setInterval(function() {
-              var $bar = $('.bar');
-              if ($bar.width()==400) {
-               clearInterval(progress);
-               $('.progress').removeClass('active');
-              } else {
-                  $bar.width($bar.width()+40);
-              }
-              $bar.text($bar.width()/4 + "%");
-          }, 800);
+          //  var progress = setInterval(function() {
+          //     var $bar = $('.bar');
+          //     if ($bar.width()==400) {
+          //      clearInterval(progress);
+          //      $('.progress').removeClass('active');
+          //     } else {
+          //         $bar.width($bar.width()+40);
+          //     }
+          //     $bar.text($bar.width()/4 + "%");
+          // }, 800);
 
 
             FileName = "";
@@ -433,9 +450,8 @@ angular.module('prodo.UploadApp')
             progressbar = "";
             progress = "";
             a = "";
-            // $("#FileName").fadeToggle(10000);
-              setTimeout(function(){ jQuery("#FileName").hide(); }, 4000);
-            // $('#FileName').fadeOut(6000);
+          
+              // setTimeout(function(){ jQuery("#FileName").hide(); }, 7000);
           }
 
         for (var i = 0; i <= $scope.file.length; i++) {
