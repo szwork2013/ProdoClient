@@ -149,6 +149,7 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
       document.getElementById("ErrMsging").innerHTML = "Server Error:" + error.status;
       // growl.addErrorMessage( "Server Error:" + error.status);
     });
+$scope.isCollapsed = true;
   }
   //get product function declaration  
   //get Product features
