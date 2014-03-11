@@ -46,7 +46,14 @@ angular.module('prodo.ProdonusApp')
     })    
     .state('prodo.account-user.user', {
       templateUrl:  'user/views/user.account.settings.tpl.html',
-      controller: 'UserAccountController'
+      controller: 'UserAccountController',
+      resolve: {
+          UserService: 'UserService',
+          userdata: function(UserService, $rootScope) {
+            console.log('getting details');
+            return UserService.user_data.getUserSettings({userid: $rootScope.usersession.currentUser.userid}).$promise;
+          }
+        }
     })
 
     /* ----User Content Routes---- */

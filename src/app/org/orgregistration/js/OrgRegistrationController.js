@@ -318,7 +318,7 @@ $scope.selected_country="";
         $state.transitionTo('prodo.orgregistration.address');
       } else {
         $scope.submitted = true;
-        $scope.errmessage = 'Please enter correct data.';   
+        $scope.errmessage = 'Please enter required data.';   
       }
     };
 
@@ -327,7 +327,7 @@ $scope.selected_country="";
         $scope.errmessage = '';
         $state.transitionTo('prodo.orgregistration.groupuser'); 
       } else {
-        $scope.errmessage = 'Please enter correct data.';
+        $scope.errmessage = 'Please enter required data.';
         $scope.submitted = true;   
       }
     };
@@ -335,13 +335,9 @@ $scope.selected_country="";
     $scope.goToState = function() {
       if ($scope.OrgGroupuserForm.$valid) {
           $scope.errmessage = '';
-          if ($scope.org.orgtype == 'Manufacturer') {
-            $state.transitionTo('prodo.orgregistration.terms');
-          } else {
-            $state.transitionTo('prodo.orgregistration.finish');
-          }
+          $state.transitionTo('prodo.orgregistration.terms');
       } else {
-        $scope.errmessage = 'Please enter correct data.';
+        $scope.errmessage = 'Please enter required data.';
         $scope.submitted = true;   
       }
     };

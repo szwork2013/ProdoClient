@@ -46,10 +46,10 @@ angular.module('prodo.ProdoWallApp')
     $scope.$watch('$state.$current.locals.globals.orgdata', function (orgdata) {
       $rootScope.orgdata = orgdata.success.organization;
       if (orgdata.success.organization.org_logo == undefined) {
-        $rootScope.orgdata.org_logo = {image: 'http://placehold.it/300x200/b3b3b3'}
+        $rootScope.orgdata.org_logo = {image: 'http://placehold.it/300x200/b3b3b3&text=No images available.'}
       }
       $scope.updateimages(orgdata.success.organization.org_images);
-      console.log($rootScope.orgdata);
+      $log.debug($rootScope.orgdata);
     });
 
     $scope.$watch('$state.$current.locals.globals.orgaddr', function (orgaddr) {
@@ -58,33 +58,34 @@ angular.module('prodo.ProdoWallApp')
 
     $scope.$watch('$state.$current.locals.globals.orgproduct', function (orgproduct) {
       if (orgproduct.error) {
-        console.log('No product available');
+        $log.debug('No product available');
       } else {
         $scope.productlist = orgproduct.success.product; 
       }
     });
 
-    $scope.handlefollowproductResponse = function(data){
+    $scope.handlefollowproductResponse = function(data, product){
       if (data.success) {
-        growl.addSuccessMessage(data.success.message);    
+        UserSessionService.productfollowlist.push(product);
+        growl.addSuccessMessage('You have successfully followed' + ' ' + product.name);    
       } else {
           $log.debug(data.error.message);
           growl.addErrorMessage(data.error.message); 
-        }
+      }
     }; 
 
-    $scope.follow = function(prodle){
-      UserSessionService.followProduct(prodle);
-    }
+    $scope.follow = function(product){
+      UserSessionService.followProduct(product.prodle, product);
+    };
 
-    var cleanupEventFollowProductDone = $scope.$on('followProductDone', function(event, data) {
-        $scope.isFollowing = true;
-        $scope.handlefollowproductResponse(data);
-    });
+    var cleanupEventFollowProductDone = $scope.$on('followProductDone', function(event, data, product) {
+          $scope.isFollowing = true;
+          $scope.handlefollowproductResponse(data, product);
+      });
     var cleanupEventFollowProductNotDone = $scope.$on('followProductNotDone', function(event, data) {
-      $scope.isFollowing = true;
-      growl.addErrorMessage('There is some server error.');
-    });
+        $scope.isFollowing = true;
+        growl.addErrorMessage('There is some server error.');
+      });    
 
     $scope.$on('$destroy', function(event, data) {
       cleanupEventFollowProductDone(); 

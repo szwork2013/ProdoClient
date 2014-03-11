@@ -1,16 +1,23 @@
 angular.module('prodo.UserApp')
- .controller('UserAccountController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$log', 'growl', 'UserSessionService', 'OrgRegistrationService', function($scope, $rootScope, $state, $http, $timeout, $log, growl, UserSessionService, OrgRegistrationService) {
+ .controller('UserAccountController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$log', 'growl', 'UserSessionService', 'OrgRegistrationService', 'userdata', function($scope, $rootScope, $state, $http, $timeout, $log, growl, UserSessionService, OrgRegistrationService, userdata) {
 
+    $scope.user ={};
     $scope.editorEnabled = false;
     $scope.editEmail = false;
     $scope.editAddress = false;
     $scope.hasChangedPassword = false;
-    $scope.hasChangedEmail = false;
     $scope.isInvites = false;
     $scope.isUnfollowed = false;
     $scope.hasChangedAddress = false;
+    $scope.hasChangedEmail = false;
     $scope.hasChangedPersonalSettings = false;
     $scope.form = {};
+    $scope.submitted = false;
+
+    $scope.prodlesrecommend = [{}];
+
+    $scope.products_followed = [];
+
   
     $scope.enableEditor = function() {
       $scope.editorEnabled = true;
@@ -40,6 +47,38 @@ angular.module('prodo.UserApp')
       
     };
 
+    $scope.$state = $state;
+    $scope.$watch('$state.$current.locals.globals.userdata', function (userdata) {
+      
+      if (userdata.success.user) {
+          $scope.user = userdata.success.user;
+          if (userdata.success.user.dob != null) {
+            var d=new Date(userdata.success.user.dob);
+            var year=d.getFullYear();
+            var month=d.getMonth()+1;
+            if (month<10){
+              month="0" + month;
+            }
+            var day=d.getDate();
+            $scope.user.dob = year + "-" + month + "-" + day;
+          };
+          if ($scope.user.products_recommends.length > 0) {
+            for (var i=0;i<$scope.user.products_recommends.length;i++){
+              if($scope.user.products_recommends[i] && $scope.user.products_recommends[i].prodle){
+                var prodle = $scope.user.products_recommends[i].prodle;
+              }
+              $scope.prodlesrecommend.push(prodle);
+            }
+            UserSessionService.getProductRecommend($scope.prodlesrecommend);
+          };
+          UserSessionService.updateUserData(userdata.success.user);
+          $scope.showAlert('alert-success', userdata.success.message);   
+      } else {
+          $log.debug(userdata.error.message);
+          $scope.showAlert('alert-error', userdata.error.message);  
+      }
+    });
+
 		// function to send and stringify user email to Rest APIs for user account update
     $scope.jsonUserAccountData = function()
       {
@@ -62,6 +101,7 @@ angular.module('prodo.UserApp')
     // function to handle server side responses
     $scope.handleUpdateUserResponse = function(data){
       if (data.success) {
+        $state.reload();
         growl.addSuccessMessage(data.success.message);   
       } else {
         if (data.error.code== 'AU004') {     // enter valid data
@@ -111,6 +151,8 @@ angular.module('prodo.UserApp')
     // function to handle server side responses
     $scope.handleUpdateUserEmailResponse = function(data){
       if (data.success) {
+        $scope.emailEditor();
+        $state.reload();
         growl.addSuccessMessage(data.success.message);   
       } else {
         if (data.error.code== 'AU004') {     // enter valid data
@@ -126,10 +168,9 @@ angular.module('prodo.UserApp')
     
     $scope.updateUserEmail = function() {
       if ($scope.form.usergeneralsettingform.$valid) {
-        $scope.emailEditor();
         UserSessionService.updateEmail($scope.jsonUpdateEmailData());
       } else {
-          $scope.generalsettingchange = 'Please enter valid data.';
+        $scope.form.usergeneralsettingform.submitted = true;
       }
     }
 
@@ -162,12 +203,13 @@ angular.module('prodo.UserApp')
       $scope.user.currentpassword = '';
       $scope.user.newpassword = '';
       $scope.user.confirmpassword = '';
-      $scope.passwordsettingchange = '';
     }
 
     // function to handle server side responses
     $scope.handleUpdateUserPasswordResponse = function(data){
       if (data.success) {
+        $scope.clear();  
+        $state.reload();
         growl.addSuccessMessage(data.success.message);  
       } else {
         if (data.error.code== 'AU004') {     // enter valid data
@@ -182,17 +224,15 @@ angular.module('prodo.UserApp')
 
     $scope.changePassword = function() {
       if ($scope.form.userpasswordsettingform.$valid) {
-        $scope.passwordsettingchange = '';
         UserSessionService.updatePassword($scope.jsonUpdatePasswordData());
       } else {
-          $scope.passwordsettingchange = 'Please enter valid data.'
+        $scope.form.userpasswordsettingform.submitted = true;
       }
     }
 
     var cleanupEventUpdateUserPasswordDone = $scope.$on("updateUserPasswordDone", function(event, message){
       $scope.hasChangedPassword = true;
       $scope.handleUpdateUserPasswordResponse(message); 
-      $scope.clear();  
     });
 
     var cleanupEventUpdateUserPasswordNotDone = $scope.$on("updateUserPasswordNotDone", function(event, message){
@@ -268,50 +308,6 @@ angular.module('prodo.UserApp')
       $scope.showAlert('alert-danger', "It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message);
     });
 
-    $scope.prodlesrecommend = [{}];
-
-    // function to handle server side responses
-    $scope.handleGetUserResponse = function(data){
-      if (data.success) {
-          console.log(data.success.user)
-          $scope.user = data.success.user;
-          if (data.success.user.dob != null) {
-            var d=new Date(data.success.user.dob);
-            var year=d.getFullYear();
-            var month=d.getMonth()+1;
-            if (month<10){
-              month="0" + month;
-            }
-            var day=d.getDate();
-            $scope.user.dob = year + "-" + month + "-" + day;
-          };
-          if ($scope.user.products_recommends.length > 0) {
-            for (var i=0;i<$scope.user.products_recommends.length;i++){
-              if($scope.user.products_recommends[i] && $scope.user.products_recommends[i].prodle){
-                var prodle = $scope.user.products_recommends[i].prodle;
-              }
-              $scope.prodlesrecommend.push(prodle);
-            }
-            UserSessionService.getProductRecommend($scope.prodlesrecommend);
-          };
-          UserSessionService.updateUserData(data.success.user);
-          $scope.showAlert('alert-success', data.success.message);   
-      } else {
-          $log.debug(data.error.message);
-          $scope.showAlert('alert-error', data.error.message);  
-      }
-    };
-
-    $scope.products_followed = [];
-    var cleanupEventGetProductFollowedDone = $rootScope.$on("getProductFollowedDone", function(event, data){
-      $scope.products_followed = data.success.products;
-      $scope.showAlert('alert-success', data.success.message);    
-    });
-
-    var cleanupEventGetProductFollowedNotDone = $rootScope.$on("getProductFollowedNotDone", function(event, data){
-      $scope.showAlert('alert-error', data.error.message);               
-    });
-
     var cleanupEventGetProductRecommendDone = $rootScope.$on("getProductRecommendDone", function(event, data){
       $scope.products_recommends = data.success.products;
       $scope.showAlert('alert-success', data.success.message);         
@@ -321,21 +317,22 @@ angular.module('prodo.UserApp')
       $scope.showAlert('alert-error', data.error.message);      
     });
 
-    var cleanupEventGetUserDone = $rootScope.$on("getUserDone", function(event, message){
-      $scope.handleGetUserResponse(message);   
-    });
-
-    var cleanupEventGetUserNotDone = $rootScope.$on("getUserNotDone", function(event, message){
-      $scope.showAlert('alert-danger', "It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message);   
-    });
-
     $scope.userinvites=[{
                         'name': '',
                         'email': ''
                       }];
 
     $scope.addUserInvites = function() { 
-      $scope.userinvites.push({'name': '', 'email': ''});
+      if ($scope.form.userinvitesform.$valid) {
+        $scope.invitesettingchange = '';
+        $scope.userinvites.push({'name': '', 'email': ''});
+      } else {
+        $scope.invitesettingchange = 'New fields will only be visible once you enter data here.';
+      }
+    };
+
+    $scope.clearInvites = function() { 
+        $scope.userinvites = [{'name': '', 'email': ''}];
     };
 
     $scope.jsonUserInvitesData = function()
@@ -350,6 +347,7 @@ angular.module('prodo.UserApp')
     // function to handle server side responses
     $scope.handleUserInviteResponse = function(data){
       if (data.success) {
+        $scope.clearInvites();
         growl.addSuccessMessage('Your invites has been successfully sent.');
       } else {
         if (data.error.code== 'AU004') {     // enter valid data
@@ -366,7 +364,7 @@ angular.module('prodo.UserApp')
     $scope.sendUserInvites = function() {
       if ($scope.form.userinvitesform.$valid) {
         $scope.invitesettingchange = ''
-        console.log($scope.jsonUserInvitesData());
+        $log.debug($scope.jsonUserInvitesData());
         UserSessionService.sendInvites($scope.jsonUserInvitesData());
       } else {
           $scope.invitesettingchange = 'Please pass valid data.'
@@ -382,21 +380,32 @@ angular.module('prodo.UserApp')
       growl.addErrorMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + data);    
     });
 
-    $scope.unfollow = function (product) {
-      UserSessionService.unfollowProduct(product.prodle);
-    }
-
-    var cleanupEventUnfollowProductDone = $scope.$on("unfollowProductDone", function(event, data){
-      $scope.isUnfollowed = true;
-      growl.addSuccessMessage('You have successfully unfollowed product:' + ' ' + product.name);
-      var products_followed = $scope.products_followed;
+    $scope.handleUnfollowProductResponse = function(data, product){
+      if (data.success) {
+        $state.reload();
+        var products_followed = UserSessionService.productfollowlist;
         for (var i = 0, ii = products_followed.length; i < ii; i++) {
           if (product === products_followed[i]) { products_followed.splice(i, 1); }
-        }      
+        } 
+        growl.addSuccessMessage('You have successfully unfollowed product:' + ' ' + product.name);    
+      } else {
+          $log.debug(data.error.message);
+          growl.addErrorMessage(data.error.message); 
+        }
+    }; 
+
+    $scope.unfollow = function (product) {
+      UserSessionService.unfollowProduct(product.prodle, product);
+    };
+    
+    var cleanupEventUnfollowProductDone = $scope.$on("unfollowProductDone", function(event, data, product){
+      $scope.isUnfollowed = true;
+      $scope.handleUnfollowProductResponse(data, product);     
     });
     var cleanupEventUnfollowProductNotDone = $scope.$on("unfollowProductNotDone", function(event, data){
       growl.addErrorMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + data);   
     });
+  
 
     $scope.$on('$destroy', function(event, message) {
       cleanupEventUpdateUserDone();     
@@ -413,9 +422,7 @@ angular.module('prodo.UserApp')
       cleanupEventGetProductFollowedDone();
       cleanupEventGetProductFollowedNotDone(); 
       cleanupEventGetProductRecommendDone(); 
-      cleanupEventGetProductRecommendNotDone();
-      cleanupEventGetUserDone();    
-      cleanupEventGetUserNotDone();       
+      cleanupEventGetProductRecommendNotDone();     
       cleanupEventSendUserInvitesDone();      
       cleanupEventSendUserInvitesNotDone();      
       cleanupEventUnfollowProductDone(); 

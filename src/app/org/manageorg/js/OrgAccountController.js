@@ -1,9 +1,11 @@
 angular.module('prodo.OrgApp')
- .controller('OrgAccountController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$log', 'growl', 'UserSessionService', 'OrgRegistrationService', 'OrgService', 'currentorgdata', 'currentorgaddr', 'currentorgproduct', 'currentorggroup', function($scope, $rootScope, $state, $http, $timeout, $log, growl, UserSessionService, OrgRegistrationService, OrgService, currentorgdata, currentorgaddr, currentorgproduct, currentorggroup) {
+ .controller('OrgAccountController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$log','$modal', 'growl', 'UserSessionService', 'OrgRegistrationService', 'OrgService', 'currentorgdata', 'currentorgaddr', 'currentorgproduct', 'currentorggroup',function($scope, $rootScope, $state, $http, $timeout, $log, $modal, growl, UserSessionService, OrgRegistrationService, OrgService, currentorgdata, currentorgaddr, currentorgproduct, currentorggroup) {
     $scope.productlist = [];
     $scope.hasBroadcast = false;
     $scope.editorEnabled = false;
     $scope.form = {};
+    $scope.islocation = false;
+    $scope.contacts = [{customerhelpline : ""},{customerhelpline : ""},{customerhelpline : ""}];
     $scope.submitted= false;
     $scope.user = {
       password: ''
@@ -12,13 +14,33 @@ angular.module('prodo.OrgApp')
     $scope.enableEditor = function() {
       $scope.editorEnabled = true;
     };
-  
+
+    $scope.reset = function() {
+      $scope.islocation = false;
+      $scope.org.orgaddresstype = '';
+      $scope.org.address1= '';
+      $scope.org.address2= '';
+      $scope.org.address3= '';
+      $scope.org.country= '';    
+      $scope.org.city= '';
+      $scope.org.state= '';
+      $scope.org.zipcode= '';
+      $scope.contacts= [{'customerhelpline': ''},{'customerhelpline': ''},{'customerhelpline': ''}];
+    };
+
+    $scope.addLocation = function() {
+      $scope.islocation = true;      
+    };
+
     $scope.disableEditor = function() {
       $scope.editorEnabled = false;
       $scope.user = { password: ''};
-      $scope.orggeneralsettingchange.submitted = false;
+      // $scope.form.orggeneralsettingchange.submitted = false;
     };
-
+    
+    $scope.editAppKey = function() {
+        $scope.editMode = false;
+    }
 
     /***
     // Organisation Manage Account Settings function definitions
@@ -32,6 +54,7 @@ angular.module('prodo.OrgApp')
     
     $scope.groups = currentorggroup.success.usergrp;
     $scope.orgaddr = currentorgaddr.success.orgaddress;
+    console.log($scope.orgaddr);
     OrgRegistrationService.updateOrgData(currentorgdata.success.organization);
     
     $scope.jsonOrgAccountData = function()
@@ -97,12 +120,7 @@ angular.module('prodo.OrgApp')
                     'state': $scope.org.state,
                     'zipcode': $scope.org.zipcode 
                     }, 
-              'contacts': 
-                    [ 
-                      {'customerhelpline' : $scope.org.contact.customerhelpline1 },
-                      {'customerhelpline' : $scope.org.contact.customerhelpline2 },
-                      {'customerhelpline' : $scope.org.contact.customerhelpline3 }
-                    ],
+              'contacts': $scope.contacts,
               'locationtype': $scope.org.orgaddresstype
             }
           }
@@ -113,7 +131,7 @@ angular.module('prodo.OrgApp')
     // function to handle server side responses
     $scope.handleAddOrgAddressResponse = function(data){
       if (data.success) {
-
+        $scope.reset();
         $scope.showAlert('alert-success', data.success.message);   
       } else {
         if (data.error.code== 'AU004') {     // enter valid data
@@ -128,7 +146,13 @@ angular.module('prodo.OrgApp')
 
 
     $scope.addOrgAddress = function() {
-      OrgRegistrationService.saveOrgAddress($scope.jsonOrgAddressData());
+      if ($scope.form.orgaddlocationform.$valid) {
+        $scope.form.orgaddlocationform.submitted= true;
+        OrgRegistrationService.saveOrgAddress($scope.jsonOrgAddressData());
+      } else {
+        $scope.form.orgaddlocationform.submitted= true;
+      }
+      
     }
     var cleanupEventAddOrgAddressDone = $scope.$on("addOrgAddressDone", function(event, message){
       $scope.handleAddOrgAddressResponse(message);  

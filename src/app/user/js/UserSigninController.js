@@ -22,7 +22,7 @@ angular.module('prodo.UserApp')
 
     $timeout(function() {
        $scope.hideAlert();
-    }, 50000);
+    }, 5000);
 
     // function to send and stringify user signin data to Rest APIs
     $scope.jsonUserSigninData = function() {

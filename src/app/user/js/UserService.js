@@ -1,4 +1,13 @@
-angular.module('prodo.UserApp').factory('UserSessionService', [
+angular.module('prodo.UserApp')
+.factory('UserService', [
+  '$resource',
+  function ($resource) {
+    var UserS = {
+        user_data: $resource('/api/user/:userid', {}, { getUserSettings: { method: 'GET'} })
+    }
+    return UserS;
+  }
+]).factory('UserSessionService', [
   '$rootScope',
   '$resource',
   '$http',
@@ -180,20 +189,20 @@ angular.module('prodo.UserApp').factory('UserSessionService', [
       });
     };
 
-    session.unfollowProduct = function (pdata) {
+    session.unfollowProduct = function (pdata, product) {
       UserService.Product_Unfollow.unfollowProduct({ data: pdata }, function (success) {
         $log.debug(success);
-        $rootScope.$broadcast('unfollowProductDone', success);
+        $rootScope.$broadcast('unfollowProductDone', success, product);
       }, function (error) {
         $log.debug(error);
         $rootScope.$broadcast('unfollowProductNotDone', error);
       });
     };
 
-    session.followProduct = function (pdata) {
+    session.followProduct = function (pdata, product) {
       UserService.Product_Follow.followProduct({ data: pdata }, function (success) {
         $log.debug(success);
-        $rootScope.$broadcast('followProductDone', success);
+        $rootScope.$broadcast('followProductDone', success, product);
       }, function (error) {
         $log.debug(error);
         $rootScope.$broadcast('followProductNotDone', error);

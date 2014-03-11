@@ -581,6 +581,7 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
 	border-radius: 3px;
 	margin: 10px auto;
 	display: block;
+	font-size: 13px;
      
 }
 
@@ -635,7 +636,7 @@ text-align: left;
 
 #prodo-address-text{
 	font-weight: normal;
-	font-size: 10px;
+	font-size: 12px;
 	padding-top: 10px;
 	margin-left: 50px;
 	color: #595365;
@@ -730,7 +731,7 @@ text-align: left;
 
 .prodo-wizard-table-tr{
 	text-align: left;
-	font-size: 12px;
+	font-size: 13px;
 }
 
 .prodo-wizard-table-td{
@@ -835,6 +836,23 @@ border-radius: 30px;
     color: #ccc;
 }
 
+.prodo-follow-btn{
+	margin:5px auto; font-size: 14px; display:block; height:25px; width: 95%; background-color:#304A61;
+}
+
+.prodo-follow-btn:hover{
+color: #fff;
+font-weight: bold;
+background-color: #4A5F72;
+border-color: #285e8e;
+}
+
+.prodo-follow-btn:focus, .prodo-follow-btn:active {
+color: #fff;
+font-weight: bold;
+background-color: #4A5F72;
+border-color: #285e8e;
+}
 /*Barchart*/
 
 text {

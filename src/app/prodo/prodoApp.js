@@ -142,12 +142,12 @@ angular.module('prodo.ProdonusApp', [
       UserSessionService.logoutUser();
     };
     var cleanupEventLogoutDone = $scope.$on('logoutDone', function (event, message) {
-      console.log($rootScope.usersession.isLoggedIn)
+      $log.debug($rootScope.usersession.isLoggedIn);
+      // $scope.showAlert('alert-success', message); 
       $state.transitionTo('prodo.landing.signup');
-      $scope.showAlert('alert-success', message); 
     });
     var cleanupEventLogoutNotDone = $scope.$on('logoutNotDone', function (event, message) {
-      $scope.showAlert('alert-danger', 'Server Error:' + message);
+      // $scope.showAlert('alert-danger', 'Server Error:' + message);
     });
 
     $scope.$on('$destroy', function(event, message) {
