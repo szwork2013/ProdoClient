@@ -11,7 +11,8 @@
  *
  */
 angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$log', '$rootScope', 'ProductService', 'UserSessionService', '$http', 'CommentLoadMoreService', 'ENV', 'TagReffDictionaryService', 'ProductFeatureService', 'growl', function ($scope, $log, $rootScope, ProductService, UserSessionService, $http, CommentLoadMoreService, ENV, TagReffDictionaryService, ProductFeatureService, growl) {
-
+ 
+  
   $scope.productComments = {
     comments: [{}]
   };
@@ -53,7 +54,7 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
   $scope.orgidFromSession;
   $scope.ProductsFollowedFromSession = [];
   $scope.socket;
-
+  $scope.isCollapsed = true;
   //watch prodle if changed by user by product search or any other source
   $rootScope.$watch('product_prodle', function () {
     // $log.debug("Listening" + $rootScope.product_prodle);
@@ -179,6 +180,7 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
       });
     }
   };
+  console.log("featuretags-------------------"+JSON.stringify($scope.PFeatures));
   //get Product features
   //Product Description height toggle
   $scope.ShowDescription = function () {
@@ -230,4 +232,21 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
     return (moment(time).format('DD MMM YYYY'));
   };
   //date format
+  $scope.viewFeatures=function()
+  {
+     alert("hello");
+  };
+  $scope.addFeatureToComment=function(data)
+  {
+    document.getElementById('prodo-comment-Textbox').value=document.getElementById('prodo-comment-Textbox').value+" "+data+" ";
+  };
+  
+  $scope.showFeature=function()
+  {
+             $scope.isCollapsed = false;
+  };
+   $scope.hideFeature=function()
+  {
+             $scope.isCollapsed = true;
+  };
 }])
