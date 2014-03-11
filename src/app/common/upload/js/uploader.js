@@ -68,9 +68,12 @@ angular.module('prodo.UploadApp')
              UploadErrMsg.innerHTML = 'Image size must ne less than 500KB';
             // growl.addErrorMessage("Image size must ne less than 500KB");
             $("#bar").hide();
+            setTimeout(function(){ jQuery("#FileName").hide(); },1000);
           }
         } else if ($scope.uploadSrc == "product") { // upload product
-          if (($scope.file.size / 1024 < 2048)) {
+
+          if($scope.file.type !== 'image/png' ){
+           if (($scope.file.size / 1024 < 2048)) {
             action = {
               product: {
                 userid: $rootScope.usersession.currentUser.userid,
@@ -83,8 +86,21 @@ angular.module('prodo.UploadApp')
              UploadErrMsg.innerHTML = 'Image size must ne less than 2MB';
             // growl.addErrorMessage("Image size must ne less than 2MB");
             $("#bar").hide();
+            setTimeout(function(){ jQuery("#FileName").hide(); },1000);
           }
+          }
+          else{
+             $scope.enableErrorMsg();
+             UploadErrMsg.innerHTML = 'Please select image other than png';
+            // growl.addErrorMessage("Image size must ne less than 2MB");
+            $("#bar").hide();
+            setTimeout(function(){ jQuery("#FileName").hide(); },1000);
+          }
+     
+
+
         } else if ($scope.uploadSrc == "org") { // upload org
+        if($scope.file.type !== 'image/png' ){
           if (($scope.file.size / 1024 < 2048)) {
             action = {
               org: {
@@ -97,7 +113,17 @@ angular.module('prodo.UploadApp')
              UploadErrMsg.innerHTML = 'Image size must ne less than 2MB';
             // growl.addErrorMessage("Image size must ne less than 2MB");
             $("#bar").hide();
+            setTimeout(function(){ jQuery("#FileName").hide(); },1000);
           }
+        }
+         else{
+             $scope.enableErrorMsg();
+             UploadErrMsg.innerHTML = 'Please select image other than png';
+            // growl.addErrorMessage("Image size must ne less than 2MB");
+            $("#bar").hide();
+            setTimeout(function(){ jQuery("#FileName").hide(); },1000);
+          }
+
         } else if ($scope.uploadSrc == "productlogo") { // upload product logo
           if (($scope.file.size / 1024 < 1024)) {
             action = {
@@ -112,6 +138,7 @@ angular.module('prodo.UploadApp')
              $scope.enableErrorMsg();
              UploadErrMsg.innerHTML = 'Image size must ne less than 1MB';
             $("#bar").hide();
+            setTimeout(function(){ jQuery("#FileName").hide(); },1000);
           }
         } else if ($scope.uploadSrc == "orglogo") { // upload org logo
           if (($scope.file.size / 1024 < 1024)) {
@@ -126,6 +153,7 @@ angular.module('prodo.UploadApp')
              UploadErrMsg.innerHTML = 'Image size must ne less than 1MB';
             // growl.addErrorMessage("Image size must ne less than 1MB");
             $("#bar").hide();
+            setTimeout(function(){ jQuery("#FileName").hide(); },1000);
           }
         }
 
@@ -145,6 +173,7 @@ angular.module('prodo.UploadApp')
              UploadErrMsg.innerHTML = 'Image size must ne less than 10MB';
             // growl.addErrorMessage("Image size must ne less than 10MB");
             $("#bar").hide();
+            setTimeout(function(){ jQuery("#FileName").hide(); },1000);
           }
         } else if ($scope.uploadSrc == "org") { // upload org
           if (($scope.file.size / 1024 < 10240)) {
@@ -159,12 +188,14 @@ angular.module('prodo.UploadApp')
              UploadErrMsg.innerHTML = 'Image size must ne less than 10MB';
             // growl.addErrorMessage("Image size must ne less than 10MB");
             $("#bar").hide();
+            setTimeout(function(){ jQuery("#FileName").hide(); },1000);
           }
         } else {
            $scope.enableErrorMsg();
             UploadErrMsg.innerHTML = 'Please upload file of images type...';
           // growl.addErrorMessage("Please upload file of images type...");
           $("#bar").hide();
+          setTimeout(function(){ jQuery("#FileName").hide(); },1000);
         }
 
       }
@@ -199,7 +230,7 @@ angular.module('prodo.UploadApp')
 $scope.productUploadResponseHandler=function(error, imagelocation){
  if (error) {
       $("#bar").hide();
-
+      
       if (error.error.code == 'AP003') { // user already exist
         $log.debug(error.error.code + " " + error.error.message);
         $scope.enableErrorMsg();
@@ -230,7 +261,7 @@ $scope.productUploadResponseHandler=function(error, imagelocation){
         //    $scope.getFile($scope.counter);
       } else $scope.counter = 0;
     }
-
+  setTimeout(function(){ jQuery("#FileName").hide(); },1000);
 };
 
 $scope.productUploadLogoResponseHandler=function(error, imagelocation){
@@ -267,7 +298,8 @@ $scope.productUploadLogoResponseHandler=function(error, imagelocation){
         $log.debug("emitting image " + $scope.counter);
         //    $scope.getFile($scope.counter);
       } else $scope.counter = 0;
-    }
+     }
+      setTimeout(function(){ jQuery("#FileName").hide(); },1000);
 };
  
   $scope.orgUploadResponseHandler=function(error, imagelocation){
@@ -302,7 +334,8 @@ $scope.productUploadLogoResponseHandler=function(error, imagelocation){
         $log.debug("emitting image " + $scope.counter);
         //    $scope.getFile($scope.counter);
       } else $scope.counter = 0;
-    }
+     }
+      setTimeout(function(){ jQuery("#FileName").hide(); },1000);
   };
 
    $scope.orgUploadLogoResponseHandler=function(error, imagelocation){
@@ -339,6 +372,7 @@ $scope.productUploadLogoResponseHandler=function(error, imagelocation){
         //    $scope.getFile($scope.counter);
       } else $scope.counter = 0;
     }
+    setTimeout(function(){ jQuery("#FileName").hide(); },1000);
   };
 
      $scope.userUploadResponseHandler=function(error, imagelocation){
@@ -374,6 +408,7 @@ $scope.productUploadLogoResponseHandler=function(error, imagelocation){
         //    $scope.getFile($scope.counter);
       } else $scope.counter = 0;
     }
+     setTimeout(function(){ jQuery("#FileName").hide(); },1000);
   };
 
 }]);
@@ -422,25 +457,28 @@ angular.module('prodo.UploadApp')
             var speed = userInput * 20;
             var currentPerc = 0;
         
-
+           
            var progress = setInterval(function() {
-              var $bar = $('.bar');
-                   if (currentPerc >= perc) {
-                    clearInterval(progress);
-                     $('.progress').removeClass('active');
+               var $bar = $('.bar');
+               if (currentPerc >= perc) {
+                clearInterval(progress);
+                 $('.progress').removeClass('active');
                 } else {
-                    currentPerc += 1;
-                     $bar.css('width', (currentPerc) + '%');
+                 currentPerc += 1;
+                 $bar.css('width', (currentPerc) + '%');
                 }
-                 $bar.text((currentPerc) + '%');
+                 // $bar.text((currentPerc) + '%');
 
-                  // if(currentPerc==100){
-                  //   setTimeout(function(){ jQuery("#FileName").hide(); },1000);
-                  // }
+                   if(currentPerc==100){
+                    // setTimeout(function(){ jQuery("#FileName").hide(); },1000);
+                    // currentPerc=0;
+                   }
 
             }, speed);
 
-           
+          
+    
+         
 
             FileName = "";
             title = "";
@@ -456,7 +494,7 @@ angular.module('prodo.UploadApp')
           
               
           }
-
+            
         for (var i = 0; i <= $scope.file.length; i++) {
           addUploads($scope.file[i]);
           $scope.getFile($scope.file[i]);
