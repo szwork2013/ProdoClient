@@ -430,6 +430,7 @@ $scope.loadMoreComments = function () {
       $("#img-spinner").hide();
     }, function (error) {
       $log.debug(error);
+      $("#loadMoreCommentMsg").html(error);
     });
   }
 };
