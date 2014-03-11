@@ -11,7 +11,8 @@
  *
  */
 angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$log', '$rootScope', 'ProductService', 'UserSessionService', '$http', 'CommentLoadMoreService', 'ENV', 'TagReffDictionaryService', 'ProductFeatureService', 'growl', function ($scope, $log, $rootScope, ProductService, UserSessionService, $http, CommentLoadMoreService, ENV, TagReffDictionaryService, ProductFeatureService, growl) {
-
+ 
+  
   $scope.productComments = {
     comments: [{}]
   };
@@ -53,7 +54,7 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
   $scope.orgidFromSession;
   $scope.ProductsFollowedFromSession = [];
   $scope.socket;
-
+  $scope.isCollapsed = true;
   //watch prodle if changed by user by product search or any other source
   $rootScope.$watch('product_prodle', function () {
     // $log.debug("Listening" + $rootScope.product_prodle);
@@ -148,6 +149,7 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
       document.getElementById("ErrMsging").innerHTML = "Server Error:" + error.status;
       // growl.addErrorMessage( "Server Error:" + error.status);
     });
+  $scope.isCollapsed = true;
   }
   //get product function declaration  
   //get Product features
@@ -181,6 +183,7 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
     }
   };
   //get Product features
+
   //Product Description height toggle
   $scope.ShowDescription = function () {
 
@@ -232,5 +235,18 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
   };
   //date format
 
+  $scope.addFeatureToComment=function(data)
+  {
+    document.getElementById('prodo-comment-Textbox').value=document.getElementById('prodo-comment-Textbox').value+" "+data+" ";
+  };
   
+  $scope.showFeature=function()
+  {
+    $scope.isCollapsed = false;
+  };
+   $scope.hideFeature=function()
+  {
+    $scope.isCollapsed = true;
+  };
+
 }])
