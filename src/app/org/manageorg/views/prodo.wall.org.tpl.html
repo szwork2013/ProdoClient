@@ -87,7 +87,7 @@
   	<div style="width:160px; min-height: 200px; float: left; margin: 5px; border: solid 1px #ccc;" ng-repeat="product in productlist">
 	    <p style="margin:5px auto; display:block; text-align:left; font-weight:bold; font-size:14px;">{{product.name}}</p>
 	    <img ng-show="product.product_logo" style="margin:0px auto; display:block; width:95%; height: 150px; " src="{{product.product_logo.image}}" alt=" No Image" class="img-rounded">
-      <img ng-hide="product.product_logo" style="margin:0px auto; display:block; width:95%; height: 150px; " src="http://placehold.it/700x500/b3b3b3/ffffff&text=No images available" alt=" No Image" class="img-rounded">
+      <img ng-hide="product.product_logo" style="margin:0px auto; display:block; width:95%; height: 150px; " src="../../../assets/images/if_no_logo_images_available.gif" alt=" No Image" class="img-rounded">
 	    <button class="prodo-follow-btn btn btn-primary btn-sm" ng-click='follow(product)'>Follow</button>
 	  </div>
 

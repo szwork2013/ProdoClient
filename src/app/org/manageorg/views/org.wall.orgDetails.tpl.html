@@ -1,7 +1,7 @@
 <div style="padding: 5px; " id="prodo-user-account-container" style="" class="container">
   <div style="min-height:30px; border-radius: 5px; margin-bottom: 10px;">
   		<img ng-show="((usersession.currentUser.org.orgtype == 'Manufacturer') && org.org_logo)" ng-src="{{org.org_logo.image}}" style="width: 160px; height:80px; margin: 20px; ">
-      <img ng-hide="((usersession.currentUser.org.orgtype != 'Manufacturer') && org.org_logo)" style="width: 160px; height:80px; margin: 20px; " src="http://placehold.it/300x200/b3b3b3/ffffff&text=No image available">
+      <img ng-hide="((usersession.currentUser.org.orgtype == 'Manufacturer') && org.org_logo)" style="width: 160px; height:80px; margin: 20px; " src="../../../assets/images/if_no_logo_images_available.gif">
   		<a class="btn btn-danger btn-sm pull-right" style="border-radius: 10px; margin: 5px; width: 80px; font-size: 12px; font-weight:bold;" href="" data-toggle="modal" data-target="#myModal"><i style="margin-right: 5px;" class="fa fa-trash-o fa-lg"></i>Delete</a>
   	</div>
 
@@ -273,7 +273,7 @@
         <div style="width:160px; min-height: 200px; float: left; margin: 5px; border: solid 1px #ccc;" ng-repeat="product in productlist">
           <p style="margin:5px auto; display:block; text-align:center; font-weight:bold; font-size:12px;">{{product.name}}</p>
           <img ng-show="product.product_logo" style="margin:0px auto; display:block; width:95%; height: 150px; " src="{{product.product_logo.image}}" alt=" No Image" class="img-rounded">
-          <img ng-hide="product.product_logo" style="margin:0px auto; display:block; width:95%; height: 150px; " src="http://placehold.it/300x200&text=No images available" alt=" No Image" class="img-rounded">
+          <img ng-hide="product.product_logo" style="margin:0px auto; display:block; width:95%; height: 150px; " src="../../../assets/images/if_no_logo_images_available.gif" alt=" No Image" class="img-rounded">
         </div>
     </accordion-group>
 

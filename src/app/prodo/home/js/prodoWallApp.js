@@ -18,7 +18,7 @@ angular.module('prodo.ProdoWallApp')
       else if (data.length===0)
       {
         $rootScope.images = "";    // Omkar: To clear previous images
-        $rootScope.images= [{image: 'http://placehold.it/500x200/fgfgfg' }];    // This will be shown when org images are not there    
+        $rootScope.images= [{image: '../../../assets/images/if_no_org_images_available.gif' }];    // This will be shown when org images are not there    
       }
     };
     
@@ -46,7 +46,7 @@ angular.module('prodo.ProdoWallApp')
     $scope.$watch('$state.$current.locals.globals.orgdata', function (orgdata) {
       $rootScope.orgdata = orgdata.success.organization;
       if (orgdata.success.organization.org_logo == undefined) {
-        $rootScope.orgdata.org_logo = {image: 'http://placehold.it/300x200/b3b3b3&text=No images available.'}
+        $rootScope.orgdata.org_logo = {image: '../../../assets/images/if_no_logo_images_available.gif'}
       }
       $scope.updateimages(orgdata.success.organization.org_images);
       $log.debug($rootScope.orgdata);
