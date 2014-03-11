@@ -1810,7 +1810,7 @@ text-align: right;
 	/*Search div box*/
 .searchDivHeading
 {
-		background-color: #494F53;
+	   background-color: #494F53;
        font-weight: bold; 
        font-size:16px; 
        text-align: center;
@@ -1825,9 +1825,27 @@ text-align: right;
 {
     margin-top: -20px;
 }
+/*.searchHeading
+{
+	 background-color: #494F53; 
+	 font-weight: bold; 
+	 font-size:16px; 
+	 text-align: center;
+}*/
 .prodo-registration-Wizard-title
 {
 	font-size:16px;
+}
+.trendingProductList
+{
+	width: 100%; 
+	color: black;
+	text-align: center;
+}
+.trendingProductListData
+{
+	font-size: 16px; 
+	text-align: center ; 
 }
 .prodo-registration-Wizard-after{
 	style="color :rgb(200, 219, 200)";
