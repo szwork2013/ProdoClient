@@ -28,7 +28,7 @@
         <div id="lineHr"></div>
         <div  ng-controller="prodoUserProfileDataController">
           <div class="classMain">
-            <center> <img ng-src="{{modaluser.profile_pic.image}}" id="userProfilePic"/> </center>
+            <center> <img ng-src="{{modaluser.profile_pic.image}}" id="userProfilePic" alt-SRC src="../assets/images/avatar.jpg"/> </center>
             <center>
               <h5 ng-bind=" modaluser.username" class="modalHeading"></h5>
             </center>
@@ -38,7 +38,7 @@
             <h5 ng-bind="ProductsFollowedMessage">  </h5>
             <div ng-repeat="products in modaluser.products_followed"  class="modalProductPic" ng-if="regularExpressionForProdonus.test(products.name) !== true">
               <center>
-                <img ng-src="{{products.product_logo.image}}" class="prodleImage" ng-click="emitProductData(products.prodle,products.orgid)">
+                <img ng-src="{{products.product_logo.image}}" class="prodleImage" ng-click="emitProductData(products.prodle,products.orgid)"alt-SRC src="../assets/images/if_no_logo_images_available.gif">
                 <p ><span ng-bind="products.name" class="thinnerFonts"></span></p>
               </center>
             </div>
@@ -47,7 +47,7 @@
             <h5 ng-bind="ProductsRecommendedMessage">  </h5>
             <div ng-repeat="products in modaluser.products_recommends"   class="modalProductPic" >
               <center>
-                <img ng-src="{{products.product_logo.image}}" class="prodleImage" ng-click="emitProductData(products.prodle,products.orgid)">
+                <img ng-src="{{products.product_logo.image}}" class="prodleImage" ng-click="emitProductData(products.prodle,products.orgid)"src="../assets/images/if_no_logo_images_available.gif">
                 <p ><span ng-bind="products.name" class="thinnerFonts"></span> </p>
               </center>
             </div>
