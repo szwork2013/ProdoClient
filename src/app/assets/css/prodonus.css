@@ -1174,8 +1174,8 @@ ul#commentTab li a:hover,ul#commentTab li.active a{
     width: 500px; 
     border-radius: 5px;}
 .list-animate-item {-webkit-transition: color 0.6s, background-color 0.3s;-moz-transition: color 0.6s, background-color 0.3s;-ms-transition: color 0.6s, background-color 0.3s; transition: color 0.6s, background-color 0.3s; }
-.list-animate-item.ng-enter {-webkit-animation: fadeIn 1s;-moz-animation: fadeIn 1s;-ms-animation: fadeIn 1s;animation: fadeIn 1s;} 
-.list-animate-item.ng-leave {-webkit-animation: fadeOut 1s;-moz-animation: fadeOut 1s;-ms-animation: fadeOut 1s;animation: fadeOut 1s;}
+.list-animate-item.ng-enter {-webkit-animation: fadeIn 0.5s;-moz-animation: fadeIn 0.5s;-ms-animation: fadeIn 0.5s;animation: fadeIn 0.5s;} 
+.list-animate-item.ng-leave {-webkit-animation: fadeOut 0.5s;-moz-animation: fadeOut 0.5s;-ms-animation: fadeOut 0.5s;animation: fadeOut 0.5s;}
 .nav>li>a:hover, .nav>li>a:focus {
 text-decoration: none;
 background-color: transparent;

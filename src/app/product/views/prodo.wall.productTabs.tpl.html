@@ -27,8 +27,8 @@
       MODEL NO :&nbsp; <span ng-bind="product.model_no"></span>
       <br>
       <span>
-        <i ng-click="ShowDescription();" class="fa fa-caret-right fa-2x prodo-cursor"></i>Description :
-        <p id="prodo-description" class="prodo-description" ng-bind="product.description" > </p>
+        <!-- <i ng-click="ShowDescription();" class="fa fa-caret-right fa-2x prodo-cursor"></i> -->Description :
+        <span id="prodo-description" class="prodo-description" ng-bind="product.description" > </span>
       </span>
     </span>
     <table class="table child "  id="prodo-ProductFeatureTable" >
@@ -47,25 +47,20 @@
     <div id="prodo-comment-fixed" ng-controller="ProductCommentController">
       <!-- tabs -->
       <div class="prodo-comment-Text-tabs " id="tabs">
-        <ul id="commentTab" class=" commentTab nav nav-pills" ng-init="tabSearch = false;tabFeature=false;
+        <ul id="commentTab" class=" commentTab nav nav-pills" ng-init="tabSearch = false;
           tabComment = true" >
           <li >
-            <a  class="prodo-cursor"  ng-click="tabComment = true; tabSearch=false;tabFeature=false;">
+            <a  class="prodo-cursor"  ng-click="tabComment = true; tabSearch=false;">
               <div  id="fa-removeComment" name="rm" class=" fa fa-comments-o fa-lg  " ></div>
             </a>
           </li>
           <li>
             <a  class="prodo-cursor" ng-click="tabSearch =  true ;
-              tabComment = false;tabFeature=false;">
+              tabComment = false;">
               <div id="fa-tagsComment" class="fa fa-search fa-lg"  ></div>
             </a>
           </li>
-          <li>
-            <a  class="prodo-cursor"  ng-click="tabFeature=true;tabSearch =  false ;
-              tabComment = false;">
-              <div id="fa-tagsFeature" class="fa fa-list fa-lg"  ></div>
-            </a>
-          </li>
+         
         </ul>
         <div class="tab-content">
           <div id="Remove" ng-show="tabComment == 1"   >
@@ -119,22 +114,7 @@
             <br>
             <input ng-model="search" class="commentSearchTextbox form-control " id="prodo-comment-search-Textbox"  type="text"   placeholder="Search comments ...">
           </div>
-          <div id="Remove" ng-show="tabFeature == 1" class="prodo-padding-bottom" >
-            <table class="table child " id="prodo-ProductFeatureTable" >
-              <tr >
-                <td>
-                  <dt>Feature</dt>
-                </td>
-                <td>
-                  <dt>Description </dt>
-                </td>
-              </tr>
-              <tr ng-repeat="feature in features track by $index">
-                <td  > <span ng-bind="feature.featurename"> </span></td>
-                <td  > <span ng-bind="feature.featuredescription"> </span></td>
-              </tr>
-            </table>
-          </div>
+    
         </div>
       </div>
       <!-- tabs -->
