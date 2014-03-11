@@ -2,7 +2,8 @@ angular.module('prodo.AdminApp').factory('tagAddService', [
   '$rootScope',
   '$resource',
   '$state',
-  function ($rootScope, $resource, $state) {
+  '$log',
+  function ($rootScope, $resource, $state,$log) {
     var addService = { Product: $resource('/api/tagreffdictionary/addtag', {}, { addTags: { method: 'POST' } }) };
     var tagAddObject = {};
     tagAddObject.addTagFunction = function (tagInputData) {

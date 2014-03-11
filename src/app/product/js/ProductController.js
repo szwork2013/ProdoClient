@@ -11,7 +11,8 @@
  *
  */
 angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$log', '$rootScope', 'ProductService', 'UserSessionService', '$http', 'CommentLoadMoreService', 'ENV', 'TagReffDictionaryService', 'ProductFeatureService', 'growl', function ($scope, $log, $rootScope, ProductService, UserSessionService, $http, CommentLoadMoreService, ENV, TagReffDictionaryService, ProductFeatureService, growl) {
-
+ 
+  
   $scope.productComments = {
     comments: [{}]
   };
@@ -53,7 +54,7 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
   $scope.orgidFromSession;
   $scope.ProductsFollowedFromSession = [];
   $scope.socket;
-
+  $scope.isCollapsed = true;
   //watch prodle if changed by user by product search or any other source
   $rootScope.$watch('product_prodle', function () {
     // $log.debug("Listening" + $rootScope.product_prodle);
@@ -114,8 +115,9 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
         // $("#tabComments").css("display", "inline");
         $scope.product = successData.success.product;
         // $rootScope.product_prodle = successData.success.product.prodle;
+        // if(successData.success.product.product_comments)
         $scope.productComments = successData.success.product.product_comments;
-        console.log( $scope.productComments);
+        // console.log( $scope.productComments);
         $scope.pImages_l = successData.success.product.product_images;
         $("#prodo-addingProduct").text($scope.product.status);
 
@@ -128,15 +130,17 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
           }
         }
         //if no comments , dont show load more comments button
-        $("#loadMoreCommentMsg").css("display", "none");
-        if (successData.success.product.product_comments) {
-          if (successData.success.product.product_comments.length < 4) {
-            $("#load-more").css("display", "none");
-          } else $("#load-more").css("display", "inline");
-        } 
-        if(successData.success.product.product_comments==undefined){
-              $("#loadMoreCommentMsg").css("display", "none");
-        }
+        // $("#loadMoreCommentMsg").css("display", "none");
+        $log.debug("COmments :   "+successData.success.product.product_comments);
+        // if((successData.success.product.product_comments==undefined) || (successData.success.product.product_comments==null)||(successData.success.product.product_comments=="")){
+        //       $("#loadMoreCommentMsg").css("display", "none");
+        // }
+        // if (successData.success.product.product_comments) {
+        //   if (successData.success.product.product_comments.length > 4) {
+        //     $("#load-more").css("display", "inline");
+        //   } 
+        // } 
+        
       }
     }, function (error) { //if error geting product
       $log.debug(error);
@@ -145,6 +149,7 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
       document.getElementById("ErrMsging").innerHTML = "Server Error:" + error.status;
       // growl.addErrorMessage( "Server Error:" + error.status);
     });
+  $scope.isCollapsed = true;
   }
   //get product function declaration  
   //get Product features
@@ -178,6 +183,7 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
     }
   };
   //get Product features
+
   //Product Description height toggle
   $scope.ShowDescription = function () {
 
@@ -228,4 +234,19 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
     return (moment(time).format('DD MMM YYYY'));
   };
   //date format
+
+  $scope.addFeatureToComment=function(data)
+  {
+    document.getElementById('prodo-comment-Textbox').value=document.getElementById('prodo-comment-Textbox').value+" "+data+" ";
+  };
+  
+  $scope.showFeature=function()
+  {
+    $scope.isCollapsed = false;
+  };
+   $scope.hideFeature=function()
+  {
+    $scope.isCollapsed = true;
+  };
+
 }])

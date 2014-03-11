@@ -12,6 +12,8 @@ angular.module('prodo.CommonApp').controller('prodoUserProfileDataController', [
 
     $scope.ProductsRecommendedMessage="";
 
+    $scope.regularExpressionForProdonus = /^prodonus/i;
+
     $scope.userProfileModal = function (data) 
     {                              
         UserSessionService.getUserProfileData(data);

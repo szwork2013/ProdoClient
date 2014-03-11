@@ -49,9 +49,13 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
   $scope.title = "Trending Products"; 
   //  This is the variable to toggle div tag heading (Second Box of sidebar); 
   
-  $scope.limit = 5;
-    
+  $scope.followedProductsCount = 6;
 
+  var indexOfUnfollowedProduct=0;
+
+  $scope.regularExpressionForProdonus = /^prodonus/i;
+  //This regular expression is used to hide products starting with Prodonus
+ 
   var cleanEventGotTrendingProducts = $scope.$on('gotTrendingProducts', function (event, data) 
   {
       $scope.trendingProducts = data.success.ProductTrends;
@@ -193,27 +197,28 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
       $scope.title = "Search";
       $scope.errors = "";
   };
-    
+   
   //This function is called unfollow product from sidebar; When unfollow button is clicked list from productfollowedlist is spliced;
-  $scope.unfollowProduct = function (product, indexOfProduct) { 
+  $scope.unfollowProduct = function (product) { 
       UserSessionService.unfollowProduct(product.prodle);
-      };
+      indexOfUnfollowedProduct = $rootScope.usersession.productfollowlist.indexOf(product);
+   };
 
-  var cleanEventUnfollowProductDone = $scope.$on("unfollowProductDone", function(event, data, product, indexOfProduct){
-      //var index = $rootScope.usersession.productfollowlist.indexOf(indexOfProduct);
-      $rootScope.usersession.productfollowlist.splice(indexOfProduct, 1);
+  var cleanEventUnfollowProductDone = $scope.$on("unfollowProductDone", function(event){
+      $rootScope.usersession.productfollowlist.splice(indexOfUnfollowedProduct, 1);
       });
 
+
   $scope.loadMoreFollowedProduct=function() {
-      if($scope.limit === 100)
+      if($scope.followedProductsCount === 100)
       {
             document.getElementById('tabMore').innerHTML = "More"
-            $scope.limit = 5;     
+            $scope.followedProductsCount = 6;     
       }
-      else if($scope.limit === 5)
+      else if($scope.followedProductsCount === 6)
       {
             document.getElementById('tabMore').innerHTML= "Less";
-            $scope.limit = 100;     
+            $scope.followedProductsCount = 100;     
       }
   };
 
