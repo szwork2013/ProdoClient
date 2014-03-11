@@ -115,6 +115,7 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
         // $("#tabComments").css("display", "inline");
         $scope.product = successData.success.product;
         // $rootScope.product_prodle = successData.success.product.prodle;
+        // if(successData.success.product.product_comments)
         $scope.productComments = successData.success.product.product_comments;
         // console.log( $scope.productComments);
         $scope.pImages_l = successData.success.product.product_images;
