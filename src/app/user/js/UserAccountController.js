@@ -17,6 +17,7 @@ angular.module('prodo.UserApp')
     $scope.prodlesrecommend = [{}];
 
     $scope.products_followed = [];
+    $scope.products_followed = UserSessionService.productfollowlist;
 
   
     $scope.enableEditor = function() {

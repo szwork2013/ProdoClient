@@ -6,7 +6,7 @@
 
       <div id="prodo-account-col-md-3" class="col-md-3">
         <img ng-show="user.profile_pic" ng-src="{{user.profile_pic.image}}" style="width:150px; height:100px; margin: 10px;">
-        <img ng-hide="user.profile_pic" style="width:150px; height:100px; margin: 10px;" src="http://placehold.it/300x200/b3b3b3/ffffff&text=No image available">
+        <img ng-hide="user.profile_pic" style="width:150px; height:100px; margin: 10px;" src="../../assets/images/if_no_logo_images_available.gif">
         <p style="margin-left: 10px; margin-bottom: 0px; font-size: 20px;">{{user.username}}</p>
         <div id="uploadWrapper" class="btn btn-success">
           <p><i style="margin-right: 5px;" class="fa fa-upload"></i>Upload Photo</p>
@@ -245,10 +245,10 @@
         <div ng-show="(user.products_followed.length == 0)">
           <p style="text-align:left; font-size:20px; margin: 20px auto;" class="text-success"><strong><em>You are not following any products.</em></strong></p>
         </div>
-        <div style="width:160px; min-height: 200px; float: left; margin: 5px; border: solid 1px #ccc;" ng-repeat="productf in usersession.productfollowlist">
+        <div style="width:160px; min-height: 200px; float: left; margin: 5px; border: solid 1px #ccc;" ng-repeat="productf in products_followed">
           <p style="margin:5px auto; display:block; text-align:center; font-weight:bold; font-size:12px;">{{productf.name}}</p>
           <img ng-show="productf.product_logo" style="margin:0px auto; display:block; width:95%; height: 150px; " src="{{productf.product_logo.image}}" alt=" No Image" class="img-rounded">
-          <img ng-hide="productf.product_logo" style="margin:0px auto; display:block; width:95%; height: 150px; " alt=" No Image" class="img-rounded" src="http://placehold.it/300x200/b3b3b3/ffffff&text=No image available">
+          <img ng-hide="productf.product_logo" style="margin:0px auto; display:block; width:95%; height: 150px; " alt=" No Image" class="img-rounded" src="../../assets/images/if_no_logo_images_available.gif">
           <button style="margin:5px auto; display:block; height:25px; width: 95%; background-color:#304A61;" class="btn btn-primary btn-sm" ng-click='unfollow(productf)'>unfollow</button>
         </div>
     </accordion-group>
@@ -262,7 +262,7 @@
           <div style="width:160px; min-height: 200px; float: left; margin: 5px; border: solid 1px #ccc;" ng-repeat="productr in products_recommends">
             <p style="margin:5px auto; display:block; text-align:center; font-weight:bold; font-size:12px;">{{productr.name}}</p>
             <img ng-show="productr.product_logo" style="margin:0px auto; display:block; width:95%; height: 150px; " src="{{productr.product_logo.image}}" alt=" No Image" class="img-rounded">
-            <img ng-hide="productr.product_logo" style="margin:0px auto; display:block; width:95%; height: 150px; " alt=" No Image" class="img-rounded" src="http://placehold.it/300x200/b3b3b3/ffffff&text=No image available">
+            <img ng-hide="productr.product_logo" style="margin:0px auto; display:block; width:95%; height: 150px; " alt=" No Image" class="img-rounded" src="../../assets/images/if_no_logo_images_available.gif">
         </div>
     </accordion-group>
 
