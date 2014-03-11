@@ -4,6 +4,16 @@ angular.module('prodo.ProductApp')
  var reader1;
  $rootScope.count=0;
 
+//Comment Image error handling
+var UploadErrMsg = document.getElementById('UploadCommentIMGErrMsg');
+$scope.enableErrorMsg=function(){
+   $(".spanCommentIMGErr").css("display", "block");
+   $(".alert-danger").removeClass("in").show();
+   $(".alert-danger").delay(5000).addClass("in").fadeOut(2000);
+};
+  
+ //Comment Image error handling
+
 var holder = document.getElementById('holder'),
 tests = {
   filereader: typeof FileReader != 'undefined',
@@ -80,21 +90,22 @@ if (tests.dnd) {
    if(e.dataTransfer.files[0].size/1024>500)
 
     { 
-    
-        growl.addErrorMessage(" Image size must ne less than 500kb ");
+        $scope.enableErrorMsg();
+        UploadErrMsg.innerHTML = 'Image size must ne less than 500KB';
+        // growl.addErrorMessage(" Image size must ne less than 500kb ");
        
     }
   else if(acceptedTypes[e.dataTransfer.files[0].type] === false)
     {
-     
-   
-        growl.addErrorMessage("Add image only");
+      $scope.enableErrorMsg();
+      UploadErrMsg.innerHTML = 'Add image only';
+        // growl.addErrorMessage("Add image only");
     }
   else if($rootScope.count>1)
     {
-    
-   
-      growl.addErrorMessage("Add only one image at a time");
+      $scope.enableErrorMsg();
+      UploadErrMsg.innerHTML = 'Add only one image at a time';
+      // growl.addErrorMessage("Add only one image at a time");
     }
   else if($rootScope.count==1 && acceptedTypes[e.dataTransfer.files[0].type] === true && e.dataTransfer.files[0].size/1024<500)
     readfiles(e.dataTransfer.files );

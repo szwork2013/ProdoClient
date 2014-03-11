@@ -14,6 +14,7 @@
 <div ng-app="prodo.ProductApp" id="prodo-comment-container" class="container prodo-ProductContainer" ng-controller="ProductController" >
 <!--  -->
 <div growl></div>
+  
 <div id="ErrMsging" class="prodo-ErrMsging"></div>
 <br>
 <div id="prodo-ProductDetails">
@@ -128,6 +129,12 @@
         </div>
       </div>
       <!-- tabs -->
+      <div class="span4 spanCommentIMGErr " >
+      <div class="alert alert-danger fade" id="text">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <strong><div id="UploadCommentIMGErrMsg"></div></strong>
+      </div>
+    </div>
       <ul class="media-list "  id="prodo-comment-media-list">
         <div prodo-comments    id="prodo-comment-commentContainer"  >
         </div>

@@ -231,4 +231,6 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
     return (moment(time).format('DD MMM YYYY'));
   };
   //date format
+
+  
 }])

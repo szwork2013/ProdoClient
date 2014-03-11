@@ -441,6 +441,8 @@ $scope.commentImageShow;
 $scope.captureCommentImageHere = function (params) {
   $scope.commentImageShow = params;
 };
+
+
 // code for layerslider
 //date format
 //rnd code
