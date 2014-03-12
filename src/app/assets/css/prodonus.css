@@ -1444,6 +1444,20 @@ margin-bottom: 10px;
 .prodo-productCommentsInfoLable{font-size: 10px;text-align: left;}
 
 
+#profile-description {
+ position:relative;
+}
+#profile-description .text {
+  margin-bottom: 5px; color: #777; padding: 0 15px; position:relative; font-family: Arial; font-size: 14px; display: block;
+}
+
+#profile-description .show-more:hover { 
+    color: #1779dd;
+}
+#profile-description .show-more-height { height: 40px; overflow:hidden; }
+
+.showMoreMargin{margin-right: 50px;}
+
 .prodo-producttrendingInfo{
 	font-size: 10px;
 	font-weight: 20;

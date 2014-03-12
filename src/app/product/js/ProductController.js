@@ -191,6 +191,17 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
   //   if (document.getElementById('prodo-description').style.height === "15px") $("#prodo-description").css("height", "");
   //   else $("#prodo-description").css("height", "15px");
   // };
+    $(".show-more").click(function () {        
+        $(".text").toggleClass("show-more-height");
+        if(!$(".text").hasClass("show-more-height")){
+            $(this).text("Show Less");
+        }else{
+            $(this).text("Show More");
+        }
+    });
+
+
+
 
   //Follow Product
   $scope.CheckIfAlreadyFollowingProduct = function () {

@@ -45,7 +45,7 @@
             </td>
           </tr>
         </table>
-        <div class="clearBoth">
+        <div class="clearBoth"></div>
 
 
 
@@ -58,10 +58,19 @@
     <span class="prodo-Modelno" >
       MODEL NO :&nbsp; <span ng-bind="product.model_no"></span>
       <br>
-      <span>
-        <!-- <i ng-click="ShowDescription();" class="fa fa-caret-right fa-2x prodo-cursor"></i> -->Description :
-        <span id="prodo-description" class="prodo-description" ng-bind="product.description" > </span>
-      </span>
+      <!-- <span> -->
+     <!--     <i ng-click="ShowDescription();" class="fa fa-caret-right fa-2x prodo-cursor"></i> -->
+        Description : 
+      <!--   <span id="prodo-description" class="prodo-description" ng-bind="product.description" > </span> <i ng-click="ShowDescription();" class=" prodo-cursor"> read more</i> -->
+
+
+     <div id="profile-description">
+            <div class="text show-more-height" ng-bind="product.description">
+              
+            </div>
+            <div  class="show-more pull-right showMoreMargin">Show More</div>
+</div>
+      <!-- </span> -->
     </span>
     <table class="table child "  id="prodo-ProductFeatureTable" >
       <tr id="prodo-productbnd" class="prodo-productTabledis"  ng-show="product.banneddate">
