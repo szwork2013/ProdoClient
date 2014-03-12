@@ -208,6 +208,10 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
       $rootScope.usersession.productfollowlist.splice(indexOfUnfollowedProduct, 1);
       });
 
+  // $rootScope.$watch('orgid', function () 
+  // {
+  //     document.getElementById('searchText').placeholder="Search products in "+ $rootScope.orgdata.name;
+  // });
 
   $scope.loadMoreFollowedProduct=function() {
       if($scope.followedProductsCount === 100)
@@ -229,6 +233,8 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
       cleanEventGetSearchProductNotDone();      
       cleanEventUnfollowProductDone(); 
   });
+
+
 
 //End of controller         
   }
