@@ -107,7 +107,7 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
         $("#prodo-ProductDetails").css("display", "block");
         $("productExtraInfo").css("display", "block");
         $("#ErrMsging").css("display", "none");
-        // $log.debug(successData.success.product);
+        $log.debug(successData.success.product);
         $scope.getProductFeatures(l_prodle, l_orgid);
 
         $("#prodo-ProductFeatureTable").css("display", "table");

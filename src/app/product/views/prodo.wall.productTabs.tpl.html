@@ -19,8 +19,34 @@
 <br>
 <div id="prodo-ProductDetails">
   <div >
-    <img class="img prodo-productLogoDisplay" id="productLogo" ng-src="{{product.product_logo.image}}" />
-    <strong class="prodo-productNameStrong" >&nbsp;<span ng-bind="product.name.substring(0,20)"> </span></strong>
+   <img class="img prodo-productLogoDisplay pull-left" id="productLogo" ng-src="{{product.product_logo.image}}" />
+
+      <table style=" width: 80%; color: black;text-align: center">
+         
+                <tr >
+
+                  <td colspan ="2" style="">
+
+                      <strong class="prodo-productNameStrong" >&nbsp;<span ng-bind="product.name.substring(0,20)"> </span></strong>
+                  </td>
+                </tr> 
+                <tr style=" width: 50%;">
+                  <td style="border-right:1px solid #dbdbdb;" class="prodo-producttrendingInfo" style=" width: 50%;">
+                    <div style="font-size: 18px;"  ng-bind="product.trending.followedcount"></div><div style="font-size: 10px;"> Followers</div> 
+                  </td>
+                  <td class="prodo-producttrendingInfo" style=" width: 50%;">
+                      <div style="font-size: 18px;" ng-bind="product.trending.commentcount"></div><div style="font-size: 10px;"> Comments</div> 
+                  </td>
+                </tr>
+             </table>
+             <div style="clear:both">
+
+
+
+
+
+  <!--   <img class="img prodo-productLogoDisplay" id="productLogo" ng-src="{{product.product_logo.image}}" /> -->
+   <!--  <strong class="prodo-productNameStrong" >&nbsp;<span ng-bind="product.name.substring(0,20)"> </span></strong> -->
     <a href="" ng-style="CheckIfAlreadyFollowingProduct()" id="prodo-followBtn" ng-click="followCurrentProduct()"   class="pull-right btn btn-primary btn-sm">  Follow </a>
     <br>
     <span class="prodo-Modelno" >
