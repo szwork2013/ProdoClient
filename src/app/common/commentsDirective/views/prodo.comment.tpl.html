@@ -69,7 +69,7 @@
 
     </div>
     <div id="prodo-comment-companyName"  ng-style="hideIfNogrp(comment.user.grpname)"> &nbsp; &nbsp;- &nbsp; <span ng-bind="comment.user.grpname.substring(0,15)"></span>
-
+       </div>
       <!--  -->
  <ul id="commentNavTab" class="nav nav-pills pull-right" ng-init="tabCommentTags = false;
       tabCommentRemove = false" >
@@ -82,6 +82,7 @@
         </a>
       </li>
       <li ng-style="hideIfNotUser(comment.user.userid)" >
+      <!-- <li ng-if="comment.user.userid === userIDFromSession" > -->
         <a class="prodo-cursor" ng-click="tabCommentRemove = tabCommentRemove === false ? true : false;
           tabCommentImg = false;">
           <div  id="fa-removeComment" name="rm" class=" fa fa-trash-o  "  ></div>
@@ -93,9 +94,10 @@
 
 
 
-    </div>
+ 
   
   </div>
+   
   <div class="pull-left" id="prodo-comment-row-fluid" > <span ng-bind="comment.commenttext"></span></div>
   <br>
   <div class=" responseComment label label-warning"   id="responseComment"  >  </div>

@@ -51,6 +51,7 @@ $scope.socket.removeAllListeners('addcommentResponse');
 $scope.socket.on('addcommentResponse', function (error, result) {
   if (error) {
     $log.debug(error.error.message);
+     growl.addErrorMessage(error.error.message);
     $scope.showErrorIfCommentNotAdded(); //If error retry add comment 
     $scope.showRetryIconIfCommentNotAdded();
     // if(retry) retry.textContent("Error posting comment.. Please try again");
@@ -68,6 +69,7 @@ $scope.socket.removeAllListeners($scope.productcommentResponseListener);
 $scope.socket.on($scope.productcommentResponseListener, function (error, result) {
   if (error) {
     $log.debug(error.error.message);
+    growl.addErrorMessage(error.error.message);
   } else if (result) {
     $log.debug("productcomment  Response success" + JSON.stringify(result.success.product_comment));
     //  $scope.productCommentResponsearray.push( JSON.stringify(result.success.product_comment));
@@ -327,10 +329,16 @@ $scope.getLatestComments = function () {
 $scope.hideIfNotUser = function (userid) {
   if (userid) {
     if (userid !== $scope.userIDFromSession) {
+      // $log.debug("Userid   "+userid);
       return {
         display: "none"
       }
     }
+    // else{
+    //   return {
+    //     display: "block"
+    //   }
+    // }
   }
 };
 //dont show delete comment icon if not comment owener
