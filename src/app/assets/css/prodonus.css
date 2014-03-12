@@ -99,8 +99,8 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
 	width:100px; height:40px;
 }
 
-.navbar-btn{
-	color:#E0E6EE;
+.navbar-inverse .navbar-nav>li>a {
+color: #fff;
 }
 
 .navbar-username-link{
@@ -123,9 +123,6 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
 	min-height: 80px; border: 1px solid #E7EDF1; border-radius: 5px;
 }
 
-.prodo-wall-slider-container{
-	height: 375px; margin: 0 auto;
-}
 /*Advanced Search CSS*/
 .prodoAdvancedSearchTextbox { 
 
@@ -875,9 +872,15 @@ border-bottom-right-radius: 0px;
 border-bottom-left-radius: 0px;
 }
 
-.prodo-wall-sidebar-list-heading{
+.prodo-wall-sidebar-list-heading.active:hover{
 	background-color: #494F53; font-weight: bold; font-size:16px; text-align: center; 
 }
+.prodo-wall-sidebar-list-heading.active{
+	background-color: #494F53; font-weight: bold; font-size:16px; text-align: center; 
+}
+
+
+
 
 #prodo-view-navbar{
   margin-top: 0px;

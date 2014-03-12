@@ -5,6 +5,7 @@ angular.module('prodo.OrgApp')
 	.controller('OrgRegistrationController', ['$scope', '$rootScope', 'OrgModel', '$state', '$stateParams', '$log', 'OrgRegistrationService', 'UserSessionService', function($scope, $rootScope, OrgModel, $state, $stateParams, $log, OrgRegistrationService, UserSessionService) {
 
     $scope.errmessage = '';
+    $scope.mobileRegex = "/^\(?[+]([0-9]{2,5})\)?[-]?([0-9]{10})$/";
     $scope.org = OrgModel;   // assining OrgModel service to org to update org model data
     $scope.countries=[ 'Afghanistan', 
                         'Albania', 
