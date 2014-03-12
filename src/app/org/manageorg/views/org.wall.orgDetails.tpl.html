@@ -125,7 +125,7 @@
             </td>
             <td>
               <div class="buttons">
-                <a ng-hide="editorEnabled" class="btn btn-primary btn-sm" style="border-radius: 10px; margin: 5px;" ng-click="enableEditor()">Edit</a>
+                <a ng-hide="editorEnabled" class="btn btn-primary btn-sm" style="border-radius: 10px; margin: 5px;" ng-click="enableEditor(addr)">Edit</a>
                 <a ng-hide="{{$index}}<1 || editorEnabled" class="btn btn-danger btn-sm" style="border-radius: 10px; margin: 5px;" ng-click="deleteOrgAddress(addr.locid)">Del</a>
                 <a ng-show="editorEnabled" class="btn btn-primary btn-sm glyphicon glyphicon-floppy-save" style="border-radius: 10px; margin: 2px;" ng-click="updateAddress(addr.locid)">Save</a>
                 <a ng-show="editorEnabled" class="btn btn-primary btn-sm glyphicon glyphicon-remove" style="border-radius: 10px; margin: 2px;" ng-click="disableEditor()">Can</a>
@@ -312,6 +312,19 @@
         <p style='font-weight:bold; font-size: 13px; margin: 0;'>ORGANIZATION ARTWORK UPLOAD<i class="fa fa-pencil pull-right"></i></p>
       </accordion-heading>
         <div id="prodo-productFeature-fixed"   ng-app="prodo.UploadApp" ng-controller="UploadController"  >
+            <div class="span4 spanErr " >
+        <div class="alert alert-danger fade" id="text">
+          <button type="button" class="close" data-dismiss="alert">×</button>
+          <strong>Alert!</strong><div id="UploadErrMsg"></div>
+        </div>
+      </div>
+
+     <div class="span4 spanSuccess" >
+        <div class="alert alert-success fade">
+          <button type="button" class="close" data-dismiss="alert">×</button>
+          <strong>Successs!</strong> <div id="UploadSuccessMsg"></div>
+        </div>
+      </div>
           <table   class="table table-hover table-bordered prodo-productTableFont">
             <tr>
               <td>Logo</td>
@@ -339,9 +352,6 @@
             </tr>
           </table>
           <center>
-            <div class="alert alert-warning alert-dismissable" id="errAlert" style=" visibility: hidden;">
-              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> 
-            </div>
             <div id="FileName"></div>
           </center>
         </div>
