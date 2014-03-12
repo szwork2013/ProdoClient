@@ -162,13 +162,11 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
       restrict: 'A',
       link: function (scope, ele, attrs, c) {
         $('#layerslider').layerSlider({
+          skin: 'fullwidth',
           autoStart               : true,
     responsive              : true,
     responsiveUnder         : 0,
     sublayerContainer       : 0,
-    firstLayer              : 1,
-    twoWaySlideshow         : false,
-    randomSlideshow         : false,
     keybNav                 : true,
     touchNav                : true,
     imgPreload              : true,
@@ -196,19 +194,7 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
     autoPlayVideos          : true,
     autoPauseSlideshow      : 'auto',
     showBarTimer        : false,
-    showCircleTimer     : false,
- 
-    // you can change this settings separately by layers or sublayers with using html style attribute
- 
-    slideDirection          : 'right',
-    slideDelay              : 4000,
-    durationIn              : 1000,
-    durationOut             : 1000,
-    easingIn                : 'easeInOutQuint',
-    easingOut               : 'easeInOutQuint',
-    delayIn                 : 0,
-    delayOut                : 0
-
+    showCircleTimer     : false
         });
       }
     };

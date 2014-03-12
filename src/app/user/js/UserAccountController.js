@@ -1,6 +1,7 @@
 angular.module('prodo.UserApp')
  .controller('UserAccountController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$log', 'growl', 'UserSessionService', 'OrgRegistrationService', 'userdata', function($scope, $rootScope, $state, $http, $timeout, $log, growl, UserSessionService, OrgRegistrationService, userdata) {
 
+    $log.debug(userdata.success.user);
     $scope.user ={};
     $scope.editorEnabled = false;
     $scope.editEmail = false;
@@ -47,12 +48,27 @@ angular.module('prodo.UserApp')
       }
       
     };
+var cleanupEventUserUploadResponseSuccess = $scope.$on("userUploadResponseSuccess",function(event,message){
+      console.log("Listenig ")
+      $state.reload();
+     })
+
 
     $scope.$state = $state;
     $scope.$watch('$state.$current.locals.globals.userdata', function (userdata) {
       
       if (userdata.success.user) {
           $scope.user = userdata.success.user;
+          if (userdata.success.user.firstname != null) {
+            $scope.hasPersonalDetail = true;
+          } else {
+            $scope.hasPersonalDetail = false;
+          }
+          if (userdata.success.user.address.address1 != null) {
+            $scope.hasAddress = true;
+          } else {
+            $scope.hasAddress = false;
+          }
           if (userdata.success.user.dob != null) {
             var d=new Date(userdata.success.user.dob);
             var year=d.getFullYear();
@@ -225,6 +241,7 @@ angular.module('prodo.UserApp')
 
     $scope.changePassword = function() {
       if ($scope.form.userpasswordsettingform.$valid) {
+        $scope.form.userpasswordsettingform.submitted = false;
         UserSessionService.updatePassword($scope.jsonUpdatePasswordData());
       } else {
         $scope.form.userpasswordsettingform.submitted = true;
@@ -336,6 +353,18 @@ angular.module('prodo.UserApp')
         $scope.userinvites = [{'name': '', 'email': ''}];
     };
 
+    $scope.removeInvites = function(invite) {
+    var invites = $scope.userinvites;
+      for (var i = 0, ii = invites.length; i < ii; i++) {
+        if (invite === invites[i]) { 
+          invites.splice(i, 1); 
+        }
+        else {
+          invites.splice(i,0);
+        } 
+      }
+    };
+
     $scope.jsonUserInvitesData = function()
       {
         var userInvite = 
@@ -419,15 +448,14 @@ angular.module('prodo.UserApp')
       cleanupEventUpdateUserNotDone(); 
       cleanupEventDeleteUserDone();   
       cleanupEventDeleteUserNotDone();
-      cleanupEventLogoutDone();                           
-      cleanupEventGetProductFollowedDone();
-      cleanupEventGetProductFollowedNotDone(); 
+      cleanupEventLogoutDone();                            
       cleanupEventGetProductRecommendDone(); 
       cleanupEventGetProductRecommendNotDone();     
       cleanupEventSendUserInvitesDone();      
       cleanupEventSendUserInvitesNotDone();      
       cleanupEventUnfollowProductDone(); 
       cleanupEventUnfollowProductNotDone();  
+      cleanupEventUserUploadResponseSuccess();
     });
 }]);
  

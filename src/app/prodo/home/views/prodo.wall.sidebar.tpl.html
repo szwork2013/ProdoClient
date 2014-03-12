@@ -3,7 +3,7 @@
 <div id="prodo-sidebar-followedproductlist-container">
  <div id="prodo-sidebar-list-group" class="list-group">
    <div id="prodo-sidebar-list" class="list">
-      <a style="background-color: #494F53; font-weight: bold; font-size:16px; text-align: center; "  class="list-group-item active" >Products Followed</a>
+      <a class="prodo-wall-sidebar-list-heading list-group-item active" >Products Followed</a>
       <div ng-repeat="fp in usersession.productfollowlist | limitTo:followedProductsCount track by $index" href="#" id="prodo-sidebar-list-group-item" class="list-group-item " ng-if="regularExpressionForProdonus.test(fp.name) !== true">          
           <table class="sidebarTableStyling">  
             <tr>
@@ -25,7 +25,7 @@
 <div id="prodo-sidebar-search-container">
   <div id="prodo-sidebar-list-group" class="list-group">
     <div id="prodo-sidebar-list" class="list" >
-      <a style="background-color: #494F53; font-weight: bold; font-size:16px; text-align: center;" id="prodo-sidebar-list-group-item" class="list-group-item active" ng-bind="title"></a>
+      <a id="prodo-sidebar-list-group-item" class="prodo-wall-sidebar-list-heading list-group-item active" ng-bind="title"></a>
       <div  id="prodo-sidebar-list-group-main" class="list-group-item">         
         <input general-search type="text" class="prodoNormalSearchTextbox"  name="product" typeahead="name for name in enhancement | filter : $viewValue | limitTo:10" id="searchText" ng-model="productSearch.product"  style="width:100%" placeholder="Context Search"  typeahead-on-select="quickSearchEmit()" ng-click="toggleTitleForDiv()" typeahead-loading="loadingLocations" typeahead-wait-ms="720" >
                   

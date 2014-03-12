@@ -10,8 +10,8 @@ angular.module('prodo.OrgApp')
     $scope.user = {
       password: ''
     }
-  
-    $scope.enableEditor = function() {
+    $scope.$state=$state;
+    $scope.enableEditor = function(addr) {
       $scope.editorEnabled = true;
     };
 
@@ -41,16 +41,23 @@ angular.module('prodo.OrgApp')
     $scope.editAppKey = function() {
         $scope.editMode = false;
     }
-
+    
+     var cleanupEventOrgUploadLogoResponseSuccess = $scope.$on("orgUploadLogoResponseSuccess",function(event,message){
+      $state.reload();
+     })
     /***
     // Organisation Manage Account Settings function definitions
     ***/
+
+    $scope.$watch('$state.$current.locals.globals.currentorgdata', function (currentorgdata) {
+      $scope.org = currentorgdata.success.organization;
+    });
     if (currentorgproduct.error) {
       console.log('no product available');
     } else {
       $scope.productlist = currentorgproduct.success.product;
     }
-    $scope.org = currentorgdata.success.organization;
+    
     
     $scope.groups = currentorggroup.success.usergrp;
     $scope.orgaddr = currentorgaddr.success.orgaddress;
@@ -70,7 +77,6 @@ angular.module('prodo.OrgApp')
           };
         return JSON.stringify(orgData); 
       }
-      console.log($scope.jsonOrgAccountData());
      
 
     // function to handle server side responses
@@ -453,6 +459,7 @@ angular.module('prodo.OrgApp')
       cleanupEventSendOrgCustomerInvitesNotDone();       
       cleanupEventSendOrgGroupInvitesDone();        
       cleanupEventSendOrgGroupInvitesNotDone();
+      cleanupEventOrgUploadLogoResponseSuccess();
     });
 }]);
  
