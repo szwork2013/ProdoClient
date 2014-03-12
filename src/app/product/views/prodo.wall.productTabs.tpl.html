@@ -19,27 +19,33 @@
 <br>
 <div id="prodo-ProductDetails">
   <div >
-   <img class="img prodo-productLogoDisplay pull-left" id="productLogo" ng-src="{{product.product_logo.image}}" />
+   <img class="img prodo-productLogoDisplay pull-left" id="productLogo" ng-src="{{product.product_logo.image}}" alt-SRC src="../assets/images/if_no_logo_images_available.gif"/>
+      <a href="" ng-style="CheckIfAlreadyFollowingProduct()" id="prodo-followBtn"  ng-click="followCurrentProduct()"   class="prodo-followBtn pull-right btn btn-primary btn-sm ">  Follow </a>
+<!--      <strong class="prodo-productNameStrong" >&nbsp;<span ng-bind="product.name.substring(0,20)"> </span></strong> -->
 
-      <table style=" width: 80%; color: black;text-align: center">
-         
-                <tr >
+   <!--   <div class="prodo-trendingContainer">
+    Followers {{ product.trending.followedcount }}  
+    </div>
+       <div class="prodo-trendingContainer" >
+    Comments {{ product.trending.commentcount }}
+    </div> -->
 
-                  <td colspan ="2" style="">
-
-                      <strong class="prodo-productNameStrong" >&nbsp;<span ng-bind="product.name.substring(0,20)"> </span></strong>
-                  </td>
-                </tr> 
-                <tr style=" width: 50%;">
-                  <td style="border-right:1px solid #dbdbdb;" class="prodo-producttrendingInfo" style=" width: 50%;">
-                    <div style="font-size: 18px;"  ng-bind="product.trending.followedcount"></div><div style="font-size: 10px;"> Followers</div> 
-                  </td>
-                  <td class="prodo-producttrendingInfo" style=" width: 50%;">
-                      <div style="font-size: 18px;" ng-bind="product.trending.commentcount"></div><div style="font-size: 10px;"> Comments</div> 
-                  </td>
-                </tr>
-             </table>
-             <div style="clear:both">
+      <table class="prodo-MainDetailsTable" >
+         <tr >
+           <td colspan ="2" >
+               <strong class="prodo-productNameStrong" >&nbsp;<span ng-bind="product.name.substring(0,20)"> </span></strong>
+           </td>
+         </tr> 
+         <tr class="prodo-followesInfotr" >
+           <td class="prodo-followesInfotd prodo-producttrendingInfo" >
+             <div class="prodo-producttrendingInfoDiv"  ng-bind="product.trending.followedcount"></div><div class="prodo-producttrendingInfoLable" > Followers</div> 
+            </td>
+            <td class="prodo-producttrendingInfo prodo-productCommentInfo">
+              <div class="prodo-productCommentInfoDiv" ng-bind="product.trending.commentcount"></div><div class="prodo-productCommentsInfoLable"> Comments</div> 
+            </td>
+          </tr>
+        </table>
+        <div class="clearBoth">
 
 
 
@@ -47,7 +53,7 @@
 
   <!--   <img class="img prodo-productLogoDisplay" id="productLogo" ng-src="{{product.product_logo.image}}" /> -->
    <!--  <strong class="prodo-productNameStrong" >&nbsp;<span ng-bind="product.name.substring(0,20)"> </span></strong> -->
-    <a href="" ng-style="CheckIfAlreadyFollowingProduct()" id="prodo-followBtn" ng-click="followCurrentProduct()"   class="pull-right btn btn-primary btn-sm">  Follow </a>
+ 
     <br>
     <span class="prodo-Modelno" >
       MODEL NO :&nbsp; <span ng-bind="product.model_no"></span>
