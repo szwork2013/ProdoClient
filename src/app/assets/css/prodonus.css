@@ -1199,19 +1199,19 @@ text-decoration: none;
 background-color: transparent;
 }
 #load-more{
-bottom: -3rem;
-background-color: white;
-color: #999;
- 
+/*bottom: -3rem;*/
+
+background-color: rgb(236, 236, 236);
+color: black;
 line-height: 20px;
 text-align: center;
-padding: 10px 0;
-font-size:30px;
+/*padding: 10px 0;*/
+font-size:15px;
 cursor: pointer;
-
-width: 518px;
-    /*box-shadow: inset 1px 1px rgba(0, 0, 0, 0.4), inset -1px -1px rgba(0, 0, 0, 0.4);*/ }  
-#load-more:hover            { color:#666; }   
+width: 82%;
+margin-bottom: 10px;
+ }  
+/*#load-more:hover            { color:#666; }   */
 
 
 
