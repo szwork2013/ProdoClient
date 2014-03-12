@@ -250,6 +250,8 @@ $scope.productUploadResponseHandler=function(error, imagelocation){
 
     } else {
       $scope.imageSrc = JSON.stringify(imagelocation);
+         $log.debug("Emit");
+      $rootScope.$broadcast("productUploadResponseSuccess", "success");
       $log.debug("getting response for product upload  " + $scope.imageSrc);
       $scope.enableSuccessMsg();
       UploadSuccessMsg.innerHTML = 'File Uploaded successfully...';
@@ -287,6 +289,8 @@ $scope.productUploadLogoResponseHandler=function(error, imagelocation){
       }
     } else {
       $scope.imageSrc = JSON.stringify(imagelocation);
+          $log.debug("Emit");
+      $rootScope.$broadcast("productUploadLogoResponseSuccess", "success");
       $log.debug("getting response for logo upload  " + $scope.imageSrc);
       // growl.addSuccessMessage("File Uploaded successfully...");
       $scope.enableSuccessMsg();
@@ -326,7 +330,7 @@ $scope.productUploadLogoResponseHandler=function(error, imagelocation){
     } else {
 
       $log.debug("getting response for org upload  " + imagelocation);
-       $rootScope.$broadcast("orgUploadResponseSuccess", "success");
+      $rootScope.$broadcast("orgUploadResponseSuccess", "success");
       $scope.enableSuccessMsg();
       UploadSuccessMsg.innerHTML = 'File Uploaded successfully...';
       $scope.imageSrc = imagelocation;

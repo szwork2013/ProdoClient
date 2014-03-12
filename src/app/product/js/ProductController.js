@@ -75,6 +75,11 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
 
   //get login details
   $scope.getUserDetails = function () {
+    $scope.userIDFromSession = $rootScope.usersession.currentUser.userid;
+    $scope.usernameFromSession = $rootScope.usersession.currentUser.username;
+    // $scope.ProductsFollowedFromSession = $rootScope.usersession.currentUser.products_followed;
+    $scope.ProductsFollowedFromSession = UserSessionService.productfollowlist
+    // $log.debug("Products  f.. "+JSON.stringify( $scope.ProductsFollowedFromSession));
     if ($rootScope.usersession.currentUser.org) {
       $scope.grpnameFromSession = $rootScope.usersession.currentUser.org.grpname;
       $scope.orgidFromSession = $rootScope.usersession.currentUser.org.orgid;
@@ -84,11 +89,6 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
       $scope.orgnameFromSession = "";
       $scope.orgidFromSession = "";
     }
-    $scope.userIDFromSession = $rootScope.usersession.currentUser.userid;
-    $scope.usernameFromSession = $rootScope.usersession.currentUser.username;
-    // $scope.ProductsFollowedFromSession = $rootScope.usersession.currentUser.products_followed;
-    $scope.ProductsFollowedFromSession = UserSessionService.productfollowlist
-    // $log.debug("Products  f.. "+JSON.stringify( $scope.ProductsFollowedFromSession));
   }
   $scope.getUserDetails();
   //get login details
