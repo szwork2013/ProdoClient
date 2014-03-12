@@ -38,7 +38,7 @@
 
 	      <div class="control-group" ng-if="toggleContact">
 
-					<input ng-repeat='contact in org.contacts' name="contact" type="text" class="prodo-wizard-form-control form-control" ng-pattern="/^[0-9]{10,15}$/" placeholder="Customer HelpLine" ng-model="contact.customerhelpline" /><i class="fa fa-check" ng-show="OrgAddressForm.contact.$dirty && OrgAddressForm.contact.$valid"></i>
+					<input ng-repeat='contact in org.contacts' name="contact" type="text" class="prodo-wizard-form-control form-control" ng-pattern="mobileRegex" placeholder="Customer HelpLine" ng-model="contact.customerhelpline" /><i class="fa fa-check" ng-show="OrgAddressForm.contact.$dirty && OrgAddressForm.contact.$valid"></i>
 						 
 				</div>	<!-- control group div -->
 
