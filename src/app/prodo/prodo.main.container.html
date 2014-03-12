@@ -8,7 +8,7 @@
       <ul ng-cloak ng-show="usersession.isLoggedIn" class="nav navbar-nav navbar-right">
         <li><a class="navbar-btn btn" ui-sref="prodo.home.wall.org"><i  class="prodo-fa fa fa-home"></i>Home</a></li>
         <li class="dropdown">
-          <a class="navbar-username-link" href="#" class="dropdown-toggle" data-toggle="dropdown"><strong>{{usersession.currentUser.username}}</strong><b class="caret"></b></a>
+          <a class="navbar-btn" href="#" class="dropdown-toggle" data-toggle="dropdown"><strong>{{usersession.currentUser.username}}</strong><b class="caret"></b></a>
             <ul class="navbar-dropdown-ul dropdown-menu">
               <li><a ui-sref="prodo.account-user.user"><i class="prodo-fa fa fa-cog fa-lg"></i>User Account</a></li>
               <li><a ng-show='usersession.currentUser.org.isAdmin' ui-sref="prodo.account-org.org.detail"><i class="prodo-fa fa fa-cog fa-lg"></i>Org Account</a></li>
