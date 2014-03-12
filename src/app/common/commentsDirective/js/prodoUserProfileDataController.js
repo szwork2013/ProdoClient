@@ -28,7 +28,7 @@ angular.module('prodo.CommonApp').controller('prodoUserProfileDataController', [
         {
           $scope.ProductsFollowedMessage = "NO PRODUCTS FOLLOWED";
         }
-        else if($scope.modaluser.products_followed.length === 1 && $scope.modaluser.products_followed[0].name === "Prodonus Software")
+        else if($scope.modaluser.products_followed.length === 1 && $scope.regularExpressionForProdonus.test("prodonus") === true)
         {   
           $scope.ProductsFollowedMessage = "NO PRODUCTS FOLLOWED";
         }

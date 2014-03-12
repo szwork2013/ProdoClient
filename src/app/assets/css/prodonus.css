@@ -30,6 +30,10 @@ border: 1px solid #9FBACC;
 border-bottom: none;
 }
 
+#prodo-admin-nav-pills{
+	padding: 5px;
+}
+
 #prodo-admin-nav-pills>li.active>a{
 color: black;
 border-top-right-radius: 5px;
@@ -91,6 +95,37 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
 	font-size: 14px;
 } 
 
+.navbar-brand-img{
+	width:100px; height:40px;
+}
+
+.navbar-btn{
+	color:#E0E6EE;
+}
+
+.navbar-username-link{
+	color:#E0E6EE;
+}
+
+.logout-img{
+	margin-right:10px;
+}
+
+.navbar-dropdown-ul{
+	text-align: left;
+}
+
+.prodo-wall-col-container{
+	padding: 1px;
+}
+
+.prodo-wall-advertisment-container{
+	min-height: 80px; border: 1px solid #E7EDF1; border-radius: 5px;
+}
+
+.prodo-wall-slider-container{
+	height: 375px; margin: 0 auto;
+}
 /*Advanced Search CSS*/
 .prodoAdvancedSearchTextbox { 
 
@@ -104,59 +139,6 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
     /* */
   } 
 
-
-
-
-/*
-
-.prodo-button {
-	-moz-box-shadow:inset 0px 0px 0px 0px #bee2f9;
-	-webkit-box-shadow:inset 0px 0px 0px 0px #bee2f9;
-	box-shadow:inset 0px 0px 0px 0px #bee2f9;
-	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #63b8ee), color-stop(1, #468ccf) );
-	background:-moz-linear-gradient( center top, #63b8ee 5%, #468ccf 100% );
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#63b8ee', endColorstr='#468ccf');
-	background-color:#63b8ee;
-	margin-right: 20px;
-	-webkit-border-top-left-radius:37px;
-	-moz-border-radius-topleft:37px;
-	border-top-left-radius:37px;
-	-webkit-border-top-right-radius:0px;
-	-moz-border-radius-topright:0px;
-	border-top-right-radius:0px;
-	-webkit-border-bottom-right-radius:37px;
-	-moz-border-radius-bottomright:37px;
-	border-bottom-right-radius:37px;
-	-webkit-border-bottom-left-radius:0px;
-	-moz-border-radius-bottomleft:0px;
-	border-bottom-left-radius:0px;
-	text-indent:0;
-	border:1px solid #3866a3;
-	display:inline-block;
-	color:#14396a;
-	font-family:Arial;
-	font-size:15px;
-	font-weight:bold;
-	font-style:normal;
-	height:30px;
-	line-height:30px;
-	width:100px;
-	text-decoration:none;
-	text-align:center;
-	text-shadow:0px 0px 0px #7cacde;
-}
-
-.prodo-button:hover {
-	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #468ccf), color-stop(1, #63b8ee) );
-	background:-moz-linear-gradient( center top, #468ccf 5%, #63b8ee 100% );
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#468ccf', endColorstr='#63b8ee');
-	background-color:#468ccf;
-}
-
-.prodo-button:active {
-	position:relative;
-	top:1px;
-}*/
   #prodo-form-button-logout{
 	width: 60px;
 	height: 25px;
@@ -248,6 +230,17 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
      
 }
 
+#prodo-signup-secure-text{
+	display: block;
+	font-size: 12px;
+margin-left: 10px;
+text-align: center;
+color: #595365;
+}
+
+.radio-btn-signup{
+	width: 250px; height: 20px; margin: 10px; display: block;
+}
 
 /*change the View: Signup form input button signup style*/
 #prodo-form-button-signup{
@@ -278,8 +271,85 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
 	padding-top: 10px;
 	margin-left: 10px;
 	color: #595365;
+	width: 370px;
 }
 
+.error-ul{
+	list-style-type: disc;
+}
+
+.prodo-alert-error-container{
+	width:250px; min-height: 30px; border-radius: 2px; margin: 10px auto; display: block; text-align:left; font-size: 12px;
+}
+
+/*-----User Account------*/
+.prodo-account-container{
+	border: 1px solid #b3b3b3; border-radius: 5px; padding: 5px; 
+}
+
+#user-account-heading{
+	text-align:center; font-weight: bold; margin-top: 5px; margin-bottom: 5px;
+}
+
+.account-profile-pic-container{
+	height:190px; border-radius: 5px; margin-bottom: 10px; padding:20px;
+}
+
+.account-profile-img{
+	width:150px; height:100px; margin: 10px;
+}
+
+.user-account-name-text{
+	margin-left: 10px; margin-bottom: 0px; font-size: 20px;
+}
+
+.prodo-fa{
+	margin-right: 5px;
+}
+
+.prodo-account-btn{
+	border-radius: 10px; margin: 5px; width: 80px; font-size: 12px; font-weight:bold;
+}
+
+.prodo-account-invites-btn{
+	background-color:#47707C; border-color:#3C555C; border-radius: 10px; margin: 15px;
+}
+
+.prodo-account-unfollow-btn{
+margin:5px auto; display:block; height:25px; width: 95%; background-color:#304A61;
+}
+
+.prodo-accordion-heading{
+	font-weight:bold; font-size: 13px; margin: 0;
+}
+
+.prodo-account-form-control{
+	width:55%; height:30px; display:block
+}
+
+.prodo-account-text-success{
+	text-align:left; font-size:20px; margin: 20px auto;
+}
+
+.product-container{
+	width:160px; min-height: 200px; float: left; margin: 5px; border: solid 1px #ccc;
+}
+
+.product-name-heading{
+	margin:5px auto; display:block; text-align:center; font-weight:bold; font-size:12px;
+}
+
+.prodo-product-img{
+	margin:0px auto; display:block; width:95%; height: 150px; 
+}
+
+.prodo-account-text-info{
+	text-align:center; font-size:15px;
+}
+
+small {
+	color: red;
+}
 /*change signup recaptcha style*/ 
 #recaptcha_image,
 #recaptcha_image img
@@ -332,6 +402,10 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
   margin-top: 50px;
   margin-left: 100px;
   padding-bottom: 20px;
+}
+
+.prodo-signin-remember-label{
+	width: 110px; text-align:left; float: left; margin-left: 50px; display: inline-block; font-weight:normal; font-size:12px;
 }
  
 #prodo-form-signin{
@@ -574,6 +648,10 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
 	height:1px; margin-top: 0; width: 90%;
 }
 
+.prodo-account-hr{
+	height:1px; margin-top: 0; width: 90%;
+}
+
 
 .prodo-wizard-form-control{
 	width:50%;
@@ -740,6 +818,44 @@ text-align: left;
 	width: 35%;
 }
 
+.prodo-org-broadcast-container{
+	margin: 30px auto;
+}
+
+.prodo-org-account-view-container{
+	margin: 10px auto;
+}
+
+#prodo-registration-Wizard-after{
+	color :#c8dbc8 ; background-color: white; z-index: 100;position: absolute;
+
+}
+
+.prodo-wall-dashboard-container{
+border: 1px solid #b3b3b3;
+background-color: transparent;
+  border-radius: 10px;
+  margin-top: 10px;
+  min-height: 50px;
+}
+.prodo-org-wizard-nav-hr{
+background: black;
+width: 270%;
+height: 1px;
+position: relative;
+margin-top: 5%;
+left: 50%;
+}
+
+.prodo-org-wizard-nav-fa{
+	color :rgb(200, 219, 200);
+	position: absolute;
+background-color: white;
+}
+
+.prodo-org-wizard-nav-table{
+	text-align:center ;margin-bottom: -5%;
+}
 /**
 * Prodo Main View
 **/
@@ -757,6 +873,10 @@ text-align: left;
 margin-bottom: 0;
 border-bottom-right-radius: 0px;
 border-bottom-left-radius: 0px;
+}
+
+.prodo-wall-sidebar-list-heading{
+	background-color: #494F53; font-weight: bold; font-size:16px; text-align: center; 
 }
 
 #prodo-view-navbar{
@@ -817,7 +937,7 @@ border-radius: 30px;
 **/
 
 #prodo-dashboard-container{
-  background-color: #ffffff;
+  background-color: transparent;
   border-radius: 10px;
   margin-top: 10px;
   min-height: 50px;
@@ -1872,6 +1992,25 @@ text-align: right;
 	font-size: 16px; 
 	text-align: center ; 
 }
+.prodo-admin-container{
+	border: 1px solid #E7EDF1; min-height: 50px;
+}
+
+.prodo-admin-tab-content{
+	margin-top: 30px; min-height: 50px; padding-bottom: 9px; border-bottom: 1px solid #ddd;
+}
+
+#prodo-wall-blog-container{
+  background-color: #ffffff;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  border: 1px solid #b3b3b3;
+}
+
+.prodo-footer-content-container{
+background-color: transparent; margin: 20px auto; border-radius: 5px; min-height: 300px; width: 100%;
+}
+
 .prodo-registration-Wizard-after{
 	style="color :rgb(200, 219, 200)";
 }
