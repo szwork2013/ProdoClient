@@ -573,6 +573,19 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   };
   //date format
 
+   var cleanupEventproductUploadResponseSuccess = $scope.$on("productUploadResponseSuccess",function(event,message){
+     // $log.debug("Listening");
+     $scope.newProduct_ResponseProdle=$scope.currentProdle;
+      $state.reload();
+   });
+   // cleanupEventproductUploadResponseSuccess();
+
+   var cleanupEventproductUploadLogoResponseSuccess = $scope.$on("productUploadLogoResponseSuccess",function(event,message){
+       // $log.debug("Listening");
+       $scope.newProduct_ResponseProdle=$scope.currentProdle;
+      $state.reload();
+   });
+   // cleanupEventproductUploadLogoResponseSuccess();
 }])
 
  angular.module('prodo.ProductApp').filter('startFrom', function () {
