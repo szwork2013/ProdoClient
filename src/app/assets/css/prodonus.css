@@ -645,6 +645,10 @@ small {
 	height:1px; margin-top: 0; width: 90%;
 }
 
+.prodo-hr{
+	height:1px; margin-top: 0; width: 100%;
+}
+
 .prodo-account-hr{
 	height:1px; margin-top: 0; width: 90%;
 }
@@ -2012,6 +2016,7 @@ text-align: right;
 
 .prodo-footer-content-container{
 background-color: transparent; margin: 20px auto; border-radius: 5px; min-height: 300px; width: 100%;
+border: 1px solid #b3b3b3; padding: 30px;
 }
 
 .prodo-registration-Wizard-after{
