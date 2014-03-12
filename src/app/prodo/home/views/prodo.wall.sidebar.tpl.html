@@ -27,8 +27,8 @@
     <div id="prodo-sidebar-list" class="list" >
       <a id="prodo-sidebar-list-group-item" class="prodo-wall-sidebar-list-heading list-group-item active" ng-bind="title"></a>
       <div  id="prodo-sidebar-list-group-main" class="list-group-item">         
-        <input general-search type="text" class="prodoNormalSearchTextbox"  name="product" typeahead="name for name in enhancement | filter : $viewValue | limitTo:10" id="searchText" ng-model="productSearch.product"  style="width:100%" placeholder="Context Search"  typeahead-on-select="quickSearchEmit()" ng-click="toggleTitleForDiv()" typeahead-loading="loadingLocations" typeahead-wait-ms="720" >
-                  
+        <input general-search type="text" class="prodoNormalSearchTextbox"  name="product" typeahead="name for name in enhancement | filter : $viewValue | limitTo:10" id="searchText" ng-model="productSearch.product"  style="width:100%" placeholder="Context Search"  typeahead-on-select="quickSearchEmit()" ng-click="toggleTitleForDiv()" typeahead-loading="name" typeahead-wait-ms="720" >
+<!--                   <i ng-show="name" class="glyphicon glyphicon-refresh" id="refreshIcon"></i>  --> 
    <!--  <p ng-click="a()">test</p> -->
         <a data-toggle="modal"  data-target="#advancedSearchModal" ng-click="modalReset()" class="hyperlinkPointer">Advanced Search</a>
          <div ng-bind="errors" class="errorClassMessage cursorResize" id="sidebarErrors" ng-click="toggleTitleForDiv()"></div>
@@ -60,7 +60,7 @@
                         <ol class="resultScrollable">
                         <li ng-repeat="list in result">                                             
                            <span ng-bind="list.name" ng-if="list.products!==undefined" class="organisationSearchResult"></span>
-                           <a ng-bind="list.name" ng-click="orgProdleEmitter(list.prodle,list.orgid)" ng-if="list.products===undefined" class="hyperlinkPointer">
+                           <a ng-bind="list.name" ng-click="orgProdleEmitter(list.prodle,list.orgid)" ng-if="list.products===undefined" class="hyperlinkPointer"> 
                            </a>
                            <div style="width:100%;" ng-if="list.products===undefined" >[ Description : <span ng-bind="list.description"></span> ]</div>
 
