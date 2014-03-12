@@ -1295,7 +1295,7 @@ margin-bottom: 10px;
 .prodo-padding-bottom{padding-bottom: 10px;}
 .prodo-loadmoreColor{color:gray;}
 .prodo-loadmoreMsg{text-align:center; width:518px; font-family: Helvetica ;}
-
+.prodo-productNameList{font-size: 10px;}
 .prodo-ProductContainer{border: 1px solid #94d2f8; width: 100%; }
 .prodo-productLogoDisplay{height: 100px; padding:10px;max-width:200px; cursor: pointer;}
 .prodo-productNameStrong{font-size: 20px; margin:20px;max-width:200px; text-align:center; color:#82805F}
