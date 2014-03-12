@@ -120,6 +120,7 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
         // console.log( $scope.productComments);
         $scope.pImages_l = successData.success.product.product_images;
         $("#prodo-addingProduct").text($scope.product.status);
+        $("#loadMoreCommentMsg").css("display", "none");
 
         //check owner of product
         if ($rootScope.usersession.currentUser.org) {
@@ -132,14 +133,14 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
         //if no comments , dont show load more comments button
         // $("#loadMoreCommentMsg").css("display", "none");
         $log.debug("COmments :   "+successData.success.product.product_comments);
-        // if((successData.success.product.product_comments==undefined) || (successData.success.product.product_comments==null)||(successData.success.product.product_comments=="")){
-        //       $("#loadMoreCommentMsg").css("display", "none");
-        // }
-        // if (successData.success.product.product_comments) {
-        //   if (successData.success.product.product_comments.length > 4) {
-        //     $("#load-more").css("display", "inline");
-        //   } 
-        // } 
+        if((successData.success.product.product_comments==undefined) || (successData.success.product.product_comments==null)||(successData.success.product.product_comments=="")){
+              $("#loadMoreCommentMsg").css("display", "none");
+        }
+        if (successData.success.product.product_comments) {
+          if (successData.success.product.product_comments.length > 4) {
+            $("#load-more").css("display", "inline");
+          } 
+        } 
         
       }
     }, function (error) { //if error geting product
@@ -185,11 +186,11 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
   //get Product features
 
   //Product Description height toggle
-  $scope.ShowDescription = function () {
+  // $scope.ShowDescription = function () {
 
-    if (document.getElementById('prodo-description').style.height === "15px") $("#prodo-description").css("height", "");
-    else $("#prodo-description").css("height", "15px");
-  };
+  //   if (document.getElementById('prodo-description').style.height === "15px") $("#prodo-description").css("height", "");
+  //   else $("#prodo-description").css("height", "15px");
+  // };
 
   //Follow Product
   $scope.CheckIfAlreadyFollowingProduct = function () {

@@ -16,7 +16,7 @@
             </tr>        
           </table>               
       </div>
-      <a  class="list-group-item hyperlinkPointer" ng-if="usersession.productfollowlist.length>6" ng-click="loadMoreFollowedProduct()"> <center id="tabMore">More</center></a>
+      <a  class="list-group-item hyperlinkPointer" ng-if="usersession.productfollowlist.length>6" ng-click="loadMoreFollowedProduct()"> <center id="tabMore">Read More</center></a>
    </div>
  </div>
 </div>
@@ -36,50 +36,50 @@
             <div id = "advancedSearchModal" class="modal fade" >      <!-- Modal Code Starts for Advansed-Search -->
               <div class="modal-dialog">
                 <div class="modal-content">
-                          <div>
-                            <h4 align="center">Advanced Search </h4>   
-                            <div id="lineHr"></div>             
-                          </div>  
+                  <div>
+                    <h4 align="center">Advanced Search </h4>   
+                    <div id="lineHr"></div>             
+                  </div>  
+                  
+                  <div class="modalAppearance">
+                    <div class="modalMessageContainer">*Type Comma (,) between all the words you want.Eg: Apple Iphone , Samsung Duos</div>            
+                      <div class="textBoxContainer" >                                                  
+                      <input type="text" class="prodoAdvancedSearchTextbox" placeholder="Organization Name [ eg:Prodonus]" id="textBoxOrgName" ng-model="org"/>       
+
+                      <input type="text" class="prodoAdvancedSearchTextbox" placeholder="Product Name [ eg:Samsung,Nokia ]" id="textBoxProductName" ng-model="product_name"> 
+
+                      <input type="text" class="prodoAdvancedSearchTextbox"  placeholder="Feature [ eg:JBL Speaker,BOSE Speakers ]" id="textBoxFeatureName"  ng-model="feature" >   
+
+                     <input type="text" class="prodoAdvancedSearchTextbox" placeholder="Category [ eg:Mobiles,Tablets]" id="textBoxCategoryName" ng-model="category">           
+
+                       <input type="text" placeholder="Please Enter Exact   Model Number [ eg:Grang Duos,S4 ]"  ng-model="model_number" id="textBoxModelNumber" class="prodoAdvancedSearchTextbox">              
+                      </div>    
+
+                      <div id="prodo-searchResults"><br>
+                       <div style="" class="borderBoxResult advanceSearchResult textBoxContainer" ng-bind="message"></div>                      
+                        <ol class="resultScrollable">
+                        <li ng-repeat="list in result">                                             
+                           <span ng-bind="list.name" ng-if="list.products!==undefined" class="organisationSearchResult"></span>
+                           <a ng-bind="list.name" ng-click="orgProdleEmitter(list.prodle,list.orgid)" ng-if="list.products===undefined" class="hyperlinkPointer">
+                           </a>
+                           <div style="width:100%;" ng-if="list.products===undefined" >[ Description : <span ng-bind="list.description"></span> ]</div>
+
+                            <div style="width:100%;" ng-if=" list.info!==undefined && list.info ==='No products exist for this organisation' ">[ Info : <span ng-bind="list.info"></span> ]</div>
                           
-                          <div class="modalAppearance">
-                            <div class="modalMessageContainer">*Type Comma (,) between all the words you want.Eg: Apple Iphone , Samsung Duos</div>            
-                              <div class="textBoxContainer" >                                                  
-                              <input type="text" class="prodoAdvancedSearchTextbox" placeholder="Organization Name [ eg:Prodonus]" id="textBoxOrgName" ng-model="org"/>       
-
-                              <input type="text" class="prodoAdvancedSearchTextbox" placeholder="Product Name [ eg:Samsung,Nokia ]" id="textBoxProductName" ng-model="product_name"> 
-
-                              <input type="text" class="prodoAdvancedSearchTextbox"  placeholder="Feature [ eg:JBL Speaker,BOSE Speakers ]" id="textBoxFeatureName"  ng-model="feature" >   
-
-                             <input type="text" class="prodoAdvancedSearchTextbox" placeholder="Category [ eg:Mobiles,Tablets]" id="textBoxCategoryName" ng-model="category">           
-
-                               <input type="text" placeholder="Please Enter Exact   Model Number [ eg:Grang Duos,S4 ]"  ng-model="model_number" id="textBoxModelNumber" class="prodoAdvancedSearchTextbox">              
-                              </div>    
-
-                              <div id="prodo-searchResults"><br>
-                                  <div style="" class="borderBoxResult advanceSearchResult" ng-bind="message"></div>                      
-                                  <ol class="resultScrollable">
-                                    <li ng-repeat="list in result">                                             
-                                               <span ng-bind="list.name" ng-if="list.products!==undefined" class="organisationSearchResult"></span>
-                                               <a ng-bind="list.name" ng-click="orgProdleEmitter(list.prodle,list.orgid)" ng-if="list.products===undefined" class="hyperlinkPointer">
-                                               </a>
-                                               <div style="width:100%;" ng-if="list.products===undefined" >[ Description : <span ng-bind="list.description"></span> ]</div>
-
-                                                <div style="width:100%;" ng-if=" list.info!==undefined && list.info ==='No products exist for this organisation' ">[ Info : <span ng-bind="list.info"></span> ]</div>
-                                              
-                                                      <ol type="i">
-                                                         <li ng-repeat="product_list in list.products" class="productSearchResult" ng-if="product_list.name!==''">
-                                                                 <a ng-bind="product_list.name" ng-click="orgProdleEmitter(product_list.prodle,list.orgid)" ng-if='product_list.name!==""' class="hyperlinkPointer"></a>
-                                                                <div style="width:98%" >[ Description : <span ng-bind="product_list.description" ></span> ]</div>
-                                                         </li>
-                                                      </ol>                                                      
-                                      </li>    
-                                    </ol>   
-                              </div>
-                          </div>                                                                                                 
-                      <div class="modal-footer">
-                        <button class="btn btn-info" data-dismiss="modal" ng-click="modalReset()">Cancel</button>         
-                         <input type="button" class="btn btn-info" value="Search" ng-click="searchProductData()" id="final" data-dismiss="modal "/>   
-                      </div>                                       
+                                  <ol type="i">
+                                     <li ng-repeat="product_list in list.products" class="productSearchResult" ng-if="product_list.name!==''">
+                                             <a ng-bind="product_list.name" ng-click="orgProdleEmitter(product_list.prodle,list.orgid)" ng-if='product_list.name!==""' class="hyperlinkPointer"></a>
+                                            <div  class="textBoxContainer">[ Description : <span ng-bind="product_list.description" ></span> ]</div>
+                                     </li>
+                                  </ol>                                                      
+                          </li>    
+                         </ol>   
+                       </div>
+                  </div>                                                                                                 
+                  <div class="modal-footer">
+                    <button class="btn btn-info" data-dismiss="modal" ng-click="modalReset()">Cancel</button>         
+                     <input type="button" class="btn btn-info" value="Search" ng-click="searchProductData()" id="final" data-dismiss="modal "/>   
+                  </div>                                       
                  </div>
               </div>
            </div>

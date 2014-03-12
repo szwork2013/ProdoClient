@@ -114,8 +114,8 @@ $scope.getTagsFromCommentText = function () {
     var commenttextTags = commenttext.split(' ');
     for (var i = 0; i < commenttextTags.length; i++) {
       for (var j = 0; j < $scope.mytags.length; j++) {
-        if (commenttextTags[i] == $scope.mytags[j]) {
-          new_arr.push(commenttextTags[i]);
+        if (commenttextTags[i].toLowerCase() == $scope.mytags[j].toLowerCase()) {
+           new_arr.push(commenttextTags[i]);
         }
       }
     }
@@ -128,7 +128,7 @@ $scope.getTagsFromCommentText = function () {
     var commenttextTags = commenttext.split(' ');
     for (var i = 0; i < commenttextTags.length; i++) {
       for (var j = 0; j < $scope.myFeaturetags.length; j++) {
-        if (commenttextTags[i] == $scope.myFeaturetags[j]) {
+        if (commenttextTags[i].toLowerCase() == $scope.myFeaturetags[j].toLowerCase()) {
           new_arr.push(commenttextTags[i]);
         }
       }
@@ -430,6 +430,7 @@ $scope.loadMoreComments = function () {
       $("#img-spinner").hide();
     }, function (error) {
       $log.debug(error);
+      $("#loadMoreCommentMsg").html(error);
     });
   }
 };

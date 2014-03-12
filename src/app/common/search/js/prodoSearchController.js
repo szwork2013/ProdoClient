@@ -212,12 +212,12 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
   $scope.loadMoreFollowedProduct=function() {
       if($scope.followedProductsCount === 100)
       {
-            document.getElementById('tabMore').innerHTML = "More"
+            document.getElementById('tabMore').innerHTML = "Read More"
             $scope.followedProductsCount = 6;     
       }
       else if($scope.followedProductsCount === 6)
       {
-            document.getElementById('tabMore').innerHTML= "Less";
+            document.getElementById('tabMore').innerHTML= "Read Less";
             $scope.followedProductsCount = 100;     
       }
   };
