@@ -256,15 +256,16 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
  
   //   // if all checkbox are selected, check the selectall checkbox
   //   // and viceversa
-  //   $(".imgToggles").click(function(){
+    // $(".imgToggles").click(function(){
  
-  //       if($(".imgToggles").length == $(".imgToggles:checked").length) {
-  //           $("#showHideAllchk").prop("checked", "checked");
-  //       } else {
-  //           $("#showHideAllchk").removeProp("checked");
-  //       }
+    //     if($(".imgToggles").length == $(".imgToggles:checked").length) {
+    //         $("#showHideAllchk").prop("checked", true);
+    //     } else {
+    //         // $("#showHideAllchk").removeAttr("checked");
+    //         $('#showHideAllchk').prop('checked', false);
+    //     }
  
-  //   });
+    // });
 
 
 
@@ -334,10 +335,9 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   //if product admin, show delete images options
 
   //delete images
-  $scope.deleteProductImages = function (index) {
+ $scope.deleteProductImages = function (index) {
     if ($rootScope.isAdminCheck == true) {
       //get selected ids to delete images
-      $scope.chckedIndexs = [];
       growl.addInfoMessage("Deleting product images ...");
       $scope.imgIds = [{}];
       $scope.ids;
@@ -350,7 +350,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
         var index = $scope.pImages_l.indexOf(value);
         $scope.pImages_l.splice($scope.pImages_l.indexOf(value), 1);
       });
-     
+      $scope.chckedIndexs = [];
       $scope.temp = {
         prodleimageids: $scope.imgIds
       }
@@ -366,7 +366,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
         // $log.debug(status);
         growl.addErrorMessage(status);
       });
-    } else growl.addErrorMessage("You dont have rights to delete this feature");
+    } else growl.addErrorMessage("You dont have rights to delete images");
   };
   //delete images
 
