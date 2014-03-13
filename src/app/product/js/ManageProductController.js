@@ -27,6 +27,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   $rootScope.product_prodle;
   $scope.newProduct_ResponseProdle="";
   $rootScope.orgid;
+  $scope.chckedIndexs = [];
   $scope.pImages_l = {
     product_images: [{}]
   };
@@ -245,36 +246,98 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
     $scope.features = "";
   }
   //clear text fields of product
+
+
+
+  // // add multiple select / deselect functionality
+  //   $("#showHideAllchk").click(function () {
+  //         $('.imgToggles').prop('checked', this.checked);
+  //   });
+ 
+  //   // if all checkbox are selected, check the selectall checkbox
+  //   // and viceversa
+  //   $(".imgToggles").click(function(){
+ 
+  //       if($(".imgToggles").length == $(".imgToggles:checked").length) {
+  //           $("#showHideAllchk").prop("checked", "checked");
+  //       } else {
+  //           $("#showHideAllchk").removeProp("checked");
+  //       }
+ 
+  //   });
+
+
+
+
+
   //toggle to select all product iamges
-  $scope.selectAllImages = function () {
+  $scope.selectAllImages = function (imgs) {
     if ($('.imgToggles').is(':checked')) {
-      $('.imgToggles').prop('checked', false)
+      $('.imgToggles').prop('checked', false);
+      // $scope.chckedIndexs=[];
+      $scope.chckedIndexs.length=0;
+      // $scope.checked=0;
+      $log.debug("1"+$scope.chckedIndexs);
     } else {
-      $('.imgToggles').prop('checked', true)
-    }
-  };
-  $scope.checkedAllIndex = function (imgs) {
-    for (i = 0; i < imgs.length; i++) {
+      $('.imgToggles').prop('checked', true);
+       for (i = 0; i < imgs.length; i++) {
       $scope.chckedIndexs.push(imgs[i]);
     }
+      $log.debug("2"+$scope.chckedIndexs);
+       // $scope.checked=1;
+    }
   };
+  // $scope.checkedAllIndex = function (imgs) {
+
+  //   for (i = 0; i < imgs.length; i++) {
+  //     $scope.chckedIndexs.push(imgs[i]);
+  //   }
+  // };
 
   //get selected image for delete
-  $scope.chckedIndexs = [];
+
   $scope.checkedIndex = function (img) {
     if ($scope.chckedIndexs.indexOf(img) === -1) {
       $scope.chckedIndexs.push(img);
-      // $log.debug($scope.chckedIndexs);
+      $log.debug("3"+$scope.chckedIndexs);
     } else {
       $scope.chckedIndexs.splice($scope.chckedIndexs.indexOf(img), 1);
-    }
-    // $log.debug($scope.chckedIndexs);
+      }
+    $log.debug("4"+$scope.chckedIndexs);
   };
   //get selected image for delete
+    //Delete product image validation
+  $scope.checkImageSelectedToDelete = function () {
+    $log.debug("Delete images.......");
+     $log.debug("5"+$scope.chckedIndexs);
+    if ($scope.chckedIndexs.length > 0) { //if image selected to delete,show modal
+      $('#imgDelModal').modal('toggle');
+      $('#imgDelModal').modal('show');
+    } else { //if no image selected to delete
+      growl.addErrorMessage("Select atlest 1 image to delete");
+    }
+  };
+  //Delete product image validation
+  //if product admin, show delete images options
+  $scope.checkAdminProductImagesDelete = function () {
+
+    if ($rootScope.isAdminCheck == true) {
+      return {
+        display: "inline"
+      }
+    } else {
+      return {
+        display: "none"
+      }
+    }
+  };
+  //if product admin, show delete images options
+
   //delete images
   $scope.deleteProductImages = function (index) {
     if ($rootScope.isAdminCheck == true) {
       //get selected ids to delete images
+      $scope.chckedIndexs = [];
       growl.addInfoMessage("Deleting product images ...");
       $scope.imgIds = [{}];
       $scope.ids;
@@ -287,7 +350,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
         var index = $scope.pImages_l.indexOf(value);
         $scope.pImages_l.splice($scope.pImages_l.indexOf(value), 1);
       });
-      $scope.chckedIndexs = [];
+     
       $scope.temp = {
         prodleimageids: $scope.imgIds
       }
@@ -306,6 +369,13 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
     } else growl.addErrorMessage("You dont have rights to delete this feature");
   };
   //delete images
+
+//  $scope.$watch('chckedIndexs', function () {
+//     $scope.$apply(function(scope) {
+//     scope.foo = 'test';
+// });
+//   });
+
 
   //if product owner, display update delete product icons
   $scope.checkAdmintoUpdateProduct = function () {
@@ -348,32 +418,6 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
     }
   };
 
-
-
-  //Delete product image validation
-  $scope.checkImageSelectedToDelete = function () {
-    if ($scope.chckedIndexs.length > 0) { //if image selected to delete,show modal
-      $('#imgDelModal').modal('toggle');
-      $('#imgDelModal').modal('show');
-    } else { //if no image selected to delete
-      growl.addErrorMessage("Select atlest 1 image to delete");
-    }
-  };
-  //Delete product image validation
-  //if product admin, show delete images options
-  $scope.checkAdminProductImagesDelete = function () {
-
-    if ($rootScope.isAdminCheck == true) {
-      return {
-        display: "inline"
-      }
-    } else {
-      return {
-        display: "none"
-      }
-    }
-  };
-  //if product admin, show delete images options
   //get Product features
   $scope.features = [];
   $scope.PFeatures = [];

@@ -212,9 +212,9 @@
           <div class="checkboxFilter"  >
             <div class= "pull-right" ng-show="product.product_images">
               <span class= "" id="showHideAllchkLabel" ng-style="checkAdminProductImagesDelete();" >Select All</span>  
-              <input class= "" id="showHideAllchk" ng-style="checkAdminProductImagesDelete();"  type="checkbox" ng-click="selectAllImages(); checkedAllIndex(pImages_l)"  name="pinSet ">
+              <input class= "" id="showHideAllchk" ng-style="checkAdminProductImagesDelete();"  type="checkbox" ng-click="selectAllImages(pImages_l); "  name="pinSet ">
               &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;            
-              <button type="button" class="btn btn-danger btn-sm " id="prodo-deleteProductImage" ng-style="checkAdminProductImagesDelete();" ng-click="checkImageSelectedToDelete()"  >
+              <button type="button" class="btn btn-danger btn-sm " id="prodo-deleteProductImage" ng-style="checkAdminProductImagesDelete();" ng-disabled="chckedIndexs.length<1" ng-click="checkImageSelectedToDelete()"  >
               Delete &nbsp; <i class="fa fa-trash-o"></i> 
               </button> 
             </div>
@@ -222,7 +222,7 @@
             <div >
               <div class="thumb" ng-repeat="img in pImages_l"    >
                 <img class="img prodo-productImgThumbnail"  ng-src="{{img.image}}" />
-                <input type="checkbox" ng-style="checkAdminProductImagesDelete();" value="{{img.imageid}}" name="imgSet" class="imgToggles" id="imgchk"  ng-click="checkedIndex(img)">
+                <input type="checkbox" ng-style="checkAdminProductImagesDelete();" value="{{img.imageid}}" ng-model="chckedIndexs" name="imgSet" class="imgToggles" id="imgchk"  ng-click="checkedIndex(img)">
               </div>
             </div>
             <br>

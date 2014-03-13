@@ -201,11 +201,13 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
     });
 
     $scope.cslcShowMoreLength = function () {
-      if ($scope.product.description.length<30) {
-        return {
-          display: "none"
+      if ($scope.product.description) {
+        if ($scope.product.description.length<30) {
+          return {
+            display: "none"
+          }
         }
-      }
+    }
     };
 
 
