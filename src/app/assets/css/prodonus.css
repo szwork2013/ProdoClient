@@ -293,7 +293,8 @@ color: #595365;
 }
 
 .account-profile-img{
-	width:150px; height:100px; margin: 10px;
+	width:100px; height:130px; margin: 10px;border-radius: 5px;border:5px solid gray;
+
 }
 
 .user-account-name-text{
@@ -1571,6 +1572,12 @@ list-animate-item-warranty {
 .spanCommentIMGErr{display:none;}
 .spanErr{display:none;}
 .spanSuccess{display:none;}
+.spanProdIMGERR{display:none;}
+.spanProdIMGSuccess{display:none;}
+.spanProdFERR{display:none;}
+.spanProdFSuccess{display:none;}
+.spanProdERR{display:none;}
+.spanProdSuccess{display:none;}
 
 .fileinput-button 
 {
@@ -2097,4 +2104,3 @@ border: 1px solid #b3b3b3; padding: 30px;
 .prodo-registration-Wizard-after{
 	style="color :rgb(200, 219, 200)";
 }
-

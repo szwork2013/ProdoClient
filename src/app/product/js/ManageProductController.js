@@ -139,19 +139,27 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   //error handling for add product
   $scope.handleSaveProductResponse = function (data) {
     if (data.success) {
-      growl.addSuccessMessage(data.success.message);
+       $scope.enableProductSuccessMsg();
+       ProdSuccessMsg.innerHTML = data.success.message;
+      // growl.addSuccessMessage(data.success.message);
       $state.reload();
     } else {
       if (data.error.code == 'AV001') { // user already exist
         $log.debug(data.error.code + " " + data.error.message);
-        growl.addErrorMessage(data.error.message);
+        $scope.enableProductErrorMsg();
+        ProdERRMsg.innerHTML = data.error.message;
+        // growl.addErrorMessage(data.error.message);
 
       } else if (data.error.code == 'AP001') { // user data invalid
         $log.debug(data.error.code + " " + data.error.message);
-        growl.addErrorMessage(data.error.message);
+        $scope.enableProductErrorMsg();
+        ProdERRMsg.innerHTML = data.error.message;
+        // growl.addErrorMessage(data.error.message);
       } else {
         $log.debug(data.error.message);
-        growl.addErrorMessage(data.error.message);
+        $scope.enableProductErrorMsg();
+        ProdERRMsg.innerHTML = data.error.message; 
+        // growl.addErrorMessage(data.error.message);
       }
     }
   };
@@ -180,11 +188,17 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
           }
          $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
         }, function (error) {
-          growl.addErrorMessage(error);
+          // growl.addErrorMessage(error);
+           $scope.enableProductErrorMsg();
+           ProdERRMsg.innerHTML = error; 
           $log.debug(error);
         });
 
-      } else growl.addErrorMessage("You dont have rights to add product...");
+      } else{
+         $scope.enableProductErrorMsg();
+         ProdERRMsg.innerHTML = data.error.message; 
+         // growl.addErrorMessage("You dont have rights to add product...");
+      }
     } else if (editStatus == 'update') { //update product
       $scope.newProduct = {
         product: {
@@ -203,15 +217,23 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
             prodle: $scope.currentProdle
           }, $scope.newProduct, function (success) {
             $scope.newProduct_ResponseProdle=$scope.currentProdle;
-             $log.debug(success);
+            $log.debug(success);
+            $scope.enableProductSuccessMsg();
+            ProdSuccessMsg.innerHTML ="Product updated successfully...";
             $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
             $scope.getProduct($scope.currentProdle, $scope.currentOrgid);
           }, function (error) {
             $log.debug(error);
-            growl.addErrorMessage(error);
+            $scope.enableProductErrorMsg();
+            ProdERRMsg.innerHTML = error; 
+            // growl.addErrorMessage(error);
           });
         }
-      } else growl.addErrorMessage("You dont have rights to update this product...");
+      } else{
+        $scope.enableProductErrorMsg();
+        ProdERRMsg.innerHTML = "You dont have rights to update this product...";
+        // growl.addErrorMessage("You dont have rights to update this product..."); 
+      } 
     }
 
   };
@@ -224,17 +246,25 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
           prodle: $scope.currentProdle
         }, function (success) {
           $log.debug(JSON.stringify(success));
-          growl.addSuccessMessage("Product deleted successfully...");
+          $scope.enableProductSuccessMsg();
+          ProdSuccessMsg.innerHTML ="Product deleted successfully...";
+          // growl.addSuccessMessage("Product deleted successfully...");
           $("#prodo-ProductDetails").css("display", "none");
           $state.reload();
           // $scope.handleProductDeleted();
         }, function (error) {
           $log.debug(JSON.stringify(error));
-           growl.addErrorMessage(error);
+          $scope.enableProductErrorMsg();
+          ProdERRMsg.innerHTML = error;
+           // growl.addErrorMessage(error);
         });
       }
       // }
-      else growl.addErrorMessage("You dont have rights to delete this product...");
+      else{
+        $scope.enableProductErrorMsg();
+        ProdERRMsg.innerHTML = error;
+       // growl.addErrorMessage("You dont have rights to delete this product...");
+      }
     }
   };
   //delete product
@@ -315,7 +345,9 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
       $('#imgDelModal').modal('toggle');
       $('#imgDelModal').modal('show');
     } else { //if no image selected to delete
-      growl.addErrorMessage("Select atlest 1 image to delete");
+       $scope.enableIMGErrorMsg();
+       ProdIMGERRMsg.innerHTML = "Select atlest 1 image to delete ";
+      // growl.addErrorMessage("Select atlest 1 image to delete");
     }
   };
   //Delete product image validation
@@ -338,7 +370,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
  $scope.deleteProductImages = function (index) {
     if ($rootScope.isAdminCheck == true) {
       //get selected ids to delete images
-      growl.addInfoMessage("Deleting product images ...");
+      // growl.addInfoMessage("Deleting product images ...");
       $scope.imgIds = [{}];
       $scope.ids;
       $(':checkbox:checked').each(function (i) {
@@ -361,21 +393,25 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
         // data: {'prodleimageids':[ $scope.imgIdsJson]}
       }).success(function (data, status, headers, cfg) {
         // $log.debug(data);
-        growl.addSuccessMessage("Images deleted successfully...");
+      $scope.enableIMGSuccessMsg();
+      ProdIMGSuccessMsg.innerHTML = "Images deleted successfully...";
+       
+        // growl.addSuccessMessage("Images deleted successfully...");
+
       }).error(function (data, status, headers, cfg) {
         // $log.debug(status);
-        growl.addErrorMessage(status);
+        $scope.enableIMGErrorMsg();
+       ProdIMGERRMsg.innerHTML = status;
+        // growl.addErrorMessage(status);
       });
-    } else growl.addErrorMessage("You dont have rights to delete images");
+    } else {
+      $scope.enableIMGErrorMsg();
+       ProdIMGERRMsg.innerHTML = "You dont have rights to delete images";
+    }
+    
+    // growl.addErrorMessage("You dont have rights to delete images");
   };
   //delete images
-
-//  $scope.$watch('chckedIndexs', function () {
-//     $scope.$apply(function(scope) {
-//     scope.foo = 'test';
-// });
-//   });
-
 
   //if product owner, display update delete product icons
   $scope.checkAdmintoUpdateProduct = function () {
@@ -444,7 +480,9 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
           // $log.debug("pf  "+ $scope.featuretags);
         }
       }, function (error) {
-        growl.addErrorMessage("Server Error:" + error.status);
+        $scope.enableFeatureErrorMsg();
+        ProdFERRMsg.innerHTML = "Server Error:" + error.status;
+        // growl.addErrorMessage("Server Error:" + error.status);
       });
     }
   };
@@ -465,15 +503,21 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
           //client side delete
           var index = $scope.features.indexOf(feature);
           if (index != -1) $scope.features.splice(index, 1);
-          growl.addSuccessMessage(success.success.message);
-
+          // growl.addSuccessMessage(success.success.message);
+          $scope.enableFeatureSuccessMsg();
+          ProdFSuccessMsg.innerHTML = success.success.message;
         }, function (error) {
           $log.debug(JSON.stringify(error));
-          growl.addErrorMessage(JSON.stringify(error))
+          $scope.enableFeatureErrorMsg();
+          ProdFERRMsg.innerHTML = JSON.stringify(error);
+          // growl.addErrorMessage(JSON.stringify(error))
 
         });
-      } else //if not owner display msg
-      growl.addErrorMessage("You dont have rights to delete this feature...");
+      } else { //if not owner display msg
+      // growl.addErrorMessage("You dont have rights to delete this feature...");
+      $scope.enableFeatureErrorMsg();
+      ProdFERRMsg.innerHTML = "You dont have rights to delete this feature...";
+      }
     }
   };
   //delete product feature
@@ -499,15 +543,23 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
             $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
             $log.debug("new Feature : " + JSON.stringify($scope.newFeature.productfeature[0]));
             $scope.features.push($scope.newFeature.productfeature[0]);
-            growl.addSuccessMessage("Feature added successfully");
+            $scope.enableFeatureSuccessMsg();
+            ProdFSuccessMsg.innerHTML = "Feature added successfully";
+            // growl.addSuccessMessage("Feature added successfully");
             $log.debug($scope.features);
             $scope.feature = "";
           }, function (error) {
-            growl.addErrorMessage(error);
+            // growl.addErrorMessage(error);
+             $scope.enableFeatureErrorMsg();
+             ProdFERRMsg.innerHTML = error;
             $log.debug(error);
           });
         } //if not owner display msg
-        else growl.addErrorMessage("You dont have rights to add product feature...");
+        else{
+          $scope.enableFeatureErrorMsg();
+          ProdFERRMsg.innerHTML = "You dont have rights to add product feature...";
+          // growl.addErrorMessage("You dont have rights to add product feature...");
+        } 
       }
     }
   };
@@ -528,12 +580,20 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
           // $log.debug(success);
           $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
           // $scope.features.push($scope.newFeature);
-          growl.addSuccessMessage(success.success.message);
+          $scope.enableFeatureSuccessMsg();
+          ProdFSuccessMsg.innerHTML = success.success.message;
+          // growl.addSuccessMessage(success.success.message);
         }, function (error) {
           $log.debug(error);
-          growl.addErrorMessage(error);
+          $scope.enableFeatureErrorMsg();
+          ProdFERRMsg.innerHTML = error;
+          // growl.addErrorMessage(error);
         });
-      } else growl.addErrorMessage("You dont have rights to update product feature...");
+      } else{
+       // growl.addErrorMessage("You dont have rights to update product feature...");
+       $scope.enableFeatureErrorMsg();
+       ProdFERRMsg.innerHTML = "You dont have rights to update product feature...";
+     }
     }
   };
   //update product feature
@@ -630,8 +690,52 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
       $state.reload();
    });
    // cleanupEventproductUploadLogoResponseSuccess();
-}])
 
+
+  var ProdFERRMsg = document.getElementById('ProdFERRMsg');
+  var ProdFSuccessMsg=document.getElementById('ProdFSuccessMsg');
+  $scope.enableFeatureErrorMsg=function(){
+     $(".spanProdFERR").css("display", "block");
+     $(".alert-danger").removeClass("in").show();
+     $(".alert-danger").delay(5000).addClass("in").fadeOut(2000);
+  };
+  $scope.enableFeatureSuccessMsg=function(){
+    $(".spanProdFSuccess").css("display", "block");
+    $(".alert-success").removeClass("in").show();
+    $(".alert-success").delay(5000).addClass("in").fadeOut(2000);
+  };
+
+  var ProdIMGERRMsg = document.getElementById('ProdIMGERRMsg');
+  var ProdIMGSuccessMsg=document.getElementById('ProdIMGSuccessMsg');
+  $scope.enableIMGErrorMsg=function(){
+     $(".spanProdIMGERR").css("display", "block");
+     $(".alert-danger").removeClass("in").show();
+     $(".alert-danger").delay(5000).addClass("in").fadeOut(2000);
+    
+  };
+  $scope.enableIMGSuccessMsg=function(){
+    $(".spanProdIMGSuccess").css("display", "block");
+    $(".alert-success").removeClass("in").show();
+    $(".alert-success").delay(5000).addClass("in").fadeOut(2000);
+    
+  };
+
+  var ProdERRMsg = document.getElementById('ProdERRMsg');
+  var ProdSuccessMsg=document.getElementById('ProdSuccessMsg');
+  $scope.enableProductErrorMsg=function(){
+     $(".spanProdERR").css("display", "block");
+     $(".alert-danger").removeClass("in").show();
+     $(".alert-danger").delay(5000).addClass("in").fadeOut(2000);
+    
+  };
+  $scope.enableProductSuccessMsg=function(){
+    $(".spanProdSuccess").css("display", "block");
+    $(".alert-success").removeClass("in").show();
+    $(".alert-success").delay(5000).addClass("in").fadeOut(2000);
+    
+  };
+}])
+ 
  angular.module('prodo.ProductApp').filter('startFrom', function () {
   return function (input, start) {
     if (input !== undefined && start !== undefined) {
