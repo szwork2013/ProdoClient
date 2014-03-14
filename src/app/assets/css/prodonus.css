@@ -125,7 +125,7 @@ color: #fff;
 }
 
 .prodo-wall-col-container{
-	padding: 1px;
+	padding: 2px;
 }
 
 .prodo-wall-advertisment-container{
@@ -842,7 +842,7 @@ text-align: left;
 }
 
 .prodo-wall-dashboard-container{
-border: 1px solid #b3b3b3;
+border: 1px solid #E7EDF1;
 background-color: transparent;
   border-radius: 10px;
   margin-top: 10px;
@@ -985,7 +985,7 @@ border-radius: 30px;
 }
 
 .prodo-follow-btn{
-	margin:5px auto; font-size: 14px; display:block; height:25px; width: 95%; background-color:#304A61;
+	margin:5px auto; font-size: 14px; padding: 2px; display:block; height:25px; width: 95%; background-color:#304A61;
 }
 
 .prodo-follow-btn:hover{
@@ -2058,7 +2058,7 @@ text-align: right;
   background-color: #ffffff;
   margin-bottom: 20px;
   border-radius: 10px;
-  border: 1px solid #b3b3b3;
+  border: 1px solid #E7EDF1;
 }
 
 .dropdown-menu>li>a 
@@ -2101,6 +2101,49 @@ overflow: hidden;
 .prodo-footer-content-container{
 background-color: transparent; margin: 20px auto; border-radius: 5px; min-height: 300px; width: 100%;
 border: 1px solid #b3b3b3; padding: 30px;
+}
+
+.prodo-wall-org-heading-text{
+	color: #86846E; margin-bottom: 2px;
+}
+
+.prodo-wall-org-hr{
+	background-color:#BDBDBD; height:1px; margin: 2px auto;
+	width: 100%;
+}
+
+#prodo-view-orglogodisplay{
+	padding: 10px;
+}
+.prodo-wall-org-logo{
+	width: 90px; height: 50px;
+}
+
+.prodo-wall-org-name-text{
+	font-size: 25px; margin:20px; text-align:center;
+}
+
+.prodo-wall-org-container{
+	border: 1px solid #E7EDF1;
+	background-color: #ffffff;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  padding: 20px;
+}
+.org-address-search-form-control{
+	width: 270px;
+}
+
+.prodo-wall-org-product-container{
+	padding: 1px; margin: 5px; border: solid 1px #ccc;
+}
+
+.prodo-wall-org-product-name{
+margin:5px auto; height:70px; display:block; text-align:left; font-weight:bold; font-size:12px;
+}
+
+.prodo-wall-org-productimg{
+	margin:1px auto; display:block; width:95%; height: 130px; 
 }
 
 .prodo-registration-Wizard-after{
