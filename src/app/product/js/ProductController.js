@@ -200,7 +200,15 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
         }
     });
 
-
+    $scope.cslcShowMoreLength = function () {
+      if ($scope.product.description) {
+        if ($scope.product.description.length<130) {
+          return {
+            display: "none"
+          }
+        }
+    }
+    };
 
 
   //Follow Product

@@ -60,16 +60,16 @@
       <br>
       <!-- <span> -->
      <!--     <i ng-click="ShowDescription();" class="fa fa-caret-right fa-2x prodo-cursor"></i> -->
-        Description : 
+       &nbsp;&nbsp; Description : 
       <!--   <span id="prodo-description" class="prodo-description" ng-bind="product.description" > </span> <i ng-click="ShowDescription();" class=" prodo-cursor"> read more</i> -->
 
 
      <div id="profile-description">
-            <div class="text show-more-height" ng-bind="product.description">
-              
-            </div>
-            <div  class="show-more pull-right showMoreMargin">Show More</div>
-</div>
+      <div class="text show-more-height" ng-bind="product.description">
+        
+      </div>
+      <div ng-style="cslcShowMoreLength()" class="show-more pull-right showMoreMargin">Show More</div>
+    </div>
       <!-- </span> -->
     </span>
     <table class="table child "  id="prodo-ProductFeatureTable" >
@@ -122,7 +122,7 @@
               <div ng-controller="DragImageController">
                 <div id="prodo-comment-textBox-container">
                   <div id="holder">
-                    <textarea id="prodo-comment-Textbox" col="40" type="text" class="form-control " name="txtComment" placeholder="Product Conversation [max 300 characters]"   ng-model="commenttextField.userComment" comment-limit="300" ng-enter="addProductComment();hideFeature()" required  pop-over items="featuretags", title="Select Feature" ng-click="showFeature()"></textarea>  
+                    <textarea id="prodo-comment-Textbox" col="40" type="text" class="form-control " name="txtComment" placeholder="Product Conversation [max 300 characters]"   ng-model="commenttextField.userComment" comment-limit="300" ng-enter="addProductComment();hideFeature()" required  items="featuretags"  ng-click="showFeature()"></textarea>  
                     <!-- tags -->
                     <div id="prodo-productTags">
                       <form  role="form">
