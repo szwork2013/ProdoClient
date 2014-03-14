@@ -894,7 +894,19 @@ border-bottom-left-radius: 0px;
 
 
 
-
+.featureTabs{
+	display:inline-block;
+	background-color:#B2AFB9;
+	color:white;
+	margin-right:2px;
+	margin-bottom:4px;
+	border-radius:5px;
+	padding:2px;
+	margin-top:2px;
+}
+.featureTabs:hover{
+	background-color:#85838B;
+}
 #prodo-view-navbar{
   margin-top: 0px;
   border: 1px solid #0A3151;
@@ -1404,8 +1416,8 @@ margin-bottom: 10px;
 .collapsed2:hover:after{content: " Click here to follow";border: solid 1px #ccc;padding:5px;}
 .prodo-ErrMsging{font-family: Helvetica ;font-size:18px; padding :10px; margin-top:20px; margin-bottom:20px;}
 .prodo-productListCorousel{ height:130px;width:auto;}
-.prodo-arrowbtnLeft{float: left; margin-top:35px;margin-right:40px; cursor:pointer; font-size:50px;color:gray; background-color:white;}
-.prodo-arrowbtnRight{float: right; margin-top:35px; cursor:pointer ; font-size:50px;color:gray; background-color:white;}
+.prodo-arrowbtnLeft{height: 109px; float: left; margin-top:5px;margin-right:40px; cursor:pointer; font-size:50px;color:gray; background-color:white;}
+.prodo-arrowbtnRight{height: 109px;float: right; margin-top:5px; cursor:pointer ; font-size:50px;color:gray; background-color:white;}
 .prodo-productThumbnailView{display:inline-block;width:100px; height: 110px; float: left; margin: 5px; border: solid 1px #ccc;}
 .prodo-AddProductBtn{ margin:5px auto; display:block; text-align:center; font-weight:bold; font-size:12px;}
 .prodo-productThumbnailImg{margin:0px auto; display:block; width:95%; height: 73%;  }
@@ -1433,14 +1445,40 @@ margin-bottom: 10px;
 .prodo-loadmoreMsg{text-align:center; width:518px; font-family: Helvetica ;}
 .prodo-productNameList{font-size: 10px;}
 .prodo-ProductContainer{border: 1px solid #94d2f8; width: 100%; }
-.prodo-productLogoDisplay{height: 100px; padding:10px;max-width:200px; cursor: pointer;}
-.prodo-productNameStrong{font-size: 20px; margin:20px;max-width:200px; text-align:center; color:dark}
+.prodo-productLogoDisplay{height: 100px; padding:10px;width:200px; cursor: pointer;}
+.prodo-productNameStrong{font-size: 20px;margin-left: 200px; margin:20px;max-width:200px; text-align:center; color:dark}
 .prodo-Modelno{color:#82805F}
 .prodo-description{height:15px; overflow: hidden;  font-size:12px;}
 .prodo-comment-Text-tabs {align:left;}
 .productDisplay{margin-top: 20px;}
+.prodo-followBtn{background-color: #4A5F72;}
+.prodo-trendingContainer{font-weight: bold;border-radius: 10px;text-align:center;padding: 5px;background-color: paleturquoise;border: 1px solid #9FBACC;height: 30px;max-width: 300px;position: relative;margin-left: 200px;}
 .prodo-CommentDeleteMsg{font-size: 12px;padding-top: 20px;padding-bottom: 20px;background-color: gainsboro;padding-left: 10px;}
 /*.prodo-productThumbnailView:hover{zoom:0.9;-webkit-transform: scale( 0.9); -moz-transform: scale(0.9);} */
+.prodo-MainDetailsTable{  color: black;text-align: center;}
+.prodo-followesInfotr{width: 50%}
+.prodo-followesInfotd{width: 50%;border-right:1px solid #dbdbdb;padding-right:5px;}
+.prodo-producttrendingInfoDiv{font-size: 18px;text-align: right;padding-right: 15px;}
+.prodo-producttrendingInfoLable{font-size: 10px;text-align: right;}
+.prodo-productCommentInfo{ width: 50%; padding-left: 5px;}
+.prodo-productCommentInfoDiv{font-size: 18px;text-align: left;width: 50px;padding-left: 15px;}
+.prodo-productCommentsInfoLable{font-size: 10px;text-align: left;}
+
+
+#profile-description {
+ position:relative;
+}
+#profile-description .text {
+  margin-bottom: 5px; color: #777; padding: 0 15px; position:relative; font-family: Arial; font-size: 14px; display: block;
+}
+
+#profile-description .show-more:hover { 
+    color: #1779dd;
+}
+#profile-description .show-more-height { height: 40px; overflow:hidden; }
+
+.showMoreMargin{margin-right: 50px;}
+
 .prodo-producttrendingInfo{
 	font-size: 10px;
 	font-weight: 20;
@@ -2022,6 +2060,43 @@ text-align: right;
   border-radius: 10px;
   border: 1px solid #b3b3b3;
 }
+
+.dropdown-menu>li>a 
+{
+display: block;
+padding: 3px 20px;
+clear: both;
+font-weight: normal;
+line-height: 1.428571429;
+color: #333;
+white-space: nowrap;
+text-align: left;
+text-overflow: ellipsis;overflow: hidden;
+}
+
+.dropdown-menu {
+position: absolute;
+top: 100%;
+left: 0;
+z-index: 1000;
+display: none;
+float: left;
+min-width: 160px;
+padding: 5px 0;
+margin: 2px 0 0;
+font-size: 14px;
+list-style: none;
+background-color: #fff;
+border: 1px solid #ccc;
+border: 1px solid rgba(0,0,0,0.15);
+border-radius: 4px;
+-webkit-box-shadow: 0 6px 12px rgba(0,0,0,0.175);
+box-shadow: 0 6px 12px rgba(0,0,0,0.175);
+background-clip: padding-box;
+width: 90%;
+overflow: hidden;
+}
+/* width: 51px; */
 
 .prodo-footer-content-container{
 background-color: transparent; margin: 20px auto; border-radius: 5px; min-height: 300px; width: 100%;

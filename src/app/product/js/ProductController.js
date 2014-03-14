@@ -75,6 +75,11 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
 
   //get login details
   $scope.getUserDetails = function () {
+    $scope.userIDFromSession = $rootScope.usersession.currentUser.userid;
+    $scope.usernameFromSession = $rootScope.usersession.currentUser.username;
+    // $scope.ProductsFollowedFromSession = $rootScope.usersession.currentUser.products_followed;
+    $scope.ProductsFollowedFromSession = UserSessionService.productfollowlist
+    // $log.debug("Products  f.. "+JSON.stringify( $scope.ProductsFollowedFromSession));
     if ($rootScope.usersession.currentUser.org) {
       $scope.grpnameFromSession = $rootScope.usersession.currentUser.org.grpname;
       $scope.orgidFromSession = $rootScope.usersession.currentUser.org.orgid;
@@ -84,11 +89,6 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
       $scope.orgnameFromSession = "";
       $scope.orgidFromSession = "";
     }
-    $scope.userIDFromSession = $rootScope.usersession.currentUser.userid;
-    $scope.usernameFromSession = $rootScope.usersession.currentUser.username;
-    // $scope.ProductsFollowedFromSession = $rootScope.usersession.currentUser.products_followed;
-    $scope.ProductsFollowedFromSession = UserSessionService.productfollowlist
-    // $log.debug("Products  f.. "+JSON.stringify( $scope.ProductsFollowedFromSession));
   }
   $scope.getUserDetails();
   //get login details
@@ -191,6 +191,25 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
   //   if (document.getElementById('prodo-description').style.height === "15px") $("#prodo-description").css("height", "");
   //   else $("#prodo-description").css("height", "15px");
   // };
+    $(".show-more").click(function () {        
+        $(".text").toggleClass("show-more-height");
+        if(!$(".text").hasClass("show-more-height")){
+            $(this).text("Show Less");
+        }else{
+            $(this).text("Show More");
+        }
+    });
+
+    $scope.cslcShowMoreLength = function () {
+      if ($scope.product.description) {
+        if ($scope.product.description.length<30) {
+          return {
+            display: "none"
+          }
+        }
+    }
+    };
+
 
   //Follow Product
   $scope.CheckIfAlreadyFollowingProduct = function () {
@@ -220,7 +239,7 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
   var cleanEventFollowProductDone = $scope.$on('followProductDone', function (event, data) {
     if (data.success) {
         growl.addSuccessMessage("Follwing product");
-        UserSessionService.productfollowlist.push($scope.product);
+        UserSessionService.productfollowlist.unshift($scope.product);
         $("#prodo-followBtn").css("display", "none");
       }
     });

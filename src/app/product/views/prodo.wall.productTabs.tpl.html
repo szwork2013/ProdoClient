@@ -19,27 +19,33 @@
 <br>
 <div id="prodo-ProductDetails">
   <div >
-   <img class="img prodo-productLogoDisplay pull-left" id="productLogo" ng-src="{{product.product_logo.image}}" />
+   <img class="img prodo-productLogoDisplay pull-left" id="productLogo" ng-src="{{product.product_logo.image}}" alt-SRC src="../assets/images/if_no_logo_images_available.gif"/>
+      <a href="" ng-style="CheckIfAlreadyFollowingProduct()" id="prodo-followBtn"  ng-click="followCurrentProduct()"   class="prodo-followBtn pull-right btn btn-primary btn-sm ">  Follow </a>
+<!--      <strong class="prodo-productNameStrong" >&nbsp;<span ng-bind="product.name.substring(0,20)"> </span></strong> -->
 
-      <table style=" width: 80%; color: black;text-align: center">
-         
-                <tr >
+   <!--   <div class="prodo-trendingContainer">
+    Followers {{ product.trending.followedcount }}  
+    </div>
+       <div class="prodo-trendingContainer" >
+    Comments {{ product.trending.commentcount }}
+    </div> -->
 
-                  <td colspan ="2" style="">
-
-                      <strong class="prodo-productNameStrong" >&nbsp;<span ng-bind="product.name.substring(0,20)"> </span></strong>
-                  </td>
-                </tr> 
-                <tr style=" width: 50%;">
-                  <td style="border-right:1px solid #dbdbdb;" class="prodo-producttrendingInfo" style=" width: 50%;">
-                    <div style="font-size: 18px;"  ng-bind="product.trending.followedcount"></div><div style="font-size: 10px;"> Followers</div> 
-                  </td>
-                  <td class="prodo-producttrendingInfo" style=" width: 50%;">
-                      <div style="font-size: 18px;" ng-bind="product.trending.commentcount"></div><div style="font-size: 10px;"> Comments</div> 
-                  </td>
-                </tr>
-             </table>
-             <div style="clear:both">
+      <table class="prodo-MainDetailsTable" >
+         <tr >
+           <td colspan ="2" >
+               <strong class="prodo-productNameStrong" >&nbsp;<span ng-bind="product.name.substring(0,20)"> </span></strong>
+           </td>
+         </tr> 
+         <tr class="prodo-followesInfotr" >
+           <td class="prodo-followesInfotd prodo-producttrendingInfo" >
+             <div class="prodo-producttrendingInfoDiv"  ng-bind="product.trending.followedcount"></div><div class="prodo-producttrendingInfoLable" > Followers</div> 
+            </td>
+            <td class="prodo-producttrendingInfo prodo-productCommentInfo">
+              <div class="prodo-productCommentInfoDiv" ng-bind="product.trending.commentcount"></div><div class="prodo-productCommentsInfoLable"> Comments</div> 
+            </td>
+          </tr>
+        </table>
+        <div class="clearBoth"></div>
 
 
 
@@ -47,15 +53,24 @@
 
   <!--   <img class="img prodo-productLogoDisplay" id="productLogo" ng-src="{{product.product_logo.image}}" /> -->
    <!--  <strong class="prodo-productNameStrong" >&nbsp;<span ng-bind="product.name.substring(0,20)"> </span></strong> -->
-    <a href="" ng-style="CheckIfAlreadyFollowingProduct()" id="prodo-followBtn" ng-click="followCurrentProduct()"   class="pull-right btn btn-primary btn-sm">  Follow </a>
+ 
     <br>
     <span class="prodo-Modelno" >
       MODEL NO :&nbsp; <span ng-bind="product.model_no"></span>
       <br>
-      <span>
-        <!-- <i ng-click="ShowDescription();" class="fa fa-caret-right fa-2x prodo-cursor"></i> -->Description :
-        <span id="prodo-description" class="prodo-description" ng-bind="product.description" > </span>
-      </span>
+      <!-- <span> -->
+     <!--     <i ng-click="ShowDescription();" class="fa fa-caret-right fa-2x prodo-cursor"></i> -->
+        Description : 
+      <!--   <span id="prodo-description" class="prodo-description" ng-bind="product.description" > </span> <i ng-click="ShowDescription();" class=" prodo-cursor"> read more</i> -->
+
+
+     <div id="profile-description">
+      <div class="text show-more-height" ng-bind="product.description">
+        
+      </div>
+      <div ng-style="cslcShowMoreLength()" class="show-more pull-right showMoreMargin">Show More</div>
+    </div>
+      <!-- </span> -->
     </span>
     <table class="table child "  id="prodo-ProductFeatureTable" >
       <tr id="prodo-productbnd" class="prodo-productTabledis"  ng-show="product.banneddate">
@@ -101,7 +116,7 @@
                      <b> Select the feature to talk on </b>
                      <p style="font-size:7px;">Features are vertically scrollable</p>
                            <ul style="max-height:60px;overflow-x:hidden; overflow-y: auto;">
-                              <li ng-repeat="feature in features track by $index" ng-click="addFeatureToComment(feature.featurename)" class="hyperlinkPointer"> 
+                              <li ng-repeat="feature in features track by $index" ng-click="addFeatureToComment(feature.featurename)" class="hyperlinkPointer featureTabs" style=""> 
                               <span ng-bind="feature.featurename" style="font-size:12px;"> </span>
                               </li>
                            </ul>
