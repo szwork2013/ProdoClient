@@ -202,7 +202,7 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
 
     $scope.cslcShowMoreLength = function () {
       if ($scope.product.description) {
-        if ($scope.product.description.length<30) {
+        if ($scope.product.description.length<40) {
           return {
             display: "none"
           }
