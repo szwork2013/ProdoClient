@@ -6,6 +6,7 @@
       </div>
 
       <ul ng-cloak ng-show="usersession.isLoggedIn" class="nav navbar-nav navbar-right">
+         <li><a class="navbar-btn btn" >{{daysRemaining}}</a></li>
         <li><a class="navbar-btn btn" ui-sref="prodo.home.wall.org"><i  class="prodo-fa fa fa-home"></i>Home</a></li>
         <li class="dropdown">
           <a class="navbar-btn" href="#" class="dropdown-toggle" data-toggle="dropdown"><strong>{{usersession.currentUser.username}}</strong><b class="caret"></b></a>

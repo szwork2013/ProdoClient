@@ -126,12 +126,12 @@ color: #fff;
 /*Advanced Search CSS*/
 .prodoAdvancedSearchTextbox { 
 
-    border: 1px solid #999; 
+    /*border: 1px solid #999; */
     outline:0; 
     /*padding-left: 25px;*/
     height:25px; 
     width: 100%; 
-    border-radius: 5px;
+    /*border-radius: 5px;*/
     margin-bottom: 20px ;
     /* */
   } 
@@ -1971,12 +1971,12 @@ text-align: right;
 
 .prodoNormalSearchTextbox
 {
-    border: 1px solid #999; 
+    /*border: 1px solid #999; */
     outline:0; 
     /*padding-left: 25px;*/
     height:25px; 
     width: 100%; 
-    border-radius: 5px;
+    /*border-radius: 5px;*/
     margin-bottom: 10px ;
 }
 .advanceSearchText

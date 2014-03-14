@@ -7,6 +7,10 @@ angular.module('prodo.ProdoWallApp')
     $rootScope.images = [];
     $scope.isFollowing = false;
 
+    var a = moment($rootScope.usersession.currentUser.subscription.planexpirydate);
+    var b = moment();
+    $rootScope.daysRemaining = a.diff(b, 'days')-1 +" Days Remaining";
+
     $scope.updateimages = function(data) {
       $rootScope.manageSlider="";   // Added this variable to check conditions in tpl
       $rootScope.manageSlider=data;  // Added this variable to check conditions in tpl
@@ -58,9 +62,10 @@ angular.module('prodo.ProdoWallApp')
 
     $scope.$watch('$state.$current.locals.globals.orgproduct', function (orgproduct) {
       if (orgproduct.error) {
-        $log.debug('No product available');
+        $log.debug('No product available'); 
       } else {
         $scope.productlist = orgproduct.success.product; 
+        $rootScope.product_prodle = $scope.productlist[0].prodle; 
       }
     });
 
