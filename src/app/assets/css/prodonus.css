@@ -103,7 +103,11 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
 color: #fff;
 }
 
-.navbar-username-link{
+#navbar-username-link{
+	color:#E0E6EE;
+}
+
+#navbar-home-link{
 	color:#E0E6EE;
 }
 
@@ -111,8 +115,13 @@ color: #fff;
 	margin-right:10px;
 }
 
-.navbar-dropdown-ul{
+#navbar-dropdown-ul{
 	text-align: left;
+}
+
+.prodo-fa-navbar{
+	color:#96989B;
+	margin-right: 5px;
 }
 
 .prodo-wall-col-container{
@@ -904,7 +913,7 @@ border-bottom-left-radius: 0px;
   border: 1px solid #0A3151;
   background-color:#0A3151;
   padding: 5px;
-  margin-bottom: 10px;
+  /*margin-bottom: 10px;*/
 }
 
 /* Prodo Main View: Slider*/
