@@ -1305,7 +1305,7 @@ ul {list-style-type: none; }
 #prodo-comment-textBox-container {padding-bottom: 10px;}
 #prodo-comment-media-list{border:3px;font-family: Helvetica ;font-size:14px;}
 #prodo-comment-Textbox {  height:40px;border-radius:10px;font-size:12px; 
-	font-family: Helvetica ; border: solid 1px #5bc0de; max-height: 75px;max-width: 518px;resize: none;}
+	font-family: Helvetica ; border: solid 1px #5bc0de; max-height: 75px;max-width: 90%;resize: none;}
 #prodo-comment-search-Textbox {  height:40px;width:518px;border-radius:10px;font-size:12px; 
 	font-family: Helvetica ; border: solid 1px #5bc0de; }
 #prodo-comment-fixed { margin-left:17px;}
@@ -1313,7 +1313,7 @@ ul {list-style-type: none; }
 #prodo-comment-row-fluid { word-wrap: break-word;width:420px;text-align: left;font-size:12px; }
 #prodo-comment-companyName{color: gray;word-spacing: -.5ex ;}
 #prodo-comment-userName{font-size:15px; font-weight:bold;}
-#prodo-comment-commentContainer{ width:550px;}
+/*#prodo-comment-commentContainer{ width:550px;}*/
 #prodo-comment-addButton{width:400px; }
 #prodo-comment-tags{ font-size:11px; font-family: Helvetica ; }
 #prodo-comment-tabs{height: 10px; align:left;}
@@ -1362,7 +1362,7 @@ text-align: center;
 /*padding: 10px 0;*/
 font-size:15px;
 cursor: pointer;
-width: 82%;
+width: 90%;
 margin-bottom: 10px;
  }  
 /*#load-more:hover            { color:#666; }   */
@@ -1453,7 +1453,7 @@ margin-bottom: 10px;
 .prodo-ProductContainer{border: 1px solid #94d2f8; width: 100%; }
 .prodo-productLogoDisplay{height: 100px; padding:10px;width:200px; cursor: pointer;}
 .prodo-productNameStrong{font-size: 20px;margin-left: 200px; margin:20px;max-width:200px; text-align:center; color:dark}
-.prodo-Modelno{color:#82805F}
+.prodo-Modelno{color:#82805F;padding-left: 15px;}
 .prodo-description{height:15px; overflow: hidden;  font-size:12px;}
 .prodo-comment-Text-tabs {align:left;}
 .productDisplay{margin-top: 20px;}
