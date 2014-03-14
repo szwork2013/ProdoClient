@@ -29,7 +29,7 @@
           var txtheight;
           var txtwidth;
           $('#prodo-comment-Textbox').focus(function () {
-            $(this).height(75);
+            $(this).height(85);
             txtheight=$( "#prodo-comment-Textbox" ).height();
             txtwidth=$( "#prodo-comment-Textbox" ).width();
 

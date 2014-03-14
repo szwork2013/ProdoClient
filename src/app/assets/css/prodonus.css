@@ -1304,7 +1304,7 @@ ul {list-style-type: none; }
 /*li:nth-child(odd) {background-color:#F2F2F2;}*/
 #prodo-comment-textBox-container {padding-bottom: 10px;}
 #prodo-comment-media-list{border:3px;font-family: Helvetica ;font-size:14px;}
-#prodo-comment-Textbox {  height:40px;border-radius:10px;font-size:12px; 
+#prodo-comment-Textbox {  height:40px;border-radius:10px;font-size:12px;   overflow: hidden;
 	font-family: Helvetica ; border: solid 1px #5bc0de; max-height: 75px;max-width: 90%;resize: none;}
 #prodo-comment-search-Textbox {  height:40px;width:518px;border-radius:10px;font-size:12px; 
 	font-family: Helvetica ; border: solid 1px #5bc0de; }
