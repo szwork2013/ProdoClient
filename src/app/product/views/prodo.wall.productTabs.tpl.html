@@ -90,14 +90,14 @@
       <div class="prodo-comment-Text-tabs " id="tabs">
         <ul id="commentTab" class=" commentTab nav nav-pills" ng-init="tabSearch = false;
           tabComment = true" >
-          <li >
-            <a  class="prodo-cursor"  ng-click="tabComment = true; tabSearch=false;">
+          <li class="Pcomment">
+            <a  class="prodo-cursor" id="prodoCommentTab" ng-click="tabComment = true; tabSearch=false;  " onclick="document.getElementById('prodoCommentTab').style.borderBottomColor ='green'; document.getElementById('prodoCommentSearchTab').style.borderBottomColor='';">
               <div  id="fa-removeComment" name="rm" class=" fa fa-comments-o fa-lg  " ></div>
             </a>
           </li>
-          <li>
-            <a  class="prodo-cursor" ng-click="tabSearch =  true ;
-              tabComment = false;">
+          <li class="PSearch">
+            <a id="prodoCommentSearchTab" class="prodo-cursor" ng-click="tabSearch =  true ;
+              tabComment = false; " onclick="document.getElementById('prodoCommentSearchTab').style.borderBottomColor ='green'; document.getElementById('prodoCommentTab').style.borderBottomColor=''; " >
               <div id="fa-tagsComment" class="fa fa-search fa-lg"  ></div>
             </a>
           </li>
