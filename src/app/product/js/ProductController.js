@@ -119,6 +119,10 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
         // $rootScope.product_prodle = successData.success.product.prodle;
         // if(successData.success.product.product_comments)
         $scope.productComments = successData.success.product.product_comments;
+        if(successData.success.product.product_comments!==undefined){
+           $("#prodo-comment-media-list").css("display", "block");
+        }
+
         // console.log( $scope.productComments);
         $scope.pImages_l = successData.success.product.product_images;
         $("#prodo-addingProduct").text($scope.product.status);
