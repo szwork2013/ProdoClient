@@ -7,9 +7,9 @@ angular.module('prodo.ProdoWallApp')
     $rootScope.images = [];
     $scope.isFollowing = false;
 
-    var a = moment($rootScope.usersession.currentUser.subscription.planexpirydate);
-    var b = moment();
-    $rootScope.daysRemaining = a.diff(b, 'days')-1 +" Days Remaining";
+    var planExpiryDate = moment($rootScope.usersession.currentUser.subscription.planexpirydate);
+    var todaysDate = moment();
+    $rootScope.daysRemaining = planExpiryDate.diff(todaysDate, 'days')+" Days Remaining";
 
     $scope.updateimages = function(data) {
       $rootScope.manageSlider="";   // Added this variable to check conditions in tpl

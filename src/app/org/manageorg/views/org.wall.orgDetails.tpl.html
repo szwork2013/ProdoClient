@@ -1,30 +1,30 @@
 <div style="padding: 5px; " id="prodo-user-account-container" style="" class="container">
   <div style="min-height:30px; border-radius: 5px; margin-bottom: 10px;">
-  		<img ng-show="((usersession.currentUser.org.orgtype == 'Manufacturer') && org.org_logo)" ng-src="{{org.org_logo.image}}" style="width: 160px; height:80px; margin: 20px; ">
+      <img ng-show="((usersession.currentUser.org.orgtype == 'Manufacturer') && org.org_logo)" ng-src="{{org.org_logo.image}}" style="width: 160px; height:80px; margin: 20px; ">
       <img ng-hide="((usersession.currentUser.org.orgtype == 'Manufacturer') && org.org_logo)" style="width: 160px; height:80px; margin: 20px; " src="../../../assets/images/if_no_logo_images_available.gif">
-  		<a class="btn btn-danger btn-sm pull-right" style="border-radius: 10px; margin: 5px; width: 80px; font-size: 12px; font-weight:bold;" href="" data-toggle="modal" data-target="#myModal"><i style="margin-right: 5px;" class="fa fa-trash-o fa-lg"></i>Delete</a>
-  	</div>
+      <a class="btn btn-danger btn-sm pull-right" style="border-radius: 10px; margin: 5px; width: 80px; font-size: 12px; font-weight:bold;" href="" data-toggle="modal" data-target="#myModal"><i style="margin-right: 5px;" class="fa fa-trash-o fa-lg"></i>Delete</a>
+    </div>
 
-  	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		  <div class="modal-dialog">
-		    <div class="modal-content">
-		      <div class="modal-header">
-		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-		        <h4 class="modal-title" id="myModalLabel">Confirm Delete</h4>
-		      </div>
-		      <div class="modal-body">
-		        You have selected to delete your Organization. This would stop you from any further interaction with the organization. Do you want to proceed?
-		      </div>
-		      <div class="modal-footer">
-		      	<button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="deleteOrgAccount()">Delete Organisation</button>
-		        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-		      </div>
-		    </div><!-- /.modal-content -->
-		  </div><!-- /.modal-dialog -->
-		</div><!-- /.modal -->
-	<accordion>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">Confirm Delete</h4>
+          </div>
+          <div class="modal-body">
+            You have selected to delete your Organization. This would stop you from any further interaction with the organization. Do you want to proceed?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="deleteOrgAccount()">Delete Organisation</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+  <accordion>
     <accordion-group>
-    	<accordion-heading>
+      <accordion-heading>
         <p style='font-weight:bold; font-size: 13px; margin: 0;'>GENERAL SETTINGS<i class="fa fa-pencil pull-right"></i></p>
       </accordion-heading>
         <div ng-show='form.orggeneralsettingform.submitted' growl></div>
@@ -57,11 +57,11 @@
             <button ng-show="editorEnabled" class="btn btn-primary btn-sm pull-right" style="border-radius: 10px; margin: 5px; width: 80px; font-size: 12px; font-weight:bold;" href="#" ng-click="updateOrgAccount()"><i style="margin-right: 5px;" class="fa fa-save"></i>Save</button>
             <button ng-show="editorEnabled" class="btn btn-primary btn-sm pull-right" style="border-radius: 10px; margin: 5px; width: 80px; font-size: 12px; font-weight:bold;" ng-click="disableEditor()"><i style="margin-right: 5px;" class="fa fa-times"></i>Cancel</button>
           </form> 
-    		</div>
+        </div>
     </accordion-group>
     
     <accordion-group>
-    	<accordion-heading>
+      <accordion-heading>
         <p style='font-weight:bold; font-size: 13px; margin: 0;'>LOCATION<i class="fa fa-pencil pull-right"></i></p>
       </accordion-heading>
         <div ng-show='form.orglocationsettingform.submitted' growl></div>
@@ -71,15 +71,67 @@
             <input type="text" class="form-control" ng-model="searchAddress" placeholder="Enter your search terms" />
           </div>
 
+
+
+
+   <!--       <div class="table table-hover table-condensed" ng-repeat="orgAd in orgaddr">
+         <div><b>Location Type As:{{orgAd.loctype}}</b></div>
+         <table>
+          <tr style="font-weight: bold">
+            <td style="width:5%">#</td>
+            <td style="width:32%">Address</td>
+            <td style="width:18%">Country</td>
+            <td style="width:15%">State</td>
+            <td style="width:18%">Contacts</td>
+            <td style="width:22%">Edit</td>
+          </tr>
+          <tr ng-repeat="addr in orgAd.location track by $index | filter:searchAddress">
+             <td> {{$index + 1}}
+             </td>
+             
+             <td>
+                 <div>{{org.address1}}</div>
+                 <div>{{addr.address.address1}}</div>
+                 <div>{{addr.address.address2}}</div> 
+                 <div>{{addr.address.address3}}</div>
+                 <div>{{addr.address.city}}</div>
+                 <div>{{addr.address.zipcode}}</div> 
+             </td>
+            
+             <td>
+                     <div >{{addr.address.country}}</div>
+             </td>
+
+             <td>
+                     <div>{{addr.address.state}}</div>
+             </td>
+
+             <td>
+                     <div>{{addr.contacts[0].customerhelpline}}</div>
+                     <div>{{addr.contacts[1].customerhelpline}}</div>
+                     <div>{{addr.contacts[2].customerhelpline}}</div> 
+             </td>
+
+             <td>
+                    
+             </td>
+
+          </tr>
+         </table>
+         </div>
+ -->
+
+
           <table class="table table-hover table-condensed" ng-repeat="orgAd in orgaddr">
-          <thead>
+          <tr><b>Location Type As: {{orgAd.loctype}} </b></tr>
+    <!--       <thead>
 
             <tr>
               <th></th> 
               <th>Location Type As:</th>
               <th>{{orgAd.loctype}}<th>
             </tr>
-          </thead> 
+          </thead>  -->
           <tr style="font-weight: bold">
             <td style="width:5%">#</td>
             <td style="width:22%">Address</td>
@@ -90,56 +142,73 @@
           </tr>
           <tbody>
             <tr ng-repeat="addr in orgAd.location track by $index | filter:searchAddress">
-            <td>{{$index + 1}}</td>
-            <td ng-hide="editorEnabled">
-              <span>{{org.address1 || addr.address.address1}},<br>{{addr.address.address2}},<br>{{addr.address.address3}},<br>{{addr.address.city}},{{addr.address.zipcode}}</span>
-            </td>
-            <td ng-show="editorEnabled">
-              <input style="height:30px; display:block; margin:3px;" class="form-control" ng-model="org.address1" placeholder="Address Line1" >
-              <input style="height:30px; display: block; margin:3px;" class="form-control" ng-model="org.address2" placeholder="Address Line2" >
-              <input style="height:30px; display:block; margin:3px;" class="form-control" ng-model="org.address3" placeholder="Address Line3" >
-              <input style="height:30px; display:block; margin:3px;" class="form-control" ng-model="org.city" placeholder="City" >
-              <input style="height:30px; display:block; margin:3px;" class="form-control" ng-model="org.zipcode" placeholder="Zipcode" >              
-            </td>
-            <td  ng-hide="editorEnabled">
-              <span>{{addr.address.country}}</span>
-            </td>
-            <td ng-show="editorEnabled">
-                <input style="height:30px; display:block; margin:3px;" class="form-control" ng-model="org.country" placeholder="Country">
-            </td>
-            <td  ng-hide="editorEnabled">
-              <span>{{addr.address.state}}</span>
-            </td>
-            <td ng-show="editorEnabled">
-              <input style="height:30px; display:block; margin:3px;" class="form-control" ng-model="org.state" placeholder="State">
-            </td>
-            <td ng-hide="editorEnabled">
-              <span>{{addr.contacts[0].customerhelpline}}<br>{{addr.contacts[1].customerhelpline}}<br>{{addr.contacts[2].customerhelpline}}</span>
-            </td>
-            <td ng-show="editorEnabled">
-              <input style="height:30px; display:block; margin:3px;" class="form-control" ng-model="org.contact.customerhelpline1" placeholder="Helpline1">
-              
-              <input style="height:30px; display:block; margin:3px;" class="form-control" ng-model="org.contact.customerhelpline2" placeholder="Helpline2">
-              
-              <input style="height:30px; display:block; margin:3px;" class="form-control" ng-model="org.contact.customerhelpline3" placeholder="Helpline3">
-            </td>
-            <td>
-              <div class="buttons">
-                <a ng-hide="editorEnabled" class="btn btn-primary btn-sm" style="border-radius: 10px; margin: 5px;" ng-click="enableEditor(addr)">Edit</a>
-                <a ng-hide="{{$index}}<1 || editorEnabled" class="btn btn-danger btn-sm" style="border-radius: 10px; margin: 5px;" ng-click="deleteOrgAddress(addr.locid)">Del</a>
-                <a ng-show="editorEnabled" class="btn btn-primary btn-sm glyphicon glyphicon-floppy-save" style="border-radius: 10px; margin: 2px;" ng-click="updateAddress(addr.locid)">Save</a>
-                <a ng-show="editorEnabled" class="btn btn-primary btn-sm glyphicon glyphicon-remove" style="border-radius: 10px; margin: 2px;" ng-click="disableEditor()">Can</a>
-              </div>  
-            </td>
+                    <td ng-bind="$index + 1"></td>
+                    <td ng-hide="addr.editing" >
+                     <!--  <div ng-bind="org.address1"> </div> -->
+                      <div ng-bind="addr.address.address1"> </div>
+                      <div ng-bind="addr.address.address2"></div>
+                      <div ng-bind="addr.address.address3"></div>
+                      <div ng-bind="addr.address.city"></div>
+                      <div ng-bind="addr.address.zipcode"></div>
+                    </td>
+                    <td ng-if="addr.editing">
+                      <input style="height:30px; display:block; margin:3px;" class="form-control" ng-model="addr.address.address1" placeholder="Address Line1" ng-bind="addr.address.address1">
+                      <input style="height:30px; display: block; margin:3px;" class="form-control" ng-model="addr.address.address2" placeholder="Address Line2" >
+                      <input style="height:30px; display:block; margin:3px;" class="form-control" ng-model="addr.address.address3" placeholder="Address Line3" >
+                      <input style="height:30px; display:block; margin:3px;" class="form-control" ng-model="addr.address.city" placeholder="City" >
+
+                      <input style="height:30px; display:block; margin:3px;" class="form-control" ng-model="addr.address.zipcode" placeholder="Zipcode" >              
+                    </td>
+                    <td  ng-hide="addr.editing">
+                      <span ng-bind="addr.address.country" ></span>
+                    </td>
+                    <td ng-if="addr.editing">
+                        <input style="height:30px; display:block; margin:3px;" class="form-control" ng-model="addr.address.country" placeholder="Country">
+                    </td>
+                    <td  ng-hide="addr.editing">
+                      <span ng-bind="addr.address.state" ></span>
+                    </td>
+                    <td ng-if="addr.editing">
+                      <input style="height:30px; display:block; margin:3px;" class="form-control" ng-model="addr.address.state" placeholder="State">
+                    </td>
+                    <td ng-hide="addr.editing">
+                   <!-- bind -->
+                      <div ng-bind="addr.contacts[0].customerhelpline" >
+                      </div>
+                      <div ng-bind="addr.contacts[1].customerhelpline" ></div>
+                      <div ng-bind="addr.contacts[2].customerhelpline" ></div>
+                      <div></div>
+                    </td>
+                    <td ng-if="addr.editing">
+                      <input style="height:30px; display:block; margin:3px;" class="form-control" ng-model="addr.contacts[0].customerhelpline" placeholder="Helpline1">
+                      
+                      <input style="height:30px; display:block; margin:3px;" class="form-control" ng-model="addr.contacts[1].customerhelpline" placeholder="Helpline2">
+                      
+                      <input style="height:30px; display:block; margin:3px;" class="form-control" ng-model="addr.contacts[2].customerhelpline" placeholder="Helpline3">
+                    </td>
+                    <td>
+                      <div class="buttons">
+                        <a ng-hide="addr.editing" class="btn btn-primary btn-sm" style="border-radius: 10px; margin: 5px;width: 80px;" ng-click="enableEditing(addr)">Edit</a>
+                        <a ng-hide="addr.editing" class="btn btn-danger btn-sm" style="border-radius: 10px; margin: 5px;width: 80px;" ng-click="deleteOrgAddress(addr.locid)">Delete</a>
+                        <a ng-if="addr.editing" class="btn btn-primary btn-sm glyphicon glyphicon-floppy-save" style="border-radius: 10px; margin: 2px;width: 80px;" ng-click="updateAddress(addr)">Save</a>
+                        <a ng-if="addr.editing" class="btn btn-primary btn-sm glyphicon glyphicon-remove" style="border-radius: 10px; margin: 2px;width: 80px;" ng-click="disableEditing(addr)">Cancel</a>
+                      </div>  
+                    </td>
+             
           </tr>
         </tbody>
       </table>
+
+
+
+
+      
           <br>
           <hr size=3 width="100%;" style="background-color:#BDBDBD; height:1px; margin-top: 0;" noshade>
           <p ng-hide='islocation' style="margin-top: 10px; font-size: 14px; font-weight:bold;">Click <a href="" ng-click='addLocation()'>here</a> to add more address.
           </p><br>
         <div ng-show='form.orgaddlocationform.submitted' growl></div>
-        <div ng-show='islocation' class="">
+        <div ng-show='islocation' class="addressCountry">
 
           <form name="form.orgaddlocationform" class="css-form" ng-submit="" novalidate>
             <dl class="dl-horizontal">
@@ -154,11 +223,11 @@
               <dt>Address Line3:</dt>
               <dd><input name="address3" type="text" style="width:55%; height:30px; display:block" class="form-control" ng-model="org.address3" placeholder="address line3"></dd><br>
               <dt>Country:</dt>
-              <dd><input name="country" type="text" ng-pattern="/^[A-z]*$/" style="width:55%; height:30px; display:block" class="form-control" ng-model="org.country" placeholder="country" required><small style='color:red;' ng-show="(form.orgaddlocationform.country.$dirty && form.orgaddlocationform.country.$invalid)">Country should contain only letters.</small></dd><br>
+              <dd><input name="country" type="text" ng-pattern="/^[A-z]*$/" style="width:55%; height:30px; display:block" class="form-control" ng-model="org.country" placeholder="country" required typeahead="country for country in countries | filter:$viewValue | limitTo:8"><small style='color:red;' ng-show="(form.orgaddlocationform.country.$dirty && form.orgaddlocationform.country.$invalid)">Country should contain only letters.</small></dd><br>
               <dt>State:</dt>
-              <dd><input name="state" type="text" ng-pattern="/^[A-z]*$/" style="width:55%; height:30px; display:block" class="form-control" ng-model="org.state" placeholder="state" required><small style='color:red;' ng-show="(form.orgaddlocationform.state.$dirty && form.orgaddlocationform.state.$invalid)">State should contain only letters.</small></dd><br>
+              <dd><input name="state" type="text" ng-pattern="/^[A-z]*$/" style="width:55%; height:30px; display:block" class="form-control" ng-model="org.state" placeholder="state" required typeahead="state for state in return_states() | filter:$viewValue | limitTo:8"><small style='color:red;' ng-show="(form.orgaddlocationform.state.$dirty && form.orgaddlocationform.state.$invalid)">State should contain only letters.</small></dd><br>
               <dt>City:</dt>
-              <dd><input name="city" type="text" ng-pattern="/^[A-z]*$/" style="width:55%; height:30px; display:block" class="form-control" ng-model="org.city" placeholder="city" required><small style='color:red;' ng-show="(form.orgaddlocationform.city.$dirty && form.orgaddlocationform.city.$invalid)">City should contain only letters.</small></dd><br>
+              <dd><input name="city" type="text" ng-pattern="/^[A-z]*$/" style="width:55%; height:30px; display:block" class="form-control" ng-model="org.city" placeholder="city" required typeahead="city for city in return_cities() | filter:$viewValue | limitTo:8"><small style='color:red;' ng-show="(form.orgaddlocationform.city.$dirty && form.orgaddlocationform.city.$invalid)">City should contain only letters.</small></dd><br>
               <dt>Zipcode:</dt>
               <dd><input name="zipcode" type="text" ng-pattern="/^[0-9]*$/" style="width:55%; height:30px; display:block" class="form-control" ng-model="org.zipcode" placeholder="zipcode"><small style='color:red;' ng-show="(form.orgaddlocationform.zipcode.$dirty && form.orgaddlocationform.zipcode.$invalid)">Zipcode should only contain digits.</small></dd>
               <br>
@@ -174,7 +243,7 @@
     </accordion-group>
 
     <accordion-group>
-    	<accordion-heading>
+      <accordion-heading>
             <p style='font-weight:bold; font-size: 13px; margin: 0;'>ADD USER TO GROUP<i class="fa fa-pencil pull-right"></i></p>
         </accordion-heading>
         <div ng-show='(form.orgnewgroupinvitesform.submitted || form.orggroupinvitesform.submitted)' growl></div>
@@ -230,7 +299,7 @@
     </accordion-group>
 
     <accordion-group ng-hide="usersession.currentUser.org.orgtype != 'Manufacturer' ">
-    	<accordion-heading>
+      <accordion-heading>
             <p style='font-weight:bold; font-size: 13px; margin: 0;'>NEW ORGANIZATION INVITES<i class="fa fa-pencil pull-right"></i></p>
         </accordion-heading>
         <button class="btn btn-info btn-sm" style="background-color:#47707C; border-color:#3C555C; border-radius: 10px; margin: 15px;" ng-click="addMoreInvites()"><i style="margin-right: 5px;" class="fa fa-plus-square"></i>Add More Invites</button>
@@ -264,7 +333,7 @@
 
 
     <accordion-group ng-hide="usersession.currentUser.org.orgtype != 'Manufacturer' ">
-    	<accordion-heading>
+      <accordion-heading>
             <p style='font-weight:bold; font-size: 13px; margin: 0;'>PRODUCT<i class="fa fa-pencil pull-right"></i></p>
         </accordion-heading>
         <div ng-show="(productlist.length == 0)">
@@ -278,7 +347,7 @@
     </accordion-group>
 
     <accordion-group>
-    	<accordion-heading>
+      <accordion-heading>
            <p style='font-weight:bold; font-size: 13px; margin: 0;'>SUBSCRIPTION<i class="fa fa-pencil pull-right"></i></p>
         </accordion-heading>
         <div ng-show="usersession.currentUser.isSubscribed">
@@ -288,7 +357,7 @@
     </accordion-group>
 
     <accordion-group>
-    	<accordion-heading>
+      <accordion-heading>
             <p style='font-weight:bold; font-size: 13px; margin: 0;'>PAYMENT<i class="fa fa-pencil pull-right"></i></p>
         </accordion-heading>
         <div ng-show="usersession.currentUser.hasDonePayment">
@@ -298,7 +367,7 @@
     </accordion-group>
 
     <accordion-group>
-    	<accordion-heading>
+      <accordion-heading>
             <p style='font-weight:bold; font-size: 13px; margin: 0;'>PAYMENT HISTORY<i class="fa fa-pencil pull-right"></i></p>
         </accordion-heading>
         <div ng-show="usersession.currentUser.hasDonePayment">
@@ -358,3 +427,13 @@
       </accordion-group>
     </accordion>
 </div>
+
+
+
+
+
+
+
+
+
+

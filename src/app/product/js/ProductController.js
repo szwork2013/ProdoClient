@@ -257,7 +257,8 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
 
   $scope.addFeatureToComment=function(data)
   {
-    document.getElementById('prodo-comment-Textbox').value=document.getElementById('prodo-comment-Textbox').value+" "+data+" ";
+    $scope.commenttextField.userComment = $scope.commenttextField.userComment + " "+data+" ";
+    //cument.getElementById('prodo-comment-Textbox').value = document.getElementById('prodo-comment-Textbox').value+" "+data+" ";
   };
   
   $scope.showFeature=function()
