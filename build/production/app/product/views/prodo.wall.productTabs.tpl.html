@@ -19,17 +19,58 @@
 <br>
 <div id="prodo-ProductDetails">
   <div >
-    <img class="img prodo-productLogoDisplay" id="productLogo" ng-src="{{product.product_logo.image}}" />
-    <strong class="prodo-productNameStrong" >&nbsp;<span ng-bind="product.name.substring(0,20)"> </span></strong>
-    <a href="" ng-style="CheckIfAlreadyFollowingProduct()" id="prodo-followBtn" ng-click="followCurrentProduct()"   class="pull-right btn btn-primary btn-sm">  Follow </a>
+   <img class="img prodo-productLogoDisplay pull-left" id="productLogo" ng-src="{{product.product_logo.image}}" alt-SRC src="../assets/images/if_no_logo_images_available.gif"/>
+      <a href="" ng-style="CheckIfAlreadyFollowingProduct()" id="prodo-followBtn"  ng-click="followCurrentProduct()"   class="prodo-followBtn pull-right btn btn-primary btn-sm ">  Follow </a>
+<!--      <strong class="prodo-productNameStrong" >&nbsp;<span ng-bind="product.name.substring(0,20)"> </span></strong> -->
+
+   <!--   <div class="prodo-trendingContainer">
+    Followers {{ product.trending.followedcount }}  
+    </div>
+       <div class="prodo-trendingContainer" >
+    Comments {{ product.trending.commentcount }}
+    </div> -->
+
+      <table class="prodo-MainDetailsTable" >
+         <tr >
+           <td colspan ="2" >
+               <strong class="prodo-productNameStrong" >&nbsp;<span ng-bind="product.name.substring(0,20)"> </span></strong>
+           </td>
+         </tr> 
+         <tr class="prodo-followesInfotr" >
+           <td class="prodo-followesInfotd prodo-producttrendingInfo" >
+             <div class="prodo-producttrendingInfoDiv"  ng-bind="product.trending.followedcount"></div><div class="prodo-producttrendingInfoLable" > Followers</div> 
+            </td>
+            <td class="prodo-producttrendingInfo prodo-productCommentInfo">
+              <div class="prodo-productCommentInfoDiv" ng-bind="product.trending.commentcount"></div><div class="prodo-productCommentsInfoLable"> Comments</div> 
+            </td>
+          </tr>
+        </table>
+        <div class="clearBoth"></div>
+
+
+
+
+
+  <!--   <img class="img prodo-productLogoDisplay" id="productLogo" ng-src="{{product.product_logo.image}}" /> -->
+   <!--  <strong class="prodo-productNameStrong" >&nbsp;<span ng-bind="product.name.substring(0,20)"> </span></strong> -->
+ 
     <br>
     <span class="prodo-Modelno" >
       MODEL NO :&nbsp; <span ng-bind="product.model_no"></span>
       <br>
-      <span>
-        <!-- <i ng-click="ShowDescription();" class="fa fa-caret-right fa-2x prodo-cursor"></i> -->Description :
-        <span id="prodo-description" class="prodo-description" ng-bind="product.description" > </span>
-      </span>
+      <!-- <span> -->
+     <!--     <i ng-click="ShowDescription();" class="fa fa-caret-right fa-2x prodo-cursor"></i> -->
+       &nbsp;&nbsp; Description : 
+      <!--   <span id="prodo-description" class="prodo-description" ng-bind="product.description" > </span> <i ng-click="ShowDescription();" class=" prodo-cursor"> read more</i> -->
+
+
+     <div id="profile-description">
+      <div class="text show-more-height" ng-bind="product.description">
+        
+      </div>
+      <div ng-style="cslcShowMoreLength()" class="show-more pull-right showMoreMargin">Show More</div>
+    </div>
+      <!-- </span> -->
     </span>
     <table class="table child "  id="prodo-ProductFeatureTable" >
       <tr id="prodo-productbnd" class="prodo-productTabledis"  ng-show="product.banneddate">
@@ -49,21 +90,32 @@
       <div class="prodo-comment-Text-tabs " id="tabs">
         <ul id="commentTab" class=" commentTab nav nav-pills" ng-init="tabSearch = false;
           tabComment = true" >
-          <li >
-            <a  class="prodo-cursor"  ng-click="tabComment = true; tabSearch=false;">
-              <div  id="fa-removeComment" name="rm" class=" fa fa-comments-o fa-lg  " ></div>
+          <li class="Pcomment" ng-class="{active2 : tabComment == 1}" >
+            <a  class="prodo-cursor" id="prodoCommentTab" ng-click="tabComment = true; tabSearch=false;  "  >
+              <div   id="fa-removeComment" name="rm" class=" fa fa-comments-o fa-lg  " ></div>
             </a>
           </li>
-          <li>
-            <a  class="prodo-cursor" ng-click="tabSearch =  true ;
-              tabComment = false;">
+
+          <li class="PSearch" ng-class="{active2 : tabSearch == 1}"  >
+            <a id="prodoCommentSearchTab" class="prodo-cursor" ng-click="tabSearch =  true ;
+              tabComment = false; " >
+
               <div id="fa-tagsComment" class="fa fa-search fa-lg"  ></div>
             </a>
           </li>
          
         </ul>
+       <div collapse="isCollapsed" style="width:80%;margin-left:30px;"> 
+               <b> Select the feature to talk on </b>
+               <p style="font-size:10px;">Features are vertically scrollable</p>
+                     <ul style="max-height:60px;overflow-x:hidden; overflow-y: auto;">
+                        <li ng-repeat="feature in features track by $index" ng-click="addFeatureToComment(feature.featurename)" class="hyperlinkPointer featureTabs" style=""> 
+                        <span ng-bind="feature.featurename" style="font-size:12px;"> </span>
+                        </li>
+                     </ul>
+        </div>
         <div class="tab-content">
-          <div id="Remove" ng-show="tabComment == 1"   >
+          <div id="Remove" ng-show="tabComment == true" >
             <div id="prodo-comment-enterComment" >
               <span class="label label-info   " ng-bind="300 - commenttextField.userComment.length" ></span> 
               <a href="" ng-click="getLatestComments()" >
@@ -71,17 +123,8 @@
               </a>
               <div ng-controller="DragImageController">
                 <div id="prodo-comment-textBox-container">
-                    <div collapse="isCollapsed" style="width:80%;margin-left:30px;"> 
-                     <b> Select the feature to talk on </b>
-                     <p style="font-size:7px;">Features are vertically scrollable</p>
-                           <ul style="max-height:60px;overflow-x:hidden; overflow-y: auto;">
-                              <li ng-repeat="feature in features track by $index" ng-click="addFeatureToComment(feature.featurename)" class="hyperlinkPointer"> 
-                              <span ng-bind="feature.featurename" style="font-size:12px;"> </span>
-                              </li>
-                           </ul>
-                      </div>
                   <div id="holder">
-                    <textarea id="prodo-comment-Textbox" col="40" type="text" class="form-control " name="txtComment" placeholder="Product Conversation [max 300 characters]"   ng-model="commenttextField.userComment" comment-limit="300" ng-enter="addProductComment();hideFeature()" required  pop-over items="featuretags", title="Select Feature" ng-click="showFeature()"></textarea>  
+                    <textarea id="prodo-comment-Textbox" col="40" type="text" class="form-control " name="txtComment" placeholder="Product Conversation [max 300 characters]"   ng-model="commenttextField.userComment" comment-limit="300" ng-enter="addProductComment();hideFeature()" required  items="featuretags"  ng-click="showFeature()"></textarea>  
                     <!-- tags -->
                     <div id="prodo-productTags">
                       <form  role="form">
@@ -110,7 +153,7 @@
               </p>
             </div>
           </div>
-          <div id="Remove" ng-show="tabSearch == 1" class="prodo-padding-bottom"  >
+          <div id="Remove" ng-show="tabSearch == true" class="prodo-padding-bottom"  >
             <br>
             <input ng-model="search" class="commentSearchTextbox form-control " id="prodo-comment-search-Textbox"  type="text"   placeholder="Search comments ...">
           </div>
@@ -124,7 +167,7 @@
         <strong><div id="UploadCommentIMGErrMsg"></div></strong>
       </div>
     </div>
-      <ul class="media-list "  id="prodo-comment-media-list">
+      <ul class="media-list "  id="prodo-comment-media-list" style="display">
         <div prodo-comments    id="prodo-comment-commentContainer"  >
         </div>
       </ul>

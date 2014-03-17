@@ -6,7 +6,7 @@
 
       <h4 id="prodo-signup-heading">Talk About Your Products</h4>
 
-        <div style="width: 250px; height: 20px; margin: 10px; display: block;" >
+        <div class="radio-btn-signup">
           <input type="radio" ng-model="user.type" value="business">&nbsp;Business
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" ng-model="user.type" value="individual">&nbsp;Individual
         </div>
@@ -30,11 +30,11 @@
           </div><!-- /input-group -->
         </div>
         
-        <p style="width: 370px;" id="prodo-general-terms">By clicking Sign Up, you agree to our<a href="" ui-sref="prodo.footer-content.privacy" class="link prodo-general-terms-link"> Terms</a>&nbsp;and &nbsp;<a href="" ui-sref="prodo.footer-content.terms" class="link prodo-general-terms-link">Privacy Policy</a>.</p>
+        <p id="prodo-general-terms">By clicking Sign Up, you agree to our<a href="" ui-sref="prodo.footer-content.privacy" class="link prodo-general-terms-link"> Terms</a>&nbsp;and &nbsp;<a href="" ui-sref="prodo.footer-content.terms" class="link prodo-general-terms-link">Privacy Policy</a>.</p>
 
     </div>  
-    <div ng-show="(signupForm.username.$dirty && signupForm.username.$invalid) || (signupForm.email.$dirty && signupForm.email.$invalid) || (signupForm.password.$dirty && signupForm.password.$invalid) || (signupForm.$invalid && signupForm.submitted)" style="width:250px; min-height: 30px; border-radius: 2px; margin: 10px auto; display: block; text-align:left; font-size: 12px;" class="alert alert-danger">
-      <ul style="list-style-type: disc;">
+    <div ng-show="(signupForm.username.$dirty && signupForm.username.$invalid) || (signupForm.email.$dirty && signupForm.email.$invalid) || (signupForm.password.$dirty && signupForm.password.$invalid) || (signupForm.$invalid && signupForm.submitted)" class="prodo-alert-error-container alert alert-danger">
+      <ul class="error-ul">
         <li ng-show="(signupForm.username.$dirty && signupForm.username.$invalid && signupForm.submitted) || (signupForm.username.$invalid && signupForm.submitted) || (signupForm.username.$dirty && signupForm.username.$error.required)">Username is required</li>
         <li ng-show="signupForm.username.$error.pattern">
           Username should start with a letter followed by letters or numbers and must be between 3 and 15 characters</li>
@@ -49,6 +49,7 @@
     
 
   </form>
+  <p id="prodo-signup-secure-text"><i class="prodo-fa fa fa-lock"></i>Your information is <strong>safe</strong> and <strong>secure</strong> with us.</p>
 
 </div>
 

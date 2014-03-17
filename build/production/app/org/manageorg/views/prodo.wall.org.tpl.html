@@ -1,20 +1,20 @@
-<div id="prodo-comment-container" class="container" style="border: 1px solid #E7EDF1;">
+<div class="prodo-wall-org-container container">
 
-	<div style="padding: 10px;" id="prodo-view-orlogodisplay" class="container">
-		<img style="width: 90px; height: 50px;" ng-src="{{orgdata.org_logo.image}}">
-		<strong style="font-size: 25px; margin:20px; text-align:center;">{{orgdata.name}}</strong>
+	<div id="prodo-view-orlogodisplay" class="container">
+		<img class="prodo-wall-org-logo" ng-src="{{orgdata.org_logo.image}}">
+		<strong class="prodo-wall-org-name-text">{{orgdata.name}}</strong>
 	</div>
 
 	<div ng-show='hasBroadcast'>
 	<br>
-	<h5 style="color: #86846E; margin-bottom: 2px;">COMPANY INFORMATION BROADCAST</h5>
-  <hr size=3 width="100%;" style="background-color:#BDBDBD; height:1px; margin-top: 0;" noshade>
+	<h5 class="prodo-wall-org-heading-text">COMPANY INFORMATION BROADCAST</h5>
+  <hr size=3 class="prodo-wall-org-hr" noshade>
   </div>
 
 	<div>
 		<br>
-	<h5 style="color: #86846E; margin-bottom: 2px;">COMPANY DETAILS</h5>
-  <hr size=3 width="100%;" style="background-color:#BDBDBD; height:1px; margin-top: 0;" noshade>
+	<h5 class="prodo-wall-org-heading-text">COMPANY DETAILS</h5>
+  <hr class="prodo-wall-org-hr" size=3 noshade>
 	<dl class="dl-horizontal">
 	  <dt>Description:</dt>
 	  <dd>{{orgdata.description}}</dd>
@@ -29,7 +29,7 @@
         {{addr.address.address2}},<br>
         {{addr.address.address3}}, {{addr.address.city}}<br>
         {{addr.address.state}}, {{addr.address.country}}<br>
-        Zipcode: {{addr.address.zipcode}}
+        {{addr.address.zipcode}}
       </address>
     </dd>
     <dt>Contact:</dt>
@@ -38,20 +38,20 @@
 	</div>
 	</div>
    
-	<div ng-hide="(orgAd.loctype != 'Service Centers')">
+	<div ng-show="orgAd.loctype == 'Service Centers' " ng-repeat="orgAd in orgaddr">
     <br>
-  	<h5 style="color: #86846E; margin-bottom: 2px;">SERVICE CENTERS</h5>
-    <hr size=3 width="100%;" style="background-color:#BDBDBD; height:1px; margin-top: 0;" noshade>
+  	<h5 class="prodo-wall-org-heading-text">SERVICE CENTERS</h5>
+    <hr class="prodo-wall-org-hr" size=3 noshade>
 
    
     	<div class="bar">
     		<div class="right-inner-addon ">
       		<i class="fa fa-search"></i>
-      		<input style='width:270px;' type="search" class="form-control" placeholder="Search" ng-model="searchAddress"/>
+      		<input type="search" class="org-address-search-form-control form-control" placeholder="Search" ng-model="searchAddress"/>
   			</div>
       </div>
       <br>
-      <table ng-show="(orgAd.loctype == 'Service Centers')" class="table table-condensed" ng-repeat="orgAd in orgaddr">
+      <table  class="table table-condensed">
         <tr style="font-weight: bold">
           <td style="width:5%">#</td>
           <td style="width:35%">Address</td>
@@ -80,15 +80,18 @@
   	</div>
 
   <br>
-  <h5 style="color: #86846E; margin-bottom: 2px;">PRODUCTS</h5>
-  <hr size=3 width="100%;" style="background-color:#BDBDBD; height:1px; margin: 2px auto;" noshade>
+  <h5 class="prodo-wall-org-heading-text">PRODUCTS</h5>
+  <hr size=3 class="prodo-wall-org-hr" noshade>
   <div ng-show='isFollowing' growl></div>
     <div ng-show='productlist.length == 0'> <p style="text-align:left; font-size:20px; margin: 20px auto;" class="text-success"><strong><em>Currently no products available.</em></strong></p></div>
-  	<div style="width:160px; min-height: 200px; float: left; margin: 5px; border: solid 1px #ccc;" ng-repeat="product in productlist">
-	    <p style="margin:5px auto; display:block; text-align:left; font-weight:bold; font-size:14px;">{{product.name}}</p>
-	    <img ng-show="product.product_logo" style="margin:0px auto; display:block; width:95%; height: 150px; " src="{{product.product_logo.image}}" alt=" No Image" class="img-rounded">
-      <img ng-hide="product.product_logo" style="margin:0px auto; display:block; width:95%; height: 150px; " src="../../../assets/images/if_no_logo_images_available.gif" alt=" No Image" class="img-rounded">
-	    <button class="prodo-follow-btn btn btn-primary btn-sm" ng-click='follow(product)'>Follow</button>
-	  </div>
+    <div class="row">
+      <div class="prodo-wall-org-product-container col-sm-3" ng-repeat="product in productlist">
+        <p class="prodo-wall-org-product-name">{{product.name}}</p>
+        <img ng-show="product.product_logo" src="{{product.product_logo.image}}" alt=" No Image" class="prodo-wall-org-productimg img-rounded">
+        <img ng-hide="product.product_logo" src="../../../assets/images/if_no_logo_images_available.gif" alt=" No Image" class="prodo-wall-org-productimg img-rounded">
+        <button class="prodo-follow-btn btn btn-primary btn-sm" ng-click='follow(product)'>Follow</button>
+      </div>
+    </div>
+  	
 
 </div>
