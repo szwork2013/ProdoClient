@@ -1335,7 +1335,7 @@ ul {list-style-type: none; }
 .prodo-comment-img{max-width:450px;}
 #padding0del{padding: 0px;}
 #padding0img{padding: 0px; padding-right: 5px;}
-#commentTab>li.active2 a{ border-bottom :solid 5px ;}
+#commentTab>li.active2 a{ border-bottom :solid 3px ;}
 .commentSearchTextbox{
     border: 1px solid #999; 
     outline:0; 
@@ -1450,9 +1450,11 @@ margin-bottom: 10px;
 .prodo-loadmoreColor{color:gray;}
 .prodo-loadmoreMsg{text-align:center; width:518px; font-family: Helvetica ;}
 .prodo-productNameList{font-size: 10px;}
-.prodo-ProductContainer{border: 1px solid #94d2f8; width: 100%; }
-.prodo-productLogoDisplay{height: 100px; padding:10px;width:100px; cursor: pointer;}
-.prodo-productNameStrong{font-size: 20px;margin-left: 200px; margin:20px;max-width:200px; text-align:center; color:dark}
+/*.prodo-ProductContainer{border: 1px solid #94d2f8; width: 100%;}*/
+.prodo-ProductContainer{ border: 1px solid #E7EDF1;background-color: #ffffff;margin-bottom: 20px;border-radius: 10px;padding: 20px;
+}
+.prodo-productLogoDisplay{height: 100px; margin-right:30px;width:100px; cursor: pointer;vertical-align: middle;}
+.prodo-productNameStrong{font-size: 18px;margin-left: 200px; margin:20px;max-width:200px; text-align:center; color:dark}
 .prodo-Modelno{color:#82805F;padding-left: 15px;}
 .prodo-description{height:15px; overflow: hidden;  font-size:12px;}
 .prodo-comment-Text-tabs {align:left;}
