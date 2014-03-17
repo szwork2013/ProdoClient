@@ -56,6 +56,7 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
   $scope.socket;
   $scope.isCollapsed = true;
 
+   
   //watch prodle if changed by user by product search or any other source
   $rootScope.$watch('product_prodle', function () {
     // $log.debug("Listening" + $rootScope.product_prodle);
