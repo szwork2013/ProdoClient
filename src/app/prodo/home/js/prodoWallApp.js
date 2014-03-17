@@ -8,9 +8,9 @@ angular.module('prodo.ProdoWallApp')
     $scope.isFollowing = false;
 
     var planExpiryDate = moment.utc(moment($rootScope.usersession.currentUser.subscription.planexpirydate));
-    //console.log("last "+ planExpiryDate.format('YYYY-MM-DD HH:mm'));
+    console.log("last "+ planExpiryDate.format('YYYY-MM-DD HH:mm'));
     var todaysDate = moment.utc(moment());
-    //console.log("ajj"+todaysDate.format('YYYY-MM-DD HH:mm'));
+    console.log("ajj"+todaysDate.format('YYYY-MM-DD HH:mm'));
     $rootScope.daysRemaining = planExpiryDate.diff(todaysDate, 'days')+" Days Remaining";
 
     $scope.updateimages = function(data) {
