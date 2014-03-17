@@ -12,9 +12,10 @@ $scope.orginvites=[{'name': '','orgname': '','email': ''}];
 $scope.customerinvites=[{'name': '','email': ''}];
 $scope.group = { 'newgroupname': '','grouppname': '','invites': '','newinvites': ''};
 $scope.groups = currentorggroup.success.usergrp;
-$scope.orgaddr = currentorgaddr.success.orgaddress;
+$scope.orgaddr = currentorgaddr.success.orgaddress; 
 OrgRegistrationService.updateOrgData(currentorgdata.success.organization);
 $scope.editorEnabled = false;
+$scope.orgaddresstype='';
 //Omkars code //
 $scope.countries=[ 'Afghanistan', 
                         'Albania', 
@@ -423,9 +424,9 @@ $scope.selected_country="";
                     'zipcode': $scope.org.zipcode 
                     }, 
               'contacts': $scope.contacts,
-              'locationtype': $scope.org.orgaddresstype
+              'locationtype': $scope.orgaddresstype
             }
-          }
+          }  
         return JSON.stringify(orgAddData); 
       }
 
@@ -445,9 +446,10 @@ $scope.selected_country="";
       }
     };  
 
-    $scope.addOrgAddress = function() {
+    $scope.addOrgAddress = function() { 
+       $scope.orgaddresstype = document.getElementById('orgAddressType').value;
       if ($scope.form.orgaddlocationform.$valid) {
-        $scope.form.orgaddlocationform.submitted= true;    
+        $scope.form.orgaddlocationform.submitted= true;   
         OrgRegistrationService.saveOrgAddress($scope.jsonOrgAddressData());
       } else {
         $scope.form.orgaddlocationform.submitted= true;
@@ -475,7 +477,7 @@ $scope.selected_country="";
                     'zipcode': addr.address.zipcode 
                     }, 
               'contacts': $scope.contacts,
-              'locationtype': $scope.org.orgaddresstype
+              'locationtype': $scope.orgaddresstype
             }
           }
       return JSON.stringify(orgAddData); 

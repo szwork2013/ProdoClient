@@ -123,8 +123,8 @@
 
 
           <table class="table table-hover table-condensed" ng-repeat="orgAd in orgaddr">
-          <tr><b>Location Type As: {{orgAd.loctype}} </b></tr>
-    <!--       <thead>
+     <!--      <tr><b>Location Type As: {{orgAd.loctype}} </b></tr> -->
+  <!--         <thead>
 
             <tr>
               <th></th> 
@@ -213,7 +213,7 @@
           <form name="form.orgaddlocationform" class="css-form" ng-submit="" novalidate>
             <dl class="dl-horizontal">
               <dt>Location Type:</dt>
-              <dd><select name="loctype" type="text" style="width:55%; height:30px; display:block" class="form-control" ng-model="org.orgaddresstype" autofocus required>
+              <dd><select name="loctype" type="text" style="width:55%; height:30px; display:block" class="form-control" ng-model="orgaddresstype" autofocus required id="orgAddressType">
                 <option value="Company Address">Company Address</option>
                 <option value="Service Centers">Service Centers</option></select><small style='color:red;' ng-show="(form.orgaddlocationform.loctype.$dirty && form.orgaddlocationform.loctype.$error.required)">Address is required.</small></dd><br>
               <dt>Address Line1:</dt>
