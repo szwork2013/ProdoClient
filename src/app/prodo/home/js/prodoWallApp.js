@@ -7,8 +7,10 @@ angular.module('prodo.ProdoWallApp')
     $rootScope.images = [];
     $scope.isFollowing = false;
 
-    var planExpiryDate = moment($rootScope.usersession.currentUser.subscription.planexpirydate);
-    var todaysDate = moment();
+    var planExpiryDate = moment.utc(moment($rootScope.usersession.currentUser.subscription.planexpirydate));
+    //console.log("last "+ planExpiryDate.format('YYYY-MM-DD HH:mm'));
+    var todaysDate = moment.utc(moment());
+    //console.log("ajj"+todaysDate.format('YYYY-MM-DD HH:mm'));
     $rootScope.daysRemaining = planExpiryDate.diff(todaysDate, 'days')+" Days Remaining";
 
     $scope.updateimages = function(data) {
