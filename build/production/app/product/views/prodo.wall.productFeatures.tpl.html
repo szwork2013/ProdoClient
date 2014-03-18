@@ -164,10 +164,10 @@
         <table class="table child table-hover table-bordered"  id="prodo-ProductFeatureTable" >
           <tr class="prodo-productTableFont" >
             <td >   Feature name&nbsp;&nbsp;&nbsp; <input ng-model="feature.name"   id="prodo-product-features_textfield" class="form-control prodo-validation" 
-              ng-maxlength="20" type="text"   required name="name" />  </td>
+              ng-maxlength="50" type="text"   required name="name" />  </td>
           </tr>
           <tr class="prodo-productTableFont" >
-            <td  colspan="2">Description   <textarea  type="text" id="prodo-product-featuresDescription_textfield" class="form-control prodo-validation"  ng-model="feature.description"  ng-maxlength="50" required name="description" col="40"  > </textarea>
+            <td  colspan="2">Description   <textarea  type="text" id="prodo-product-featuresDescription_textfield" class="form-control prodo-validation"  ng-model="feature.description"  ng-maxlength="100" required name="description" col="40"  > </textarea>
             </td>
           </tr>
           <tr  class="prodo-productTableFont">
@@ -193,9 +193,9 @@
           </tr>
           <tr  class="prodo-productTableFont" ng-repeat="feature in features track by $index">
             <td ng-hide="edit" > <span ng-bind="feature.featurename"> </span></td>
-            <td  ng-show="edit" ><input ng-model="feature.featurename"  class="form-control prodo-productFeatureName prodo-validation"  type="text"  ng-maxlength="20"  required name="name" /> </td>
+            <td  ng-show="edit" ><input ng-model="feature.featurename"  class="form-control prodo-productFeatureName prodo-validation"  type="text"   ng-maxlength="50"  required name="name" /> </td>
             <td ng-hide="edit" > <span ng-bind="feature.featuredescription"> </span></td>
-            <td  ng-show="edit" ><input ng-model="feature.featuredescription" class="form-control prodo-productFeaturedescription prodo-validation"  ng-maxlength="50" type="text"   required name="name" /> </td>
+            <td  ng-show="edit" ><input ng-model="feature.featuredescription" class="form-control prodo-productFeaturedescription prodo-validation"  ng-maxlength="100" type="text"   required name="name" /> </td>
             <td ng-hide="edit" ng-style="checkAdmintoUpdateProduct();">
               <a href=""     ng-click="edit = ! edit; editStatus='update';  "> <i class="fa fa-pencil " /> </a>
               &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 

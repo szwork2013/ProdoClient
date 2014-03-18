@@ -1335,7 +1335,7 @@ ul {list-style-type: none; }
 .prodo-comment-img{max-width:450px;}
 #padding0del{padding: 0px;}
 #padding0img{padding: 0px; padding-right: 5px;}
-#commentTab>li.active2 a{ border-bottom :solid 3px ;}
+#commentTab>li.active2 a{ border-bottom :solid 3px ;border-radius: 0px;}
 .commentSearchTextbox{
     border: 1px solid #999; 
     outline:0; 
@@ -1474,6 +1474,8 @@ margin-bottom: 10px;
 /*#commentTab li.active {
 	color: lime
 }*/
+.prodo-right-check{color :rgb(200, 219, 200);font-size: 25px;margin-right: 20px;}
+
 
 #profile-description {
  position:relative;
@@ -2144,6 +2146,10 @@ border: 1px solid #b3b3b3; padding: 30px;
 	font-size: 25px; margin:20px; text-align:center;
 }
 
+#growlMessage
+{
+	/*height:15px;*/
+}
 /*.addressCountry ul
 {
 	position: absolute;
