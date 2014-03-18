@@ -11,7 +11,7 @@ angular.module('prodo.ProdoWallApp')
     console.log("last "+ planExpiryDate.format('YYYY-MM-DD HH:mm'));
     var todaysDate = moment.utc(moment());
     console.log("ajj"+todaysDate.format('YYYY-MM-DD HH:mm'));
-    $rootScope.daysRemaining = planExpiryDate.diff(todaysDate, 'days')+" Days Remaining";
+    $rootScope.daysRemaining = "Trial : "+planExpiryDate.diff(todaysDate, 'days')+" Days Remaining";
 
     $scope.updateimages = function(data) {
       $rootScope.manageSlider="";   // Added this variable to check conditions in tpl
