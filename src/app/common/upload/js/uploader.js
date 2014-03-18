@@ -254,7 +254,6 @@ $scope.productUploadResponseHandler=function(error, imagelocation){
       $log.debug("Emit");
       var temp1=imagelocation.success.filename.replace(/ /g,'');
       document.getElementById('check'+temp1).style.color="#01DF74";
-      // $('check'+temp1).css('color','#01DF74');
       $rootScope.$broadcast("productUploadResponseSuccess", "success");
       $log.debug("getting response for product upload  " + $scope.imageSrc);
       $scope.enableSuccessMsg();
@@ -293,7 +292,9 @@ $scope.productUploadLogoResponseHandler=function(error, imagelocation){
       }
     } else {
       $scope.imageSrc = JSON.stringify(imagelocation);
-          $log.debug("Emit");
+      $log.debug("Emit");
+      var temp1=imagelocation.success.filename.replace(/ /g,'');
+      document.getElementById('check'+temp1).style.color="#01DF74";
       $rootScope.$broadcast("productUploadLogoResponseSuccess", "success");
       $log.debug("getting response for logo upload  " + $scope.imageSrc);
       // growl.addSuccessMessage("File Uploaded successfully...");
@@ -332,11 +333,13 @@ $scope.productUploadLogoResponseHandler=function(error, imagelocation){
       }
 
     } else {
-
+      
       $log.debug("getting response for org upload  " + imagelocation);
       $rootScope.$broadcast("orgUploadResponseSuccess", "success");
       $scope.enableSuccessMsg();
       UploadSuccessMsg.innerHTML = 'File Uploaded successfully...';
+      var temp1=imagelocation.success.filename.replace(/ /g,'');
+      document.getElementById('check'+temp1).style.color="#01DF74";
       $scope.imageSrc = imagelocation;
       $scope.counter++;
       $log.debug($scope.counter);
@@ -371,9 +374,11 @@ $scope.productUploadLogoResponseHandler=function(error, imagelocation){
 
     } else {
       $log.debug("getting response for org upload logo " + imagelocation);
-        console.log("Emitting")
-        $rootScope.$broadcast("orgUploadLogoResponseSuccess", "success");
+      console.log("Emitting")
+      $rootScope.$broadcast("orgUploadLogoResponseSuccess", "success");
       // growl.addSuccessMessage("File uploaded");
+      var temp1=imagelocation.success.filename.replace(/ /g,'');
+      document.getElementById('check'+temp1).style.color="#01DF74";
       $scope.enableSuccessMsg();
       UploadSuccessMsg.innerHTML = 'File Uploaded successfully...';
       $scope.imageSrc = imagelocation;
@@ -413,6 +418,8 @@ $scope.productUploadLogoResponseHandler=function(error, imagelocation){
        $rootScope.$broadcast("userUploadResponseSuccess", "success");
       $scope.enableSuccessMsg();
       UploadSuccessMsg.innerHTML = 'File Uploaded successfully...';
+      var temp1=imagelocation.success.filename.replace(/ /g,'');
+      document.getElementById('check'+temp1).style.color="#01DF74";
       $scope.imageSrc = imagelocation;
       $scope.counter++;
       $log.debug($scope.counter);
@@ -442,7 +449,13 @@ angular.module('prodo.UploadApp')
           var fn = document.getElementById("FileName");
             $("#FileName").show();
             
-           
+            var spanSuccess=document.createElement("span");
+            // spanSuccess.setAttribute("style", "border:5px solid orange");
+            spanSuccess.className='prodo-right-check glyphicon glyphicon-ok';
+            var temp1='check'+i.name.replace(/ /g,'');
+            spanSuccess.id = temp1;
+
+            fn.appendChild(spanSuccess);
 
             var FileName = document.createElement("label");
             FileName.type = 'label';
@@ -453,13 +466,7 @@ angular.module('prodo.UploadApp')
             fn.appendChild(FileName);
             fn.style.width = '400px';
 
-            var spanSuccess=document.createElement("span");
-            // spanSuccess.setAttribute("style", "border:5px solid orange");
-            spanSuccess.className='prodo-right-check glyphicon glyphicon-ok';
-            var temp1='check'+i.name.replace(/ /g,'');
-            spanSuccess.id = temp1;
-
-            fn.appendChild(spanSuccess);
+           
 
             var progressbarc = document.createElement("div");
             progressbarc.className = ' progress progress-info  active';
@@ -477,7 +484,7 @@ angular.module('prodo.UploadApp')
                    
             var perc =  '100';
             var userInput = (i.size/1024)/100;  // in seconds
-            var speed = userInput * 10;
+            var speed = userInput * 1;
             var currentPerc = 0;
         
            
@@ -498,10 +505,6 @@ angular.module('prodo.UploadApp')
                    }
 
             }, speed);
-
-          
-    
-         
 
             FileName = "";
             title = "";
