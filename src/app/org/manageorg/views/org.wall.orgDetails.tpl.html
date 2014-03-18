@@ -73,28 +73,29 @@
             <hr size=3 width="100%;" style="background-color:#BDBDBD; height:1px; margin-top: 0;" noshade>
             <div class="bar">
             <input type="text" class="form-control" ng-model="searchAddress" placeholder="Enter your search terms" />
+            <br>
           </div>
 
-          <table class="table table-hover table-condensed" ng-repeat="orgAd in orgaddr">
+          <table class="table table-hover table-condensed" ng-repeat="orgAd in orgaddr | filter:searchAddress">
      <!--      <tr><b>Location Type As: {{orgAd.loctype}} </b></tr> -->
-  <!--         <thead>
+          <thead>
 
             <tr>
               <th></th> 
               <th>Location Type As:</th>
               <th>{{orgAd.loctype}}<th>
             </tr>
-          </thead>  -->
+          </thead> 
           <tr style="font-weight: bold">
             <td style="width:5%">#</td>
             <td style="width:22%">Address</td>
-            <td style="width:18%">Country</td>
-            <td style="width:15%">State</td>
-            <td style="width:18%">Contacts</td>
-            <td style="width:22%">Edit</td>
+            <td style="width:21%">Country</td>
+            <td style="width:11%">State</td>
+            <td style="width:17%">Contacts</td>
+            <td style="width:24%">Edit</td>
           </tr>
           <tbody>
-            <tr ng-repeat="addr in orgAd.location track by $index | filter:searchAddress">
+            <tr ng-repeat="addr in orgAd.location track by $index ">
                     <td ng-bind="$index + 1"></td>
                     <td ng-hide="addr.editing" >
                      <!--  <div ng-bind="org.address1"> </div> -->
@@ -141,10 +142,10 @@
                     </td>
                     <td>
                       <div class="buttons">
-                        <a ng-hide="addr.editing" class="btn btn-primary btn-sm glyphicon glyphicon-edit" ng-click="enableEditing(addr)">Edit</a>
-                        <a ng-hide="addr.editing" class="btn btn-danger btn-sm glyphicon glyphicon-remove-sign"  ng-click="deleteOrgAddress(addr.locid)">Delete</a>
-                        <a ng-if="addr.editing" class="btn btn-primary btn-sm glyphicon glyphicon-floppy-save" ng-click="updateAddress(addr)">Save</a>
-                        <a ng-if="addr.editing" class="btn btn-primary btn-sm glyphicon glyphicon-remove" ng-click="disableEditing(addr)">Can</a>
+                        <a ng-hide="addr.editing" class="btn btn-primary btn-sm glyphicon glyphicon-edit" ng-click="enableEditing(addr)">Edit</a>&nbsp;
+                        <a ng-hide="addr.editing" class="btn btn-danger btn-sm glyphicon glyphicon-remove-sign"  ng-click="deleteOrgAddress(addr)">Delete</a>
+                        <a ng-if="addr.editing" class="btn btn-primary btn-sm glyphicon glyphicon-floppy-save" ng-click="updateAddress(addr)">Save</a>&nbsp;
+                        <a ng-if="addr.editing" class="btn btn-primary btn-sm glyphicon glyphicon-remove" ng-click="disableEditing(addr)">Cancel</a>
                       </div>  
                     </td>
              
@@ -211,7 +212,7 @@
               <tr ng-repeat="grpmember in member.grpmembers">
                 <td style="width:40%">{{member.grpname}}</td>
                 <td style="width:40%">{{grpmember.email}}</td>
-                <td style="width:20%"><button ng-hide="member.grpname == 'admin'" class="btn btn-danger btn-sm pull-right"  font-weight:bold;" ng-click="deleteGroupMember(member.grpid, grpmember.userid)"><i style="margin-right: 5px;" class="fa fa-trash-o fa-lg"></i>Delete</button></td>
+                <td style="width:20%"><button ng-hide="member.grpname == 'admin'" class="btn btn-danger btn-sm pull-right" ng-click="deleteGroupMember(member.grpid, grpmember.userid)"><i style="margin-right: 5px;" class="fa fa-trash-o fa-lg"></i>Delete</button></td>
               </tr>
             </tbody>
           </table>
@@ -224,10 +225,10 @@
             <tbody>
               <tr>
                 <td style="width: 40%;"><input class="form-control" ng-model="group.newgroupname" type="text" placeholder="Group Name" required></td>
-                <td style="width: 40%;"><input class="form-control" ng-model="group.invites" type="email" placeholder="Enter email seprated by commas(,)" prodonus-multi-email-validate required></td>
+                <td style="width: 40%;"><input class="form-control" ng-model="group.newinvites" type="email" placeholder="Enter email seprated by commas(,)" prodonus-multi-email-validate required></td>
                 <td style="width: 20%;"><button class="btn btn-primary btn-sm pull-right" style="border-radius: 10px; margin: 5px; width: 80px; font-size: 12px; font-weight:bold;" ng-click="addGroupInvite()"><i style="margin-right: 5px;" class="fa fa-share"></i>Send</button></td>
               </tr>
-              <p ng-show="(form.orgnewgroupinvitesform.submitted && form.orgnewgroupinvitesform.$invalid)" class="text-danger"><small style='color:red;'>Please enter valid data.</small></p>
+             <!--  <p ng-show="(form.orgnewgroupinvitesform.submitted && form.orgnewgroupinvitesform.$invalid)" class="text-danger"><small style='color:red;'>Please enter valid data.</small></p> -->
             </tbody>
           </table>
         </form>
@@ -241,7 +242,7 @@
                 <td style="width: 40%;"><select type="text" class="form-control" name="orgtype" ng-model="group.groupname" required>
                 <option ng-repeat="group in groups " value="{{group.grpname}}">{{group.grpname}}</option></select>
                 </td>
-                <td style="width: 40%;"><input class="form-control" ng-model="group.newinvites" type="email" placeholder="Enter email seprated by commas(,)" prodonus-multi-email-validate required></td>
+                <td style="width: 40%;"><input class="form-control" ng-model="group.invites" type="email" placeholder="Enter email seprated by commas(,)" prodonus-multi-email-validate required></td>
                 <td style="width: 20%;"><button class="btn btn-primary btn-sm pull-right" style="border-radius: 10px; margin: 5px; width: 80px; font-size: 12px; font-weight:bold;" ng-click="addGroupInvite()"><i style="margin-right: 5px;" class="fa fa-share"></i>Send</button></td>
               </tr>
               <p ng-show="(form.orggroupinvitesform.submitted && form.orggroupinvitesform.$invalid)" class="text-danger"><small style='color:red;'>Please enter valid data.</small></p>

@@ -86,8 +86,16 @@ angular.module('prodo.ProdoWallApp')
     };
 
     var cleanupEventFollowProductDone = $scope.$on('followProductDone', function(event, data, product) {
-          $scope.isFollowing = true;
-          $scope.handlefollowproductResponse(data, product);
+           if(data.error !== undefined && data.error.code === 'AL001' )
+           {
+               UserSessionService.resetSession();
+               $state.go('prodo.landing.signin');
+           }
+           else
+           {
+              $scope.isFollowing = true;
+              $scope.handlefollowproductResponse(data, product);
+           }
       });
     var cleanupEventFollowProductNotDone = $scope.$on('followProductNotDone', function(event, data) {
         $scope.isFollowing = true;
