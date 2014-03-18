@@ -130,7 +130,7 @@
             <td colspan="2">
               <!--   <button type="submit" class="btn btn-info" style="width: 550px;"  ng-click=" $parent.isEditing = false" >Save</button>
                 -->
-              <a  ng-disabled="productForm.$invalid" ng-click="addProduct(editStatus);disableEditor();" onclick="$('#productExtraInfo').css('display','block');" class="btn btn-primary btn-sm  pull-right prodo-margin5"   >Save &nbsp;<i class="fa fa-floppy-o"></i></a>
+              <a  ng-disabled="productForm.$invalid" ng-click="addProduct(editStatus);disableEditor(); productForm.$setPristine();" onclick="$('#productExtraInfo').css('display','block');" class="btn btn-primary btn-sm  pull-right prodo-margin5"   >Save &nbsp;<i class="fa fa-floppy-o"></i></a>
               <a onclick="$('#productExtraInfo').css('display','block');" class="btn btn-default btn-sm  pull-right prodo-margin5"  ng-click="disableEditor();  " > Cancel &nbsp;<i class="glyphicon glyphicon-remove"></i></a>
             </td>
           </tr>
@@ -172,7 +172,7 @@
           </tr>
           <tr  class="prodo-productTableFont">
             <td colspan="2">
-              <a   ng-disabled="productFeaturesForm.$invalid" ng-click="addProductFeature(editStatus);disableEditorFeature(); " class="btn btn-primary btn-sm  pull-right prodo-margin5" > Save &nbsp;<i class="fa fa-floppy-o"></i></a>
+              <a   ng-disabled="productFeaturesForm.$invalid" ng-click="addProductFeature(editStatus);disableEditorFeature();productFeaturesForm.$setPristine();" class="btn btn-primary btn-sm  pull-right prodo-margin5" > Save &nbsp;<i class="fa fa-floppy-o"></i></a>
               <a class="btn btn-default btn-sm  pull-right prodo-margin5" ng-click="disableEditorFeature() ; "> Cancel&nbsp;<i class="glyphicon glyphicon-remove"></i></a>
             </td>
           </tr>
@@ -224,7 +224,7 @@
               <!-- /.modal -->
             </td>
             <td ng-show="edit">
-              <a id="Editfeature1" ng-click="updateProductFeature(feature,feature.featureid);edit = ! edit;" class="btn btn-default  btn-sm fa fa-floppy-o prodo-margin5" ng-disabled="productFeatureUpdate.$invalid" ></a>
+              <a id="Editfeature1" ng-click="updateProductFeature(feature,feature.featureid);edit = ! edit;productFeatureUpdate.$setPristine();" class="btn btn-default  btn-sm fa fa-floppy-o prodo-margin5" ng-disabled="productFeatureUpdate.$invalid" ></a>
               <a id="Editfeature1" class="btn btn-default  btn-sm glyphicon glyphicon-remove prodo-margin5" ng-click="edit = ! edit; getProductFeatures(product.prodle,product.orgid); "></a>
             </td>
           </tr>
