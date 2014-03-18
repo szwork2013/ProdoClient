@@ -1335,7 +1335,7 @@ ul {list-style-type: none; }
 .prodo-comment-img{max-width:450px;}
 #padding0del{padding: 0px;}
 #padding0img{padding: 0px; padding-right: 5px;}
-#commentTab>li.active2 a{ border-bottom :solid 3px ;}
+#commentTab>li.active2 a{ border-bottom :solid 3px ;border-radius: 0px;}
 .commentSearchTextbox{
     border: 1px solid #999; 
     outline:0; 
