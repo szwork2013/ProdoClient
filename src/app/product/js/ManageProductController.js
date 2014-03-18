@@ -695,11 +695,15 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   var ProdFERRMsg = document.getElementById('ProdFERRMsg');
   var ProdFSuccessMsg=document.getElementById('ProdFSuccessMsg');
   $scope.enableFeatureErrorMsg=function(){
+     $(".spanProdIMGERR").css("display", "none");
+     $(".spanProdERR").css("display", "none");
      $(".spanProdFERR").css("display", "block");
      $(".alert-danger").removeClass("in").show();
      $(".alert-danger").delay(5000).addClass("in").fadeOut(2000);
   };
   $scope.enableFeatureSuccessMsg=function(){
+    $(".spanProdIMGSuccess").css("display", "none");
+    $(".spanProdSuccess").css("display", "none");
     $(".spanProdFSuccess").css("display", "block");
     $(".alert-success").removeClass("in").show();
     $(".alert-success").delay(5000).addClass("in").fadeOut(2000);
@@ -708,12 +712,16 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   var ProdIMGERRMsg = document.getElementById('ProdIMGERRMsg');
   var ProdIMGSuccessMsg=document.getElementById('ProdIMGSuccessMsg');
   $scope.enableIMGErrorMsg=function(){
+     $(".spanProdERR").css("display", "none");
+     $(".spanProdFERR").css("display", "none");
      $(".spanProdIMGERR").css("display", "block");
      $(".alert-danger").removeClass("in").show();
      $(".alert-danger").delay(5000).addClass("in").fadeOut(2000);
     
   };
   $scope.enableIMGSuccessMsg=function(){
+    $(".spanProdSuccess").css("display", "none");
+    $(".spanProdFSuccess").css("display", "none");
     $(".spanProdIMGSuccess").css("display", "block");
     $(".alert-success").removeClass("in").show();
     $(".alert-success").delay(5000).addClass("in").fadeOut(2000);
@@ -723,12 +731,16 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   var ProdERRMsg = document.getElementById('ProdERRMsg');
   var ProdSuccessMsg=document.getElementById('ProdSuccessMsg');
   $scope.enableProductErrorMsg=function(){
+     $(".spanProdFERR").css("display", "none");
+     $(".spanProdIMGERR").css("display", "none");
      $(".spanProdERR").css("display", "block");
      $(".alert-danger").removeClass("in").show();
      $(".alert-danger").delay(5000).addClass("in").fadeOut(2000);
     
   };
   $scope.enableProductSuccessMsg=function(){
+    $(".spanProdFSuccess").css("display", "none");
+    $(".spanProdIMGSuccess").css("display", "none");
     $(".spanProdSuccess").css("display", "block");
     $(".alert-success").removeClass("in").show();
     $(".alert-success").delay(5000).addClass("in").fadeOut(2000);
