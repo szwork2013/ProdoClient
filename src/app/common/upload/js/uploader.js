@@ -250,7 +250,11 @@ $scope.productUploadResponseHandler=function(error, imagelocation){
 
     } else {
       $scope.imageSrc = JSON.stringify(imagelocation);
-         $log.debug("Emit");
+      $log.debug(JSON.stringify($scope.file));
+      $log.debug("Emit");
+      var temp1=$scope.file.name.replace(/ /g,'');
+      document.getElementById('check'+temp1).style.color="#01DF74";
+      // $('check'+temp1).css('color','#01DF74');
       $rootScope.$broadcast("productUploadResponseSuccess", "success");
       $log.debug("getting response for product upload  " + $scope.imageSrc);
       $scope.enableSuccessMsg();
@@ -263,7 +267,7 @@ $scope.productUploadResponseHandler=function(error, imagelocation){
         //    $scope.getFile($scope.counter);
       } else $scope.counter = 0;
     }
-  setTimeout(function(){ jQuery("#FileName").hide(); },1000);
+  // setTimeout(function(){ jQuery("#FileName").hide(); },1000);
 };
 
 $scope.productUploadLogoResponseHandler=function(error, imagelocation){
@@ -303,7 +307,7 @@ $scope.productUploadLogoResponseHandler=function(error, imagelocation){
         //    $scope.getFile($scope.counter);
       } else $scope.counter = 0;
      }
-      setTimeout(function(){ jQuery("#FileName").hide(); },1000);
+      // setTimeout(function(){ jQuery("#FileName").hide(); },1000);
 };
  
   $scope.orgUploadResponseHandler=function(error, imagelocation){
@@ -341,7 +345,7 @@ $scope.productUploadLogoResponseHandler=function(error, imagelocation){
         //    $scope.getFile($scope.counter);
       } else $scope.counter = 0;
      }
-      setTimeout(function(){ jQuery("#FileName").hide(); },1000);
+      // setTimeout(function(){ jQuery("#FileName").hide(); },1000);
   };
 
    $scope.orgUploadLogoResponseHandler=function(error, imagelocation){
@@ -380,7 +384,7 @@ $scope.productUploadLogoResponseHandler=function(error, imagelocation){
         //    $scope.getFile($scope.counter);
       } else $scope.counter = 0;
     }
-    setTimeout(function(){ jQuery("#FileName").hide(); },1000);
+    // setTimeout(function(){ jQuery("#FileName").hide(); },1000);
   };
 
      $scope.userUploadResponseHandler=function(error, imagelocation){
@@ -417,7 +421,7 @@ $scope.productUploadLogoResponseHandler=function(error, imagelocation){
         //    $scope.getFile($scope.counter);
       } else $scope.counter = 0;
     }
-     setTimeout(function(){ jQuery("#FileName").hide(); },1000);
+     // setTimeout(function(){ jQuery("#FileName").hide(); },1000);
   };
 
 }]);
@@ -437,6 +441,8 @@ angular.module('prodo.UploadApp')
         var addUploads = function (i) {
           var fn = document.getElementById("FileName");
             $("#FileName").show();
+            
+           
 
             var FileName = document.createElement("label");
             FileName.type = 'label';
@@ -446,6 +452,15 @@ angular.module('prodo.UploadApp')
             FileName.setAttribute("style", "text-align:left");
             fn.appendChild(FileName);
             fn.style.width = '400px';
+
+            var spanSuccess=document.createElement("span");
+            // spanSuccess.setAttribute("style", "border:5px solid orange");
+            spanSuccess.className='prodo-right-check glyphicon glyphicon-ok';
+            var temp1='check'+i.name.replace(/ /g,'');
+            spanSuccess.id = temp1;
+
+            fn.appendChild(spanSuccess);
+
             var progressbarc = document.createElement("div");
             progressbarc.className = ' progress progress-info  active';
             progressbarc.id = "a2" + i.name;
@@ -459,6 +474,8 @@ angular.module('prodo.UploadApp')
             var $bar = $('.bar');
             a.appendChild(progressbar);
             $('.bar').css('width','0%');
+
+
          
            
             var perc =  '100';
