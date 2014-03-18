@@ -250,9 +250,9 @@ $scope.productUploadResponseHandler=function(error, imagelocation){
 
     } else {
       $scope.imageSrc = JSON.stringify(imagelocation);
-      $log.debug(JSON.stringify($scope.file));
+      $log.debug(JSON.stringify(imagelocation.success.filename));
       $log.debug("Emit");
-      var temp1=$scope.file.name.replace(/ /g,'');
+      var temp1=imagelocation.success.filename.replace(/ /g,'');
       document.getElementById('check'+temp1).style.color="#01DF74";
       // $('check'+temp1).css('color','#01DF74');
       $rootScope.$broadcast("productUploadResponseSuccess", "success");
@@ -474,13 +474,10 @@ angular.module('prodo.UploadApp')
             var $bar = $('.bar');
             a.appendChild(progressbar);
             $('.bar').css('width','0%');
-
-
-         
-           
+                   
             var perc =  '100';
             var userInput = (i.size/1024)/100;  // in seconds
-            var speed = userInput * 20;
+            var speed = userInput * 10;
             var currentPerc = 0;
         
            

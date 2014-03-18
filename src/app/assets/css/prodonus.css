@@ -1474,7 +1474,9 @@ margin-bottom: 10px;
 /*#commentTab li.active {
 	color: lime
 }*/
-.prodo-right-check{color :rgb(200, 219, 200);margin-left: 50px;font-size: 25px;}
+.prodo-right-check{color :rgb(200, 219, 200);font-size: 25px;position: relative;
+left: 180px;
+top: 22px;}
 
 
 #profile-description {
