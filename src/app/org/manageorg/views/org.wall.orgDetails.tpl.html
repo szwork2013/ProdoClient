@@ -22,12 +22,14 @@
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
+
+
   <accordion>
     <accordion-group>
       <accordion-heading>
         <p style='font-weight:bold; font-size: 13px; margin: 0;'>GENERAL SETTINGS<i class="fa fa-pencil pull-right"></i></p>
       </accordion-heading>
-        <div ng-show='form.orggeneralsettingform.submitted' growl></div>
+        <div ng-if='showGrowlMessage===1' growl id="growlMessage"></div>
         <div>
           <form name="form.orggeneralsettingform" class="css-form" ng-submit='' novalidate>
             <dl>
@@ -59,68 +61,19 @@
           </form> 
         </div>
     </accordion-group>
-    
+   
+
     <accordion-group>
       <accordion-heading>
         <p style='font-weight:bold; font-size: 13px; margin: 0;'>LOCATION<i class="fa fa-pencil pull-right"></i></p>
       </accordion-heading>
-        <div ng-show='form.orglocationsettingform.submitted' growl></div>
+      <div ng-if='showGrowlMessage===1' growl id="growlMessage"></div>
+      <!--   <div ng-show='form.orglocationsettingform.submitted' growl></div> -->
             <br>
             <hr size=3 width="100%;" style="background-color:#BDBDBD; height:1px; margin-top: 0;" noshade>
             <div class="bar">
             <input type="text" class="form-control" ng-model="searchAddress" placeholder="Enter your search terms" />
           </div>
-
-
-
-
-   <!--       <div class="table table-hover table-condensed" ng-repeat="orgAd in orgaddr">
-         <div><b>Location Type As:{{orgAd.loctype}}</b></div>
-         <table>
-          <tr style="font-weight: bold">
-            <td style="width:5%">#</td>
-            <td style="width:32%">Address</td>
-            <td style="width:18%">Country</td>
-            <td style="width:15%">State</td>
-            <td style="width:18%">Contacts</td>
-            <td style="width:22%">Edit</td>
-          </tr>
-          <tr ng-repeat="addr in orgAd.location track by $index | filter:searchAddress">
-             <td> {{$index + 1}}
-             </td>
-             
-             <td>
-                 <div>{{org.address1}}</div>
-                 <div>{{addr.address.address1}}</div>
-                 <div>{{addr.address.address2}}</div> 
-                 <div>{{addr.address.address3}}</div>
-                 <div>{{addr.address.city}}</div>
-                 <div>{{addr.address.zipcode}}</div> 
-             </td>
-            
-             <td>
-                     <div >{{addr.address.country}}</div>
-             </td>
-
-             <td>
-                     <div>{{addr.address.state}}</div>
-             </td>
-
-             <td>
-                     <div>{{addr.contacts[0].customerhelpline}}</div>
-                     <div>{{addr.contacts[1].customerhelpline}}</div>
-                     <div>{{addr.contacts[2].customerhelpline}}</div> 
-             </td>
-
-             <td>
-                    
-             </td>
-
-          </tr>
-         </table>
-         </div>
- -->
-
 
           <table class="table table-hover table-condensed" ng-repeat="orgAd in orgaddr">
      <!--      <tr><b>Location Type As: {{orgAd.loctype}} </b></tr> -->
@@ -188,10 +141,10 @@
                     </td>
                     <td>
                       <div class="buttons">
-                        <a ng-hide="addr.editing" class="btn btn-primary btn-sm" style="border-radius: 10px; margin: 5px;width: 80px;" ng-click="enableEditing(addr)">Edit</a>
-                        <a ng-hide="addr.editing" class="btn btn-danger btn-sm" style="border-radius: 10px; margin: 5px;width: 80px;" ng-click="deleteOrgAddress(addr.locid)">Delete</a>
-                        <a ng-if="addr.editing" class="btn btn-primary btn-sm glyphicon glyphicon-floppy-save" style="border-radius: 10px; margin: 2px;width: 80px;" ng-click="updateAddress(addr)">Save</a>
-                        <a ng-if="addr.editing" class="btn btn-primary btn-sm glyphicon glyphicon-remove" style="border-radius: 10px; margin: 2px;width: 80px;" ng-click="disableEditing(addr)">Cancel</a>
+                        <a ng-hide="addr.editing" class="btn btn-primary btn-sm glyphicon glyphicon-edit" ng-click="enableEditing(addr)">Edit</a>
+                        <a ng-hide="addr.editing" class="btn btn-danger btn-sm glyphicon glyphicon-remove-sign"  ng-click="deleteOrgAddress(addr.locid)">Delete</a>
+                        <a ng-if="addr.editing" class="btn btn-primary btn-sm glyphicon glyphicon-floppy-save" ng-click="updateAddress(addr)">Save</a>
+                        <a ng-if="addr.editing" class="btn btn-primary btn-sm glyphicon glyphicon-remove" ng-click="disableEditing(addr)">Can</a>
                       </div>  
                     </td>
              
@@ -199,15 +152,11 @@
         </tbody>
       </table>
 
-
-
-
-      
           <br>
           <hr size=3 width="100%;" style="background-color:#BDBDBD; height:1px; margin-top: 0;" noshade>
           <p ng-hide='islocation' style="margin-top: 10px; font-size: 14px; font-weight:bold;">Click <a href="" ng-click='addLocation()'>here</a> to add more address.
           </p><br>
-        <div ng-show='form.orgaddlocationform.submitted' growl></div>
+        <div ng-if='showGrowlMessage===1' growl id="growlMessage"></div>
         <div ng-show='islocation' class="addressCountry">
 
           <form name="form.orgaddlocationform" class="css-form" ng-submit="" novalidate>
@@ -242,11 +191,14 @@
         </div><br>
     </accordion-group>
 
+
     <accordion-group>
       <accordion-heading>
             <p style='font-weight:bold; font-size: 13px; margin: 0;'>ADD USER TO GROUP<i class="fa fa-pencil pull-right"></i></p>
         </accordion-heading>
-        <div ng-show='(form.orgnewgroupinvitesform.submitted || form.orggroupinvitesform.submitted)' growl></div>
+     <!--    <div ng-show='(form.orgnewgroupinvitesform.submitted || form.orggroupinvitesform.submitted)' growl></div> -->
+     <div ng-if="showGrowlMessage===1" growl id="growlMessage"></div>
+      <!--    <div ng-if='showGrowlMessage===1' growl></div> -->
          <div id="invites">
           <table class="table table-striped" ng-repeat="member in groups">
             <thead ng-show='{{member.grpmembers.length}}>0'>
@@ -259,14 +211,14 @@
               <tr ng-repeat="grpmember in member.grpmembers">
                 <td style="width:40%">{{member.grpname}}</td>
                 <td style="width:40%">{{grpmember.email}}</td>
-                <td style="width:20%"><button ng-hide="member.grpname == 'admin'" class="btn btn-danger btn-sm pull-right" style="border-radius: 10px; margin: 5px; width: 80px; font-size: 12px; font-weight:bold;" ng-click="deleteGroupMember(member.grpid, grpmember.userid)"><i style="margin-right: 5px;" class="fa fa-trash-o fa-lg"></i>Delete</button></td>
+                <td style="width:20%"><button ng-hide="member.grpname == 'admin'" class="btn btn-danger btn-sm pull-right"  font-weight:bold;" ng-click="deleteGroupMember(member.grpid, grpmember.userid)"><i style="margin-right: 5px;" class="fa fa-trash-o fa-lg"></i>Delete</button></td>
               </tr>
             </tbody>
           </table>
         </div>
         <br>
         <button class="btn btn-info btn-sm" style="background-color:#3679AD; border-color:#4497AF; border-radius: 10px; width: 150px;text-align: left;font-size: 12px;font-weight: bold;" ng-click="addNewInvites()"><i style="margin-right: 5px;" class="fa fa-plus-square"></i>New Groups</button>
-        <hr size=3 width="100%;" style="background-color:#BDBDBD; height:1px; margin-top: 1px;" noshade>
+       <!--  <hr size=3 width="100%;" style="background-color:#BDBDBD; height:1px; margin-top: 1px;" noshade> -->
         <form name="form.orgnewgroupinvitesform" ng-submit='' novalidate>
           <table ng-show="showNewInvites" class="table table-condensed">
             <tbody>
@@ -298,10 +250,12 @@
         </form>
     </accordion-group>
 
+
     <accordion-group ng-hide="usersession.currentUser.org.orgtype != 'Manufacturer' ">
       <accordion-heading>
             <p style='font-weight:bold; font-size: 13px; margin: 0;'>NEW ORGANIZATION INVITES<i class="fa fa-pencil pull-right"></i></p>
         </accordion-heading>
+        <div ng-if='showGrowlMessage===1' growl id="growlMessage"></div>
         <button class="btn btn-info btn-sm" style="background-color:#47707C; border-color:#3C555C; border-radius: 10px; margin: 15px;" ng-click="addMoreInvites()"><i style="margin-right: 5px;" class="fa fa-plus-square"></i>Add More Invites</button>
         <table class="table table-condensed">
           <tbody>
@@ -315,10 +269,12 @@
         <button class="btn btn-primary btn-sm pull-right" style="border-radius: 10px; margin: 5px; width: 80px; font-size: 12px; font-weight:bold;" ng-click="sendOrgInvites()"><i style="margin-right: 5px;" class="fa fa-share"></i>Send</button>
     </accordion-group>
 
+
     <accordion-group ng-hide="usersession.currentUser.org.orgtype != 'Manufacturer' ">
       <accordion-heading>
             <p style='font-weight:bold; font-size: 13px; margin: 0;'>ORGANIZATION CUSTOMER INVITES<i class="fa fa-pencil pull-right"></i></p>
       </accordion-heading>
+       <div ng-if='showGrowlMessage===1' growl id="growlMessage"></div>
         <button class="btn btn-info btn-sm" style="background-color:#47707C; border-color:#3C555C; border-radius: 10px; margin: 15px;" ng-click="addCustomerInvites()"><i style="margin-right: 5px;" class="fa fa-plus-square"></i>Add More Invites</button>
         <table class="table table-condensed">
           <tbody>
@@ -336,6 +292,7 @@
       <accordion-heading>
             <p style='font-weight:bold; font-size: 13px; margin: 0;'>PRODUCT<i class="fa fa-pencil pull-right"></i></p>
         </accordion-heading>
+         <div ng-if='showGrowlMessage===1' growl id="growlMessage"></div>
         <div ng-show="(productlist.length == 0)">
           <p style="text-align:left; font-size:20px; margin: 20px auto;" class="text-success"><strong><em>You have not added products.</em></strong></p>
         </div>
@@ -345,6 +302,7 @@
           <img ng-hide="product.product_logo" style="margin:0px auto; display:block; width:95%; height: 150px; " src="../../../assets/images/if_no_logo_images_available.gif" alt=" No Image" class="img-rounded">
         </div>
     </accordion-group>
+
 
     <accordion-group>
       <accordion-heading>
@@ -356,6 +314,7 @@
         </div>
     </accordion-group>
 
+
     <accordion-group>
       <accordion-heading>
             <p style='font-weight:bold; font-size: 13px; margin: 0;'>PAYMENT<i class="fa fa-pencil pull-right"></i></p>
@@ -366,6 +325,7 @@
         </div>
     </accordion-group>
 
+
     <accordion-group>
       <accordion-heading>
             <p style='font-weight:bold; font-size: 13px; margin: 0;'>PAYMENT HISTORY<i class="fa fa-pencil pull-right"></i></p>
@@ -375,6 +335,7 @@
           No payment has been taken during trial plan.</em></strong></p>
         </div>
     </accordion-group>
+
 
     <accordion-group ng-hide="usersession.currentUser.org.orgtype != 'Manufacturer' ">
       <accordion-heading>

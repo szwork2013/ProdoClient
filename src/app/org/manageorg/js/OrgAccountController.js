@@ -16,6 +16,7 @@ $scope.orgaddr = currentorgaddr.success.orgaddress;
 OrgRegistrationService.updateOrgData(currentorgdata.success.organization);
 $scope.editorEnabled = false;
 $scope.orgaddresstype='';
+$scope.showGrowlMessage=0;
 //Omkars code //
 $scope.countries=[ 'Afghanistan', 
                         'Albania', 
@@ -361,12 +362,12 @@ $scope.selected_country="";
     $scope.handleUpdateOrgAccountResponse = function(data){
       if (data.success) {
         $scope.editorEnabled=false;
-        //ProdoAppMessage(data.success.message, success);     //Growl
+          $scope.ProdoAppMessage(data.success.message, 'success');     //Growl
       } else {
         if (data.error.code== 'AU004') {     // enter valid data
-            //ProdoAppMessage(data.error.message, error);    //Growl
+          $scope.ProdoAppMessage(data.error.message, 'error');    //Growl
         } else {
-            //ProdoAppMessage(data.error.message,error);          //Growl
+          $scope.ProdoAppMessage(data.error.message,'error');          //Growl
         }
       }
     };  
@@ -401,7 +402,7 @@ $scope.selected_country="";
     });
 
     var cleanupEventUpdateOrgNotDone = $scope.$on("updateOrgNotDone", function(event, message){
-      //ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message,error);   
+      $scope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message,'error');   
     }); 
 
 
@@ -434,14 +435,14 @@ $scope.selected_country="";
     $scope.handleAddOrgAddressResponse = function(data){
       if (data.success) {        
         $scope.reset();
-        //ProdoAppMessage(data.success.message,success);          //ShowAlert
+        $scope.ProdoAppMessage(data.success.message,'success');          //ShowAlert
       } else {
         if (data.error.code== 'AU004') {     // enter valid data
             $log.debug(data.error.code + " " + data.error.message);
-            //ProdoAppMessage(data.error.message,error);          //ShowAlert
+            $scope.ProdoAppMessage(data.error.message,'error');          //ShowAlert
         } else {
             $log.debug(data.error.message);
-            //ProdoAppMessage(data.error.message,error);          //ShowAlert
+            $scope.ProdoAppMessage(data.error.message,'error');          //ShowAlert
         }
       }
     };  
@@ -488,7 +489,7 @@ $scope.selected_country="";
       $state.reload();
     });
     var cleanupEventAddOrgAddressNotDone = $scope.$on("addOrgAddressNotDone", function(event, message){
-         //ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message,error);    //ShowAlert
+         $scope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message,'error');    //ShowAlert
     });
 //End of block
 
@@ -496,14 +497,14 @@ $scope.selected_country="";
 // function to handle server side responsesIt looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message
     $scope.handleUpdateOrgAddressResponse = function(data){
       if (data.success) {
-        //ProdoAppMessage(data.success.message,success);    //ShowAlert
+        $scope.ProdoAppMessage(data.success.message,'success');    //ShowAlert
       } else {
         if (data.error.code== 'AU004') {     // enter valid data
             $log.debug(data.error.code + " " + data.error.message);
-            //ProdoAppMessage(data.error.message,error);    //ShowAlert
+            $scope.ProdoAppMessage(data.error.message,'error');    //ShowAlert
         } else {
             $log.debug(data.error.message);
-            //ProdoAppMessage(data.error.message,error);  //ShowAlert
+            $scope.ProdoAppMessage(data.error.message,'error');  //ShowAlert
         }
       }
     };  
@@ -516,7 +517,7 @@ $scope.selected_country="";
       $scope.handleUpdateOrgAddressResponse(message); 
     });
     var cleanupEventUpdateOrgAddressNotDone = $scope.$on("updateOrgAddressNotDone", function(event, message){
-      //ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message,error);    //ShowAlert
+      $scope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message,'error');    //ShowAlert
     });    
 
 //End of block
@@ -524,10 +525,10 @@ $scope.selected_country="";
 // The following block deletes org 
     $scope.handleDeleteOrgResponse = function(data){
       if (data.success) {
-        //ProdoAppMessage(data.success.message,success);  //ShowAlert
+        $scope.ProdoAppMessage(data.success.message,'success');  //ShowAlert
       } else {
           $log.debug(data.error.message);
-          //ProdoAppMessage(data.error.message,error);  //ShowAlert
+          $scope.ProdoAppMessage(data.error.message,'error');  //ShowAlert
         }
     };
 
@@ -540,7 +541,7 @@ $scope.selected_country="";
     });
 
     var cleanupEventDeleteOrgNotDone = $scope.$on("deleteOrgNotDone", function(event, message){
-      //ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message,error);    //ShowAlert
+      $scope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + 'message,error');    //ShowAlert
     });  
 
 //End of block
@@ -550,10 +551,10 @@ $scope.selected_country="";
 
     $scope.handleDeleteOrgAddressResponse = function(data){
       if (data.success) {
-        //ProdoAppMessage(data.success.message,success);    //ShowAlert
+        $scope.ProdoAppMessage(data.success.message,'success');
       } else {
           $log.debug(data.error.message);
-          //ProdoAppMessage(data.error.message,error);  //ShowAlert
+          $scope.ProdoAppMessage(data.error.message,'error');  //ShowAlert
         }
     };
 
@@ -566,7 +567,7 @@ $scope.selected_country="";
     });
 
     var cleanupEventDeleteOrgAddressNotDone = $scope.$on("deleteOrgAddressNotDone", function(event, message){
-      //ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message,error);    //ShowAlert
+      $scope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + 'message,error');    //ShowAlert
     });
 
 //end of block
@@ -574,14 +575,14 @@ $scope.selected_country="";
 //  The following code removes org group member
     $scope.handleDeleteOrgGroupMemberResponse = function(data){
       if (data.success) {
-        //ProdoAppMessage(data.success.message,success);  //ShowAlert
+        $scope.ProdoAppMessage(data.success.message,'success');  //ShowAlert
       } else {
         if (data.error.code== 'AU004') {     // enter valid data
             $log.debug(data.error.code + " " + data.error.message);
-            //ProdoAppMessage(data.error.message,error);    //ShowAlert
+            $scope.ProdoAppMessage(data.error.message,'error');    //ShowAlert
         } else {
             $log.debug(data.error.message);
-            //ProdoAppMessage(data.error.message,error);    //ShowAlert
+            $scope.ProdoAppMessage(data.error.message,'error');    //ShowAlert
         }
       }
     };
@@ -595,7 +596,7 @@ $scope.selected_country="";
     });
 
     var cleanupEventDeleteOrgGroupMemberNotDone = $scope.$on("deleteOrgGroupMemberNotDone", function(event, message){
-      //ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message,error);    //ShowAlert
+      $scope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message,'error');    //ShowAlert
     });  
 //End of block
 
@@ -611,19 +612,19 @@ $scope.selected_country="";
 
     $scope.handleOrgInviteResponse = function(data){
       if (data.success) {
-        //ProdoAppMessage(data.success.message,success);    //ShowAlert
+        $scope.ProdoAppMessage(data.success.message,'success');    //ShowAlert
       } else {
         if (data.error.code== 'AU004') {     // enter valid data
             $log.debug(data.error.code + " " + data.error.message);
-            //ProdoAppMessage(data.error.message,error);    //ShowAlert
+            $scope.ProdoAppMessage(data.error.message,'error');    //ShowAlert
         } else {
             $log.debug(data.error.message);
-            //ProdoAppMessage(data.error.message,error);    //ShowAlert
+            $scope.ProdoAppMessage(data.error.message,'error');    //ShowAlert
         }
       }
     };  
     
-    $scope.sendOrgInvites = function() {
+    $scope.sendOrgInvites = function() { 
       OrgRegistrationService.sendInvites($scope.jsonOrgInvitesData());
     }
 
@@ -632,7 +633,7 @@ $scope.selected_country="";
     });
 
     var cleanupEventSendOrgInvitesNotDone = $scope.$on("sendOrgInvitesNotDone", function(event, data){
-      //ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message,error);    //ShowAlert
+      $scope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + data,'error');    //ShowAlert
     });
 
 //End of block
@@ -643,14 +644,14 @@ $scope.selected_country="";
         $scope.showExistingInvites = false;
         $scope.showNewInvites = false;
         $scope.group = {'newgroupname': '', 'grouppname': '', 'invites': '', 'newinvites': ''};
-        growl.addSuccessMessage(data.success.message);  
+        $scope.ProdoAppMessage(data.success.message,'success'); 
       } else {
         if (data.error.code== 'AU004') {     // enter valid data
             $log.debug(data.error.code + " " + data.error.message);
-            //ProdoAppMessage(data.error.message,error);    //Growl
+            $scope.ProdoAppMessage(data.error.message,'error');    //Growl
         } else {
             $log.debug(data.error.message);
-             //ProdoAppMessage(data.error.message,error);    //Growl
+             $scope.ProdoAppMessage(data.error.message,'error');    //Growl
         }
       }
     };  
@@ -701,7 +702,7 @@ $scope.selected_country="";
       $scope.handleOrgGroupInviteResponse(data); 
     });
     var cleanupEventSendOrgGroupInvitesNotDone = $scope.$on("sendOrgGroupInvitesNotDone", function(event, data){
-      //ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message,error);    //growl
+      $scope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message,'error');    //growl
     });
  
 //End of block
@@ -711,14 +712,14 @@ $scope.selected_country="";
 
    $scope.handleOrgCustomerInviteResponse = function(data){
       if (data.success) {
-        //ProdoAppMessage(data.success.message,success);    //ShowAlert
+        $scope.ProdoAppMessage(data.success.message,'success');    //ShowAlert
       } else {
         if (data.error.code== 'AU004') {     // enter valid data
             $log.debug(data.error.code + " " + data.error.message);
-            //ProdoAppMessage(data.error.message,error);    //ShowAlert
+            $scope.ProdoAppMessage(data.error.message,'error');    //ShowAlert
         } else {
             $log.debug(data.error.message);
-            //ProdoAppMessage(data.error.message,error);    //ShowError
+            $scope.ProdoAppMessage(data.error.message,'error');    //ShowError
         }
       }
     };  
@@ -741,7 +742,7 @@ $scope.selected_country="";
     });
 
     var cleanupEventSendOrgCustomerInvitesNotDone = $scope.$on("sendOrgCustomerInvitesNotDone", function(event, data){
-      //ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message,error);    //ShowAlert
+      $scope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." ,'error');    //ShowAlert
     }); 
 
 //  End of block
@@ -790,11 +791,19 @@ $scope.selected_country="";
     
 
     $scope.addMoreInvites = function() { 
-      $scope.orginvites.push({'name': '', 'orgname': '', 'email': ''});
+      var noOfInvites=$scope.orginvites.length;
+      if($scope.orginvites[noOfInvites-1].name!=='')
+      {
+          $scope.orginvites.push({'name': '', 'orgname': '', 'email': ''});    
+      }  
     };
 
     $scope.addCustomerInvites = function() { 
-      $scope.customerinvites.push({'name': '', 'email': ''});
+      var noOfInvites=$scope.customerinvites.length;  
+      if($scope.customerinvites[noOfInvites-1].name!=='')
+      {
+          $scope.customerinvites.push({'name': '', 'email': ''});
+      }
     };
 
     $scope.addExistingInvites = function() {
@@ -812,6 +821,22 @@ $scope.selected_country="";
 
     $scope.enableEditor = function(addr) {
       $scope.editorEnabled = true;
+    };
+
+    $scope.ProdoAppMessage = function(message,flag)
+    {
+        $scope.showGrowlMessage=0;
+
+          if(flag==='success')
+          {
+            growl.addSuccessMessage(message);
+            $scope.showGrowlMessage=1;console.log("success"+ $scope.showGrowlMessage);
+          }
+          else
+          {
+            growl.addErrorMessage(message);
+            $scope.showGrowlMessage=1;
+          }
     };
 //
     $scope.$on('$destroy', function(event, message) {

@@ -2146,6 +2146,10 @@ border: 1px solid #b3b3b3; padding: 30px;
 	font-size: 25px; margin:20px; text-align:center;
 }
 
+#growlMessage
+{
+	/*height:15px;*/
+}
 /*.addressCountry ul
 {
 	position: absolute;
