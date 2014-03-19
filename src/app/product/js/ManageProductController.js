@@ -166,6 +166,13 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   //error handling for add product
   //add ,update product
   $scope.addProduct = function (editStatus) {
+  if($scope.productForm.$invalid){
+      $scope.enableProductErrorMsg();
+      ProdERRMsg.innerHTML = "Please add correct information"; 
+    }
+  else{
+    $scope.disableEditor();
+    $scope.productForm.$setPristine();
     $("productExtraInfo").css("display", "none");
     $("#ErrMsging").css("display", "none");
     //Input check validations are on Client side( using Angular validations)
@@ -235,7 +242,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
         // growl.addErrorMessage("You dont have rights to update this product..."); 
       } 
     }
-
+   }
   };
   $scope.deleteProduct = function () {
     growl.addInfoMessage("Deleting product  ...");
@@ -523,6 +530,13 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   //delete product feature
   //add product feature
   $scope.addProductFeature = function (editStatus) {
+   if($scope.productFeaturesForm.$invalid){
+    $scope.enableFeatureErrorMsg();
+    ProdFERRMsg.innerHTML ="Please add correct information";
+   }
+  else{
+    $scope.disableEditorFeature();
+    $scope.productFeaturesForm.$setPristine();
     $scope.newFeature = {};
     $scope.newFeature = {
       productfeature: [{
@@ -562,11 +576,18 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
         } 
       }
     }
+  }
   };
   //add product feature
 
   //update product feature
   $scope.updateProductFeature = function (data, id) {
+    if($scope.productFeatureUpdate.$invalid){
+      $scope.enableFeatureErrorMsg();
+      ProdFERRMsg.innerHTML = "Please add correct information";
+    }
+    else{
+
     console.log(data);
     if (data !== undefined && data !== null && data !== "") {
       if ($rootScope.isAdminCheck == true) {
@@ -595,6 +616,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
        ProdFERRMsg.innerHTML = "You dont have rights to update product feature...";
      }
     }
+  }
   };
   //update product feature
 
