@@ -16,6 +16,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
 
   //product
   $scope.editStatus;
+
   $scope.product = {
     product: [{}]
   };
@@ -109,7 +110,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
         $("#prodo-ProductDetails").css("display", "block");
         $("productExtraInfo").css("display", "block");
         $("#ErrMsging").css("display", "none");
-        // $log.debug(successData.success.product);
+        $log.debug(successData.success.product);
         $scope.getProductFeatures(l_prodle, l_orgid);
         $("#prodo-ProductFeatureTable").css("display", "table");
         $scope.product = successData.success.product;
@@ -182,7 +183,8 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
         product: {
           model_no: $scope.product.model_no,
           name: $scope.product.name,
-          description: $scope.product.description
+          description: $scope.product.description,
+          category:$scope.category
         }
       };
       if ($rootScope.usersession.currentUser.org.isAdmin == true) {
@@ -215,6 +217,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
           support_discontinuation_date: $scope.product.supDis,
           sale_discontinuation_date: $scope.product.prodDis,
           banneddate: $scope.product.banneddate
+        
         }
       };
       if ($rootScope.usersession.currentUser.org.isAdmin == true) {

@@ -244,7 +244,7 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
 
   var cleanEventFollowProductDone = $scope.$on('followProductDone', function (event, data) {
     if (data.success) {
-        growl.addSuccessMessage("Follwing product");
+        growl.addSuccessMessage("Following product");
         UserSessionService.productfollowlist.unshift($scope.product);
         $("#prodo-followBtn").css("display", "none");
       }
