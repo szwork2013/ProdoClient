@@ -194,12 +194,14 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
         }, $scope.newProduct, function (success) {
           if(success.success){
            $scope.newProduct_ResponseProdle=success.success.prodle;
+           $scope.category=[];
           }
          $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
         }, function (error) {
           // growl.addErrorMessage(error);
            $scope.enableProductErrorMsg();
            ProdERRMsg.innerHTML = error; 
+            $scope.category=[];
           $log.debug(error);
         });
 
