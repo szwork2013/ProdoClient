@@ -8,7 +8,8 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
   '$http',
   '$resource' ,
   'trendingProductService',
-  function ($scope, $log, $rootScope, prodoSearchService, UserSessionService, searchProductService, $http, $resource,trendingProductService) {
+  '$state',
+  function ($scope, $log, $rootScope, prodoSearchService, UserSessionService, searchProductService, $http, $resource,trendingProductService, $state) {
 
   $scope.productNames = [];  
   //Store objects from searchproduct api
@@ -129,7 +130,7 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
 
       //Following if statement is to check whether all fields are empty
       //If all are empty then dont call API
-      if($scope.countForEmptyTextbox == 5)
+      if($scope.countForEmptyTextbox == 5)  // 5 is for textboxes present in advance search modal
       {
       }
      else
@@ -140,9 +141,19 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
 
   var cleanEventGetSearchProductDone = $scope.$on('getSearchProductDone', function (event, data) 
   {
+    if(data.error!==undefined && data.error.code==='AL001')
+    {
+      $('#advancedSearchModal').modal('hide');  //code for cloasing modal
+      $('.modal-backdrop').remove(); 
+      UserSessionService.resetSession();
+      $state.go('prodo.landing.signin');
+      // $scope.showAlert('alert-error', 'Session expired! Please login to continue');  
+    }
+    else
+    {
      $scope.result = data.success.doc;
      $scope.message = "";
-     $scope.message = data.success.message;
+     $scope.message = data.success.message;}
      });
 
      var cleanEventGetSearchProductNotDone = $scope.$on('getSearchProductNotDone', function (event, data) {

@@ -3,9 +3,9 @@ angular.module('prodo.AdminApp').controller('prodoAdminTagInputController', [
   '$log',
   '$rootScope',
   'UserSessionService',
-  '$http',
+  '$state',
   'tagAddService',
-  function ($scope, $log, $rootScope, UserSessionService, $http, tagAddService) {
+  function ($scope, $log, $rootScope, UserSessionService, $state, tagAddService) {
 
     $scope.category_selection;
 
@@ -93,15 +93,20 @@ angular.module('prodo.AdminApp').controller('prodoAdminTagInputController', [
         $scope.tagInfo.tagreffdicdata = $scope.objectComponents;
         tagAddService.addTagFunction($scope.tagInfo);
 
-        // var cleanEventGetSearchProductDone = $scope.$on('getSearchProductDone', function (event, data) {
-        // });
+        var cleanTagsAdded = $scope.$on('tagAddedSuccessfully', function (event, data) {
+           if(data.error !== undefined && data.error.code === 'AL001' )
+           {
+               UserSessionService.resetSession();
+               $state.go('prodo.landing.signin');
+           }
+        });
         
         // var cleanEventGetSearchProductNotDone =  $scope.$on('getSearchProductNotDone', function (event, data) {
         // });
     };
 
     $scope.$on('$destroy', function(event, message) {
-        // cleanEventGetSearchProductDone();
+        // cleanTagsAdded();
         // cleanEventGetSearchProductNotDone();
     });
   }

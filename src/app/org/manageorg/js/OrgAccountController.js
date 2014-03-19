@@ -11,8 +11,25 @@ $scope.contacts= [{'customerhelpline': ''},{'customerhelpline': ''},{'customerhe
 $scope.orginvites=[{'name': '','orgname': '','email': ''}];
 $scope.customerinvites=[{'name': '','email': ''}];
 $scope.group = { 'newgroupname': '','grouppname': '','invites': '','newinvites': ''};
-$scope.groups = currentorggroup.success.usergrp;
+$scope.groups = currentorggroup.success.usergrp; 
 $scope.orgaddr = currentorgaddr.success.orgaddress; 
+
+$scope.calcNumberOfOrgAddresses = function()
+{
+  if($scope.orgaddr[1] === undefined && $scope.orgaddr[0] !== undefined)
+  {
+    return $scope.orgaddr[0].location.length;
+  }
+  else if($scope.orgaddr[1] !== undefined && $scope.orgaddr[0] === undefined)
+  {
+    return $scope.orgaddr[1].location.length;
+  }
+  else
+  {
+   return $scope.orgaddr[1].location.length + $scope.orgaddr[0].location.length; 
+  }
+};
+var NumberOfOrgAddresses = $scope.calcNumberOfOrgAddresses();
 OrgRegistrationService.updateOrgData(currentorgdata.success.organization);
 $scope.editorEnabled = false;
 $scope.orgaddresstype='';
@@ -398,7 +415,15 @@ $scope.selected_country="";
 
 
     var cleanupEventUpdateOrgDone = $scope.$on("updateOrgDone", function(event, message){
-      $scope.handleUpdateOrgAccountResponse(message);    
+       if(message.error !== undefined && message.error.code === 'AL001' )
+       {
+           UserSessionService.resetSession();
+           $state.go('prodo.landing.signin');
+       }
+       else
+       {
+          $scope.handleUpdateOrgAccountResponse(message);  
+       }  
     });
 
     var cleanupEventUpdateOrgNotDone = $scope.$on("updateOrgNotDone", function(event, message){
@@ -459,7 +484,6 @@ $scope.selected_country="";
 
     $scope.jsonOrgAddressUpdate = function(addr)
     {
-         
           $scope.contacts[0].customerhelpline=addr.contacts[0].customerhelpline;
           $scope.contacts[1].customerhelpline=addr.contacts[1].customerhelpline;
           $scope.contacts[2].customerhelpline=addr.contacts[2].customerhelpline;
@@ -477,16 +501,23 @@ $scope.selected_country="";
                     'state': addr.address.state,
                     'zipcode': addr.address.zipcode 
                     }, 
-              'contacts': $scope.contacts,
-              'locationtype': $scope.orgaddresstype
+              'contacts': $scope.contacts
             }
           }
       return JSON.stringify(orgAddData); 
     };
 
     var cleanupEventAddOrgAddressDone = $scope.$on("addOrgAddressDone", function(event, message){
-      $scope.handleAddOrgAddressResponse(message);  
-      $state.reload();
+       if(message.error !== undefined && message.error.code === 'AL001' )
+       {
+           UserSessionService.resetSession();
+           $state.go('prodo.landing.signin');
+       }
+       else
+       {
+          $scope.handleAddOrgAddressResponse(message);  
+          $state.reload();
+       }
     });
     var cleanupEventAddOrgAddressNotDone = $scope.$on("addOrgAddressNotDone", function(event, message){
          $scope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message,'error');    //ShowAlert
@@ -510,11 +541,19 @@ $scope.selected_country="";
     };  
 
     $scope.updateAddress = function(addr) {
-      addr.editing = false; console.log(JSON.stringify(addr.address));
+      addr.editing = false; 
       OrgRegistrationService.updateOrgAddress($scope.jsonOrgAddressUpdate(addr),addr.locid);
     }
     var cleanupEventUpdateOrgAddressDone = $scope.$on("updateOrgAddressDone", function(event, message){
-      $scope.handleUpdateOrgAddressResponse(message); 
+       if(message.error !== undefined && message.error.code === 'AL001' )
+       {
+           UserSessionService.resetSession();
+           $state.go('prodo.landing.signin');
+       }
+       else
+       {
+           $scope.handleUpdateOrgAddressResponse(message);
+       } 
     });
     var cleanupEventUpdateOrgAddressNotDone = $scope.$on("updateOrgAddressNotDone", function(event, message){
       $scope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message,'error');    //ShowAlert
@@ -537,11 +576,20 @@ $scope.selected_country="";
     };
 
     var cleanupEventDeleteOrgDone = $scope.$on("deleteOrgDone", function(event, message){
-      $scope.handleDeleteOrgResponse(message); 
+      //$scope.handleDeleteOrgResponse(message); 
+       if(message.error !== undefined && message.error.code === 'AL001' )
+       {
+           UserSessionService.resetSession();
+           $state.go('prodo.landing.signin');
+       }
+       else
+       {
+          $scope.handleDeleteOrgResponse(message); 
+       }
     });
 
     var cleanupEventDeleteOrgNotDone = $scope.$on("deleteOrgNotDone", function(event, message){
-      $scope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + 'message,error');    //ShowAlert
+      $scope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message,'error');    //ShowAlert
     });  
 
 //End of block
@@ -550,7 +598,8 @@ $scope.selected_country="";
 // The following block changes org address 
 
     $scope.handleDeleteOrgAddressResponse = function(data){
-      if (data.success) {
+      if (data.success) {         
+        $state.$reload();
         $scope.ProdoAppMessage(data.success.message,'success');
       } else {
           $log.debug(data.error.message);
@@ -558,12 +607,29 @@ $scope.selected_country="";
         }
     };
 
-    $scope.deleteOrgAddress = function(addressId) {
-      OrgRegistrationService.removeOrgAddress(addressId);
+    $scope.deleteOrgAddress = function(addr) { 
+      NumberOfOrgAddresses--; 
+      if(NumberOfOrgAddresses>0)
+      {
+                OrgRegistrationService.removeOrgAddress(addr.locid);
+      }
+      else
+      {
+        $scope.ProdoAppMessage("You cannot delete this address!",'error');
+      }
+
     };
 
     var cleanupEventDeleteOrgAddressDone = $scope.$on("deleteOrgAddressDone", function(event, message){
-      $scope.handleDeleteOrgResponse(message);   
+       if(message.error !== undefined && message.error.code === 'AL001' )
+       {
+           UserSessionService.resetSession();
+           $state.go('prodo.landing.signin');
+       }  
+       else
+       {
+           $scope.handleDeleteOrgResponse(message);   
+       }
     });
 
     var cleanupEventDeleteOrgAddressNotDone = $scope.$on("deleteOrgAddressNotDone", function(event, message){
@@ -587,12 +653,22 @@ $scope.selected_country="";
       }
     };
 
-    $scope.deleteGroupMember = function(grpid, userid) {
+    $scope.deleteGroupMember = function(grpid, userid) { console.log(grpid,userid);
       OrgRegistrationService.deleteMember(grpid, userid); 
     };
 
-    var cleanupEventDeleteOrgGroupMemberDone = $scope.$on("deleteOrgGroupMemberDone", function(event, message){
-      $scope.handleDeleteOrgGroupMemberResponse(message);  
+    var cleanupEventDeleteOrgGroupMemberDone = $scope.$on("deleteOrgGroupMemberDone", function(event, message){console.log("message-----"+message);
+     // $scope.handleDeleteOrgGroupMemberResponse(message);  
+    
+       if(message.error !== undefined && message.error.code === 'AL001' )
+       {
+           UserSessionService.resetSession();
+           $state.go('prodo.landing.signin');
+       }
+       else
+       {
+           $scope.handleDeleteOrgGroupMemberResponse(message);  
+       }
     });
 
     var cleanupEventDeleteOrgGroupMemberNotDone = $scope.$on("deleteOrgGroupMemberNotDone", function(event, message){
@@ -629,7 +705,15 @@ $scope.selected_country="";
     }
 
     var cleanupEventSendOrgInvitesDone = $scope.$on("sendOrgInvitesDone", function(event, data){
-      $scope.handleOrgInviteResponse(data);  
+      if(data.error !== undefined && data.error.code === 'AL001' )
+      {
+         UserSessionService.resetSession();
+         $state.go('prodo.landing.signin');
+      }
+      else
+      {
+         $scope.handleOrgInviteResponse(data);  
+      }
     });
 
     var cleanupEventSendOrgInvitesNotDone = $scope.$on("sendOrgInvitesNotDone", function(event, data){
@@ -681,25 +765,37 @@ $scope.selected_country="";
     };
 
     $scope.addGroupInvite = function() {
-      if ($scope.form.orggroupinvitesform) {
-        if ($scope.form.orggroupinvitesform.$valid) {
-          $scope.form.orggroupinvitesform = true;
+      // if ($scope.form.orggroupinvitesform) {
+        // if ($scope.form.orggroupinvitesform.$valid) {
+        //   $scope.form.orggroupinvitesform = true;
+        if($scope.addInvitesList==='existing')
+        {
           OrgRegistrationService.groupInvites($scope.jsonOrgExistingGroupInvitesData());
-        } else{
-          $scope.form.orggroupinvitesform.submitted = true;
         }
-      } else if ($scope.form.orgnewgroupinvitesform) {
-          if ($scope.form.orgnewgroupinvitesform.$valid) {
-            OrgRegistrationService.groupInvites($scope.jsonOrgExistingGroupInvitesData());
-            $scope.form.orgnewgroupinvitesform = true;
-          } else {
-            $scope.form.orgnewgroupinvitesform = true;
-          }
-      }
+        // } else{
+        //   $scope.form.orggroupinvitesform.submitted = true;
+        // }
+      // } else if ($scope.form.orgnewgroupinvitesform) {
+          // if ($scope.form.orgnewgroupinvitesform.$valid) {
+            else if($scope.addInvitesList==='new'){
+            OrgRegistrationService.groupInvites($scope.jsonOrgNewGroupInvitesData());}
+          //   $scope.form.orgnewgroupinvitesform = true;
+          // } else {
+          //   $scope.form.orgnewgroupinvitesform = true;
+          // }
+      
     };
 
     var cleanupEventSendOrgGroupInvitesDone = $scope.$on("sendOrgGroupInvitesDone", function(event, data){
-      $scope.handleOrgGroupInviteResponse(data); 
+       if(data.error !== undefined && data.error.code === 'AL001' )
+       {
+           UserSessionService.resetSession();
+           $state.go('prodo.landing.signin');
+       }
+       else
+       {
+         $scope.handleOrgGroupInviteResponse(data); 
+       }
     });
     var cleanupEventSendOrgGroupInvitesNotDone = $scope.$on("sendOrgGroupInvitesNotDone", function(event, data){
       $scope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message,'error');    //growl
@@ -738,7 +834,15 @@ $scope.selected_country="";
     }
 
     var cleanupEventSendOrgCustomerInvitesDone = $scope.$on("sendOrgCustomerInvitesDone", function(event, data){
-      $scope.handleOrgCustomerInviteResponse(data);   
+      if(data.error !== undefined && data.error.code === 'AL001' )
+      {
+        UserSessionService.resetSession();
+        $state.go('prodo.landing.signin');
+      }
+      else
+      {
+      $scope.handleOrgCustomerInviteResponse(data); 
+      }  
     });
 
     var cleanupEventSendOrgCustomerInvitesNotDone = $scope.$on("sendOrgCustomerInvitesNotDone", function(event, data){
@@ -788,7 +892,7 @@ $scope.selected_country="";
       $scope.zipcode = '';
       $scope.contacts= [{'customerhelpline': ''},{'customerhelpline': ''},{'customerhelpline': ''}];
     };
-    
+    $scope.addInvitesList='';
 
     $scope.addMoreInvites = function() { 
       var noOfInvites=$scope.orginvites.length;
@@ -807,10 +911,12 @@ $scope.selected_country="";
     };
 
     $scope.addExistingInvites = function() {
+      $scope.addInvitesList = 'existing';
       $scope.showExistingInvites = true;
     };
-
+    
     $scope.addNewInvites = function() {
+      $scope.addInvitesList='new';
       $scope.showNewInvites = true;
     };
 

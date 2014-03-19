@@ -481,8 +481,16 @@ $scope.selected_country="";
     }
 
     var cleanupEventOrgRegistrationDone = $scope.$on("orgRegistrationDone", function(event, message){
-      console.log(message);
-      $scope.handleOrgResponse(message);
+       if(message.error !== undefined && message.error.code === 'AL001' )
+       {
+           UserSessionService.resetSession();
+           $state.go('prodo.landing.signin');
+       }
+       else
+       {
+          console.log(message);
+          $scope.handleOrgResponse(message);}
+
     });
     var cleanupEventOrgRegistrationNotDone = $scope.$on("orgRegistrationNotDone", function(event, message){
       $scope.showAlert('alert-danger', "It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message);  

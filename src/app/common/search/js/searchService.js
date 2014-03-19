@@ -4,15 +4,16 @@ angular.module('prodo.ProdoWallApp')
   '$rootScope',
   '$resource',
   '$log',
-  function ($rootScope, $resource, $log) {
+  '$state',
+  function ($rootScope, $resource, $log, $state) {
     var searchService = { Product: $resource('/api/searchproduct', {}, { searchProductByKey: { method: 'POST' } }) };
     var search = {};
     search.searchProduct = function (productData) {
       searchService.Product.searchProductByKey(productData, function (success) {
-        $log.debug(success);
+        $log.debug(success); 
         $rootScope.$broadcast('getSearchProductDone', success);
-      }), function (error) {
-        $log.debug(error);
+      }), function (error) { 
+        $log.debug(error);         
         $rootScope.$broadcast('getSearchProductNotDone', error);
       };
     };

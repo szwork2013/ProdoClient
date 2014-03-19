@@ -3,7 +3,8 @@ angular.module('prodo.CommonApp').controller('prodoUserProfileDataController', [
   '$log',
   '$rootScope',
   'UserSessionService',
-  function ($scope, $log, $rootScope, UserSessionService) 
+  '$state',
+  function ($scope, $log, $rootScope, UserSessionService, $state) 
   {
 
     $scope.modaluser = {products_followed:""};
@@ -23,6 +24,15 @@ angular.module('prodo.CommonApp').controller('prodoUserProfileDataController', [
     });
 
     var clearEventGetUserDataDone = $scope.$on('getUserDataDone', function (event, data) {  
+      if(data.error !== undefined && data.error.code==='AL001')
+      {
+        $('#profileInfoModal').modal('hide');
+        $('.modal-backdrop').remove();
+        UserSessionService.resetSession();
+        $state.go('prodo.landing.signin');
+      }
+      else
+      {
         $scope.modaluser = data.success.user;
         if($scope.modaluser.products_followed.length === 0)
         {
@@ -44,6 +54,7 @@ angular.module('prodo.CommonApp').controller('prodoUserProfileDataController', [
         {
           $scope.ProductsRecommendedMessage = "RECOMMENDED PRODUCTS";
         }
+      }
     });
 
     $scope.emitProductData = function(prodle,orgid)

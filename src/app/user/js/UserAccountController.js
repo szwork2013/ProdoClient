@@ -49,8 +49,16 @@ angular.module('prodo.UserApp')
       
     };
 var cleanupEventUserUploadResponseSuccess = $scope.$on("userUploadResponseSuccess",function(event,message){
-      console.log("Listenig ")
-      $state.reload();
+    if(message.error !== undefined && message.error.code === 'AL001' )
+       {
+           UserSessionService.resetSession();
+           $state.go('prodo.landing.signin');
+       }
+       else
+       {
+          console.log("Listenig ")
+          $state.reload();
+      }
      })
 
 
@@ -142,8 +150,16 @@ var cleanupEventUserUploadResponseSuccess = $scope.$on("userUploadResponseSucces
     }
 
     var cleanupEventUpdateUserDone = $scope.$on("updateUserDone", function(event, message){
-      $scope.hasChangedPersonalSettings = true;
-      $scope.handleUpdateUserResponse(message);     
+       if(message.error !== undefined && message.error.code === 'AL001' )
+       {
+           UserSessionService.resetSession();
+           $state.go('prodo.landing.signin');
+       }
+       else
+       {
+          $scope.hasChangedPersonalSettings = true;
+          $scope.handleUpdateUserResponse(message);  
+      }   
     });
 
     var cleanupEventUpdateUserNotDone = $scope.$on("updateUserNotDone", function(event, message){
@@ -192,8 +208,16 @@ var cleanupEventUserUploadResponseSuccess = $scope.$on("userUploadResponseSucces
     }
 
     var cleanupEventUpdateUserEmailDone = $scope.$on("updateUserEmailDone", function(event, message){
-      $scope.hasChangedEmail = true;
-      $scope.handleUpdateUserEmailResponse(message); 
+        if(message.error !== undefined && message.error.code === 'AL001' )
+       {
+           UserSessionService.resetSession();
+           $state.go('prodo.landing.signin');
+       }
+       else
+       {
+          $scope.hasChangedEmail = true;
+          $scope.handleUpdateUserEmailResponse(message); 
+       }
     });
 
     var cleanupEventUpdateUserEmailNotDone = $scope.$on("updateUserEmailNotDone", function(event, message){
@@ -249,8 +273,16 @@ var cleanupEventUserUploadResponseSuccess = $scope.$on("userUploadResponseSucces
     }
 
     var cleanupEventUpdateUserPasswordDone = $scope.$on("updateUserPasswordDone", function(event, message){
-      $scope.hasChangedPassword = true;
-      $scope.handleUpdateUserPasswordResponse(message); 
+      if(message.error !== undefined && message.error.code === 'AL001' )
+       {
+           UserSessionService.resetSession();
+           $state.go('prodo.landing.signin');
+       }
+       else
+       {
+          $scope.hasChangedPassword = true;
+          $scope.handleUpdateUserPasswordResponse(message); 
+       }
     });
 
     var cleanupEventUpdateUserPasswordNotDone = $scope.$on("updateUserPasswordNotDone", function(event, message){
@@ -291,8 +323,16 @@ var cleanupEventUserUploadResponseSuccess = $scope.$on("userUploadResponseSucces
     }
 
     var cleanupEventUpdateUserDone = $scope.$on("updateUserDone", function(event, message){
-      hasChangedAddress = true;
-      $scope.handleUpdateUserResponse(message);          
+      if(message.error !== undefined && message.error.code === 'AL001' )
+       {
+           UserSessionService.resetSession();
+           $state.go('prodo.landing.signin');
+       }
+       else
+       {
+          hasChangedAddress = true;
+          $scope.handleUpdateUserResponse(message); 
+      }         
     });
 
     var cleanupEventUpdateUserNotDone = $scope.$on("updateUserNotDone", function(event, message){
@@ -320,15 +360,31 @@ var cleanupEventUserUploadResponseSuccess = $scope.$on("userUploadResponseSucces
     }
 
     var cleanupEventDeleteUserDone = $scope.$on("deleteUserDone", function(event, message){
-      $scope.handleDeleteUserResponse(message);     
+      if(message.error !== undefined && message.error.code === 'AL001' )
+       {
+           UserSessionService.resetSession();
+           $state.go('prodo.landing.signin');
+       }
+       else
+       {
+           $scope.handleDeleteUserResponse(message);   
+        }  
     });
     var cleanupEventDeleteUserNotDone = $scope.$on("deleteUserNotDone", function(event, message){
       $scope.showAlert('alert-danger', "It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message);
     });
 
     var cleanupEventGetProductRecommendDone = $rootScope.$on("getProductRecommendDone", function(event, data){
-      $scope.products_recommends = data.success.products;
-      $scope.showAlert('alert-success', data.success.message);         
+      if(data.error !== undefined && data.error.code === 'AL001' )
+       {
+           UserSessionService.resetSession();
+           $state.go('prodo.landing.signin');
+       }
+       else
+       {
+          $scope.products_recommends = data.success.products;
+          $scope.showAlert('alert-success', data.success.message); 
+      }        
     });
 
     var cleanupEventGetProductRecommendNotDone = $rootScope.$on("getProductRecommendNotDone", function(event, data){
@@ -402,8 +458,16 @@ var cleanupEventUserUploadResponseSuccess = $scope.$on("userUploadResponseSucces
     }
 
     var cleanupEventSendUserInvitesDone = $scope.$on("sendUserInvitesDone", function(event, data){
-      $scope.isInvites = true;
-      $scope.handleUserInviteResponse(data);   
+      if(data.error !== undefined && data.error.code === 'AL001' )
+       {
+           UserSessionService.resetSession();
+           $state.go('prodo.landing.signin');
+       }
+       else
+       {
+          $scope.isInvites = true;
+          $scope.handleUserInviteResponse(data);  
+        } 
     });
     var cleanupEventSendUserInvitesNotDone = $scope.$on("sendUserInvitesNotDone", function(event, data){
       $scope.isInvites = true;
@@ -429,8 +493,16 @@ var cleanupEventUserUploadResponseSuccess = $scope.$on("userUploadResponseSucces
     };
     
     var cleanupEventUnfollowProductDone = $scope.$on("unfollowProductDone", function(event, data, product){
-      $scope.isUnfollowed = true;
-      $scope.handleUnfollowProductResponse(data, product);     
+       if(data.error !== undefined && data.error.code === 'AL001' )
+       {
+           UserSessionService.resetSession();
+           $state.go('prodo.landing.signin');
+       }
+       else
+       {
+          $scope.isUnfollowed = true;
+          $scope.handleUnfollowProductResponse(data, product); 
+       }    
     });
     var cleanupEventUnfollowProductNotDone = $scope.$on("unfollowProductNotDone", function(event, data){
       growl.addErrorMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + data);   
