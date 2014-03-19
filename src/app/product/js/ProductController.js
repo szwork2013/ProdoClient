@@ -66,6 +66,8 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
     var temp = document.getElementById('prodo-comment-container');
     if ($rootScope.product_prodle !== undefined && $rootScope.product_prodle !== null && $rootScope.product_prodle !== "") {
       $scope.getProduct($rootScope.product_prodle, $rootScope.orgid); //if product available, call getproduct
+      $scope.search="";
+      $scope.tabComment=true;
     } else { //show msg to follow product
       $("#prodo-ProductDetails").css("display", "none");
       $("#ErrMsging").css("display", "block");

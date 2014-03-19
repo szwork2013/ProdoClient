@@ -550,7 +550,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
         featuredescription: $scope.feature.description
       }]
     };
-    // $log.debug( $scope.newFeature);
+    $log.debug( $scope.newFeature);
     if ($scope.newFeature !== undefined && $scope.newFeature !== null && $scope.newFeature !== "") {
       if (editStatus == 'add') {
         // $log.debug("adding");
