@@ -276,9 +276,17 @@ angular.module('prodo.UserApp')
     };
     session.logoutUser = function () {
       UserService.Logout.logoutUser(function (success) {
-        $log.debug(success.success.message);
-        session.resetSession();
-        $rootScope.$broadcast('logoutDone', success.success.message);
+            if(success.error !== undefined && success.error.code === 'AL001')
+            {
+                    session.resetSession();
+                    $state.go('prodo.landing.signin');
+            }
+            else
+            {
+                    $log.debug(success.success.message); 
+                    session.resetSession();
+                    $rootScope.$broadcast('logoutDone', success.success.message);
+            }
       }, function (error) {
         $log.debug(error);
         $rootScope.$broadcast('logoutNotDone', error.status);
