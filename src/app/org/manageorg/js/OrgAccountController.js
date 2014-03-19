@@ -1,5 +1,5 @@
 angular.module('prodo.OrgApp')
- .controller('OrgAccountController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$log','$modal', 'growl', 'UserSessionService', 'OrgRegistrationService', 'OrgService', 'currentorgdata', 'currentorgaddr', 'currentorgproduct', 'currentorggroup',function($scope, $rootScope, $state, $http, $timeout, $log, $modal, growl, UserSessionService, OrgRegistrationService, OrgService, currentorgdata, currentorgaddr, currentorgproduct, currentorggroup) {
+ .controller('OrgAccountController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$log','$modal', 'growl', 'UserSessionService', 'OrgRegistrationService', 'OrgService', 'currentorgdata', 'currentorgaddr', 'currentorgproduct', 'currentorggroup','ENV', function($scope, $rootScope, $state, $http, $timeout, $log, $modal, growl, UserSessionService, OrgRegistrationService, OrgService, currentorgdata, currentorgaddr, currentorgproduct, currentorggroup, ENV) {
     
 $scope.submitted= false;    
 $scope.form = {};
@@ -12,7 +12,33 @@ $scope.orginvites=[{'name': '','orgname': '','email': ''}];
 $scope.customerinvites=[{'name': '','email': ''}];
 $scope.group = { 'newgroupname': '','grouppname': '','invites': '','newinvites': ''};
 $scope.groups = currentorggroup.success.usergrp; 
-$scope.orgaddr = currentorgaddr.success.orgaddress; 
+$scope.orgaddr = currentorgaddr.success.orgaddress; console.log('9999'+ JSON.stringify(currentorgdata.success.organization.org_images));
+$scope.orgImages = currentorgdata.success.organization.org_images;
+var indexOfOrgAddress = 0;
+
+$scope.validateError=false;
+$scope.regexForText = /[a-z,A-Z]/;
+$scope.regexForNumbers = /[0-9]/;
+$scope.regexForEmail = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+
+$scope.changedOrgDetails = false;
+$scope.changedOrgLocation = false;
+$scope.addedOrgLocation = false;
+$scope.manageOrgGroup = false;
+$scope.addOrgInvites = false;
+$scope.addCustomerInvites = false;
+$scope.deleteOrgResponse = false;
+
+    $scope.resetGrowlMessages = function()
+    {
+            $scope.changedOrgDetails = false;
+            $scope.changedOrgLocation = false;
+            $scope.addedOrgLocation = false;
+            $scope.manageOrgGroup = false;
+            $scope.addOrgInvites = false;
+            $scope.addCustomerInvites = false;
+            $scope.deleteOrgResponse = false;
+    };
 
 $scope.calcNumberOfOrgAddresses = function()
 {
@@ -29,6 +55,7 @@ $scope.calcNumberOfOrgAddresses = function()
    return $scope.orgaddr[1].location.length + $scope.orgaddr[0].location.length; 
   }
 };
+
 var NumberOfOrgAddresses = $scope.calcNumberOfOrgAddresses();
 OrgRegistrationService.updateOrgData(currentorgdata.success.organization);
 $scope.editorEnabled = false;
@@ -377,6 +404,7 @@ $scope.selected_country="";
 
 // function to handle server side responses
     $scope.handleUpdateOrgAccountResponse = function(data){
+     $scope.changedOrgDetails = true;
       if (data.success) {
         $scope.editorEnabled=false;
           $scope.ProdoAppMessage(data.success.message, 'success');     //Growl
@@ -390,12 +418,14 @@ $scope.selected_country="";
     };  
 // Update org account details//
             $scope.updateOrgAccount = function() {
-              if ($scope.form.orggeneralsettingform.$valid) {
-                $scope.form.orggeneralsettingform.submitted= true;
-                OrgRegistrationService.saveOrgSettings($scope.jsonOrgAccountData());
-              } else {
-                $scope.form.orggeneralsettingform.submitted= true;
-              }  
+         
+                      if ($scope.form.orggeneralsettingform.$valid) {
+                        $scope.form.orggeneralsettingform.submitted= true;
+                        OrgRegistrationService.saveOrgSettings($scope.jsonOrgAccountData());
+                      } else {
+                        $scope.form.orggeneralsettingform.submitted= true;
+                      }  
+                
             };
        //The following object is passed to    
             $scope.jsonOrgAccountData = function()
@@ -427,6 +457,7 @@ $scope.selected_country="";
     });
 
     var cleanupEventUpdateOrgNotDone = $scope.$on("updateOrgNotDone", function(event, message){
+      $scope.changedOrgDetails = true;
       $scope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message,'error');   
     }); 
 
@@ -458,6 +489,7 @@ $scope.selected_country="";
 
 
     $scope.handleAddOrgAddressResponse = function(data){
+     $scope.addedOrgLocation = false;
       if (data.success) {        
         $scope.reset();
         $scope.ProdoAppMessage(data.success.message,'success');          //ShowAlert
@@ -520,6 +552,7 @@ $scope.selected_country="";
        }
     });
     var cleanupEventAddOrgAddressNotDone = $scope.$on("addOrgAddressNotDone", function(event, message){
+         $scope.addedOrgLocation = false;
          $scope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message,'error');    //ShowAlert
     });
 //End of block
@@ -527,6 +560,7 @@ $scope.selected_country="";
 
 // function to handle server side responsesIt looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message
     $scope.handleUpdateOrgAddressResponse = function(data){
+      $scope.changedOrgLocation = false;
       if (data.success) {
         $scope.ProdoAppMessage(data.success.message,'success');    //ShowAlert
       } else {
@@ -556,6 +590,7 @@ $scope.selected_country="";
        } 
     });
     var cleanupEventUpdateOrgAddressNotDone = $scope.$on("updateOrgAddressNotDone", function(event, message){
+      $scope.changedOrgLocation = true;
       $scope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message,'error');    //ShowAlert
     });    
 
@@ -563,6 +598,7 @@ $scope.selected_country="";
 
 // The following block deletes org 
     $scope.handleDeleteOrgResponse = function(data){
+      $scope.deleteOrgResponse = true;
       if (data.success) {
         $scope.ProdoAppMessage(data.success.message,'success');  //ShowAlert
       } else {
@@ -589,6 +625,7 @@ $scope.selected_country="";
     });
 
     var cleanupEventDeleteOrgNotDone = $scope.$on("deleteOrgNotDone", function(event, message){
+        $scope.deleteOrgResponse = true;
       $scope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message,'error');    //ShowAlert
     });  
 
@@ -598,20 +635,25 @@ $scope.selected_country="";
 // The following block changes org address 
 
     $scope.handleDeleteOrgAddressResponse = function(data){
+        $scope.changedOrgLocation = true;
       if (data.success) {         
         $state.$reload();
         $scope.ProdoAppMessage(data.success.message,'success');
+        $scope.orgaddr.splice(indexOfOrgAddress, 1);
       } else {
           $log.debug(data.error.message);
           $scope.ProdoAppMessage(data.error.message,'error');  //ShowAlert
         }
     };
 
-    $scope.deleteOrgAddress = function(addr) { 
+    $scope.deleteOrgAddress = function(addr,addressId) { 
+      $scope.changedOrgLocation = true;
       NumberOfOrgAddresses--; 
       if(NumberOfOrgAddresses>0)
       {
-                OrgRegistrationService.removeOrgAddress(addr.locid);
+                OrgRegistrationService.removeOrgAddress(addr.locid);              
+                indexOfOrgAddress = $rootScope.usersession.productfollowlist.indexOf(addressId);
+                alert(indexOfOrgAddress);
       }
       else
       {
@@ -633,6 +675,7 @@ $scope.selected_country="";
     });
 
     var cleanupEventDeleteOrgAddressNotDone = $scope.$on("deleteOrgAddressNotDone", function(event, message){
+        $scope.changedOrgLocation = true;
       $scope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + 'message,error');    //ShowAlert
     });
 
@@ -640,6 +683,7 @@ $scope.selected_country="";
 
 //  The following code removes org group member
     $scope.handleDeleteOrgGroupMemberResponse = function(data){
+        $scope.manageOrgGroup = true;
       if (data.success) {
         $scope.ProdoAppMessage(data.success.message,'success');  //ShowAlert
       } else {
@@ -672,6 +716,7 @@ $scope.selected_country="";
     });
 
     var cleanupEventDeleteOrgGroupMemberNotDone = $scope.$on("deleteOrgGroupMemberNotDone", function(event, message){
+        $scope.manageOrgGroup = true;
       $scope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message,'error');    //ShowAlert
     });  
 //End of block
@@ -687,6 +732,7 @@ $scope.selected_country="";
    };
 
     $scope.handleOrgInviteResponse = function(data){
+        $scope.addOrgInvites = true;
       if (data.success) {
         $scope.ProdoAppMessage(data.success.message,'success');    //ShowAlert
       } else {
@@ -717,6 +763,7 @@ $scope.selected_country="";
     });
 
     var cleanupEventSendOrgInvitesNotDone = $scope.$on("sendOrgInvitesNotDone", function(event, data){
+        $scope.addOrgInvites= true;
       $scope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + data,'error');    //ShowAlert
     });
 
@@ -724,6 +771,7 @@ $scope.selected_country="";
 
 //Block managing org group invites
     $scope.handleOrgGroupInviteResponse = function(data){
+        $scope.manageOrgGroup = true;
       if (data.success) {
         $scope.showExistingInvites = false;
         $scope.showNewInvites = false;
@@ -798,6 +846,7 @@ $scope.selected_country="";
        }
     });
     var cleanupEventSendOrgGroupInvitesNotDone = $scope.$on("sendOrgGroupInvitesNotDone", function(event, data){
+        $scope.manageOrgGroup = true;
       $scope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message,'error');    //growl
     });
  
@@ -807,6 +856,7 @@ $scope.selected_country="";
 //  The following block is used to send invites to org customer
 
    $scope.handleOrgCustomerInviteResponse = function(data){
+    $scope.addCustomerInvites = true;
       if (data.success) {
         $scope.ProdoAppMessage(data.success.message,'success');    //ShowAlert
       } else {
@@ -846,6 +896,7 @@ $scope.selected_country="";
     });
 
     var cleanupEventSendOrgCustomerInvitesNotDone = $scope.$on("sendOrgCustomerInvitesNotDone", function(event, data){
+         $scope.addCustomerInvites = true;
       $scope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." ,'error');    //ShowAlert
     }); 
 
@@ -891,6 +942,7 @@ $scope.selected_country="";
       $scope.org.state= '';
       $scope.zipcode = '';
       $scope.contacts= [{'customerhelpline': ''},{'customerhelpline': ''},{'customerhelpline': ''}];
+      $state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
     };
     $scope.addInvitesList='';
 
@@ -931,19 +983,116 @@ $scope.selected_country="";
 
     $scope.ProdoAppMessage = function(message,flag)
     {
-        $scope.showGrowlMessage=0;
-
           if(flag==='success')
           {
             growl.addSuccessMessage(message);
-            $scope.showGrowlMessage=1;console.log("success"+ $scope.showGrowlMessage);
           }
           else
           {
             growl.addErrorMessage(message);
-            $scope.showGrowlMessage=1;
           }
+         // $scope.resetGrowlMessages();
     };
+//   Org images display Bhagyashry 
+  $scope.chckedIndexs = [];
+  $scope.checkAdminProductImagesDelete = function () {
+
+    if ($rootScope.isAdminCheck == true) {
+      return {
+        display: "inline"
+      }
+    } else {
+      return {
+        display: "none"
+      }
+    }
+  };
+
+    $scope.selectAllImages = function (imgs) {
+    if ($('.imgToggles').is(':checked')) {
+      $('.imgToggles').prop('checked', false);
+      // $scope.chckedIndexs=[];
+      $scope.chckedIndexs.length=0;
+      // $scope.checked=0;
+      $log.debug("1"+$scope.chckedIndexs);
+    } else {
+      $('.imgToggles').prop('checked', true);
+       for (i = 0; i < imgs.length; i++) {
+      $scope.chckedIndexs.push(imgs[i]);
+    }
+      $log.debug("2"+$scope.chckedIndexs);
+       // $scope.checked=1;
+    }
+  };
+
+    $scope.checkImageSelectedToDelete = function () {
+    $log.debug("Delete images.......");
+     $log.debug("5"+$scope.chckedIndexs);
+    if ($scope.chckedIndexs.length > 0) { //if image selected to delete,show modal
+      $('#imgDelModal').modal('toggle');
+      $('#imgDelModal').modal('show');
+    } else { //if no image selected to delete
+       $scope.enableIMGErrorMsg();
+       ProdIMGERRMsg.innerHTML = "Select atlest 1 image to delete ";
+      // growl.addErrorMessage("Select atlest 1 image to delete");
+    }
+  };
+
+  $scope.checkedIndex = function (img) {
+    if ($scope.chckedIndexs.indexOf(img) === -1) {
+      $scope.chckedIndexs.push(img);
+      $log.debug("3"+$scope.chckedIndexs);
+    } else {
+      $scope.chckedIndexs.splice($scope.chckedIndexs.indexOf(img), 1);
+      }
+    $log.debug("4"+$scope.chckedIndexs);
+  };
+
+   $scope.deleteProductImages = function (index) {
+    if ($rootScope.isAdminCheck == true) {
+      //get selected ids to delete images
+      // growl.addInfoMessage("Deleting product images ...");
+      $scope.imgIds = [{}];
+      $scope.ids;
+      $(':checkbox:checked').each(function (i) {
+        $scope.imgIds[i] = $(this).val();
+        $scope.ids = $(this).val();
+      });
+      angular.forEach($scope.chckedIndexs, function (value, index) {
+        // $log.debug("value= "+value);
+        var index = $scope.pImages_l.indexOf(value);
+        $scope.pImages_l.splice($scope.pImages_l.indexOf(value), 1);
+      });
+      $scope.chckedIndexs = [];
+      $scope.temp = {
+        prodleimageids: $scope.imgIds
+      }
+      $http({
+        method: 'DELETE',
+        url: ENV.apiEndpoint_notSocket + '/api/image/org/' + $scope.orgidFromSession + '/' + $scope.currentProdle + '?prodleimageids=' + $scope.imgIds,
+      }).success(function (data, status, headers, cfg) {
+        // $log.debug(data);
+      //$scope.enableIMGSuccessMsg(); 
+      alert('hello');
+     // ProdIMGSuccessMsg.innerHTML = "Images deleted successfully...";
+       
+        // growl.addSuccessMessage("Images deleted successfully...");
+
+      }).error(function (data, status, headers, cfg) {
+        // $log.debug(status);
+        //$scope.enableIMGErrorMsg();
+      // ProdIMGERRMsg.innerHTML = status;
+        // growl.addErrorMessage(status);
+      });
+    } else {
+      //$scope.enableIMGErrorMsg();
+      // ProdIMGERRMsg.innerHTML = "You dont have rights to delete images";
+    }
+    
+    // growl.addErrorMessage("You dont have rights to delete images");
+  };
+//
+
 //
     $scope.$on('$destroy', function(event, message) {
       cleanupEventUpdateOrgDone();      

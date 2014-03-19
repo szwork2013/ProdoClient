@@ -1,8 +1,11 @@
 <div style="padding: 5px; " id="prodo-user-account-container" style="" class="container">
   <div style="min-height:30px; border-radius: 5px; margin-bottom: 10px;">
+      <div ng-if="deleteOrgResponse === true">
+            <div growl></div>
+      </div>
       <img ng-show="((usersession.currentUser.org.orgtype == 'Manufacturer') && org.org_logo)" ng-src="{{org.org_logo.image}}" style="width: 160px; height:80px; margin: 20px; ">
       <img ng-hide="((usersession.currentUser.org.orgtype == 'Manufacturer') && org.org_logo)" style="width: 160px; height:80px; margin: 20px; " src="../../../assets/images/if_no_logo_images_available.gif">
-      <a class="btn btn-danger btn-sm pull-right" style="border-radius: 10px; margin: 5px; width: 80px; font-size: 12px; font-weight:bold;" href="" data-toggle="modal" data-target="#myModal"><i style="margin-right: 5px;" class="fa fa-trash-o fa-lg"></i>Delete</a>
+      <a class="btn btn-danger btn-sm pull-right" href="" data-toggle="modal" data-target="#myModal"><i style="margin-right: 5px;" class="fa fa-trash-o fa-lg"></i>Delete</a>
     </div>
 
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -29,12 +32,15 @@
       <accordion-heading>
         <p style='font-weight:bold; font-size: 13px; margin: 0;'>GENERAL SETTINGS<i class="fa fa-pencil pull-right"></i></p>
       </accordion-heading>
-        <div ng-if='showGrowlMessage===1' growl id="growlMessage"></div>
+
+        <div ng-if="changedOrgDetails === true">
+            <div growl></div>
+        </div>
         <div>
           <form name="form.orggeneralsettingform" class="css-form" ng-submit='' novalidate>
             <dl>
               <dt>Organization Name:</dt>
-              <dd ng-hide="editorEnabled">{{org.name}}<a class="btn btn-primary btn-sm pull-right" style="border-radius: 10px; margin: 5px; width: 80px; font-size: 12px; font-weight:bold;" href="#" ng-click="enableEditor()"><i style="margin-right: 5px;" class="fa fa-pencil-square-o"></i>Edit</a></dd>
+              <dd ng-hide="editorEnabled">{{org.name}}<a class="btn btn-primary btn-sm pull-right" href="#" ng-click="enableEditor()"><i style="margin-right: 5px;" class="fa fa-pencil-square-o"></i>Edit</a></dd>
               <dd ng-show="editorEnabled">
                 <input name="orgname" style="width: 55%; height:30px; display:block" class="form-control" ng-model="org.name" ng-maxlength="50" required>
                   <small style='color:red;' ng-show="form.orggeneralsettingform.orgname.$error.required">Orgaanization name is required!</small>
@@ -54,10 +60,10 @@
                   <small style='color:red;' ng-show="(form.orggeneralsettingform.description.$dirty && form.orggeneralsettingform.description.$error.maxlength)">Organization name should not exceed 200 characters!</small>
               </dd>
               <br>
-              <dd><p ng-show="(form.orggeneralsettingform.submitted && form.orggeneralsettingform.$invalid)" class="text-danger"><small style='color:red;'>Please enter valid data.</small></p></dd>
+              <dd><p ng-show="(form.orggeneralsettingform.submitted && form.orggeneralsettingform.$invalid)" class="text-danger"><small style='color:red;'>[Note : Password is compulsory to save changes]</small></p></dd>
             </dl>
-            <button ng-show="editorEnabled" class="btn btn-primary btn-sm pull-right" style="border-radius: 10px; margin: 5px; width: 80px; font-size: 12px; font-weight:bold;" href="#" ng-click="updateOrgAccount()"><i style="margin-right: 5px;" class="fa fa-save"></i>Save</button>
-            <button ng-show="editorEnabled" class="btn btn-primary btn-sm pull-right" style="border-radius: 10px; margin: 5px; width: 80px; font-size: 12px; font-weight:bold;" ng-click="disableEditor()"><i style="margin-right: 5px;" class="fa fa-times"></i>Cancel</button>
+            <button ng-show="editorEnabled" class="btn btn-primary btn-sm pull-right"  style="margin-left:10px;" ng-click="updateOrgAccount()"><i style="margin-right: 5px;" class="fa fa-save"></i>Save</button>
+            <button ng-show="editorEnabled" class="btn btn-primary btn-sm pull-right" ng-click="disableEditor()"><i style="margin-right: 5px;" class="fa fa-times"></i>Cancel</button>
           </form> 
         </div>
     </accordion-group>
@@ -67,7 +73,9 @@
       <accordion-heading>
         <p style='font-weight:bold; font-size: 13px; margin: 0;'>LOCATION<i class="fa fa-pencil pull-right"></i></p>
       </accordion-heading>
-      <div ng-if='showGrowlMessage===1' growl id="growlMessage"></div>
+      <div ng-if="changedOrgLocation === true">
+              <div growl ></div>
+      </div>
       <!--   <div ng-show='form.orglocationsettingform.submitted' growl></div> -->
             <br>
             <hr size=3 width="100%;" style="background-color:#BDBDBD; height:1px; margin-top: 0;" noshade>
@@ -143,7 +151,7 @@
                     <td>
                       <div class="buttons">
                         <a ng-hide="addr.editing" class="btn btn-primary btn-sm glyphicon glyphicon-edit" ng-click="enableEditing(addr)">Edit</a>&nbsp;
-                        <a ng-hide="addr.editing" class="btn btn-danger btn-sm glyphicon glyphicon-remove-sign"  ng-click="deleteOrgAddress(addr)">Delete</a>
+                        <a ng-hide="addr.editing" class="btn btn-danger btn-sm glyphicon glyphicon-remove-sign"  ng-click="deleteOrgAddress(addr, orgAd.location)">Delete</a>
                         <a ng-if="addr.editing" class="btn btn-primary btn-sm glyphicon glyphicon-floppy-save" ng-click="updateAddress(addr)">Save</a>&nbsp;
                         <a ng-if="addr.editing" class="btn btn-primary btn-sm glyphicon glyphicon-remove" ng-click="disableEditing(addr)">Cancel</a>
                       </div>  
@@ -157,7 +165,9 @@
           <hr size=3 width="100%;" style="background-color:#BDBDBD; height:1px; margin-top: 0;" noshade>
           <p ng-hide='islocation' style="margin-top: 10px; font-size: 14px; font-weight:bold;">Click <a href="" ng-click='addLocation()'>here</a> to add more address.
           </p><br>
-        <div ng-if='showGrowlMessage===1' growl id="growlMessage"></div>
+          <div ng-if="addedOrgLocation === true">
+                    <div growl></div>
+          </div>
         <div ng-show='islocation' class="addressCountry">
 
           <form name="form.orgaddlocationform" class="css-form" ng-submit="" novalidate>
@@ -185,8 +195,8 @@
               <dd ng-repeat='contact in contacts'><input name="contact" type="text" style="width:55%; height:30px; display:block" class="form-control" ng-pattern="/^[0-9]{10,15}$/" placeholder="Customer HelpLine" ng-model="contact.customerhelpline" /><br><small style='color:red;' ng-show="(form.orgaddlocationform.contact.$dirty && form.orgaddlocationform.contact.$valid)"></small></dd>
               <dd><p ng-show="(form.orgaddlocationform.submitted && form.orgaddlocationform.$invalid)" class="text-danger"><small style='color:red;'>Please enter valid data.</small></p></dd>
             </dl>
-            <button class="btn btn-primary btn-sm pull-right" style="border-radius: 10px; margin: 5px; width: 80px; font-size: 12px; font-weight:bold;" href="#" ng-click="addOrgAddress()"><i style="margin-right: 5px;" class="fa fa-save"></i>Save</button>
-            <button class="btn btn-primary btn-sm pull-right" style="border-radius: 10px; margin: 5px; width: 80px; font-size: 12px; font-weight:bold;" ng-click="reset()"><i style="margin-right: 5px;" class="fa fa-times"></i>Cancel</button>
+            <button class="btn btn-primary btn-sm pull-right"  href="#" ng-click="addOrgAddress()"><i style="margin-right: 5px;" class="fa fa-save"></i>Save</button>
+            <button class="btn btn-primary btn-sm pull-right"  ng-click="reset()"><i style="margin-right: 5px;" class="fa fa-times"></i>Cancel</button>
           </form>
 
         </div><br>
@@ -198,7 +208,10 @@
             <p style='font-weight:bold; font-size: 13px; margin: 0;'>ADD USER TO GROUP<i class="fa fa-pencil pull-right"></i></p>
         </accordion-heading>
      <!--    <div ng-show='(form.orgnewgroupinvitesform.submitted || form.orggroupinvitesform.submitted)' growl></div> -->
-     <div ng-if="showGrowlMessage===1" growl id="growlMessage"></div>
+     
+     <div ng-if="manageOrgGroup ===true">
+             <div growl></div>
+     </div>
       <!--    <div ng-if='showGrowlMessage===1' growl></div> -->
          <div id="invites">
           <table class="table table-striped" ng-repeat="member in groups">
@@ -226,7 +239,7 @@
               <tr>
                 <td style="width: 40%;"><input class="form-control" ng-model="group.newgroupname" type="text" placeholder="Group Name" required></td>
                 <td style="width: 40%;"><input class="form-control" ng-model="group.newinvites" type="email" placeholder="Enter email seprated by commas(,)" prodonus-multi-email-validate required></td>
-                <td style="width: 20%;"><button class="btn btn-primary btn-sm pull-right" style="border-radius: 10px; margin: 5px; width: 80px; font-size: 12px; font-weight:bold;" ng-click="addGroupInvite()"><i style="margin-right: 5px;" class="fa fa-share"></i>Send</button></td>
+                <td style="width: 20%;"><button class="btn btn-primary btn-sm pull-right"  ng-click="addGroupInvite()"><i style="margin-right: 5px;" class="fa fa-share"></i>Send</button></td>
               </tr>
              <!--  <p ng-show="(form.orgnewgroupinvitesform.submitted && form.orgnewgroupinvitesform.$invalid)" class="text-danger"><small style='color:red;'>Please enter valid data.</small></p> -->
             </tbody>
@@ -243,9 +256,9 @@
                 <option ng-repeat="group in groups " value="{{group.grpname}}">{{group.grpname}}</option></select>
                 </td>
                 <td style="width: 40%;"><input class="form-control" ng-model="group.invites" type="email" placeholder="Enter email seprated by commas(,)" prodonus-multi-email-validate required></td>
-                <td style="width: 20%;"><button class="btn btn-primary btn-sm pull-right" style="border-radius: 10px; margin: 5px; width: 80px; font-size: 12px; font-weight:bold;" ng-click="addGroupInvite()"><i style="margin-right: 5px;" class="fa fa-share"></i>Send</button></td>
+                <td style="width: 20%;"><button class="btn btn-primary btn-sm pull-right" ng-click="addGroupInvite()"><i style="margin-right: 5px;" class="fa fa-share"></i>Send</button></td>
               </tr>
-              <p ng-show="(form.orggroupinvitesform.submitted && form.orggroupinvitesform.$invalid)" class="text-danger"><small style='color:red;'>Please enter valid data.</small></p>
+              <p ng-show="(form.orggroupinvitesform.submitted && form.orggroupinvitesform.$invalid)" class="text-danger"><small style='color:red;'>Please check syntax of Group name or Email Ids</small></p>
             </tbody>
           </table>
         </form>
@@ -256,7 +269,9 @@
       <accordion-heading>
             <p style='font-weight:bold; font-size: 13px; margin: 0;'>NEW ORGANIZATION INVITES<i class="fa fa-pencil pull-right"></i></p>
         </accordion-heading>
-        <div ng-if='showGrowlMessage===1' growl id="growlMessage"></div>
+        <div ng-if="addOrgInvites === true">
+                 <div growl></div>
+        </div>
         <button class="btn btn-info btn-sm" style="background-color:#47707C; border-color:#3C555C; border-radius: 10px; margin: 15px;" ng-click="addMoreInvites()"><i style="margin-right: 5px;" class="fa fa-plus-square"></i>Add More Invites</button>
         <table class="table table-condensed">
           <tbody>
@@ -267,7 +282,7 @@
             </tr>
           </tbody>
         </table>
-        <button class="btn btn-primary btn-sm pull-right" style="border-radius: 10px; margin: 5px; width: 80px; font-size: 12px; font-weight:bold;" ng-click="sendOrgInvites()"><i style="margin-right: 5px;" class="fa fa-share"></i>Send</button>
+        <button class="btn btn-primary btn-sm pull-right"  ng-click="sendOrgInvites()"><i style="margin-right: 5px;" class="fa fa-share"></i>Send</button>
     </accordion-group>
 
 
@@ -275,7 +290,9 @@
       <accordion-heading>
             <p style='font-weight:bold; font-size: 13px; margin: 0;'>ORGANIZATION CUSTOMER INVITES<i class="fa fa-pencil pull-right"></i></p>
       </accordion-heading>
-       <div ng-if='showGrowlMessage===1' growl id="growlMessage"></div>
+       <div ng-if="addCustomerInvites ===true">
+                 <div growl></div>
+       </div>
         <button class="btn btn-info btn-sm" style="background-color:#47707C; border-color:#3C555C; border-radius: 10px; margin: 15px;" ng-click="addCustomerInvites()"><i style="margin-right: 5px;" class="fa fa-plus-square"></i>Add More Invites</button>
         <table class="table table-condensed">
           <tbody>
@@ -285,15 +302,78 @@
             </tr>
           </tbody>
         </table>
-         <button class="btn btn-primary btn-sm pull-right" style="border-radius: 10px; margin: 5px; width: 80px; font-size: 12px; font-weight:bold;" ng-click="orgCustomerInvites()"><i style="margin-right: 5px;" class="fa fa-share"></i>Send</button>
+         <button class="btn btn-primary btn-sm pull-right"  ng-click="orgCustomerInvites()"><i style="margin-right: 5px;" class="fa fa-share"></i>Send</button>
     </accordion-group>
 
+
+    <accordion-group>
+        <accordion-heading>
+            <p style='font-weight:bold; font-size: 13px; margin: 0;'>ORGANIZATION IMAGES<i class="fa fa-pencil pull-right"></i></p>
+        </accordion-heading>
+
+   <!--      <div  style="display:inline;" ng-repeat="images in orgImages">
+                <img ng-src="{{images.image}}" style="height:90px;width:90px;">
+                <input type="checkbox" >
+        </div> -->
+
+
+    <div class="clearBoth"></div>
+      <div>
+
+        <form   name="ProductImg" >
+
+          <div class="checkboxFilter"  >
+            <div class= "pull-right" >
+              <span class= "" id="showHideAllchkLabel"  >Select All</span>  
+              <input class= "" id="showHideAllchk"  type="checkbox" ng-click="selectAllImages(orgImages); "  name="pinSet ">
+              &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;            
+              <button type="button" class="btn btn-danger btn-sm " id="prodo-deleteProductImage"  ng-click="checkImageSelectedToDelete()"  >
+              Delete &nbsp; <i class="fa fa-trash-o"></i> 
+              </button> 
+            </div>
+            <div class="clearBoth"></div>
+            <div >
+              <div class="thumb" ng-repeat="img in orgImages">
+                <img class="img prodo-productImgThumbnail"  ng-src="{{img.image}}" />
+                <input type="checkbox"  value="{{img.imageid}}" ng-model="chckedIndexs" name="imgSet" class="imgToggles" id="imgchk"  ng-click="checkedIndex(img)">
+              </div>
+            </div>
+            <br>
+          </div>
+        </form>
+      </div>
+      <div class="clearBoth"></div>
+  
+      <div class="modal fade" id="imgDelModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title" id="myModalLabel">Delete Images</h4>
+            </div>
+            <div class="modal-body">
+              Once deleted this images , it won't be accessible <br>
+              Are you sure you want to delete selected images?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default " data-dismiss="modal"> Cancel &nbsp;<i class="glyphicon glyphicon-remove"></i></button>
+              <button type="button" class="btn btn-danger "  ng-click="deleteProductImages($index);" data-dismiss="modal" >Delete &nbsp;<i class="glyphicon glyphicon-trash"></i></button>
+            </div>
+          </div>
+
+        </div>
+
+      </div> 
+
+
+    </accordion-group>
 
     <accordion-group ng-hide="usersession.currentUser.org.orgtype != 'Manufacturer' ">
       <accordion-heading>
             <p style='font-weight:bold; font-size: 13px; margin: 0;'>PRODUCT<i class="fa fa-pencil pull-right"></i></p>
         </accordion-heading>
-         <div ng-if='showGrowlMessage===1' growl id="growlMessage"></div>
+     <!--     <div ng-if='showGrowlMessage===1' growl ></div> -->
+    <!--     <div growl></div> -->
         <div ng-show="(productlist.length == 0)">
           <p style="text-align:left; font-size:20px; margin: 20px auto;" class="text-success"><strong><em>You have not added products.</em></strong></p>
         </div>
