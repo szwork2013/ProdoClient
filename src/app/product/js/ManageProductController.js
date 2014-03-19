@@ -216,7 +216,8 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
           description: $scope.product.description,
           support_discontinuation_date: $scope.product.supDis,
           sale_discontinuation_date: $scope.product.prodDis,
-          banneddate: $scope.product.banneddate
+          banneddate: $scope.product.banneddate,
+          category:$scope.product.category
         
         }
       };

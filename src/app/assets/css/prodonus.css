@@ -1326,7 +1326,7 @@ ul {list-style-type: none; }
 /*#commentNavTab{position: absolute;*/
 /*top: 34%;*/
 /*left: 77%;}*/
-.prodo-CategoryUl{max-height:40px;overflow-x:hidden; overflow-y: auto;}
+.prodo-CategoryUl{margin-bottom: -20px;max-height: 40px;overflow-x: hidden;overflow-y: auto;left: 40px;position: relative;top: -20px;}
 .prodo-userAvatar{height:50px; width:50px}
 .prodo-modal-user{ left:200px}
 .prodo-userImg{height:90px;width:90px;}
