@@ -11,10 +11,10 @@
     <p class="error-message"><small>{{errmessage}}</small></p>
       <div class="control-group">
 
-        <input type="text" name="groupname" class="prodo-wizard-form-control form-control" placeholder="Group Name" ng-model="org.grpname"  autofocus required/><i class="fa fa-check" ng-show="OrgGroupuserForm.groupname.$dirty && OrgGroupuserForm.groupname.$valid"></i>
+        <input type="text" name="groupname" class="prodo-wizard-form-control form-control" placeholder="Group Name" ng-model="org.grpname"  autofocus />
 
-        <input name="invites" type="text" class="prodo-wizard-form-control form-control" placeholder="Send invites(company emailId's separated by(,))" ng-model="org.invites" prodonus-multi-email-validate /><i class="fa fa-check" ng-show="OrgGroupuserForm.invites.$dirty && OrgGroupuserForm.invites.$valid"></i>
-         
+        <input name="invites" type="text" class="prodo-wizard-form-control form-control" placeholder="Send invites (Company emailId's separated by comma" ng-model="org.invites" prodonus-multi-email-validate />
+        <div ng-if="emailErrorMessage !== ''" ng-bind = "emailErrorMessage"></div>
       </div>
 
       <button class="prodo-wizard-btn btn btn-md btn-primary" type="submit" ui-sref="prodo.orgregistration.address">Previous</button>

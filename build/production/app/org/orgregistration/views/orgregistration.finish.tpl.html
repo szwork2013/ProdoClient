@@ -39,7 +39,7 @@
 					</tr>
 					<tr class="prodo-wizard-table-tr">
 						<td class="prodo-wizard-table-td">Address</td>
-						<td>{{org.address1}}{{org.address2}}{{org.address3}}</td>
+						<td>{{org.address1}}&nbsp;{{org.address2}}&nbsp;{{org.address3}}</td>
 					</tr>
 	 				<tr class="prodo-wizard-table-tr">
 	 					<td class="prodo-wizard-table-td">Country</td>
@@ -63,7 +63,9 @@
 	 			<tbody>
 	 				<tr class="prodo-wizard-table-tr">
 	 					<td class="prodo-wizard-table-td">Contact No.</td>
-	 					<td ng-repeat='contact in org.contacts'>{{contact.customerhelpline}}</td>
+	 					<td ng-if="org.contact.customerhelpline1!==''">{{org.contact.customerhelpline1}}</td>
+	 					<td ng-if="org.contact.customerhelpline2!==''">{{org.contact.customerhelpline2}}</td>
+	 					<td ng-if="org.contact.customerhelpline3!==''">{{org.contact.customerhelpline3}}</td>
 	 				</tr>
 	 			</tbody>
 

@@ -106,7 +106,7 @@
          </ul>
         </td>
         <tr  class="prodo-productTableFont" >
-          <td    colspan="2" class="prodo-productTableFont">Description : &nbsp;<span ng-bind="product.description"> </span></td>
+          <td    colspan="2" class="prodo-productTableFont">Description : &nbsp;<span ng-bind="product.description" class="prodo-descriptionDisplay"> </span></td>
         </tr>
       </table>
     </div>
@@ -180,11 +180,11 @@
       <form    id="Editfeature" ng-show="editorEnabledF ==true"  name="productFeaturesForm" >
         <table class="table child table-hover table-bordered"  id="prodo-ProductFeatureTable" >
           <tr class="prodo-productTableFont" >
-            <td >   Feature name&nbsp;&nbsp;&nbsp; <input ng-model="feature.name"   id="prodo-product-features_textfield" class="form-control prodo-validation" 
+            <td >   Feature name&nbsp;&nbsp;&nbsp; <input ng-model="featurename"   id="prodo-product-features_textfield" class="form-control prodo-validation" 
               ng-maxlength="50" type="text"   required name="name" />  </td>
           </tr>
           <tr class="prodo-productTableFont" >
-            <td  colspan="2">Description   <textarea  type="text" id="prodo-product-featuresDescription_textfield" class="form-control prodo-validation"  ng-model="feature.description"  ng-maxlength="100" required name="description" col="40"  > </textarea>
+            <td  colspan="2">Description   <textarea  type="text" id="prodo-product-featuresDescription_textfield" class="form-control prodo-validation"  ng-model="featuredescription"  ng-maxlength="100" required name="description" col="40"  > </textarea>
             </td>
           </tr>
           <tr  class="prodo-productTableFont">
@@ -226,7 +226,7 @@
                       <h4 class="modal-title" id="myModalLabel">Delete Product Feature</h4>
                     </div>
                     <div class="modal-body">
-                      Once deleted this product feature " {{selectedFeature.featurename}}  ", it won't be accessible .<br>
+                      Once deleted this product feature " {{selectedFeature.featurename}}  ", won't be accessible .<br>
                       Are you sure you want to delete ?
                     </div>
                     <div class="modal-footer">
@@ -302,7 +302,7 @@
               <h4 class="modal-title" id="myModalLabel">Delete Images</h4>
             </div>
             <div class="modal-body">
-              Once deleted this images , it won't be accessible <br>
+              Once you deleted this images ,it won't be accessible <br>
               Are you sure you want to delete selected images?
             </div>
             <div class="modal-footer">

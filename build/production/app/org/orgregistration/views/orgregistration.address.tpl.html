@@ -9,40 +9,66 @@
 
   	<form id="prodo-form-address" name="OrgAddressForm" class="prodo-wizard-css-form css-form" ng-submit="" novalidate>
   		<p class="error-message"><small>{{errmessage}}</small></p>
-      <button class="prodo-wizard-address-btn btn btn-default" ng-click="toggleAddress = !toggleAddress"><i class="fa fa-plus-square "></i> &nbsp;&nbsp; Address</button>
+      <label class="prodo-wizard-address-label">Company Address</label>
 
-	      <div class="control-group" ng-if="toggleAddress">
+	      <div class="control-group" >
 
-		      <select type="text" name="orgaddresstype" class="prodo-wizard-form-control form-control" ng-model="org.orgaddresstype" autofocus required>
-		        <option value="Company Address" >Company Address</option>
-		        <option value="Service Centers">Service Centers</option>
-		      </select><i class="fa fa-check" ng-show="OrgAddressForm.orgaddresstype.$dirty && OrgAddressForm.orgaddresstype.$valid"></i>
+		     
 
-					<input name="address1"  type="text" class="prodo-wizard-form-control form-control" placeholder="Address Line1" ng-model="org.address1"  required /><i class="fa fa-check" ng-show="OrgAddressForm.address1.$dirty && OrgAddressForm.address1.$valid"></i>
+		<!--         <option value="Service Centers">Service Centers</option> -->
+		
+
+
+					<input name="address1"  type="text" class="prodo-wizard-form-control form-control" placeholder="Address Line1" ng-model="org.address1"  required />
 						 
-					<input name="address2"  type="text" class="prodo-wizard-form-control form-control" placeholder="Address Line2" ng-model="org.address2" /><i class="fa fa-check" ng-show="OrgAddressForm.address2.$dirty && OrgAddressForm.address2.$valid"></i>
+                    <div class="error-message" ng-if="addressErrorMessage!==''" ng-bind="addressErrorMessage"></div>   
 
-					<input name="address3"  type="text" class="prodo-wizard-form-control form-control" placeholder="Address Line3" ng-model="org.address3" /><i class="fa fa-check" ng-show="OrgAddressForm.address3.$dirty && OrgAddressForm.address3.$valid"></i>
+					<input name="address2"  type="text" class="prodo-wizard-form-control form-control" placeholder="Address Line2" ng-model="org.address2" />
 
-					<input name="country" ng-pattern="/^[A-z]*$/" typeahead="country for country in countries | filter:$viewValue | limitTo:8"  type="text" class="prodo-wizard-form-control form-control" placeholder="Country" ng-model="org.country" required /><i class="fa fa-check" ng-show="OrgAddressForm.country.$dirty && OrgAddressForm.country.$valid" id="addressCountry"></i>
+					<input name="address3"  type="text" class="prodo-wizard-form-control form-control" placeholder="Address Line3" ng-model="org.address3" />
+
+					<input name="country" ng-pattern="/^[A-z]*$/" typeahead="country for country in countries | filter:$viewValue | limitTo:8"  type="text" class="prodo-wizard-form-control form-control" placeholder="Country" ng-model="org.country" required />
+
+					 <div class="error-message" ng-if="invalidCountryError !== '' " ng-bind="invalidCountryError"></div> 
 						 
-					<input name="state" ng-pattern="/^[A-z]*$/"  typeahead="state for state in return_states() | filter:$viewValue | limitTo:8"  type="text" type="text" class="prodo-wizard-form-control form-control" placeholder="State" ng-model="org.state" required /><i class="fa fa-check" ng-show="OrgAddressForm.state.$dirty && OrgAddressForm.state.$valid"></i>
+					<input name="state" ng-pattern="/^[A-z]*$/"  typeahead="state for state in return_states() | filter:$viewValue | limitTo:8"  type="text" type="text" class="prodo-wizard-form-control form-control" placeholder="State" ng-model="org.state" required />
 
-					<input name="city" ng-pattern="/^[A-z]*$/"  typeahead="city for city in return_cities() | filter:$viewValue | limitTo:8"  type="text" type="text" class="prodo-wizard-form-control form-control" placeholder="City" ng-model="org.city" required /><i class="fa fa-check" ng-show="OrgAddressForm.city.$dirty && OrgAddressForm.city.$valid"></i>
+					 <div class="error-message" ng-if="invalidStateError !== ''" ng-bind="invalidStateError"></div> 
+
+					<input name="city" ng-pattern="/^[A-z]*$/"  typeahead="city for city in return_cities() | filter:$viewValue | limitTo:8"  type="text" type="text" class="prodo-wizard-form-control form-control" placeholder="City" ng-model="org.city" required />
 				
-					<input name="zipcode" type="text" class="prodo-wizard-form-control form-control" placeholder="Zip Code" ng-pattern="/^[0-9]{5,10}$/" ng-model="org.zipcode" required /><i class="fa fa-check" ng-show="OrgAddressForm.zipcode.$dirty && OrgAddressForm.zipcode.$valid"></i>
+				    <div class="error-message" ng-if="invalidCityError!==''" ng-bind="invalidCityError"></div>
+
+					<input name="zipcode" type="text" class="prodo-wizard-form-control form-control" placeholder="Zip Code" ng-pattern="/^[0-9]{5,10}$/" ng-model="org.zipcode" required />
 				
+				     <div class="error-message" ng-if="invalidZipcodeError!==''" ng-bind="invalidZipcodeError" ></div> 
 				</div> 
 			 
-			<button class="prodo-wizard-address-btn btn btn-default" ng-click="toggleContact = !toggleContact"><i class="fa fa-plus-square "></i> &nbsp;&nbsp; Contact</button>
+			<label class="prodo-wizard-address-label ">Contact</label>
 
-	      <div class="control-group" ng-if="toggleContact">
+	      <div class="control-group" >
 
-					<input ng-repeat='contact in org.contacts' name="contact" type="text" class="prodo-wizard-form-control form-control" ng-pattern="mobileRegex" placeholder="Customer HelpLine" ng-model="contact.customerhelpline" /><i class="fa fa-check" ng-show="OrgAddressForm.contact.$dirty && OrgAddressForm.contact.$valid"></i>
+					<!-- <input ng-repeat='contact in org.contacts' name="contact" type="text" class="prodo-wizard-form-control form-control" ng-pattern="mobileRegex" placeholder="Customer HelpLine" ng-model="contact.customerhelpline" /><i class="fa fa-check" ng-show="OrgAddressForm.contact.$dirty && OrgAddressForm.contact.$valid"></i> -->
+
+					<div>
+							<input class="prodo-wizard-form-control form-control" type="text" ng-pattern="/^\(?[+]([0-9]{2,5})\)?[-]?([0-9]{10})$/" placeholder="Customer HelpLine [eg: +91-9000000000]" ng-model="org.contact.customerhelpline1" name="contact1" required> 
+							
+					</div>
+					 <div class="error-message" ng-if="invalidContact1!==''" ng-bind="invalidContact1"></div>
+					<div>
+							<input class="prodo-wizard-form-control form-control" type="text" ng-pattern="/^\(?[+]([0-9]{2,5})\)?[-]?([0-9]{10})$/" placeholder="Customer HelpLine [eg: +91-9000000000]" ng-model="org.contact.customerhelpline2" name="contact2" > 
+							
+					</div>
+					 <div class="error-message" ng-if="invalidContact2!==''" ng-bind="invalidContact2"></div>
+					<div>
+							<input class="prodo-wizard-form-control form-control" type="text" ng-pattern="/^\(?[+]([0-9]{2,5})\)?[-]?([0-9]{10})$/" placeholder="Customer HelpLine [eg: +91-9000000000]" ng-model="org.contact.customerhelpline3" name="contact3" > 
+						    
+					</div>
+					 <div class="error-message" ng-if="invalidContact3!==''" ng-bind="invalidContact3"></div>
 						 
 				</div>	<!-- control group div -->
 
-			<p id="prodo-address-text">To upload more address, please use manage account settings after registration.</p>
+			<p id="prodo-address-text">To upload more address, please use manage org settings after registration.</p>
    
     	<button class="prodo-wizard-btn btn btn-md btn-primary" type="submit" ui-sref="prodo.orgregistration.company">Previous</button>
     	<button class="prodo-wizard-btn btn btn-md btn-primary" onclick="$('#reg-address').css('color','#01DF74')"  type="submit" ng-click="goToGroupuser()">Next</button>
