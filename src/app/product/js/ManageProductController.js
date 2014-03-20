@@ -142,7 +142,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
     if (data.success) {
        $scope.enableProductSuccessMsg();
        ProdSuccessMsg.innerHTML = data.success.message;
-      // growl.addSuccessMessage(data.success.message);
+       // growl.addSuccessMessage(data.success.message);
       $state.reload();
     } else {
       if (data.error.code == 'AV001') { // user already exist
@@ -560,6 +560,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
             prodle: $scope.currentProdle
           }, $scope.newFeature, function (success) {
             // $log.debug(success);
+            $scope.currentProdle=$scope.product.product_prodle;
             $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
             $log.debug("new Feature : " + JSON.stringify($scope.newFeature.productfeature[0]));
             $scope.features.push($scope.newFeature.productfeature[0]);
@@ -607,6 +608,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
           'productfeature': data
         }, function (success) {
           // $log.debug(success);
+           $scope.currentProdle=$scope.product.product_prodle;
           $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
           // $scope.features.push($scope.newFeature);
           $scope.enableFeatureSuccessMsg();
@@ -682,9 +684,14 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   //on product logo hover, show follow product button
 
   $scope.getSelectedProduct = function (product1) {
+    if($scope.editorEnabled == true){
+      $scope.enableProductErrorMsg();
+      ProdERRMsg.innerHTML = "Please add product first then view other products..."; 
+    }else{
     $scope.currentProdle = product1.prodle;
     $scope.currentOrgid = product1.orgid;
     $scope.getProduct($scope.currentProdle, $scope.currentOrgid);
+    }
   };
 
 
