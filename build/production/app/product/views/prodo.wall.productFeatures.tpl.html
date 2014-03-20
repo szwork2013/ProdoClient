@@ -99,6 +99,12 @@
           <td  class="prodo-productTableFont" >Product Name :&nbsp; <span ng-bind="product.name" > </span></td>
           <td  class="prodo-productTableFont" >Model No :&nbsp; <span ng-bind="product.model_no"></span></td>
         </tr>
+        <td colspan="2" ng-show="product.category" >Category :  
+         <ul class="prodo-CategoryUl">
+            <li ng-repeat="category in product.category track by $index" class=" prodo-categoryTags" >  <span ng-bind="category" > </span>
+            </li>
+         </ul>
+        </td>
         <tr  class="prodo-productTableFont" >
           <td    colspan="2" class="prodo-productTableFont">Description : &nbsp;<span ng-bind="product.description"> </span></td>
         </tr>
@@ -121,6 +127,17 @@
               ng-maxlength="50"  id="prodo-product-features_textfield" class="form-control prodo-display-right prodo-validation"  type="text"    name="name" required />  </td>
             <td  >Model No  <input id="prodo-product-features_textfield" type="text" ng-minlength="2" ng-maxlength="50"class="form-control prodo-display-right prodo-validation" ng-model="product.model_no"   name="model_no" required /></td>
           </tr>
+             <tr>
+            <td  colspan="2">Category   
+
+                        <!-- <div  class="" >
+                          <tags-input  add-on-enter="false" add-on-space="true" ng-model="product.category" placeholder="Add tags"  list=""
+                            replace-spaces-with-dashes="false"  ></tags-input>
+                             </div> -->
+            <tags-input ng-show="(editStatus=='add')" ng-model="category"   ></tags-input>
+              <tags-input ng-show="(editStatus=='update')" ng-model="product.category"   ></tags-input>               
+            </td>
+          </tr>
           <tr>
             <td  colspan="2">Description   <textarea  type="text" ng-minlength="2"
               ng-maxlength="500" id="prodo-product-featuresDescription_textfield" class="form-control prodo-validation"  ng-model="product.description" required name="description" col="40"  ></textarea>
@@ -130,7 +147,7 @@
             <td colspan="2">
               <!--   <button type="submit" class="btn btn-info" style="width: 550px;"  ng-click=" $parent.isEditing = false" >Save</button>
                 -->
-              <a  ng-disabled="productForm.$invalid" ng-click="addProduct(editStatus);disableEditor();" onclick="$('#productExtraInfo').css('display','block');" class="btn btn-primary btn-sm  pull-right prodo-margin5"   >Save &nbsp;<i class="fa fa-floppy-o"></i></a>
+              <a   ng-click="addProduct(editStatus);" onclick="$('#productExtraInfo').css('display','block');" class="btn btn-primary btn-sm  pull-right prodo-margin5"   >Save &nbsp;<i class="fa fa-floppy-o"></i></a>
               <a onclick="$('#productExtraInfo').css('display','block');" class="btn btn-default btn-sm  pull-right prodo-margin5"  ng-click="disableEditor();  " > Cancel &nbsp;<i class="glyphicon glyphicon-remove"></i></a>
             </td>
           </tr>
@@ -172,7 +189,7 @@
           </tr>
           <tr  class="prodo-productTableFont">
             <td colspan="2">
-              <a   ng-disabled="productFeaturesForm.$invalid" ng-click="addProductFeature(editStatus);disableEditorFeature(); " class="btn btn-primary btn-sm  pull-right prodo-margin5" > Save &nbsp;<i class="fa fa-floppy-o"></i></a>
+              <a    ng-click="addProductFeature(editStatus);" class="btn btn-primary btn-sm  pull-right prodo-margin5" > Save &nbsp;<i class="fa fa-floppy-o"></i></a>
               <a class="btn btn-default btn-sm  pull-right prodo-margin5" ng-click="disableEditorFeature() ; "> Cancel&nbsp;<i class="glyphicon glyphicon-remove"></i></a>
             </td>
           </tr>
@@ -224,7 +241,8 @@
               <!-- /.modal -->
             </td>
             <td ng-show="edit">
-              <a id="Editfeature1" ng-click="updateProductFeature(feature,feature.featureid);edit = ! edit;" class="btn btn-default  btn-sm fa fa-floppy-o prodo-margin5" ng-disabled="productFeatureUpdate.$invalid" ></a>
+               <a id="Editfeature1" ng-click="updateProductFeature(feature,feature.featureid);edit = ! edit;" class="btn btn-default  btn-sm fa fa-floppy-o prodo-margin5" ng-disabled="productFeatureUpdate.$invalid" ></a>
+            
               <a id="Editfeature1" class="btn btn-default  btn-sm glyphicon glyphicon-remove prodo-margin5" ng-click="edit = ! edit; getProductFeatures(product.prodle,product.orgid); "></a>
             </td>
           </tr>
@@ -259,7 +277,7 @@
               <span class= "" id="showHideAllchkLabel" ng-style="checkAdminProductImagesDelete();" >Select All</span>  
               <input class= "" id="showHideAllchk" ng-style="checkAdminProductImagesDelete();"  type="checkbox" ng-click="selectAllImages(pImages_l); "  name="pinSet ">
               &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;            
-              <button type="button" class="btn btn-danger btn-sm " id="prodo-deleteProductImage" ng-style="checkAdminProductImagesDelete();"  ng-click="checkImageSelectedToDelete()"  >
+              <button type="button" class="prodo-delImgs btn btn-danger btn-sm " id="prodo-deleteProductImage" ng-style="checkAdminProductImagesDelete();"  ng-click="checkImageSelectedToDelete()"  >
               Delete &nbsp; <i class="fa fa-trash-o"></i> 
               </button> 
             </div>
