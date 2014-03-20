@@ -7,6 +7,7 @@ angular.module('prodo.OrgApp')
     $scope.errmessage = '';
     $scope.mobileRegex = "/^\(?[+]([0-9]{2,5})\)?[-]?([0-9]{10})$/";
     $scope.org = OrgModel;   // assining OrgModel service to org to update org model data
+    
     $scope.countries=[ 'Afghanistan', 
                         'Albania', 
                         'Algeria', 
@@ -244,36 +245,36 @@ angular.module('prodo.OrgApp')
     //$scope.countries holds array of list of countries
     //$scope.states is an array of objects where each object will represent states of selected country
     //For time being only india is considered                    
-    $scope.states={};                    
-    $scope.states.india=     [
-                          'Andhra Pradesh', 
-                          'Arunachal Pradesh', 
-                          'Assam', 
-                          'Bihar ', 
-                          'Chhattisgarh ', 
-                          'Goa', 
-                          'Gujarat', 
-                          'Haryana', 
-                          'Himachal Pradesh', 
-                          'Jammu and Kashmir', 
-                          'Jharkhand', 
-                          'Kerala ', 
-                          'Madhya Pradesh', 
-                          'Maharashtra', 
-                          'Manipur', 
-                          'Meghalaya', 
-                          'Mizoram', 
-                          'Nagaland', 
-                          'Orissa ', 
-                          'Punjab', 
-                          'Rajasthan', 
-                          'Sikkim', 
-                          'Tamil Nadu', 
-                          'Tripura', 
-                          'Uttar Pradesh', 
-                          'Uttarakhand', 
-                          'West Bengal' ]                       
-                        ;    
+$scope.states={};                    
+$scope.states.india=     [
+                      'Andhra Pradesh', 
+                      'Arunachal Pradesh', 
+                      'Assam', 
+                      'Bihar ', 
+                      'Chhattisgarh ', 
+                      'Goa', 
+                      'Gujarat', 
+                      'Haryana', 
+                      'Himachal Pradesh', 
+                      'Jammu and Kashmir', 
+                      'Jharkhand', 
+                      'Kerala ', 
+                      'Madhya Pradesh', 
+                      'Maharashtra', 
+                      'Manipur', 
+                      'Meghalaya', 
+                      'Mizoram', 
+                      'Nagaland', 
+                      'Orissa ', 
+                      'Punjab', 
+                      'Rajasthan', 
+                      'Sikkim', 
+                      'Tamil Nadu', 
+                      'Tripura', 
+                      'Uttar Pradesh', 
+                      'Uttarakhand', 
+                      'West Bengal' ]                       
+                    ;    
     //$scope.cities will store data regarding cities in the states
     //Currently due to unavailability of data, we are resrticting our scope to india
     //So when india is selected from the country list
@@ -308,42 +309,120 @@ angular.module('prodo.OrgApp')
                             'Lucknow', 
                             'Kolkata', 
                             'Panaji', 
-                            'Pune'] ;                          
+                            'Pune'] ;                       
+//Validation
 $scope.selected_country="";
+$scope.errorOrgName ='';
+$scope.errOrgDesc ='';
+$scope.submitted = false;   
+$scope.optionErrorMessage = '';
 
-    $scope.submitted = false;   
+    $scope.goToAddress = function() { console.log(JSON.stringify($scope.org.contact));
+        $scope.errorOrgName ='';
+        $scope.errOrgDesc =''; 
+        $scope.optionErrorMessage = '';
+        if ($scope.OrgCompanyForm.$valid){     
+                $scope.errmessage = '';
+                $state.transitionTo('prodo.orgregistration.address');
+        } else {
+                $scope.submitted = true;
+                if($scope.OrgCompanyForm.companyname.$valid===false || $scope.org.name==='')
+                {
+                    $scope.errorOrgName = 'Please enter valid company name';
+                }
+                if($scope.OrgCompanyForm.description.$valid===false || $scope.org.description==='')
+                {
+                    $scope.errOrgDesc = 'Please enter valid description';
+                }
+                if($scope.OrgCompanyForm.orgtype.$valid===false)
+                {
+                     $scope.optionErrorMessage = 'Please select atleast one option';
+                }
 
-    $scope.goToAddress = function() {
-      if ($scope.OrgCompanyForm.$valid){
-        $scope.errmessage = '';
-        $state.transitionTo('prodo.orgregistration.address');
-      } else {
-        $scope.submitted = true;
-        $scope.errmessage = 'Please enter required data.';   
-      }
+        }
     };
 
-    $scope.goToGroupuser = function() {
-      if ($scope.OrgAddressForm.$valid){
-        $scope.errmessage = '';
-        $state.transitionTo('prodo.orgregistration.groupuser'); 
-      } else {
-        $scope.errmessage = 'Please enter required data.';
-        $scope.submitted = true;   
-      }
-    };
+//End of block
+//Validation error messages variable declaration 
+$scope.addressErrorMessage = '';
+$scope.invalidCountryError = '';
 
-    $scope.goToState = function() {
-      if ($scope.OrgGroupuserForm.$valid) {
+$scope.invalidStateError = '';
+$scope.invalidCityError = '';
+$scope.invalidZipcodeError = '';
+$scope.invalidContact1 = '';
+$scope.invalidContact2 = '';
+$scope.invalidContact3 = '';
+//$scope.org.contact={customerhelpline1:'',customerhelpline2:'',customerhelpline3:''};
+    $scope.goToGroupuser = function() {  
+
+        console.log(JSON.stringify($scope.org.contact));
+        $scope.addressErrorMessage = '';
+        $scope.invalidCountryError = '';
+        $scope.invalidStateError = '';
+        $scope.invalidCityError = '';
+        $scope.invalidZipcodeError = '';
+        $scope.invalidContact1 = '';
+        $scope.invalidContact2 = '';
+        $scope.invalidContact3 = '';
+        if ($scope.OrgAddressForm.$valid){
+                    $scope.errmessage = '';    
+                    $state.transitionTo('prodo.orgregistration.groupuser'); 
+        } else {
+            if($scope.org.address1 === '' || $scope.OrgAddressForm.address1.$valid === false)
+            {
+                  $scope.addressErrorMessage = "Please enter valid address "; 
+            }
+            if($scope.OrgAddressForm.country.$valid===false || $scope.org.country === '')
+            {
+                   $scope.invalidCountryError = 'Please enter correct country';
+            }
+            if($scope.OrgAddressForm.state.$valid === false || $scope.org.country === '' )
+            {        
+                   $scope.invalidStateError = 'Please enter valid state';
+            }
+            if($scope.OrgAddressForm.city.$valid === false || $scope.org.city === '' )
+            {        
+                   $scope.invalidCityError = 'Please enter valid city';
+            }
+            if($scope.OrgAddressForm.zipcode.$valid === false || $scope.org.zipcode === '' )
+            {
+                   
+                   $scope.invalidZipcodeError = 'Please enter valid Zipcode';
+            }
+            if($scope.OrgAddressForm.contact1.$valid === false)
+            {
+                   $scope.invalidContact1 = 'Please enter valid phone number';
+            }
+            if($scope.OrgAddressForm.contact2.$valid === false  )
+            {
+                   $scope.invalidContact2 = 'Please enter valid phone number';
+            }
+            if($scope.OrgAddressForm.contact3.$valid === false  )
+            {
+                   $scope.invalidContact3 = 'Please enter valid phone number';
+            }
+            $scope.submitted = true;   
+         }
+    };
+    
+
+    $scope.emailErrorMessage = '' ;
+
+    $scope.goToState = function() { console.log(JSON.stringify($scope.org.contact));
+        $scope.emailErrorMessage = '';
+      if ($scope.OrgGroupuserForm.$valid || ($scope.org.grpname === "" && $scope.org.invites === "")) { 
           $scope.errmessage = '';
           $state.transitionTo('prodo.orgregistration.terms');
       } else {
-        $scope.errmessage = 'Please enter required data.';
-        $scope.submitted = true;   
+        if($scope.OrgGroupuserForm.invites.$dirty === true && $scope.OrgGroupuserForm.invites.$valid  === false)
+        {    
+                $scope.emailErrorMessage = 'Please enter valid email addresses' ;
+        }
       }
     };
 
-    $scope.goToSummary = function() {
+    $scope.goToSummary = function() { console.log(JSON.stringify($scope.org.contact));
       if ($scope.org.terms){
         $state.transitionTo('prodo.orgregistration.finish'); 
       }
@@ -402,7 +481,7 @@ $scope.selected_country="";
     }
 
     // function to handle server side responses on org resgistration submit
-		$scope.handleOrgResponse = function(data){
+	$scope.handleOrgResponse = function(data){
       console.log(data);
       if (data.success) {
         $log.debug(data.success);      
@@ -438,11 +517,12 @@ $scope.selected_country="";
             } 
           } 
       });
-
+$scope.org.orgaddresstype="Company Address";
     // function to send user data n stringify in json format
     $scope.jsonOrgData = function() {
+        
       var orgData = 
-        {
+        { 
           organization:
             { 
   	          'name':$scope.org.name,

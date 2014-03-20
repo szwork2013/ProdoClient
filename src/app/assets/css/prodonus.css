@@ -665,17 +665,16 @@ small {
 
 
 .prodo-wizard-form-control{
-	width:50%;
+	width:60%;
 	height: 30px;
 	border-radius: 3px;
 	margin: 10px auto;
 	display: block;
-	font-size: 13px;
-     
+	font-size: 13px;    
 }
 
 #prodo-company-wizard-btn{
-	width:50%;
+	width:60%;
 	border-radius: 3px;
 	background-color: #3a92c6;
 	font-size: 15px;
@@ -685,7 +684,7 @@ small {
   }
 
 .prodo-wizard-btn{
-	width:25%;
+	width:30%;
 	border-radius: 2px;
 	background-color: #3a92c6;
 	font-size: 15px;
@@ -710,6 +709,18 @@ small {
 	font-size: 16px;
 }
 
+.prodo-wizard-address-label{
+	width:60%;
+	height: 30px;
+	border-radius: 3px;
+	margin: 5px auto;
+	display: block;
+	text-align: left;  
+	background-color: #f3f5f3; 
+	color: black; 
+	font-size: 16px;
+	padding-left: 3px;
+}
 
 .dropdown-menu>li>a {
 display: block;
@@ -838,7 +849,7 @@ text-align: left;
 }
 
 #prodo-registration-Wizard-after{
-	color :#c8dbc8 ; background-color: white; z-index: 100;position: absolute;
+	color :rgb(1, 223, 116); background-color: white; z-index: 100;position: absolute;
 
 }
 
@@ -2200,8 +2211,17 @@ margin:5px auto; height:70px; display:block; text-align:left; font-weight:bold; 
 	margin:1px auto; display:block; width:95%; height: 130px; 
 }
 
-.prodo-registration-Wizard-after{
-	style="color :rgb(200, 219, 200)";
+.fa-check:before {
+content: "\f000";
+font-family: FontAwesome;
+font-style: normal;
+font-weight: normal;
+text-decoration: inherit;
+color: green;
+padding-right: 0.5em;
+position: absolute;
+top: -35px;
+left: 173px;
 }
 
 
