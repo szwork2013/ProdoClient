@@ -10,12 +10,16 @@
  * 27-3/2013 | xyx | Add a new property
  *
  */
-angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$log', '$rootScope', 'ProductService', 'UserSessionService', '$http', 'CommentLoadMoreService', 'ENV', 'TagReffDictionaryService', 'ProductFeatureService', 'growl', function ($scope, $log, $rootScope, ProductService, UserSessionService, $http, CommentLoadMoreService, ENV, TagReffDictionaryService, ProductFeatureService, growl) {
+angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$log', '$rootScope', 'ProductService', 'UserSessionService', '$http', 'CommentLoadMoreService', 'ENV', 'TagReffDictionaryService', 'ProductFeatureService', 'growl','$state', function ($scope, $log, $rootScope, ProductService, UserSessionService, $http, CommentLoadMoreService, ENV, TagReffDictionaryService, ProductFeatureService, growl,$state) {
  
   
   $scope.productComments = {
     comments: [{}]
   };
+   $scope.searchComment = {
+    search: ''
+  };
+  // $scope.searchComment="warranty";
   $scope.newProductComment = [];
   $rootScope.productCommentResponsearray = [];
   $scope.mytags;
@@ -56,7 +60,8 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
   $scope.socket;
   $scope.isCollapsed = true;
 
-   
+  $scope.$state = $state;
+
   //watch prodle if changed by user by product search or any other source
   $rootScope.$watch('product_prodle', function () {
     // $log.debug("Listening" + $rootScope.product_prodle);
@@ -66,7 +71,7 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
     var temp = document.getElementById('prodo-comment-container');
     if ($rootScope.product_prodle !== undefined && $rootScope.product_prodle !== null && $rootScope.product_prodle !== "") {
       $scope.getProduct($rootScope.product_prodle, $rootScope.orgid); //if product available, call getproduct
-      $scope.search="";
+     
       $scope.tabComment=true;
     } else { //show msg to follow product
       $("#prodo-ProductDetails").css("display", "none");
@@ -97,6 +102,10 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
   $scope.getUserDetails();
   //get login details
   $scope.getProduct = function (l_prodle, l_orgid) {
+    // document.getElementById("prodo-comment-search-Textbox").value="";
+    $scope.searchComment.search="";
+    $scope.commenttextField.userComment="";
+    // $log.debug("search "+$scope.searchComment.search);
     $log.debug("1 prodle " + l_prodle + "orgid " + l_orgid);
     ProductService.getProduct({
       orgid: l_orgid,
