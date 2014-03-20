@@ -88,17 +88,17 @@
     <div id="prodo-comment-fixed" ng-controller="ProductCommentController">
       <!-- tabs -->
       <div class="prodo-comment-Text-tabs " id="tabs">
-        <ul id="commentTab" class=" commentTab nav nav-pills" ng-init="tabSearch = false;
-          tabComment = true" >
-          <li class="Pcomment" ng-class="{active2 : tabComment == 1}" >
-            <a  class="prodo-cursor" id="prodoCommentTab" ng-click="tabComment = true; tabSearch=false;  "  >
+        <ul id="commentTab" class=" commentTab nav nav-pills" ng-init="tabForComment.tabSearch = false;
+          tabForComment.tabComment = true" >
+          <li class="Pcomment" ng-class="{active2 : tabForComment.tabComment == 1}" >
+            <a  class="prodo-cursor" id="prodoCommentTab" ng-click="tabForComment.tabComment = true; tabForComment.tabSearch=false;  "  >
               <div   id="fa-removeComment" name="rm" class=" fa fa-comments-o fa-lg  " ></div>
             </a>
           </li>
 
-          <li class="PSearch" ng-class="{active2 : tabSearch == 1}"  >
-            <a id="prodoCommentSearchTab" class="prodo-cursor" ng-click="tabSearch =  true ;
-              tabComment = false; hideFeature()" >
+          <li class="PSearch" ng-class="{active2 : tabForComment.tabSearch == 1}"  >
+            <a id="prodoCommentSearchTab" class="prodo-cursor" ng-click="tabForComment.tabSearch =  true ;
+              tabForComment.tabComment = false; hideFeature()" >
 
               <div id="fa-tagsComment" class="fa fa-search fa-lg"  ></div>
             </a>
@@ -115,7 +115,7 @@
                      </ul>
         </div>
         <div class="tab-content">
-          <div id="Remove" ng-show="tabComment == true" >
+          <div id="Remove" ng-show="tabForComment.tabComment == true" >
             <div id="prodo-comment-enterComment" >
               <span class="label label-info   " ng-bind="300 - commenttextField.userComment.length" ></span> 
               <a href="" ng-click="getLatestComments()" >
@@ -153,7 +153,7 @@
               </p>
             </div>
           </div>
-          <div id="Remove" ng-show="tabSearch == true" class="prodo-padding-bottom"  >
+          <div id="Remove" ng-show="tabForComment.tabSearch == true" class="prodo-padding-bottom"  >
             <br>
             <input ng-model="searchComment.search" class="commentSearchTextbox form-control " id="prodo-comment-search-Textbox"  type="text"   placeholder="Search comments ...">
           </div>

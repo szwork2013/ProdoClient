@@ -19,6 +19,10 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
    $scope.searchComment = {
     search: ''
   };
+  $scope.tabForComment={
+    tabComment:'true',
+    tabSearch:'false'
+  }
   // $scope.searchComment="warranty";
   $scope.newProductComment = [];
   $rootScope.productCommentResponsearray = [];
@@ -105,6 +109,8 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
     // document.getElementById("prodo-comment-search-Textbox").value="";
     $scope.searchComment.search="";
     $scope.commenttextField.userComment="";
+    $scope.tabForComment.tabComment = true;
+    $scope.tabForComment.tabSearch=false;
     // $log.debug("search "+$scope.searchComment.search);
     $log.debug("1 prodle " + l_prodle + "orgid " + l_orgid);
     ProductService.getProduct({
