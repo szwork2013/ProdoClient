@@ -546,8 +546,8 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
     $scope.newFeature = {};
     $scope.newFeature = {
       productfeature: [{
-        featurename: $scope.feature.name,
-        featuredescription: $scope.feature.description
+        featurename: $scope.featurename,
+        featuredescription: $scope.featuredescription
       }]
     };
     $log.debug( $scope.newFeature);
@@ -565,6 +565,8 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
             $scope.features.push($scope.newFeature.productfeature[0]);
             $scope.enableFeatureSuccessMsg();
             ProdFSuccessMsg.innerHTML = "Feature added successfully";
+            $scope.featurename="";
+            $scope.featuredescription="";
             // growl.addSuccessMessage("Feature added successfully");
             $log.debug($scope.features);
             $scope.feature = "";
