@@ -11,7 +11,7 @@
   * 27-3/2013 | xyx | Add a new property
   * 
   */-->
-<li  id="prodo-comment-media"  class="media list-animate-item" ng-repeat="comment in productComments | filter:{commenttext:search}" >
+<li  id="prodo-comment-media"  class="media list-animate-item" ng-repeat="comment in productComments | filter:{commenttext:searchComment.search}" >
   <!--  <a class="pull-left" href="#">
     <img class="media-object" id="img-user" style="height:60px; width:50px" ng-src="{{comment.user.profilepic}}" alt="User"/> 
     </a> -->
@@ -68,7 +68,7 @@
     <div ng-style="hideIfNoOrg(comment.user.orgname)" id="prodo-comment-companyName" class="pull-left"   >  &nbsp; &nbsp; &nbsp; &nbsp; @ <span ng-bind="toCamelCase(comment.user.orgname).substring(0,15)"></span>
 
     </div>
-    <div id="prodo-comment-companyName"  ng-style="hideIfNogrp(comment.user.grpname)"> &nbsp; &nbsp;- &nbsp; <span ng-bind="comment.user.grpname.substring(0,15)"></span>
+    <div id="prodo-comment-companyName"  > &nbsp; &nbsp;- &nbsp; <span ng-style="hideIfNogrp(comment.user.grpname)" ng-bind="comment.user.grpname.substring(0,15)"></span>
     <ul id="commentNavTab" class="prodo-tabDelComment nav nav-pills pull-right" ng-init="tabCommentTags = false;
       tabCommentRemove = false" >
       <!--    <li><a    ng-click="tabCommentTags = tabCommentTags === false ? true : false;

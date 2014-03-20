@@ -16,6 +16,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
 
   //product
   $scope.editStatus;
+
   $scope.product = {
     product: [{}]
   };
@@ -109,7 +110,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
         $("#prodo-ProductDetails").css("display", "block");
         $("productExtraInfo").css("display", "block");
         $("#ErrMsging").css("display", "none");
-        // $log.debug(successData.success.product);
+        $log.debug(successData.success.product);
         $scope.getProductFeatures(l_prodle, l_orgid);
         $("#prodo-ProductFeatureTable").css("display", "table");
         $scope.product = successData.success.product;
@@ -141,7 +142,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
     if (data.success) {
        $scope.enableProductSuccessMsg();
        ProdSuccessMsg.innerHTML = data.success.message;
-      // growl.addSuccessMessage(data.success.message);
+       // growl.addSuccessMessage(data.success.message);
       $state.reload();
     } else {
       if (data.error.code == 'AV001') { // user already exist
@@ -168,7 +169,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   $scope.addProduct = function (editStatus) {
   if($scope.productForm.$invalid){
       $scope.enableProductErrorMsg();
-      ProdERRMsg.innerHTML = "Please add correct information"; 
+      ProdERRMsg.innerHTML = "Please add valid information"; 
     }
   else{
     $scope.disableEditor();
@@ -182,7 +183,8 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
         product: {
           model_no: $scope.product.model_no,
           name: $scope.product.name,
-          description: $scope.product.description
+          description: $scope.product.description,
+          category:$scope.category
         }
       };
       if ($rootScope.usersession.currentUser.org.isAdmin == true) {
@@ -192,12 +194,14 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
         }, $scope.newProduct, function (success) {
           if(success.success){
            $scope.newProduct_ResponseProdle=success.success.prodle;
+           $scope.category=[];
           }
          $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
         }, function (error) {
           // growl.addErrorMessage(error);
            $scope.enableProductErrorMsg();
            ProdERRMsg.innerHTML = error; 
+            $scope.category=[];
           $log.debug(error);
         });
 
@@ -214,7 +218,9 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
           description: $scope.product.description,
           support_discontinuation_date: $scope.product.supDis,
           sale_discontinuation_date: $scope.product.prodDis,
-          banneddate: $scope.product.banneddate
+          banneddate: $scope.product.banneddate,
+          category:$scope.product.category
+        
         }
       };
       if ($rootScope.usersession.currentUser.org.isAdmin == true) {
@@ -532,7 +538,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   $scope.addProductFeature = function (editStatus) {
    if($scope.productFeaturesForm.$invalid){
     $scope.enableFeatureErrorMsg();
-    ProdFERRMsg.innerHTML ="Please add correct information";
+    ProdFERRMsg.innerHTML ="Please add valid information";
    }
   else{
     $scope.disableEditorFeature();
@@ -540,11 +546,11 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
     $scope.newFeature = {};
     $scope.newFeature = {
       productfeature: [{
-        featurename: $scope.feature.name,
-        featuredescription: $scope.feature.description
+        featurename: $scope.featurename,
+        featuredescription: $scope.featuredescription
       }]
     };
-    // $log.debug( $scope.newFeature);
+    $log.debug( $scope.newFeature);
     if ($scope.newFeature !== undefined && $scope.newFeature !== null && $scope.newFeature !== "") {
       if (editStatus == 'add') {
         // $log.debug("adding");
@@ -554,11 +560,14 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
             prodle: $scope.currentProdle
           }, $scope.newFeature, function (success) {
             // $log.debug(success);
+            $scope.currentProdle=$scope.product.product_prodle;
             $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
             $log.debug("new Feature : " + JSON.stringify($scope.newFeature.productfeature[0]));
             $scope.features.push($scope.newFeature.productfeature[0]);
             $scope.enableFeatureSuccessMsg();
             ProdFSuccessMsg.innerHTML = "Feature added successfully";
+            $scope.featurename="";
+            $scope.featuredescription="";
             // growl.addSuccessMessage("Feature added successfully");
             $log.debug($scope.features);
             $scope.feature = "";
@@ -584,7 +593,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   $scope.updateProductFeature = function (data, id) {
     if($scope.productFeatureUpdate.$invalid){
       $scope.enableFeatureErrorMsg();
-      ProdFERRMsg.innerHTML = "Please add correct information";
+      ProdFERRMsg.innerHTML = "Please add valid information";
     }
     else{
 
@@ -599,6 +608,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
           'productfeature': data
         }, function (success) {
           // $log.debug(success);
+           $scope.currentProdle=$scope.product.product_prodle;
           $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
           // $scope.features.push($scope.newFeature);
           $scope.enableFeatureSuccessMsg();
@@ -674,9 +684,14 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   //on product logo hover, show follow product button
 
   $scope.getSelectedProduct = function (product1) {
+    if($scope.editorEnabled == true){
+      $scope.enableProductErrorMsg();
+      ProdERRMsg.innerHTML = "Please add product first then view other products..."; 
+    }else{
     $scope.currentProdle = product1.prodle;
     $scope.currentOrgid = product1.orgid;
     $scope.getProduct($scope.currentProdle, $scope.currentOrgid);
+    }
   };
 
 

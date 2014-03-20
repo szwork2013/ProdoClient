@@ -99,8 +99,14 @@
           <td  class="prodo-productTableFont" >Product Name :&nbsp; <span ng-bind="product.name" > </span></td>
           <td  class="prodo-productTableFont" >Model No :&nbsp; <span ng-bind="product.model_no"></span></td>
         </tr>
+        <td colspan="2" ng-show="product.category" >Category :  
+         <ul class="prodo-CategoryUl">
+            <li ng-repeat="category in product.category track by $index" class=" prodo-categoryTags" >  <span ng-bind="category" > </span>
+            </li>
+         </ul>
+        </td>
         <tr  class="prodo-productTableFont" >
-          <td    colspan="2" class="prodo-productTableFont">Description : &nbsp;<span ng-bind="product.description"> </span></td>
+          <td    colspan="2" class="prodo-productTableFont">Description : &nbsp;<span ng-bind="product.description" class="prodo-descriptionDisplay"> </span></td>
         </tr>
       </table>
     </div>
@@ -120,6 +126,17 @@
             <td >   Product Name <input ng-model="product.name" ng-minlength="2"
               ng-maxlength="50"  id="prodo-product-features_textfield" class="form-control prodo-display-right prodo-validation"  type="text"    name="name" required />  </td>
             <td  >Model No  <input id="prodo-product-features_textfield" type="text" ng-minlength="2" ng-maxlength="50"class="form-control prodo-display-right prodo-validation" ng-model="product.model_no"   name="model_no" required /></td>
+          </tr>
+             <tr>
+            <td  colspan="2">Category   
+
+                        <!-- <div  class="" >
+                          <tags-input  add-on-enter="false" add-on-space="true" ng-model="product.category" placeholder="Add tags"  list=""
+                            replace-spaces-with-dashes="false"  ></tags-input>
+                             </div> -->
+            <tags-input ng-show="(editStatus=='add')" ng-model="category"   ></tags-input>
+              <tags-input ng-show="(editStatus=='update')" ng-model="product.category"   ></tags-input>               
+            </td>
           </tr>
           <tr>
             <td  colspan="2">Description   <textarea  type="text" ng-minlength="2"
@@ -163,11 +180,11 @@
       <form    id="Editfeature" ng-show="editorEnabledF ==true"  name="productFeaturesForm" >
         <table class="table child table-hover table-bordered"  id="prodo-ProductFeatureTable" >
           <tr class="prodo-productTableFont" >
-            <td >   Feature name&nbsp;&nbsp;&nbsp; <input ng-model="feature.name"   id="prodo-product-features_textfield" class="form-control prodo-validation" 
+            <td >   Feature name&nbsp;&nbsp;&nbsp; <input ng-model="featurename"   id="prodo-product-features_textfield" class="form-control prodo-validation" 
               ng-maxlength="50" type="text"   required name="name" />  </td>
           </tr>
           <tr class="prodo-productTableFont" >
-            <td  colspan="2">Description   <textarea  type="text" id="prodo-product-featuresDescription_textfield" class="form-control prodo-validation"  ng-model="feature.description"  ng-maxlength="100" required name="description" col="40"  > </textarea>
+            <td  colspan="2">Description   <textarea  type="text" id="prodo-product-featuresDescription_textfield" class="form-control prodo-validation"  ng-model="featuredescription"  ng-maxlength="100" required name="description" col="40"  > </textarea>
             </td>
           </tr>
           <tr  class="prodo-productTableFont">
@@ -209,7 +226,7 @@
                       <h4 class="modal-title" id="myModalLabel">Delete Product Feature</h4>
                     </div>
                     <div class="modal-body">
-                      Once deleted this product feature " {{selectedFeature.featurename}}  ", it won't be accessible .<br>
+                      Once deleted this product feature " {{selectedFeature.featurename}}  ", won't be accessible .<br>
                       Are you sure you want to delete ?
                     </div>
                     <div class="modal-footer">
@@ -229,7 +246,7 @@
               <a id="Editfeature1" class="btn btn-default  btn-sm glyphicon glyphicon-remove prodo-margin5" ng-click="edit = ! edit; getProductFeatures(product.prodle,product.orgid); "></a>
             </td>
           </tr>
-        </table>s
+        </table>
       </form>
       <div class="clearBoth"></div>
       <!-- Features -->
@@ -285,7 +302,7 @@
               <h4 class="modal-title" id="myModalLabel">Delete Images</h4>
             </div>
             <div class="modal-body">
-              Once deleted this images , it won't be accessible <br>
+              Once you deleted this images ,it won't be accessible <br>
               Are you sure you want to delete selected images?
             </div>
             <div class="modal-footer">
