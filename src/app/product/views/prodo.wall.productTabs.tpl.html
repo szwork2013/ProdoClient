@@ -124,7 +124,7 @@
               <div ng-controller="DragImageController">
                 <div id="prodo-comment-textBox-container">
                   <div id="holder">
-                    <textarea id="prodo-comment-Textbox" col="40" type="text" class="form-control " name="txtComment" placeholder="Product Conversation [max 300 characters]"   ng-model="commenttextField.userComment" comment-limit="300" ng-enter="addProductComment();hideFeature()" required  items="featuretags"  ng-click="showFeature()"></textarea>  
+                    <textarea ng-init="commenttextField.userComment=''" id="prodo-comment-Textbox" col="40" type="text" class="form-control " name="txtComment" placeholder="Product Conversation [max 300 characters]"   ng-model="commenttextField.userComment" comment-limit="300" ng-enter="addProductComment();hideFeature()" required  items="featuretags"  ng-click="showFeature()"></textarea>  
                     <!-- tags -->
                     <div id="prodo-productTags">
                       <form  role="form">
