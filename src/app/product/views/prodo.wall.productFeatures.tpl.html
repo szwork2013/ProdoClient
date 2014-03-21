@@ -89,7 +89,7 @@
       </div>
       <!-- /.modal -->
       <!-- display mode -->
-      <table class="  prodo-productTableFont  table child table-bordered table-hover "  ng-hide="editorEnabled" id="prodo-ProductFeatureTable" >
+      <table class="  prodo-productTableFont  table child table-bordered table-hover "  ng-hide="editMode.editorEnabled" id="prodo-ProductFeatureTable" >
         <tr id="prodo-productbnd" class="prodo-productTabledis"  ng-show="product.banneddate">
           <td>Product Banned on : &nbsp;<span ng-bind="formatDate(product.banneddate)"></span></td>
         </tr>
@@ -114,7 +114,7 @@
     </div>
     <!-- display mode -->
     <!-- edit mode -->
-    <form  id="Edit"  ng-show="editorEnabled==true"  name="productForm" >
+    <form  id="Edit"  ng-show="editMode.editorEnabled==true"  name="productForm" >
       <div class="prodo-product-general productDisplay " >
         <table class="table child table-hover table-bordered prodo-productTableFont" id="prodo-ProductFeatureTable">
           <tr ng-show="editStatus=='update'" class="prodo-productDiscontinuedUpdate prodo-productTabledis prodo-display-discont " id="prodo-productDiscontinuedUpdate"  >
@@ -136,8 +136,8 @@
                           <tags-input  add-on-enter="false" add-on-space="true" ng-model="product.category" placeholder="Add tags"  list=""
                             replace-spaces-with-dashes="false"  ></tags-input>
                              </div> -->
-            <tags-input ng-show="(editStatus=='add')" ng-model="category"   ></tags-input>
-              <tags-input ng-show="(editStatus=='update')" ng-model="product.category"   ></tags-input>               
+            <tags-input ng-show="(editStatus=='add')" ng-model="category" min-length="1"  ></tags-input>
+              <tags-input ng-show="(editStatus=='update')" ng-model="product.category"  min-length="1" ></tags-input>               
             </td>
           </tr>
           <tr>
@@ -179,7 +179,7 @@
       <div class="prodo-AdminFearuresAdd" ng-style="checkAdmintoUpdateProduct();" id="prodo.productAdmin">
         <a href="" class="btn btn-primary btn-sm pull-right" ng-click="enableEditorFeature() ;  editStatus='add';  " > Add &nbsp; <i class="fa fa-plus-square"></i></a>
       </div>
-      <form    id="Editfeature" ng-show="editorEnabledF ==true"  name="productFeaturesForm" >
+      <form    id="Editfeature" ng-show="editMode.editorEnabledF ==true"  name="productFeaturesForm" >
         <table class="table child table-hover table-bordered"  id="prodo-ProductFeatureTable" >
           <tr class="prodo-productTableFont" >
             <td >   Feature name&nbsp;&nbsp;&nbsp; <input ng-model="featurename"   id="prodo-product-features_textfield" class="form-control prodo-validation" 

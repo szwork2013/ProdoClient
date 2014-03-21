@@ -145,6 +145,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
        // growl.addSuccessMessage(data.success.message);
       $state.reload();
     } else {
+     
       if (data.error.code == 'AV001') { // user already exist
         $log.debug(data.error.code + " " + data.error.message);
         $scope.enableProductErrorMsg();
@@ -172,7 +173,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
       ProdERRMsg.innerHTML = "Please add valid information"; 
     }
   else{
-    $scope.disableEditor();
+  
     $scope.productForm.$setPristine();
     $("productExtraInfo").css("display", "none");
     $("#ErrMsging").css("display", "none");
@@ -188,7 +189,6 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
         }
       };
       if ($rootScope.usersession.currentUser.org.isAdmin == true) {
-
         ProductService.saveProduct({
           orgid: $scope.orgidFromSession
         }, $scope.newProduct, function (success) {
@@ -196,9 +196,11 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
            $scope.newProduct_ResponseProdle=success.success.prodle;
            $scope.category=[];
           }
+         $scope.disableEditor();
          $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
         }, function (error) {
-          // growl.addErrorMessage(error);
+         // growl.addErrorMessage(error);
+          $scope.editMode.editorEnabled = true;
            $scope.enableProductErrorMsg();
            ProdERRMsg.innerHTML = error; 
             $scope.category=[];
@@ -237,6 +239,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
             $scope.getProduct($scope.currentProdle, $scope.currentOrgid);
           }, function (error) {
             $log.debug(error);
+             $scope.editMode.editorEnabled = true;
             $scope.enableProductErrorMsg();
             ProdERRMsg.innerHTML = error; 
             // growl.addErrorMessage(error);
@@ -631,14 +634,19 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   //update product feature
 
   //Edit mode and display mode toggle for product data add , update and diaplay
-  $scope.editorEnabled = false;
-  $scope.editorEnabledF = false;
+  // $scope.editorEnabled = false;
+  // $scope.editorEnabledF = false;
+     $scope.editMode = {
+    editorEnabled: false,
+    editorEnabledF : false
+  };
+  
   $scope.enableEditor = function () {
-    $scope.editorEnabled = true;
+    $scope.editMode.editorEnabled = true;
     growl.addInfoMessage("   Adding product data.....");
   };
   $scope.disableEditor = function () {
-    $scope.editorEnabled = false;
+    $scope.editMode.editorEnabled = false;
     $scope.feature = "";
     if ($scope.currentProdle !== undefined && $scope.currentProdle !== null && $scope.currentProdle !== "") {
       $scope.getProduct($scope.currentProdle, $scope.currentOrgid);
@@ -652,11 +660,11 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   };
 
   $scope.enableEditorFeature = function () {
-    $scope.editorEnabledF = true;
+    $scope.editMode.editorEnabledF = true;
     growl.addInfoMessage("   Adding product data.....");
   };
   $scope.disableEditorFeature = function () {
-    $scope.editorEnabledF = false;
+    $scope.editMode.editorEnabledF = false;
     $scope.feature = "";
     if ($scope.currentProdle !== undefined && $scope.currentProdle !== null && $scope.currentProdle !== "") {
       $scope.getProduct($scope.currentProdle, $scope.currentOrgid);
@@ -684,7 +692,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   //on product logo hover, show follow product button
 
   $scope.getSelectedProduct = function (product1) {
-    if($scope.editorEnabled == true){
+    if($scope.editMode.editorEnabled == true){
       $scope.enableProductErrorMsg();
       ProdERRMsg.innerHTML = "Please add product first then view other products..."; 
     }else{

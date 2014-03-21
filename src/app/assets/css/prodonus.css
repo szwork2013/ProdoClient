@@ -1457,7 +1457,7 @@ margin-bottom: 10px;
 .prodo-productImgThumbnail{width: 150px; height: 150px;}
 .prodo-uploadBtnWidth{ width: 200px;}
 .clearBoth{clear:both;}
-.prodo-TagsBox{width:518px; }
+.prodo-TagsBox{width: 92%; }
 .prodo-CommentImgPrePosting{width:75px;}
 .prodo-uploadedImg{display:none;width:50px; height:50px;}
 .prodo-padding-bottom{padding-bottom: 10px;}
