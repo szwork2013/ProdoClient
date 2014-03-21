@@ -26,11 +26,13 @@
         <div class="prodo-productThumbnailImg fa fa-plus fa-4x img-rounded"  align="center" ></div>
       </div>
     </a>
-    <div class="prodo-productThumbnailView"  ng-repeat="product1 in productlist  | startFrom:currentPage*pageSize | limitTo:pageSize" >
+    <div   ng-repeat="product1 in productlist  | startFrom:currentPage*pageSize | limitTo:pageSize" >
+    <div class="prodo-productThumbnailView"   ng-class="{activeProduct : product1.prodle==product.prodle}" >
       <a ng-click="getSelectedProduct(product1);" class="prodo-cursor"  href="" >
         <p class="prodo-AddProductBtn prodo-productNameList" >{{product1.name.substring(0,13)}}</p>
         <img  ng-src="{{product1.product_logo.image}}" alt-SRC src="../assets/images/if_no_logo_images_available.gif"  class="prodo-productThumbnailImg img-rounded">
       </a>
+    </div>
     </div>
     <button class="arrowBtn prodo-arrowbtnRight"  ng-show="productlist.length > 4 " ng-disabled="currentPage >= productlist.length/pageSize - 1" ng-click="currentPage=currentPage+1" >
       >
