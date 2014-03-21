@@ -10,7 +10,7 @@
  * 27-3/2013 | xyx | Add a new property
  * 
  */
-angular.module('prodo.ProductApp').controller('ManageProductController', ['$scope', '$log', '$rootScope', 'ProductService', 'UserSessionService', '$http', 'CommentLoadMoreService', 'ENV', 'TagReffDictionaryService', 'ProductFeatureService', 'growl', 'allproductdata', '$state', function ($scope, $log, $rootScope, ProductService, UserSessionService, $http, CommentLoadMoreService, ENV, TagReffDictionaryService, ProductFeatureService, growl, allproductdata, $state) {
+angular.module('prodo.ProductApp').controller('ManageProductController', ['$scope', '$log', '$rootScope', 'ProductService', 'UserSessionService', '$http', 'CommentLoadMoreService', 'ENV', 'TagReffDictionaryService', 'ProductFeatureService', 'growl', 'allproductdata', '$state','CategoryTags', function ($scope, $log, $rootScope, ProductService, UserSessionService, $http, CommentLoadMoreService, ENV, TagReffDictionaryService, ProductFeatureService, growl, allproductdata, $state,CategoryTags) {
 
   $scope.$state = $state;
 
@@ -23,12 +23,14 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   $scope.newProduct = {
     product: [{}]
   };
+  $scope.productCategories=[];
   $scope.type = "product";
   $scope.productlist = [];
   $rootScope.product_prodle;
   $scope.newProduct_ResponseProdle="";
   $rootScope.orgid;
   $scope.chckedIndexs = [];
+  $scope.category;
   $scope.pImages_l = {
     product_images: [{}]
   };
@@ -75,6 +77,25 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
     }
   });
 
+  
+  //get Categories
+  $scope.getproductCategories = function () {
+    CategoryTags.getCategoryTags(
+     function (successData) {
+          if (successData.success == undefined) {} else {
+            $log.debug("success    "+JSON.stringify(successData));
+            $scope.productCategories=successData.success.categorytags;
+             $log.debug("categories "+JSON.stringify( $scope.productCategories));
+          }
+        }, function (error) {
+          $scope.enableFeatureErrorMsg();
+          ProdFERRMsg.innerHTML = "Server Error:" + error.status;
+          // growl.addErrorMessage("Server Error:" + error.status);
+        });
+
+  };
+  //get Categories
+
   //get login details
   $scope.getUserDetails = function () {
     if ($rootScope.usersession.currentUser.org) {
@@ -112,6 +133,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
         $("#ErrMsging").css("display", "none");
         $log.debug(successData.success.product);
         $scope.getProductFeatures(l_prodle, l_orgid);
+        $scope.getproductCategories();
         $("#prodo-ProductFeatureTable").css("display", "table");
         $scope.product = successData.success.product;
         $rootScope.currentProdleRoot=successData.success.product.prodle;
@@ -137,6 +159,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   }
   //get product function declaration  
 
+  
   //error handling for add product
   $scope.handleSaveProductResponse = function (data) {
     if (data.success) {

@@ -54,5 +54,13 @@
   });
 }])
 
+.factory('CategoryTags', ['$resource', function($resource) {
+  return $resource('/api/categorytags', {},
+  {
+    getCategoryTags: {method: 'GET'}
+  });
+}])
+
+
 
 
