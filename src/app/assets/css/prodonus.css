@@ -1486,6 +1486,7 @@ margin-bottom: 10px;
 .prodo-productCommentInfoDiv{font-size: 18px;text-align: left;width: 50px;padding-left: 15px;}
 .prodo-productCommentsInfoLable{font-size: 10px;text-align: left;}
 .prodo-delImgs{margin-bottom: 10px;}
+.prodo-checkbox{height: 20px;width: 20px;}
 .prodo-categoryTags{
 	display:inline-block;
 	background-color:rgba(161,219,255,1);
@@ -1497,7 +1498,7 @@ margin-bottom: 10px;
 	margin-top:2px;
 	font-size: 12px;
 }
-
+.prodo-lblSelectall{vertical-align: super;}
 /*#commentTab li.active {
 	color: lime
 }*/
