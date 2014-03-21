@@ -22,7 +22,7 @@
     </button>
     <a onclick="  $('#ErrMsging').css('display', 'none');$('#prodo-ProductDetails').show(); $('#productExtraInfo').css('display','none'); $('#prodo-productDiscontinuedUpdate').hide();" ng-click=" enableEditor() ;  editStatus='add'; clearText();  " class="prodo-cursor" >
       <div class="prodo-productThumbnailView" >
-        <p class="prodo-AddProductBtn" >Add Product</p>
+        <p class="prodo-AddProductBtn " >Add Product</p>
         <div class="prodo-productThumbnailImg fa fa-plus fa-4x img-rounded"  align="center" ></div>
       </div>
     </a>
@@ -136,9 +136,9 @@
                           <tags-input  add-on-enter="false" add-on-space="true" ng-model="product.category" placeholder="Add tags"  list=""
                             replace-spaces-with-dashes="false"  ></tags-input>
                              </div> -->
-            <tags-input ng-show="(editStatus=='add')"  list="productCategories" ng-model="category" min-length="1">
-            <auto-complete  ></auto-complete></tags-input>
-            
+            <tags-input ng-show="(editStatus=='add')"  list="listProductCategories()" ng-model="category" min-length="1">
+            </tags-input>
+
               <tags-input ng-show="(editStatus=='update')" ng-model="product.category" list="productCategories"  min-length="1" ></tags-input>               
             </td>
           </tr>

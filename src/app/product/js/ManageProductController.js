@@ -23,6 +23,9 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   $scope.newProduct = {
     product: [{}]
   };
+  $scope.listCategory={
+              productCategories:[]
+            };
   $scope.productCategories=[];
   $scope.type = "product";
   $scope.productlist = [];
@@ -85,7 +88,11 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
           if (successData.success == undefined) {} else {
             $log.debug("success    "+JSON.stringify(successData));
             $scope.productCategories=successData.success.categorytags;
-             $log.debug("categories "+JSON.stringify( $scope.productCategories));
+            $scope.listCategory={
+              productCategories:successData.success.categorytags
+            };
+            // $scope.productCategories=['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado'];
+             $log.debug("categories "+  JSON.stringify($scope.productCategories[0]));
           }
         }, function (error) {
           $scope.enableFeatureErrorMsg();
@@ -94,7 +101,18 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
         });
 
   };
+   $log.debug("categories typeahead asdasd"+  JSON.stringify($scope.productCategories));
+
+   $scope.states = function () { 
+              return ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Dakota', 'North Carolina', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
+            };
   //get Categories
+  $scope.listProductCategories=function(){
+     // $scope.getproductCategories();
+     $log.debug("categories typeahead "+  $scope.listCategory.productCategories);
+     
+    return $scope.listCategory.productCategories;
+  };
 
   //get login details
   $scope.getUserDetails = function () {
@@ -115,7 +133,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   }
   $scope.getUserDetails();
   //get login details
-
+  $scope.getproductCategories();
   $scope.getProduct = function (l_prodle, l_orgid) {
     // $log.debug("1 prodle " + l_prodle + "orgid " + l_orgid);
     ProductService.getProduct({
@@ -133,7 +151,6 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
         $("#ErrMsging").css("display", "none");
         $log.debug(successData.success.product);
         $scope.getProductFeatures(l_prodle, l_orgid);
-        $scope.getproductCategories();
         $("#prodo-ProductFeatureTable").css("display", "table");
         $scope.product = successData.success.product;
         $rootScope.currentProdleRoot=successData.success.product.prodle;
