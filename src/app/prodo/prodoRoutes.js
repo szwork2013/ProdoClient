@@ -190,8 +190,12 @@ angular.module('prodo.ProdonusApp')
             console.log('getting product');
             return OrgService.GetOrgProducts.getAllOrgProducts({orgid: $rootScope.usersession.currentUser.org.orgid}).$promise;
            
-          }
+          },
+           allproductCategories: function(CategoryTags, $rootScope) {
+            console.log('getting categories');
+            return CategoryTags.getCategoryTags().$promise;
         }
+      }
       })
 
     /* ----ProdoHome Wall Routes---- */
