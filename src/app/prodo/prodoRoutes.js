@@ -187,13 +187,11 @@ angular.module('prodo.ProdonusApp')
        resolve: {
           OrgService: 'OrgService',
           allproductdata: function(OrgService, $rootScope) {
-            console.log('getting product');
-            return OrgService.GetOrgProducts.getAllOrgProducts({orgid: $rootScope.usersession.currentUser.org.orgid}).$promise;
+          return OrgService.GetOrgProducts.getAllOrgProducts({orgid: $rootScope.usersession.currentUser.org.orgid}).$promise;
            
           },
            allproductCategories: function(CategoryTags, $rootScope) {
-            console.log('getting categories');
-            return CategoryTags.getCategoryTags().$promise;
+           return CategoryTags.getCategoryTags().$promise;
         }
       }
       })
