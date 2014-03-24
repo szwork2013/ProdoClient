@@ -10,19 +10,21 @@
  * 27-3/2013 | xyx | Add a new property
  * 
  */
-angular.module('prodo.ProductApp').controller('ManageProductController', ['$scope', '$log', '$rootScope', 'ProductService', 'UserSessionService', '$http', 'CommentLoadMoreService', 'ENV', 'TagReffDictionaryService', 'ProductFeatureService', 'growl', 'allproductdata', '$state','CategoryTags', function ($scope, $log, $rootScope, ProductService, UserSessionService, $http, CommentLoadMoreService, ENV, TagReffDictionaryService, ProductFeatureService, growl, allproductdata, $state,CategoryTags) {
+angular.module('prodo.ProductApp').controller('ManageProductController', ['$scope', '$log', '$rootScope', 'ProductService', 'UserSessionService', '$http', 'CommentLoadMoreService', 'ENV', 'TagReffDictionaryService', 'ProductFeatureService', 'growl', 'allproductdata','allproductCategories', '$state','CategoryTags', function ($scope, $log, $rootScope, ProductService, UserSessionService, $http, CommentLoadMoreService, ENV, TagReffDictionaryService, ProductFeatureService, growl, allproductdata,allproductCategories, $state,CategoryTags) {
 
   $scope.$state = $state;
 
   //product
   $scope.editStatus;
-
   $scope.product = {
     product: [{}]
   };
   $scope.newProduct = {
     product: [{}]
   };
+  $scope.listCategory={
+              productCategories:[]
+            };
   $scope.productCategories=[];
   $scope.type = "product";
   $scope.productlist = [];
@@ -53,6 +55,11 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
         $("#ErrMsging").css("display", "block");
       document.getElementById("ErrMsging").innerHTML = "<br>Product not available ... Add new product<br><br>";
     } else {
+      if(allproductCategories!==undefined && allproductCategories!==null && allproductCategories!==""){
+        if(allproductCategories.success.categorytags!==undefined && allproductCategories.success.categorytags!==null && allproductCategories.success.categorytags!=="" ){
+           $scope.listCategory.productCategories=allproductCategories.success.categorytags;
+        }
+      }
       $scope.productlist = allproductdata.success.product;
       if ($scope.productlist.length == 0) { //after deleting product, check for next product from product followed,if no product - display msg
          $("#prodo-ProductDetails").css("display", "none");
@@ -77,24 +84,17 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
     }
   });
 
-  
-  //get Categories
-  $scope.getproductCategories = function () {
-    CategoryTags.getCategoryTags(
-     function (successData) {
-          if (successData.success == undefined) {} else {
-            $log.debug("success    "+JSON.stringify(successData));
-            $scope.productCategories=successData.success.categorytags;
-             $log.debug("categories "+JSON.stringify( $scope.productCategories));
-          }
-        }, function (error) {
-          $scope.enableFeatureErrorMsg();
-          ProdFERRMsg.innerHTML = "Server Error:" + error.status;
-          // growl.addErrorMessage("Server Error:" + error.status);
-        });
 
-  };
   //get Categories
+  $scope.listProductCategories=function(){
+      if(allproductCategories!==undefined && allproductCategories!==null && allproductCategories!==""){
+        if(allproductCategories.success.categorytags!==undefined && allproductCategories.success.categorytags!==null && allproductCategories.success.categorytags!=="" ){
+            $log.debug("categories typeahead "+   allproductCategories.success.categorytags);
+            return  allproductCategories.success.categorytags
+        }
+      }
+    
+  };
 
   //get login details
   $scope.getUserDetails = function () {
@@ -115,7 +115,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   }
   $scope.getUserDetails();
   //get login details
-
+  // $scope.getproductCategories();
   $scope.getProduct = function (l_prodle, l_orgid) {
     // $log.debug("1 prodle " + l_prodle + "orgid " + l_orgid);
     ProductService.getProduct({
@@ -133,7 +133,6 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
         $("#ErrMsging").css("display", "none");
         $log.debug(successData.success.product);
         $scope.getProductFeatures(l_prodle, l_orgid);
-        $scope.getproductCategories();
         $("#prodo-ProductFeatureTable").css("display", "table");
         $scope.product = successData.success.product;
         $rootScope.currentProdleRoot=successData.success.product.prodle;
@@ -260,6 +259,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
             ProdSuccessMsg.innerHTML ="Product updated successfully...";
             $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
             $scope.getProduct($scope.currentProdle, $scope.currentOrgid);
+            $scope.disableEditor();
           }, function (error) {
             $log.debug(error);
              $scope.editMode.editorEnabled = true;
