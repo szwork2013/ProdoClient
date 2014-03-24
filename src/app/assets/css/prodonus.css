@@ -2230,6 +2230,11 @@ margin:5px auto; height:70px; display:block; text-align:left; font-weight:bold; 
 	margin:1px auto; display:block; width:95%; height: 130px; 
 }
 
+#prodo-row-static-content{
+	margin-left: 0px;
+	margin-right: 0px;
+}
+
 .fa-check:before {
 content: "\f000";
 font-family: FontAwesome;
