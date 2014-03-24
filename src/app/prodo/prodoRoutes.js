@@ -231,6 +231,7 @@ angular.module('prodo.ProdonusApp')
             return OrgService.ManageOrgLocation.getAllOrgAddress({orgid: $rootScope.orgid}).$promise;
           },
           orgproduct: function(OrgService, $rootScope) {
+            console.log('product');
             return OrgService.GetOrgProducts.getAllOrgProducts({orgid: $rootScope.orgid}).$promise;
           }
         }
