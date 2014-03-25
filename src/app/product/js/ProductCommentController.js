@@ -451,14 +451,26 @@ $scope.captureCommentImageHere = function (params) {
   $scope.commentImageShow = params;
 };
 
-$scope.addFeatureToComment=function(data)
-{  if($scope.commenttextField.userComment == undefined){
+$scope.addFeatureToComment=function(data){
+  if($scope.commenttextField.userComment == undefined){
   $scope.commenttextField.userComment = "" ;
 } 
-  $scope.commenttextField.userComment = $scope.commenttextField.userComment + " "+data+" ";
-  //cument.getElementById('prodo-comment-Textbox').value = document.getElementById('prodo-comment-Textbox').value+" "+data+" ";
+if($scope.commenttextField.userComment.length !== 300 ){
+ $scope.commenttextField.userComment = $scope.commenttextField.userComment + " "+data+" ";
+}
+
+$scope.$watch('commenttextField.userComment', function () {
+if($scope.commenttextField.userComment.length >300 ||$scope.commenttextField.userComment.length < 0 ){
+  document.getElementById('prodo-comment-Textbox').style.border ="1px solid pink";
+ $scope.commenttextField.userComment=$scope.commenttextField.userComment.substring(0,300);
+ }
+})
 };
   
+
+ // else{
+  
+// }
 
 // code for layerslider
 //date format
