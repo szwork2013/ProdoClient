@@ -81,13 +81,6 @@ angular.module('prodo.ProdoWallApp')
       }
     });
 
-    // $rootScope.$watch('usersession.productfollowlist', function () {
-      
-    //   console.log(UserSessionService.productfollowlist.length);
-    //   console.log($scope.product_prodles);
-          
-    // });
-
     var cleanEventUnfollowProductFromSidelist = $scope.$on("unfollowProductFromSidelist", function(event, success){
       console.log('listening');
       $state.reload();
