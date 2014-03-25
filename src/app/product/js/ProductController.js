@@ -73,7 +73,7 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
     $scope.features = [];
     $("#productLogo").attr('src', '');
     var temp = document.getElementById('prodo-comment-container');
-    if ($rootScope.product_prodle !== undefined && $rootScope.product_prodle !== null && $rootScope.product_prodle !== "") {
+    if ($rootScope.product_prodle !== undefined || $rootScope.product_prodle !== null || $rootScope.product_prodle !== "") {
       $scope.getProduct($rootScope.product_prodle, $rootScope.orgid); //if product available, call getproduct
      
       $scope.tabComment=true;

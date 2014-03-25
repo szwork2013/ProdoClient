@@ -187,7 +187,7 @@ $scope.makeTagsPair = function (noun, adj) {
 
 //add comment
 $scope.addProductComment = function () {
-  if ($scope.commenttextField.userComment !== "" && $scope.commenttextField.userComment !== undefined && $scope.commenttextField.userComment !== null) {
+  if ($scope.commenttextField.userComment !== "" || $scope.commenttextField.userComment !== undefined || $scope.commenttextField.userComment !== null) {
     $log.debug("tags " + $scope.mytags);
     $log.debug("features " + $scope.myFeaturetags);
     $scope.makeTagsPair($scope.myFeaturetags, $scope.mytags);

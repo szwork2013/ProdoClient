@@ -55,8 +55,8 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
         $("#ErrMsging").css("display", "block");
       document.getElementById("ErrMsging").innerHTML = "<br>Product not available ... Add new product<br><br>";
     } else {
-      if(allproductCategories!==undefined && allproductCategories!==null && allproductCategories!==""){
-        if(allproductCategories.success.categorytags!==undefined && allproductCategories.success.categorytags!==null && allproductCategories.success.categorytags!=="" ){
+      if(allproductCategories!==undefined || allproductCategories!==null|| allproductCategories!==""){
+        if(allproductCategories.success.categorytags!==undefined || allproductCategories.success.categorytags!==null || allproductCategories.success.categorytags!=="" ){
            $scope.listCategory.productCategories=allproductCategories.success.categorytags;
         }
       }
@@ -87,8 +87,8 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
 
   //get Categories
   $scope.listProductCategories=function(){
-      if(allproductCategories!==undefined && allproductCategories!==null && allproductCategories!==""){
-        if(allproductCategories.success.categorytags!==undefined && allproductCategories.success.categorytags!==null && allproductCategories.success.categorytags!=="" ){
+      if(allproductCategories!==undefined || allproductCategories!==null || allproductCategories!==""){
+        if(allproductCategories.success.categorytags!==undefined || allproductCategories.success.categorytags!==null || allproductCategories.success.categorytags!=="" ){
             $log.debug("categories typeahead "+   allproductCategories.success.categorytags);
             return  allproductCategories.success.categorytags
         }
@@ -278,7 +278,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   };
   $scope.deleteProduct = function () {
     growl.addInfoMessage("Deleting product  ...");
-    if ($scope.currentProdle !== undefined && $scope.currentProdle !== null && $scope.currentProdle !== "") {
+    if ($scope.currentProdle !== undefined || $scope.currentProdle !== null || $scope.currentProdle !== "") {
       if ($rootScope.isAdminCheck == true) { //if owener of product
         ProductService.deleteProduct({
           orgid: $scope.orgidFromSession,
@@ -529,7 +529,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   //delete product feature
   $scope.deleteFeature = function (feature) {
     // $log.debug("deleting feature");
-    if (feature !== undefined && feature !== null && feature !== "") {
+    if (feature !== undefined || feature !== null || feature !== "") {
       growl.addInfoMessage("Deleting product feature ...");
       // $log.debug(feature.featureid);
       if ($rootScope.isAdminCheck == true) { //if product owner
@@ -577,7 +577,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
       }]
     };
     $log.debug( $scope.newFeature);
-    if ($scope.newFeature !== undefined && $scope.newFeature !== null && $scope.newFeature !== "") {
+    if ($scope.newFeature !== undefined || $scope.newFeature !== null || $scope.newFeature !== "") {
       if (editStatus == 'add') {
         // $log.debug("adding");
         if ($rootScope.isAdminCheck == true) { //if product owner
@@ -624,7 +624,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
     else{
 
     console.log(data);
-    if (data !== undefined && data !== null && data !== "") {
+    if (data !== undefined || data !== null || data !== "") {
       if ($rootScope.isAdminCheck == true) {
         ProductFeatureService.updateFeature({
           orgid: $scope.orgidFromSession,
@@ -671,7 +671,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   $scope.disableEditor = function () {
     $scope.editMode.editorEnabled = false;
     $scope.feature = "";
-    if ($scope.currentProdle !== undefined && $scope.currentProdle !== null && $scope.currentProdle !== "") {
+    if ($scope.currentProdle !== undefined || $scope.currentProdle !== null || $scope.currentProdle !== "") {
       $scope.getProduct($scope.currentProdle, $scope.currentOrgid);
       $scope.getProductFeatures($scope.currentProdle, $scope.currentOrgid);
     }
@@ -689,7 +689,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   $scope.disableEditorFeature = function () {
     $scope.editMode.editorEnabledF = false;
     $scope.feature = "";
-    if ($scope.currentProdle !== undefined && $scope.currentProdle !== null && $scope.currentProdle !== "") {
+    if ($scope.currentProdle !== undefined || $scope.currentProdle !== null || $scope.currentProdle !== "") {
       $scope.getProduct($scope.currentProdle, $scope.currentOrgid);
       $scope.getProductFeatures($scope.currentProdle, $scope.currentOrgid);
     }
@@ -818,7 +818,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
  
  angular.module('prodo.ProductApp').filter('startFrom', function () {
   return function (input, start) {
-    if (input !== undefined && start !== undefined) {
+    if (input !== undefined || start !== undefined) {
       start = +start;
       return input.slice(start);
     }

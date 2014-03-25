@@ -191,7 +191,14 @@ angular.module('prodo.ProdonusApp')
            
           },
            allproductCategories: function(CategoryTags, $rootScope) {
-           return CategoryTags.getCategoryTags().$promise;
+           var temp=CategoryTags.getCategoryTags();
+           if(temp !==undefined || temp !==null || temp !== ""){
+            return temp.$promise
+           }
+           else{
+            return ['product','software']
+           }
+
         }
       }
       })
