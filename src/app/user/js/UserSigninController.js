@@ -149,21 +149,10 @@ angular.module('prodo.UserApp')
     $scope.handleResetPasswordResponse = function(data){
       if (data.success) {
           if ($rootScope.usersession.currentUser.hasDonePayment && $rootScope.usersession.currentUser.org.orgid) {
-            OrgRegistrationService.getOrgDetailSettings();
-          } else if (!$rootScope.usersession.currentUser.isSubscribed) {
-            // UserSubscriptionService.getPlan();
-          } else if ($rootScope.usersession.currentUser.isSubscribed && !$rootScope.usersession.currentUser.subscriptionExpired && !$rootScope.usersession.currentUser.hasDonePayment) {
-            $state.transitionTo('subscription.payment', {
-              planid: $rootScope.usersession.currentUser.subscription.planid,
-              plantype: $rootScope.usersession.currentUser.usertype
-            });
-          } else if ($rootScope.usersession.currentUser.isSubscribed && $rootScope.usersession.currentUser.subscriptionExpired) {
-            $state.transitionTo('subscription.payment', {
-              planid: $rootScope.usersession.currentUser.subscription.planid,
-              plantype: $rootScope.usersession.currentUser.usertype
-            });
+            $rootScope.orgid = $rootScope.usersession.currentUser.org.orgid;
+            $state.transitionTo('prodo.home.wall.org');
           } else if ($rootScope.usersession.currentUser.hasDonePayment) {
-            $state.transitionTo('prodo.wall.org');
+            $state.transitionTo('prodo.home.wall.org');
           } 
       } else {
         if (data.error.code== 'AV001') {     // enter valid data
