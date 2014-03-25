@@ -187,7 +187,7 @@ $scope.makeTagsPair = function (noun, adj) {
 
 //add comment
 $scope.addProductComment = function () {
-  if ($scope.commenttextField.userComment !== "" && $scope.commenttextField.userComment !== undefined && $scope.commenttextField.userComment !== null) {
+  if ($scope.commenttextField.userComment !== "" || $scope.commenttextField.userComment !== undefined || $scope.commenttextField.userComment !== null) {
     $log.debug("tags " + $scope.mytags);
     $log.debug("features " + $scope.myFeaturetags);
     $scope.makeTagsPair($scope.myFeaturetags, $scope.mytags);
@@ -451,14 +451,29 @@ $scope.captureCommentImageHere = function (params) {
   $scope.commentImageShow = params;
 };
 
-$scope.addFeatureToComment=function(data)
-{  if($scope.commenttextField.userComment == undefined){
+$scope.addFeatureToComment=function(data){
+  if($scope.commenttextField.userComment == undefined){
   $scope.commenttextField.userComment = "" ;
 } 
-  $scope.commenttextField.userComment = $scope.commenttextField.userComment + " "+data+" ";
-  //cument.getElementById('prodo-comment-Textbox').value = document.getElementById('prodo-comment-Textbox').value+" "+data+" ";
+if($scope.commenttextField.userComment.length !== 300 ){
+ $scope.commenttextField.userComment = $scope.commenttextField.userComment + " "+data+" ";
+}
+
+$scope.$watch('commenttextField.userComment', function () {
+if($scope.commenttextField.userComment.length >300 || $scope.commenttextField.userComment.length < 0 ){
+  document.getElementById('prodo-comment-Textbox').style.border ="1px solid #ff8080";
+  $scope.commenttextField.userComment=$scope.commenttextField.userComment.substring(0,300);
+ }
+ else if($scope.commenttextField.userComment.length <=300) {
+  document.getElementById('prodo-comment-Textbox').style.border ="solid 1px #5bc0de";
+ }
+})
 };
   
+
+ // else{
+  
+// }
 
 // code for layerslider
 //date format

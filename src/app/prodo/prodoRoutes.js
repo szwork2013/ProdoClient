@@ -192,6 +192,17 @@ angular.module('prodo.ProdonusApp')
           },
            allproductCategories: function(CategoryTags, $rootScope) {
            return CategoryTags.getCategoryTags().$promise;
+           
+           // temp="";
+           // if(temp !== ""){
+           //  console.log('data');
+           //  return temp;
+           // }
+           // else{
+           //  console.log('empty');
+           //  return ['product','software']
+           // }
+
         }
       }
       })
