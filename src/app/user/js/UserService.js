@@ -163,16 +163,17 @@ angular.module('prodo.UserApp')
       });
     };
 
-    session.getProductFollowed = function (prodledata) {
+    session.getProductFollowed = function (prodledata , userdata) {
       UserService.Product_Followed.getProduct_Followed({ data: prodledata }, function (success) {
-        $log.debug(success);
+        // $log.debug(success);
+        console.log(success);
         if (success.error) {
           console.log('No products followed');
         } else {
           session.productfollowlist = success.success.products;
         }
         
-        $rootScope.$broadcast('getProductFollowedDone', success);
+        $rootScope.$broadcast('getProductFollowedDone', success, userdata);
       }, function (error) {
         $log.debug(error);
         $rootScope.$broadcast('getProductFollowedNotDone', error);
@@ -302,7 +303,8 @@ angular.module('prodo.UserApp')
     };
     session.checkUser = function () {
       UserService.IsUserLoggedin.checkUserSession(function (result) {
-        $log.debug(result);
+        // $log.debug(result);
+        console.log(result);
         if (result.success) {
           session.authSuccess(result.success.user);
         } else {

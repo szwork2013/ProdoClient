@@ -146,7 +146,7 @@ $scope.getTagsFromCommentText = function () {
 
 //On the fly tags
 $scope.$watch('commenttextField.userComment', function () {
-  $scope.getTagsFromCommentText();
+   $scope.getTagsFromCommentText();
   if ($scope.mytags.length == 0) {
     $("#prodo-productTags").css("display", "none");
   } else {
@@ -187,7 +187,7 @@ $scope.makeTagsPair = function (noun, adj) {
 
 //add comment
 $scope.addProductComment = function () {
-  if ($scope.commenttextField.userComment !== "") {
+  if ($scope.commenttextField.userComment !== "" || $scope.commenttextField.userComment !== undefined || $scope.commenttextField.userComment !== null) {
     $log.debug("tags " + $scope.mytags);
     $log.debug("features " + $scope.myFeaturetags);
     $scope.makeTagsPair($scope.myFeaturetags, $scope.mytags);
@@ -451,6 +451,14 @@ $scope.captureCommentImageHere = function (params) {
   $scope.commentImageShow = params;
 };
 
+$scope.addFeatureToComment=function(data)
+{  if($scope.commenttextField.userComment == undefined){
+  $scope.commenttextField.userComment = "" ;
+} 
+  $scope.commenttextField.userComment = $scope.commenttextField.userComment + " "+data+" ";
+  //cument.getElementById('prodo-comment-Textbox').value = document.getElementById('prodo-comment-Textbox').value+" "+data+" ";
+};
+  
 
 // code for layerslider
 //date format

@@ -10,25 +10,29 @@
  * 27-3/2013 | xyx | Add a new property
  * 
  */
-angular.module('prodo.ProductApp').controller('ManageProductController', ['$scope', '$log', '$rootScope', 'ProductService', 'UserSessionService', '$http', 'CommentLoadMoreService', 'ENV', 'TagReffDictionaryService', 'ProductFeatureService', 'growl', 'allproductdata', '$state', function ($scope, $log, $rootScope, ProductService, UserSessionService, $http, CommentLoadMoreService, ENV, TagReffDictionaryService, ProductFeatureService, growl, allproductdata, $state) {
+angular.module('prodo.ProductApp').controller('ManageProductController', ['$scope', '$log', '$rootScope', 'ProductService', 'UserSessionService', '$http', 'CommentLoadMoreService', 'ENV', 'TagReffDictionaryService', 'ProductFeatureService', 'growl', 'allproductdata','allproductCategories', '$state','CategoryTags', function ($scope, $log, $rootScope, ProductService, UserSessionService, $http, CommentLoadMoreService, ENV, TagReffDictionaryService, ProductFeatureService, growl, allproductdata,allproductCategories, $state,CategoryTags) {
 
   $scope.$state = $state;
 
   //product
   $scope.editStatus;
-
   $scope.product = {
     product: [{}]
   };
   $scope.newProduct = {
     product: [{}]
   };
+  $scope.listCategory={
+              productCategories:[]
+            };
+  $scope.productCategories=[];
   $scope.type = "product";
   $scope.productlist = [];
   $rootScope.product_prodle;
   $scope.newProduct_ResponseProdle="";
   $rootScope.orgid;
   $scope.chckedIndexs = [];
+  $scope.category;
   $scope.pImages_l = {
     product_images: [{}]
   };
@@ -45,12 +49,20 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   $scope.socket;
 
 
+  
+
   $scope.$watch('$state.$current.locals.globals.allproductdata', function (allproductdata) {
     if (allproductdata.error) {
         $("#prodo-ProductDetails").css("display", "none");
         $("#ErrMsging").css("display", "block");
       document.getElementById("ErrMsging").innerHTML = "<br>Product not available ... Add new product<br><br>";
     } else {
+      if(allproductCategories.error){
+       $scope.listCategory.productCategories=['product','software'];
+      }
+      else if(allproductCategories.success){
+       $scope.listCategory.productCategories=allproductCategories.success.categorytags;
+     }
       $scope.productlist = allproductdata.success.product;
       if ($scope.productlist.length == 0) { //after deleting product, check for next product from product followed,if no product - display msg
          $("#prodo-ProductDetails").css("display", "none");
@@ -75,6 +87,19 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
     }
   });
 
+
+  //get Categories
+  $scope.listProductCategories=function(){
+     if(allproductCategories.error){
+     $log.debug("err");
+      return ['product','software'];
+     }
+     else if(allproductCategories.success){
+      $log.debug("suc");
+      return allproductCategories.success.categorytags;
+     }
+ };
+
   //get login details
   $scope.getUserDetails = function () {
     if ($rootScope.usersession.currentUser.org) {
@@ -94,7 +119,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   }
   $scope.getUserDetails();
   //get login details
-
+  // $scope.getproductCategories();
   $scope.getProduct = function (l_prodle, l_orgid) {
     // $log.debug("1 prodle " + l_prodle + "orgid " + l_orgid);
     ProductService.getProduct({
@@ -137,6 +162,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   }
   //get product function declaration  
 
+  
   //error handling for add product
   $scope.handleSaveProductResponse = function (data) {
     if (data.success) {
@@ -145,6 +171,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
        // growl.addSuccessMessage(data.success.message);
       $state.reload();
     } else {
+     
       if (data.error.code == 'AV001') { // user already exist
         $log.debug(data.error.code + " " + data.error.message);
         $scope.enableProductErrorMsg();
@@ -172,7 +199,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
       ProdERRMsg.innerHTML = "Please add valid information"; 
     }
   else{
-    $scope.disableEditor();
+  
     $scope.productForm.$setPristine();
     $("productExtraInfo").css("display", "none");
     $("#ErrMsging").css("display", "none");
@@ -183,12 +210,12 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
         product: {
           model_no: $scope.product.model_no,
           name: $scope.product.name,
+          display_name: $scope.product.display_name,
           description: $scope.product.description,
           category:$scope.category
         }
       };
       if ($rootScope.usersession.currentUser.org.isAdmin == true) {
-
         ProductService.saveProduct({
           orgid: $scope.orgidFromSession
         }, $scope.newProduct, function (success) {
@@ -196,9 +223,11 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
            $scope.newProduct_ResponseProdle=success.success.prodle;
            $scope.category=[];
           }
+         $scope.disableEditor();
          $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
         }, function (error) {
-          // growl.addErrorMessage(error);
+         // growl.addErrorMessage(error);
+          $scope.editMode.editorEnabled = true;
            $scope.enableProductErrorMsg();
            ProdERRMsg.innerHTML = error; 
             $scope.category=[];
@@ -219,6 +248,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
           support_discontinuation_date: $scope.product.supDis,
           sale_discontinuation_date: $scope.product.prodDis,
           banneddate: $scope.product.banneddate,
+          display_name: $scope.product.display_name,
           category:$scope.product.category
         
         }
@@ -235,8 +265,10 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
             ProdSuccessMsg.innerHTML ="Product updated successfully...";
             $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
             $scope.getProduct($scope.currentProdle, $scope.currentOrgid);
+            $scope.disableEditor();
           }, function (error) {
             $log.debug(error);
+             $scope.editMode.editorEnabled = true;
             $scope.enableProductErrorMsg();
             ProdERRMsg.innerHTML = error; 
             // growl.addErrorMessage(error);
@@ -252,7 +284,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   };
   $scope.deleteProduct = function () {
     growl.addInfoMessage("Deleting product  ...");
-    if ($scope.currentProdle !== undefined && $scope.currentProdle !== null && $scope.currentProdle !== "") {
+    if ($scope.currentProdle !== undefined || $scope.currentProdle !== null || $scope.currentProdle !== "") {
       if ($rootScope.isAdminCheck == true) { //if owener of product
         ProductService.deleteProduct({
           orgid: $scope.orgidFromSession,
@@ -503,7 +535,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   //delete product feature
   $scope.deleteFeature = function (feature) {
     // $log.debug("deleting feature");
-    if (feature !== undefined && feature !== null && feature !== "") {
+    if (feature !== undefined || feature !== null || feature !== "") {
       growl.addInfoMessage("Deleting product feature ...");
       // $log.debug(feature.featureid);
       if ($rootScope.isAdminCheck == true) { //if product owner
@@ -551,7 +583,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
       }]
     };
     $log.debug( $scope.newFeature);
-    if ($scope.newFeature !== undefined && $scope.newFeature !== null && $scope.newFeature !== "") {
+    if ($scope.newFeature !== undefined || $scope.newFeature !== null || $scope.newFeature !== "") {
       if (editStatus == 'add') {
         // $log.debug("adding");
         if ($rootScope.isAdminCheck == true) { //if product owner
@@ -598,7 +630,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
     else{
 
     console.log(data);
-    if (data !== undefined && data !== null && data !== "") {
+    if (data !== undefined || data !== null || data !== "") {
       if ($rootScope.isAdminCheck == true) {
         ProductFeatureService.updateFeature({
           orgid: $scope.orgidFromSession,
@@ -631,16 +663,21 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   //update product feature
 
   //Edit mode and display mode toggle for product data add , update and diaplay
-  $scope.editorEnabled = false;
-  $scope.editorEnabledF = false;
+  // $scope.editorEnabled = false;
+  // $scope.editorEnabledF = false;
+     $scope.editMode = {
+    editorEnabled: false,
+    editorEnabledF : false
+  };
+  
   $scope.enableEditor = function () {
-    $scope.editorEnabled = true;
+    $scope.editMode.editorEnabled = true;
     growl.addInfoMessage("   Adding product data.....");
   };
   $scope.disableEditor = function () {
-    $scope.editorEnabled = false;
+    $scope.editMode.editorEnabled = false;
     $scope.feature = "";
-    if ($scope.currentProdle !== undefined && $scope.currentProdle !== null && $scope.currentProdle !== "") {
+    if ($scope.currentProdle !== undefined || $scope.currentProdle !== null || $scope.currentProdle !== "") {
       $scope.getProduct($scope.currentProdle, $scope.currentOrgid);
       $scope.getProductFeatures($scope.currentProdle, $scope.currentOrgid);
     }
@@ -652,13 +689,13 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   };
 
   $scope.enableEditorFeature = function () {
-    $scope.editorEnabledF = true;
+    $scope.editMode.editorEnabledF = true;
     growl.addInfoMessage("   Adding product data.....");
   };
   $scope.disableEditorFeature = function () {
-    $scope.editorEnabledF = false;
+    $scope.editMode.editorEnabledF = false;
     $scope.feature = "";
-    if ($scope.currentProdle !== undefined && $scope.currentProdle !== null && $scope.currentProdle !== "") {
+    if ($scope.currentProdle !== undefined || $scope.currentProdle !== null || $scope.currentProdle !== "") {
       $scope.getProduct($scope.currentProdle, $scope.currentOrgid);
       $scope.getProductFeatures($scope.currentProdle, $scope.currentOrgid);
     }
@@ -684,7 +721,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   //on product logo hover, show follow product button
 
   $scope.getSelectedProduct = function (product1) {
-    if($scope.editorEnabled == true){
+    if($scope.editMode.editorEnabled == true){
       $scope.enableProductErrorMsg();
       ProdERRMsg.innerHTML = "Please add product first then view other products..."; 
     }else{
@@ -787,7 +824,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
  
  angular.module('prodo.ProductApp').filter('startFrom', function () {
   return function (input, start) {
-    if (input !== undefined && start !== undefined) {
+    if (input !== undefined || start !== undefined) {
       start = +start;
       return input.slice(start);
     }

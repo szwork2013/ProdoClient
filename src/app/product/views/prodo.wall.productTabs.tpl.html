@@ -47,10 +47,6 @@
         </table>
         <div class="clearBoth"></div>
 
-
-
-
-
   <!--   <img class="img prodo-productLogoDisplay" id="productLogo" ng-src="{{product.product_logo.image}}" /> -->
    <!--  <strong class="prodo-productNameStrong" >&nbsp;<span ng-bind="product.name.substring(0,20)"> </span></strong> -->
  
@@ -124,13 +120,12 @@
               <div ng-controller="DragImageController">
                 <div id="prodo-comment-textBox-container">
                   <div id="holder">
-                    <textarea id="prodo-comment-Textbox" col="40" type="text" class="form-control " name="txtComment" placeholder="Product Conversation [max 300 characters]"   ng-model="commenttextField.userComment" comment-limit="300" ng-enter="addProductComment();hideFeature()" required  items="featuretags"  ng-click="showFeature()"></textarea>  
+                    <textarea ng-init="commenttextField.userComment=''" id="prodo-comment-Textbox" col="40" type="text" class="form-control " name="txtComment" placeholder="Product Conversation [max 300 characters]"   ng-model="commenttextField.userComment" comment-limit="300" ng-enter="addProductComment();hideFeature()" required  items="featuretags"  ng-click="showFeature()"></textarea>  
                     <!-- tags -->
-                    <div id="prodo-productTags">
+                    <div id="prodo-productTags" >
                       <form  role="form">
                         <div  class="prodo-TagsBox" >
-                          <tags-input  add-on-enter="false" add-on-space="true" ng-model="mytags" placeholder="Add tags"  list="pretags" ng-enter="addProductComment()"
-                            replace-spaces-with-dashes="false"></tags-input>
+                          <tags-input  add-on-enter="false" add-on-space="true" ng-model="mytags" placeholder="Add tags"  ng-enter="addProductComment()" replace-spaces-with-dashes="false"></tags-input>
                         </div>
                       </form>
                     </div>

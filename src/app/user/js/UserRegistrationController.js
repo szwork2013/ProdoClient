@@ -71,6 +71,8 @@ angular.module('prodo.UserApp')
             $scope.showAlert('alert-danger', 'Prodonus Database Server error. Please wait for some time.');
         }
       }
+      $scope.hideSpinner();
+
     };
   
     $scope.signup = function(){
@@ -97,13 +99,11 @@ angular.module('prodo.UserApp')
 
     var cleanupEventRecaptchaDone = $scope.$on("recaptchaDone", function(event, message){
       UserSessionService.signupUser($scope.jsonUserData());    // calling function of UserSignupService to make POST method call to signup user.       
-      $scope.hideSpinner();
     });
 
     var cleanupEventSignupDone = $scope.$on("signupDone", function(event, message){
       $log.debug(message);
-      $scope.handleSignupResponse(message);
-      $scope.hideSpinner();      
+      $scope.handleSignupResponse(message);      
     });
 
     var cleanupEventSignupNotDone = $scope.$on("signupNotDone", function(event, message){

@@ -85,59 +85,46 @@ angular.module('prodo.ProdonusApp', [
       });
 
     var cleanupEventSessionDone = $scope.$on('session', function (event, data) {
-      $log.debug(data);
+      // $log.debug(data);
+      console.log(data);
       if ($rootScope.usersession.isLoggedIn) {
         if (data.prodousertype == 'business' && data.org == undefined) {
           $state.transitionTo('prodo.orgregistration.company');
         } else if ((data.prodousertype == 'business' || data.prodousertype == 'individual')  && data.hasDonePayment) {
-            if (data.products_followed == null && data.products_followed == undefined) {
+            if (data.products_followed == null || data.products_followed == undefined) {
               $log.debug('There is some problem with the database. Please contact support.')
             } else if (data.products_followed.length > 0) {
-                var n = data.products_followed.length - 1;
-                $rootScope.orgid= data.products_followed[n].orgid;
-                $rootScope.product_prodle= data.products_followed[n].prodle;
+                var lastProductFollowed = data.products_followed.length - 1;
+                $rootScope.orgid= data.products_followed[ lastProductFollowed].orgid;
+                $rootScope.product_prodle= data.products_followed[ lastProductFollowed].prodle;
                 for (var i=0;i<data.products_followed.length;i++){
                   if(data.products_followed[i] && data.products_followed[i].prodle){
                     var prodle = data.products_followed[i].prodle;
                   }
                   $scope.prodlesfollowed.push(prodle);
                 }
-              UserSessionService.getProductFollowed($scope.prodlesfollowed);
-            }
-            if (data.org && data.org.orgtype == 'Manufacturer') {
-              $rootScope.orgid = data.org.orgid;
-              $state.transitionTo('prodo.home.wall.org');
-            } else if (data.products_followed.length > 0) {
-                var n = data.products_followed.length - 1;
-                $rootScope.orgid= data.products_followed[n].orgid;
-                $state.transitionTo('prodo.home.wall.org');
+              UserSessionService.getProductFollowed($scope.prodlesfollowed, data);
             }
         } 
       }
     });
-    // $scope.handleGetOrgResponse = function (data) {
-    //   if (data.success) {
-    //     OrgRegistrationService.updateOrgData(data.success.organization);
-    //     $scope.showAlert('alert-success', data.success.message);
-    //   } else {
-    //     $log.debug(data.error.message);
-    //     $scope.showAlert('alert-danger', data.error.message);
-    //   }
-    // };
-    // var cleanupEventGetOrgDone = $rootScope.$on('getOrgDone', function (event, message) {
-    //     $scope.handleGetOrgResponse(message);
-    //     cleanupEventGetOrgDone();
-    //   });
-    // var cleanupEventGetOrgNotDone = $rootScope.$on('getOrgNotDone', function (event, message) {
-    //     $scope.showAlert('alert-danger', 'Server Error:' + message);
-    //     cleanupEventGetOrgNotDone();
-    //   });
 
-    //   var cleanupEventSendOrgData = $rootScope.$on("sendOrgData", function(event, data){
-    //     $state.transitionTo('prodo.home.wall.product'); 
-    //     cleanupEventSendOrgData();  
-
-    //   });
+    var cleanupEventGetProductFollowedDone = $rootScope.$on('getProductFollowedDone', function (event, message, data) {
+        console.log(message);
+        console.log(data);
+        if (data.org && data.org.orgtype == 'Manufacturer') {
+              $rootScope.orgid = data.org.orgid;
+              console.log('manufacturer' + $rootScope.orgid);
+              $state.transitionTo('prodo.home.wall.org');
+            } else if (data.products_followed.length > 0) {
+                var  lastProductFollowed = data.products_followed.length - 1;
+                $rootScope.orgid= data.products_followed[ lastProductFollowed].orgid;
+                console.log('others' + $rootScope.orgid);
+                $state.transitionTo('prodo.home.wall.org');
+            }
+        
+      });
+    
     $scope.logout = function () {
       UserSessionService.logoutUser();
     };
@@ -152,7 +139,8 @@ angular.module('prodo.ProdonusApp', [
 
     $scope.$on('$destroy', function(event, message) {
       cleanupEventSession_Changed_Failure(); 
-      cleanupEventSessionDone();           
+      cleanupEventSessionDone();
+      cleanupEventGetProductFollowedDone();           
       cleanupEventLogoutDone();
       cleanupEventLogoutNotDone();      
     });

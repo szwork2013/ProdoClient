@@ -6,11 +6,9 @@ angular.module('prodo.ProdoWallApp')
     $scope.productlist = [];
     $rootScope.images = [];
     $scope.isFollowing = false;
-
+    console.log('initialising');
     var planExpiryDate = moment.utc(moment($rootScope.usersession.currentUser.subscription.planexpirydate));
-    console.log("last "+ planExpiryDate.format('YYYY-MM-DD HH:mm'));
     var todaysDate = moment.utc(moment());
-    console.log("ajj"+todaysDate.format('YYYY-MM-DD HH:mm'));
     $rootScope.daysRemaining = "Trial : "+planExpiryDate.diff(todaysDate, 'days')+" Days Remaining";
 
     $scope.updateimages = function(data) {
@@ -55,7 +53,8 @@ angular.module('prodo.ProdoWallApp')
         $rootScope.orgdata.org_logo = {image: '../../../assets/images/if_no_logo_images_available.gif'}
       }
       $scope.updateimages(orgdata.success.organization.org_images);
-      $log.debug($rootScope.orgdata);
+      // $log.debug($rootScope.orgdata);
+      console.log($rootScope.orgdata);
     });
 
     $scope.$watch('$state.$current.locals.globals.orgaddr', function (orgaddr) {
@@ -64,7 +63,8 @@ angular.module('prodo.ProdoWallApp')
 
     $scope.$watch('$state.$current.locals.globals.orgproduct', function (orgproduct) {
       if (orgproduct.error) {
-        $log.debug('No product available'); 
+        // $log.debug('No product available'); 
+        console.log('No product available'); 
       } else {
         $scope.productlist = orgproduct.success.product; 
         $rootScope.product_prodle = $scope.productlist[0].prodle; 

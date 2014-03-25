@@ -298,7 +298,7 @@ color: #595365;
 }
 
 .account-profile-pic-container{
-	height:190px; border-radius: 5px; margin-bottom: 10px; padding:20px;
+	height:190px; border-radius: 5px; margin: 20px auto;
 }
 
 .account-profile-img{
@@ -315,7 +315,7 @@ color: #595365;
 }
 
 .prodo-account-btn{
-	border-radius: 10px; margin: 5px; width: 80px; font-size: 12px; font-weight:bold;
+	border-radius: 10px; margin: 5px; min-width: 80px; font-size: 12px; font-weight:bold;
 }
 
 .prodo-account-invites-btn{
@@ -844,10 +844,6 @@ text-align: left;
 	margin: 30px auto;
 }
 
-.prodo-org-account-view-container{
-	margin: 10px auto;
-}
-
 #prodo-registration-Wizard-after{
 	color :rgb(1, 223, 116); background-color: white; z-index: 100;position: absolute;
 
@@ -898,10 +894,10 @@ border-bottom-left-radius: 0px;
 }
 
 .prodo-wall-sidebar-list-heading.active:hover{
-	background-color: #494F53; font-weight: bold; font-size:16px; text-align: center; 
+	background-color: #494F53; font-weight: bold; text-align: center; 
 }
 .prodo-wall-sidebar-list-heading.active{
-	background-color: #494F53; font-weight: bold; font-size:16px; text-align: center; 
+	background-color: #494F53; font-weight: bold; text-align: center; 
 }
 
 
@@ -1432,14 +1428,14 @@ margin-bottom: 10px;
 #prodo-product-productgeneralbtn:hover{ background-color: activeborder;}
 .thumb { width:160px; float: left;margin-left: 5px; border: solid 1px #ccc;}
 .collapsed2 div{display:none;}
-.tab-content{ border-bottom: 0px solid white;margin-top: 1pc;}
+.tab-content{ border-bottom: 0px solid white;margin-top: 1px;}
 .collapsed2:hover:after{content: " Click here to follow";border: solid 1px #ccc;padding:5px;}
 .prodo-ErrMsging{font-family: Helvetica ;font-size:18px; padding :10px; margin-top:20px; margin-bottom:20px;}
 .prodo-productListCorousel{ height:130px;width:auto;}
 .prodo-arrowbtnLeft{height: 109px; float: left; margin-top:5px;margin-right:40px; cursor:pointer; font-size:50px;color:gray; background-color:white;}
 .prodo-arrowbtnRight{height: 109px;float: right; margin-top:5px; cursor:pointer ; font-size:50px;color:gray; background-color:white;}
 .prodo-productThumbnailView{display:inline-block;width:100px; height: 110px; float: left; margin: 5px; border: solid 1px #ccc;}
-.prodo-AddProductBtn{ margin:5px auto; display:block; text-align:center; font-weight:bold; font-size:12px;}
+.prodo-AddProductBtn{color: darkslategrey ; margin:5px auto; display:block; text-align:center; font-weight:bold; font-size:12px;}
 .prodo-productThumbnailImg{margin:0px auto; display:block; width:95%; height: 73%;  }
 .prodo-ProductDetails{display:block}
 .prodo-headings{color: #686114;margin-bottom: -19px;}
@@ -1457,18 +1453,18 @@ margin-bottom: 10px;
 .prodo-productImgThumbnail{width: 150px; height: 150px;}
 .prodo-uploadBtnWidth{ width: 200px;}
 .clearBoth{clear:both;}
-.prodo-TagsBox{width:518px; }
+.prodo-TagsBox{width: 92%; }
 .prodo-CommentImgPrePosting{width:75px;}
 .prodo-uploadedImg{display:none;width:50px; height:50px;}
 .prodo-padding-bottom{padding-bottom: 10px;}
 .prodo-loadmoreColor{color:gray;}
 .prodo-loadmoreMsg{text-align:center; width:518px; font-family: Helvetica ;}
-.prodo-productNameList{font-size: 10px;}
+.prodo-productNameList{font-size: 10px;color: darkslategrey;}
 /*.prodo-ProductContainer{border: 1px solid #94d2f8; width: 100%;}*/
 .prodo-ProductContainer{ border: 1px solid #E7EDF1;background-color: #ffffff;margin-bottom: 20px;border-radius: 10px;padding: 20px;
 }
 .prodo-productLogoDisplay{height: 100px; margin-right:30px;width:100px; cursor: pointer;vertical-align: middle;}
-.prodo-productNameStrong{font-size: 18px;margin-left: 200px; margin:20px;max-width:200px; text-align:center; color:dark}
+.prodo-productNameStrong{font-size: 17px;margin-left: 200px; margin:20px;max-width:200px; text-align:center; color:dark}
 .prodo-Modelno{color:#82805F;padding-left: 15px;}
 .prodo-description{height:15px; overflow: hidden;  font-size:12px;}
 .prodo-comment-Text-tabs {align:left;}
@@ -1477,7 +1473,7 @@ margin-bottom: 10px;
 .prodo-trendingContainer{font-weight: bold;border-radius: 10px;text-align:center;padding: 5px;background-color: paleturquoise;border: 1px solid #9FBACC;height: 30px;max-width: 300px;position: relative;margin-left: 200px;}
 .prodo-CommentDeleteMsg{font-size: 12px;padding-top: 20px;padding-bottom: 20px;background-color: gainsboro;padding-left: 10px;}
 /*.prodo-productThumbnailView:hover{zoom:0.9;-webkit-transform: scale( 0.9); -moz-transform: scale(0.9);} */
-.prodo-MainDetailsTable{  color: black;text-align: center;}
+.prodo-MainDetailsTable{  color: black;}
 .prodo-followesInfotr{width: 50%}
 .prodo-followesInfotd{width: 50%;border-right:1px solid #dbdbdb;padding-right:5px;}
 .prodo-producttrendingInfoDiv{font-size: 18px;text-align: right;padding-right: 15px;}
@@ -1486,6 +1482,7 @@ margin-bottom: 10px;
 .prodo-productCommentInfoDiv{font-size: 18px;text-align: left;width: 50px;padding-left: 15px;}
 .prodo-productCommentsInfoLable{font-size: 10px;text-align: left;}
 .prodo-delImgs{margin-bottom: 10px;}
+.prodo-checkbox{height: 20px;width: 20px;}
 .prodo-categoryTags{
 	display:inline-block;
 	background-color:rgba(161,219,255,1);
@@ -1497,6 +1494,9 @@ margin-bottom: 10px;
 	margin-top:2px;
 	font-size: 12px;
 }
+.prodo-lblSelectall{vertical-align: super;}
+.activeProduct{border-bottom: 5px solid greenyellow;}
+/*.activeProduct{border:1px solid lightblue;animation:mymove 5s infinite;-webkit-animation:mymove 5s infinite;}@keyframes mymove{50% {border:5px solid lightblue;}}@-webkit-keyframes mymove{50% {border:5px solid lightblue;}}*/
 
 /*#commentTab li.active {
 	color: lime
@@ -2150,7 +2150,7 @@ overflow: hidden;
 /* width: 51px; */
 
 .prodo-footer-content-container{
-background-color: transparent; margin: 20px auto; border-radius: 5px; min-height: 300px; width: 100%;
+background-color: transparent; border-radius: 5px; min-height: 300px; width: 100%;
 border: 1px solid #b3b3b3; padding: 30px;
 }
 
@@ -2224,6 +2224,23 @@ margin:5px auto; height:70px; display:block; text-align:left; font-weight:bold; 
 
 .prodo-wall-org-productimg{
 	margin:1px auto; display:block; width:95%; height: 130px; 
+}
+
+#prodo-row-static-content{
+	margin-left: 0px;
+	margin-right: 0px;
+}
+
+#prodo-org-account-container{
+	margin-top: 20px;
+}
+
+#prodo-user-account-container{
+	margin-top: 20px;
+}
+
+#prodo-view-footer-content-container{
+	margin-top: 20px;
 }
 
 .fa-check:before {

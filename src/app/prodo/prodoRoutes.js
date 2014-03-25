@@ -187,11 +187,24 @@ angular.module('prodo.ProdonusApp')
        resolve: {
           OrgService: 'OrgService',
           allproductdata: function(OrgService, $rootScope) {
-            console.log('getting product');
-            return OrgService.GetOrgProducts.getAllOrgProducts({orgid: $rootScope.usersession.currentUser.org.orgid}).$promise;
+          return OrgService.GetOrgProducts.getAllOrgProducts({orgid: $rootScope.usersession.currentUser.org.orgid}).$promise;
            
-          }
+          },
+           allproductCategories: function(CategoryTags, $rootScope) {
+           return CategoryTags.getCategoryTags().$promise;
+           
+           // temp="";
+           // if(temp !== ""){
+           //  console.log('data');
+           //  return temp;
+           // }
+           // else{
+           //  console.log('empty');
+           //  return ['product','software']
+           // }
+
         }
+      }
       })
 
     /* ----ProdoHome Wall Routes---- */
@@ -231,6 +244,7 @@ angular.module('prodo.ProdonusApp')
             return OrgService.ManageOrgLocation.getAllOrgAddress({orgid: $rootScope.orgid}).$promise;
           },
           orgproduct: function(OrgService, $rootScope) {
+            console.log('product');
             return OrgService.GetOrgProducts.getAllOrgProducts({orgid: $rootScope.orgid}).$promise;
           }
         }
