@@ -298,7 +298,7 @@ color: #595365;
 }
 
 .account-profile-pic-container{
-	height:190px; border-radius: 5px; margin: 20px auto;
+	height:190px; border-radius: 5px; margin-bottom: 10px; padding:20px;
 }
 
 .account-profile-img{
@@ -315,7 +315,7 @@ color: #595365;
 }
 
 .prodo-account-btn{
-	border-radius: 10px; margin: 5px; min-width: 80px; font-size: 12px; font-weight:bold;
+	border-radius: 10px; margin: 5px; width: 80px; font-size: 12px; font-weight:bold;
 }
 
 .prodo-account-invites-btn{
@@ -844,6 +844,10 @@ text-align: left;
 	margin: 30px auto;
 }
 
+.prodo-org-account-view-container{
+	margin: 10px auto;
+}
+
 #prodo-registration-Wizard-after{
 	color :rgb(1, 223, 116); background-color: white; z-index: 100;position: absolute;
 
@@ -894,10 +898,10 @@ border-bottom-left-radius: 0px;
 }
 
 .prodo-wall-sidebar-list-heading.active:hover{
-	background-color: #494F53; font-weight: bold; text-align: center; 
+	background-color: #494F53; font-weight: bold; font-size:16px; text-align: center; 
 }
 .prodo-wall-sidebar-list-heading.active{
-	background-color: #494F53; font-weight: bold; text-align: center; 
+	background-color: #494F53; font-weight: bold; font-size:16px; text-align: center; 
 }
 
 
@@ -1428,7 +1432,7 @@ margin-bottom: 10px;
 #prodo-product-productgeneralbtn:hover{ background-color: activeborder;}
 .thumb { width:160px; float: left;margin-left: 5px; border: solid 1px #ccc;}
 .collapsed2 div{display:none;}
-.tab-content{ border-bottom: 0px solid white;margin-top: 1px;}
+.tab-content{ border-bottom: 0px solid white;margin-top: 1pc;}
 .collapsed2:hover:after{content: " Click here to follow";border: solid 1px #ccc;padding:5px;}
 .prodo-ErrMsging{font-family: Helvetica ;font-size:18px; padding :10px; margin-top:20px; margin-bottom:20px;}
 .prodo-productListCorousel{ height:130px;width:auto;}
@@ -2150,7 +2154,7 @@ overflow: hidden;
 /* width: 51px; */
 
 .prodo-footer-content-container{
-background-color: transparent; border-radius: 5px; min-height: 300px; width: 100%;
+background-color: transparent; margin: 20px auto; border-radius: 5px; min-height: 300px; width: 100%;
 border: 1px solid #b3b3b3; padding: 30px;
 }
 
@@ -2224,23 +2228,6 @@ margin:5px auto; height:70px; display:block; text-align:left; font-weight:bold; 
 
 .prodo-wall-org-productimg{
 	margin:1px auto; display:block; width:95%; height: 130px; 
-}
-
-#prodo-row-static-content{
-	margin-left: 0px;
-	margin-right: 0px;
-}
-
-#prodo-org-account-container{
-	margin-top: 20px;
-}
-
-#prodo-user-account-container{
-	margin-top: 20px;
-}
-
-#prodo-view-footer-content-container{
-	margin-top: 20px;
 }
 
 .fa-check:before {
