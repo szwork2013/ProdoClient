@@ -15,7 +15,7 @@ $scope.groups = currentorggroup.success.usergrp;
 $scope.orgaddr = currentorgaddr.success.orgaddress;
 $scope.orgImages = currentorgdata.success.organization.org_images;
 var indexOfOrgAddress = 0;
-console.log(JSON.stringify($scope.groups[2].grpmembers));
+// console.log(JSON.stringify($scope.groups[2].grpmembers));
 $scope.validateError=false;
 $scope.regexForText = /[a-z,A-Z]/;
 $scope.regexForNumbers = /[0-9]/;
