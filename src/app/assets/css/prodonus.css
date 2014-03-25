@@ -745,7 +745,7 @@ text-align: left;
 .error-message{
 	font-weight: normal;
 	padding-top: 10px;
-	margin-left: 160px;
+	margin-left: 0px;
 	text-align: left;
 	color: rgb(211, 41, 41);
 }

@@ -52,7 +52,11 @@ angular.module('prodo.OrgApp')
           getOrgSettings: { method: 'GET', params: { orgid : '@orgid' }},
           saveOrg: { method: 'POST'},
           updateOrgSettings: { method: 'PUT', params: { orgid: '@orgid' }, isArray: false},
-          deleteOrgSettings: { method: 'DELETE', params: { orgid: '@orgid' }}
+          // deleteOrgSettings: { method: 'DELETE', params: { orgid: '@orgid' }}
+        }),
+        OrgDeleteRequest: $resource('/api/orgdelreq/:orgid',{},
+        {
+          sendDeleteRequest: {method: 'POST', params: { orgid:'@orgid'}}
         }),
         ManageOrgLocation: $resource('/api/orgaddress/:orgid/:orgaddressid', {},
         {
@@ -199,16 +203,28 @@ angular.module('prodo.OrgApp')
 
 
       organization.removeOrgSettings= function () {
-        OrgService.OrgRegistration.deleteOrgSettings({orgid: $rootScope.usersession.currentUser.org.orgid},     // calling function of UserSigninService to make POST method call to signin user.
+        OrgService.OrgDeleteRequest.sendDeleteRequest({orgid: $rootScope.usersession.currentUser.org.orgid}, 
         function(success){
           $log.debug(success);
-          $rootScope.$broadcast("deleteOrgDone", success);
+          $rootScope.$broadcast("deleteOrgRequestSent", success);
         },
         function(error){
           $log.debug(error);
-          $rootScope.$broadcast("deleteOrgNotDone", error.status);
+          $rootScope.$broadcast("deleteOrgRequestNotSent", error.status);
         });
       }
+
+      // organization.removeOrgSettings= function () {
+      //   OrgService.OrgRegistration.deleteOrgSettings({orgid: $rootScope.usersession.currentUser.org.orgid},     // calling function of UserSigninService to make POST method call to signin user.
+      //   function(success){
+      //     $log.debug(success);
+      //     $rootScope.$broadcast("deleteOrgDone", success);
+      //   },
+      //   function(error){
+      //     $log.debug(error);
+      //     $rootScope.$broadcast("deleteOrgNotDone", error.status);
+      //   });
+      // }
 
       // organization.getOrgDetailSettings= function (orgidD) {
       //   OrgService.OrgRegistration.getOrgSettings({orgid: orgidD},     // calling function of UserSigninService to make POST method call to signin user.
