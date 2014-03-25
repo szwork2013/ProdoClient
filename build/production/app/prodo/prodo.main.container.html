@@ -2,12 +2,12 @@
       <div id="prodo-navbar-container" class="prodo-navbar-container">
         <a id="prodo-navbar-brand" class="navbar-brand" ui-sref="prodo.home.wall.org"><img class="navbar-brand-img" src="assets/images/prodonus.png"></a>
       
-        <p ng-hide="usersession.isLoggedIn" id="prodo-navbar-text" class="navbar-text navbar-right prodo-navbar-text"><a href="" ng-click='showSignin()' id="prodo-navbar-link1" class="navbar-link">Sign In</a>&nbsp;|&nbsp;<a href="" ng-click='showSignup()' id="prodo-navbar-link2" class="navbar-link">Sign Up</a></p>
+        <p ng-hide="usersession.isLoggedIn" id="prodo-navbar-text" class="navbar-text navbar-right"><a href="" ng-click='showSignin()' id="prodo-navbar-link1" class="navbar-link">Sign In</a>&nbsp;|&nbsp;<a href="" ng-click='showSignup()' id="prodo-navbar-link2" class="navbar-link">Sign Up</a></p>
       </div>
 
       <ul ng-cloak ng-show="usersession.isLoggedIn" class="nav navbar-nav navbar-right">
 
-         <li><a class="btn defaultPointer" >{{daysRemaining}}</a></li>
+        <li><a class="btn defaultPointer" >{{daysRemaining}}</a></li>
         <li><a class="btn" id="navbar-home-link" ui-sref="prodo.home.wall.org"><i  class="prodo-fa-navbar fa fa-home"></i>Home</a></li>
 
         <li class="dropdown">

@@ -25,10 +25,10 @@
     <dt>Company Address:</dt>
     <dd>
       <address>
-        {{addr.address.address1}},<br>
-        {{addr.address.address2}},<br>
-        {{addr.address.address3}}, {{addr.address.city}}<br>
-        {{addr.address.state}}, {{addr.address.country}}<br>
+        {{addr.address.address1}}<br>
+        {{addr.address.address2}}<br>
+        {{addr.address.address3}} {{addr.address.city}}<br>
+        {{addr.address.state + ','}} {{addr.address.country}}<br>
         {{addr.address.zipcode}}
       </address>
     </dd>
@@ -85,11 +85,12 @@
   <div ng-show='isFollowing' growl></div>
     <div ng-show='productlist.length == 0'> <p style="text-align:left; font-size:20px; margin: 20px auto;" class="text-success"><strong><em>Currently no products available.</em></strong></p></div>
     <div class="row">
-      <div class="prodo-wall-org-product-container col-sm-3" ng-repeat="product in productlist">
+      <div class="prodo-wall-org-product-container col-sm-3" ng-repeat="product in productlist" ng-show="regexProdonusProduct.test(product.name) !== true">
         <p class="prodo-wall-org-product-name">{{product.name}}</p>
         <img ng-show="product.product_logo" src="{{product.product_logo.image}}" alt=" No Image" class="prodo-wall-org-productimg img-rounded">
         <img ng-hide="product.product_logo" src="../../../assets/images/if_no_logo_images_available.gif" alt=" No Image" class="prodo-wall-org-productimg img-rounded">
-        <button class="prodo-follow-btn btn btn-primary btn-sm" ng-click='follow(product)'>Follow</button>
+        <input ng-show="product_prodles.indexOf(product.prodle)>=0" type="button"  class="prodo-follow-btn btn btn-primary btn-sm" value="Following" />
+        <input ng-show="product_prodles.indexOf(product.prodle)<0" type="button" id="{{product.prodle + '_fbtn'}}" class="prodo-follow-btn btn btn-primary btn-sm" ng-click='follow(product)' value="Follow" />
       </div>
     </div>
   	

@@ -6,7 +6,8 @@ angular.module('prodo.ProdoWallApp')
     $scope.productlist = [];
     $rootScope.images = [];
     $scope.isFollowing = false;
-
+    $scope.product_prodles = [];
+    $scope.regexProdonusProduct = /^prodonus/i;
     var planExpiryDate = moment.utc(moment($rootScope.usersession.currentUser.subscription.planexpirydate));
     var todaysDate = moment.utc(moment());
     $rootScope.daysRemaining = "Trial : "+planExpiryDate.diff(todaysDate, 'days')+" Days Remaining";
@@ -25,8 +26,6 @@ angular.module('prodo.ProdoWallApp')
         $rootScope.images= [{image: '../../../assets/images/if_no_org_images_available.gif' }];    // This will be shown when org images are not there    
       }
     };
-    
-
 
 
     // Neha's previous update images function
@@ -68,16 +67,46 @@ angular.module('prodo.ProdoWallApp')
       } else {
         $scope.productlist = orgproduct.success.product; 
         $rootScope.product_prodle = $scope.productlist[0].prodle; 
+        if (UserSessionService.productfollowlist.length > 0) {
+          for (var i=0; i< UserSessionService.productfollowlist.length; i++){
+            if(UserSessionService.productfollowlist[i] && UserSessionService.productfollowlist[i].prodle){
+              var prodle = UserSessionService.productfollowlist[i].prodle;
+              if ($scope.product_prodles.indexOf(prodle)<0) {
+                $scope.product_prodles.push(prodle);
+              }              
+            }
+            console.log($scope.product_prodles);
+          }
+        };
       }
     });
+
+    // $rootScope.$watch('usersession.productfollowlist', function () {
+      
+    //   console.log(UserSessionService.productfollowlist.length);
+    //   console.log($scope.product_prodles);
+          
+    // });
+
+    var cleanEventUnfollowProductFromSidelist = $scope.$on("unfollowProductFromSidelist", function(event, success){
+      console.log('listening');
+      $state.reload();
+    });
+
 
     $scope.handlefollowproductResponse = function(data, product){
       if (data.success) {
         UserSessionService.productfollowlist.push(product);
+        $state.reload();
         growl.addSuccessMessage('You have successfully followed' + ' ' + product.name);    
       } else {
-          $log.debug(data.error.message);
-          growl.addErrorMessage(data.error.message); 
+          if(data.error !== undefined && data.error.code === 'AL001' ) {
+            UserSessionService.resetSession();
+            $state.transition('prodo.landing.signin');
+          } else {
+            $log.debug(data.error.message);
+            growl.addErrorMessage(data.error.message); 
+          }
       }
     }; 
 
@@ -86,17 +115,10 @@ angular.module('prodo.ProdoWallApp')
     };
 
     var cleanupEventFollowProductDone = $scope.$on('followProductDone', function(event, data, product) {
-           if(data.error !== undefined && data.error.code === 'AL001' )
-           {
-               UserSessionService.resetSession();
-               $state.go('prodo.landing.signin');
-           }
-           else
-           {
-              $scope.isFollowing = true;
-              $scope.handlefollowproductResponse(data, product);
-           }
+       $scope.isFollowing = true;
+       $scope.handlefollowproductResponse(data, product);
       });
+
     var cleanupEventFollowProductNotDone = $scope.$on('followProductNotDone', function(event, data) {
         $scope.isFollowing = true;
         growl.addErrorMessage('There is some server error.');
@@ -104,7 +126,8 @@ angular.module('prodo.ProdoWallApp')
 
     $scope.$on('$destroy', function(event, data) {
       cleanupEventFollowProductDone(); 
-      cleanupEventFollowProductNotDone();               
+      cleanupEventFollowProductNotDone();  
+      cleanEventUnfollowProductFromSidelist();             
     });
 
 	}]);
