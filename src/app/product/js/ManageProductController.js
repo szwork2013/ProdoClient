@@ -49,17 +49,20 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   $scope.socket;
 
 
+  
+
   $scope.$watch('$state.$current.locals.globals.allproductdata', function (allproductdata) {
     if (allproductdata.error) {
         $("#prodo-ProductDetails").css("display", "none");
         $("#ErrMsging").css("display", "block");
       document.getElementById("ErrMsging").innerHTML = "<br>Product not available ... Add new product<br><br>";
     } else {
-      if(allproductCategories!==undefined || allproductCategories!==null|| allproductCategories!==""){
-        if(allproductCategories.success.categorytags!==undefined || allproductCategories.success.categorytags!==null || allproductCategories.success.categorytags!=="" ){
-           $scope.listCategory.productCategories=allproductCategories.success.categorytags;
-        }
+      if(allproductCategories.error){
+       $scope.listCategory.productCategories=['product','software'];
       }
+      else if(allproductCategories.success){
+       $scope.listCategory.productCategories=allproductCategories.success.categorytags;
+     }
       $scope.productlist = allproductdata.success.product;
       if ($scope.productlist.length == 0) { //after deleting product, check for next product from product followed,if no product - display msg
          $("#prodo-ProductDetails").css("display", "none");
@@ -87,14 +90,15 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
 
   //get Categories
   $scope.listProductCategories=function(){
-      if(allproductCategories!==undefined || allproductCategories!==null || allproductCategories!==""){
-        if(allproductCategories.success.categorytags!==undefined || allproductCategories.success.categorytags!==null || allproductCategories.success.categorytags!=="" ){
-            $log.debug("categories typeahead "+   allproductCategories.success.categorytags);
-            return  allproductCategories.success.categorytags
-        }
-      }
-    
-  };
+     if(allproductCategories.error){
+     $log.debug("err");
+      return ['product','software'];
+     }
+     else if(allproductCategories.success){
+      $log.debug("suc");
+      return allproductCategories.success.categorytags;
+     }
+ };
 
   //get login details
   $scope.getUserDetails = function () {
