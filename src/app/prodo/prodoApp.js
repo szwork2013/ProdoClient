@@ -108,15 +108,7 @@ angular.module('prodo.ProdonusApp', [
         } 
       }
     });
-    // $scope.handleGetOrgResponse = function (data) {
-    //   if (data.success) {
-    //     OrgRegistrationService.updateOrgData(data.success.organization);
-    //     $scope.showAlert('alert-success', data.success.message);
-    //   } else {
-    //     $log.debug(data.error.message);
-    //     $scope.showAlert('alert-danger', data.error.message);
-    //   }
-    // };
+
     var cleanupEventGetProductFollowedDone = $rootScope.$on('getProductFollowedDone', function (event, message, data) {
         console.log(message);
         console.log(data);
@@ -132,16 +124,7 @@ angular.module('prodo.ProdonusApp', [
             }
         
       });
-    // var cleanupEventGetOrgNotDone = $rootScope.$on('getOrgNotDone', function (event, message) {
-    //     $scope.showAlert('alert-danger', 'Server Error:' + message);
-    //     cleanupEventGetOrgNotDone();
-    //   });
-
-    //   var cleanupEventSendOrgData = $rootScope.$on("sendOrgData", function(event, data){
-    //     $state.transitionTo('prodo.home.wall.product'); 
-    //     cleanupEventSendOrgData();  
-
-    //   });
+    
     $scope.logout = function () {
       UserSessionService.logoutUser();
     };
