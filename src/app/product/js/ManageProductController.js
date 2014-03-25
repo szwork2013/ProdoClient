@@ -210,6 +210,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
         product: {
           model_no: $scope.product.model_no,
           name: $scope.product.name,
+          display_name: $scope.product.display_name,
           description: $scope.product.description,
           category:$scope.category
         }
@@ -247,6 +248,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
           support_discontinuation_date: $scope.product.supDis,
           sale_discontinuation_date: $scope.product.prodDis,
           banneddate: $scope.product.banneddate,
+          display_name: $scope.product.display_name,
           category:$scope.product.category
         
         }

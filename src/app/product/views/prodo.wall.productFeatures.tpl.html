@@ -97,6 +97,10 @@
           <td class="prodo-productTabledis" ng-show="product.sale_discontinuation_date" >Product Discontinued On &nbsp; <span ng-bind="formatDate(product.sale_discontinuation_date)"></td>
           <td class="prodo-productTabledis" ng-show="product.support_discontinuation_date">Support Discontinued On  &nbsp;<span ng-bind="formatDate(product.support_discontinuation_date)" > </span></td>
         </tr>
+        <tr class="prodo-productTableFont" ng-if="product.display_name">
+          <td  class="prodo-productTableFont" >Product Display Name :&nbsp; <span ng-bind="product.display_name" > </span></td>
+         
+        </tr>
         <tr class="prodo-productTableFont" >
           <td  class="prodo-productTableFont" >Product Name :&nbsp; <span ng-bind="product.name" > </span></td>
           <td  class="prodo-productTableFont" >Model No :&nbsp; <span ng-bind="product.model_no"></span></td>
@@ -123,6 +127,11 @@
           <tr   ng-show="editStatus=='update'"  class="prodo-productDiscontinuedUpdate prodo-productTabledis prodo-display-discont "  >
             <td class="prodo-productTabledis" >Product Discontinued   <input  id="prodo-product-features_textfield" type="date" class="form-control prodo-display-right" ng-model="product.prodDis" name="prodDis"   /></td>
             <td class="prodo-productTabledis" >Support Discontinued   <input id="prodo-product-features_textfield" type="date" class="form-control prodo-display-right" ng-model="product.supDis" name="supDis"  /></td>
+          </tr>
+           <tr>
+            <td >   Product Display Name <input ng-model="product.display_name" ng-minlength="2"
+              ng-maxlength="15"  id="prodo-product-features_textfield" class="form-control prodo-display-right prodo-validation"  type="text"    name="name" required />  </td>
+           
           </tr>
           <tr>
             <td >   Product Name <input ng-model="product.name" ng-minlength="2"
