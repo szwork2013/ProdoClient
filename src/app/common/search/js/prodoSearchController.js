@@ -212,12 +212,13 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
   //This function is called unfollow product from sidebar; When unfollow button is clicked list from productfollowedlist is spliced;
   $scope.unfollowProduct = function (product) { 
       UserSessionService.unfollowProduct(product.prodle);
-      indexOfUnfollowedProduct = $rootScope.usersession.productfollowlist.indexOf(product);
+      indexOfUnfollowedProduct = UserSessionService.productfollowlist.indexOf(product);
    };
 
   var cleanEventUnfollowProductDone = $scope.$on("unfollowProductDone", function(event){
-      $rootScope.usersession.productfollowlist.splice(indexOfUnfollowedProduct, 1);
-      });
+    UserSessionService.productfollowlist.splice(indexOfUnfollowedProduct, 1);
+    $rootScope.$broadcast('unfollowProductFromSidelist', 'success');
+  });
 
   // $rootScope.$watch('orgid', function () 
   // {
