@@ -160,7 +160,7 @@ color: #fff;
 /*change the main view container style(main-ui-view inside this view)*/
 #prodo-main-view {
 	min-height:100%;
-	padding-bottom: 50px;
+	padding-bottom: 30px;
 }
 
 #prodo-main-container-view {
@@ -2222,7 +2222,7 @@ border: 1px solid #b3b3b3; padding: 30px;
 }
 
 .prodo-wall-org-product-name{
-margin:2px auto; padding: 5px; display:block; text-align:left; font-weight:bold; font-size:12px;
+margin:2px auto; padding: 5px; display:block; text-align:left; font-weight:bold; font-size:10px;
 }
 
 .truncated-product-name {
