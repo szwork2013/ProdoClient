@@ -83,11 +83,11 @@
   <h5 class="prodo-wall-org-heading-text">PRODUCTS</h5>
   <hr size=3 class="prodo-wall-org-hr" noshade>
   <div ng-show='isFollowing' growl></div>
-    <div ng-show='productlist.length == 0'> <p style="text-align:left; font-size:20px; margin: 20px auto;" class="text-success"><strong><em>Currently no products available.</em></strong></p></div>
+    <div ng-show='productlist.length == 0'> <p class="prodo-wall-product-text text-success"><strong><em>Currently no products available.</em></strong></p></div>
     <div class="row">
-      <div class="prodo-wall-org-product-container col-sm-3" ng-repeat="product in productlist" ng-show="regexProdonusProduct.test(product.name) !== true">
-        <p ng-show="product.display_name" class="prodo-wall-org-product-name">{{product.display_name}}</p>
-        <p ng-hide="product.display_name" class="prodo-wall-org-product-name">ABC Product</p>
+      <div class="prodo-wall-org-product-container col-xs-2" ng-repeat="product in productlist">
+        <p ng-show="product.display_name" class="truncated-product-name prodo-wall-org-product-name" tooltip="{{product.name}}" tooltip-placement="right">{{product.display_name}}</p>
+        <p ng-hide="product.display_name" class="truncated-product-name prodo-wall-org-product-name" tooltip="{{product.name}}" tooltip-placement="right">{{product.name}}</p>
         <img ng-show="product.product_logo" src="{{product.product_logo.image}}" alt=" No Image" class="prodo-wall-org-productimg img-rounded">
         <img ng-hide="product.product_logo" src="../../../assets/images/if_no_logo_images_available.gif" alt=" No Image" class="prodo-wall-org-productimg img-rounded">
         <input ng-show="product_prodles.indexOf(product.prodle)>=0" type="button"  class="prodo-follow-btn btn btn-primary btn-sm" value="Following" />

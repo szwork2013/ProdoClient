@@ -6,8 +6,6 @@ angular.module('prodo.ProdoWallApp')
     $scope.productlist = [];
     $rootScope.images = [];
     $scope.isFollowing = false;
-    $scope.product_prodles = [];
-    $scope.regexProdonusProduct = /^prodonus/i;
     var planExpiryDate = moment.utc(moment($rootScope.usersession.currentUser.subscription.planexpirydate));
     var todaysDate = moment.utc(moment());
     $rootScope.daysRemaining = "Trial : "+planExpiryDate.diff(todaysDate, 'days')+" Days Remaining";
@@ -66,6 +64,7 @@ angular.module('prodo.ProdoWallApp')
         console.log('No product available'); 
       } else {
         $scope.productlist = orgproduct.success.product; 
+        $scope.product_prodles = [];
         $rootScope.product_prodle = $scope.productlist[0].prodle; 
         if (UserSessionService.productfollowlist.length > 0) {
           for (var i=0; i< UserSessionService.productfollowlist.length; i++){
@@ -75,14 +74,12 @@ angular.module('prodo.ProdoWallApp')
                 $scope.product_prodles.push(prodle);
               }              
             }
-            console.log($scope.product_prodles);
           }
         };
       }
     });
 
     var cleanEventUnfollowProductFromSidelist = $scope.$on("unfollowProductFromSidelist", function(event, success){
-      console.log('listening');
       $state.reload();
     });
 
