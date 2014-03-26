@@ -226,8 +226,8 @@
             <td  ng-show="edit" ><input ng-model="feature.featurename"  class="form-control prodo-productFeatureName prodo-validation"  type="text"   ng-maxlength="50"  required name="name" /> </td>
             <td ng-hide="edit" > <span ng-bind="feature.featuredescription"> </span></td>
             <td  ng-show="edit" ><input ng-model="feature.featuredescription" class="form-control prodo-productFeaturedescription prodo-validation"  ng-maxlength="100" type="text"   required name="name" /> </td>
-            <td ng-hide="edit" ng-if="isAdminCheck == true">
-              <a href=""     ng-click="edit = ! edit; editStatus='update';  "> <i class="fa fa-pencil " /> </a>
+            <td ng-hide="edit" >
+              <a href="" ng-click="edit = ! edit; editStatus='update';  "> <i class="fa fa-pencil " /> </a>
               &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
               <a href="" ng-click="getSelectedFeature(feature)" data-toggle="modal" data-target="#ProductFeatureDelModal">  <i class="glyphicon glyphicon-trash " /></a>
               <!-- Modal -->
