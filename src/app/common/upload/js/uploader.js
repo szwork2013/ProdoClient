@@ -72,7 +72,7 @@ angular.module('prodo.UploadApp')
           }
         } else if ($scope.uploadSrc == "product") { // upload product
 
-          if($scope.file.type !== 'image/png' ){
+          // if($scope.file.type !== 'image/png' ){
            if (($scope.file.size / 1024 < 2048)) {
             action = {
               product: {
@@ -88,19 +88,19 @@ angular.module('prodo.UploadApp')
             $("#bar").hide();
             setTimeout(function(){ jQuery("#FileName").hide(); },1000);
           }
-          }
-          else{
-             $scope.enableErrorMsg();
-             UploadErrMsg.innerHTML = 'Please select image other than png';
-            // growl.addErrorMessage("Image size must ne less than 2MB");
-            $("#bar").hide();
-            setTimeout(function(){ jQuery("#FileName").hide(); },1000);
-          }
+          // }
+          // else{
+          //    $scope.enableErrorMsg();
+          //    UploadErrMsg.innerHTML = 'Please select image other than png';
+          //   // growl.addErrorMessage("Image size must ne less than 2MB");
+          //   $("#bar").hide();
+          //   setTimeout(function(){ jQuery("#FileName").hide(); },1000);
+          // }
      
 
 
         } else if ($scope.uploadSrc == "org") { // upload org
-        if($scope.file.type !== 'image/png' ){
+        // if($scope.file.type !== 'image/png' ){
           if (($scope.file.size / 1024 < 2048)) {
             action = {
               org: {
@@ -115,14 +115,14 @@ angular.module('prodo.UploadApp')
             $("#bar").hide();
             setTimeout(function(){ jQuery("#FileName").hide(); },1000);
           }
-        }
-         else{
-             $scope.enableErrorMsg();
-             UploadErrMsg.innerHTML = 'Please select image other than png';
-            // growl.addErrorMessage("Image size must ne less than 2MB");
-            $("#bar").hide();
-            setTimeout(function(){ jQuery("#FileName").hide(); },1000);
-          }
+        // }
+         // else{
+         //     $scope.enableErrorMsg();
+         //     UploadErrMsg.innerHTML = 'Please select image other than png';
+         //    // growl.addErrorMessage("Image size must ne less than 2MB");
+         //    $("#bar").hide();
+         //    setTimeout(function(){ jQuery("#FileName").hide(); },1000);
+         //  }
 
         } else if ($scope.uploadSrc == "productlogo") { // upload product logo
           if (($scope.file.size / 1024 < 1024)) {
