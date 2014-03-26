@@ -2221,7 +2221,13 @@ border: 1px solid #b3b3b3; padding: 30px;
 }
 
 .prodo-wall-org-product-name{
-margin:5px auto; height:70px; display:block; text-align:left; font-weight:bold; font-size:12px;
+margin:2px auto; padding: 5px; display:block; text-align:left; font-weight:bold; font-size:12px;
+}
+
+.truncated-product-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .prodo-wall-org-productimg{
