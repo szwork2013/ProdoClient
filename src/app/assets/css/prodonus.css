@@ -1325,7 +1325,7 @@ ul {list-style-type: none; }
 #prodo-comment-row-fluid { word-wrap: break-word;width:420px;text-align: left;font-size:12px; }
 #prodo-comment-companyName{color: gray;word-spacing: -.5ex ;}
 #prodo-comment-userName{font-size:15px; font-weight:bold;}
-#prodo-comment-commentContainer{ width:550px;}
+#prodo-comment-commentContainer{ max-width: 95%;}
 #prodo-comment-addButton{width:400px; }
 #prodo-comment-tags{ font-size:11px; font-family: Helvetica ; }
 #prodo-comment-tabs{height: 10px; align:left;}
