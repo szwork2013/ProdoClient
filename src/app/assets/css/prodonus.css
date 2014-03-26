@@ -2161,7 +2161,7 @@ border: 1px solid #b3b3b3; padding: 30px;
 }
 
 .prodo-wall-org-hr{
-	background-color:#BDBDBD; height:1px; margin: 2px auto;
+	background-color:#BDBDBD; height:1px; margin-top: 2px; margin-bottom: 10px;
 	width: 100%;
 }
 
@@ -2217,7 +2217,7 @@ border: 1px solid #b3b3b3; padding: 30px;
 }
 
 .prodo-wall-org-product-container{
-	padding: 1px; margin: 5px; border: solid 1px #ccc;
+	padding: 1px; margin: 7px; border: solid 1px #ccc;
 }
 
 .prodo-wall-org-product-name{
@@ -2231,7 +2231,11 @@ margin:2px auto; padding: 5px; display:block; text-align:left; font-weight:bold;
 }
 
 .prodo-wall-org-productimg{
-	margin:1px auto; display:block; width:95%; height: 130px; 
+	margin:1px auto; display:block; width:95%; height: 100px; 
+}
+
+.prodo-wall-product-text{
+	text-align:left; font-size:20px; margin: 20px auto;
 }
 
 #prodo-row-static-content{

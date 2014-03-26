@@ -7,7 +7,6 @@ angular.module('prodo.ProdoWallApp')
     $rootScope.images = [];
     $scope.isFollowing = false;
     $scope.product_prodles = [];
-    $scope.regexProdonusProduct = /^prodonus/i;
     var planExpiryDate = moment.utc(moment($rootScope.usersession.currentUser.subscription.planexpirydate));
     var todaysDate = moment.utc(moment());
     $rootScope.daysRemaining = "Trial : "+planExpiryDate.diff(todaysDate, 'days')+" Days Remaining";
