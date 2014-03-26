@@ -411,10 +411,6 @@ small {
   margin-left: 100px;
   padding-bottom: 20px;
 }
-
-.prodo-signin-remember-label{
-	width: 110px; text-align:left; float: left; margin-left: 50px; display: inline-block; font-weight:normal; font-size:12px;
-}
  
 #prodo-form-signin{
 	display: block;
@@ -432,19 +428,24 @@ small {
      
 }
 
-#prodo-rememberme-label {
-    display: block;
-    padding-left: 15px;
-    text-indent: -15px;
+.prodo-signin-remember-label{
+	width: 110px; 
+	text-align:left; 
+	float: left; 
+	margin-left: 50px; 
+	font-weight:normal; 
+	font-size:12px;
+	color: #428bca;
+  vertical-align: bottom;
+  position: relative;
 }
+
 #prodo-input-remember-signin {
-    width: 13px;
-    height: 13px;
-    padding: 0;
-    margin:0;
+
+    margin:0px;
     vertical-align: bottom;
     position: relative;
-    top: -1px;
+    top: -.6px;
     *overflow: hidden;
 }
 
