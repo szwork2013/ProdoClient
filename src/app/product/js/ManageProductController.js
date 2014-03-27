@@ -170,10 +170,11 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
     if (data.success) {
        $scope.enableProductSuccessMsg();
        ProdSuccessMsg.innerHTML = data.success.message;
+       $scope.disableEditor();
        // growl.addSuccessMessage(data.success.message);
       $state.reload();
     } else {
-     
+       // $scope.disableEditor();
       if (data.error.code == 'AV001') { // user already exist
         $log.debug(data.error.code + " " + data.error.message);
         $scope.enableProductErrorMsg();
@@ -225,12 +226,13 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
           if(success.success){
            $scope.newProduct_ResponseProdle=success.success.prodle;
            $scope.category=[];
+           $scope.disableEditor();
           }
-         $scope.disableEditor();
+         // $scope.disableEditor();
          $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
         }, function (error) {
          // growl.addErrorMessage(error);
-          $scope.editMode.editorEnabled = true;
+          // $scope.editMode.editorEnabled = true;
            $scope.enableProductErrorMsg();
            ProdERRMsg.innerHTML = error; 
             $scope.category=[];

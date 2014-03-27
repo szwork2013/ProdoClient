@@ -167,10 +167,10 @@
                           <tags-input  add-on-enter="false" add-on-space="true" ng-model="product.category" placeholder="Add tags"  list=""
                             replace-spaces-with-dashes="false"  ></tags-input>
                              </div> -->
-            <tags-input ng-show="(editStatus=='add')"  list="listProductCategories()" ng-model="category" min-length="1">
+            <tags-input ng-show="(editStatus=='add')" minTags="1" add-on-blur="true" list="listProductCategories()" ng-model="category" min-length="1">
             </tags-input>
 
-              <tags-input ng-show="(editStatus=='update')" ng-model="product.category" list="listProductCategories()"  min-length="1" ></tags-input>               
+              <tags-input ng-show="(editStatus=='update')" minTags="1" add-on-blur="true" ng-model="product.category" list="listProductCategories()"  min-length="1" ></tags-input>               
             </td>
           </tr>
           <tr>
