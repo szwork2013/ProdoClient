@@ -47,9 +47,11 @@ if ((localStorage.sid !== "") || (localStorage.sid !== " ") || (localStorage.sid
 }
 //socket connect
 //socket response when for add comment
+$scope.commentError="";
 $scope.socket.removeAllListeners('addcommentResponse');
 $scope.socket.on('addcommentResponse', function (error, result) {
   if (error) {
+    $scope.commentError=error.error.message;
     $log.debug(error.error.message);
      growl.addErrorMessage(error.error.message);
     $scope.showErrorIfCommentNotAdded(); //If error retry add comment 
@@ -58,6 +60,7 @@ $scope.socket.on('addcommentResponse', function (error, result) {
   } else if (result) {
     // $log.debug(result.success.message);
     $scope.ifErrorAddingComment = false;
+    $scope.commentError=false;
     $log.debug("addcommentResponse success" + result.success.product_comment);
   }
   //   $scope.socket.removeAllListeners();
@@ -188,7 +191,7 @@ $scope.makeTagsPair = function (noun, adj) {
 //add comment
 $scope.addProductComment = function () {
   if ($scope.commenttextField.userComment == "" || $scope.commenttextField.userComment == undefined || $scope.commenttextField.userComment == null) {
-   growl.addErrorMessage("Please add comment text");
+   growl.addErrorMessage("You can not add blank comment");
   }
   else{
 
@@ -307,6 +310,112 @@ $scope.addProductComment = function () {
     }
   
 }
+};
+
+$scope.addProductCommentretry = function (comment) {
+ 
+    // if($rootScope.file_data==undefined){
+    if (($rootScope.file_data == "") || ($rootScope.file_data == " ") || ($rootScope.file_data == undefined) || ($rootScope.file_data == null)) {
+      $scope.newProductComment = {
+        product_comment: {
+          user: {
+            userid: $scope.userIDFromSession,
+            username: $scope.usernameFromSession,
+            orgname: $scope.orgnameFromSession,
+            grpname: $scope.grpnameFromSession,
+            profilepic: $rootScope.usersession.currentUser.profile_pic.image
+          },
+          commentid: guid(),
+          type: $scope.type,
+          datecreated: Date.now(),
+          tags: $scope.mytags,
+          commenttext: comment.commenttext,
+          analytics: $scope.tagPairs
+
+        }
+      };
+
+      $scope.newProductComment_image = {
+        product_comment: {
+          user: {
+            userid: $scope.userIDFromSession,
+            username: $scope.usernameFromSession,
+            orgname: $scope.orgnameFromSession,
+            grpname: $scope.grpnameFromSession,
+            profilepic: $rootScope.usersession.currentUser.profile_pic.image
+          },
+          commentid: guid(),
+          type: $scope.type,
+          datecreated: Date.now(),
+          tags: $scope.mytags,
+           commenttext: comment.commenttext,
+          analytics: $scope.tagPairs
+
+        }
+      };
+
+    } else {
+      $scope.newProductComment = {
+        product_comment: {
+          user: {
+            userid: $scope.userIDFromSession,
+            username: $scope.usernameFromSession,
+            orgname: $scope.orgnameFromSession,
+            grpname: $scope.grpnameFromSession,
+            profilepic: $rootScope.usersession.currentUser.profile_pic.image
+          },
+          commentid: guid(),
+          type: $scope.type,
+          datecreated: Date.now(),
+          commenttext: comment.commenttext,
+          tags: $scope.mytags,
+          comment_image: $rootScope.file_data,
+          analytics: $scope.tagPairs
+        }
+      };
+
+      $scope.newProductComment_image = {
+        product_comment: {
+          user: {
+            userid: $scope.userIDFromSession,
+            username: $scope.usernameFromSession,
+            orgname: $scope.orgnameFromSession,
+            grpname: $scope.grpnameFromSession,
+            profilepic: $rootScope.usersession.currentUser.profile_pic.image
+          },
+          commentid: guid(),
+          type: $scope.type,
+          datecreated: Date.now(),
+          tags: $scope.mytags,
+          commenttext: comment.commenttext,
+          comment_image: $rootScope.comment_image_l,
+          analytics: $scope.tagPairs
+        }
+      };
+      $rootScope.file_data = "";
+    }
+
+  
+      $log.debug($scope.newProductComment);
+      $scope.socket.emit('addComment', $rootScope.product_prodle, $scope.newProductComment.product_comment);
+      if ($scope.productComments == undefined) {
+        $scope.productComments = [];
+        $scope.productComments.unshift($scope.newProductComment_image.product_comment);
+      } else {
+         $scope.productComments.shift();
+        $scope.productComments.unshift($scope.newProductComment_image.product_comment);
+      }
+
+      $scope.commenttextField.userComment = "";
+      $scope.tagPairs = [];
+      $rootScope.count = 0;
+      document.getElementById('prodo-comment-commentContainer').style.marginTop = '0px';
+      document.getElementById("crossButton").style.display = "none";
+      $("#prodo-uploadedCommentImage").css("display", "none");
+      $scope.mytags = "";
+  
+  
+
 };
 //Add comment function
 //get latest comments posted by others
