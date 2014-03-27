@@ -182,8 +182,8 @@
             <td colspan="2">
               <!--   <button type="submit" class="btn btn-info" style="width: 550px;"  ng-click=" $parent.isEditing = false" >Save</button>
                 -->
-              <a   ng-click="addProduct(editStatus);" onclick="$('#productExtraInfo').css('display','block');" class="btn btn-primary btn-sm  pull-right prodo-margin5"   >Save &nbsp;<i class="fa fa-floppy-o"></i></a>
-              <a onclick="$('#productExtraInfo').css('display','block');" class="btn btn-default btn-sm  pull-right prodo-margin5"  ng-click="disableEditor();  " > Cancel &nbsp;<i class="glyphicon glyphicon-remove"></i></a>
+              <a   ng-click="addProduct(editStatus); category=[];" onclick="$('#productExtraInfo').css('display','block');" class="btn btn-primary btn-sm  pull-right prodo-margin5"   >Save &nbsp;<i class="fa fa-floppy-o"></i></a>
+              <a onclick="$('#productExtraInfo').css('display','block');" class="btn btn-default btn-sm  pull-right prodo-margin5"  ng-click="disableEditor();category=[];  " > Cancel &nbsp;<i class="glyphicon glyphicon-remove"></i></a>
             </td>
           </tr>
         </table>

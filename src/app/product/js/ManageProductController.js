@@ -77,7 +77,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
         $log.debug("prodle " + $scope.productlist[0].prodle + "orgid " + $scope.orgidFromSession);
         $scope.currentProdle = $scope.productlist[0].prodle;
         $scope.currentOrgid = $scope.productlist[0].orgid;
-        $rootScope.currentProdleRoot = $scope.productlist[0].prodle;
+        $rootScope.currentProdleRoot = $scope.productlist[0].prodle; //for upload work
         if($scope.newProduct_ResponseProdle!=="" ){
           $scope.getProduct($scope.newProduct_ResponseProdle, $scope.currentOrgid);
           $scope.newProduct_ResponseProdle="";
@@ -594,7 +594,8 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
             prodle: $scope.currentProdle
           }, $scope.newFeature, function (success) {
             // $log.debug(success);
-            $scope.currentProdle=$scope.product.product_prodle;
+            // $scope.currentProdle=$scope.product.product_prodle;
+            $scope.newProduct_ResponseProdle=$scope.currentProdle;
             $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
             $log.debug("new Feature : " + JSON.stringify($scope.newFeature.productfeature[0]));
             $scope.features.push($scope.newFeature.productfeature[0]);
