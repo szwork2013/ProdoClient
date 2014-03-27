@@ -74,10 +74,10 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
       if ($scope.productlist.length !== 0) {
          // $log.debug("ADDED."+$scope.newProduct_ResponseProdle);
         // $log.debug("prodle " + $scope.productlist.length);
-        $log.debug("prodle " + $scope.productlist[$scope.productlist.length - 1].prodle + "orgid " + $scope.orgidFromSession);
-        $scope.currentProdle = $scope.productlist[$scope.productlist.length - 1].prodle;
-        $scope.currentOrgid = $scope.productlist[$scope.productlist.length - 1].orgid;
-        $rootScope.currentProdleRoot = $scope.productlist[$scope.productlist.length - 1].prodle;
+        $log.debug("prodle " + $scope.productlist[0].prodle + "orgid " + $scope.orgidFromSession);
+        $scope.currentProdle = $scope.productlist[0].prodle;
+        $scope.currentOrgid = $scope.productlist[0].orgid;
+        $rootScope.currentProdleRoot = $scope.productlist[0].prodle;
         if($scope.newProduct_ResponseProdle!=="" ){
           $scope.getProduct($scope.newProduct_ResponseProdle, $scope.currentOrgid);
           $scope.newProduct_ResponseProdle="";
