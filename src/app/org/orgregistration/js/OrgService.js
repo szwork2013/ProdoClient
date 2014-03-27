@@ -37,7 +37,8 @@ angular.module('prodo.OrgApp')
         org_data: $resource('/api/organization/:orgid', {}, { getOrgSettings: { method: 'GET'} }),
         ManageOrgLocation: $resource('/api/orgaddress/:orgid/:orgaddressid', {}, { getAllOrgAddress: { method: 'GET'} }),
         GetOrgProducts: $resource('/api/product/:orgid', {}, { getAllOrgProducts: { method: 'GET'} }),
-        GetOrgGroupMembers: $resource('/api/orggroupmembers/:orgid', {}, { getGroupDetails: { method: 'GET'} })
+        GetOrgGroupMembers: $resource('/api/orggroupmembers/:orgid', {}, { getGroupDetails: { method: 'GET'} }),
+        GetOrg_Broadcast_Messages: $resource('/api/organization/broadcast/:orgid', {}, { getOrgBroadcastMessage: { method: 'GET'} })
     }
     return OrgS;
   }
@@ -64,6 +65,10 @@ angular.module('prodo.OrgApp')
           addOrgAddress: { method: 'POST', params: { orgid: '@orgid'}},
           updateOrgAddress: { method: 'PUT', params: { orgid: '@orgid', orgaddressid: '@orgaddressid'  }, isArray: false},
           deleteOrgAddressById: { method: 'DELETE', params: { orgid: '@orgid', orgaddressid: '@orgaddressid' }}
+        }),
+        sendOrg_Broadcast_Messages: $resource('/api/organization/broadcast/:orgid', {}, 
+        { 
+          sendOrgBroadcastMessage: { method: 'POST', params: { orgid: '@orgid'}} 
         }),
         OtherOrgInvites: $resource('/api/otherorginvite/:orgid', {},
         {
@@ -168,6 +173,19 @@ angular.module('prodo.OrgApp')
       //     $rootScope.$broadcast("getOrgAddressNotDone", error.status);
       //   });
       // }
+      organization.OrgMessagebroadcast = function(orgBroadcastData){
+        OrgService.sendOrg_Broadcast_Messages.sendOrgBroadcastMessage({orgid: $rootScope.usersession.currentUser.org.orgid}, orgBroadcastData,
+          function(success){
+            $log.debug(success);
+            $rootScope.$broadcast("OrgBroadcastDone", success);
+          },
+          function(error){
+            $log.debug(error);
+            $rootScope.$broadcast("OrgBroadcastNotDone", error.status);
+        });
+      }
+      
+
 
       organization.saveOrgAddress= function (orgAddData) {
         OrgService.ManageOrgLocation.addOrgAddress({orgid: $rootScope.usersession.currentUser.org.orgid}, orgAddData,     // calling function of UserSigninService to make POST method call to signin user.

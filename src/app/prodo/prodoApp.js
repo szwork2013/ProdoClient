@@ -81,12 +81,10 @@ angular.module('prodo.ProdonusApp', [
     var cleanupEventSession_Changed_Failure = $scope.$on('session-changed-failure', function (event, message) {
         UserSessionService.authfailed();
         $state.transitionTo('prodo.landing.signup');
-        $scope.showAlert('alert-danger', 'Server Error: ' + message);
+        // $scope.showAlert('alert-danger', 'Server Error: ' + message);
       });
 
     var cleanupEventSessionDone = $scope.$on('session', function (event, data) {
-      // $log.debug(data);
-      console.log(data);
       if ($rootScope.usersession.isLoggedIn) {
         if (data.prodousertype == 'business' && data.org == undefined) {
           $state.transitionTo('prodo.orgregistration.company');
@@ -105,25 +103,19 @@ angular.module('prodo.ProdonusApp', [
                 }
               UserSessionService.getProductFollowed($scope.prodlesfollowed, data);
             }
-        } 
-      }
-    });
-
-    var cleanupEventGetProductFollowedDone = $rootScope.$on('getProductFollowedDone', function (event, message, data) {
-        console.log(message);
-        console.log(data);
-        if (data.org && data.org.orgtype == 'Manufacturer') {
-              $rootScope.orgid = data.org.orgid;
-              console.log('manufacturer' + $rootScope.orgid);
-              $state.transitionTo('prodo.home.wall.org');
+            if (data.org && data.org.orgtype == 'Manufacturer') {
+                $rootScope.orgid = data.org.orgid;
+                $log.debug('manufacturer_' + $rootScope.orgid);
+                $state.transitionTo('prodo.home.wall.org');
             } else if (data.products_followed.length > 0) {
                 var  lastProductFollowed = data.products_followed.length - 1;
                 $rootScope.orgid= data.products_followed[ lastProductFollowed].orgid;
-                console.log('others' + $rootScope.orgid);
+                $log.debug('others_' + $rootScope.orgid);
                 $state.transitionTo('prodo.home.wall.org');
-            }
-        
-      });
+            }          
+        } 
+      }
+    });
     
     $scope.logout = function () {
       UserSessionService.logoutUser();

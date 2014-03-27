@@ -15,6 +15,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   $scope.$state = $state;
 
   //product
+  $scope.form={};
   $scope.editStatus;
   $scope.product = {
     product: [{}]
@@ -73,10 +74,10 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
       if ($scope.productlist.length !== 0) {
          // $log.debug("ADDED."+$scope.newProduct_ResponseProdle);
         // $log.debug("prodle " + $scope.productlist.length);
-        $log.debug("prodle " + $scope.productlist[$scope.productlist.length - 1].prodle + "orgid " + $scope.orgidFromSession);
-        $scope.currentProdle = $scope.productlist[$scope.productlist.length - 1].prodle;
-        $scope.currentOrgid = $scope.productlist[$scope.productlist.length - 1].orgid;
-        $rootScope.currentProdleRoot = $scope.productlist[$scope.productlist.length - 1].prodle;
+        $log.debug("prodle " + $scope.productlist[0].prodle + "orgid " + $scope.orgidFromSession);
+        $scope.currentProdle = $scope.productlist[0].prodle;
+        $scope.currentOrgid = $scope.productlist[0].orgid;
+        $rootScope.currentProdleRoot = $scope.productlist[0].prodle; //for upload work
         if($scope.newProduct_ResponseProdle!=="" ){
           $scope.getProduct($scope.newProduct_ResponseProdle, $scope.currentOrgid);
           $scope.newProduct_ResponseProdle="";
@@ -138,6 +139,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
         $log.debug(successData.success.product);
         $scope.getProductFeatures(l_prodle, l_orgid);
         $("#prodo-ProductFeatureTable").css("display", "table");
+        $scope.currentProdle=successData.success.product.prodle;
         $scope.product = successData.success.product;
         $rootScope.currentProdleRoot=successData.success.product.prodle;
         $scope.productComments = successData.success.product.product_comments;
@@ -168,10 +170,11 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
     if (data.success) {
        $scope.enableProductSuccessMsg();
        ProdSuccessMsg.innerHTML = data.success.message;
+       $scope.disableEditor();
        // growl.addSuccessMessage(data.success.message);
       $state.reload();
     } else {
-     
+       // $scope.disableEditor();
       if (data.error.code == 'AV001') { // user already exist
         $log.debug(data.error.code + " " + data.error.message);
         $scope.enableProductErrorMsg();
@@ -193,10 +196,11 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   };
   //error handling for add product
   //add ,update product
+
   $scope.addProduct = function (editStatus) {
   if($scope.productForm.$invalid){
-      $scope.enableProductErrorMsg();
-      ProdERRMsg.innerHTML = "Please add valid information"; 
+      // $scope.enableProductErrorMsg();
+      // ProdERRMsg.innerHTML = "Please add valid information"; 
     }
   else{
   
@@ -222,12 +226,13 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
           if(success.success){
            $scope.newProduct_ResponseProdle=success.success.prodle;
            $scope.category=[];
+           $scope.disableEditor();
           }
-         $scope.disableEditor();
+         // $scope.disableEditor();
          $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
         }, function (error) {
          // growl.addErrorMessage(error);
-          $scope.editMode.editorEnabled = true;
+          // $scope.editMode.editorEnabled = true;
            $scope.enableProductErrorMsg();
            ProdERRMsg.innerHTML = error; 
             $scope.category=[];
@@ -283,7 +288,8 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
    }
   };
   $scope.deleteProduct = function () {
-    growl.addInfoMessage("Deleting product  ...");
+    $log.debug("Deleting product  ..."+$scope.currentProdle );
+    growl.addInfoMessage("Deleting product  ..."+$scope.currentProdle );
     if ($scope.currentProdle !== undefined || $scope.currentProdle !== null || $scope.currentProdle !== "") {
       if ($rootScope.isAdminCheck == true) { //if owener of product
         ProductService.deleteProduct({
@@ -569,8 +575,8 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   //add product feature
   $scope.addProductFeature = function (editStatus) {
    if($scope.productFeaturesForm.$invalid){
-    $scope.enableFeatureErrorMsg();
-    ProdFERRMsg.innerHTML ="Please add valid information";
+    // $scope.enableFeatureErrorMsg();
+    // ProdFERRMsg.innerHTML ="Please add valid information";
    }
   else{
     $scope.disableEditorFeature();
@@ -592,7 +598,8 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
             prodle: $scope.currentProdle
           }, $scope.newFeature, function (success) {
             // $log.debug(success);
-            $scope.currentProdle=$scope.product.product_prodle;
+            // $scope.currentProdle=$scope.product.product_prodle;
+            $scope.newProduct_ResponseProdle=$scope.currentProdle;
             $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
             $log.debug("new Feature : " + JSON.stringify($scope.newFeature.productfeature[0]));
             $scope.features.push($scope.newFeature.productfeature[0]);

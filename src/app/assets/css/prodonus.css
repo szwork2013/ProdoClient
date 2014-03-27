@@ -160,7 +160,7 @@ color: #fff;
 /*change the main view container style(main-ui-view inside this view)*/
 #prodo-main-view {
 	min-height:100%;
-	padding-bottom: 50px;
+	padding-bottom: 30px;
 }
 
 #prodo-main-container-view {
@@ -316,7 +316,7 @@ color: #595365;
 }
 
 .prodo-account-btn{
-	border-radius: 10px; margin: 5px; min-width: 80px; font-size: 12px; font-weight:bold;
+ margin: 5px; min-width: 80px; font-size: 12px; font-weight:bold;
 }
 
 .prodo-account-invites-btn{
@@ -411,10 +411,6 @@ small {
   margin-left: 100px;
   padding-bottom: 20px;
 }
-
-.prodo-signin-remember-label{
-	width: 110px; text-align:left; float: left; margin-left: 50px; display: inline-block; font-weight:normal; font-size:12px;
-}
  
 #prodo-form-signin{
 	display: block;
@@ -432,19 +428,24 @@ small {
      
 }
 
-#prodo-rememberme-label {
-    display: block;
-    padding-left: 15px;
-    text-indent: -15px;
+.prodo-signin-remember-label{
+	width: 110px; 
+	text-align:left; 
+	float: left; 
+	margin-left: 50px; 
+	font-weight:normal; 
+	font-size:12px;
+	color: #428bca;
+  vertical-align: bottom;
+  position: relative;
 }
+
 #prodo-input-remember-signin {
-    width: 13px;
-    height: 13px;
-    padding: 0;
-    margin:0;
+
+    margin:0px;
     vertical-align: bottom;
     position: relative;
-    top: -1px;
+    top: -.6px;
     *overflow: hidden;
 }
 
@@ -1005,6 +1006,22 @@ border-radius: 30px;
 	margin:5px auto; font-size: 14px; padding: 2px; display:block; height:25px; width: 95%; background-color:#304A61;
 }
 
+.prodo-following-btn{
+	margin:5px auto; font-size: 14px; padding: 2px; display:block; height:25px; width: 95%; background-color:#4F555E;
+}
+
+.prodo-following-btn:hover{
+	margin:5px auto; font-size: 14px; padding: 2px; display:block; height:25px; width: 95%; background-color:#4F555E;
+}
+
+.prodo-following-btn:focus, .prodo-following-btn:active{
+	margin:5px auto; font-size: 14px; padding: 2px; display:block; height:25px; width: 95%; background-color:#4F555E;
+}
+
+.prodo-follow-btn{
+	margin:5px auto; font-size: 14px; padding: 2px; display:block; height:25px; width: 95%; background-color:#304A61;
+}
+
 .prodo-follow-btn:hover{
 color: #fff;
 font-weight: bold;
@@ -1331,7 +1348,7 @@ ul {/*list-style-type: none;*/ }
 #prodo-comment-row-fluid { word-wrap: break-word;width:420px;text-align: left;font-size:12px; }
 #prodo-comment-companyName{color: gray;word-spacing: -.5ex ;}
 #prodo-comment-userName{font-size:15px; font-weight:bold;}
-#prodo-comment-commentContainer{ width:550px;}
+#prodo-comment-commentContainer{ max-width: 95%;}
 #prodo-comment-addButton{width:400px; }
 #prodo-comment-tags{ font-size:11px; font-family: Helvetica ; }
 #prodo-comment-tabs{height: 10px; align:left;}
@@ -1494,6 +1511,7 @@ margin-bottom: 10px;
 .prodo-productCommentsInfoLable{font-size: 10px;text-align: left;}
 .prodo-delImgs{margin-bottom: 10px;}
 .prodo-checkbox{height: 20px;width: 20px;}
+.prodo-product-Invalid{color:red;}
 .prodo-categoryTags{
 	display:inline-block;
 	background-color:rgba(161,219,255,1);
@@ -2170,7 +2188,7 @@ border: 1px solid #b3b3b3; padding: 30px;
 }
 
 .prodo-wall-org-hr{
-	background-color:#BDBDBD; height:1px; margin: 2px auto;
+	background-color:#BDBDBD; height:1px; margin-top: 2px; margin-bottom: 10px;
 	width: 100%;
 }
 
@@ -2226,15 +2244,25 @@ border: 1px solid #b3b3b3; padding: 30px;
 }
 
 .prodo-wall-org-product-container{
-	padding: 1px; margin: 5px; border: solid 1px #ccc;
+	padding: 1px; margin: 7px; border: solid 1px #ccc;
 }
 
 .prodo-wall-org-product-name{
-margin:5px auto; height:70px; display:block; text-align:left; font-weight:bold; font-size:12px;
+margin:2px auto; padding: 5px; display:block; text-align:left; font-weight:bold; font-size:10px;
+}
+
+.truncated-product-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .prodo-wall-org-productimg{
-	margin:1px auto; display:block; width:95%; height: 130px; 
+	margin:1px auto; display:block; width:95%; height: 100px; 
+}
+
+.prodo-wall-product-text{
+	text-align:left; font-size:20px; margin: 20px auto;
 }
 
 #prodo-row-static-content{
@@ -2251,6 +2279,14 @@ margin:5px auto; height:70px; display:block; text-align:left; font-weight:bold; 
 }
 
 #prodo-view-footer-content-container{
+	margin-top: 20px;
+}
+
+#prodo-view-static-content-container{
+	margin-top: : 20px;
+}
+
+#prodo-view-org-wizard-container{
 	margin-top: 20px;
 }
 
