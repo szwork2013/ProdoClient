@@ -88,6 +88,10 @@ angular.module('prodo.OrgApp')
         GetOrgProducts: $resource('/api/product/:orgid', {},
         {
           getAllOrgProducts: { method: 'GET', params: { orgid: '@orgid'}}
+        }),
+        SingleOrgImageDelete: $resource('/api/image/org/:orgid/:imageid',{},
+        {
+           deleteOrgImage:{ method: 'DELETE', params:{orgid:'@orgid', imageid:'@imageid'} }
         })
       }
 
@@ -214,6 +218,16 @@ angular.module('prodo.OrgApp')
         });
       }
 
+      organization.singleOrgImageDelete = function(imgid) {
+        OrgService.SingleOrgImageDelete.deleteOrgImage({orgid:$rootScope.usersession.currentUser.org.orgid, imageid:imgid},
+          function(success){
+            $log.debug(success);
+            $rootScope.$broadcast("orgImageDeleted",success);
+          },
+          function(error){
+            $log.debug(error);$rootScope.$broadcast("orgImageDeleteNotDone",error);
+          });
+      }
       // organization.removeOrgSettings= function () {
       //   OrgService.OrgRegistration.deleteOrgSettings({orgid: $rootScope.usersession.currentUser.org.orgid},     // calling function of UserSigninService to make POST method call to signin user.
       //   function(success){

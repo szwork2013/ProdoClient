@@ -520,7 +520,6 @@ $scope.invalidContact3 = '';
 $scope.org.orgaddresstype="Company Address";
     // function to send user data n stringify in json format
     $scope.jsonOrgData = function() {
-        
       var orgData = 
         { 
           organization:
@@ -542,7 +541,12 @@ $scope.org.orgaddresstype="Company Address";
       	          'state': $scope.org.state,
       	          'zipcode': $scope.org.zipcode 
                   }, 
-                'contacts':$scope.org.contacts
+                'contacts': 
+                [ 
+                 {'customerhelpline' : $scope.org.contact.customerhelpline1 },
+                 {'customerhelpline' : $scope.org.contact.customerhelpline2 },
+                 {'customerhelpline' : $scope.org.contact.customerhelpline3 }
+                ]
               } ],
   	          'usergrp': 
                 [ {
@@ -556,7 +560,7 @@ $scope.org.orgaddresstype="Company Address";
     }   
   
     // function to register Organisation on sumbit
-    $scope.registerOrg = function() {
+    $scope.registerOrg = function() {     console.log(JSON.stringify($scope.jsonOrgData()));
       OrgRegistrationService.RegisterOrg($scope.jsonOrgData()); // calling POST method REST APIs to save org data through OrgResgistrationService 
     }
 
