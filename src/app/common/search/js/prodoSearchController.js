@@ -167,6 +167,7 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
      $rootScope.orgid = dataOrgid;    
      $('#advancedSearchModal').modal('hide');  //code for cloasing modal
      $('.modal-backdrop').remove(); 
+     $rootScope.$broadcast('emittingOrgid', 'success');
   };
 
   //This functions resets the advanced search modal
@@ -198,7 +199,9 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
                 $rootScope.product_prodle=state.prodle;
                 $rootScope.orgid=state.orgid;             
             }
-      });  
+      }); 
+      $rootScope.$broadcast('emittingOrgidBySearch', 'success');
+
       $scope.title = "Trending Products";
       $scope.productSearch.product = "";
   };

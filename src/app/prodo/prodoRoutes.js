@@ -179,7 +179,8 @@ angular.module('prodo.ProdonusApp')
         }
       }) 
     .state('prodo.account-org.org.broadcast', {
-       templateUrl:  'org/manageorg/views/org.wall.orgBroadcast.tpl.html'
+       templateUrl:  'org/manageorg/views/org.wall.orgBroadcast.tpl.html',
+       controller: 'ManageOrgBroadcastController'
       })
     .state('prodo.account-org.org.Productdetail', {
        templateUrl:  'product/views/prodo.wall.productFeatures.tpl.html',
@@ -192,17 +193,6 @@ angular.module('prodo.ProdonusApp')
           },
            allproductCategories: function(CategoryTags, $rootScope) {
            return CategoryTags.getCategoryTags().$promise;
-           
-           // temp="";
-           // if(temp !== ""){
-           //  console.log('data');
-           //  return temp;
-           // }
-           // else{
-           //  console.log('empty');
-           //  return ['product','software']
-           // }
-
         }
       }
       })
@@ -213,6 +203,18 @@ angular.module('prodo.ProdonusApp')
       abstract: true
     })    
     .state('prodo.home.wall', {
+      resolve: {
+        orgdata1: function(OrgService, $rootScope) {
+          return OrgService.org_data.getOrgSettings({orgid: $rootScope.orgid}).$promise;
+        },
+        orgaddr1: function(OrgService, $rootScope) {
+          return OrgService.ManageOrgLocation.getAllOrgAddress({orgid: $rootScope.orgid}).$promise;
+        },
+        orgproduct1: function(OrgService, $rootScope) {
+          return OrgService.GetOrgProducts.getAllOrgProducts({orgid: $rootScope.orgid}).$promise;
+        }
+      },
+
       views: {
         'prodo-sidebar' : {
           templateUrl:  'prodo/home/views/prodo.wall.sidebar.tpl.html',
@@ -235,17 +237,16 @@ angular.module('prodo.ProdonusApp')
     })
     .state('prodo.home.wall.org', { 
        templateUrl:  'org/manageorg/views/prodo.wall.org.tpl.html',
-       controller: 'ProdoWallController',
+       controller: 'ProdoWallOrgController',
        resolve: {
-          orgdata: function(OrgService, $rootScope) {
-            return OrgService.org_data.getOrgSettings({orgid: $rootScope.orgid}).$promise;
+          orgdata: function(orgdata1, $rootScope) {
+            return orgdata1;
           },
-          orgaddr: function(OrgService, $rootScope) {
-            return OrgService.ManageOrgLocation.getAllOrgAddress({orgid: $rootScope.orgid}).$promise;
+          orgaddr: function(orgaddr1, $rootScope) {
+            return orgaddr1;
           },
-          orgproduct: function(OrgService, $rootScope) {
-            console.log('product');
-            return OrgService.GetOrgProducts.getAllOrgProducts({orgid: $rootScope.orgid}).$promise;
+          orgproduct: function(orgproduct1, $rootScope) {
+            return orgproduct1;
           }
         }
       }) 
