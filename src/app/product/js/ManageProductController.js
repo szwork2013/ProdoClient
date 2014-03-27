@@ -15,6 +15,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   $scope.$state = $state;
 
   //product
+  $scope.form={};
   $scope.editStatus;
   $scope.product = {
     product: [{}]
@@ -193,6 +194,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   };
   //error handling for add product
   //add ,update product
+
   $scope.addProduct = function (editStatus) {
   if($scope.productForm.$invalid){
       $scope.enableProductErrorMsg();

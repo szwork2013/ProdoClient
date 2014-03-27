@@ -1486,6 +1486,7 @@ margin-bottom: 10px;
 .prodo-productCommentsInfoLable{font-size: 10px;text-align: left;}
 .prodo-delImgs{margin-bottom: 10px;}
 .prodo-checkbox{height: 20px;width: 20px;}
+.prodo-product-Invalid{color:red;}
 .prodo-categoryTags{
 	display:inline-block;
 	background-color:rgba(161,219,255,1);
