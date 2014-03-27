@@ -187,7 +187,11 @@ $scope.makeTagsPair = function (noun, adj) {
 
 //add comment
 $scope.addProductComment = function () {
-  if ($scope.commenttextField.userComment !== "" || $scope.commenttextField.userComment !== undefined || $scope.commenttextField.userComment !== null) {
+  if ($scope.commenttextField.userComment == "" || $scope.commenttextField.userComment == undefined || $scope.commenttextField.userComment == null) {
+   growl.addErrorMessage("Please add comment text");
+  }
+  else{
+
     $log.debug("tags " + $scope.mytags);
     $log.debug("features " + $scope.myFeaturetags);
     $scope.makeTagsPair($scope.myFeaturetags, $scope.mytags);
@@ -233,7 +237,6 @@ $scope.addProductComment = function () {
 
         }
       };
-
 
     } else {
       $scope.newProductComment = {
@@ -285,14 +288,13 @@ $scope.addProductComment = function () {
     if (follow == true) {
       $log.debug($scope.newProductComment);
       $scope.socket.emit('addComment', $rootScope.product_prodle, $scope.newProductComment.product_comment);
-       if($scope.productComments == undefined ){
+      if ($scope.productComments == undefined) {
         $scope.productComments = [];
         $scope.productComments.unshift($scope.newProductComment_image.product_comment);
-        }
-        else{
-           $scope.productComments.unshift($scope.newProductComment_image.product_comment);
-        }
-     
+      } else {
+        $scope.productComments.unshift($scope.newProductComment_image.product_comment);
+      }
+
       $scope.commenttextField.userComment = "";
       $scope.tagPairs = [];
       $rootScope.count = 0;
@@ -303,8 +305,8 @@ $scope.addProductComment = function () {
     } else {
       growl.addErrorMessage("Please follow this product to start commenting...");
     }
-
-  }
+  
+}
 };
 //Add comment function
 //get latest comments posted by others
