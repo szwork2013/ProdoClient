@@ -141,7 +141,7 @@ color: #fff;
    /* height:25px; */
     width: 100%; 
     /*border-radius: 5px;*/
-    margin-bottom: 20px ;
+    margin-bottom: 10px ;
     /* */
   } 
 
@@ -316,7 +316,7 @@ color: #595365;
 }
 
 .prodo-account-btn{
-	border-radius: 10px; margin: 5px; min-width: 80px; font-size: 12px; font-weight:bold;
+ margin: 5px; min-width: 80px; font-size: 12px; font-weight:bold;
 }
 
 .prodo-account-invites-btn{
@@ -747,7 +747,14 @@ text-align: left;
 .error-message{
 	font-weight: normal;
 	padding-top: 10px;
-	margin-left: 0px;
+	text-align: left;
+	color: rgb(211, 41, 41);
+	margin-left:28%;
+}
+
+.error-message-registration{
+	font-weight: normal;
+	padding-top: 10px;
 	text-align: left;
 	color: rgb(211, 41, 41);
 }
@@ -993,6 +1000,22 @@ border-radius: 30px;
     padding: 10px 250px;
     pointer-events: none;
     color: #ccc;
+}
+
+.prodo-follow-btn{
+	margin:5px auto; font-size: 14px; padding: 2px; display:block; height:25px; width: 95%; background-color:#304A61;
+}
+
+.prodo-following-btn{
+	margin:5px auto; font-size: 14px; padding: 2px; display:block; height:25px; width: 95%; background-color:#4F555E;
+}
+
+.prodo-following-btn:hover{
+	margin:5px auto; font-size: 14px; padding: 2px; display:block; height:25px; width: 95%; background-color:#4F555E;
+}
+
+.prodo-following-btn:focus, .prodo-following-btn:active{
+	margin:5px auto; font-size: 14px; padding: 2px; display:block; height:25px; width: 95%; background-color:#4F555E;
 }
 
 .prodo-follow-btn{
@@ -1312,7 +1335,7 @@ margin: 2px auto; position:absolute; }
 .fa-picture-o:hover{color:rgb(139, 9, 241)}
 .fa-trash-o:hover{color:red;}
 /*#fa-removeComment:hover{zoom:1.2;-webkit-transform: scale( 1.2); -moz-transform: scale( 1.2);}*/
-ul {list-style-type: none; }
+ul {/*list-style-type: none;*/ }
 /*li:nth-child(odd) {background-color:#F2F2F2;}*/
 #prodo-comment-textBox-container {padding-bottom: 10px;}
 #prodo-comment-media-list{border:3px;font-family: Helvetica ;font-size:14px;}
@@ -1430,6 +1453,7 @@ margin-bottom: 10px;
 #prodo-product-productgeneralbtn{text-align: left; height: 37px; width: 560px; background-color: #f3f5f3; color: black; font-size: 16px;box-shadow: 5px 5px 3px #888888;}
 #prodo-product-productgeneralbtn:hover{ background-color: activeborder;}
 .thumb { width:160px; float: left;margin-left: 5px; border: solid 1px #ccc;}
+.imagesOrg { width:100px; float: left;margin-left: 5px;margin-bottom: 5px;margin-left: 5px;}
 .collapsed2 div{display:none;}
 .tab-content{ border-bottom: 0px solid white;margin-top: 1px;}
 .collapsed2:hover:after{content: " Click here to follow";border: solid 1px #ccc;padding:5px;}
@@ -1454,6 +1478,7 @@ margin-bottom: 10px;
 .prodo-productFeatureName{width:150px;}
 .prodo-productFeaturedescription{width:300px; }
 .prodo-productImgThumbnail{width: 150px; height: 150px;}
+.prodo-OrgImgThumbnail{width: 100px; height: 100px;}
 .prodo-uploadBtnWidth{ width: 200px;}
 .clearBoth{clear:both;}
 .prodo-TagsBox{width: 92%; }
@@ -1486,6 +1511,7 @@ margin-bottom: 10px;
 .prodo-productCommentsInfoLable{font-size: 10px;text-align: left;}
 .prodo-delImgs{margin-bottom: 10px;}
 .prodo-checkbox{height: 20px;width: 20px;}
+.prodo-product-Invalid{color:red;}
 .prodo-categoryTags{
 	display:inline-block;
 	background-color:rgba(161,219,255,1);
@@ -1990,7 +2016,7 @@ text-align: right;
 .resultScrollable
 {
 	   overflow-y: auto;
-	   max-height: 200px;
+	   max-height: 140px;
        width : 100% ;
        overflow-x:hidden;
 }
@@ -2256,8 +2282,16 @@ margin:2px auto; padding: 5px; display:block; text-align:left; font-weight:bold;
 	margin-top: 20px;
 }
 
+#prodo-view-static-content-container{
+	margin-top: : 20px;
+}
 
-.fa-check:before {
+#prodo-view-org-wizard-container{
+	margin-top: 20px;
+}
+
+
+/*.fa-check:before {
 content: "\f000";
 font-family: FontAwesome;
 font-style: normal;
@@ -2268,6 +2302,6 @@ padding-right: 0.5em;
 position: absolute;
 top: -35px;
 left: 173px;
-}
+}*/
 
 

@@ -115,7 +115,7 @@
             <div id="prodo-comment-enterComment" >
               <span class="label label-info   " ng-bind="300 - commenttextField.userComment.length" ></span> 
               <a href="" ng-click="getLatestComments()" >
-                <div class="label label-info prodo-display-discont"  id="responseComment" >  </div>
+                <div class="label label-info prodo-display-discont" ng-if="commentError" id="responseComment" > {{commentError}} </div>
               </a>
               <div ng-controller="DragImageController">
                 <div id="prodo-comment-textBox-container">

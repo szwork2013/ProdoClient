@@ -1,10 +1,15 @@
 <div class="prodo-org-broadcast-container container">
-
-	<h5><strong>Broadcast Your Message Here</strong></h5>
-	<textarea name="message" type="textarea" class=" form-control" ng-model="broadcast.message" placeholder="Enter broadcast message here" required></textarea>
+<div growl></div>
+	<form name="form.orgMessageBroadcastform" class="css-form" ng-submit='' novalidate>
+    <dl class="dl-horizontal">
+      <dt>Your Message:</dt>
+      <dd><textarea name="message" type="textarea" ng-maxlength="150" class=" form-control" ng-model="broadcast.message" placeholder="Enter broadcast message here" required></textarea><small ng-show="((form.orgMessageBroadcastform.message.$dirty && form.orgMessageBroadcastform.message.$invalid) || (form.orgMessageBroadcastform.message.$invalid && form.orgMessageBroadcastform.submitted))">Message is required and should not exceed 150 characters!</small></dd>
+      <br>
+      <dt>Duration For:</dt>
+      <dd><input name="duration" type="text" ng-pattern="/^[0-9]*$/" class=" form-control" ng-model="broadcast.duration" placeholder="Enter duration in days" required /><small ng-show="((form.orgMessageBroadcastform.duration.$dirty && form.orgMessageBroadcastform.duration.$invalid) || (form.orgMessageBroadcastform.duration.$invalid && form.orgMessageBroadcastform.submitted))">Duration is required and must be in digits only!</small></dd>
 
 	<br>
 
-	<button class="prodo-account-btn btn btn-info btn-sm pull-right" ng-click="broadcast()"><i class="prodo-fa fa fa-share"></i>Broadcast</button>
+	<button class="prodo-account-btn btn btn-primary btn-sm pull-right" ng-click="broadcastMessage()"><i class="prodo-fa fa fa-share"></i>Broadcast&nbsp; &nbsp; <div prodo-spinner></div></button>
 
 </div>

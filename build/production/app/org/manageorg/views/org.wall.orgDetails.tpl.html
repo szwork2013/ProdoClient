@@ -5,7 +5,7 @@
       </div>
       <img ng-show="((usersession.currentUser.org.orgtype == 'Manufacturer') && org.org_logo)" ng-src="{{org.org_logo.image}}" style="width: 160px; height:120px; margin: 20px; ">
       <img ng-hide="((usersession.currentUser.org.orgtype == 'Manufacturer') && org.org_logo)" style="width: 160px; height:120px; margin: 20px; " src="../../../assets/images/if_no_logo_images_available.gif">
-      <a class="btn btn-danger btn-sm pull-right" href="" data-toggle="modal" data-target="#myModal"><i style="margin-right: 5px;" class="fa fa-trash-o fa-lg"></i>Delete Request</a>
+      <a class="manage-org-btn btn btn-danger btn-sm pull-right  " href="" data-toggle="modal" data-target="#myModal"><i style="margin-right: 5px;" class="fa fa-trash-o fa-lg"></i>Delete Request</a>
   </div>
 
 
@@ -20,7 +20,7 @@
             You have selected to send delete request for your Organization. This would stop you from any further interaction with the organization. Do you want to proceed?
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="deleteOrgAccountRequest()" >Send Delete Request</button>
+            <button type="button" class="btn btn-primary manage-org-btn" data-dismiss="modal" ng-click="deleteOrgAccountRequest()" >Send Delete Request</button>
             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
           </div>
         </div>
@@ -42,7 +42,9 @@
       <form name="form.orggeneralsettingform" class="css-form" ng-submit='' novalidate>
               <div ng-hide="editorEnabled">
                   <b>Organization Name:</b><div ng-bind="org.name"></div>
+                  <br>
                   <b>Organization Description:</b><div ng-bind="org.description"></div>
+                  <br>
                   <button ng-click="enableEditor()" class="btn btn-primary btn-sm pull-right" style="width:80px;"><i class="fa fa-pencil fa-fw"></i>&nbsp;&nbsp;Edit</button>
               </div>
 
@@ -73,8 +75,8 @@
                   <br> * Mandatory fields <br>
                   Note: Password is required to save changes
                   <br>  <br> 
-                  <button ng-click="updateOrgAccount()" class="btn btn-primary btn-sm pull-right"><i class="fa fa-save fa-fw" ></i>&nbsp;&nbsp;Save</button>
-                  <button ng-click="disableEditor();reset()" class="btn btn-primary btn-sm pull-right" style="margin-right:5px;"><i class="fa fa-times fa-fw"></i>&nbsp;&nbsp;Cancel</button>
+                  <button ng-click="updateOrgAccount()" class="btn btn-primary btn-sm pull-right" style="width:80px;"><i class="fa fa-save fa-fw" ></i>&nbsp;&nbsp;Save</button>
+                  <button ng-click="disableEditor();reset()" class="btn btn-primary btn-sm pull-right" style="margin-right:5px;width:80px;"><i class="fa fa-times fa-fw"></i>&nbsp;&nbsp;Cancel</button>
               </div> 
       </form>
 
@@ -148,7 +150,7 @@
                       <span ng-bind="addr.address.state" ></span>
                     </td>
                     <td ng-if="addr.editing" >
-                      <input style="height:30px; display:block; margin:3px;" class="form-control" ng-model="addr.address.state" ng-pattern="/^[A-z]*$/" placeholder="State" name="state" required>
+                      <input style="height:30px; display:block; margin:3px;" class="form-control" ng-model="addr.address.state" ng-pattern="/^[A-z ]*$/" placeholder="State" name="state" required>
                     </td>
                     <td ng-hide="addr.editing">
             
@@ -180,7 +182,7 @@
                     </td>
          
           </tr>
-           <div class="error-message" ng-if="errorOfValidation !== 'Please enter valid ' " ng-bind="errorOfValidation"></div> 
+           <div class="error-message-registration" ng-if="errorOfValidation !== 'Please enter valid ' " ng-bind="errorOfValidation"></div> 
         </tbody>
       </table>
 
@@ -254,7 +256,7 @@
                         <tr ng-repeat="grpmember in member.grpmembers">
                           <td style="width:40%">{{member.grpname}}</td>
                           <td style="width:40%">{{grpmember.email}}</td>
-                          <td style="width:20%"><button ng-hide="member.grpname == 'admin'" class="btn btn-danger btn-sm pull-right" ng-click="deleteGroupMember(member.grpid, grpmember.userid)"><i class="fa fa-trash-o fa-lg"></i>&nbsp;&nbsp;Delete</button></td>
+                          <td style="width:20%"><button class="btn btn-danger btn-sm pull-right" ng-click="deleteGroupMember(member, grpmember.userid,$parent.$index)"><i class="fa fa-trash-o fa-lg"></i>&nbsp;&nbsp;Delete</button></td>
                         </tr>
                       </tbody>
                     </table>
@@ -270,7 +272,7 @@
                           <td style="width: 40%;">
                            <div class="input-group margin-bottom-sm">
                             <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
-                            <input class="form-control" ng-model="group.newinvites" type="email" placeholder="Enter email seprated by commas(,)" prodonus-multi-email-validate required>
+                            <input class="form-control" ng-model="group.newinvites" type="email" placeholder="Enter email separated by commas(,)" prodonus-multi-email-validate required>
                           </div>
                           </td>
                           <td style="width: 20%;"><button class="btn btn-primary btn-sm pull-right"  ng-click="addGroupInvite()" style="width:80px;"><i style="margin-right: 5px;" class="fa fa-share"></i>Send</button></td>
@@ -283,7 +285,7 @@
                   <button class="btn btn-info btn-sm" style="background-color:#3679AD; border-color:#4497AF; border-radius: 10px; width: 150px;text-align: left;font-size: 12px;font-weight: bold;" ng-click="addExistingInvites()"><i style="margin-right: 5px;" class="fa fa-plus-square"></i>Existing Groups</button>
                 <!--   <hr size=3 width="100%;" style="background-color:#BDBDBD; height:1px; margin-top: 1px;" noshade> -->
                   <form name="form.orggroupinvitesform" ng-submit='' novalidate>
-                    <table ng-show="showExistingInvites" class="table table-condensed">
+                    <table ng-if="showExistingInvites === true" class="table table-condensed">
                       <tbody>
                         <tr>
                           <td style="width: 40%;"><select type="text" class="form-control" name="orgtype" ng-model="group.groupname" required>
@@ -319,9 +321,9 @@
             </tr>
           </tbody>
         </table>
-        <div class="error-message" ng-if="orgInvitesNameError!==''" ng-bind="orgInvitesNameError"></div>
-        <div class="error-message" ng-if="orgInvitesOrgnameError!==''" ng-bind="orgInvitesOrgnameError"></div>
-        <div class="error-message" ng-if="orgInvitesEmailError!==''" ng-bind="orgInvitesEmailError"></div>
+        <div class="error-message-registration" ng-if="orgInvitesNameError!==''" ng-bind="orgInvitesNameError"></div>
+        <div class="error-message-registration" ng-if="orgInvitesOrgnameError!==''" ng-bind="orgInvitesOrgnameError"></div>
+        <div class="error-message-registration" ng-if="orgInvitesEmailError!==''" ng-bind="orgInvitesEmailError"></div>
 
         <button class="btn btn-primary btn-sm pull-right"  ng-click="sendOrgInvites()"><i style="margin-right: 5px;" class="fa fa-share"></i>Send</button>
         </accordion-group>
@@ -336,16 +338,16 @@
             <tr ng-repeat="customer in customerinvites">
               <td style="width:50%"><input class="form-control" ng-model="customer.name" type="text" placeholder="Name" > </td>
               <td style="width:50%">  <div class="input-group margin-bottom-sm">
-                            <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span><input class="form-control" ng-model="customer.email" type="email" placeholder="Email" ></div></td>
+                            <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span><input class="form-control" ng-model="customer.email" type="email" placeholder="Email"></div></td>
             </tr>
           </tbody>
         </table>
 
-        <div class="error-message" ng-if="orgCustNameError !== '' " ng-bind="orgCustNameError"></div>
-        <div class="error-message" ng-if="orgCustEmailError !== '' " ng-bind="orgCustEmailError"></div>
+        <div class="error-message-registration" ng-if="orgCustNameError !== '' " ng-bind="orgCustNameError"></div>
+        <div class="error-message-registration" ng-if="orgCustEmailError !== '' " ng-bind="orgCustEmailError"></div>
 
 
-         <button class="btn btn-primary btn-sm pull-right"  ng-click="orgCustomerInvites()" style="width:80px;"><i class="fa fa-share"></i>&nbsp;&nbsp;delete</button>
+         <button class="btn btn-primary btn-sm pull-right"  ng-click="orgCustomerInvites()" style="width:80px;"><i class="fa fa-share"></i>&nbsp;&nbsp;Send</button>
         </accordion-group>
 
 
@@ -357,50 +359,15 @@
 
 
 
-    <div class="clearBoth"></div>
-      <div>
-
-        <form   name="ProductImg" >
-
-          <div class="checkboxFilter"  >
-            <div class= "pull-right" >
-               
-                     
-             
-            </div>
-            <div class="clearBoth"></div>
-            <div >
-              <div class="thumb" ng-repeat="img in orgImages">
-                <img class="img prodo-productImgThumbnail"  ng-src="{{img.image}}" />
-               
+   
+              <div class="imagesOrg" ng-repeat="img in orgImages">
+                <input type="checkbox" ng-click="test(img)" id="{{$index}}">
+                <img class="img prodo-OrgImgThumbnail"  ng-src="{{img.image}}" />
+              <!--   <button ng-click="deleteOrgArtworImages(img.imageid)" style="width:100px;margin-bottom:5px;height:23px;border-radius:5px;margin-top:3px;padding-bottom:20px;background-color:#d43f3a;color:white;" class="btn-group btn-group-xs" ><i class="fa fa-trash-o fa-fw"></i>&nbsp;&nbsp;Delete</button> -->
+<!--                 <i class="fa fa-trash-o fa-fw" ng-click="deleteOrgArtworImages(img.imageid)"></i> -->
+              <!-- <input type="checkbox" ng-checked="deleteOrgArtworImages(img.imageid)"> -->
               </div>
-            </div>
-            <br>
-          </div>
-        </form>
-      </div>
-      <div class="clearBoth"></div>
-  
-      <div class="modal fade" id="imgDelModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              <h4 class="modal-title" id="myModalLabel">Delete Images</h4>
-            </div>
-            <div class="modal-body">
-              Once deleted this images , it won't be accessible <br>
-              Are you sure you want to delete selected images?
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default " data-dismiss="modal"> Cancel &nbsp;<i class="glyphicon glyphicon-remove"></i></button>
-              <button type="button" class="btn btn-danger "  ng-click="deleteProductImages($index);" data-dismiss="modal" >Delete &nbsp;<i class="glyphicon glyphicon-trash"></i></button>
-            </div>
-          </div>
-
-        </div>
-
-      </div> 
+              <button ng-click="deleteOrgArtworImages()">delete</button>
 
 
     </accordion-group>
@@ -465,14 +432,14 @@
             <div class="span4 spanErr " >
         <div class="alert alert-danger fade" id="text">
           <button type="button" class="close" data-dismiss="alert">×</button>
-          <strong>Alert!</strong><div id="UploadErrMsg"></div>
+          
         </div>
       </div>
 
      <div class="span4 spanSuccess" >
         <div class="alert alert-success fade">
           <button type="button" class="close" data-dismiss="alert">×</button>
-          <strong>Successs!</strong> <div id="UploadSuccessMsg"></div>
+     
         </div>
       </div>
           <table   class="table table-hover table-bordered prodo-productTableFont">
@@ -1060,14 +1027,14 @@
             <div class="span4 spanErr " >
         <div class="alert alert-danger fade" id="text">
           <button type="button" class="close" data-dismiss="alert">×</button>
-          <strong>Alert!</strong><div id="UploadErrMsg"></div>
+         
         </div>
       </div>
 
      <div class="span4 spanSuccess" >
         <div class="alert alert-success fade">
           <button type="button" class="close" data-dismiss="alert">×</button>
-          <strong>Successs!</strong> <div id="UploadSuccessMsg"></div>
+       
         </div>
       </div>
           <table   class="table table-hover table-bordered prodo-productTableFont">

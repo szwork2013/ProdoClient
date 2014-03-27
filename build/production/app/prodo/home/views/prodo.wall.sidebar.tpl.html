@@ -30,10 +30,10 @@
         <input general-search type="text" class="form-control prodoNormalSearchTextbox"  name="product" typeahead="name for name in enhancement | filter : $viewValue | limitTo:10" id="searchText" ng-model="productSearch.product"  style="width:100%" placeholder="Context Search"  typeahead-on-select="quickSearchEmit()" ng-click="toggleTitleForDiv()" typeahead-loading="name" typeahead-wait-ms="720" >
 <!--                   <i ng-show="name" class="glyphicon glyphicon-refresh" id="refreshIcon"></i>  --> 
    <!--  <p ng-click="a()">test</p> -->
-        <a data-toggle="modal"  data-target="#advancedSearchModal" ng-click="modalReset()" class="hyperlinkPointer">Advanced Search</a>
+        <a data-toggle="modal"  data-target="#advancedSearchModal" ng-click="modalReset()" class="hyperlinkPointer" >Advanced Search</a>
          <div ng-bind="errors" class="errorClassMessage cursorResize" id="sidebarErrors" ng-click="toggleTitleForDiv()"></div>
    <!-- start of advanced search -->
-            <div id = "advancedSearchModal" class="modal fade" >      <!-- Modal Code Starts for Advansed-Search -->
+            <div id = "advancedSearchModal" class="modal fade" style="">      <!-- Modal Code Starts for Advansed-Search -->
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div>
@@ -66,19 +66,19 @@
 
                             <div style="width:100%;" ng-if=" list.info!==undefined && list.info ==='No products exist for this organisation' ">[ Info : <span ng-bind="list.info"></span> ]</div>
                           
-                                  <ol type="i">
+                                  <ul >
                                      <li ng-repeat="product_list in list.products" class="productSearchResult" ng-if="product_list.name!==''">
                                              <a ng-bind="product_list.name" ng-click="orgProdleEmitter(product_list.prodle,list.orgid)" ng-if='product_list.name!==""' class="hyperlinkPointer"></a>
                                             <div  class="textBoxContainer">[ Description : <span ng-bind="product_list.description" ></span> ]</div>
                                      </li>
-                                  </ol>                                                      
+                                  </ul>                                                      
                           </li>    
                          </ol>   
                        </div>
                   </div>                                                                                                 
                   <div class="modal-footer">
-                    <button class="btn btn-info" data-dismiss="modal" ng-click="modalReset()">Cancel</button>         
-                     <input type="button" class="btn btn-info" value="Search" ng-click="searchProductData()" id="final" data-dismiss="modal "/>   
+                    <button class="btn btn-info" style="background-color:#B49999;" data-dismiss="modal" ng-click="modalReset()" >Cancel</button>         
+                     <button type="button" class="btn btn-info"  ng-click="searchProductData()" id="final" data-dismiss="modal " ><b>Search</b></button>   
                   </div>                                       
                  </div>
               </div>
