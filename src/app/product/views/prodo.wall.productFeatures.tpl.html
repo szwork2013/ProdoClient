@@ -20,7 +20,7 @@
       <
       <!--  <i style="color:gray; font-weight:weight:lighter" class="fa fa-chevron-left fa-3x"></i>  -->
     </button>
-    <a onclick="  $('#ErrMsging').css('display', 'none');$('#prodo-ProductDetails').show(); $('#productExtraInfo').css('display','none'); $('#prodo-productDiscontinuedUpdate').hide();" ng-click=" enableEditor() ;  editStatus='add'; clearText();  " class="prodo-cursor" >
+    <a onclick="  $('#ErrMsging').css('display', 'none');$('#prodo-ProductDetails').show(); $('#productExtraInfo').css('display','none'); $('#prodo-productDiscontinuedUpdate').hide();" ng-click="  productForm.$setPristine(); enableEditor() ;  editStatus='add'; clearText();  " class="prodo-cursor" >
       <div class="prodo-productThumbnailView" >
         <p class="prodo-AddProductBtn " >Add Product</p>
         <div class="prodo-productThumbnailImg fa fa-plus fa-4x img-rounded"  align="center" ></div>
