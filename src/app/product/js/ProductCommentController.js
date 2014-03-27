@@ -460,6 +460,8 @@ if($scope.commenttextField.userComment.length !== 300 ){
 }
 
 $scope.$watch('commenttextField.userComment', function () {
+
+if($scope.commenttextField.userComment){
 if($scope.commenttextField.userComment.length >300 || $scope.commenttextField.userComment.length < 0 ){
   document.getElementById('prodo-comment-Textbox').style.border ="1px solid #ff8080";
   $scope.commenttextField.userComment=$scope.commenttextField.userComment.substring(0,300);
@@ -467,7 +469,10 @@ if($scope.commenttextField.userComment.length >300 || $scope.commenttextField.us
  else if($scope.commenttextField.userComment.length <=300) {
   document.getElementById('prodo-comment-Textbox').style.border ="solid 1px #5bc0de";
  }
-})
+}
+}
+
+)
 };
   
 
