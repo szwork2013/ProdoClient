@@ -197,8 +197,8 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
 
   $scope.addProduct = function (editStatus) {
   if($scope.productForm.$invalid){
-      $scope.enableProductErrorMsg();
-      ProdERRMsg.innerHTML = "Please add valid information"; 
+      // $scope.enableProductErrorMsg();
+      // ProdERRMsg.innerHTML = "Please add valid information"; 
     }
   else{
   
@@ -571,8 +571,8 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   //add product feature
   $scope.addProductFeature = function (editStatus) {
    if($scope.productFeaturesForm.$invalid){
-    $scope.enableFeatureErrorMsg();
-    ProdFERRMsg.innerHTML ="Please add valid information";
+    // $scope.enableFeatureErrorMsg();
+    // ProdFERRMsg.innerHTML ="Please add valid information";
    }
   else{
     $scope.disableEditorFeature();
