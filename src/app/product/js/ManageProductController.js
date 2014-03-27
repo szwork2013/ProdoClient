@@ -139,6 +139,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
         $log.debug(successData.success.product);
         $scope.getProductFeatures(l_prodle, l_orgid);
         $("#prodo-ProductFeatureTable").css("display", "table");
+        $scope.currentProdle=successData.success.product.prodle;
         $scope.product = successData.success.product;
         $rootScope.currentProdleRoot=successData.success.product.prodle;
         $scope.productComments = successData.success.product.product_comments;
@@ -285,7 +286,8 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
    }
   };
   $scope.deleteProduct = function () {
-    growl.addInfoMessage("Deleting product  ...");
+    $log.debug("Deleting product  ..."+$scope.currentProdle );
+    growl.addInfoMessage("Deleting product  ..."+$scope.currentProdle );
     if ($scope.currentProdle !== undefined || $scope.currentProdle !== null || $scope.currentProdle !== "") {
       if ($rootScope.isAdminCheck == true) { //if owener of product
         ProductService.deleteProduct({
