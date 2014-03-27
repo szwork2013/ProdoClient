@@ -63,6 +63,7 @@ angular.module('prodo.CommonApp').controller('prodoUserProfileDataController', [
         $rootScope.orgid = orgid;
         $('#profileInfoModal').modal('hide');
         $('.modal-backdrop').remove(); 
+        $rootScope.$broadcast('emittingOrgidByUserProfile', 'success');
     };
   
     $scope.$on('$destroy', function(event, message) {

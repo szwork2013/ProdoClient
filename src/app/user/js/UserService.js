@@ -165,8 +165,7 @@ angular.module('prodo.UserApp')
 
     session.getProductFollowed = function (prodledata , userdata) {
       UserService.Product_Followed.getProduct_Followed({ data: prodledata }, function (success) {
-        // $log.debug(success);
-        console.log(success);
+        $log.debug(success);
         if (success.error) {
           console.log('No products followed');
         } else {
@@ -303,8 +302,7 @@ angular.module('prodo.UserApp')
     };
     session.checkUser = function () {
       UserService.IsUserLoggedin.checkUserSession(function (result) {
-        // $log.debug(result);
-        console.log(result);
+        $log.debug('checkuserlogin_' + result);
         if (result.success) {
           session.authSuccess(result.success.user);
         } else {
