@@ -17,6 +17,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   //product
   $scope.form={};
   $scope.editStatus;
+  $scope.edit;
   $scope.category=[];
   $scope.product = {
     product: [{}]
@@ -55,8 +56,10 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
 
   $scope.$watch('$state.$current.locals.globals.allproductdata', function (allproductdata) {
     if (allproductdata.error) {
+           $log.debug(JSON.stringify( allproductdata.error));
         $("#prodo-ProductDetails").css("display", "none");
         $("#ErrMsging").css("display", "block");
+         $scope.productlist=[];
       document.getElementById("ErrMsging").innerHTML = "<br>Product not available ... Add new product<br><br>";
     } else {
       if(allproductCategories.error){
@@ -66,6 +69,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
        $scope.listCategory.productCategories=allproductCategories.success.categorytags;
      }
       $scope.productlist = allproductdata.success.product;
+      console.log( allproductdata.success.product);
       if ($scope.productlist.length == 0) { //after deleting product, check for next product from product followed,if no product - display msg
          $("#prodo-ProductDetails").css("display", "none");
         $("#ErrMsging").css("display", "block");
@@ -787,9 +791,11 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   //on product logo hover, show follow product button
 
   $scope.getSelectedProduct = function (product1) {
-    if($scope.editMode.editorEnabled == true){
+    if(($scope.editMode.editorEnabled == true)|| ($scope.editMode.editorEnabledF ==true) ){
       $scope.enableProductErrorMsg();
       ProdERRMsg.innerHTML = "Please add product first then view other products..."; 
+
+      //modal code here , if yes clear data and show product if cancel, prev state
     }else{
     $scope.currentProdle = product1.prodle;
     $scope.currentOrgid = product1.orgid;

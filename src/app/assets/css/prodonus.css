@@ -1366,6 +1366,9 @@ ul {/*list-style-type: none;*/ }
 /*#commentNavTab{position: absolute;*/
 /*top: 34%;*/
 /*left: 77%;}*/
+.prodo-EditIcons{width:20%}
+.prodo-featurename{word-wrap: break-word;width: 10%; word-break: break-word;}
+.prodo-featureDescription{word-wrap: break-word;width: 20%; word-break: break-word;}
 .prodo-descriptionDisplay{word-wrap: break-word;width: 98%; word-break: break-word;}
 .prodo-CategoryUl{margin-bottom: -20px;word-wrap: break-word;
 width: 98%;overflow-x: hidden;overflow-y: auto;left: 40px;position: relative;top: -20px;}
@@ -1507,7 +1510,7 @@ margin-bottom: 10px;
 .prodo-followBtn{background-color: #4A5F72;}
 .prodo-trendingContainer{font-weight: bold;border-radius: 10px;text-align:center;padding: 5px;background-color: paleturquoise;border: 1px solid #9FBACC;height: 30px;max-width: 300px;position: relative;margin-left: 200px;}
 .prodo-CommentDeleteMsg{font-size: 12px;padding-top: 20px;padding-bottom: 20px;background-color: gainsboro;padding-left: 10px;}
-/*.prodo-productThumbnailView:hover{zoom:0.9;-webkit-transform: scale( 0.9); -moz-transform: scale(0.9);} */
+.prodo-productThumbnailView:hover{border-bottom: 5px solid gray;} 
 .prodo-MainDetailsTable{  color: black;}
 .prodo-followesInfotr{width: 50%}
 .prodo-followesInfotd{width: 50%;border-right:1px solid #dbdbdb;padding-right:5px;}
