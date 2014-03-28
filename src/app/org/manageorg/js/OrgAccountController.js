@@ -1113,7 +1113,13 @@ $scope.prevInvitesValidate = '';
 $scope.errorForEmptyGroupName = '';
 $scope.errorForEmptyExistingGroupname = '';
 
-
+  $scope.clearErrorMessages = function()
+  { 
+          $scope.errorForInvites='';
+          $scope.errorForEmptyGroupName = '';
+          $scope.errorForExistinginvites = '';
+          $scope.errorForEmptyExistingGroupname = '';
+  }; 
 
     $scope.addGroupInvite = function() {
    
@@ -1161,13 +1167,7 @@ $scope.errorForEmptyExistingGroupname = '';
 
             //OrgRegistrationService.groupInvites($scope.jsonOrgNewGroupInvitesData());
           
-  $scope.clearErrorMessages = function()
-  { 
-          $scope.errorForInvites='';
-          $scope.errorForEmptyGroupName = '';
-          $scope.errorForExistinginvites = '';
-          $scope.errorForEmptyExistingGroupname = '';
-  } ;    
+   
 
 
     };
