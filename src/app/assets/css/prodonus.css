@@ -1359,6 +1359,9 @@ ul {/*list-style-type: none;*/ }
 /*#commentNavTab{position: absolute;*/
 /*top: 34%;*/
 /*left: 77%;}*/
+.prodo-EditIcons{width:20%}
+.prodo-featurename{word-wrap: break-word;width: 10%; word-break: break-word;}
+.prodo-featureDescription{word-wrap: break-word;width: 20%; word-break: break-word;}
 .prodo-descriptionDisplay{word-wrap: break-word;width: 98%; word-break: break-word;}
 .prodo-CategoryUl{margin-bottom: -20px;word-wrap: break-word;
 width: 98%;overflow-x: hidden;overflow-y: auto;left: 40px;position: relative;top: -20px;}
