@@ -15,18 +15,18 @@
           <option value="Manufacturer">Manufacturer</option>
           <option value="Company">Company</option>
         </select>
-         <div class="error-message" ng-if="optionErrorMessage!== '' "ng-bind="optionErrorMessage"></div>  
+         <div class="error-message-wizard" ng-if="optionErrorMessage!== '' "ng-bind="optionErrorMessage"></div>  
          <!--  <i class="fa fa-check" ng-show="OrgCompanyForm.orgtype.$dirty && OrgCompanyForm.orgtype.$valid"></i> -->
             
         <input type="text" class="prodo-wizard-form-control form-control" name="companyname" ng-model="org.name" placeholder="Business Name" required required popover-placement="right" popover="Organization name can only have characters" popover-trigger="mouseenter" id="orgName"/>
-        <div class="error-message" ng-if="errorOrgName !== '' " ng-bind="errorOrgName"></div>   
+        <div class="error-message-wizard" ng-if="errorOrgName !== '' " ng-bind="errorOrgName"></div>   
         <textarea type="textarea" rows=8 class="prodo-wizard-form-control form-control" name="description" ng-model="org.description" placeholder="Business Description" required popover-placement="right" popover="Please enter detailed description regarding your organization" popover-trigger="mouseenter"></textarea>
-        <div class="error-message" ng-if="errOrgDesc !== '' "ng-bind="errOrgDesc"></div>    
+        <div class="error-message-wizard" ng-if="errOrgDesc !== '' "ng-bind="errOrgDesc"></div>    
         <input type="text" class="prodo-wizard-form-control form-control" name="contractid" ng-model="org.contractid" placeholder="Contract Id" />
         
       </div> 
       
-      <button id="prodo-company-wizard-btn" onclick="$('#reg-companyDetails').css('color','#01DF74')" class="prodo-wizard-btn btn btn-md btn-primary" ng-click="goToAddress()">Next</button>
+      <button id="prodo-company-wizard-btn" onclick="" class="prodo-wizard-btn btn btn-md btn-primary" ng-click="goToAddress()">Next</button>
 
     </form>   <!-- prodo-company-form -->
 
