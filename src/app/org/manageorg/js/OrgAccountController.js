@@ -14,13 +14,13 @@ $scope.group = { 'newgroupname': '','grouppname': '','invites': '','newinvites':
 $scope.groups = currentorggroup.success.usergrp; 
 $scope.orgaddr = currentorgaddr.success.orgaddress;
 $scope.orgImages = currentorgdata.success.organization.org_images;
-var indexOfOrgAddress = 0; console.log(JSON.stringify($scope.groups));
-//console.log(JSON.stringify($scope.groups[2].grpmembers));
+var indexOfOrgAddress = 0; 
+
 $scope.validateError=false;
 $scope.regexForText = /^[a-zA-Z\s]*$/;
 $scope.regexForNumbers = /[0-9]/;
 $scope.regexForEmail = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
-$scope.regexForPhno = /^\(?[+]([0-9]{2,5})\)?[-]?([0-9]{10})$/;
+$scope.regexForPhno = /^\(?[+]([0-9]{2,5})\)?[-]?([0-9]{10,15})$/;
 
 
 $scope.regexForMultipleEmail = /(([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)(\s*,\s*|\s*$)+)/;
@@ -914,7 +914,7 @@ $scope.regexForZipcode = /^[0-9]{5,10}$/;
     
     };
 
-    var cleanupEventDeleteOrgGroupMemberDone = $scope.$on("deleteOrgGroupMemberDone", function(event, message){console.log("message-----"+message);
+    var cleanupEventDeleteOrgGroupMemberDone = $scope.$on("deleteOrgGroupMemberDone", function(event, message){
      // $scope.handleDeleteOrgGroupMemberResponse(message);  
     
        if(message.error !== undefined && message.error.code === 'AL001' )
@@ -1225,7 +1225,7 @@ $scope.resetInvites = function()
 
 
     $scope.deleteOrgArtworImages = function()
-    { console.log($scope.orgImages.length);
+    { 
         for(var i=0;i<$scope.orgImages.length;i++)
         {
             if(document.getElementById(i).checked===true)
