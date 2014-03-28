@@ -15,15 +15,26 @@ angular.module('prodo.CommonApp').controller('prodoUserProfileDataController', [
 
     $scope.regularExpressionForProdonus = /^prodonus/i;
 
-    $scope.userProfileModal = function (data) 
-    {                              
-        UserSessionService.getUserProfileData(data);
+    $scope.profilePicDeleteduser = '';
+
+    var profileUserName = '';
+
+    $scope.errorIfUserDoesNotExist = '';
+
+    $scope.userProfileModal = function (data,profilePict,profileName) 
+    {   
+        $scope.modaluser = {products_followed:""}; 
+        $scope.profilePicDeleteduser = '';
+        $scope.profileUserName = '';                       
+        UserSessionService.getUserProfileData(data,profileName);
+        $scope.profilePicDeleteduser = profilePict;
     };
 
     var clearEventGetUserDataNotDone = $scope.$on('getUserDataNotDone', function (event, data) {
     });
 
-    var clearEventGetUserDataDone = $scope.$on('getUserDataDone', function (event, data) {  
+    var clearEventGetUserDataDone = $scope.$on('getUserDataDone', function (event, data , profileUserName) {  
+      $scope.errorIfUserDoesNotExist = '';
       if(data.error !== undefined && data.error.code==='AL001')
       {
         $('#profileInfoModal').modal('hide');
@@ -31,8 +42,17 @@ angular.module('prodo.CommonApp').controller('prodoUserProfileDataController', [
         UserSessionService.resetSession();
         $state.go('prodo.landing.signin');
       }
-      else
+      else if(data.error !== undefined && data.error.code === "AU003")
       {
+           $scope.modaluser = {username:''};
+           $scope.modaluser.username = profileUserName;
+           $scope.ProductsFollowedMessage="";
+           $scope.errorIfUserDoesNotExist = 'This user is deactivated'; 
+           $scope.modaluser.profilepic = undefined;
+      }
+      else
+      { 
+
         $scope.modaluser = data.success.user;
         if($scope.modaluser.products_followed.length === 0)
         {
@@ -56,7 +76,8 @@ angular.module('prodo.CommonApp').controller('prodoUserProfileDataController', [
         }
       }
     });
-
+    
+ 
     $scope.emitProductData = function(prodle,orgid)
     {
         $rootScope.product_prodle = prodle;

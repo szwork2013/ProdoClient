@@ -15,7 +15,7 @@
   <!--  <a class="pull-left" href="#">
     <img class="media-object" id="img-user" style="height:60px; width:50px" ng-src="{{comment.user.profilepic}}" alt="User"/> 
     </a> -->
-  <a class="pull-left" href="#"  ng-click="userProfileModal(comment.user.userid)" ng-controller="prodoUserProfileDataController"  id="triggerModal">
+  <a class="pull-left" href="#"  ng-click="userProfileModal(comment.user.userid,comment.user.profilepic,comment.user.username)" ng-controller="prodoUserProfileDataController"  id="triggerModal">
   <img class="media-object prodo-userAvatar" id="img-user" ng-src="{{comment.user.profilepic}}"  alt-SRC src="../assets/images/avatar.jpg" id="triggerModals" data-toggle="modal" data-target="#profileInfoModal" /> 
   </a>
   <!-- modal -->
@@ -28,12 +28,13 @@
         <div id="lineHr"></div>
         <div  ng-controller="prodoUserProfileDataController">
           <div class="classMain">
-            <center> <img ng-src="{{modaluser.profile_pic.image}}" id="userProfilePic" alt-SRC src="../assets/images/avatar.jpg"/> </center>
+                <center> <img ng-src="{{modaluser.profile_pic.image}}" id="userProfilePic" alt-SRC src="../assets/images/avatar.jpg" ng-if="modaluser.profile_pic !==undefined"/> 
+                <img ng-src="{{profilePicDeleteduser}}" id="userProfilePic" alt-SRC src="../assets/images/avatar.jpg" ng-if="modaluser.profile_pic === undefined"/> </center>
             <center>
-              <h5 ng-bind=" modaluser.username" class="modalHeading"></h5>
+              <h5 ng-bind=" modaluser.username" class="modalHeading" ></h5>
             </center>
           </div>
-          <div id="lineHr"></div>
+          <div id="lineHr"></div> <div ng-bind="errorIfUserDoesNotExist" ng-if="$scope.errorIfUserDoesNotExist !== ''"></div>
           <div  class="classMain">
             <h5 ng-bind="ProductsFollowedMessage">  </h5>
             <div ng-repeat="products in modaluser.products_followed"  class="modalProductPic" ng-if="regularExpressionForProdonus.test(products.name) !== true">
