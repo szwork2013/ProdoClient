@@ -254,7 +254,7 @@
         </table>
       </form>
       <form name="productFeatureUpdate" >
-        <table class="table child table-hover table-bordered prodo-productTableFont" id="prodo-ProductFeatureTable">
+        <table ng-if="features.length>0" class="table child table-hover table-bordered prodo-productTableFont" id="prodo-ProductFeatureTable">
           <tr  class="prodo-productTableFont" >
             <td>
               <dt>Feature</dt>
