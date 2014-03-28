@@ -203,13 +203,18 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
       // ProdERRMsg.innerHTML = "Please add valid information"; 
     }
   else{
-  
     $scope.productForm.$setPristine();
     $("productExtraInfo").css("display", "none");
     $("#ErrMsging").css("display", "none");
     //Input check validations are on Client side( using Angular validations)
     // $log.debug($scope.orgidFromSession);
     if (editStatus == 'add') { //add product
+
+        if($scope.category==""  ){
+     $scope.enableProductErrorMsg();
+        ProdERRMsg.innerHTML = "Please add category";  
+  } else{
+
       $scope.newProduct = {
         product: {
           model_no: $scope.product.model_no,
@@ -227,6 +232,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
            $scope.newProduct_ResponseProdle=success.success.prodle;
            $scope.category=[];
            $scope.disableEditor();
+           $('#productExtraInfo').css('display','block'); 
           }
          // $scope.disableEditor();
          $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
@@ -244,6 +250,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
          ProdERRMsg.innerHTML = data.error.message; 
          // growl.addErrorMessage("You dont have rights to add product...");
       }
+    }
     } else if (editStatus == 'update') { //update product
       $scope.newProduct = {
         product: {
@@ -285,6 +292,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
         // growl.addErrorMessage("You dont have rights to update this product..."); 
       } 
     }
+  
    }
   };
   $scope.deleteProduct = function () {
@@ -778,12 +786,14 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   $scope.enableFeatureErrorMsg=function(){
      $(".spanProdIMGERR").css("display", "none");
      $(".spanProdERR").css("display", "none");
+     $(".spanErr").css("display", "none");
      $(".spanProdFERR").css("display", "block");
      $(".alert-danger").removeClass("in").show();
      $(".alert-danger").delay(5000).addClass("in").fadeOut(2000);
   };
   $scope.enableFeatureSuccessMsg=function(){
     $(".spanProdIMGSuccess").css("display", "none");
+    $(".spanSuccess").css("display", "none");
     $(".spanProdSuccess").css("display", "none");
     $(".spanProdFSuccess").css("display", "block");
     $(".alert-success").removeClass("in").show();
@@ -795,6 +805,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   $scope.enableIMGErrorMsg=function(){
      $(".spanProdERR").css("display", "none");
      $(".spanProdFERR").css("display", "none");
+     $(".spanErr").css("display", "none");
      $(".spanProdIMGERR").css("display", "block");
      $(".alert-danger").removeClass("in").show();
      $(".alert-danger").delay(5000).addClass("in").fadeOut(2000);
@@ -803,6 +814,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   $scope.enableIMGSuccessMsg=function(){
     $(".spanProdSuccess").css("display", "none");
     $(".spanProdFSuccess").css("display", "none");
+    $(".spanSuccess").css("display", "none");
     $(".spanProdIMGSuccess").css("display", "block");
     $(".alert-success").removeClass("in").show();
     $(".alert-success").delay(5000).addClass("in").fadeOut(2000);
@@ -814,6 +826,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   $scope.enableProductErrorMsg=function(){
      $(".spanProdFERR").css("display", "none");
      $(".spanProdIMGERR").css("display", "none");
+     $(".spanErr").css("display", "none");
      $(".spanProdERR").css("display", "block");
      $(".alert-danger").removeClass("in").show();
      $(".alert-danger").delay(5000).addClass("in").fadeOut(2000);
@@ -822,6 +835,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   $scope.enableProductSuccessMsg=function(){
     $(".spanProdFSuccess").css("display", "none");
     $(".spanProdIMGSuccess").css("display", "none");
+    $(".spanSuccess").css("display", "none");
     $(".spanProdSuccess").css("display", "block");
     $(".alert-success").removeClass("in").show();
     $(".alert-success").delay(5000).addClass("in").fadeOut(2000);
