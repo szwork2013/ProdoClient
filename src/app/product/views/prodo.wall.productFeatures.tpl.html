@@ -26,7 +26,7 @@
         <div class="prodo-productThumbnailImg fa fa-plus fa-4x img-rounded"  align="center" ></div>
       </div>
     </a>
-    <div   ng-repeat="product1 in productlist  | startFrom:currentPage*pageSize | limitTo:pageSize" >
+    <div ng-show="productlist.length>0"  ng-repeat="product1 in productlist  | startFrom:currentPage*pageSize | limitTo:pageSize" >
     <div class="prodo-productThumbnailView"   ng-class="{activeProduct : product1.prodle==product.prodle}" >
       <a ng-click="getSelectedProduct(product1);" class="prodo-cursor"  href="" >
         <p class="prodo-AddProductBtn prodo-productNameList" >{{product1.name.substring(0,13)}}</p>
