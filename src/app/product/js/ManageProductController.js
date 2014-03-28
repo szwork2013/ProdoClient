@@ -323,7 +323,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
             $log.debug(success);
             $scope.enableProductSuccessMsg();
             ProdSuccessMsg.innerHTML ="Product updated successfully...";
-            $scope.handleSaveProductFeatureResponse(success); // calling function to handle success and error responses from server side on POST method success.
+            $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
             $scope.getProduct($scope.currentProdle, $scope.currentOrgid);
             $scope.disableEditor();
           }, function (error) {

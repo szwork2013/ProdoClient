@@ -29,12 +29,18 @@ angular.module('prodo.UploadApp')
   
   $scope.enableErrorMsg=function(){
      $(".spanErr").css("display", "block");
+     $(".spanProdERR").css("display", "none");
+     $(".spanProdFERR").css("display", "none");
+     $(".spanProdIMGERR").css("display", "none");
      $(".alert-danger").removeClass("in").show();
      $(".alert-danger").delay(5000).addClass("in").fadeOut(2000);
     
   };
   $scope.enableSuccessMsg=function(){
     $(".spanSuccess").css("display", "block");
+    $(".spanProdSuccess").css("display", "none");
+    $(".spanProdFSuccess").css("display", "none");
+    $(".spanProdIMGSuccess").css("display", "none");
     $(".alert-success").removeClass("in").show();
     $(".alert-success").delay(5000).addClass("in").fadeOut(2000);
     
