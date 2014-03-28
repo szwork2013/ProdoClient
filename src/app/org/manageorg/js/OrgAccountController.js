@@ -623,7 +623,7 @@ $scope.invalidContact3 = '';
         $scope.form.orgaddlocationform.submitted= true;   
         OrgRegistrationService.saveOrgAddress($scope.jsonOrgAddressData());
       } else {
-        if($scope.org.address1 === '' || $scope.form.orgaddlocationform.$valid === false)
+        if($scope.org.address1 === '' || $scope.form.orgaddlocationform.address1.$valid === false)
             {
                   $scope.addressErrorMessage = "Please enter valid address "; 
             }
