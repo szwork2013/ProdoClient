@@ -17,6 +17,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   //product
   $scope.form={};
   $scope.editStatus;
+  $scope.category=[];
   $scope.product = {
     product: [{}]
   };
@@ -201,6 +202,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   if($scope.productForm.$invalid){
       // $scope.enableProductErrorMsg();
       // ProdERRMsg.innerHTML = "Please add valid information"; 
+      $scope.productForm.submitted=true;
     }
   else{
     $scope.productForm.$setPristine();
@@ -210,11 +212,12 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
     // $log.debug($scope.orgidFromSession);
     if (editStatus == 'add') { //add product
 
-        if($scope.category==""  ){
+    if($scope.category.length==0 ){
      $scope.enableProductErrorMsg();
         ProdERRMsg.innerHTML = "Please add category";  
+     // $scope.productCategoryInvalid=true;
   } else{
-
+      // $scope.productCategoryInvalid=false;
       $scope.newProduct = {
         product: {
           model_no: $scope.product.model_no,
@@ -252,8 +255,15 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
       }
     }
     } else if (editStatus == 'update') { //update product
-      $scope.newProduct = {
-        product: {
+
+    if($scope.product.category.length==0 ){
+     $scope.enableProductErrorMsg();
+        ProdERRMsg.innerHTML = "Please add category";  
+     // $scope.productCategoryInvalid=true;
+    } else{
+        // $scope.productCategoryInvalid=false;
+        $scope.newProduct = {
+          product: {
           model_no: $scope.product.model_no,
           name: $scope.product.name,
           description: $scope.product.description,
@@ -292,7 +302,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
         // growl.addErrorMessage("You dont have rights to update this product..."); 
       } 
     }
-  
+   }
    }
   };
   $scope.deleteProduct = function () {
