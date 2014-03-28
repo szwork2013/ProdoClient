@@ -465,11 +465,12 @@ angular.module('prodo.UploadApp')
 
             var FileName = document.createElement("label");
             FileName.type = 'label';
-            var title = document.createTextNode("File " + i.name);
+            var title = document.createTextNode(" " + i.name);
             FileName.appendChild(title);
             FileName.name = 'label';
             FileName.setAttribute("style", "text-align:left");
             fn.appendChild(FileName);
+            fn.setAttribute("style", "text-align:left");
             fn.style.width = '400px';
 
            
