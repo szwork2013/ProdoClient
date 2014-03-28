@@ -595,6 +595,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
    if($scope.productFeaturesForm.$invalid){
     // $scope.enableFeatureErrorMsg();
     // ProdFERRMsg.innerHTML ="Please add valid information";
+    $scope.productFeaturesForm.submitted=true;
    }
   else{
     $scope.disableEditorFeature();
@@ -701,6 +702,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   };
   $scope.disableEditor = function () {
     $scope.editMode.editorEnabled = false;
+      $scope.productForm.submitted=false;
     $scope.feature = "";
     if ($scope.currentProdle !== undefined || $scope.currentProdle !== null || $scope.currentProdle !== "") {
       $scope.getProduct($scope.currentProdle, $scope.currentOrgid);
@@ -719,7 +721,10 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   };
   $scope.disableEditorFeature = function () {
     $scope.editMode.editorEnabledF = false;
-    $scope.feature = "";
+    $scope.productFeaturesForm.$setPristine();
+    $scope.productFeaturesForm.submitted=false;
+    $scope.featurename = "";
+    $scope.descriptio="";
     if ($scope.currentProdle !== undefined || $scope.currentProdle !== null || $scope.currentProdle !== "") {
       $scope.getProduct($scope.currentProdle, $scope.currentOrgid);
       $scope.getProductFeatures($scope.currentProdle, $scope.currentOrgid);

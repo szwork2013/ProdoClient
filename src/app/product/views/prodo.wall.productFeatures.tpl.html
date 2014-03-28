@@ -209,12 +209,12 @@
         </div>
       </div>
 
-  <div  ng-show="productFeaturesForm.name.$dirty && editMode.editorEnabledF ==true" class="prodo-product-Invalid">
+  <div  ng-show="(productFeaturesForm.name.$dirty && editMode.editorEnabledF ==true) ||(productFeaturesForm.submitted==true && productFeaturesForm.name.$invalid==true)" class="prodo-product-Invalid">
   <span ng-show="productFeaturesForm.name.$error.required">Please enter feature name</span>
   <span ng-show="productFeaturesForm.name.$error.maxlength">Feature name can be of 50 characters maximum</span>
   </div>
 
-  <div  ng-show="productFeaturesForm.description.$dirty  && editMode.editorEnabledF ==true" class="prodo-product-Invalid">
+  <div  ng-show="(productFeaturesForm.description.$dirty  && editMode.editorEnabledF ==true) ||(productFeaturesForm.submitted==true && productFeaturesForm.description.$invalid==true)" class="prodo-product-Invalid">
   <span ng-show="productFeaturesForm.description.$error.required">Please enter feature description</span>
   <span ng-show="productFeaturesForm.description.$error.maxlength"> Feature description can be of 100 characters maximum</span>
   </div>
