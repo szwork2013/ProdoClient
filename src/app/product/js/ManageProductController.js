@@ -196,6 +196,40 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
     }
   };
   //error handling for add product
+
+  // $scope.handleSaveProductFeatureResponse(success);
+  //error handling for add product
+  $scope.handleSaveProductFeatureResponse = function (data) {
+    if (data.success) {
+        // $scope.enableFeatureSuccessMsg();
+        $scope.enableFeatureSuccessMsg();
+        ProdFSuccessMsg.innerHTML = "Feature added successfully";
+       ProdFSuccessMsg.innerHTML = data.success.message;
+       $scope.disableEditor();
+       // growl.addSuccessMessage(data.success.message);
+      $state.reload();
+    } else {
+       // $scope.disableEditor();
+      if (data.error.code == 'AV001') { // user already exist
+        $log.debug(data.error.code + " " + data.error.message);
+       $scope.enableFeatureErrorMsg();
+        ProdFERRMsg.innerHTML = data.error.message;
+        // growl.addErrorMessage(data.error.message);
+
+      } else if (data.error.code == 'AP001') { // user data invalid
+        $log.debug(data.error.code + " " + data.error.message);
+      $scope.enableFeatureErrorMsg();
+        ProdFERRMsg.innerHTML = data.error.message;
+        // growl.addErrorMessage(data.error.message);
+      } else {
+        $log.debug(data.error.message);
+       $scope.enableFeatureErrorMsg();
+        ProdFERRMsg.innerHTML = data.error.message; 
+        // growl.addErrorMessage(data.error.message);
+      }
+    }
+  };
+  //error handling for add product
   //add ,update product
 
   $scope.addProduct = function (editStatus) {
@@ -285,7 +319,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
             $log.debug(success);
             $scope.enableProductSuccessMsg();
             ProdSuccessMsg.innerHTML ="Product updated successfully...";
-            $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
+            $scope.handleSaveProductFeatureResponse(success); // calling function to handle success and error responses from server side on POST method success.
             $scope.getProduct($scope.currentProdle, $scope.currentOrgid);
             $scope.disableEditor();
           }, function (error) {
@@ -598,8 +632,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
     $scope.productFeaturesForm.submitted=true;
    }
   else{
-    $scope.disableEditorFeature();
-    $scope.productFeaturesForm.$setPristine();
+   
     $scope.newFeature = {};
     $scope.newFeature = {
       productfeature: [{
@@ -607,6 +640,8 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
         featuredescription: $scope.featuredescription
       }]
     };
+     $scope.disableEditorFeature();
+    $scope.productFeaturesForm.$setPristine();
     $log.debug( $scope.newFeature);
     if ($scope.newFeature !== undefined || $scope.newFeature !== null || $scope.newFeature !== "") {
       if (editStatus == 'add') {
@@ -619,11 +654,11 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
             // $log.debug(success);
             // $scope.currentProdle=$scope.product.product_prodle;
             $scope.newProduct_ResponseProdle=$scope.currentProdle;
-            $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
+            $scope.handleSaveProductFeatureResponse(success); // calling function to handle success and error responses from server side on POST method success.
             $log.debug("new Feature : " + JSON.stringify($scope.newFeature.productfeature[0]));
             $scope.features.push($scope.newFeature.productfeature[0]);
-            $scope.enableFeatureSuccessMsg();
-            ProdFSuccessMsg.innerHTML = "Feature added successfully";
+            // $scope.enableFeatureSuccessMsg();
+            // ProdFSuccessMsg.innerHTML = "Feature added successfully";
             $scope.featurename="";
             $scope.featuredescription="";
             // growl.addSuccessMessage("Feature added successfully");
@@ -666,8 +701,9 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
           'productfeature': data
         }, function (success) {
           // $log.debug(success);
-           $scope.currentProdle=$scope.product.product_prodle;
-          $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
+           // $scope.currentProdle=$scope.product.product_prodle;
+           $scope.newProduct_ResponseProdle=$scope.currentProdle;
+          $scope.handleSaveProductFeatureResponse(success); // calling function to handle success and error responses from server side on POST method success.
           // $scope.features.push($scope.newFeature);
           $scope.enableFeatureSuccessMsg();
           ProdFSuccessMsg.innerHTML = success.success.message;
