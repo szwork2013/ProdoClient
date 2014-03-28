@@ -17,6 +17,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   //product
   $scope.form={};
   $scope.editStatus;
+  $scope.category=[];
   $scope.product = {
     product: [{}]
   };
@@ -195,21 +196,62 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
     }
   };
   //error handling for add product
+
+  // $scope.handleSaveProductFeatureResponse(success);
+  //error handling for add product
+  $scope.handleSaveProductFeatureResponse = function (data) {
+    if (data.success) {
+        // $scope.enableFeatureSuccessMsg();
+        $scope.enableFeatureSuccessMsg();
+        ProdFSuccessMsg.innerHTML = "Feature added successfully";
+       ProdFSuccessMsg.innerHTML = data.success.message;
+       $scope.disableEditor();
+       // growl.addSuccessMessage(data.success.message);
+      $state.reload();
+    } else {
+       // $scope.disableEditor();
+      if (data.error.code == 'AV001') { // user already exist
+        $log.debug(data.error.code + " " + data.error.message);
+       $scope.enableFeatureErrorMsg();
+        ProdFERRMsg.innerHTML = data.error.message;
+        // growl.addErrorMessage(data.error.message);
+
+      } else if (data.error.code == 'AP001') { // user data invalid
+        $log.debug(data.error.code + " " + data.error.message);
+      $scope.enableFeatureErrorMsg();
+        ProdFERRMsg.innerHTML = data.error.message;
+        // growl.addErrorMessage(data.error.message);
+      } else {
+        $log.debug(data.error.message);
+       $scope.enableFeatureErrorMsg();
+        ProdFERRMsg.innerHTML = data.error.message; 
+        // growl.addErrorMessage(data.error.message);
+      }
+    }
+  };
+  //error handling for add product
   //add ,update product
 
   $scope.addProduct = function (editStatus) {
   if($scope.productForm.$invalid){
       // $scope.enableProductErrorMsg();
       // ProdERRMsg.innerHTML = "Please add valid information"; 
+      $scope.productForm.submitted=true;
     }
   else{
-  
     $scope.productForm.$setPristine();
     $("productExtraInfo").css("display", "none");
     $("#ErrMsging").css("display", "none");
     //Input check validations are on Client side( using Angular validations)
     // $log.debug($scope.orgidFromSession);
     if (editStatus == 'add') { //add product
+
+    if($scope.category.length==0 ){
+     $scope.enableProductErrorMsg();
+        ProdERRMsg.innerHTML = "Please add category";  
+     // $scope.productCategoryInvalid=true;
+  } else{
+      // $scope.productCategoryInvalid=false;
       $scope.newProduct = {
         product: {
           model_no: $scope.product.model_no,
@@ -227,6 +269,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
            $scope.newProduct_ResponseProdle=success.success.prodle;
            $scope.category=[];
            $scope.disableEditor();
+           $('#productExtraInfo').css('display','block'); 
           }
          // $scope.disableEditor();
          $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
@@ -244,9 +287,17 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
          ProdERRMsg.innerHTML = data.error.message; 
          // growl.addErrorMessage("You dont have rights to add product...");
       }
+    }
     } else if (editStatus == 'update') { //update product
-      $scope.newProduct = {
-        product: {
+
+    if($scope.product.category.length==0 ){
+     $scope.enableProductErrorMsg();
+        ProdERRMsg.innerHTML = "Please add category";  
+     // $scope.productCategoryInvalid=true;
+    } else{
+        // $scope.productCategoryInvalid=false;
+        $scope.newProduct = {
+          product: {
           model_no: $scope.product.model_no,
           name: $scope.product.name,
           description: $scope.product.description,
@@ -268,7 +319,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
             $log.debug(success);
             $scope.enableProductSuccessMsg();
             ProdSuccessMsg.innerHTML ="Product updated successfully...";
-            $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
+            $scope.handleSaveProductFeatureResponse(success); // calling function to handle success and error responses from server side on POST method success.
             $scope.getProduct($scope.currentProdle, $scope.currentOrgid);
             $scope.disableEditor();
           }, function (error) {
@@ -285,6 +336,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
         // growl.addErrorMessage("You dont have rights to update this product..."); 
       } 
     }
+   }
    }
   };
   $scope.deleteProduct = function () {
@@ -577,10 +629,10 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
    if($scope.productFeaturesForm.$invalid){
     // $scope.enableFeatureErrorMsg();
     // ProdFERRMsg.innerHTML ="Please add valid information";
+    $scope.productFeaturesForm.submitted=true;
    }
   else{
-    $scope.disableEditorFeature();
-    $scope.productFeaturesForm.$setPristine();
+   
     $scope.newFeature = {};
     $scope.newFeature = {
       productfeature: [{
@@ -588,6 +640,8 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
         featuredescription: $scope.featuredescription
       }]
     };
+     $scope.disableEditorFeature();
+    $scope.productFeaturesForm.$setPristine();
     $log.debug( $scope.newFeature);
     if ($scope.newFeature !== undefined || $scope.newFeature !== null || $scope.newFeature !== "") {
       if (editStatus == 'add') {
@@ -600,11 +654,11 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
             // $log.debug(success);
             // $scope.currentProdle=$scope.product.product_prodle;
             $scope.newProduct_ResponseProdle=$scope.currentProdle;
-            $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
+            $scope.handleSaveProductFeatureResponse(success); // calling function to handle success and error responses from server side on POST method success.
             $log.debug("new Feature : " + JSON.stringify($scope.newFeature.productfeature[0]));
             $scope.features.push($scope.newFeature.productfeature[0]);
-            $scope.enableFeatureSuccessMsg();
-            ProdFSuccessMsg.innerHTML = "Feature added successfully";
+            // $scope.enableFeatureSuccessMsg();
+            // ProdFSuccessMsg.innerHTML = "Feature added successfully";
             $scope.featurename="";
             $scope.featuredescription="";
             // growl.addSuccessMessage("Feature added successfully");
@@ -647,8 +701,9 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
           'productfeature': data
         }, function (success) {
           // $log.debug(success);
-           $scope.currentProdle=$scope.product.product_prodle;
-          $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
+           // $scope.currentProdle=$scope.product.product_prodle;
+           $scope.newProduct_ResponseProdle=$scope.currentProdle;
+          $scope.handleSaveProductFeatureResponse(success); // calling function to handle success and error responses from server side on POST method success.
           // $scope.features.push($scope.newFeature);
           $scope.enableFeatureSuccessMsg();
           ProdFSuccessMsg.innerHTML = success.success.message;
@@ -683,6 +738,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   };
   $scope.disableEditor = function () {
     $scope.editMode.editorEnabled = false;
+      $scope.productForm.submitted=false;
     $scope.feature = "";
     if ($scope.currentProdle !== undefined || $scope.currentProdle !== null || $scope.currentProdle !== "") {
       $scope.getProduct($scope.currentProdle, $scope.currentOrgid);
@@ -701,7 +757,10 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   };
   $scope.disableEditorFeature = function () {
     $scope.editMode.editorEnabledF = false;
-    $scope.feature = "";
+    $scope.productFeaturesForm.$setPristine();
+    $scope.productFeaturesForm.submitted=false;
+    $scope.featurename = "";
+    $scope.descriptio="";
     if ($scope.currentProdle !== undefined || $scope.currentProdle !== null || $scope.currentProdle !== "") {
       $scope.getProduct($scope.currentProdle, $scope.currentOrgid);
       $scope.getProductFeatures($scope.currentProdle, $scope.currentOrgid);
@@ -778,12 +837,14 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   $scope.enableFeatureErrorMsg=function(){
      $(".spanProdIMGERR").css("display", "none");
      $(".spanProdERR").css("display", "none");
+     $(".spanErr").css("display", "none");
      $(".spanProdFERR").css("display", "block");
      $(".alert-danger").removeClass("in").show();
      $(".alert-danger").delay(5000).addClass("in").fadeOut(2000);
   };
   $scope.enableFeatureSuccessMsg=function(){
     $(".spanProdIMGSuccess").css("display", "none");
+    $(".spanSuccess").css("display", "none");
     $(".spanProdSuccess").css("display", "none");
     $(".spanProdFSuccess").css("display", "block");
     $(".alert-success").removeClass("in").show();
@@ -795,6 +856,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   $scope.enableIMGErrorMsg=function(){
      $(".spanProdERR").css("display", "none");
      $(".spanProdFERR").css("display", "none");
+     $(".spanErr").css("display", "none");
      $(".spanProdIMGERR").css("display", "block");
      $(".alert-danger").removeClass("in").show();
      $(".alert-danger").delay(5000).addClass("in").fadeOut(2000);
@@ -803,6 +865,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   $scope.enableIMGSuccessMsg=function(){
     $(".spanProdSuccess").css("display", "none");
     $(".spanProdFSuccess").css("display", "none");
+    $(".spanSuccess").css("display", "none");
     $(".spanProdIMGSuccess").css("display", "block");
     $(".alert-success").removeClass("in").show();
     $(".alert-success").delay(5000).addClass("in").fadeOut(2000);
@@ -814,6 +877,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   $scope.enableProductErrorMsg=function(){
      $(".spanProdFERR").css("display", "none");
      $(".spanProdIMGERR").css("display", "none");
+     $(".spanErr").css("display", "none");
      $(".spanProdERR").css("display", "block");
      $(".alert-danger").removeClass("in").show();
      $(".alert-danger").delay(5000).addClass("in").fadeOut(2000);
@@ -822,6 +886,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   $scope.enableProductSuccessMsg=function(){
     $(".spanProdFSuccess").css("display", "none");
     $(".spanProdIMGSuccess").css("display", "none");
+    $(".spanSuccess").css("display", "none");
     $(".spanProdSuccess").css("display", "block");
     $(".alert-success").removeClass("in").show();
     $(".alert-success").delay(5000).addClass("in").fadeOut(2000);
