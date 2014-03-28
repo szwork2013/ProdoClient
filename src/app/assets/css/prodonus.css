@@ -759,6 +759,13 @@ text-align: left;
 	color: rgb(211, 41, 41);
 }
 
+.error-message-wizard{
+	font-weight: normal;
+	padding-top: 10px;
+	text-align: left;
+	color: rgb(211, 41, 41);
+	margin-left:20%;
+}
 /**
 *	Subscription.term
 **/
@@ -854,10 +861,10 @@ text-align: left;
 }
 
 
-#prodo-registration-Wizard-after{
-	color :rgb(1, 223, 116); background-color: white; z-index: 100;position: absolute;
+/*#prodo-registration-Wizard-after{
+	color :rgb(46, 179, 115); background-color: white; z-index: 100;position: absolute;
 
-}
+}*/
 
 .prodo-wall-dashboard-container{
 border: 1px solid #E7EDF1;
@@ -868,15 +875,15 @@ background-color: transparent;
 }
 .prodo-org-wizard-nav-hr{
 background: black;
-width: 270%;
+width: 279%;
 height: 1px;
 position: relative;
 margin-top: 5%;
-left: 50%;
+
 }
 
 .prodo-org-wizard-nav-fa{
-	color :rgb(200, 219, 200);
+	color :rgb(201, 201, 201);
 	position: absolute;
 background-color: white;
 }

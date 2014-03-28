@@ -1107,17 +1107,23 @@ $scope.errorForInvites = 'Please check emails ';
 $scope.newInvitesValidate = '';
 $scope.errorForExistinginvites = 'Please check emails ';
 $scope.prevInvitesValidate = '';
+
+
+
 $scope.errorForEmptyGroupName = '';
 $scope.errorForEmptyExistingGroupname = '';
+
+
+
     $scope.addGroupInvite = function() {
+   
+        
         $scope.errorForEmptyGroupName = '';
         $scope.errorForInvites = 'Please check emails ';
         $scope.newInvitesValidate = '';
         var invalid = 0;
-        if($scope.addInvitesList==='new')
-        {  
             var multipleEmails = $scope.group.newinvites;
-            if(multipleEmails !== '')
+            if(multipleEmails!==undefined && multipleEmails !== '' )
             {
                 var array = multipleEmails.split(',');
                 for(var k = 0 ;k<array.length ; k++)
@@ -1142,27 +1148,38 @@ $scope.errorForEmptyExistingGroupname = '';
                 $scope.errorForEmptyGroupName = 'Please enter valid group name';
                 invalid = 1;
             }
-            if($scope.group.newinvites==='')
+            if($scope.group.newinvites==='' || $scope.group.newinvites === undefined)
             {
                 $scope.errorForInvites = "Email List cant be empty";
                 invalid=1;
             }
             if(invalid===0){
                     OrgRegistrationService.groupInvites($scope.jsonOrgNewGroupInvitesData());
+                    $scope.clearErrorMessages();
                }   
                    
 
             //OrgRegistrationService.groupInvites($scope.jsonOrgNewGroupInvitesData());
           
-        }
-        if($scope.addInvitesList==='existing')
-        {  
+  $scope.clearErrorMessages = function()
+  { 
+          $scope.errorForInvites='';
+          $scope.errorForEmptyGroupName = '';
+          $scope.errorForExistinginvites = '';
+          $scope.errorForEmptyExistingGroupname = '';
+  } ;    
+
+
+    };
+    $scope.addExistingGroupInvite=function()
+    {
+
                 $scope.prevInvitesValidate = '';
                 $scope.errorForExistinginvites="Please check emails ";
                 $scope.errorForEmptyExistingGroupname = '';
                 var invalidCheck = 0;
                     var multipleEmails = $scope.group.invites;
-                    if(multipleEmails !== '')
+                    if(multipleEmails!==undefined && multipleEmails !== '')
                     {
                         var array = multipleEmails.split(',');
                         for(var k = 0 ;k<array.length ; k++)
@@ -1183,20 +1200,20 @@ $scope.errorForEmptyExistingGroupname = '';
                     }
                     if($scope.group.groupname === undefined)
                     {
-
-                     if($scope.group.invites==='')
+                         $scope.errorForEmptyExistingGroupname = 'Please select valid groupname from the list';invalidCheck = 1; }
+                     if($scope.group.invites === '' || $scope.group.invites === undefined)
                     {
                         $scope.errorForExistinginvites = "Email list cant be empty";
                         invalidCheck = 1;
                     }
-                    $scope.errorForEmptyExistingGroupname = 'Please select valid groupname from the list';invalidCheck = 1 }
+                    
                     if(invalidCheck === 0 ){
                        OrgRegistrationService.groupInvites($scope.jsonOrgExistingGroupInvitesData());
+                       $scope.clearErrorMessages();
                     }
                  //End of validation  
-        }
-
-    };
+        
+    }
 
     var cleanupEventSendOrgGroupInvitesDone = $scope.$on("sendOrgGroupInvitesDone", function(event, data){
        if(data.error !== undefined && data.error.code === 'AL001' )
