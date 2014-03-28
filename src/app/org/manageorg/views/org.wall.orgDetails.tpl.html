@@ -268,16 +268,18 @@
                     <table ng-show="showNewInvites" class="table table-condensed">
                       <tbody>
                         <tr>
-                          <td style="width: 40%;"><input class="form-control" ng-model="group.newgroupname" type="text" placeholder="Group Name" required></td>
+                          <td style="width: 40%;">
+                          <input class="form-control" ng-model="group.newgroupname" type="text" placeholder="Group Name" required></td>
                           <td style="width: 40%;">
                            <div class="input-group margin-bottom-sm">
                             <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
-                            <input class="form-control" ng-model="group.newinvites" type="email" placeholder="Enter email separated by commas(,)" prodonus-multi-email-validate required>
+                            <input class="form-control" ng-model="group.newinvites"  placeholder="Enter email separated by commas(,)" required>
                           </div>
                           </td>
                           <td style="width: 20%;"><button class="btn btn-primary btn-sm pull-right"  ng-click="addGroupInvite()" style="width:80px;"><i style="margin-right: 5px;" class="fa fa-share"></i>Send</button></td>
                         </tr>
-
+                        <tr> <div class="error-message-registration" ng-if="errorForEmptyGroupName!==''" ng-bind="errorForEmptyGroupName"></div></tr>
+                       <tr> <div class="error-message-registration" ng-if="errorForInvites!=='Please check emails '" ng-bind="errorForInvites"></div></tr>
                       </tbody>
                     </table>
                   </form>
@@ -294,12 +296,14 @@
                           <td style="width: 40%;">
                           <div class="input-group margin-bottom-sm">
                             <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
-                            <input class="form-control" ng-model="group.invites" type="email" placeholder="Enter email seprated by commas(,)" prodonus-multi-email-validate required>
+                            <input class="form-control" ng-model="group.invites" placeholder="Enter email seprated by commas(,)" required>
                           </div>
                           </td>
                           <td style="width: 20%;"><button class="btn btn-primary btn-sm pull-right" ng-click="addGroupInvite()" style="width:80px;"><i style="margin-right: 5px;" class="fa fa-share"></i>&nbsp;&nbsp;Send</button></td>
                         </tr>
-                        <p ng-show="(form.orggroupinvitesform.submitted && form.orggroupinvitesform.$invalid)" class="text-danger"><small style='color:red;'>Please check syntax of Group name or Email Ids</small></p>
+                         <tr> <div class="error-message-registration" ng-if="errorForEmptyExistingGroupname!==''" ng-bind="errorForEmptyExistingGroupname"></div></tr>
+                        <tr><div class="error-message-registration" ng-if="errorForExistinginvites!=='Please check emails '" ng-bind="errorForExistinginvites"></tr>
+                 <!--        <p ng-show="(form.orggroupinvitesform.submitted && form.orggroupinvitesform.$invalid)" class="text-danger"><small style='color:red;'>Please check syntax of Group name or Email Ids</small></p> -->
                       </tbody>
                     </table>
                   </form>
