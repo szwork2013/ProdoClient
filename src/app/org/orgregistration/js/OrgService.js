@@ -94,10 +94,12 @@ angular.module('prodo.OrgApp')
         {
           getAllOrgProducts: { method: 'GET', params: { orgid: '@orgid'}}
         }),
-        SingleOrgImageDelete: $resource('/api/image/org/:orgid/:imageid',{},
-        {
-           deleteOrgImage:{ method: 'DELETE', params:{orgid:'@orgid', imageid:'@imageid'} }
-        })
+        SingleOrgImageDelete: $resource('/api/image/org/:orgid?orgimageids=:data', {}, {
+          deleteOrgImage: { 
+            method: 'DELETE', 
+            params: {orgid:'@orgid', data: '@data' }
+          }
+        }),
       }
 
     var organization = {};
@@ -237,7 +239,7 @@ angular.module('prodo.OrgApp')
       }
 
       organization.singleOrgImageDelete = function(imgid) {
-        OrgService.SingleOrgImageDelete.deleteOrgImage({orgid:$rootScope.usersession.currentUser.org.orgid, imageid:imgid},
+        OrgService.SingleOrgImageDelete.deleteOrgImage({orgid:$rootScope.usersession.currentUser.org.orgid, data:imgid},
           function(success){
             $log.debug(success);
             $rootScope.$broadcast("orgImageDeleted",success);

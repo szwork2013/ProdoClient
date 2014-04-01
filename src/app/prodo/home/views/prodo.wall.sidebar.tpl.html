@@ -88,7 +88,7 @@
     </div>
 
         <div id="prodo-sidebar-list" class="list">
-          <div class="list-group-item hyperlinkPointer" ng-repeat="product in trendingProducts" ng-click="orgProdleEmitter(product.prodle,product.orgid)" > 
+          <div class="list-group-item hyperlinkPointer" ng-if="regularExpressionForProdonus.test(product.name) !== true" ng-repeat="product in trendingProducts | limitTo:6" ng-click="orgProdleEmitter(product.prodle,product.orgid)"  > 
              <table style=" width: 100%; color: black;text-align: center">
                 <tr style="">
                   <td colspan ="2" style="">
