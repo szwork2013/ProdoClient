@@ -483,7 +483,7 @@ $scope.hideIfNotImage = function (image) {
 //show comment image if exists 
 //if error adding comment retry function
 $scope.showErrorIfCommentNotAdded = function () {
-  var retry = document.getElementById("responseComment");
+  var retry = document.getElementById("responseCommentErr");
   retry.style.display = 'inline';
 
   retry.innerHTML = 'Error adding comment please try again..';
