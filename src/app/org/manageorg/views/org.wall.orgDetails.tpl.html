@@ -99,7 +99,7 @@
           </div>
 
   
-          <table class="table table-hover table-condensed" ng-repeat="orgAd in orgaddr | filter:searchAddress">
+          <table class="table table-hover table-condensed" ng-repeat="orgAd in orgaddr ">
 
           <thead>
 
@@ -118,7 +118,7 @@
             <td style="width:15%">Edit</td>
           </tr>
           <tbody>
-            <tr ng-repeat="addr in orgAd.location track by $index ">
+            <tr ng-repeat="addr in orgAd.location | filter:searchAddress track by $index ">
                   <!--  <form name="form.organizationUpdateAddressForm" ng-submit="" novalidate> -->
                     <td ng-bind="$index + 1"></td>
                     <td ng-hide="addr.editing" >
@@ -205,7 +205,7 @@
               <dd><input name="address1" type="text" style="width:55%; height:30px; display:block" class="form-control" ng-model="org.address1" placeholder="address line1" required></dd><div class="error-message" ng-if="addressErrorMessage!==''" ng-bind="addressErrorMessage"></div>   <br>
 
               <dt>Address Line2:</dt>
-              <dd><input name="address2" type="text" style="width:55%; height:30px; display:block" class="form-control" ng-model="org.address2" placeholder="address line2" required></dd><br>
+              <dd><input name="address2" type="text" style="width:55%; height:30px; display:block" class="form-control" ng-model="org.address2" placeholder="address line2" ></dd><br>
               <dt>Address Line3:</dt>
               <dd><input name="address3" type="text" style="width:55%; height:30px; display:block" class="form-control" ng-model="org.address3" placeholder="address line3"></dd><br>
               <dt>*Country:</dt>
@@ -215,7 +215,7 @@
               <dt>*City:</dt>
               <dd><input name="city" type="text" ng-pattern="/^[A-z]*$/" style="width:55%; height:30px; display:block" class="form-control" ng-model="org.city" placeholder="city" required typeahead="city for city in return_cities() | filter:$viewValue | limitTo:8"></dd><div class="error-message" ng-if="invalidCityError!==''" ng-bind="invalidCityError"></div><br>
               <dt>*Zipcode:</dt>
-              <dd><input name="zipcode" type="text" ng-pattern="/^[0-9]*$/" style="width:55%; height:30px; display:block" class="form-control" ng-model="org.zipcode" placeholder="zipcode"></dd>
+              <dd><input name="zipcode" type="text" ng-pattern="/^[0-9]*$/" style="width:55%; height:30px; display:block" class="form-control" ng-model="org.zipcode" placeholder="zipcode" required></dd>
               <div class="error-message" ng-if="invalidZipcodeError!==''" ng-bind="invalidZipcodeError" ></div><br>
               <dt>*Contact:</dt>
               <dd ><input name="contact1" type="text" style="width:55%; height:30px; display:block" class="form-control" ng-pattern="/^\(?[+]([0-9]{2,5})\)?[-]?([0-9]{10})$/" placeholder="Cust. HelpLine [eg: +91-9000000000]" ng-model="contacts[0].customerhelpline" required/></dd>
@@ -382,16 +382,17 @@
 
 
 
-
+<div style="height:40px;"> <button ng-click="deleteOrgArtworImages()" class="btn btn-danger btn-sm pull-right"><i  class="fa fa-trash-o fa-lg" ></i>&nbsp;&nbsp;delete</button></div>
    
-              <div class="imagesOrg" ng-repeat="img in orgImages">
+              <div class="imagesOrg" ng-repeat="img in orgImages" style="margin: 3px;border: rgb(165, 79, 79) solid;min-width: 110px;
+                  padding: 4px;border-width: thin;">
                 <input type="checkbox" ng-click="test(img)" id="{{$index}}">
                 <img class="img prodo-OrgImgThumbnail"  ng-src="{{img.image}}" />
               <!--   <button ng-click="deleteOrgArtworImages(img.imageid)" style="width:100px;margin-bottom:5px;height:23px;border-radius:5px;margin-top:3px;padding-bottom:20px;background-color:#d43f3a;color:white;" class="btn-group btn-group-xs" ><i class="fa fa-trash-o fa-fw"></i>&nbsp;&nbsp;Delete</button> -->
 <!--                 <i class="fa fa-trash-o fa-fw" ng-click="deleteOrgArtworImages(img.imageid)"></i> -->
               <!-- <input type="checkbox" ng-checked="deleteOrgArtworImages(img.imageid)"> -->
               </div>
-              <button ng-click="deleteOrgArtworImages()">delete</button>
+             
 
 
     </accordion-group>

@@ -1325,13 +1325,15 @@ $scope.errorForEmptyExistingGroupname = '';
 
     $scope.deleteOrgArtworImages = function()
     { 
+        $scope.imageids=[];
         for(var i=0;i<$scope.orgImages.length;i++)
         {
             if(document.getElementById(i).checked===true)
             {
-                      OrgRegistrationService.singleOrgImageDelete($scope.orgImages[i].imageid);   
+                      $scope.imageids.push($scope.orgImages[i].imageid); 
             }      
         }
+        OrgRegistrationService.singleOrgImageDelete($scope.imageids);
     };
     
     var cleanupEventremoveOrgImageDone = $scope.$on("orgImageDeleted",function(event,data){
@@ -1450,6 +1452,7 @@ $scope.errorForEmptyExistingGroupname = '';
     };
 
     $scope.enableEditor = function(addr) {
+        $scope.reset();
       $scope.editorEnabled = true;
     };
     
