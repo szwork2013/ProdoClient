@@ -197,24 +197,11 @@ angular.module('prodo.UploadApp')
             setTimeout(function(){ jQuery("#FileName").hide(); },1000);
           }
         } else {
-
-            if ($scope.uploadSrc == "product") { 
-               action = {
-              product: {
-                userid: $rootScope.usersession.currentUser.userid,
-                orgid: $rootScope.usersession.currentUser.org.orgid,
-                prodle: $rootScope.currentProdleRoot
-              }
-            };
-          }
-       else
            $scope.enableErrorMsg();
             UploadErrMsg.innerHTML = 'Please upload file of images type...';
           // growl.addErrorMessage("Please upload file of images type...");
           $("#bar").hide();
           setTimeout(function(){ jQuery("#FileName").hide(); },1000);
-
-        }
         }
 
       }
