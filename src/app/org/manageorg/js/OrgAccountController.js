@@ -614,7 +614,7 @@ $scope.invalidContact3 = '';
         $scope.invalidCountryError = '';
         $scope.invalidStateError = '';
         $scope.invalidCityError = '';
-        $scope.invalidZipcodeError = '';
+        $scope.invalidZipcodeError = '';$scope.emptyOrgtypeSelection = '';
         $scope.invalidContact1 = '';
         $scope.invalidContact2 = '';
         $scope.invalidContact3 = '';
@@ -655,6 +655,10 @@ $scope.invalidContact3 = '';
             {
                    $scope.invalidContact3 = 'Please enter valid phone number';
             }
+            if($scope.form.orgaddlocationform.loctype.$valid === false)
+            {
+                $scope.emptyOrgtypeSelection = "Please select option from above field";}
+        
         $scope.form.orgaddlocationform.submitted= true;
       } 
     };
@@ -853,7 +857,10 @@ $scope.regexForZipcode = /^[0-9]{5,10}$/;
       }
       else
       {
-        $scope.ProdoAppMessage("You cannot delete this address!",'error');
+        //$scope.ProdoAppMessage("You cannot delete this address!",'error');
+
+
+        $scope.ProdoAppMessage("You need atleast single address!",'error');
       }
 
     };
@@ -1333,7 +1340,10 @@ $scope.errorForEmptyExistingGroupname = '';
                       $scope.imageids.push($scope.orgImages[i].imageid); 
             }      
         }
-        OrgRegistrationService.singleOrgImageDelete($scope.imageids);
+        if($scope.imageids.length !==0 )
+        {
+                  OrgRegistrationService.singleOrgImageDelete($scope.imageids);
+         }
     };
     
     var cleanupEventremoveOrgImageDone = $scope.$on("orgImageDeleted",function(event,data){
