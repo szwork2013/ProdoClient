@@ -798,6 +798,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   };
 
   $scope.getSelectedProduct = function (product1) {
+    jQuery("#FileName").hide();
     if(($scope.editMode.editorEnabled == true)|| ($scope.editMode.editorEnabledF ==true) ){
       // $scope.enableProductErrorMsg();
       // ProdERRMsg.innerHTML = "Please add product first then view other products..."; 
