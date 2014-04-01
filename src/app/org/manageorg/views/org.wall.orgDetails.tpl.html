@@ -200,7 +200,9 @@
               <dt>*Location Type:</dt>
               <dd><select name="loctype" type="text" style="width:55%; height:30px; display:block" class="form-control" ng-model="orgaddresstype" autofocus required id="orgAddressType">
                 <option value="Company Address">Company Address</option>
-                <option value="Service Centers">Service Centers</option></select><small style='color:red;' ng-show="(form.orgaddlocationform.loctype.$dirty && form.orgaddlocationform.loctype.$error.required)">Address is required.</small></dd><br>
+                <option value="Service Centers">Service Centers</option></select><small style='color:red;' ng-show="(form.orgaddlocationform.loctype.$dirty && form.orgaddlocationform.loctype.$error.required)">Address is required.</small></dd>
+                <div class="error-message" ng-if="emptyOrgtypeSelection!==''" ng-bind="emptyOrgtypeSelection"></div>
+<br>
               <dt>*Address Line1:</dt>
               <dd><input name="address1" type="text" style="width:55%; height:30px; display:block" class="form-control" ng-model="org.address1" placeholder="address line1" required></dd><div class="error-message" ng-if="addressErrorMessage!==''" ng-bind="addressErrorMessage"></div>   <br>
 
@@ -218,14 +220,14 @@
               <dd><input name="zipcode" type="text" ng-pattern="/^[0-9]*$/" style="width:55%; height:30px; display:block" class="form-control" ng-model="org.zipcode" placeholder="zipcode" required></dd>
               <div class="error-message" ng-if="invalidZipcodeError!==''" ng-bind="invalidZipcodeError" ></div><br>
               <dt>*Contact:</dt>
-              <dd ><input name="contact1" type="text" style="width:55%; height:30px; display:block" class="form-control" ng-pattern="/^\(?[+]([0-9]{2,5})\)?[-]?([0-9]{10})$/" placeholder="Cust. HelpLine [eg: +91-9000000000]" ng-model="contacts[0].customerhelpline" required/></dd>
+              <dd ><input name="contact1" type="text" style="width:55%; height:30px; display:block" class="form-control" ng-pattern="/^\(?[+]([0-9]{2,5})\)?[-]?([0-9]{10,15})$/" placeholder="Cust. HelpLine [eg: +91-9000000000]" ng-model="contacts[0].customerhelpline" required/></dd>
               <div class="error-message" ng-if="invalidContact1!==''" ng-bind="invalidContact1"></div>
               <br>
               
-              <dd ><input name="contact2" type="text" style="width:55%; height:30px; display:block" class="form-control" ng-pattern="/^\(?[+]([0-9]{2,5})\)?[-]?([0-9]{10})$/" placeholder="Cust. HelpLine [eg: +91-9000000000]" ng-model="contacts[1].customerhelpline" />
+              <dd ><input name="contact2" type="text" style="width:55%; height:30px; display:block" class="form-control" ng-pattern="/^\(?[+]([0-9]{2,5})\)?[-]?([0-9]{10,15})$/" placeholder="Cust. HelpLine [eg: +91-9000000000]" ng-model="contacts[1].customerhelpline" />
               <div class="error-message" ng-if="invalidContact2!==''" ng-bind="invalidContact2"></div><br></dd>
 
-              <dd ><input name="contact3" type="text" style="width:55%; height:30px; display:block" class="form-control" ng-pattern="/^\(?[+]([0-9]{2,5})\)?[-]?([0-9]{10})$/" placeholder="Cust. HelpLine [eg: +91-9000000000]" ng-model="contacts[2].customerhelpline" />
+              <dd ><input name="contact3" type="text" style="width:55%; height:30px; display:block" class="form-control" ng-pattern="/^\(?[+]([0-9]{2,5})\)?[-]?([0-9]{10,15})$/" placeholder="Cust. HelpLine [eg: +91-9000000000]" ng-model="contacts[2].customerhelpline" />
               <div class="error-message" ng-if="invalidContact3!==''" ng-bind="invalidContact3"></div><br></dd>
               <dd>* Mandatory fields</dd>
             </dl>
@@ -312,7 +314,7 @@
 
                         <tr>
                           <td style="width: 40%;"><select type="text" class="form-control" name="orgtype" ng-model="group.groupname" required>
-                          <option ng-repeat="group in groups " value="{{group.grpname}}">{{group.grpname}}</option></select>
+                          <option ng-repeat="group in groups" value="{{group.grpname}}">{{group.grpname}}</option></select>
                           </td>
                           <td style="width: 40%;">
                           <div class="input-group margin-bottom-sm">
