@@ -26,6 +26,32 @@
         <div class="prodo-productThumbnailImg fa fa-plus fa-4x img-rounded"  align="center" ></div>
       </div>
     </a>
+
+          <!-- Modal -->
+      <div class="modal fade" id="changeProductModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title" id="myModalLabel">Change Product</h4>
+            </div>
+            <div class="modal-body">
+              Changing product now may cause to data loss which you have entered about current product <br>
+              Are you sure you want to change product ?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default " data-dismiss="modal"> Cancel &nbsp;<!-- <i class="glyphicon glyphicon-remove"></i> --></button>
+              <button type="button" class="btn btn-danger " id="ChangeProductOkButton" data-dismiss="modal" >OK &nbsp;<!-- <i class="glyphicon glyphicon-trash"></i> --></button>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.modal -->
+
+
+
     <div ng-show="productlist.length>0"  ng-repeat="product1 in productlist  | startFrom:currentPage*pageSize | limitTo:pageSize" >
     <div class="prodo-productThumbnailView"   ng-class="{activeProduct : product1.prodle==product.prodle}" >
       <a ng-click="getSelectedProduct(product1);" class="prodo-cursor"  href="" >

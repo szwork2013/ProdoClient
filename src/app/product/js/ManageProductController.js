@@ -789,11 +789,25 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
 
   });
   //on product logo hover, show follow product button
+ $scope.changeProduct=function(product1){
+    $scope.currentProdle = product1.prodle;
+    $scope.currentOrgid = product1.orgid;
+    $scope.getProduct($scope.currentProdle, $scope.currentOrgid);
+    $scope.editMode.editorEnabled = false;
+    $scope.editMode.editorEnabledF = false;
+  };
 
   $scope.getSelectedProduct = function (product1) {
     if(($scope.editMode.editorEnabled == true)|| ($scope.editMode.editorEnabledF ==true) ){
-      $scope.enableProductErrorMsg();
-      ProdERRMsg.innerHTML = "Please add product first then view other products..."; 
+      // $scope.enableProductErrorMsg();
+      // ProdERRMsg.innerHTML = "Please add product first then view other products..."; 
+         $('#changeProductModal').modal('toggle');
+      $('#changeProductModal').modal('show');
+
+      $('#ChangeProductOkButton').on('click', function (event) {
+        $scope.changeProduct(product1)
+      });
+
 
       //modal code here , if yes clear data and show product if cancel, prev state
     }else{
