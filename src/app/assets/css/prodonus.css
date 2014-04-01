@@ -1497,7 +1497,7 @@ margin-bottom: 10px;
 .prodo-padding-bottom{padding-bottom: 10px;}
 .prodo-loadmoreColor{color:gray;}
 .prodo-loadmoreMsg{text-align:center; width:518px; font-family: Helvetica ;}
-.prodo-productNameList{font-size: 10px;color: darkslategrey;}
+.prodo-productNameList{font-size: 10px;color: darkslategrey;word-break: break-word;max-height: 20px;}
 /*.prodo-ProductContainer{border: 1px solid #94d2f8; width: 100%;}*/
 .prodo-ProductContainer{ border: 1px solid #E7EDF1;background-color: #ffffff;margin-bottom: 20px;border-radius: 10px;padding: 20px;
 }
