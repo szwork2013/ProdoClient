@@ -1342,11 +1342,13 @@ margin: 2px auto; position:absolute; }
 .fa-picture-o:hover{color:rgb(139, 9, 241)}
 .fa-trash-o:hover{color:red;}
 /*#fa-removeComment:hover{zoom:1.2;-webkit-transform: scale( 1.2); -moz-transform: scale( 1.2);}*/
+/*#fa-removeComment:hover{color:gray;}*/
+
 ul {/*list-style-type: none;*/ }
 /*li:nth-child(odd) {background-color:#F2F2F2;}*/
 #prodo-comment-textBox-container {padding-bottom: 10px;}
 #prodo-comment-media-list{border:3px;font-family: Helvetica ;font-size:14px;}
-#prodo-comment-Textbox {  height:40px;border-radius:10px;font-size:12px;   overflow: hidden;
+#prodo-comment-Textbox { padding: 5px; height:40px;border-radius:10px;font-size:12px;   overflow: hidden;
 	font-family: Helvetica ; border: solid 1px #5bc0de; max-height: 75px;max-width: 87%;resize: none;}
 #prodo-comment-search-Textbox {  height:40px;width:87%;border-radius:10px;font-size:12px; 
 	font-family: Helvetica ; border: solid 1px #5bc0de; }
@@ -1382,6 +1384,8 @@ width: 95%;overflow-x: hidden;overflow-y: auto;left: 40px;position: relative;top
 #padding0del{padding: 0px;}
 #padding0img{padding: 0px; padding-right: 5px;}
 #commentTab>li.active2 a{ border-bottom :solid 3px #1A8A04;border-radius: 0px;}
+.Pcomment:hover{ color : gray;}
+.PSearch:hover{ color : gray;}
 .commentSearchTextbox{
     border: 1px solid #999; 
     outline:0; 
@@ -1491,7 +1495,7 @@ margin-bottom: 10px;
 .prodo-OrgImgThumbnail{width: 100px; height: 100px;}
 .prodo-uploadBtnWidth{ width: 200px;}
 .clearBoth{clear:both;}
-.prodo-TagsBox{width: 92%; }
+.prodo-TagsBox{width: 87%; }
 .prodo-CommentImgPrePosting{width:75px;}
 .prodo-uploadedImg{display:none;width:50px; height:50px;}
 .prodo-padding-bottom{padding-bottom: 10px;}
@@ -1509,7 +1513,7 @@ margin-bottom: 10px;
 .productDisplay{margin-top: 20px;}
 .prodo-followBtn{background-color: #4A5F72;}
 .prodo-trendingContainer{font-weight: bold;border-radius: 10px;text-align:center;padding: 5px;background-color: paleturquoise;border: 1px solid #9FBACC;height: 30px;max-width: 300px;position: relative;margin-left: 200px;}
-.prodo-CommentDeleteMsg{font-size: 12px;padding-top: 20px;padding-bottom: 20px;background-color: gainsboro;padding-left: 10px;}
+.prodo-CommentDeleteMsg{font-size: 12px;padding-top: 10px;padding-bottom: 10px;background-color: rgb(248, 207, 207);padding-left: 10px;}
 .prodo-productThumbnailView:hover{border-bottom: 5px solid gray;} 
 .prodo-MainDetailsTable{  color: black;}
 .prodo-followesInfotr{width: 50%}
@@ -1522,6 +1526,7 @@ margin-bottom: 10px;
 .prodo-delImgs{margin-bottom: 10px;}
 .prodo-checkbox{height: 20px;width: 20px;}
 .prodo-product-Invalid{color:red;}
+#img2{text-align: center;}
 .prodo-categoryTags{
 	display:inline-block;
 	background-color:rgba(161,219,255,1);

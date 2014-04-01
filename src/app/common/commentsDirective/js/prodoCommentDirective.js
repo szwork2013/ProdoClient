@@ -41,7 +41,21 @@
 
 
           });
-          
+
+          $('#prodo-comment-Textbox').mouseleave(function () {
+            $(this).height(26);
+            txtheight=$( "#prodo-comment-Textbox" ).height();
+            txtwidth=$( "#prodo-comment-Textbox" ).width();
+
+
+          });
+           $('#prodo-comment-Textbox').click(function () {
+            $(this).height(85);
+            txtheight=$( "#prodo-comment-Textbox" ).height();
+            txtwidth=$( "#prodo-comment-Textbox" ).width();
+
+
+          });
 
           $('#holder').hover(
             function() {

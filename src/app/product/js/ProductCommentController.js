@@ -190,6 +190,7 @@ $scope.makeTagsPair = function (noun, adj) {
 
 //add comment
 $scope.addProductComment = function () {
+   $scope.commentError=false;
   if ($scope.commenttextField.userComment == "" || $scope.commenttextField.userComment == undefined || $scope.commenttextField.userComment == null) {
    growl.addErrorMessage("You can not add blank comment");
   }
