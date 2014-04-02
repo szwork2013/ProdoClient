@@ -10,9 +10,28 @@
  * 27-3/2013 | xyx | Add a new property
  *
  */
-angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$log', '$rootScope', 'ProductService', 'UserSessionService', '$http', 'CommentLoadMoreService', 'ENV', 'TagReffDictionaryService', 'ProductFeatureService', 'growl','$state', function ($scope, $log, $rootScope, ProductService, UserSessionService, $http, CommentLoadMoreService, ENV, TagReffDictionaryService, ProductFeatureService, growl,$state) {
+angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$log', '$rootScope', 'ProductService', 'UserSessionService', '$http', 'CommentLoadMoreService', 'ENV', 'TagReffDictionaryService', 'ProductFeatureService', 'growl','$state','productData', function ($scope, $log, $rootScope, ProductService, UserSessionService, $http, CommentLoadMoreService, ENV, TagReffDictionaryService, ProductFeatureService, growl,$state,productData) {
  
-  
+      $scope.pimgs = [];
+
+    $scope.$watch('$state.$current.locals.globals.productData', function (productData) {
+       $scope.features = [];
+    $("#productLogo").attr('src', '');
+    var temp = document.getElementById('prodo-comment-container');
+      if(productData.success){
+        // $log.debug("data ... "+ productData.success.product.prodle+" "+productData.success.product.orgid)
+          $scope.tabComment=true;
+         $scope.getProduct(productData.success.product.prodle,productData.success.product.orgid);
+      }
+      // else{
+      //    $("#prodo-ProductDetails").css("display", "none");
+      //     $("#ErrMsging").css("display", "block");
+      //     document.getElementById("ErrMsging").innerHTML = "Product not available";
+      // }
+     
+    
+    });
+ 
   $scope.productComments = {
     comments: [{}]
   };
@@ -105,8 +124,9 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
   }
   $scope.getUserDetails();
   //get login details
-  $scope.getProduct = function (l_prodle, l_orgid) {
-      $("#load-more").css("display", "none");
+
+   $scope.preGetProductPrepaireData=function(){
+     $("#load-more").css("display", "none");
           
     // document.getElementById("prodo-comment-search-Textbox").value="";
     $scope.searchComment.search="";
@@ -114,36 +134,35 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
     $scope.tabForComment.tabComment = true;
     $scope.tabForComment.tabSearch=false;
     // $log.debug("search "+$scope.searchComment.search);
-    $log.debug("1 prodle " + l_prodle + "orgid " + l_orgid);
-    ProductService.getProduct({
-      orgid: l_orgid,
-      prodle: l_prodle
-    }, function (successData) {
-      if (successData.success == undefined) { //if not product
-        $("#prodo-ProductDetails").css("display", "none");
-        $("#ErrMsging").css("display", "block");
-        if (document.getElementById("ErrMsging") !== null) document.getElementById("ErrMsging").innerHTML = "Product not available , please select product....";
-        // growl.addErrorMessage(" Product not available....");
-      } else {
-        $("#prodo-ProductDetails").css("display", "block");
+   };
+   $scope.getProductHandleSuccess=function(l_prodle, l_orgid){
+      $("#prodo-ProductDetails").css("display", "block");
         $("productExtraInfo").css("display", "block");
         $("#ErrMsging").css("display", "none");
-        $log.debug(successData.success.product);
+        $log.debug(productData.success.product);
         $scope.getProductFeatures(l_prodle, l_orgid);
 
         $("#prodo-ProductFeatureTable").css("display", "table");
         // $("#prodoCommentsTab").css("display", "inline");
         // $("#tabComments").css("display", "inline");
-        $scope.product = successData.success.product;
+        $scope.product = productData.success.product;
+        if (productData.success.product.product_images) {
+        $scope.pimgs = productData.success.product.product_images;
+        $log.debug("Product images emitting when not null ");
+        $scope.$emit('emittingProductImages',$scope.pimgs);
+      } else {
+        $scope.$emit('emittingNoProductImages',$scope.pimgs);
+        $log.debug("Product images emitting when null ");
+      }
         // $rootScope.product_prodle = successData.success.product.prodle;
         // if(successData.success.product.product_comments)
-        $scope.productComments = successData.success.product.product_comments;
-        if(successData.success.product.product_comments!==undefined){
+        $scope.productComments = productData.success.product.product_comments;
+        if(productData.success.product.product_comments!==undefined){
            $("#prodo-comment-media-list").css("display", "block");
         }
 
         // console.log( $scope.productComments);
-        $scope.pImages_l = successData.success.product.product_images;
+        $scope.pImages_l = productData.success.product.product_images;
         $("#prodo-addingProduct").text($scope.product.status);
         $("#loadMoreCommentMsg").css("display", "none");
 
@@ -157,27 +176,44 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
         }
         //if no comments , dont show load more comments button
         // $("#loadMoreCommentMsg").css("display", "none");
-        $log.debug("COmments :   "+successData.success.product.product_comments);
-        if((successData.success.product.product_comments==undefined) || (successData.success.product.product_comments==null)||(successData.success.product.product_comments=="")){
+        $log.debug("COmments :   "+productData.success.product.product_comments);
+        if((productData.success.product.product_comments==undefined) || (productData.success.product.product_comments==null)||(productData.success.product.product_comments=="")){
               $("#loadMoreCommentMsg").css("display", "none");
         }
-        if (successData.success.product.product_comments) {
-          if (successData.success.product.product_comments.length > 4) {
+        if (productData.success.product.product_comments) {
+          if (productData.success.product.product_comments.length > 4) {
             $("#load-more").css("display", "inline");
           } 
           else{
                $("#load-more").css("display", "none");
           }
         } 
-        
-      }
-    }, function (error) { //if error geting product
-      $log.debug(error);
+   };
+    $scope.getProductHandleError=function(){
+    $log.debug(error);
       $("#prodo-ProductDetails").css("display", "none");
       $("#ErrMsging").css("display", "inline");
       document.getElementById("ErrMsging").innerHTML = "Server Error:" + error.status;
+    }
+  $scope.getProduct = function (l_prodle, l_orgid) {
+    $log.debug("Prodle n orgid "+ l_prodle + " "+l_orgid);
+    $scope.preGetProductPrepaireData();
+ 
+      if (productData.success == undefined) { //if not product
+        $scope.getProductHandleError();
+        $("#prodo-ProductDetails").css("display", "none");
+        $("#ErrMsging").css("display", "block");
+        if (document.getElementById("ErrMsging") !== null) document.getElementById("ErrMsging").innerHTML = "Product not available , please select product....";
+        // growl.addErrorMessage(" Product not available....");
+      } else {
+        $scope.getProductHandleSuccess(l_prodle, l_orgid);
+            }
+    // },
+     if(productData.error) { //if error geting product
+      $scope.getProductHandleError();
+      
       // growl.addErrorMessage( "Server Error:" + error.status);
-    });
+    };
   $scope.isCollapsed = true;
   }
   //get product function declaration  
