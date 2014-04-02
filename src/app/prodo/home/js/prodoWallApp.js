@@ -71,6 +71,12 @@ angular.module('prodo.ProdoWallApp')
       $scope.updateimages(data);
     });
 
+    var cleanEventEmittingNoOrgImages = $scope.$on("emittingNoOrgImages", function(event, data){
+      $log.debug('listening in Parent controller by org controller');
+      $scope.updateimages(data);
+    });
+
+
     $scope.$on('$destroy', function(event, data) {
       
       cleanEventOrgProdleEmit();
@@ -79,7 +85,7 @@ angular.module('prodo.ProdoWallApp')
       cleanEventEmittingProductImages();
       cleanEventEmittingNoProductImages();
       cleanEventEmittingOrgImages();
-      
+      cleanEventEmittingNoOrgImages();
     });
 
 

@@ -22,7 +22,7 @@ $scope.regexForNumbers = /[0-9]/;
 $scope.regexForEmail = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
 $scope.regexForPhno = /^\(?[+]([0-9]{2,5})\)?[-]?([0-9]{10,15})$/;
 
-
+ 
 $scope.regexForMultipleEmail = /(([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)(\s*,\s*|\s*$)+)/;
 $scope.changedOrgDetails = false;
 $scope.changedOrgLocation = false;
@@ -655,7 +655,7 @@ $scope.invalidContact3 = '';
             {
                    $scope.invalidContact3 = 'Please enter valid phone number';
             }
-            if($scope.form.orgaddlocationform.loctype.$valid === false)
+            if($scope.form.orgaddlocationform.loctype.$valid === false || $scope.form.orgaddlocationform.loctype.$dirty === false)
             {
                 $scope.emptyOrgtypeSelection = "Please select option from above field";}
         
@@ -1029,6 +1029,18 @@ $scope.resetInvites = function()
                  $scope.orgInvitesEmailError='Please verify your email id from above list';
             }  
         }
+        if($scope.orginvites[i].name=== '' )
+        {
+            if($scope.orginvites.length===1)
+            {
+              $scope.orgInvitesNameError='Organization names cant be empty! Please verify from above field';
+            }
+            else
+            {
+              $scope.orgInvitesNameError='Organization name cant be empty! Please verify from the list';
+            }
+            
+        }
         if($scope.orgInvitesEmailError==='' && $scope.orgInvitesOrgnameError==='' && $scope.orgInvitesNameError ==='')
         {
                allInviteDataValid=1;
@@ -1161,11 +1173,25 @@ $scope.errorForEmptyExistingGroupname = '';
                 $scope.errorForEmptyGroupName = 'Please enter valid group name';
                 invalid = 1;
             }
+            if($scope.group.newgroupname !== '')
+            {
+                for(var i=0;i<$scope.groups.length;i++)
+                {
+                    if($scope.group.newgroupname === $scope.groups[i].grpname)
+                    {
+                        $scope.errorForEmptyGroupName = 'Group name already exist! Please use "Existing groups" feature';
+                          invalid = 1;// invalid=1; 
+
+
+                    }
+                }
+            }
             if($scope.group.newinvites==='' || $scope.group.newinvites === undefined)
             {
                 $scope.errorForInvites = "Email List cant be empty";
                 invalid=1;
             }
+
             if(invalid===0){
                     OrgRegistrationService.groupInvites($scope.jsonOrgNewGroupInvitesData());
                     $scope.clearErrorMessages();
@@ -1418,6 +1444,14 @@ $scope.errorForEmptyExistingGroupname = '';
     };
     
     $scope.reset = function() {
+           $scope.addressErrorMessage = '';
+        $scope.invalidCountryError = '';
+        $scope.invalidStateError = '';
+        $scope.invalidCityError = '';
+        $scope.invalidZipcodeError = '';$scope.emptyOrgtypeSelection = '';
+        $scope.invalidContact1 = '';
+        $scope.invalidContact2 = '';
+        $scope.invalidContact3 = '';
         $scope.user.password='';
       $scope.islocation = false;
       $scope.org.orgaddresstype = '';
