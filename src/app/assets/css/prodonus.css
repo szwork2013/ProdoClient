@@ -761,7 +761,7 @@ text-align: left;
 
 .error-message-wizard{
 	font-weight: normal;
-	padding-top: 10px;
+/*	padding-top: 0px;*/
 	text-align: left;
 	color: rgb(211, 41, 41);
 	margin-left:20%;
@@ -1088,7 +1088,7 @@ text {
   background-color: #ffffff;
   margin-bottom: 20px;
   border-radius: 10px;
-  padding-left: 60px;
+  /*padding-left: 60px;*/
 
 }
 
@@ -1359,12 +1359,13 @@ margin: 2px auto; position:absolute; }
 #prodo-comment-media:hover{background-color:#CEE3F6;}
 /*#fa-tagsComment:hover{zoom:1.2;-webkit-transform: scale( 1.2); -moz-transform: scale( 1.2);}*/
 .fa-picture-o:hover{color:rgb(139, 9, 241)}
-.fa-trash-o:hover{color:red;}
+.fa-trash-o:hover{/*color:red;*/}
 /*#fa-removeComment:hover{zoom:1.2;-webkit-transform: scale( 1.2); -moz-transform: scale( 1.2);}*/
 /*#fa-removeComment:hover{color:gray;}*/
 
 ul {/*list-style-type: none;*/ }
 /*li:nth-child(odd) {background-color:#F2F2F2;}*/
+.prodo-paddingLeft{padding-left: 50px;}
 #prodo-comment-textBox-container {padding-bottom: 10px;}
 #prodo-comment-media-list{border:3px;font-family: Helvetica ;font-size:14px;}
 #prodo-comment-Textbox { padding: 5px; height:40px;border-radius:10px;font-size:12px;   overflow: hidden;
@@ -1544,6 +1545,7 @@ margin-bottom: 10px;
 .prodo-delImgs{margin-bottom: 10px;}
 .prodo-checkbox{height: 20px;width: 20px;}
 .prodo-product-Invalid{color:red;}
+#prodo-font{font-size: 13px;}
 #img2{text-align: center;}
 .prodo-categoryTags{
 	display:inline-block;
@@ -1569,9 +1571,10 @@ margin-bottom: 10px;
 
 #profile-description {
  position:relative;
+ max-width: 100%;
 }
 #profile-description .text {
-word-break: break-word;  margin-bottom: 5px; color: #777; padding: 0 15px; position:relative; font-family: Arial; font-size: 14px; display: block;
+word-break: break-word; max-width: 91%; margin-bottom: 5px; color: #777; padding: 0 15px; position:relative; font-family: Arial; font-size: 14px; display: block;
 }
 
 #profile-description .show-more:hover { 
@@ -1579,7 +1582,7 @@ word-break: break-word;  margin-bottom: 5px; color: #777; padding: 0 15px; posit
 }
 #profile-description .show-more-height { height: 40px; overflow:hidden; }
 
-.showMoreMargin{margin-right: 50px;}
+.showMoreMargin{margin-right: 13%;}
 
 .prodo-producttrendingInfo{
 	font-size: 10px;
@@ -2323,7 +2326,10 @@ margin:2px auto; padding: 5px; display:block; text-align:left; font-weight:bold;
 #prodo-view-org-wizard-container{
 	margin-top: 20px;
 }
-
+.tablesss thead>tr>th {
+vertical-align: bottom;
+/*border-bottom: 2px solid #ddd;*/
+}
 
 /*.fa-check:before {
 content: "\f000";

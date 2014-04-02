@@ -5,9 +5,22 @@ angular.module('prodo.OrgApp')
 	.controller('OrgRegistrationController', ['$scope', '$rootScope', 'OrgModel', '$state', '$stateParams', '$log', 'OrgRegistrationService', 'UserSessionService', function($scope, $rootScope, OrgModel, $state, $stateParams, $log, OrgRegistrationService, UserSessionService) {
 
     $scope.errmessage = '';
-    $scope.mobileRegex = "/^\(?[+]([0-9]{2,5})\)?[-]?([0-9]{10})$/";
+    $scope.mobileRegex = "/^\(?[+]([0-9]{2,5})\)?[-]?([0-9]{10,15})$/";
     $scope.org = OrgModel;   // assining OrgModel service to org to update org model data
-    
+    $scope.regexForEmail = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+    $scope.back = function()
+    {
+        $('#reg-companyDetails').css('color','#C9C9C9');
+    };
+    $scope.goToAddresss = function()
+    {
+        $('#reg-address').css('color','#C9C9C9');
+       // $('#reg-address').css('color','#2EB373')  
+    };
+    $scope.goBackToInvites = function()
+    {
+        $('#reg-groupUsers').css('color','#C9C9C9');
+    };
     $scope.countries=[ 'Afghanistan', 
                         'Albania', 
                         'Algeria', 
@@ -337,7 +350,7 @@ $scope.optionErrorMessage = '';
                 }
                 if($scope.OrgCompanyForm.orgtype.$valid===false)
                 {
-                     $scope.optionErrorMessage = 'Please select atleast one option';
+                     $scope.optionErrorMessage = 'Please select option from above list';
                 }
 
         }
@@ -376,7 +389,7 @@ $scope.invalidContact3 = '';
             }
             if($scope.OrgAddressForm.country.$valid===false || $scope.org.country === '')
             {
-                   $scope.invalidCountryError = 'Please enter correct country';
+                   $scope.invalidCountryError = 'Please enter valid country';
             }
             if($scope.OrgAddressForm.state.$valid === false || $scope.org.country === '' )
             {        
@@ -409,18 +422,67 @@ $scope.invalidContact3 = '';
     
 
     $scope.emailErrorMessage = '' ;
+    $scope.nameErrorMessage= '';
 
     $scope.goToState = function() {
         $scope.emailErrorMessage = '';
-      if ($scope.OrgGroupuserForm.$valid || ($scope.org.grpname === "" && $scope.org.invites === "")) { 
+          $scope.nameErrorMessage= '';
+
+        var valid = 1;
+
+
+
+
+      if($scope.org.grpname !== '' || $scope.org.invites !=='')
+      {
+        // if($scope.org.in $s!cope.org.grpname === '' )
+        // if($scope.org.invites )
+
+    //aaa
+        if($scope.org.invites !== '' && $scope.org.grpname === '')
+        {
+                $scope.nameErrorMessage = 'Groupname cant be empty';
+                 valid = 0;
+        }
+        // if($scope.OrgGroupuserForm.invites.$dirty === true && $scope.OrgGroupuserForm.invites.$valid  === false)
+        // {    
+        //         $scope.emailErrorMessage = 'Please enter valid email addresses' ;
+        // }
+        $scope.newInvitesValidate = '';
+            var multipleEmails = $scope.org.invites;
+            if(multipleEmails!==undefined && multipleEmails !== '' )
+            {
+                var array = multipleEmails.split(',');
+                for(var k = 0 ;k<array.length ; k++)
+                {
+                    if(array[k]!=='')
+                    {
+                        if($scope.regexForEmail.test(array[k]) === false)
+                        {
+                            $scope.newInvitesValidate = $scope.newInvitesValidate + "'" +array[k]+"'"+ " ";
+
+                        }
+                    }
+                }
+            }
+            if($scope.org.grpname !== '' && $scope.org.invites === '')
+            {
+                   $scope.emailErrorMessage = "Please enter emails separated by comma (,) in above field ";
+                   valid = 0 ;
+            }
+            if($scope.newInvitesValidate !=='')
+            {
+                // $scope.emailErrorMessage = "Please check imails from above field for "
+                $scope.emailErrorMessage = "Please varify email ids from above field for its format";
+                 valid = 0;
+            }
+      
+      }
+     if (($scope.org.grpname === "" && $scope.org.invites === "") || valid===1 ) { 
           $scope.errmessage = '';$('#reg-groupUsers').css('color','#2EB373');
           $state.transitionTo('prodo.orgregistration.terms');
-      } else {
-        if($scope.OrgGroupuserForm.invites.$dirty === true && $scope.OrgGroupuserForm.invites.$valid  === false)
-        {    
-                $scope.emailErrorMessage = 'Please enter valid email addresses' ;
-        }
-      }
+      } 
+
     };
 
     $scope.goToSummary = function() { 
@@ -559,7 +621,15 @@ $scope.org.orgaddresstype="Company Address";
         }
       return JSON.stringify(orgData); 
     }   
-  
+   
+    $scope.resetCheckBox = function()
+    {
+            $('#reg-companyDetails').css('color','#C9C9C9');
+            $('#reg-address').css('color','#C9C9C9');
+            $('#reg-groupUsers').css('color','#C9C9C9');
+            $('#reg-terms').css('color','#C9C9C9');
+    };
+
     // function to register Organisation on sumbit
     $scope.registerOrg = function() {    $('#reg-finish').css('color','#2EB373');
       OrgRegistrationService.RegisterOrg($scope.jsonOrgData()); // calling POST method REST APIs to save org data through OrgResgistrationService 
