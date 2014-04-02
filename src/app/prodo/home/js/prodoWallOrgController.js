@@ -22,6 +22,8 @@ angular.module('prodo.ProdoWallApp')
       if (orgdata.success.organization.org_images.length !== 0) {
         $log.debug("Org images emitting ");
         $scope.$emit('emittingOrgImages',orgdata.success.organization.org_images);
+      } else {
+        $scope.$emit('emittingNoOrgImages',orgdata.success.organization.org_images);
       }
       $log.debug($rootScope.orgdata);
     });
