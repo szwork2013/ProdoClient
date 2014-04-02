@@ -87,9 +87,9 @@ angular.module('prodo.ProdonusApp')
       templateUrl: 'user/views/user.signin.resetpassword.tpl.html',
       controller: 'UserSigninController'
     }) 
-    .state('prodo.user-content.passwordregeneratetoken', {
-      url: '/passwordregeneratetoken',
-      templateUrl: 'user/views/user.signin.forgotpassword.regeneratetoken.tpl.html',
+    .state('prodo.user-content.otp', {
+      url: '/otp',
+      templateUrl: 'user/views/user.signin.forgotpassword.otp.tpl.html',
       controller: 'UserSigninController'
     })
 
@@ -198,68 +198,75 @@ angular.module('prodo.ProdonusApp')
       })
 
     /* ----ProdoHome Wall Routes---- */
-      .state('prodo.home', {
-      templateUrl: 'prodo/home/views/prodo.container.html',
-      abstract: true
-    })    
-    .state('prodo.home.wall', {
+    .state('prodo.home', {
       resolve: {
-        orgdata1: function(OrgService, $rootScope) {
+        orgdata: function(OrgService, $rootScope) {
           return OrgService.org_data.getOrgSettings({orgid: $rootScope.orgid}).$promise;
         },
-        orgaddr1: function(OrgService, $rootScope) {
+        orgaddr: function(OrgService, $rootScope) {
           return OrgService.ManageOrgLocation.getAllOrgAddress({orgid: $rootScope.orgid}).$promise;
         },
-        orgproduct1: function(OrgService, $rootScope) {
+        orgproduct: function(OrgService, $rootScope) {
           return OrgService.GetOrgProducts.getAllOrgProducts({orgid: $rootScope.orgid}).$promise;
+        },
+        productData: function(ProductService, orgproduct, $rootScope) {
+          var prodle = orgproduct.success.product[0].prodle;
+          return ProductService.getProduct({orgid: $rootScope.orgid, prodle: prodle}).$promise;
         }
       },
+      controller: 'ProdoWallController',
+      templateUrl: 'prodo/home/views/prodo.container.html',
+      abstract: true
 
+    })    
+    .state('prodo.home.wall-org', {
       views: {
-        'prodo-sidebar' : {
-          templateUrl:  'prodo/home/views/prodo.wall.sidebar.tpl.html',
-          controller: 'prodoSearchController'
-        },
-        'prodo-slider' : {
-          templateUrl:  'prodo/home/views/prodo.wall.slider.tpl.html'
-        },
-        'prodo-navbar' : {
-          templateUrl:  'prodo/home/views/prodo.wall.navbar.tpl.html'
-        },
         'prodo-content' : {
-          abstract: true,
-          templateUrl:  'prodo/home/views/prodo.wall.content.container.html'
+          templateUrl:  'org/manageorg/views/prodo.wall.org.tpl.html',
+          controller: 'ProdoWallOrgController',
         },
         'prodo-advertisment' : {
           templateUrl:  'prodo/home/views/prodo.wall.advertisment.tpl.html'
         }
       }
-    })
-    .state('prodo.home.wall.org', { 
-       templateUrl:  'org/manageorg/views/prodo.wall.org.tpl.html',
-       controller: 'ProdoWallOrgController',
-       resolve: {
-          orgdata: function(orgdata1, $rootScope) {
-            return orgdata1;
-          },
-          orgaddr: function(orgaddr1, $rootScope) {
-            return orgaddr1;
-          },
-          orgproduct: function(orgproduct1, $rootScope) {
-            return orgproduct1;
-          }
+    })    
+    .state('prodo.home.wall-product', {
+      resolve: {
+        productData: function(ProductService, $rootScope) {
+          return ProductService.getProduct({orgid: $rootScope.orgid, prodle: $rootScope.product_prodle}).$promise;
         }
-      }) 
-    .state('prodo.home.wall.product', {
-       templateUrl:  'product/views/prodo.wall.productTabs.tpl.html'
-      }) 
-     .state('prodo.home.wall.warranty', {
-       templateUrl:  'warranty/views/prodo.wall.warrantyTabs.tpl.html',
-      }) 
-    .state('prodo.home.wall.blog', {
-       templateUrl:  'blog/views/prodo.wall.blog.tpl.html',
-      }) 
-    .state('prodo.home.wall.dashboard', {
+      },
+      views: {
+        'prodo-content' : {
+          templateUrl:  'product/views/prodo.wall.productTabs.tpl.html',
+          controller: 'ProductController'
+        },
+        'prodo-advertisment' : {
+          templateUrl:  'prodo/home/views/prodo.wall.advertisment.tpl.html'
+        }
+      }
+    }) 
+   .state('prodo.home.wall-warranty', {
+      views: {
+        'prodo-content' : {
+          templateUrl:  'warranty/views/prodo.wall.warrantyTabs.tpl.html'
+        },
+        'prodo-advertisment' : {
+          templateUrl:  'prodo/home/views/prodo.wall.advertisment.tpl.html'
+        }
+      }
+    }) 
+    .state('prodo.home.wall-blog', {
+      views: {
+        'prodo-content' : {
+          templateUrl:  'blog/views/prodo.wall.blog.tpl.html'
+        },
+        'prodo-advertisment' : {
+          templateUrl:  'prodo/home/views/prodo.wall.advertisment.tpl.html'
+        }
+      }
+    }) 
+    .state('prodo.home.wall-dashboard', {
       resolve : 
       { 
         dataFromService : function($http) 
@@ -268,11 +275,16 @@ angular.module('prodo.ProdonusApp')
                           method: 'GET',
                           url: '/api/trendingproducts'
                         });
-         },
-      },    
-       templateUrl:  'dashboard/views/prodo.wall.dashboard.tpl.html',
-       controller: 'ProdoDashboardController'
-      })     
- 
-
+         }
+      },   
+      views: {
+        'prodo-content' : {
+          templateUrl:  'dashboard/views/prodo.wall.dashboard.tpl.html',
+          controller: 'ProdoDashboardController'
+        },
+        'prodo-advertisment' : {
+          templateUrl:  'prodo/home/views/prodo.wall.advertisment.tpl.html'
+        }
+      } 
+    }) 
   }]);

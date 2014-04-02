@@ -576,7 +576,7 @@ $scope.invalidContact3 = '';
                   UserSessionService.getProductFollowed($scope.prodlesfollowed);
                 }
                   $rootScope.orgid = data.org.orgid;
-                  $state.transitionTo('prodo.home.wall.org');
+                  $state.transitionTo('prodo.home.wall-org');
             } 
           } 
       });

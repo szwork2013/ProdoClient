@@ -32,7 +32,7 @@ angular.module('prodo.OrgApp')
     $scope.handleOrgBroadcastResponse = function(data){
       if (data.success) {
         $log.debug('OrgBroadcast_' + data);
-        $scope.clear();
+        // $scope.clear();
         growl.addSuccessMessage(data.success.message);    
 
       } else {
