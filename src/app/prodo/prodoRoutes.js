@@ -210,8 +210,14 @@ angular.module('prodo.ProdonusApp')
           return OrgService.GetOrgProducts.getAllOrgProducts({orgid: $rootScope.orgid}).$promise;
         },
         productData: function(ProductService, orgproduct, $rootScope) {
-          var prodle = orgproduct.success.product[0].prodle;
-          return ProductService.getProduct({orgid: $rootScope.orgid, prodle: prodle}).$promise;
+          if (orgproduct.success) {
+            var prodle = orgproduct.success.product[0].prodle;
+            return ProductService.getProduct({orgid: $rootScope.orgid, prodle: prodle}).$promise;
+          } else {
+            var product = 'no product available';
+            return product;
+          }
+          
         }
       },
       controller: 'ProdoWallController',
