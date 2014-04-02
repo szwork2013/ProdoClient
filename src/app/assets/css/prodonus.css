@@ -1326,7 +1326,7 @@ border:0px;
 margin: 2px auto; position:absolute; } 
 
 /*#a { border: 3px dashed #ccc; min-width: 100px; max-height: 100px; height:300px; margin: 2px auto; position:absolute;} */
-#holder.hover { border: 3px dashed #0c0; border-radius:10px;width:526px;/*max-height:100px;*/} 
+#holder.hover { border: 3px dashed #0c0; border-radius:10px;width:86%;/*max-height:100px;*/} 
 /*#holder img { display: inline; margin: 10px auto; max-height:60px; max-width:60px;} 
 #holder p { margin: 10px; font-size: 14px; /*max-height:300px;*/}*/
 
