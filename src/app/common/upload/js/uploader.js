@@ -272,7 +272,7 @@ $scope.productUploadResponseHandler=function(error, imagelocation){
         //    $scope.getFile($scope.counter);
       } else $scope.counter = 0;
     }
-  // setTimeout(function(){ jQuery("#FileName").hide(); },1000);
+  setTimeout(function(){ jQuery("#FileName").hide(); },1000);
 };
 
 $scope.productUploadLogoResponseHandler=function(error, imagelocation){
@@ -314,7 +314,7 @@ $scope.productUploadLogoResponseHandler=function(error, imagelocation){
         //    $scope.getFile($scope.counter);
       } else $scope.counter = 0;
      }
-      // setTimeout(function(){ jQuery("#FileName").hide(); },1000);
+      setTimeout(function(){ jQuery("#FileName").hide(); },1000);
 };
  
   $scope.orgUploadResponseHandler=function(error, imagelocation){
@@ -354,7 +354,7 @@ $scope.productUploadLogoResponseHandler=function(error, imagelocation){
         //    $scope.getFile($scope.counter);
       } else $scope.counter = 0;
      }
-      // setTimeout(function(){ jQuery("#FileName").hide(); },1000);
+      setTimeout(function(){ jQuery("#FileName").hide(); },1000);
   };
 
    $scope.orgUploadLogoResponseHandler=function(error, imagelocation){
@@ -395,7 +395,7 @@ $scope.productUploadLogoResponseHandler=function(error, imagelocation){
         //    $scope.getFile($scope.counter);
       } else $scope.counter = 0;
     }
-    // setTimeout(function(){ jQuery("#FileName").hide(); },1000);
+    setTimeout(function(){ jQuery("#FileName").hide(); },1000);
   };
 
      $scope.userUploadResponseHandler=function(error, imagelocation){
@@ -434,7 +434,7 @@ $scope.productUploadLogoResponseHandler=function(error, imagelocation){
         //    $scope.getFile($scope.counter);
       } else $scope.counter = 0;
     }
-     // setTimeout(function(){ jQuery("#FileName").hide(); },1000);
+     setTimeout(function(){ jQuery("#FileName").hide(); },1000);
   };
 
 }]);
