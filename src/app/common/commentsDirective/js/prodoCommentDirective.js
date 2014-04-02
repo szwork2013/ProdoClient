@@ -30,7 +30,7 @@
           var txtwidth;
 
           $("#prodo-comment-Textbox").on('blur mouseleave', function() {
-           $(this).height(26);
+           $(this).height(30);
            txtheight=$( "#prodo-comment-Textbox" ).height();
            txtwidth=$( "#prodo-comment-Textbox" ).width();
           });   
