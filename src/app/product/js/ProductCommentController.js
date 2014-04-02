@@ -47,9 +47,11 @@ if ((localStorage.sid !== "") || (localStorage.sid !== " ") || (localStorage.sid
 }
 //socket connect
 //socket response when for add comment
+$scope.commentError="";
 $scope.socket.removeAllListeners('addcommentResponse');
 $scope.socket.on('addcommentResponse', function (error, result) {
   if (error) {
+    $scope.commentError=error.error.message;
     $log.debug(error.error.message);
      growl.addErrorMessage(error.error.message);
     $scope.showErrorIfCommentNotAdded(); //If error retry add comment 
@@ -58,6 +60,7 @@ $scope.socket.on('addcommentResponse', function (error, result) {
   } else if (result) {
     // $log.debug(result.success.message);
     $scope.ifErrorAddingComment = false;
+    $scope.commentError=false;
     $log.debug("addcommentResponse success" + result.success.product_comment);
   }
   //   $scope.socket.removeAllListeners();
@@ -187,7 +190,12 @@ $scope.makeTagsPair = function (noun, adj) {
 
 //add comment
 $scope.addProductComment = function () {
-  if ($scope.commenttextField.userComment !== "" || $scope.commenttextField.userComment !== undefined || $scope.commenttextField.userComment !== null) {
+   $scope.commentError=false;
+  if ($scope.commenttextField.userComment == "" || $scope.commenttextField.userComment == undefined || $scope.commenttextField.userComment == null) {
+   growl.addErrorMessage("You can not add blank comment");
+  }
+  else{
+
     $log.debug("tags " + $scope.mytags);
     $log.debug("features " + $scope.myFeaturetags);
     $scope.makeTagsPair($scope.myFeaturetags, $scope.mytags);
@@ -233,7 +241,6 @@ $scope.addProductComment = function () {
 
         }
       };
-
 
     } else {
       $scope.newProductComment = {
@@ -285,14 +292,13 @@ $scope.addProductComment = function () {
     if (follow == true) {
       $log.debug($scope.newProductComment);
       $scope.socket.emit('addComment', $rootScope.product_prodle, $scope.newProductComment.product_comment);
-       if($scope.productComments == undefined ){
+      if ($scope.productComments == undefined) {
         $scope.productComments = [];
         $scope.productComments.unshift($scope.newProductComment_image.product_comment);
-        }
-        else{
-           $scope.productComments.unshift($scope.newProductComment_image.product_comment);
-        }
-     
+      } else {
+        $scope.productComments.unshift($scope.newProductComment_image.product_comment);
+      }
+
       $scope.commenttextField.userComment = "";
       $scope.tagPairs = [];
       $rootScope.count = 0;
@@ -303,8 +309,114 @@ $scope.addProductComment = function () {
     } else {
       growl.addErrorMessage("Please follow this product to start commenting...");
     }
+  
+}
+};
 
-  }
+$scope.addProductCommentretry = function (comment) {
+ 
+    // if($rootScope.file_data==undefined){
+    if (($rootScope.file_data == "") || ($rootScope.file_data == " ") || ($rootScope.file_data == undefined) || ($rootScope.file_data == null)) {
+      $scope.newProductComment = {
+        product_comment: {
+          user: {
+            userid: $scope.userIDFromSession,
+            username: $scope.usernameFromSession,
+            orgname: $scope.orgnameFromSession,
+            grpname: $scope.grpnameFromSession,
+            profilepic: $rootScope.usersession.currentUser.profile_pic.image
+          },
+          commentid: guid(),
+          type: $scope.type,
+          datecreated: Date.now(),
+          tags: $scope.mytags,
+          commenttext: comment.commenttext,
+          analytics: $scope.tagPairs
+
+        }
+      };
+
+      $scope.newProductComment_image = {
+        product_comment: {
+          user: {
+            userid: $scope.userIDFromSession,
+            username: $scope.usernameFromSession,
+            orgname: $scope.orgnameFromSession,
+            grpname: $scope.grpnameFromSession,
+            profilepic: $rootScope.usersession.currentUser.profile_pic.image
+          },
+          commentid: guid(),
+          type: $scope.type,
+          datecreated: Date.now(),
+          tags: $scope.mytags,
+           commenttext: comment.commenttext,
+          analytics: $scope.tagPairs
+
+        }
+      };
+
+    } else {
+      $scope.newProductComment = {
+        product_comment: {
+          user: {
+            userid: $scope.userIDFromSession,
+            username: $scope.usernameFromSession,
+            orgname: $scope.orgnameFromSession,
+            grpname: $scope.grpnameFromSession,
+            profilepic: $rootScope.usersession.currentUser.profile_pic.image
+          },
+          commentid: guid(),
+          type: $scope.type,
+          datecreated: Date.now(),
+          commenttext: comment.commenttext,
+          tags: $scope.mytags,
+          comment_image: $rootScope.file_data,
+          analytics: $scope.tagPairs
+        }
+      };
+
+      $scope.newProductComment_image = {
+        product_comment: {
+          user: {
+            userid: $scope.userIDFromSession,
+            username: $scope.usernameFromSession,
+            orgname: $scope.orgnameFromSession,
+            grpname: $scope.grpnameFromSession,
+            profilepic: $rootScope.usersession.currentUser.profile_pic.image
+          },
+          commentid: guid(),
+          type: $scope.type,
+          datecreated: Date.now(),
+          tags: $scope.mytags,
+          commenttext: comment.commenttext,
+          comment_image: $rootScope.comment_image_l,
+          analytics: $scope.tagPairs
+        }
+      };
+      $rootScope.file_data = "";
+    }
+
+  
+      $log.debug($scope.newProductComment);
+      $scope.socket.emit('addComment', $rootScope.product_prodle, $scope.newProductComment.product_comment);
+      if ($scope.productComments == undefined) {
+        $scope.productComments = [];
+        $scope.productComments.unshift($scope.newProductComment_image.product_comment);
+      } else {
+         $scope.productComments.shift();
+        $scope.productComments.unshift($scope.newProductComment_image.product_comment);
+      }
+
+      $scope.commenttextField.userComment = "";
+      $scope.tagPairs = [];
+      $rootScope.count = 0;
+      document.getElementById('prodo-comment-commentContainer').style.marginTop = '0px';
+      document.getElementById("crossButton").style.display = "none";
+      $("#prodo-uploadedCommentImage").css("display", "none");
+      $scope.mytags = "";
+  
+  
+
 };
 //Add comment function
 //get latest comments posted by others
@@ -371,7 +483,7 @@ $scope.hideIfNotImage = function (image) {
 //show comment image if exists 
 //if error adding comment retry function
 $scope.showErrorIfCommentNotAdded = function () {
-  var retry = document.getElementById("responseComment");
+  var retry = document.getElementById("responseCommentErr");
   retry.style.display = 'inline';
 
   retry.innerHTML = 'Error adding comment please try again..';
@@ -460,6 +572,8 @@ if($scope.commenttextField.userComment.length !== 300 ){
 }
 
 $scope.$watch('commenttextField.userComment', function () {
+
+if($scope.commenttextField.userComment){
 if($scope.commenttextField.userComment.length >300 || $scope.commenttextField.userComment.length < 0 ){
   document.getElementById('prodo-comment-Textbox').style.border ="1px solid #ff8080";
   $scope.commenttextField.userComment=$scope.commenttextField.userComment.substring(0,300);
@@ -467,7 +581,10 @@ if($scope.commenttextField.userComment.length >300 || $scope.commenttextField.us
  else if($scope.commenttextField.userComment.length <=300) {
   document.getElementById('prodo-comment-Textbox').style.border ="solid 1px #5bc0de";
  }
-})
+}
+}
+
+)
 };
   
 

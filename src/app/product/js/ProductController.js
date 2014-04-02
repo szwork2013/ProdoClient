@@ -106,6 +106,8 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
   $scope.getUserDetails();
   //get login details
   $scope.getProduct = function (l_prodle, l_orgid) {
+      $("#load-more").css("display", "none");
+          
     // document.getElementById("prodo-comment-search-Textbox").value="";
     $scope.searchComment.search="";
     $scope.commenttextField.userComment="";
@@ -164,6 +166,9 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
           if (successData.success.product.product_comments.length > 4) {
             $("#load-more").css("display", "inline");
           } 
+          else{
+               $("#load-more").css("display", "none");
+          }
         } 
         
       }

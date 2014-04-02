@@ -14,20 +14,22 @@ $scope.group = { 'newgroupname': '','grouppname': '','invites': '','newinvites':
 $scope.groups = currentorggroup.success.usergrp; 
 $scope.orgaddr = currentorgaddr.success.orgaddress;
 $scope.orgImages = currentorgdata.success.organization.org_images;
-var indexOfOrgAddress = 0;
-// console.log(JSON.stringify($scope.groups[2].grpmembers));
+var indexOfOrgAddress = 0; 
+
 $scope.validateError=false;
-$scope.regexForText = /[a-z,A-Z]/;
+$scope.regexForText = /^[a-zA-Z\s]*$/;
 $scope.regexForNumbers = /[0-9]/;
 $scope.regexForEmail = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
-$scope.regexForPhno = /^\(?[+]([0-9]{2,5})\)?[-]?([0-9]{10})$/;
+$scope.regexForPhno = /^\(?[+]([0-9]{2,5})\)?[-]?([0-9]{10,15})$/;
 
+
+$scope.regexForMultipleEmail = /(([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)(\s*,\s*|\s*$)+)/;
 $scope.changedOrgDetails = false;
 $scope.changedOrgLocation = false;
 $scope.addedOrgLocation = false;
 $scope.manageOrgGroup = false;
 $scope.addOrgInvites = false;
-$scope.addCustomerInvites = false;
+//$scope.addCustomerInvites = false;
 $scope.deleteOrgRequestResponse = false;
 
 // The following function will reset all growl messages
@@ -38,7 +40,7 @@ $scope.deleteOrgRequestResponse = false;
             $scope.addedOrgLocation = false;
             $scope.manageOrgGroup = false;
             $scope.addOrgInvites = false;
-            $scope.addCustomerInvites = false;
+           // $scope.addCustomerInvites = false;
             $scope.deleteOrgRequestResponse = false;
     };
 
@@ -612,7 +614,7 @@ $scope.invalidContact3 = '';
         $scope.invalidCountryError = '';
         $scope.invalidStateError = '';
         $scope.invalidCityError = '';
-        $scope.invalidZipcodeError = '';
+        $scope.invalidZipcodeError = '';$scope.emptyOrgtypeSelection = '';
         $scope.invalidContact1 = '';
         $scope.invalidContact2 = '';
         $scope.invalidContact3 = '';
@@ -621,7 +623,7 @@ $scope.invalidContact3 = '';
         $scope.form.orgaddlocationform.submitted= true;   
         OrgRegistrationService.saveOrgAddress($scope.jsonOrgAddressData());
       } else {
-        if($scope.org.address1 === '' || $scope.form.orgaddlocationform.$valid === false)
+        if($scope.org.address1 === '' || $scope.form.orgaddlocationform.address1.$valid === false)
             {
                   $scope.addressErrorMessage = "Please enter valid address "; 
             }
@@ -653,6 +655,10 @@ $scope.invalidContact3 = '';
             {
                    $scope.invalidContact3 = 'Please enter valid phone number';
             }
+            if($scope.form.orgaddlocationform.loctype.$valid === false)
+            {
+                $scope.emptyOrgtypeSelection = "Please select option from above field";}
+        
         $scope.form.orgaddlocationform.submitted= true;
       } 
     };
@@ -842,7 +848,8 @@ $scope.regexForZipcode = /^[0-9]{5,10}$/;
     };
 
     $scope.deleteOrgAddress = function(addr,addressId) { 
-      $scope.changedOrgLocation = true;
+      $scope.changedOrgLocation = true; 
+      NumberOfOrgAddresses = $scope.calcNumberOfOrgAddresses(); 
       NumberOfOrgAddresses--; 
       if(NumberOfOrgAddresses>0)
       {
@@ -850,7 +857,10 @@ $scope.regexForZipcode = /^[0-9]{5,10}$/;
       }
       else
       {
-        $scope.ProdoAppMessage("You cannot delete this address!",'error');
+        //$scope.ProdoAppMessage("You cannot delete this address!",'error');
+
+
+        $scope.ProdoAppMessage("You need atleast single address!",'error');
       }
 
     };
@@ -891,11 +901,27 @@ $scope.regexForZipcode = /^[0-9]{5,10}$/;
       }
     };
 
-    $scope.deleteGroupMember = function(grpid, userid) { 
-      OrgRegistrationService.deleteMember(grpid, userid); 
+    $scope.deleteGroupMember = function(member, userid, index) { 
+                    if(member.grpname === 'admin')
+                    {
+                        var lengthOfAdminMembers = $scope.groups[index].grpmembers.length;
+                        if(lengthOfAdminMembers===1)
+                        {
+                            $scope.ProdoAppMessage("You cannot delete all members of admin group",'error');
+                        }
+                        else 
+                        {
+                            OrgRegistrationService.deleteMember(member.grpid, userid);
+                        } 
+                    }
+                    else
+                    {
+                      OrgRegistrationService.deleteMember(member.grpid, userid); 
+                    }
+    
     };
 
-    var cleanupEventDeleteOrgGroupMemberDone = $scope.$on("deleteOrgGroupMemberDone", function(event, message){console.log("message-----"+message);
+    var cleanupEventDeleteOrgGroupMemberDone = $scope.$on("deleteOrgGroupMemberDone", function(event, message){
      // $scope.handleDeleteOrgGroupMemberResponse(message);  
     
        if(message.error !== undefined && message.error.code === 'AL001' )
@@ -970,15 +996,38 @@ $scope.resetInvites = function()
       {
         if($scope.regexForText.test($scope.orginvites[i].name) === false )
         {
-              $scope.orgInvitesNameError='Names can have only characters! Please varify from the list';
+            if($scope.orginvites.length===1)
+            {
+              $scope.orgInvitesNameError='Names can have only characters! Please verify from above field';
+            }
+            else
+            {
+              $scope.orgInvitesNameError='Names can have only characters! Please verify from the list';
+            }
+            
         }
         if($scope.regexForText.test($scope.orginvites[i].orgname) === false )
         {
-              $scope.orgInvitesOrgnameError='Org. Name can have only characters! Please varify from the list';
+            if($scope.orginvites.length===1)
+            {
+                $scope.orgInvitesOrgnameError='Organization Name can have only characters! Please verify from above field';
+            }
+            else
+            {
+              $scope.orgInvitesOrgnameError='Organization Name can have only characters! Please verify from the list';
+            }
+            
         }
         if($scope.regexForEmail.test($scope.orginvites[i].email) === false )
         {  
-            $scope.orgInvitesEmailError='Please varify your email ids from above list';  
+            if($scope.orginvites.length===1)
+            {
+                 $scope.orgInvitesEmailError='Please verify your email id from above field';
+            }
+            else
+            {
+                 $scope.orgInvitesEmailError='Please verify your email id from above list';
+            }  
         }
         if($scope.orgInvitesEmailError==='' && $scope.orgInvitesOrgnameError==='' && $scope.orgInvitesNameError ==='')
         {
@@ -1055,27 +1104,123 @@ $scope.resetInvites = function()
       return JSON.stringify(orgGroupInvite); 
     };
 
-    $scope.addGroupInvite = function() {
-      // if ($scope.form.orggroupinvitesform) {
-      //   if ($scope.form.orggroupinvitesform.$valid) {
-      //     $scope.form.orggroupinvitesform = true;
-        if($scope.addInvitesList==='existing')
-        {
-          OrgRegistrationService.groupInvites($scope.jsonOrgExistingGroupInvitesData());
-        // }
-        } else{
-      //     $scope.form.orggroupinvitesform.submitted = true;
-      //   }
-      // } else if ($scope.form.orgnewgroupinvitesform) {
-      //     if ($scope.form.orgnewgroupinvitesform.$valid) {
-      //       else if($scope.addInvitesList==='new'){
-            OrgRegistrationService.groupInvites($scope.jsonOrgNewGroupInvitesData());}
-          //   $scope.form.orgnewgroupinvitesform = true;
-          // } else {
-          //   $scope.form.orgnewgroupinvitesform = true;
-          // }
-      
+
+    $scope.addExistingInvites = function() {
+      $scope.addInvitesList = 'existing';
+      $scope.showExistingInvites = true;
     };
+
+$scope.errorForInvites = 'Please check emails ';
+$scope.newInvitesValidate = '';
+$scope.errorForExistinginvites = 'Please check emails ';
+$scope.prevInvitesValidate = '';
+
+
+
+$scope.errorForEmptyGroupName = '';
+$scope.errorForEmptyExistingGroupname = '';
+
+  $scope.clearErrorMessages = function()
+  { 
+          $scope.errorForInvites='';
+          $scope.errorForEmptyGroupName = '';
+          $scope.errorForExistinginvites = '';
+          $scope.errorForEmptyExistingGroupname = '';
+  }; 
+
+    $scope.addGroupInvite = function() {
+   
+        
+        $scope.errorForEmptyGroupName = '';
+        $scope.errorForInvites = 'Please check emails ';
+        $scope.newInvitesValidate = '';
+        var invalid = 0;
+            var multipleEmails = $scope.group.newinvites;
+            if(multipleEmails!==undefined && multipleEmails !== '' )
+            {
+                var array = multipleEmails.split(',');
+                for(var k = 0 ;k<array.length ; k++)
+                {
+                    if(array[k]!=='')
+                    {
+                        if($scope.regexForEmail.test(array[k]) === false)
+                        {
+                            $scope.newInvitesValidate = $scope.newInvitesValidate + "'" +array[k]+"'"+ " ";
+
+                        }
+                    }
+                }
+            }
+            if($scope.newInvitesValidate !=='')
+            {
+                $scope.errorForInvites = $scope.errorForInvites + $scope.newInvitesValidate;
+                invalid = 1;
+            }
+            if($scope.group.newgroupname === '')
+            {
+                $scope.errorForEmptyGroupName = 'Please enter valid group name';
+                invalid = 1;
+            }
+            if($scope.group.newinvites==='' || $scope.group.newinvites === undefined)
+            {
+                $scope.errorForInvites = "Email List cant be empty";
+                invalid=1;
+            }
+            if(invalid===0){
+                    OrgRegistrationService.groupInvites($scope.jsonOrgNewGroupInvitesData());
+                    $scope.clearErrorMessages();
+               }   
+                   
+
+            //OrgRegistrationService.groupInvites($scope.jsonOrgNewGroupInvitesData());
+          
+   
+
+
+    };
+    $scope.addExistingGroupInvite=function()
+    {
+
+                $scope.prevInvitesValidate = '';
+                $scope.errorForExistinginvites="Please check emails ";
+                $scope.errorForEmptyExistingGroupname = '';
+                var invalidCheck = 0;
+                    var multipleEmails = $scope.group.invites;
+                    if(multipleEmails!==undefined && multipleEmails !== '')
+                    {
+                        var array = multipleEmails.split(',');
+                        for(var k = 0 ;k<array.length ; k++)
+                        {
+                            if(array[k]!=='')
+                            {
+                                if($scope.regexForEmail.test(array[k]) === false)
+                                {
+                                    $scope.prevInvitesValidate = $scope.prevInvitesValidate + "'"+array[k]+"'" + " ";
+                                }
+                            }
+                        }
+                    }
+                    if($scope.prevInvitesValidate !=='')
+                    {
+                        $scope.errorForExistinginvites = $scope.errorForExistinginvites + $scope.prevInvitesValidate;
+                        invalidCheck = 1;
+                    }
+                    if($scope.group.groupname === undefined)
+                    {
+                         $scope.errorForEmptyExistingGroupname = 'Please select valid groupname from the list';invalidCheck = 1; }
+                     if($scope.group.invites === '' || $scope.group.invites === undefined)
+                    {
+                        $scope.errorForExistinginvites = "Email list cant be empty";
+                        invalidCheck = 1;
+                    }
+                    
+                    if(invalidCheck === 0 ){
+                       OrgRegistrationService.groupInvites($scope.jsonOrgExistingGroupInvitesData());
+                       $scope.clearErrorMessages();
+                    }
+                 //End of validation  
+        
+    }
 
     var cleanupEventSendOrgGroupInvitesDone = $scope.$on("sendOrgGroupInvitesDone", function(event, data){
        if(data.error !== undefined && data.error.code === 'AL001' )
@@ -1099,7 +1244,7 @@ $scope.resetInvites = function()
 //  The following block is used to send invites to org customer
 
    $scope.handleOrgCustomerInviteResponse = function(data){
-    $scope.addCustomerInvites = true;
+   // $scope.addCustomerInvites = true;
       if (data.success) {  $scope.customerinvites=[{'name': '','email': ''}];
         $scope.ProdoAppMessage(data.success.message,'success');    //ShowAlert
       } else {
@@ -1135,11 +1280,26 @@ $scope.resetInvites = function()
               {
                 if($scope.regexForText.test($scope.customerinvites[i].name) === false )
                 {
-                      $scope.orgCustNameError='Names can have only characters! Please varify from the list';
+                    if($scope.customerinvites.length===1)
+                    {
+                      $scope.orgCustNameError='Names can have only characters! Please verify from the field';
+                    }
+                    else
+                    {
+                      $scope.orgCustNameError='Names can have only characters! Please verify from the list';
+                    }
+                    
                 }
                 if($scope.regexForEmail.test($scope.customerinvites[i].email) === false )
                 {  
-                    $scope.orgCustEmailError='Please varify your email ids from above list';  
+                     if($scope.customerinvites.length===1)
+                     {
+                            $scope.orgCustEmailError='Please verify your email ids from above field';  
+                      }
+                      else
+                      { 
+                             $scope.orgCustEmailError='Please verify your email ids from above list';  
+                      }
                 }
                 if($scope.orgCustEmailError=== '' &&  $scope.orgCustNameError ==='')
                 {
@@ -1165,24 +1325,69 @@ $scope.resetInvites = function()
     });
 
     var cleanupEventSendOrgCustomerInvitesNotDone = $scope.$on("sendOrgCustomerInvitesNotDone", function(event, data){
-         $scope.addCustomerInvites = true;
+       //  $scope.addCustomerInvites = true;
       $scope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." ,'error');    //ShowAlert
     }); 
 
+
+    $scope.deleteOrgArtworImages = function()
+    { 
+        $scope.imageids=[];
+        for(var i=0;i<$scope.orgImages.length;i++)
+        {
+            if(document.getElementById(i).checked===true)
+            {
+                      $scope.imageids.push($scope.orgImages[i].imageid); 
+            }      
+        }
+        if($scope.imageids.length !==0 )
+        {
+                  OrgRegistrationService.singleOrgImageDelete($scope.imageids);
+         }
+    };
+    
+    var cleanupEventremoveOrgImageDone = $scope.$on("orgImageDeleted",function(event,data){
+      if(data.error !== undefined && data.error.code === 'AL001' )
+      {
+        UserSessionService.resetSession();
+        $state.go('prodo.landing.signin');
+      }
+      if(data.success)
+      {
+         $scope.ProdoAppMessage(data.success.message,'success');
+         $state.reload();
+      }
+      else {
+        if (data.error.code== 'AU004') {     // enter valid data
+            $scope.ProdoAppMessage(data.error.message,'error');    //ShowAlert
+        } else {
+            $scope.ProdoAppMessage(data.error.message,'error');    //ShowError
+        }
+      }
+    });
+    var cleanupEventremoveOrgImageNotDone = $scope.$on("orgImageDeleteNotDone",function(event,data){
+            $scope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." ,'error');    //ShowAlert
+    })
+
 //  End of block
     $scope.$watch('$state.$current.locals.globals.currentorggroup', function (currentorggroup) {
-      $scope.groups = currentorggroup.success.usergrp; 
+               $scope.groups = currentorggroup.success.usergrp; 
+        
     });
 
     $scope.$watch('$state.$current.locals.globals.currentorgdata', function (currentorgdata) {
+      $scope.orgImages = currentorgdata.success.organization.org_images;
       $scope.org = currentorgdata.success.organization;
+
     });
 
     $scope.$watch('$state.$current.locals.globals.currentorgaddr', function (currentorgaddr) {
       $scope.orgaddr = currentorgaddr.success.orgaddress;
     });
 
-
+    // $scope.$watch('$state.$current.locals.globals.currentorggroup', function (currentorggroup) {
+    //   $scope.orgImages = currentorggroup.success.usergrp; 
+    // });
 
     if (currentorgproduct.error) {
       //No products available
@@ -1244,10 +1449,7 @@ $scope.resetInvites = function()
       }
     };
 
-    $scope.addExistingInvites = function() {
-      $scope.addInvitesList = 'existing';
-      $scope.showExistingInvites = true;
-    };
+
     
     $scope.addNewInvites = function() {
       $scope.addInvitesList='new';
@@ -1260,6 +1462,7 @@ $scope.resetInvites = function()
     };
 
     $scope.enableEditor = function(addr) {
+        $scope.reset();
       $scope.editorEnabled = true;
     };
     
@@ -1288,104 +1491,7 @@ $scope.resetInvites = function()
          // $scope.resetGrowlMessages();
     };
 //   Org images display Bhagyashry 
-  $scope.chckedIndexs = [];
-  $scope.checkAdminProductImagesDelete = function () {
-
-    if ($rootScope.isAdminCheck == true) {
-      return {
-        display: "inline"
-      }
-    } else {
-      return {
-        display: "none"
-      }
-    }
-  };
-
-    $scope.selectAllImages = function (imgs) {
-    if ($('.imgToggles').is(':checked')) {
-      $('.imgToggles').prop('checked', false);
-      // $scope.chckedIndexs=[];
-      $scope.chckedIndexs.length=0;
-      // $scope.checked=0;
-      $log.debug("1"+$scope.chckedIndexs);
-    } else {
-      $('.imgToggles').prop('checked', true);
-       for (i = 0; i < imgs.length; i++) {
-      $scope.chckedIndexs.push(imgs[i]);
-    }
-      $log.debug("2"+$scope.chckedIndexs);
-       // $scope.checked=1;
-    }
-  };
-
-    $scope.checkImageSelectedToDelete = function () {
-    $log.debug("Delete images.......");
-     $log.debug("5"+$scope.chckedIndexs);
-    if ($scope.chckedIndexs.length > 0) { //if image selected to delete,show modal
-      $('#imgDelModal').modal('toggle');
-      $('#imgDelModal').modal('show');
-    } else { //if no image selected to delete
-       $scope.enableIMGErrorMsg();
-       ProdIMGERRMsg.innerHTML = "Select atlest 1 image to delete ";
-      // growl.addErrorMessage("Select atlest 1 image to delete");
-    }
-  };
-
-  $scope.checkedIndex = function (img) {
-    if ($scope.chckedIndexs.indexOf(img) === -1) {
-      $scope.chckedIndexs.push(img);
-      $log.debug("3"+$scope.chckedIndexs);
-    } else {
-      $scope.chckedIndexs.splice($scope.chckedIndexs.indexOf(img), 1);
-      }
-    $log.debug("4"+$scope.chckedIndexs);
-  };
-
-   $scope.deleteProductImages = function (index) {
-    if ($rootScope.isAdminCheck == true) {
-      //get selected ids to delete images
-      // growl.addInfoMessage("Deleting product images ...");
-      $scope.imgIds = [{}];
-      $scope.ids;
-      $(':checkbox:checked').each(function (i) {
-        $scope.imgIds[i] = $(this).val();
-        $scope.ids = $(this).val();
-      });
-      angular.forEach($scope.chckedIndexs, function (value, index) {
-        // $log.debug("value= "+value);
-        var index = $scope.pImages_l.indexOf(value);
-        $scope.pImages_l.splice($scope.pImages_l.indexOf(value), 1);
-      });
-      $scope.chckedIndexs = [];
-      $scope.temp = {
-        prodleimageids: $scope.imgIds
-      }
-      $http({
-        method: 'DELETE',
-        url: ENV.apiEndpoint_notSocket + '/api/image/org/' + $scope.orgidFromSession + '/' + $scope.currentProdle + '?prodleimageids=' + $scope.imgIds,
-      }).success(function (data, status, headers, cfg) {
-        // $log.debug(data);
-      //$scope.enableIMGSuccessMsg(); 
-      alert('hello');
-     // ProdIMGSuccessMsg.innerHTML = "Images deleted successfully...";
-       
-        // growl.addSuccessMessage("Images deleted successfully...");
-
-      }).error(function (data, status, headers, cfg) {
-        // $log.debug(status);
-        //$scope.enableIMGErrorMsg();
-      // ProdIMGERRMsg.innerHTML = status;
-        // growl.addErrorMessage(status);
-      });
-    } else {
-      //$scope.enableIMGErrorMsg();
-      // ProdIMGERRMsg.innerHTML = "You dont have rights to delete images";
-    }
-    
-    // growl.addErrorMessage("You dont have rights to delete images");
-  };
-//
+ 
 
 //
     $scope.$on('$destroy', function(event, message) {
@@ -1408,6 +1514,7 @@ $scope.resetInvites = function()
       cleanupEventSendOrgGroupInvitesDone();        
       cleanupEventSendOrgGroupInvitesNotDone();
       cleanupEventOrgUploadLogoResponseSuccess();
+      cleanupEventremoveOrgImageDone();
     });
 
 

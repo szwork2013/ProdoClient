@@ -123,10 +123,10 @@ angular.module('prodo.UserApp')
       });
     };
 
-    session.getUserProfileData = function (userData) {
+    session.getUserProfileData = function (userData,profileUserName) {
       UserService.User_Profile.getUserProfile({ userid: userData }, function (success) {
         $log.debug(success);
-        $rootScope.$broadcast('getUserDataDone', success);
+        $rootScope.$broadcast('getUserDataDone', success,profileUserName);
       }), function (error) {
         $log.debug(error);
         $rootScope.$broadcast('getUserDataNotDone', error);

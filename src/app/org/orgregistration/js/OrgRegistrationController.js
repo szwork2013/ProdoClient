@@ -317,12 +317,13 @@ $scope.errOrgDesc ='';
 $scope.submitted = false;   
 $scope.optionErrorMessage = '';
 
-    $scope.goToAddress = function() { console.log(JSON.stringify($scope.org.contact));
+    $scope.goToAddress = function() { 
+        
         $scope.errorOrgName ='';
         $scope.errOrgDesc =''; 
         $scope.optionErrorMessage = '';
         if ($scope.OrgCompanyForm.$valid){     
-                $scope.errmessage = '';
+                $scope.errmessage = '';$('#reg-companyDetails').css('color','#2EB373');
                 $state.transitionTo('prodo.orgregistration.address');
         } else {
                 $scope.submitted = true;
@@ -356,7 +357,7 @@ $scope.invalidContact3 = '';
 //$scope.org.contact={customerhelpline1:'',customerhelpline2:'',customerhelpline3:''};
     $scope.goToGroupuser = function() {  
 
-        console.log(JSON.stringify($scope.org.contact));
+        
         $scope.addressErrorMessage = '';
         $scope.invalidCountryError = '';
         $scope.invalidStateError = '';
@@ -366,7 +367,7 @@ $scope.invalidContact3 = '';
         $scope.invalidContact2 = '';
         $scope.invalidContact3 = '';
         if ($scope.OrgAddressForm.$valid){
-                    $scope.errmessage = '';    
+                    $scope.errmessage = ''; $('#reg-address').css('color','#2EB373')   
                     $state.transitionTo('prodo.orgregistration.groupuser'); 
         } else {
             if($scope.org.address1 === '' || $scope.OrgAddressForm.address1.$valid === false)
@@ -409,10 +410,10 @@ $scope.invalidContact3 = '';
 
     $scope.emailErrorMessage = '' ;
 
-    $scope.goToState = function() { console.log(JSON.stringify($scope.org.contact));
+    $scope.goToState = function() {
         $scope.emailErrorMessage = '';
       if ($scope.OrgGroupuserForm.$valid || ($scope.org.grpname === "" && $scope.org.invites === "")) { 
-          $scope.errmessage = '';
+          $scope.errmessage = '';$('#reg-groupUsers').css('color','#2EB373');
           $state.transitionTo('prodo.orgregistration.terms');
       } else {
         if($scope.OrgGroupuserForm.invites.$dirty === true && $scope.OrgGroupuserForm.invites.$valid  === false)
@@ -422,8 +423,8 @@ $scope.invalidContact3 = '';
       }
     };
 
-    $scope.goToSummary = function() { console.log(JSON.stringify($scope.org.contact));
-      if ($scope.org.terms){
+    $scope.goToSummary = function() { 
+      if ($scope.org.terms){$('#reg-terms').css('color','#2EB373');
         $state.transitionTo('prodo.orgregistration.finish'); 
       }
     };
@@ -520,7 +521,6 @@ $scope.invalidContact3 = '';
 $scope.org.orgaddresstype="Company Address";
     // function to send user data n stringify in json format
     $scope.jsonOrgData = function() {
-        
       var orgData = 
         { 
           organization:
@@ -542,7 +542,12 @@ $scope.org.orgaddresstype="Company Address";
       	          'state': $scope.org.state,
       	          'zipcode': $scope.org.zipcode 
                   }, 
-                'contacts':$scope.org.contacts
+                'contacts': 
+                [ 
+                 {'customerhelpline' : $scope.org.contact.customerhelpline1 },
+                 {'customerhelpline' : $scope.org.contact.customerhelpline2 },
+                 {'customerhelpline' : $scope.org.contact.customerhelpline3 }
+                ]
               } ],
   	          'usergrp': 
                 [ {
@@ -556,7 +561,7 @@ $scope.org.orgaddresstype="Company Address";
     }   
   
     // function to register Organisation on sumbit
-    $scope.registerOrg = function() {
+    $scope.registerOrg = function() {    $('#reg-finish').css('color','#2EB373');
       OrgRegistrationService.RegisterOrg($scope.jsonOrgData()); // calling POST method REST APIs to save org data through OrgResgistrationService 
     }
 

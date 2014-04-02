@@ -29,12 +29,18 @@ angular.module('prodo.UploadApp')
   
   $scope.enableErrorMsg=function(){
      $(".spanErr").css("display", "block");
+     $(".spanProdERR").css("display", "none");
+     $(".spanProdFERR").css("display", "none");
+     $(".spanProdIMGERR").css("display", "none");
      $(".alert-danger").removeClass("in").show();
      $(".alert-danger").delay(5000).addClass("in").fadeOut(2000);
     
   };
   $scope.enableSuccessMsg=function(){
     $(".spanSuccess").css("display", "block");
+    $(".spanProdSuccess").css("display", "none");
+    $(".spanProdFSuccess").css("display", "none");
+    $(".spanProdIMGSuccess").css("display", "none");
     $(".alert-success").removeClass("in").show();
     $(".alert-success").delay(5000).addClass("in").fadeOut(2000);
     
@@ -266,7 +272,7 @@ $scope.productUploadResponseHandler=function(error, imagelocation){
         //    $scope.getFile($scope.counter);
       } else $scope.counter = 0;
     }
-  // setTimeout(function(){ jQuery("#FileName").hide(); },1000);
+  setTimeout(function(){ jQuery("#FileName").hide(); },1000);
 };
 
 $scope.productUploadLogoResponseHandler=function(error, imagelocation){
@@ -308,7 +314,7 @@ $scope.productUploadLogoResponseHandler=function(error, imagelocation){
         //    $scope.getFile($scope.counter);
       } else $scope.counter = 0;
      }
-      // setTimeout(function(){ jQuery("#FileName").hide(); },1000);
+      setTimeout(function(){ jQuery("#FileName").hide(); },1000);
 };
  
   $scope.orgUploadResponseHandler=function(error, imagelocation){
@@ -348,7 +354,7 @@ $scope.productUploadLogoResponseHandler=function(error, imagelocation){
         //    $scope.getFile($scope.counter);
       } else $scope.counter = 0;
      }
-      // setTimeout(function(){ jQuery("#FileName").hide(); },1000);
+      setTimeout(function(){ jQuery("#FileName").hide(); },1000);
   };
 
    $scope.orgUploadLogoResponseHandler=function(error, imagelocation){
@@ -389,7 +395,7 @@ $scope.productUploadLogoResponseHandler=function(error, imagelocation){
         //    $scope.getFile($scope.counter);
       } else $scope.counter = 0;
     }
-    // setTimeout(function(){ jQuery("#FileName").hide(); },1000);
+    setTimeout(function(){ jQuery("#FileName").hide(); },1000);
   };
 
      $scope.userUploadResponseHandler=function(error, imagelocation){
@@ -428,7 +434,7 @@ $scope.productUploadLogoResponseHandler=function(error, imagelocation){
         //    $scope.getFile($scope.counter);
       } else $scope.counter = 0;
     }
-     // setTimeout(function(){ jQuery("#FileName").hide(); },1000);
+     setTimeout(function(){ jQuery("#FileName").hide(); },1000);
   };
 
 }]);
@@ -459,11 +465,12 @@ angular.module('prodo.UploadApp')
 
             var FileName = document.createElement("label");
             FileName.type = 'label';
-            var title = document.createTextNode("File " + i.name);
+            var title = document.createTextNode(" " + i.name);
             FileName.appendChild(title);
             FileName.name = 'label';
             FileName.setAttribute("style", "text-align:left");
             fn.appendChild(FileName);
+            fn.setAttribute("style", "text-align:left");
             fn.style.width = '400px';
 
            
