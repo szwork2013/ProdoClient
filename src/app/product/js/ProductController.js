@@ -23,14 +23,7 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
           $scope.tabComment=true;
          $scope.getProduct(productData.success.product.prodle,productData.success.product.orgid);
       }
-      // else{
-      //    $("#prodo-ProductDetails").css("display", "none");
-      //     $("#ErrMsging").css("display", "block");
-      //     document.getElementById("ErrMsging").innerHTML = "Product not available";
-      // }
-     
-    
-    });
+     });
  
   $scope.productComments = {
     comments: [{}]
@@ -214,8 +207,8 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
       
       // growl.addErrorMessage( "Server Error:" + error.status);
     };
-  $scope.isCollapsed = true;
-  }
+  $scope.isCollapsed = true;  //added by omkar 
+  };
   //get product function declaration  
   //get Product features
   $scope.features = [];
@@ -249,12 +242,7 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
   };
   //get Product features
 
-  //Product Description height toggle
-  // $scope.ShowDescription = function () {
-
-  //   if (document.getElementById('prodo-description').style.height === "15px") $("#prodo-description").css("height", "");
-  //   else $("#prodo-description").css("height", "15px");
-  // };
+//show more and less description toggle
     $(".show-more").click(function () {        
         $(".text").toggleClass("show-more-height");
         if(!$(".text").hasClass("show-more-height")){
@@ -263,7 +251,6 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
             $(this).text("Show More");
         }
     });
-
     $scope.cslcShowMoreLength = function () {
       if ($scope.product.description) {
         if ($scope.product.description.length<130) {
@@ -273,6 +260,7 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
         }
     }
     };
+ //show more and less description toggle   
 
 
   //Follow Product
