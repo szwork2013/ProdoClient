@@ -28,20 +28,18 @@
         $(document).ready(function () {
           var txtheight;
           var txtwidth;
-          $('#prodo-comment-Textbox').focus(function () {
-            $(this).height(85);
-            txtheight=$( "#prodo-comment-Textbox" ).height();
-            txtwidth=$( "#prodo-comment-Textbox" ).width();
 
-          });
-          $('#prodo-comment-Textbox').blur(function () {
-            $(this).height(26);
-            txtheight=$( "#prodo-comment-Textbox" ).height();
-            txtwidth=$( "#prodo-comment-Textbox" ).width();
+          $("#prodo-comment-Textbox").on('blur mouseleave', function() {
+           $(this).height(30);
+           txtheight=$( "#prodo-comment-Textbox" ).height();
+           txtwidth=$( "#prodo-comment-Textbox" ).width();
+          });   
 
-
-          });
-          
+          $("#prodo-comment-Textbox").on('focus change keyup paste keypress click', function() {
+           $(this).height(85);
+           txtheight=$( "#prodo-comment-Textbox" ).height();
+           txtwidth=$( "#prodo-comment-Textbox" ).width();
+          });    
 
           $('#holder').hover(
             function() {

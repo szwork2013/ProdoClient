@@ -38,6 +38,7 @@
     padding: 0;
     overflow: visible;
     list-style-type: none;
+    width: initial;
 }
 
 .ngTagsInputList > li {

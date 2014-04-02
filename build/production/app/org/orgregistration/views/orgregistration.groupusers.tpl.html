@@ -13,12 +13,14 @@
 
         <input type="text" name="groupname" class="prodo-wizard-form-control form-control" placeholder="Group Name" ng-model="org.grpname"  autofocus />
 
-        <input name="invites" type="text" class="prodo-wizard-form-control form-control" placeholder="Send invites (Company emailId's separated by comma" ng-model="org.invites" prodonus-multi-email-validate />
+        <input name="invites" type="text" class="prodo-wizard-form-control form-control" placeholder="Send invites (Company emailId's separated by comma" ng-model="org.invites" />
+        <div class="error-message-wizard" ng-if="nameErrorMessage !== ''" ng-bind = "nameErrorMessage"></div>
         <div class="error-message-wizard" ng-if="emailErrorMessage !== ''" ng-bind = "emailErrorMessage"></div>
+
       </div>
 
-      <button class="prodo-wizard-btn btn btn-md btn-primary" type="submit" ui-sref="prodo.orgregistration.address">Previous</button>
-
+    <!--   <button class="prodo-wizard-btn btn btn-md btn-primary" type="submit" ui-sref="prodo.orgregistration.address">Previous</button> -->
+      <button class="prodo-wizard-btn btn btn-md btn-primary" type="submit" ui-sref="prodo.orgregistration.address" ng-click="goToAddresss()">Previous</button>
       <button class="prodo-wizard-btn btn btn-md btn-primary"  onclick=""  type="submit" ng-click="goToState()">Next</button>
 
     </form>   <!-- prodo-groupusers-form -->

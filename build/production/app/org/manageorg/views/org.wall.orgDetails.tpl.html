@@ -99,7 +99,7 @@
           </div>
 
   
-          <table class="table table-hover table-condensed" ng-repeat="orgAd in orgaddr | filter:searchAddress">
+          <table class="table table-hover table-condensed" ng-repeat="orgAd in orgaddr ">
 
           <thead>
 
@@ -118,7 +118,7 @@
             <td style="width:15%">Edit</td>
           </tr>
           <tbody>
-            <tr ng-repeat="addr in orgAd.location track by $index ">
+            <tr ng-repeat="addr in orgAd.location | filter:searchAddress track by $index ">
                   <!--  <form name="form.organizationUpdateAddressForm" ng-submit="" novalidate> -->
                     <td ng-bind="$index + 1"></td>
                     <td ng-hide="addr.editing" >
@@ -163,10 +163,10 @@
                       <input style="height:30px; display:block; margin:3px;"  ng-model="addr.contacts[0].customerhelpline" class="form-control" placeholder="eg:+91-9000000000" name="contacts1" type="text" required>
 
                       
-                      <input style="height:30px; display:block; margin:3px;" class="form-control" ng-model="addr.contacts[1].customerhelpline" placeholder="eg:+91-9000000000"  name="contacts2" >
+                      <input style="height:30px; display:block; margin:3px;" class="form-control" ng-model="addr.contacts[1].customerhelpline" placeholder="eg:+91-9000000000"  name="contacts2" type="text">
 
                       
-                      <input style="height:30px; display:block; margin:3px;" class="form-control" ng-model="addr.contacts[2].customerhelpline" placeholder="eg:+91-9000000000" name="contacts3">
+                      <input style="height:30px; display:block; margin:3px;" class="form-control" ng-model="addr.contacts[2].customerhelpline" placeholder="eg:+91-9000000000" name="contacts3" type="text">
 
                      
 
@@ -198,14 +198,25 @@
           <form name="form.orgaddlocationform" class="css-form" ng-submit="" novalidate>
             <dl class="dl-horizontal">
               <dt>*Location Type:</dt>
-              <dd><select name="loctype" type="text" style="width:55%; height:30px; display:block" class="form-control" ng-model="orgaddresstype" autofocus required id="orgAddressType">
+              <dd>
+              <select name="loctype" type="text" style="width:55%; height:30px; display:block" class="form-control" ng-model="orgaddresstype" autofocus id="orgAddressType" required>
+
+
+              
                 <option value="Company Address">Company Address</option>
-                <option value="Service Centers">Service Centers</option></select><small style='color:red;' ng-show="(form.orgaddlocationform.loctype.$dirty && form.orgaddlocationform.loctype.$error.required)">Address is required.</small></dd><br>
+                <option value="Service Centers">Service Centers</option></select>
+
+
+
+
+                <small style='color:red;' ng-show="(form.orgaddlocationform.loctype.$dirty && form.orgaddlocationform.loctype.$error.required)">Address is required.</small></dd>
+                <div class="error-message" ng-if="emptyOrgtypeSelection!==''" ng-bind="emptyOrgtypeSelection"></div>
+<br>
               <dt>*Address Line1:</dt>
               <dd><input name="address1" type="text" style="width:55%; height:30px; display:block" class="form-control" ng-model="org.address1" placeholder="address line1" required></dd><div class="error-message" ng-if="addressErrorMessage!==''" ng-bind="addressErrorMessage"></div>   <br>
 
               <dt>Address Line2:</dt>
-              <dd><input name="address2" type="text" style="width:55%; height:30px; display:block" class="form-control" ng-model="org.address2" placeholder="address line2" required></dd><br>
+              <dd><input name="address2" type="text" style="width:55%; height:30px; display:block" class="form-control" ng-model="org.address2" placeholder="address line2" ></dd><br>
               <dt>Address Line3:</dt>
               <dd><input name="address3" type="text" style="width:55%; height:30px; display:block" class="form-control" ng-model="org.address3" placeholder="address line3"></dd><br>
               <dt>*Country:</dt>
@@ -215,17 +226,17 @@
               <dt>*City:</dt>
               <dd><input name="city" type="text" ng-pattern="/^[A-z]*$/" style="width:55%; height:30px; display:block" class="form-control" ng-model="org.city" placeholder="city" required typeahead="city for city in return_cities() | filter:$viewValue | limitTo:8"></dd><div class="error-message" ng-if="invalidCityError!==''" ng-bind="invalidCityError"></div><br>
               <dt>*Zipcode:</dt>
-              <dd><input name="zipcode" type="text" ng-pattern="/^[0-9]*$/" style="width:55%; height:30px; display:block" class="form-control" ng-model="org.zipcode" placeholder="zipcode"></dd>
+              <dd><input name="zipcode" type="text" ng-pattern="/^[0-9]*$/" style="width:55%; height:30px; display:block" class="form-control" ng-model="org.zipcode" placeholder="zipcode" required></dd>
               <div class="error-message" ng-if="invalidZipcodeError!==''" ng-bind="invalidZipcodeError" ></div><br>
               <dt>*Contact:</dt>
-              <dd ><input name="contact1" type="text" style="width:55%; height:30px; display:block" class="form-control" ng-pattern="/^\(?[+]([0-9]{2,5})\)?[-]?([0-9]{10})$/" placeholder="Cust. HelpLine [eg: +91-9000000000]" ng-model="contacts[0].customerhelpline" required/></dd>
+              <dd ><input name="contact1" type="text" style="width:55%; height:30px; display:block" class="form-control" ng-pattern="/^\(?[+]([0-9]{2,5})\)?[-]?([0-9]{10,15})$/" placeholder="Cust. HelpLine [eg: +91-9000000000]" ng-model="contacts[0].customerhelpline" required/></dd>
               <div class="error-message" ng-if="invalidContact1!==''" ng-bind="invalidContact1"></div>
               <br>
               
-              <dd ><input name="contact2" type="text" style="width:55%; height:30px; display:block" class="form-control" ng-pattern="/^\(?[+]([0-9]{2,5})\)?[-]?([0-9]{10})$/" placeholder="Cust. HelpLine [eg: +91-9000000000]" ng-model="contacts[1].customerhelpline" />
+              <dd ><input name="contact2" type="text" style="width:55%; height:30px; display:block" class="form-control" ng-pattern="/^\(?[+]([0-9]{2,5})\)?[-]?([0-9]{10,15})$/" placeholder="Cust. HelpLine [eg: +91-9000000000]" ng-model="contacts[1].customerhelpline" />
               <div class="error-message" ng-if="invalidContact2!==''" ng-bind="invalidContact2"></div><br></dd>
 
-              <dd ><input name="contact3" type="text" style="width:55%; height:30px; display:block" class="form-control" ng-pattern="/^\(?[+]([0-9]{2,5})\)?[-]?([0-9]{10})$/" placeholder="Cust. HelpLine [eg: +91-9000000000]" ng-model="contacts[2].customerhelpline" />
+              <dd ><input name="contact3" type="text" style="width:55%; height:30px; display:block" class="form-control" ng-pattern="/^\(?[+]([0-9]{2,5})\)?[-]?([0-9]{10,15})$/" placeholder="Cust. HelpLine [eg: +91-9000000000]" ng-model="contacts[2].customerhelpline" />
               <div class="error-message" ng-if="invalidContact3!==''" ng-bind="invalidContact3"></div><br></dd>
               <dd>* Mandatory fields</dd>
             </dl>
@@ -262,7 +273,7 @@
                     </table>
                   </div>
                   <br>
-                  <button class="btn btn-info btn-sm" style="background-color:#3679AD; border-color:#4497AF; border-radius: 10px; width: 150px;text-align: left;font-size: 12px;font-weight: bold;" ng-click="addNewInvites()"><i style="margin-right: 5px;" class="fa fa-plus-square"></i>New Groups</button>
+                  <button class="btn btn-info btn-sm" style="background-color:#3679AD; border-color:#4497AF; border-radius: 10px; width: 150px;text-align: left;font-size: 12px;font-weight: bold;margin-bottom: 5px;" ng-click="addNewInvites()"><i style="margin-right: 5px;" class="fa fa-plus-square"></i>New Group</button>
            
                   <form name="form.orgnewgroupinvitesform" ng-submit='' novalidate>
                     <table ng-show="showNewInvites" class="table table-condensed">
@@ -281,11 +292,10 @@
                         <tr>
                           <td style="width: 40%;">
                           <input class="form-control" ng-model="group.newgroupname" type="text" placeholder="Group Name" required></td>
-                          <td style="width: 40%;">
-                           <div class="input-group margin-bottom-sm">
-                            <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
+                          <td style="width: 45%;">
+                        <!--    <div class="input-group margin-bottom-sm"> -->
                             <input class="form-control" ng-model="group.newinvites"  placeholder="Enter email separated by commas(,)" required>
-                          </div>
+                       <!--    </div> -->
                           </td>
                           <td style="width: 20%;"><button class="btn btn-primary btn-sm pull-right"  ng-click="addGroupInvite()" style="width:80px;"><i style="margin-right: 5px;" class="fa fa-share"></i>Send</button></td>
                         </tr>
@@ -294,7 +304,7 @@
                     </table>
                   </form>
                   <br>
-                  <button class="btn btn-info btn-sm" style="background-color:#3679AD; border-color:#4497AF; border-radius: 10px; width: 150px;text-align: left;font-size: 12px;font-weight: bold;" ng-click="addExistingInvites()"><i style="margin-right: 5px;" class="fa fa-plus-square"></i>Existing Groups</button>
+                  <button class="btn btn-info btn-sm" style="background-color:#3679AD; border-color:#4497AF; border-radius: 10px; width: 150px;text-align: left;font-size: 12px;font-weight: bold;margin-bottom: 5px;" ng-click="addExistingInvites()"><i style="margin-right: 5px;" class="fa fa-plus-square"></i>Existing Groups</button>
                 <!--   <hr size=3 width="100%;" style="background-color:#BDBDBD; height:1px; margin-top: 1px;" noshade> -->
                   <form name="form.orggroupinvitesform" ng-submit='' novalidate>
                     <table ng-if="showExistingInvites === true" class="table table-condensed">
@@ -311,14 +321,14 @@
 
 
                         <tr>
-                          <td style="width: 40%;"><select type="text" class="form-control" name="orgtype" ng-model="group.groupname" required>
-                          <option ng-repeat="group in groups " value="{{group.grpname}}">{{group.grpname}}</option></select>
-                          </td>
                           <td style="width: 40%;">
-                          <div class="input-group margin-bottom-sm">
-                            <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
-                            <input class="form-control" ng-model="group.invites" placeholder="Enter email seprated by commas(,)" required>
-                          </div>
+                          <select type="text" class="form-control" name="orgtype" ng-model="group.groupname" required>
+                          <option ng-repeat="group in groups" value="{{group.grpname}}">{{group.grpname}}</option></select>
+                          </td>
+                          <td style="width: 45%;">
+              
+                            <input class="form-control" ng-model="group.invites" placeholder="Enter email separated by commas(,)" required>
+                     
                           </td>
                           <td style="width: 20%;"><button class="btn btn-primary btn-sm pull-right" ng-click="addExistingGroupInvite()" style="width:80px;"><i style="margin-right: 5px;" class="fa fa-share"></i>&nbsp;&nbsp;Send</button></td>
                         </tr>
@@ -340,8 +350,9 @@
             <tr ng-repeat="invite in orginvites">
               <td style="width:30%"><input class="form-control" ng-model="invite.name" type="text" placeholder="Name" > </td>
               <td style="width:30%"><input class="form-control" ng-model="invite.orgname" type="text" placeholder="Organization Name" ></td>
-              <td style="width:30%"><div class="input-group margin-bottom-sm">
-                            <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span><input class="form-control" ng-model="invite.email" type="email" placeholder="Email" ></div></td>
+              <td style="width:30%">
+                           <!--  <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span> -->
+                           <input class="form-control" ng-model="invite.email" type="email" placeholder="Email" ></td>
             </tr>
           </tbody>
         </table>
@@ -361,8 +372,8 @@
           <tbody>
             <tr ng-repeat="customer in customerinvites">
               <td style="width:50%"><input class="form-control" ng-model="customer.name" type="text" placeholder="Name" > </td>
-              <td style="width:50%">  <div class="input-group margin-bottom-sm">
-                            <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span><input class="form-control" ng-model="customer.email" type="email" placeholder="Email"></div></td>
+              <td style="width:50%">  
+  <!--                           <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span> --><input class="form-control" ng-model="customer.email" type="email" placeholder="Email"></td>
             </tr>
           </tbody>
         </table>
@@ -382,16 +393,17 @@
 
 
 
-
-   
-              <div class="imagesOrg" ng-repeat="img in orgImages">
+<div style="height:40px;" ng-if="orgImages.length>0"> <button ng-click="deleteOrgArtworImages()" class="btn btn-danger btn-sm pull-right"><i  class="fa fa-trash-o fa-lg" ></i>&nbsp;&nbsp;Delete</button></div>
+        <div class="error-message-registration " ng-if="orgImages.length===0" style="text-align:left; font-size:20px; margin: 20px auto;" class="text-success">No Images Exists</div>
+              <div class="imagesOrg" ng-repeat="img in orgImages" style="margin: 3px;border: rgb(165, 79, 79) solid;min-width: 110px;
+                  padding: 4px;border-width: thin;">
                 <input type="checkbox" ng-click="test(img)" id="{{$index}}">
                 <img class="img prodo-OrgImgThumbnail"  ng-src="{{img.image}}" />
               <!--   <button ng-click="deleteOrgArtworImages(img.imageid)" style="width:100px;margin-bottom:5px;height:23px;border-radius:5px;margin-top:3px;padding-bottom:20px;background-color:#d43f3a;color:white;" class="btn-group btn-group-xs" ><i class="fa fa-trash-o fa-fw"></i>&nbsp;&nbsp;Delete</button> -->
 <!--                 <i class="fa fa-trash-o fa-fw" ng-click="deleteOrgArtworImages(img.imageid)"></i> -->
               <!-- <input type="checkbox" ng-checked="deleteOrgArtworImages(img.imageid)"> -->
               </div>
-              <button ng-click="deleteOrgArtworImages()">delete</button>
+             
 
 
     </accordion-group>
@@ -453,7 +465,7 @@
         <p style='font-weight:bold; font-size: 13px; margin: 0;'>ORGANIZATION ARTWORK UPLOAD<i class="fa fa-pencil pull-right"></i></p>
       </accordion-heading>
         <div id="prodo-productFeature-fixed"   ng-app="prodo.UploadApp" ng-controller="UploadController"  >
-            <div class="span4 spanErr " >
+<!--             <div class="span4 spanErr " >
         <div class="alert alert-danger fade" id="text">
           <button type="button" class="close" data-dismiss="alert">×</button>
           
@@ -465,7 +477,21 @@
           <button type="button" class="close" data-dismiss="alert">×</button>
      
         </div>
+      </div> -->
+            <div class="span4 spanErr " >
+        <div class="alert alert-danger fade" id="text">
+          <button type="button" class="close" data-dismiss="alert">×</button>
+          <div id="UploadErrMsg"></div>
+        </div>
       </div>
+
+     <div class="span4 spanSuccess" >
+        <div class="alert alert-success fade">
+          <button type="button" class="close" data-dismiss="alert">×</button>
+          <div id="UploadSuccessMsg"></div>
+        </div>
+      </div>
+
           <table   class="table table-hover table-bordered prodo-productTableFont">
             <tr>
               <td>Logo</td>
