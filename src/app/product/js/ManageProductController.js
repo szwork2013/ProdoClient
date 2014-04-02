@@ -744,14 +744,15 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
     $scope.editMode.editorEnabled = false;
       $scope.productForm.submitted=false;
     $scope.feature = "";
-    if ($scope.currentProdle !== undefined || $scope.currentProdle !== null || $scope.currentProdle !== "") {
-      $scope.getProduct($scope.currentProdle, $scope.currentOrgid);
-      $scope.getProductFeatures($scope.currentProdle, $scope.currentOrgid);
-    }
-    else{
-       $("#prodo-ProductDetails").css("display", "none");
+    if ($scope.currentProdle == undefined || $scope.currentProdle == null || $scope.currentProdle == "") {
+      $("#prodo-ProductDetails").css("display", "none");
         $("#ErrMsging").css("display", "block");
       document.getElementById("ErrMsging").innerHTML = "<br>Product not available ... Add new product<br><br>";
+    }
+    else{
+
+       $scope.getProduct($scope.currentProdle, $scope.currentOrgid);
+      $scope.getProductFeatures($scope.currentProdle, $scope.currentOrgid);
     }
   };
 
