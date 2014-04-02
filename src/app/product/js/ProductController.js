@@ -123,6 +123,7 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
         if (document.getElementById("ErrMsging") !== null) document.getElementById("ErrMsging").innerHTML = "Product not available , please select product....";
         // growl.addErrorMessage(" Product not available....");
       } else {
+        
         $("#prodo-ProductDetails").css("display", "block");
         $("productExtraInfo").css("display", "block");
         $("#ErrMsging").css("display", "none");

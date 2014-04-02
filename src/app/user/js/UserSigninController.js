@@ -150,9 +150,9 @@ angular.module('prodo.UserApp')
       if (data.success) {
           if ($rootScope.usersession.currentUser.hasDonePayment && $rootScope.usersession.currentUser.org.orgid) {
             $rootScope.orgid = $rootScope.usersession.currentUser.org.orgid;
-            $state.transitionTo('prodo.home.wall.org');
+            $state.transitionTo('prodo.home.wall-org');
           } else if ($rootScope.usersession.currentUser.hasDonePayment) {
-            $state.transitionTo('prodo.home.wall.org');
+            $state.transitionTo('prodo.home.wall-org');
           } 
       } else {
         if (data.error.code== 'AV001') {     // enter valid data
