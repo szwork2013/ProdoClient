@@ -619,7 +619,7 @@ $scope.invalidContact3 = '';
         $scope.invalidContact2 = '';
         $scope.invalidContact3 = '';
        $scope.orgaddresstype = document.getElementById('orgAddressType').value;
-      if ($scope.form.orgaddlocationform.$valid) {
+      if ($scope.form.orgaddlocationform.$valid && ($scope.orgaddresstype==="Company Address" || $scope.orgaddresstype === "Service Centers")) {
         $scope.form.orgaddlocationform.submitted= true;   
         OrgRegistrationService.saveOrgAddress($scope.jsonOrgAddressData());
       } else {
@@ -655,7 +655,7 @@ $scope.invalidContact3 = '';
             {
                    $scope.invalidContact3 = 'Please enter valid phone number';
             }
-            if($scope.form.orgaddlocationform.loctype.$valid === false || $scope.form.orgaddlocationform.loctype.$dirty === false)
+            if($scope.form.orgaddlocationform.loctype.$valid === false || $scope.form.orgaddlocationform.loctype.$dirty === false )
             {
                 $scope.emptyOrgtypeSelection = "Please select option from above field";}
         
@@ -713,6 +713,8 @@ $scope.invalidContact3 = '';
       $scope.changedOrgLocation = false;
       if (data.success) {
         $scope.ProdoAppMessage(data.success.message,'success');    //ShowAlert
+
+        $scope.reset();
         $state.reload();
       } else {
         if (data.error.code== 'AU004') {     // enter valid data
@@ -987,6 +989,10 @@ $scope.resetInvites = function()
       $scope.orgInvitesNameError='';
       $scope.orgInvitesOrgnameError=''; 
       $scope.orgInvitesEmailError=''; 
+
+
+
+
     $scope.sendOrgInvites = function() { 
       $scope.orgInvitesNameError='';
       $scope.orgInvitesOrgnameError=''; 
@@ -1033,11 +1039,23 @@ $scope.resetInvites = function()
         {
             if($scope.orginvites.length===1)
             {
-              $scope.orgInvitesNameError='Organization names cant be empty! Please verify from above field';
+              $scope.orgInvitesNameError='Name cant be empty! Please verify from above field';
             }
             else
             {
-              $scope.orgInvitesNameError='Organization name cant be empty! Please verify from the list';
+              $scope.orgInvitesNameError='Names cant be empty! Please verify from the list';
+            }
+            
+        }
+        if($scope.orginvites[i].orgname=== '' )
+        {
+            if($scope.orginvites.length===1)
+            {
+               $scope.orgInvitesOrgnameError='Organization names cant be empty! Please verify from above field';
+            }
+            else
+            {
+               $scope.orgInvitesOrgnameError='Organization name cant be empty! Please verify from the list';
             }
             
         }
@@ -1444,7 +1462,7 @@ $scope.errorForEmptyExistingGroupname = '';
     };
     
     $scope.reset = function() {
-           $scope.addressErrorMessage = '';
+       $scope.addressErrorMessage = '';
         $scope.invalidCountryError = '';
         $scope.invalidStateError = '';
         $scope.invalidCityError = '';
@@ -1463,6 +1481,7 @@ $scope.errorForEmptyExistingGroupname = '';
       $scope.org.state= '';
       $scope.org.zipcode = '';
       $scope.contacts= [{'customerhelpline': ''},{'customerhelpline': ''},{'customerhelpline': ''}];
+
      // $state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
     };
     $scope.addInvitesList='';
