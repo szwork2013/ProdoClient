@@ -11,7 +11,7 @@
   * 03/12/2013 | xyx | Add a new property
   * 
   */-->
-<div ng-app="prodo.ProductApp" id="prodo-comment-container" class="container prodo-ProductContainer">
+<div  id="prodo-comment-container" class="container prodo-ProductContainer">
 <!--  -->
 <div growl></div>
   
@@ -51,7 +51,8 @@
    <!--  <strong class="prodo-productNameStrong" >&nbsp;<span ng-bind="product.name.substring(0,20)"> </span></strong> -->
  
     <br>
-    <span class="prodo-Modelno" >
+    <div class="prodo-paddingLeft">
+    <span class="prodo-Modelno " >
       MODEL NO :&nbsp; <span ng-bind="product.model_no"></span>
       <br>
       <!-- <span> -->
@@ -68,7 +69,7 @@
     </div>
       <!-- </span> -->
     </span>
-    <table class="table child "  id="prodo-ProductFeatureTable" >
+    <table class="table child prodo-paddingLeft"  id="prodo-ProductFeatureTable" >
       <tr id="prodo-productbnd" class="prodo-productTabledis"  ng-show="product.banneddate">
         <td>Product Banned on : &nbsp;<span ng-bind="formatDate(product.banneddate)"></span></td>
       </tr>
@@ -80,7 +81,7 @@
       </tr>
     </table>
   </div>
-  <div id="prodo-ProdoProductComments">
+  <div id="prodo-ProdoProductComments" class="prodo-paddingLeft">
     <div id="prodo-comment-fixed" ng-controller="ProductCommentController">
       <!-- tabs -->
       <div class="prodo-comment-Text-tabs " id="tabs">
