@@ -5,7 +5,7 @@ angular.module('prodo.OrgApp')
 	.controller('OrgRegistrationController', ['$scope', '$rootScope', 'OrgModel', '$state', '$stateParams', '$log', 'OrgRegistrationService', 'UserSessionService', function($scope, $rootScope, OrgModel, $state, $stateParams, $log, OrgRegistrationService, UserSessionService) {
 
     $scope.errmessage = '';
-    $scope.mobileRegex = "/^\(?[+]([0-9]{2,5})\)?[-]?([0-9]{10})$/";
+    $scope.mobileRegex = "/^\(?[+]([0-9]{2,5})\)?[-]?([0-9]{10,15})$/";
     $scope.org = OrgModel;   // assining OrgModel service to org to update org model data
     $scope.regexForEmail = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
     $scope.back = function()
