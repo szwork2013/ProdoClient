@@ -761,7 +761,7 @@ text-align: left;
 
 .error-message-wizard{
 	font-weight: normal;
-	padding-top: 10px;
+/*	padding-top: 0px;*/
 	text-align: left;
 	color: rgb(211, 41, 41);
 	margin-left:20%;
