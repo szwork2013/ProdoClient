@@ -1064,6 +1064,25 @@ text {
   border: 2px;
 }
 
+/*.tooltip > .tooltip-arrow {
+  
+  border-bottom-color: #ffffff;
+
+}*/
+
+.tooltip.right .tooltip-arrow {
+  border-right-color: #FFE85A;
+  border-width: 5px 5px 5px 0;
+}
+
+.tooltip > .tooltip-inner {
+  color: #000;
+  font-size: 12px;
+ 	min-width: 50px;
+  background: #FFE85A;
+  border: solid 1px #FFE85A;
+}
+
 /* Prodo Main View: Comments*/
  #prodo-comment-container{
   background-color: #ffffff;

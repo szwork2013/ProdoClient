@@ -1,9 +1,11 @@
 angular.module('prodo.ProdonusApp')
-.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {  
+.config(['$stateProvider', '$urlRouterProvider', '$uiViewScrollProvider', function($stateProvider, $urlRouterProvider, $uiViewScrollProvider) {  
   $urlRouterProvider.rule(function ($injector, $location) {
         var path = $location.path(), normalized = path.toLowerCase();
         if (path != normalized) return normalized;
     });
+
+  $uiViewScrollProvider.useAnchorScroll(); 
 
   $stateProvider
     .state('prodo', {
