@@ -1374,7 +1374,7 @@ ul {/*list-style-type: none;*/ }
 	font-family: Helvetica ; border: solid 1px #5bc0de; }
 #prodo-comment-fixed { margin-left:17px;}
 #prodo-comment-media {margin-top: 0px;  border-top: 1px outset; border-color:#CCC;padding:5px; max-width: 90%;}
-#prodo-comment-row-fluid { word-wrap: break-word;width:420px;text-align: left;font-size:12px;padding-right: 8px; }
+#prodo-comment-row-fluid { word-wrap: break-word;width:98%;text-align: left;font-size:12px;padding-right: 8px; }
 #prodo-comment-companyName{color: gray;word-spacing: -.5ex ;}
 #prodo-comment-userName{font-size:15px; font-weight:bold;}
 #prodo-comment-commentContainer{ max-width: 95%;}
