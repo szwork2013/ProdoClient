@@ -1,6 +1,6 @@
 angular.module('prodo.OrgApp')
  .controller('OrgAccountController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$log','$modal', 'growl', 'UserSessionService', 'OrgRegistrationService', 'OrgService', 'currentorgdata', 'currentorgaddr', 'currentorgproduct', 'currentorggroup','ENV', function($scope, $rootScope, $state, $http, $timeout, $log, $modal, growl, UserSessionService, OrgRegistrationService, OrgService, currentorgdata, currentorgaddr, currentorgproduct, currentorggroup, ENV) {
-    
+
 $scope.submitted= false;    
 $scope.form = {};
 $scope.productlist = [];
@@ -486,6 +486,7 @@ $scope.selected_country="";
      $scope.changedOrgDetails = true;
       if (data.success) {
         $scope.editorEnabled=false;
+        $state.reload();
           $scope.ProdoAppMessage(data.success.message, 'success');     //Growl
       } else {
         if (data.error.code== 'AU004') {     // enter valid data
@@ -759,12 +760,12 @@ $scope.regexForZipcode = /^[0-9]{5,10}$/;
         {
               $scope.errorsForEdit = $scope.errorsForEdit + "'contact 1' ";
         }
-        if(addr.contacts[1].customerhelpline !=='' && $scope.regexForPhno.test(addr.contacts[1].customerhelpline) !== true)
+        if(addr.contacts[1].customerhelpline !== undefined && addr.contacts[1].customerhelpline !=='' && $scope.regexForPhno.test(addr.contacts[1].customerhelpline) !== true)
         {
               $scope.errorsForEdit = $scope.errorsForEdit + "'contact 2' ";
         }
          
-        if(addr.contacts[2].customerhelpline!=='' && $scope.regexForPhno.test(addr.contacts[2].customerhelpline) !== true)
+        if(addr.contacts[2].customerhelpline !== undefined && addr.contacts[2].customerhelpline!=='' && $scope.regexForPhno.test(addr.contacts[2].customerhelpline) !== true)
         {
               $scope.errorsForEdit = $scope.errorsForEdit + "'contact 3' ";
         }
@@ -916,7 +917,8 @@ $scope.regexForZipcode = /^[0-9]{5,10}$/;
                             OrgRegistrationService.deleteMember(member.grpid, userid);
                         } 
                     }
-                    else
+                    // else if( $rootScope.UserSessionService.)
+                    else 
                     {
                       OrgRegistrationService.deleteMember(member.grpid, userid); 
                     }
@@ -989,7 +991,7 @@ $scope.resetInvites = function()
       $scope.orgInvitesNameError='';
       $scope.orgInvitesOrgnameError=''; 
       $scope.orgInvitesEmailError=''; 
-
+      var allInviteDataValid = 0;
 
 
 
@@ -997,7 +999,7 @@ $scope.resetInvites = function()
       $scope.orgInvitesNameError='';
       $scope.orgInvitesOrgnameError=''; 
       $scope.orgInvitesEmailError='';   
-      var allInviteDataValid = 0;
+
       for(var i=0;i<$scope.orginvites.length;i++)
       {
         if($scope.regexForText.test($scope.orginvites[i].name) === false )
@@ -1005,10 +1007,13 @@ $scope.resetInvites = function()
             if($scope.orginvites.length===1)
             {
               $scope.orgInvitesNameError='Names can have only characters! Please verify from above field';
+
+              allInviteDataValid = 0;
             }
             else
             {
               $scope.orgInvitesNameError='Names can have only characters! Please verify from the list';
+              allInviteDataValid = 0;
             }
             
         }
@@ -1017,10 +1022,12 @@ $scope.resetInvites = function()
             if($scope.orginvites.length===1)
             {
                 $scope.orgInvitesOrgnameError='Organization Name can have only characters! Please verify from above field';
+                allInviteDataValid = 0;
             }
             else
             {
               $scope.orgInvitesOrgnameError='Organization Name can have only characters! Please verify from the list';
+              allInviteDataValid = 0;
             }
             
         }
@@ -1029,10 +1036,12 @@ $scope.resetInvites = function()
             if($scope.orginvites.length===1)
             {
                  $scope.orgInvitesEmailError='Please verify your email id from above field';
+                 allInviteDataValid = 0;
             }
             else
             {
                  $scope.orgInvitesEmailError='Please verify your email id from above list';
+                 allInviteDataValid = 0;
             }  
         }
         if($scope.orginvites[i].name=== '' )
@@ -1040,10 +1049,12 @@ $scope.resetInvites = function()
             if($scope.orginvites.length===1)
             {
               $scope.orgInvitesNameError='Name cant be empty! Please verify from above field';
+              allInviteDataValid = 0;
             }
             else
             {
               $scope.orgInvitesNameError='Names cant be empty! Please verify from the list';
+              allInviteDataValid = 0;
             }
             
         }
@@ -1052,10 +1063,12 @@ $scope.resetInvites = function()
             if($scope.orginvites.length===1)
             {
                $scope.orgInvitesOrgnameError='Organization names cant be empty! Please verify from above field';
+               allInviteDataValid = 0;
             }
             else
             {
                $scope.orgInvitesOrgnameError='Organization name cant be empty! Please verify from the list';
+               allInviteDataValid = 0;
             }
             
         }
@@ -1186,7 +1199,7 @@ $scope.errorForEmptyExistingGroupname = '';
                 $scope.errorForInvites = $scope.errorForInvites + $scope.newInvitesValidate;
                 invalid = 1;
             }
-            if($scope.group.newgroupname === '')
+            if($scope.group.newgroupname === undefined || $scope.group.newgroupname === '')
             {
                 $scope.errorForEmptyGroupName = 'Please enter valid group name';
                 invalid = 1;
@@ -1314,11 +1327,11 @@ $scope.errorForEmptyExistingGroupname = '';
 
         $scope.orgCustNameError = '';
         $scope.orgCustEmailError = '';
-
+        var allCustDataValid = 0;
     $scope.orgCustomerInvites = function() {
         $scope.orgCustNameError = '';
         $scope.orgCustEmailError = '';
-        var allCustDataValid = 0;
+
 
             for(var i=0;i<$scope.customerinvites.length;i++)
               {
@@ -1327,10 +1340,12 @@ $scope.errorForEmptyExistingGroupname = '';
                     if($scope.customerinvites.length===1)
                     {
                       $scope.orgCustNameError='Names can have only characters! Please verify from the field';
+                      allCustDataValid = 0;
                     }
                     else
                     {
                       $scope.orgCustNameError='Names can have only characters! Please verify from the list';
+                       allCustDataValid = 0;
                     }
                     
                 }
@@ -1338,12 +1353,28 @@ $scope.errorForEmptyExistingGroupname = '';
                 {  
                      if($scope.customerinvites.length===1)
                      {
-                            $scope.orgCustEmailError='Please verify your email ids from above field';  
-                      }
+                            $scope.orgCustEmailError='Please verify your email ids from above field'; 
+                             allCustDataValid = 0; 
+                     }
                       else
                       { 
-                             $scope.orgCustEmailError='Please verify your email ids from above list';  
+                             $scope.orgCustEmailError='Please verify your email ids from above list'; 
+                              allCustDataValid = 0; 
                       }
+                }
+                if($scope.customerinvites[i].name === undefined || $scope.customerinvites[i].name === '' )
+                {
+                    if($scope.customerinvites.length === 1)
+                    {
+                        $scope.orgCustNameError = "Customer name can't be empty!";
+                         allCustDataValid = 0;
+                    }
+                    else
+                    {
+                        $scope.orgCustNameError = "Customer name can't be empty! Please verify from above list";
+                         allCustDataValid = 0;
+                    }
+
                 }
                 if($scope.orgCustEmailError=== '' &&  $scope.orgCustNameError ==='')
                 {
@@ -1441,7 +1472,11 @@ $scope.errorForEmptyExistingGroupname = '';
 
      var cleanupEventOrgUploadLogoResponseSuccess = $scope.$on("orgUploadLogoResponseSuccess",function(event,message){
       $state.reload();
-     })
+     });
+
+     var cleanupEventOrgUploadResponseSuccess = $scope.$on("orgUploadResponseSuccess",function(event,message){
+      $state.reload();
+     });
 
 
 //Other functions for editing; needs to be variefied
@@ -1471,6 +1506,9 @@ $scope.errorForEmptyExistingGroupname = '';
         $scope.invalidContact2 = '';
         $scope.invalidContact3 = '';
         $scope.user.password='';
+        $scope.invalidPassword = '';
+        $scope.invalidDesc = '';
+        $scope.invalidOrgName = '';
       $scope.islocation = false;
       $scope.org.orgaddresstype = '';
       $scope.org.address1= '';
@@ -1499,7 +1537,9 @@ $scope.errorForEmptyExistingGroupname = '';
       if($scope.customerinvites[noOfInvites-1].name!=='' && $scope.customerinvites[noOfInvites-1].email!=='')
       {
           $scope.customerinvites.push({'name': '', 'email': ''});
+          allCustDataValid = 0;
       }
+
     };
 
 
@@ -1512,6 +1552,7 @@ $scope.errorForEmptyExistingGroupname = '';
     $scope.disableEditor = function() {
       $scope.editorEnabled = false;
       $scope.user = { password: ''};
+      $state.reload();
     };
 
     $scope.enableEditor = function(addr) {
@@ -1568,6 +1609,7 @@ $scope.errorForEmptyExistingGroupname = '';
       cleanupEventSendOrgGroupInvitesNotDone();
       cleanupEventOrgUploadLogoResponseSuccess();
       cleanupEventremoveOrgImageDone();
+      cleanupEventOrgUploadResponseSuccess();
     });
 
 

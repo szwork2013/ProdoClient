@@ -40,7 +40,7 @@
             <div ng-repeat="products in modaluser.products_followed"  class="modalProductPic" ng-if="regularExpressionForProdonus.test(products.name) !== true">
               <center>
                 <img ng-src="{{products.product_logo.image}}" class="prodleImage" ng-click="emitProductData(products.prodle,products.orgid)"alt-SRC src="../assets/images/if_no_logo_images_available.gif">
-                <p ><span ng-bind="products.name" class="thinnerFonts"></span></p>
+                <p ><span ng-bind="products.name" class="thinnerFonts productNameTrim"></span></p>
               </center>
             </div>
           </div>
