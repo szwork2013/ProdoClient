@@ -58,9 +58,6 @@ angular.module('prodo.ProdonusApp', [
     $rootScope.usersession = UserSessionService;
     $rootScope.organizationData = OrgRegistrationService;
     $rootScope.$log = $log;
-//     $rootScope.$on('$stateChangeSuccess',function(){
-//     $("html, body").animate({ scrollTop: 0 }, 200);
-// })
   }
 ]).controller('ProdoMainController', [
   '$scope',
@@ -106,16 +103,20 @@ angular.module('prodo.ProdonusApp', [
                 }
               UserSessionService.getProductFollowed($scope.prodlesfollowed, data);
             }
-            if (data.org && data.org.orgtype == 'Manufacturer') {
+            if (data.isOtpPassword == true) {
+              $state.transitionTo('prodo.landing.resetpassword');
+            } else {
+              if (data.org && data.org.orgtype == 'Manufacturer') {
                 $rootScope.orgid = data.org.orgid;
                 $log.debug('manufacturer_' + $rootScope.orgid);
                 $state.transitionTo('prodo.home.wall-org');
-            } else if (data.products_followed.length > 0) {
+              } else if (data.products_followed.length > 0) {
                 var  lastProductFollowed = data.products_followed.length - 1;
                 $rootScope.orgid= data.products_followed[ lastProductFollowed].orgid;
                 $log.debug('others_' + $rootScope.orgid);
                 $state.transitionTo('prodo.home.wall-org');
-            }          
+              } 
+            }         
         } 
       }
     });
