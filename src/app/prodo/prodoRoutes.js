@@ -40,6 +40,28 @@ angular.module('prodo.ProdonusApp')
         }
       }
     })
+    .state('prodo.landing.forgotpassword', {
+      views: {
+        'marketing' : {
+          templateUrl:  'prodo/landing/views/prodo.home.marketing.tpl.html'
+        },
+        'signup-signin' : {
+          templateUrl:  'user/views/user.signin.forgotpassword.tpl.html',
+          controller: 'UserSigninController'
+        }
+      }
+    })
+    .state('prodo.landing.resetpassword', {
+      views: {
+        'marketing' : {
+          templateUrl:  'prodo/landing/views/prodo.home.marketing.tpl.html'
+        },
+        'signup-signin' : {
+          templateUrl:  'user/views/user.signin.resetpassword.tpl.html',
+          controller: 'UserSigninController'
+        }
+      }
+    })
 
     /* ----User Account Routes---- */
     .state('prodo.account-user', {
@@ -78,17 +100,7 @@ angular.module('prodo.ProdonusApp')
       url: '/regeneratetoken',
       templateUrl: 'user/views/user.signup.regeneratetoken.tpl.html',
       controller: 'UserRegistrationController'
-    })    
-    .state('prodo.user-content.forgotpassword', {
-      url: '/forgotpassword',
-      templateUrl: 'user/views/user.signin.forgotpassword.tpl.html',
-      controller: 'UserSigninController'
-    })    
-    .state('prodo.user-content.resetpassword', {
-      url: '/resetpassword',
-      templateUrl: 'user/views/user.signin.resetpassword.tpl.html',
-      controller: 'UserSigninController'
-    }) 
+    })        
     .state('prodo.user-content.otp', {
       url: '/otp',
       templateUrl: 'user/views/user.signin.forgotpassword.otp.tpl.html',
@@ -217,7 +229,7 @@ angular.module('prodo.ProdonusApp')
             return ProductService.getProduct({orgid: $rootScope.orgid, prodle: prodle}).$promise;
           } else {
             var product = 'no product available';
-            return product;
+            return orgproduct;
           }
           
         }

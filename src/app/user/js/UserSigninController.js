@@ -8,7 +8,9 @@ angular.module('prodo.UserApp')
       {
         'email' :  '',
         'password' :  '',
-        'newpassword': ''
+        'newpassword': '',
+        'confirmpassword': '',
+        'currentpassword': ''
 
       };
 
@@ -18,6 +20,7 @@ angular.module('prodo.UserApp')
       $scope.user.password = '';
       $scope.user.newpassword = '';
       $scope.user.confirmnewpassword = '';
+      $scope.user.currentpassword = '';
     }
 
     $timeout(function() {
@@ -38,7 +41,7 @@ angular.module('prodo.UserApp')
     $scope.handleSigninResponse = function(data){
       if (data.success) {
         UserSessionService.authSuccess(data.success.user);
-        $scope.showAlert('alert-success', 'Welcome to Prodonus, you have successfully signed up.');
+        // $scope.showAlert('alert-success', 'Welcome to Prodonus, you have successfully signed up.');
       } else {
         if (data.error.user == undefined) {     
             $log.debug(data.error.code + " " + data.error.message);
@@ -94,7 +97,7 @@ angular.module('prodo.UserApp')
     // function to handle server side responses
     $scope.handleForgotPasswordResponse = function(data){
       if (data.success) {   
-        $scope.showAlert('alert-info', 'Your temporary password has been sent. Please check your email, and follow instructions.');
+        $scope.showAlert('alert-info', 'Your temporary password settings has been sent. Please check your email, and follow instructions.');
 
       } else {
         if (data.error.code== 'AV001') {     // enter valid data
@@ -137,6 +140,7 @@ angular.module('prodo.UserApp')
           {
             user:
             {
+             'currentpassword' : $scope.user.currentpassword,
              'newpassword' : $scope.user.newpassword,
              'confirmnewpassword' : $scope.user.confirmnewpassword
             }
@@ -148,7 +152,7 @@ angular.module('prodo.UserApp')
     // function to handle server side responses
     $scope.handleResetPasswordResponse = function(data){
       if (data.success) {
-          if ($rootScope.usersession.currentUser.hasDonePayment && $rootScope.usersession.currentUser.org.orgid) {
+          if ($rootScope.usersession.currentUser.hasDonePayment && $rootScope.usersession.currentUser.org && $rootScope.usersession.currentUser.org.orgtype == 'Manufacturer') {
             $rootScope.orgid = $rootScope.usersession.currentUser.org.orgid;
             $state.transitionTo('prodo.home.wall-org');
           } else if ($rootScope.usersession.currentUser.hasDonePayment) {

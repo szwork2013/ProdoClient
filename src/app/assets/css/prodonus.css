@@ -418,7 +418,7 @@ small {
     text-align: center;
 }
 /*change the View: signin form input style*/
-#prodo-input-signin{
+.prodo-input-signin{
 	width:250px;
 	height: 30px;
 	border-radius: 2px;
@@ -468,7 +468,6 @@ small {
 	border-radius: 2px;
 	background-color: #3a92c6;
 	font-size: 20px;
-	font: bold;
 	position: relative;
 	display: block;
   margin: 20px auto;
@@ -484,20 +483,21 @@ small {
 	font-weight: normal;
 	font-size: 25px;
 	line-height: 20px;
-	padding: 10px;
-	color: #2b8dc0;
+	padding: 5px;
+	color: #585E61;
+	text-align: left;
+	margin: 10px;
 }
 #prodo-view-forgotPassword{
-	border: 1px solid #DBDBD4;
+  border: 1px solid #DBDBD4;
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
   border-radius: 6px; 
-  background-color: #f3f5f3;
-  width: 400px;
-  height: 330px;
-  display: block;
-  margin: 50px auto;
-  text-align: center;
+  width: 350px;
+  min-height: 400px;
+  margin-top: 50px;
+  margin-left: 100px;
+  padding-bottom: 20px;
 }
  
 #prodo-form-forgotPassword{
@@ -505,12 +505,12 @@ small {
   margin: 0 auto;
   text-align: center;
 }
-#prodo-input-forgotPassword{
+.prodo-input-forgotPassword{
 	width:250px;
 	height: 30px;
 	border-radius: 2px;
 	margin: 10px auto;
-	display: block;  
+	display: block; 
 }
 
 /*change the View: forgotPassword form input button forgotPassword style*/
@@ -518,7 +518,7 @@ small {
 	width:250px;
 	border-radius: 2px;
 	background-color: #3a92c6;
-	font-size: 15px;
+	font-size: 20px;
 	position: relative;
 	display: block;
   margin: 20px auto;
@@ -530,46 +530,51 @@ small {
 **/
 
 /*change the View: resetPassword form heading style*/  
-#prodo-resetPassword-heading{
+
+#prodo-resetpassword-heading{
 	font-weight: normal;
 	font-size: 25px;
 	line-height: 20px;
-	padding: 10px;
-	color: #2b8dc0;
+	padding: 5px;
+	color: #585E61;
+	text-align: left;
+	margin: 10px;
 }
-#prodo-view-resetPassword{
+
+#prodo-view-resetpassword{
 	border: 1px solid #DBDBD4;
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
   border-radius: 6px; 
-  background-color: #f3f5f3;
-  width: 400px;
-  height: 330px;
-  display: block;
-  margin: 50px auto;
-  text-align: center;
+  width: 350px;
+  min-height: 400px;
+  margin-top: 50px;
+  margin-left: 100px;
+  padding-bottom: 20px;
 }
  
-#prodo-form-resetPassword{
+#prodo-form-resetpassword{
 	display: block;
   margin: 0 auto;
   text-align: center;
 }
-#prodo-input-resetPassword{
+
+.prodo-input-resetpassword{
 	width:250px;
 	height: 30px;
 	border-radius: 2px;
 	margin: 10px auto;
 	display: block;
+  
      
 }
 
 /*change the View: resetPassword form input button resetPassword style*/
-#prodo-button-resetPassword{
+#prodo-button-resetpassword{
 	width:250px;
 	border-radius: 2px;
 	background-color: #3a92c6;
-	font-size: 15px;
+	font-size: 20px;
 	position: relative;
 	display: block;
   margin: 20px auto;
