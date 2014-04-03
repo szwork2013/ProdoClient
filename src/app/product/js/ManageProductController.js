@@ -138,6 +138,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
         if (document.getElementById("ErrMsging") !== null) document.getElementById("ErrMsging").innerHTML = "Product not available , please select product....";
         // growl.addErrorMessage(" Product not available....");
       } else {
+        $('#showHideAllchk').prop('checked', false);
         $("#prodo-ProductDetails").css("display", "block");
         $("productExtraInfo").css("display", "block");
         $("#ErrMsging").css("display", "none");
@@ -385,69 +386,48 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   //clear text fields of product
 
 
-
-  // // add multiple select / deselect functionality
-  //   $("#showHideAllchk").click(function () {
-  //         $('.imgToggles').prop('checked', this.checked);
-  //   });
- 
-  //   // if all checkbox are selected, check the selectall checkbox
-  //   // and viceversa
-    // $(".imgToggles").click(function(){
- 
-    //     if($(".imgToggles").length == $(".imgToggles:checked").length) {
-    //         $("#showHideAllchk").prop("checked", true);
-    //     } else {
-    //         // $("#showHideAllchk").removeAttr("checked");
-    //         $('#showHideAllchk').prop('checked', false);
-    //     }
- 
-    // });
-
-
-
-
-
   //toggle to select all product iamges
   $scope.selectAllImages = function (imgs) {
-    if ($('.imgToggles').is(':checked')) {
+    if (!$('#showHideAllchk').is(':checked')) {
       $('.imgToggles').prop('checked', false);
       // $scope.chckedIndexs=[];
       $scope.chckedIndexs.length=0;
       // $scope.checked=0;
-      $log.debug("1"+$scope.chckedIndexs);
+      // $log.debug("1"+$scope.chckedIndexs);
     } else {
       $('.imgToggles').prop('checked', true);
        for (i = 0; i < imgs.length; i++) {
       $scope.chckedIndexs.push(imgs[i]);
     }
-      $log.debug("2"+$scope.chckedIndexs);
+      // $log.debug("2"+$scope.chckedIndexs);
        // $scope.checked=1;
     }
   };
-  // $scope.checkedAllIndex = function (imgs) {
 
-  //   for (i = 0; i < imgs.length; i++) {
-  //     $scope.chckedIndexs.push(imgs[i]);
-  //   }
-  // };
 
   //get selected image for delete
-
   $scope.checkedIndex = function (img) {
     if ($scope.chckedIndexs.indexOf(img) === -1) {
       $scope.chckedIndexs.push(img);
-      $log.debug("3"+$scope.chckedIndexs);
+      // $log.debug("3"+$scope.chckedIndexs);
     } else {
       $scope.chckedIndexs.splice($scope.chckedIndexs.indexOf(img), 1);
       }
-    $log.debug("4"+$scope.chckedIndexs);
+    // $log.debug("4"+$scope.chckedIndexs);
+ 
+        if($(".imgToggles").length == $(".imgToggles:checked").length) {
+            $("#showHideAllchk").prop("checked", "checked");
+        } else {
+            // $("#showHideAllchk").removeAttr("checked");
+            $('#showHideAllchk').prop('checked', false);
+        }
+ 
   };
   //get selected image for delete
     //Delete product image validation
   $scope.checkImageSelectedToDelete = function () {
     $log.debug("Delete images.......");
-     $log.debug("5"+$scope.chckedIndexs);
+     // $log.debug("5"+$scope.chckedIndexs);
     if ($scope.chckedIndexs.length > 0) { //if image selected to delete,show modal
       $('#imgDelModal').modal('toggle');
       $('#imgDelModal').modal('show');
