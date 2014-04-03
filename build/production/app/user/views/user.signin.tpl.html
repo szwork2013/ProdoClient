@@ -9,16 +9,16 @@
 
       <hr class="prodo-wizard-hr" size=3 noshade>
 
-      <input id="prodo-input-signin" name="username" class="form-control" type="text" placeholder="Email or username" required ng-model="user.email" /> 
+      <input name="username" class="prodo-input-signin form-control" type="text" placeholder="Email or username" required ng-model="user.email" /> 
     
     
-      <input id="prodo-input-signin" type="password" class="form-control" id="password1" name="password" placeholder="Password" ng-model="user.password" required>
+      <input type="password" class="prodo-input-signin form-control" id="password1" name="password" placeholder="Password" ng-model="user.password" required>
 
       <label class="prodo-signin-remember-label label-control">
         <input id="prodo-input-remember-signin" type="checkbox" ng-model="user.remember">&nbsp;Remember me
       </label>
 
-      <a href="" id="prodo-signin-forgot-link" ui-sref="prodo.user-content.forgotpassword">Forgot password?</a>
+      <a href="" id="prodo-signin-forgot-link" ui-sref="prodo.landing.forgotpassword">Forgot password?</a>
 
     </div> 
     <div ng-show="(signinForm.username.$dirty && signinForm.username.$invalid) || (signinForm.password.$dirty && signinForm.password.$invalid) || (signinForm.$invalid && signinForm.submitted)" class="prodo-alert-error-container alert alert-danger">
