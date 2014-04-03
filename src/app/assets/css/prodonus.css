@@ -754,7 +754,7 @@ text-align: left;
 
 .error-message-registration{
 	font-weight: normal;
-	padding-top: 10px;
+	/*padding-top: 10px;*/
 	text-align: left;
 	color: rgb(211, 41, 41);
 }
@@ -2014,7 +2014,7 @@ text-align: right;
 .modalHeading
 {
 	font-family: serif;
-	font-size: 30px;
+	font-size: 26px;
 	color: #757577;
 	font-weight: bold;
 }
@@ -2203,7 +2203,15 @@ border: 1px solid #b3b3b3; padding: 30px;
 .prodo-wall-org-heading-text{
 	color: #86846E; margin-bottom: 2px;
 }
+.productNameTrim {
+    background-color: transparent;
+  	display:inline-block;
+    width: 50px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 
+}
 .prodo-wall-org-hr{
 	background-color:#BDBDBD; height:1px; margin-top: 2px; margin-bottom: 10px;
 	width: 100%;
@@ -2310,6 +2318,17 @@ margin:2px auto; padding: 5px; display:block; text-align:left; font-weight:bold;
 vertical-align: bottom;
 /*border-bottom: 2px solid #ddd;*/
 }
+
+/*.modal-open {
+ overflow: auto; 
+
+}*/
+
+.modal-open, .modal-open .navbar-fixed-top {
+  margin-right: 0 !important;
+  overflow: auto;
+}
+
 
 /*.fa-check:before {
 content: "\f000";

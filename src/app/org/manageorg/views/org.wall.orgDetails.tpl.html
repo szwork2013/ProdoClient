@@ -267,7 +267,7 @@
                         <tr ng-repeat="grpmember in member.grpmembers">
                           <td style="width:40%">{{member.grpname}}</td>
                           <td style="width:40%">{{grpmember.email}}</td>
-                          <td style="width:20%"><button class="btn btn-danger btn-sm pull-right" ng-click="deleteGroupMember(member, grpmember.userid,$parent.$index)"><i class="fa fa-trash-o fa-lg"></i>&nbsp;&nbsp;Delete</button></td>
+                          <td style="width:20%"><button class="btn btn-danger btn-sm pull-right" ng-click="deleteGroupMember(member, grpmember.userid,$parent.$index,grpmember.email)"><i class="fa fa-trash-o fa-lg"></i>&nbsp;&nbsp;Delete</button></td>
                         </tr>
                       </tbody>
                     </table>
@@ -394,7 +394,15 @@
 
 
 <div style="height:40px;" ng-if="orgImages.length>0"> <button ng-click="deleteOrgArtworImages()" class="btn btn-danger btn-sm pull-right"><i  class="fa fa-trash-o fa-lg" ></i>&nbsp;&nbsp;Delete</button></div>
-        <div class="error-message-registration " ng-if="orgImages.length===0" style="text-align:left; font-size:20px; margin: 20px auto;" class="text-success">No Images Exists</div>
+
+
+
+
+        <div class="error-message-org " ng-if="orgImages.length===0" style="text-align:left; font-size:20px;  auto;" >  <p style="text-align:left; font-size:20px; margin: 20px auto;" class="text-success"><strong><em>No Images Exists</em></strong></p></div>
+
+
+
+
               <div class="imagesOrg" ng-repeat="img in orgImages" style="margin: 3px;border: rgb(165, 79, 79) solid;min-width: 110px;
                   padding: 4px;border-width: thin;">
                 <input type="checkbox" ng-click="test(img)" id="{{$index}}">
