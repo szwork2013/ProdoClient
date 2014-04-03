@@ -791,11 +791,16 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   });
   //on product logo hover, show follow product button
  $scope.changeProduct=function(product1){
+  $scope.productForm.submitted=false;
+    $scope.productFeaturesForm.submitted=false;
+    $scope.feature = "";
     $scope.currentProdle = product1.prodle;
     $scope.currentOrgid = product1.orgid;
     $scope.getProduct($scope.currentProdle, $scope.currentOrgid);
     $scope.editMode.editorEnabled = false;
     $scope.editMode.editorEnabledF = false;
+    // $scope.disableEditor();
+    $('#productExtraInfo').css('display','block'); 
   };
 
   $scope.getSelectedProduct = function (product1) {
