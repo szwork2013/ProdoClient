@@ -246,9 +246,13 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
     $(".show-more").click(function () {        
         $(".text").toggleClass("show-more-height");
         if(!$(".text").hasClass("show-more-height")){
-            $(this).text("Show Less");
-        }else{
-            $(this).text("Show More");
+            $(this).text(" Show Less");
+               $(this).removeClass('fa-arrow-down').addClass('fa-arrow-up');
+
+             // $(this).className="fa-arrow-up";
+        }else{;
+            $(this).text(" Show More");
+            $(this).removeClass('fa-arrow-up').addClass('fa-arrow-down');
         }
     });
     $scope.cslcShowMoreLength = function () {

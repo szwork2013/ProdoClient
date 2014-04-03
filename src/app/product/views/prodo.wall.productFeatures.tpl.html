@@ -288,7 +288,7 @@
             <td>
               <dt>Description </dt>
             </td>
-            <td ng-if="isAdminCheck == true">
+            <td ng-if="isAdminCheck == true" >
               <dt>Option</dt>
             </td>
           </tr>
@@ -297,10 +297,10 @@
             <td  ng-show="edit" ><input ng-model="feature.featurename"  class="form-control prodo-productFeatureName prodo-validation prodo-featurename"  type="text"   ng-maxlength="50"  required name="name" /> </td>
             <td ng-hide="edit" > <span class="prodo-featureDescription" ng-bind="feature.featuredescription"> </span></td>
             <td  ng-show="edit" ><input ng-model="feature.featuredescription" class="form-control prodo-productFeaturedescription prodo-validation prodo-featureDescription"  ng-maxlength="100" type="text"   required name="description" /> </td>
-            <td ng-hide="edit" class="prodo-EditIcons" > 
-              <a href="" ng-click="edit = ! edit; editStatus='update';  "> <i class="fa fa-pencil " /> </a>
+            <td ng-hide="edit" class="prodo-EditIcons"> 
+              <a  ng-hide="$first" href="" ng-click="edit = ! edit; editStatus='update';  "> <i class="fa fa-pencil " /> </a>
               &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
-              <a href="" ng-click="getSelectedFeature(feature)" data-toggle="modal" data-target="#ProductFeatureDelModal">  <i class="glyphicon glyphicon-trash " /></a>
+              <a  ng-hide="$first" href="" ng-click="getSelectedFeature(feature)" data-toggle="modal" data-target="#ProductFeatureDelModal">  <i class="glyphicon glyphicon-trash " /></a>
               <!-- Modal -->
               <div class="modal fade" id="ProductFeatureDelModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">

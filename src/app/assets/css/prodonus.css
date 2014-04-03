@@ -1064,6 +1064,25 @@ text {
   border: 2px;
 }
 
+/*.tooltip > .tooltip-arrow {
+  
+  border-bottom-color: #ffffff;
+
+}*/
+
+.tooltip.right .tooltip-arrow {
+  border-right-color: #FFE85A;
+  border-width: 5px 5px 5px 0;
+}
+
+.tooltip > .tooltip-inner {
+  color: #000;
+  font-size: 12px;
+ 	min-width: 50px;
+  background: #FFE85A;
+  border: solid 1px #FFE85A;
+}
+
 /* Prodo Main View: Comments*/
  #prodo-comment-container{
   background-color: #ffffff;
@@ -1524,8 +1543,9 @@ margin-bottom: 10px;
 .prodo-productCommentInfoDiv{font-size: 18px;text-align: left;width: 50px;padding-left: 15px;}
 .prodo-productCommentsInfoLable{font-size: 10px;text-align: left;}
 .prodo-delImgs{margin-bottom: 10px;}
-.prodo-checkbox{height: 20px;width: 20px;}
+.prodo-checkbox{height: 17px;width: 17px;}
 .prodo-product-Invalid{color:red;}
+#prodo-font{font-size: 13px;}
 #img2{text-align: center;}
 .prodo-categoryTags{
 	display:inline-block;
@@ -1535,6 +1555,8 @@ margin-bottom: 10px;
 	margin-bottom:2px;
 	border-radius:5px;
 	padding:2px;
+	padding-left: 5px;
+	padding-right: 5px;
 	margin-top:2px;
 	font-size: 12px;
 	margin-left: 5px;
@@ -1554,7 +1576,7 @@ margin-bottom: 10px;
  max-width: 100%;
 }
 #profile-description .text {
-word-break: break-word; max-width: 92%; margin-bottom: 5px; color: #777; padding: 0 15px; position:relative; font-family: Arial; font-size: 14px; display: block;
+word-break: break-word; max-width: 91%; margin-bottom: 5px; color: #777; padding: 0 15px; position:relative; font-family: Arial; font-size: 14px; display: block;
 }
 
 #profile-description .show-more:hover { 

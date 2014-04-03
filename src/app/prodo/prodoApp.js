@@ -58,6 +58,9 @@ angular.module('prodo.ProdonusApp', [
     $rootScope.usersession = UserSessionService;
     $rootScope.organizationData = OrgRegistrationService;
     $rootScope.$log = $log;
+//     $rootScope.$on('$stateChangeSuccess',function(){
+//     $("html, body").animate({ scrollTop: 0 }, 200);
+// })
   }
 ]).controller('ProdoMainController', [
   '$scope',
