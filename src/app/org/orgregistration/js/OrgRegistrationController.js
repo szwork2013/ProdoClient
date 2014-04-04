@@ -545,15 +545,21 @@ $scope.invalidContact3 = '';
 
     // function to handle server side responses on org resgistration submit
 	$scope.handleOrgResponse = function(data){
-      console.log(data);
       if (data.success) {
         $log.debug(data.success);      
         $rootScope.usersession.checkUser();
       } 
       else {
-        $log.debug(data.error);
-        $scope.showAlert('alert-danger', data.error.message);
+        if(data.error !== undefined && data.error.code === 'AL001' )
+       {    
+           $log.debug(data.error.code + "" + data.error.message);
+           $rootScope.showModal();
+       } else {
+            $log.debug(data.error);
+            $scope.showAlert('alert-danger', data.error.message);
+       }
       }
+      $scope.hideSpinner();
     };
 
     var cleanupEventSessionDone = $rootScope.$on('session', function (event, data) {
@@ -631,22 +637,16 @@ $scope.org.orgaddresstype="Company Address";
     };
 
     // function to register Organisation on sumbit
-    $scope.registerOrg = function() {    $('#reg-finish').css('color','#2EB373');
+    $scope.registerOrg = function() {    
+      $('#reg-finish').css('color','#2EB373');
+      $scope.showSpinner();
       OrgRegistrationService.RegisterOrg($scope.jsonOrgData()); // calling POST method REST APIs to save org data through OrgResgistrationService 
     }
 
     var cleanupEventOrgRegistrationDone = $scope.$on("orgRegistrationDone", function(event, message){
-       if(message.error !== undefined && message.error.code === 'AL001' )
-       {
-           UserSessionService.resetSession();
-           $state.go('prodo.landing.signin');
-       }
-       else
-       {
-          console.log(message);
-          $scope.handleOrgResponse(message);}
-
+        $scope.handleOrgResponse(message);
     });
+
     var cleanupEventOrgRegistrationNotDone = $scope.$on("orgRegistrationNotDone", function(event, message){
       $scope.showAlert('alert-danger', "It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message);  
     });  

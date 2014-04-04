@@ -145,6 +145,33 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
       ]
     };
   }
+]).directive('prodoSigninModal', [
+  '$timeout', 'UserSessionService',
+  function ($timeout, UserSessionService) {
+    return {
+      restrict: 'EA',
+      replace: true,
+      templateUrl: 'user/views/user.continue.login.modal.tpl.html', 
+      controller: [
+        '$scope',
+        '$rootScope',
+        function ($scope, $rootScope) {
+          $rootScope.showModal = function () {
+            $('#myModal').modal({ 
+              keyboard: false,
+              backdrop: 'static',
+              show: true
+            });
+          };
+
+          $scope.sessionout = function() {
+            UserSessionService.logoutUser();
+            $('#myModal').modal('hide');
+          }
+        }
+      ]
+    };
+  }
 ]).directive('prodovideo', function () {
   return {
     restrict: 'EA',
@@ -162,39 +189,30 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
       restrict: 'A',
       link: function (scope, ele, attrs, c) {
         $('#layerslider').layerSlider({
-          skin: 'fullwidth',
+          skin                    : 'fullwidth',
           autoStart               : true,
-    responsive              : true,
-    responsiveUnder         : 0,
-    sublayerContainer       : 0,
-    keybNav                 : true,
-    touchNav                : true,
-    imgPreload              : true,
-    navPrevNext             : true,
-    navStartStop            : true,
-    navButtons              : true,
-    thumbnailNavigation     : 'hover',
-    tnWidth                 : 100,
-    tnHeight                : 60,
-    tnContainerWidth        : '60%',
-    tnActiveOpacity         : 35,
-    tnInactiveOpacity       : 100,
-    hoverPrevNext           : true,
-    hoverBottomNav          : true,
-    pauseOnHover            : true,
-    globalBGColor           : 'transparent',
-    globalBGImage           : false,
-    animateFirstLayer       : true,
-    yourLogo                : false,
-    yourLogoStyle           : 'position: absolute; z-index: 1001; left: 10px; top: 10px;',
-    yourLogoLink            : false,
-    yourLogoTarget          : '_blank',
-    loops                   : 0,
-    forceLoopNum            : true,
-    autoPlayVideos          : true,
-    autoPauseSlideshow      : 'auto',
-    showBarTimer        : false,
-    showCircleTimer     : false
+          responsive              : true,
+          responsiveUnder         : 0,
+          sublayerContainer       : 0,
+          keybNav                 : true,
+          touchNav                : true,
+          imgPreload              : true,
+          navPrevNext             : true,
+          navStartStop            : true,
+          navButtons              : true,
+          thumbnailNavigation     : 'hover',
+          tnWidth                 : 100,
+          tnHeight                : 60,
+          tnContainerWidth        : '60%',
+          tnActiveOpacity         : 35,
+          tnInactiveOpacity       : 100,
+          hoverPrevNext           : true,
+          hoverBottomNav          : true,
+          pauseOnHover            : true,
+          autoPlayVideos          : true,
+          autoPauseSlideshow      : 'auto',
+          showBarTimer            : false,
+          showCircleTimer         : false
         });
       }
     };

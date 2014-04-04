@@ -191,7 +191,6 @@
 </style>
 
 <div id="prodo-container">
-
 	<div id="wall-navbar" class="">
 
 		<div id="prodo-view-navbar" class="">
@@ -304,7 +303,7 @@
 	</div>
 
 	<br>
-
+	<div prodo-signin-modal></div>
 	<div class="container">
 		<div id="prodo-row" class="row">
 
@@ -398,7 +397,7 @@
 <!--End of advanced search  --> 
        </div>
     </div>
-
+    
         <div id="prodo-sidebar-list" class="list">
           <div class="list-group-item hyperlinkPointer" ng-if="regularExpressionForProdonus.test(product.name) !== true" ng-repeat="product in trendingProducts | limitTo:6" ng-click="orgProdleEmitter(product.prodle,product.orgid)"  > 
              <table style=" width: 100%; color: black;text-align: center">
@@ -425,7 +424,7 @@
 
 			</div> 
 		</div>
-
+		
 		<div id="prodo-col-md-7" class="prodo-wall-col-container col-md-7">
 			<div ui-view="prodo-content"></div>
 

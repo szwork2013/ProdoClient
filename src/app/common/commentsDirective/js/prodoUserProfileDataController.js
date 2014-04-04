@@ -41,6 +41,7 @@ angular.module('prodo.CommonApp').controller('prodoUserProfileDataController', [
         $('.modal-backdrop').remove();
         UserSessionService.resetSession();
         $state.go('prodo.landing.signin');
+        // $rootScope.showModal();
       }
       else if(data.error !== undefined && data.error.code === "AU003")
       {

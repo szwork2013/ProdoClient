@@ -159,9 +159,9 @@ angular.module('prodo.UserApp')
             $state.transitionTo('prodo.home.wall-org');
           } 
       } else {
-        if (data.error.code== 'AV001') {     // enter valid data
+        if (data.error.code== 'AL001') {     // enter valid data
             $log.debug(data.error.code + " " + data.error.message);
-            $scope.showAlert('alert-danger', data.error.message);
+            $rootScope.showModal();
         } else {
             $log.debug(data.error.message);
             $scope.showAlert('alert-danger', data.error.message);

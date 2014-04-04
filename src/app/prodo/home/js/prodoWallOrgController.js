@@ -66,8 +66,7 @@ angular.module('prodo.ProdoWallApp')
         growl.addSuccessMessage('You have successfully followed' + ' ' + product.name);    
       } else {
           if(data.error !== undefined && data.error.code === 'AL001' ) {
-            UserSessionService.resetSession();
-            $state.transitionTo('prodo.landing.signin');
+            $rootScope.showModal();
           } else {
             $log.debug(data.error.message);
             growl.addErrorMessage(data.error.message); 

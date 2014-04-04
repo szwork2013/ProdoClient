@@ -126,7 +126,6 @@ angular.module('prodo.ProdonusApp', [
     };
     var cleanupEventLogoutDone = $scope.$on('logoutDone', function (event, message) {
       $log.debug($rootScope.usersession.isLoggedIn);
-      // $scope.showAlert('alert-success', message); 
       $state.transitionTo('prodo.landing.signup');
     });
     var cleanupEventLogoutNotDone = $scope.$on('logoutNotDone', function (event, message) {

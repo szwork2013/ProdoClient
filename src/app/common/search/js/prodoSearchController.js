@@ -145,9 +145,7 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
     {
       $('#advancedSearchModal').modal('hide');  //code for cloasing modal
       $('.modal-backdrop').remove(); 
-      UserSessionService.resetSession();
-      $state.go('prodo.landing.signin');
-      // $scope.showAlert('alert-error', 'Session expired! Please login to continue');  
+      $rootScope.showModal();
     }
     else
     {
@@ -218,9 +216,14 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
       indexOfUnfollowedProduct = UserSessionService.productfollowlist.indexOf(product);
    };
 
-  var cleanEventUnfollowProductDone = $scope.$on("unfollowProductDone", function(event){
-    UserSessionService.productfollowlist.splice(indexOfUnfollowedProduct, 1);
-    $rootScope.$broadcast('unfollowProductFromSidelist', 'success');
+  var cleanEventUnfollowProductDone = $scope.$on("unfollowProductDone", function(event, message){
+    if(message.error!==undefined && message.error.code==='AL001')
+    {
+      $rootScope.showModal();
+    } else {
+      UserSessionService.productfollowlist.splice(indexOfUnfollowedProduct, 1);
+      $rootScope.$broadcast('unfollowProductFromSidelist', 'success');
+    }
   });
 
   // $rootScope.$watch('orgid', function () 
