@@ -182,7 +182,7 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
           }
         } 
    };
-    $scope.getProductHandleError=function(){
+    $scope.getProductHandleError=function(error){
     $log.debug(error);
       $("#prodo-ProductDetails").css("display", "none");
       $("#ErrMsging").css("display", "inline");
@@ -203,7 +203,7 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
             }
     // },
      if(productData.error) { //if error geting product
-      $scope.getProductHandleError();
+      $scope.getProductHandleError(productData.error);
       
       // growl.addErrorMessage( "Server Error:" + error.status);
     };
