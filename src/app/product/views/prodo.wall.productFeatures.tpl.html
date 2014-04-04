@@ -138,9 +138,9 @@
       <!-- /.modal -->
       <!-- display mode -->
       <table class="  prodo-productTableFont  table child table-bordered table-hover "  ng-hide="editMode.editorEnabled" id="prodo-ProductFeatureTable" >
-        <tr id="prodo-productbnd" class="prodo-productTabledis"  ng-show="product.banneddate">
+    <!--     <tr id="prodo-productbnd" class="prodo-productTabledis"  ng-show="product.banneddate">
           <td>Product Banned on : &nbsp;<span ng-bind="formatDate(product.banneddate)"></span></td>
-        </tr>
+        </tr> -->
         <tr  id="prodo-productDiscontinued" class="prodo-productTabledis" >
           <td class="prodo-productTabledis" ng-show="product.sale_discontinuation_date" >Product Discontinued On &nbsp; <span ng-bind="formatDate(product.sale_discontinuation_date)"></td>
           <td class="prodo-productTabledis" ng-show="product.support_discontinuation_date">Support Discontinued On  &nbsp;<span ng-bind="formatDate(product.support_discontinuation_date)" > </span></td>
@@ -170,12 +170,12 @@
 
        <div class="prodo-product-general productDisplay " >
         <table class="table child table-hover table-bordered prodo-productTableFont" id="prodo-ProductFeatureTable">
-          <tr ng-show="editStatus=='update'" class="prodo-productDiscontinuedUpdate prodo-productTabledis prodo-display-discont " id="prodo-productDiscontinuedUpdate"  >
-            <td >Product Banned on  <input  id="prodo-product-features_textfield" type="date" class="form-control prodo-display-right" ng-model="product.banneddate" name="banneddate"   /></td>
-          </tr>
+          <!-- <tr ng-show="editStatus=='update'" class="prodo-productDiscontinuedUpdate prodo-productTabledis prodo-display-discont " id="prodo-productDiscontinuedUpdate"  > -->
+          <!--   <td >Product Banned on  <input  id="prodo-product-features_textfield" type="date" class="form-control prodo-display-right" ng-model="product.banneddate" name="banneddate"   /></td> -->
+          <!-- </tr> -->
           <tr   ng-show="editStatus=='update'"  class="prodo-productDiscontinuedUpdate prodo-productTabledis prodo-display-discont "  >
-            <td class="prodo-productTabledis" >Product Discontinued   <input  id="prodo-product-features_textfield" type="date" class="form-control prodo-display-right" ng-model="product.prodDis" name="prodDis"   /></td>
-            <td class="prodo-productTabledis" >Support Discontinued   <input id="prodo-product-features_textfield" type="date" class="form-control prodo-display-right" ng-model="product.supDis" name="supDis"  /></td>
+            <td class="prodo-productTabledis" >Product Discontinued   <input  id="prodo-product-features_textfield" type="date" class="form-control prodo-display-right" ng-model="product.sale_discontinuation_date" name="prodDis"   /></td>
+            <td class="prodo-productTabledis" >Support Discontinued   <input id="prodo-product-features_textfield" type="date" class="form-control prodo-display-right" ng-model="product.support_discontinuation_date" name="supDis"  /></td>
           </tr>
            <tr>
             <td >   Product Display Name <input ng-model="product.display_name"
@@ -187,7 +187,7 @@
               ng-maxlength="50"  id="prodo-product-features_textfield" class="form-control prodo-display-right prodo-validation"  type="text"    name="name" required />  </td>
             <td  >Model No  <input id="prodo-product-features_textfield" type="text"  ng-maxlength="50"class="form-control prodo-display-right prodo-validation" ng-model="product.model_no"   name="model_no"  /></td>
           </tr>
-             <tr  tooltip="Enter categories and press enter" tooltip-placement="right">
+             <tr  tooltip="To add categories press enter" tooltip-placement="right">
             <td  colspan="2">Category   
 
                         <!-- <div  class="" >

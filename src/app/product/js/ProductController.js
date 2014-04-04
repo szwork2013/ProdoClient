@@ -186,7 +186,7 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
     $log.debug(error);
       $("#prodo-ProductDetails").css("display", "none");
       $("#ErrMsging").css("display", "inline");
-      document.getElementById("ErrMsging").innerHTML = "Product not available " + error.status;
+      document.getElementById("ErrMsging").innerHTML = "Product not available " + error.message;
     }
   $scope.getProduct = function (l_prodle, l_orgid) {
     $log.debug("Prodle n orgid "+ l_prodle + " "+l_orgid);

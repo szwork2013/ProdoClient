@@ -133,6 +133,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
       prodle: l_prodle
     }, function (successData) {
       if (successData.success == undefined) { //if not product
+        //error code check here
         $("#prodo-ProductDetails").css("display", "none");
         $("#ErrMsging").css("display", "block");
         if (document.getElementById("ErrMsging") !== null) document.getElementById("ErrMsging").innerHTML = "Product not available , please select product....";
@@ -306,8 +307,8 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
           model_no: $scope.product.model_no,
           name: $scope.product.name,
           description: $scope.product.description,
-          support_discontinuation_date: $scope.product.supDis,
-          sale_discontinuation_date: $scope.product.prodDis,
+          support_discontinuation_date: $scope.product.support_discontinuation_date,
+          sale_discontinuation_date: $scope.product.sale_discontinuation_date,
           banneddate: $scope.product.banneddate,
           display_name: $scope.product.display_name,
           category:$scope.product.category
