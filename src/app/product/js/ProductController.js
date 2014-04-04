@@ -182,11 +182,11 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
           }
         } 
    };
-    $scope.getProductHandleError=function(){
+    $scope.getProductHandleError=function(error){
     $log.debug(error);
       $("#prodo-ProductDetails").css("display", "none");
       $("#ErrMsging").css("display", "inline");
-      document.getElementById("ErrMsging").innerHTML = "Server Error:" + error.status;
+      document.getElementById("ErrMsging").innerHTML = "Product not available " + error.message;
     }
   $scope.getProduct = function (l_prodle, l_orgid) {
     $log.debug("Prodle n orgid "+ l_prodle + " "+l_orgid);
@@ -203,7 +203,7 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
             }
     // },
      if(productData.error) { //if error geting product
-      $scope.getProductHandleError();
+      $scope.getProductHandleError(productData.error);
       
       // growl.addErrorMessage( "Server Error:" + error.status);
     };

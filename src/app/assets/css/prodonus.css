@@ -1484,6 +1484,9 @@ margin-bottom: 10px;
  /* Prodo-Comment-CSS*/
 
  /* Prodo-ProductFeature-CSS*/ 
+ .prodo-prodowalltable{width: 87%;margin-left: 15px;font-size: 13px;}
+ .prodo-font13{font-size: 13px;background-color: #FFBABA;}
+ .prodo-categorypaddingLeft{padding-left: 15px;}
 #prodo-ProductFeatureTable tr:nth-child(even)    { background-color:white;  }
 #prodo-ProductFeatureTable{border: 3px;word-wrap: break-word;  }
 #prodo-product-features_textfield{width: 160px; height: 30PX; font-size: 12PX; display:inline-block;}

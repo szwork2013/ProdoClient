@@ -93,7 +93,7 @@
   </div>
    
   <div  ng-show="(productForm.model_no.$dirty  && editMode.editorEnabled==true)||(productForm.submitted==true && productForm.model_no.$invalid==true)" class="prodo-product-Invalid">
-   <span ng-show="productForm.model_no.$error.required">Please enter model number</span>
+   <!-- <span ng-show="productForm.model_no.$error.required">Please enter model number</span> -->
   <span ng-show="productForm.model_no.$error.maxlength"> Model number can be of 15 characters maximum</span>
   </div>
 
@@ -138,9 +138,9 @@
       <!-- /.modal -->
       <!-- display mode -->
       <table class="  prodo-productTableFont  table child table-bordered table-hover "  ng-hide="editMode.editorEnabled" id="prodo-ProductFeatureTable" >
-        <tr id="prodo-productbnd" class="prodo-productTabledis"  ng-show="product.banneddate">
+    <!--     <tr id="prodo-productbnd" class="prodo-productTabledis"  ng-show="product.banneddate">
           <td>Product Banned on : &nbsp;<span ng-bind="formatDate(product.banneddate)"></span></td>
-        </tr>
+        </tr> -->
         <tr  id="prodo-productDiscontinued" class="prodo-productTabledis" >
           <td class="prodo-productTabledis" ng-show="product.sale_discontinuation_date" >Product Discontinued On &nbsp; <span ng-bind="formatDate(product.sale_discontinuation_date)"></td>
           <td class="prodo-productTabledis" ng-show="product.support_discontinuation_date">Support Discontinued On  &nbsp;<span ng-bind="formatDate(product.support_discontinuation_date)" > </span></td>
@@ -170,12 +170,12 @@
 
        <div class="prodo-product-general productDisplay " >
         <table class="table child table-hover table-bordered prodo-productTableFont" id="prodo-ProductFeatureTable">
-          <tr ng-show="editStatus=='update'" class="prodo-productDiscontinuedUpdate prodo-productTabledis prodo-display-discont " id="prodo-productDiscontinuedUpdate"  >
-            <td >Product Banned on  <input  id="prodo-product-features_textfield" type="date" class="form-control prodo-display-right" ng-model="product.banneddate" name="banneddate"   /></td>
-          </tr>
+          <!-- <tr ng-show="editStatus=='update'" class="prodo-productDiscontinuedUpdate prodo-productTabledis prodo-display-discont " id="prodo-productDiscontinuedUpdate"  > -->
+          <!--   <td >Product Banned on  <input  id="prodo-product-features_textfield" type="date" class="form-control prodo-display-right" ng-model="product.banneddate" name="banneddate"   /></td> -->
+          <!-- </tr> -->
           <tr   ng-show="editStatus=='update'"  class="prodo-productDiscontinuedUpdate prodo-productTabledis prodo-display-discont "  >
-            <td class="prodo-productTabledis" >Product Discontinued   <input  id="prodo-product-features_textfield" type="date" class="form-control prodo-display-right" ng-model="product.prodDis" name="prodDis"   /></td>
-            <td class="prodo-productTabledis" >Support Discontinued   <input id="prodo-product-features_textfield" type="date" class="form-control prodo-display-right" ng-model="product.supDis" name="supDis"  /></td>
+            <td class="prodo-productTabledis" >Product Discontinued   <input  id="prodo-product-features_textfield" type="date" class="form-control prodo-display-right" ng-model="product.sale_discontinuation_date" name="prodDis"   /></td>
+            <td class="prodo-productTabledis" >Support Discontinued   <input id="prodo-product-features_textfield" type="date" class="form-control prodo-display-right" ng-model="product.support_discontinuation_date" name="supDis"  /></td>
           </tr>
            <tr>
             <td >   Product Display Name <input ng-model="product.display_name"
@@ -185,9 +185,9 @@
           <tr>
             <td >   Product Name <input ng-model="product.name" 
               ng-maxlength="50"  id="prodo-product-features_textfield" class="form-control prodo-display-right prodo-validation"  type="text"    name="name" required />  </td>
-            <td  >Model No  <input id="prodo-product-features_textfield" type="text"  ng-maxlength="50"class="form-control prodo-display-right prodo-validation" ng-model="product.model_no"   name="model_no" required /></td>
+            <td  >Model No  <input id="prodo-product-features_textfield" type="text"  ng-maxlength="50"class="form-control prodo-display-right prodo-validation" ng-model="product.model_no"   name="model_no"  /></td>
           </tr>
-             <tr  tooltip="Enter categories and press enter" tooltip-placement="right">
+             <tr  tooltip="To add categories press enter" tooltip-placement="right">
             <td  colspan="2">Category   
 
                         <!-- <div  class="" >
@@ -288,7 +288,7 @@
             <td>
               <dt>Description </dt>
             </td>
-            <td ng-if="isAdminCheck == true" >
+            <td ng-if="isAdminCheck == true" ng-hide="features.length<2">
               <dt>Option</dt>
             </td>
           </tr>
@@ -297,7 +297,7 @@
             <td  ng-show="edit" ><input ng-model="feature.featurename"  class="form-control prodo-productFeatureName prodo-validation prodo-featurename"  type="text"   ng-maxlength="50"  required name="name" /> </td>
             <td ng-hide="edit" > <span class="prodo-featureDescription" ng-bind="feature.featuredescription"> </span></td>
             <td  ng-show="edit" ><input ng-model="feature.featuredescription" class="form-control prodo-productFeaturedescription prodo-validation prodo-featureDescription"  ng-maxlength="100" type="text"   required name="description" /> </td>
-            <td ng-hide="edit" class="prodo-EditIcons"> 
+            <td ng-hide="edit || features.length<2" class="prodo-EditIcons" ng-hide=""> 
               <a  ng-hide="$first" href="" ng-click="edit = ! edit; editStatus='update';  "> <i class="fa fa-pencil " /> </a>
               &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
               <a  ng-hide="$first" href="" ng-click="getSelectedFeature(feature)" data-toggle="modal" data-target="#ProductFeatureDelModal">  <i class="glyphicon glyphicon-trash " /></a>
@@ -352,16 +352,16 @@
         </div>
       </div>
 
-        <h4 class="prodo-headings" >IMAGES</h4>
+        <h4 class="prodo-headings"  ng-hide="product.product_images.length==0">IMAGES</h4>
 
-        <form   name="ProductImg" >
+        <form   name="ProductImg"  ng-hide="product.product_images.length==0">
 
           <div class="checkboxFilter"  >
             <div class= "pull-right" ng-show="product.product_images">
-              <span class= "prodo-lblSelectall" id="showHideAllchkLabel" ng-style="checkAdminProductImagesDelete();" >Select All</span>  
-              <input class= "prodo-checkbox" id="showHideAllchk" ng-style="checkAdminProductImagesDelete();"  type="checkbox" ng-click="selectAllImages(pImages_l); "  name="pinSet ">
+              <span   class= "prodo-lblSelectall" id="showHideAllchkLabel" ng-style="checkAdminProductImagesDelete();" ng-hide="product.product_images.length==0" >Select All</span>  
+              <input ng-hide="product.product_images.length==0" class= "prodo-checkbox" id="showHideAllchk" ng-style="checkAdminProductImagesDelete();"  type="checkbox" ng-click="selectAllImages(pImages_l); "  name="pinSet ">
               &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;            
-              <button type="button" class="prodo-delImgs btn btn-danger btn-sm " id="prodo-deleteProductImage" ng-style="checkAdminProductImagesDelete();"  ng-click="checkImageSelectedToDelete()"  >
+              <button ng-hide="product.product_images.length==0" type="button" class="prodo-delImgs btn btn-danger btn-sm " id="prodo-deleteProductImage" ng-style="checkAdminProductImagesDelete();"  ng-click="checkImageSelectedToDelete()"  >
               Delete &nbsp; <i class="fa fa-trash-o"></i> 
               </button> 
             </div>

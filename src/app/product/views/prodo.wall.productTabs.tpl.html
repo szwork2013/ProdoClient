@@ -55,6 +55,14 @@
     <span class="prodo-Modelno " >
       MODEL NO :&nbsp; <span ng-bind="product.model_no"></span>
       <br>
+      <div  class="prodo-categorypaddingLeft">
+      Category :  
+         <ul class="prodo-CategoryUl" >
+            <li ng-repeat="category in product.category track by $index" class=" prodo-categoryTags" >  <span ng-bind="category" > </span>
+            </li>
+         </ul>
+      </div>
+         <br>
       <!-- <span> -->
      <!--     <i ng-click="ShowDescription();" class="fa fa-caret-right fa-2x prodo-cursor"></i> -->
        &nbsp;&nbsp; Description : 
@@ -69,15 +77,15 @@
     </div>
       <!-- </span> -->
     </span>
-    <table class="table child prodo-paddingLeft"  id="prodo-ProductFeatureTable" >
-      <tr id="prodo-productbnd" class="prodo-productTabledis"  ng-show="product.banneddate">
+    <table id="prodo-ProductFeatureTable" class="prodo-prodowalltable table child prodo-paddingLeft "   >
+     <!--  <tr id="prodo-productbnd" class="prodo-productTabledis"  ng-show="product.banneddate">
         <td>Product Banned on : &nbsp;<span ng-bind="formatDate(product.banneddate)"></span></td>
-      </tr>
-      <tr   id="prodo-productDiscontinued"  >
-        <td class="prodo-productTabledis"  ng-show="product.sale_discontinuation_date"  >Product Discontinued On &nbsp; <span ng-bind="formatDate(product.sale_discontinuation_date)">
+      </tr> -->
+      <tr   id="prodo-productDiscontinued" >
+        <td class="prodo-font13 "  ng-show="product.sale_discontinuation_date"  >Product Discontinued On &nbsp; <span ng-bind="formatDate(product.sale_discontinuation_date)">
           </span>
         </td>
-        <td class="prodo-productTabledis" ng-show="product.support_discontinuation_date" >Support Discontinued On  &nbsp;<span ng-bind="formatDate(product.support_discontinuation_date)" > </span></td>
+        <td class="prodo-font13 " ng-show="product.support_discontinuation_date" >Support Discontinued On  &nbsp;<span ng-bind="formatDate(product.support_discontinuation_date)" > </span></td>
       </tr>
     </table>
   </div>
