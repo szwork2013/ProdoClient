@@ -93,7 +93,7 @@
   </div>
    
   <div  ng-show="(productForm.model_no.$dirty  && editMode.editorEnabled==true)||(productForm.submitted==true && productForm.model_no.$invalid==true)" class="prodo-product-Invalid">
-   <span ng-show="productForm.model_no.$error.required">Please enter model number</span>
+   <!-- <span ng-show="productForm.model_no.$error.required">Please enter model number</span> -->
   <span ng-show="productForm.model_no.$error.maxlength"> Model number can be of 15 characters maximum</span>
   </div>
 
@@ -185,7 +185,7 @@
           <tr>
             <td >   Product Name <input ng-model="product.name" 
               ng-maxlength="50"  id="prodo-product-features_textfield" class="form-control prodo-display-right prodo-validation"  type="text"    name="name" required />  </td>
-            <td  >Model No  <input id="prodo-product-features_textfield" type="text"  ng-maxlength="50"class="form-control prodo-display-right prodo-validation" ng-model="product.model_no"   name="model_no" required /></td>
+            <td  >Model No  <input id="prodo-product-features_textfield" type="text"  ng-maxlength="50"class="form-control prodo-display-right prodo-validation" ng-model="product.model_no"   name="model_no"  /></td>
           </tr>
              <tr  tooltip="Enter categories and press enter" tooltip-placement="right">
             <td  colspan="2">Category   
