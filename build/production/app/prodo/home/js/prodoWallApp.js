@@ -1,7 +1,7 @@
 angular.module('prodo.ProdoWallApp')
-	.controller('ProdoWallController', ['$rootScope', '$scope', '$state', '$log', 'UserSessionService', 'orgdata', 'orgaddr', 'orgproduct', 'productData', '$stateParams', 'growl', function($rootScope, $scope, $state, $log, UserSessionService, orgdata, orgaddr, orgproduct, productData, $stateParams, growl) {
+	.controller('ProdoWallController', ['$rootScope', '$scope', '$state', '$log', 'UserSessionService', 'orgdata', 'orgaddr', 'orgproduct', 'productData', '$stateParams', 'growl', 'checkIfSessionExist', function($rootScope, $scope, $state, $log, UserSessionService, orgdata, orgaddr, orgproduct, productData, $stateParams, growl, checkIfSessionExist) {
 		$log.debug('initialising parent..');
-
+    
      $scope.updateimages = function(data) {
       $rootScope.manageSlider="";   // Added this variable to check conditions in tpl
       $rootScope.manageSlider= data.length;  // Added this variable to check conditions in tpl

@@ -1,14 +1,15 @@
-<div class="modal-dialog">
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-sm" style="width: 35%; padding-top: 100px;">
   <div class="modal-content">
     <div class="modal-header">
-      <h4 class="modal-title">Please login to continue..</h4>
+      <h4 class="modal-title" style="text-align: left; margin-left: 10px; ">Not Logged In</h4>
     </div>
     <div class="modal-body">
-      <input type="text" placeholder="username" class='form-control'><br>
-      <input type="text" placeholder="password" class='form-control'>
+      <p class="text-info text-left"> <strong><em>Your session is expired. Please login again to continue using prodonus. Thanks!!</em></strong></p>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-primary" ng-click="signin()">continue</button>
+      <button type="button" class="prodo-account-btn btn btn-primary" ng-click="sessionout()">continue</button>
     </div>
   </div><!-- /.modal-content -->
 </div><!-- /.modal-dialog -->
+</div>

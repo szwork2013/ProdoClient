@@ -66,7 +66,24 @@ angular.module('prodo.ProdonusApp')
     /* ----User Account Routes---- */
     .state('prodo.account-user', {
       abstract: true,
-      templateUrl: 'user/views/user.account.settings.container.html'
+      templateUrl: 'user/views/user.account.settings.container.html',
+      resolve : {
+        checkIfSessionExist: function(UserService, $rootScope) {
+            return UserService.Is_user_loggedin.checkUserSession().$promise;
+        } 
+      },
+      onEnter: function(UserSessionService, checkIfSessionExist, $state){
+        if (checkIfSessionExist.error) {
+          UserSessionService.resetSession();
+          $state.transitionTo('prodo.landing.signin');
+        } else {
+          if (checkIfSessionExist.success.user.prodousertype == 'business' && checkIfSessionExist.success.user.org == undefined) {
+            $state.transitionTo('prodo.orgregistration.company');
+          } else if (checkIfSessionExist.success.user.isOtpPassword) {
+            $state.transitionTo('prodo.landing.resetpassword');
+          } 
+        }
+      }
     })    
     .state('prodo.account-user.user', {
       templateUrl:  'user/views/user.account.settings.tpl.html',
@@ -166,7 +183,24 @@ angular.module('prodo.ProdonusApp')
      /* ----Organization Account Routes---- */
     .state('prodo.account-org', {
       abstract: true,
-      templateUrl: 'org/manageorg/views/org.account.settings.container.html'
+      templateUrl: 'org/manageorg/views/org.account.settings.container.html',
+      resolve : {
+        checkIfSessionExist: function(UserService, $rootScope) {
+            return UserService.Is_user_loggedin.checkUserSession().$promise;
+        } 
+      },
+      onEnter: function(UserSessionService, checkIfSessionExist, $state){
+        if (checkIfSessionExist.error) {
+          UserSessionService.resetSession();
+          $state.transitionTo('prodo.landing.signin');
+        } else {
+          if (checkIfSessionExist.success.user.prodousertype == 'business' && checkIfSessionExist.success.user.org == undefined) {
+            $state.transitionTo('prodo.orgregistration.company');
+          } else if (checkIfSessionExist.success.user.isOtpPassword) {
+            $state.transitionTo('prodo.landing.resetpassword');
+          } 
+        }
+      }
     })    
     .state('prodo.account-org.org', {
       templateUrl:  'org/manageorg/views/org.account.settings.tpl.html',
@@ -232,9 +266,24 @@ angular.module('prodo.ProdonusApp')
             return orgproduct;
           }
           
-        }
+        },
+        checkIfSessionExist: function(UserService, $rootScope) {
+            return UserService.Is_user_loggedin.checkUserSession().$promise;
+        } 
       },
       controller: 'ProdoWallController',
+      onEnter: function(UserSessionService, checkIfSessionExist, $state){
+        if (checkIfSessionExist.error) {
+          UserSessionService.resetSession();
+          $state.transitionTo('prodo.landing.signin');
+        } else {
+          if (checkIfSessionExist.success.user.prodousertype == 'business' && checkIfSessionExist.success.user.org == undefined) {
+            $state.transitionTo('prodo.orgregistration.company');
+          } else if (checkIfSessionExist.success.user.isOtpPassword) {
+            $state.transitionTo('prodo.landing.resetpassword');
+          } 
+        }
+      },
       templateUrl: 'prodo/home/views/prodo.container.html',
       abstract: true
 
