@@ -55,6 +55,14 @@
     <span class="prodo-Modelno " >
       MODEL NO :&nbsp; <span ng-bind="product.model_no"></span>
       <br>
+      <div  class="prodo-categorypaddingLeft">
+      Category :  
+         <ul class="prodo-CategoryUl" >
+            <li ng-repeat="category in product.category track by $index" class=" prodo-categoryTags" >  <span ng-bind="category" > </span>
+            </li>
+         </ul>
+      </div>
+         <br>
       <!-- <span> -->
      <!--     <i ng-click="ShowDescription();" class="fa fa-caret-right fa-2x prodo-cursor"></i> -->
        &nbsp;&nbsp; Description : 
