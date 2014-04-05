@@ -52,17 +52,20 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   $scope.socket;
 
 
-  
+   $scope.handleAllProductDataError=function(error){
+     $log.debug(JSON.stringify(error));
+      if(error.code=='AL001'){
+        $rootScope.showModal();
+      }else{
+     $("#prodo-ProductDetails").css("display", "none");
+     $("#ErrMsging").css("display", "block");
+     $scope.productlist=[];
+     document.getElementById("ErrMsging").innerHTML = "<br>Product not available ... Add new product<br><br>";
+    }
+  };
 
-  $scope.$watch('$state.$current.locals.globals.allproductdata', function (allproductdata) {
-    if (allproductdata.error) {
-           $log.debug(JSON.stringify( allproductdata.error));
-        $("#prodo-ProductDetails").css("display", "none");
-        $("#ErrMsging").css("display", "block");
-         $scope.productlist=[];
-      document.getElementById("ErrMsging").innerHTML = "<br>Product not available ... Add new product<br><br>";
-    } else {
-      if(allproductCategories.error){
+  $scope.handleAllProductDataSuccess=function(allproductdata){
+    if(allproductCategories.error){
        $scope.listCategory.productCategories=['product','software'];
       }
       else if(allproductCategories.success){
@@ -90,6 +93,14 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
         else
           $scope.getProduct($scope.currentProdle, $scope.currentOrgid);
       }
+  };
+
+  $scope.$watch('$state.$current.locals.globals.allproductdata', function (allproductdata) {
+    if (allproductdata.error) {
+      $scope.handleAllProductDataError(allproductdata.error);
+          
+    } else {
+       $scope.handleAllProductDataSuccess(allproductdata);
     }
   });
 
@@ -126,24 +137,8 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   $scope.getUserDetails();
   //get login details
   // $scope.getproductCategories();
-  $scope.getProduct = function (l_prodle, l_orgid) {
-    // $log.debug("1 prodle " + l_prodle + "orgid " + l_orgid);
-    ProductService.getProduct({
-      orgid: l_orgid,
-      prodle: l_prodle
-    }, function (successData) {
-      if (successData.success == undefined) { //if not product
-        //error code check here
-        if(successData.error){
-        if(successData.error.code=='AL001'){
-          $rootScope.showModal();
-        }
-       }
-        $("#prodo-ProductDetails").css("display", "none");
-        $("#ErrMsging").css("display", "block");
-        if (document.getElementById("ErrMsging") !== null) document.getElementById("ErrMsging").innerHTML = "Product not available , please select product....";
-        // growl.addErrorMessage(" Product not available....");
-      } else {
+
+  $scope.handleGetProductSuccess=function(successData,l_prodle, l_orgid){
         $('#showHideAllchk').prop('checked', false);
         $("#prodo-ProductDetails").css("display", "block");
         $("productExtraInfo").css("display", "block");
@@ -165,6 +160,33 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
             } else $rootScope.isAdminCheck = false;
           }
         }
+  };
+
+ $scope.handleGetProductError=function(error){
+    //error code check here
+    if(error.code=='AL001'){
+      $rootScope.showModal();
+    }
+    else{
+     $log.debug(error.message);
+     $("#prodo-ProductDetails").css("display", "none");
+     $("#ErrMsging").css("display", "block");
+     if (document.getElementById("ErrMsging") !== null) document.getElementById("ErrMsging").innerHTML = "Product not available , please select product....";
+     // growl.addErrorMessage(" Product not available....");
+    }       
+ };
+
+   
+  $scope.getProduct = function (l_prodle, l_orgid) {
+    // $log.debug("1 prodle " + l_prodle + "orgid " + l_orgid);
+    ProductService.getProduct({
+      orgid: l_orgid,
+      prodle: l_prodle
+    }, function (successData) {
+      if (successData.success == undefined) { //if not product
+         $scope.handleGetProductError(successData.error);
+      } else {
+        $scope.handleGetProductSuccess(successData,l_prodle, l_orgid); 
       }
     }, function (error) { //if error geting product
       $log.debug(error);
@@ -358,6 +380,27 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
    }
    }
   };
+
+  $scope.handleDeleteProductSuccess=function(success){
+      $log.debug(JSON.stringify(success));
+          $scope.enableProductSuccessMsg();
+          ProdSuccessMsg.innerHTML ="Product deleted successfully...";
+          // growl.addSuccessMessage("Product deleted successfully...");
+          $("#prodo-ProductDetails").css("display", "none");
+          $state.reload();
+          // $scope.handleProductDeleted();
+  };
+
+   $scope.handleDeleteProductError=function(error){
+    if(error.code=='AL001'){
+        $rootScope.showModal();
+      }
+      else{
+        $log.debug(error.message);
+      }
+  }
+  
+
   $scope.deleteProduct = function () {
     $log.debug("Deleting product  ..."+$scope.currentProdle );
     growl.addInfoMessage("Deleting product  ..."+$scope.currentProdle );
@@ -367,13 +410,11 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
           orgid: $scope.orgidFromSession,
           prodle: $scope.currentProdle
         }, function (success) {
-          $log.debug(JSON.stringify(success));
-          $scope.enableProductSuccessMsg();
-          ProdSuccessMsg.innerHTML ="Product deleted successfully...";
-          // growl.addSuccessMessage("Product deleted successfully...");
-          $("#prodo-ProductDetails").css("display", "none");
-          $state.reload();
-          // $scope.handleProductDeleted();
+          if(success.success){
+           $scope.handleDeleteProductSuccess(success);   
+          }else if(success.error){
+            $scope.handleDeleteProductError(success.error);
+          }  
         }, function (error) {
           $log.debug(JSON.stringify(error));
           $scope.enableProductErrorMsg();
@@ -384,7 +425,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
       // }
       else{
         $scope.enableProductErrorMsg();
-        ProdERRMsg.innerHTML = error;
+        ProdERRMsg.innerHTML = "You dont have rights to delete this product...";
        // growl.addErrorMessage("You dont have rights to delete this product...");
       }
     }

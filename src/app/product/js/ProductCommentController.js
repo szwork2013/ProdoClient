@@ -13,15 +13,30 @@
 angular.module('prodo.ProductApp')
 .controller('ProductCommentController', ['$scope', '$log', '$rootScope', 'ProductService', 'UserSessionService', '$http', 'CommentLoadMoreService', 'ENV', 'TagReffDictionaryService', 'ProductFeatureService', 'growl',  function ($scope, $log, $rootScope, ProductService, UserSessionService, $http, CommentLoadMoreService, ENV, TagReffDictionaryService, ProductFeatureService, growl) {
 
-//get predefined tags
-TagReffDictionaryService.getAllTags(
 
-function (successData) {
-  if (successData.success == undefined) {} else {
-    for (var i = 0; i < successData.success.tags.length; i++) {
+$scope.handleGetAllTagsSuccess=function(successData){
+     for (var i = 0; i < successData.success.tags.length; i++) {
       $scope.pretags.push(successData.success.tags[i].tagname);
     }
-  }
+};
+
+$scope.handleGetAllTagsError=function(error){
+   if(error.code=='AL001'){
+        $rootScope.showModal();
+      }else{
+       $log.debug(error);
+     }
+};
+
+//get predefined tags
+TagReffDictionaryService.getAllTags(
+function (successData) {
+    if (successData.success == undefined) {
+     $scope.handleGetAllTagsError(successData.error);
+    } 
+    else {
+     $scope.handleGetAllTagsSuccess(successData);
+   }
 });
 //get predefined tags
 //Generate GUID for commentid
@@ -64,7 +79,7 @@ $scope.socket.on('addcommentResponse', function (error, result) {
     $log.debug("addcommentResponse success" + result.success.product_comment);
   }
   //   $scope.socket.removeAllListeners();
-})
+});
 //socket response when for add comment
 //productComment response -on the fly comment listener creation
 $scope.productcommentResponseListener = "productcommentResponse" + $rootScope.product_prodle;
@@ -508,12 +523,14 @@ $scope.handleLoadMoreCommentResponse = function (result) {
   } else {
     $("#loadMoreCommentMsg").css("display", "block");
     $("#load-more").css("display", "none");
-    if (result.error.code == 'AC002') {
-
+     if (result.error.code == 'AL001') {
+      $rootScope.showModal();
+    }
+    else if (result.error.code == 'AC002') {
       $("#loadMoreCommentMsg").html(result.error.message);
       $("#load-more").hide();
       $log.debug(result.error.message);
-    } else if (result.error.code == 'AC001') {
+      } else if (result.error.code == 'AC001') {
       $log.debug(result.error.message);
       $("#loadMoreCommentMsg").html(result.error.message);
     } else {

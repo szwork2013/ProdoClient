@@ -112,11 +112,11 @@
       <!-- admin tasks -->
       <div ng-show="product.prodle" class="prodo.productAdmin1 pull-right "  id="prodo.productAdmin" ng-style="checkAdmintoUpdateProduct();" >
         <a href="" class="btn btn-primary btn-sm btn-bottom-margin" ng-click="editStatus='update' ; enableEditor() ;  "  onclick="$('.prodo-productDiscontinuedUpdate').show();"> Update &nbsp;<i class="fa fa-pencil-square-o "></i></a>
-        <a href="" class="btn btn-danger btn-sm btn-bottom-margin" data-toggle="modal" data-target="#myModal">  Delete &nbsp; <i class="fa fa-trash-o"></i> </a> 
+        <a href="" class="btn btn-danger btn-sm btn-bottom-margin" data-toggle="modal" data-target="#myModalDelete">  Delete &nbsp; <i class="fa fa-trash-o"></i> </a> 
         <br>
       </div>
       <!-- Modal -->
-      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal fade" id="myModalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
