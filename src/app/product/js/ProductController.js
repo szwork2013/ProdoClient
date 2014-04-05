@@ -183,11 +183,15 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
         } 
    };
     $scope.getProductHandleError=function(error){
-    $log.debug(error);
+      if(error.code=='AL001'){
+        $rootScope.showModal();
+      }else{
+      $log.debug(error);
       $("#prodo-ProductDetails").css("display", "none");
       $("#ErrMsging").css("display", "inline");
       document.getElementById("ErrMsging").innerHTML = "Product not available " + error.message;
     }
+   }
   $scope.getProduct = function (l_prodle, l_orgid) {
     $log.debug("Prodle n orgid "+ l_prodle + " "+l_orgid);
     $scope.preGetProductPrepaireData();
@@ -213,6 +217,26 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
   //get Product features
   $scope.features = [];
   $scope.PFeatures = [];
+ $scope.handleGetProductFeaturesError=function(error){
+   if(error.code=='AL001'){
+        $rootScope.showModal();
+      }else{
+    
+      }
+ };
+  $scope.handleGetProductFeaturesSuccess=function(successData){
+       // $log.debug("success    "+JSON.stringify(successData));
+    $scope.features = [];
+    $scope.featuretags = [];
+    for (i = 0; i < successData.success.productfeature.length; i++) {
+      $scope.features.push(successData.success.productfeature[i]);
+      $scope.PFeatures.push(successData.success.productfeature[i]);
+      $scope.featuretags.push(successData.success.productfeature[i].featurename);
+    }
+    // $scope.features= JSON.stringify($scope.features);
+    // $log.debug("pf  "+ $scope.featuretags);
+  };
+
   $scope.getProductFeatures = function (prodle, orgid) {
     if (prodle !== "") {
       ProductFeatureService.getFeature({
@@ -220,20 +244,9 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
         prodle: prodle
       }, function (successData) {
         if (successData.success == undefined) {
-          if ($rootScope.usersession.currentUser.org.isAdmin == true) {
-            //admin tasks
-          } else {}
-        } else {
-          // $log.debug("success    "+JSON.stringify(successData));
-          $scope.features = [];
-          $scope.featuretags = [];
-          for (i = 0; i < successData.success.productfeature.length; i++) {
-            $scope.features.push(successData.success.productfeature[i]);
-            $scope.PFeatures.push(successData.success.productfeature[i]);
-            $scope.featuretags.push(successData.success.productfeature[i].featurename);
-          }
-          // $scope.features= JSON.stringify($scope.features);
-          // $log.debug("pf  "+ $scope.featuretags);
+         $scope.handleGetProductFeaturesError(successData.error);
+       } else {
+          $scope.handleGetProductFeaturesSuccess(successData);
         }
       }, function (error) {
         growl.addErrorMessage("Server Error:" + error.status);
@@ -297,6 +310,13 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
         growl.addSuccessMessage("Following product");
         UserSessionService.productfollowlist.unshift($scope.product);
         $("#prodo-followBtn").css("display", "none");
+      }
+      else{
+        if(data.error){
+          if(data.error.code=='AL001'){
+            $rootScope.showModal();
+          }
+        }
       }
     });
 

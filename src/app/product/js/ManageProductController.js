@@ -134,6 +134,11 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
     }, function (successData) {
       if (successData.success == undefined) { //if not product
         //error code check here
+        if(successData.error){
+        if(successData.error.code=='AL001'){
+          $rootScope.showModal();
+        }
+       }
         $("#prodo-ProductDetails").css("display", "none");
         $("#ErrMsging").css("display", "block");
         if (document.getElementById("ErrMsging") !== null) document.getElementById("ErrMsging").innerHTML = "Product not available , please select product....";
@@ -182,6 +187,11 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
       $state.reload();
     } else {
        // $scope.disableEditor();
+     
+      if(data.error.code=='AL001'){
+        $rootScope.showModal();
+      }
+  
       if (data.error.code == 'AV001') { // user already exist
         $log.debug(data.error.code + " " + data.error.message);
         $scope.enableProductErrorMsg();
@@ -216,6 +226,9 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
       $state.reload();
     } else {
        // $scope.disableEditor();
+       if(data.error.code=='AL001'){
+        $rootScope.showModal();
+      }
       if (data.error.code == 'AV001') { // user already exist
         $log.debug(data.error.code + " " + data.error.message);
        $scope.enableFeatureErrorMsg();
