@@ -23,6 +23,7 @@ angular.module('prodo.UploadApp')
   $scope.uploadSrc;
   $scope.progressbar = 0;
   $scope.counter = 0;
+  $rootScope.currentclient={name:''};
 
   var UploadErrMsg = document.getElementById('UploadErrMsg');
    var UploadSuccessMsg=document.getElementById('UploadSuccessMsg');
@@ -132,7 +133,7 @@ $scope.getFile = function (a) {
               orgkeyclient: {
                 userid: $rootScope.usersession.currentUser.userid,
                 orgid: $rootScope.usersession.currentUser.org.orgid,
-                clientname: $rootScope.currentclientname
+                clientname: $rootScope.currentclient.name
               }
             };
           } else {
