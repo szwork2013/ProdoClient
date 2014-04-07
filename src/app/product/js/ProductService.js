@@ -61,7 +61,7 @@
   });
 }])
 
-.factory('Is_user_loggedin', ['$resource', function($resource) {
+.factory('isLoggedin', ['$resource', function($resource) {
   return $resource('/api/isloggedin', {},
   {
     checkUserSession: { method: 'GET' }

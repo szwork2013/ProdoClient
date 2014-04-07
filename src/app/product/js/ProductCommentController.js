@@ -11,7 +11,7 @@
 * 
 */
 angular.module('prodo.ProductApp')
-.controller('ProductCommentController', ['$scope', '$log', '$rootScope', 'ProductService', 'UserSessionService', '$http', 'CommentLoadMoreService', 'ENV', 'TagReffDictionaryService', 'ProductFeatureService', 'growl',  function ($scope, $log, $rootScope, ProductService, UserSessionService, $http, CommentLoadMoreService, ENV, TagReffDictionaryService, ProductFeatureService, growl) {
+.controller('ProductCommentController', ['$scope', '$log', '$rootScope', 'ProductService', 'UserSessionService', '$http', 'CommentLoadMoreService', 'ENV', 'TagReffDictionaryService', 'ProductFeatureService', 'growl','isLoggedin',  function ($scope, $log, $rootScope, ProductService, UserSessionService, $http, CommentLoadMoreService, ENV, TagReffDictionaryService, ProductFeatureService, growl,isLoggedin) {
 
 
 $scope.handleGetAllTagsSuccess=function(successData){
@@ -202,9 +202,31 @@ $scope.makeTagsPair = function (noun, adj) {
   }
 };
 
+ $scope.handleAddProductComment=function(error){
+    if(error.code=='AL001'){
+        $rootScope.showModal();
+      }else{
+      $log.debug(error);
+      $rootScope.showModal();
+    }
+ };
 
 //add comment
 $scope.addProductComment = function () {
+  
+
+isLoggedin.checkUserSession(
+function (successData) {
+    if (successData.success == undefined) {
+      if(successData.error)
+      {
+       $scope.handleAddProductComment(successData.error);
+      } 
+     }
+    else { //add comment
+   
+  
+
    $scope.commentError=false;
   if ($scope.commenttextField.userComment == "" || $scope.commenttextField.userComment == undefined || $scope.commenttextField.userComment == null) {
    growl.addErrorMessage("You can not add blank comment");
@@ -326,9 +348,24 @@ $scope.addProductComment = function () {
     }
   
 }
+
+ }
+});  // isLoggedin check end
+
+
 };
 
 $scope.addProductCommentretry = function (comment) {
+isLoggedin.checkUserSession(
+function (successData) {
+    if (successData.success == undefined) {
+      if(successData.error)
+      {
+       $scope.handleAddProductComment(successData.error);
+      } 
+     }
+    else { //add comment
+
  
     // if($rootScope.file_data==undefined){
     if (($rootScope.file_data == "") || ($rootScope.file_data == " ") || ($rootScope.file_data == undefined) || ($rootScope.file_data == null)) {
@@ -431,7 +468,8 @@ $scope.addProductCommentretry = function (comment) {
       $scope.mytags = "";
   
   
-
+ }
+});  // isLoggedin check end
 };
 //Add comment function
 //get latest comments posted by others
