@@ -507,6 +507,22 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
     }
   };
   //if product admin, show delete images options
+$scope.handledeleteProductImagesSuccess=function(success){
+  $log.debug(success);
+      $scope.enableIMGSuccessMsg();
+      ProdIMGSuccessMsg.innerHTML = "Images deleted successfully...";
+       
+        // growl.addSuccessMessage("Images deleted successfully...");
+};
+
+$scope.handledeleteProductImagesError=function(error){
+  if(error.code=='AL001'){
+        $rootScope.showModal();
+      }
+      else{
+         $log.debug(error);
+      }
+};
 
   //delete images
  $scope.deleteProductImages = function (index) {
@@ -534,12 +550,12 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
         // url: 'www.prodonus.com/api/image/product/' + $scope.orgidFromSession + '/' + $scope.currentProdle +'?prodleimageids='+$scope.imgIds ,
         // data: {'prodleimageids':[ $scope.imgIdsJson]}
       }).success(function (data, status, headers, cfg) {
-        // $log.debug(data);
-      $scope.enableIMGSuccessMsg();
-      ProdIMGSuccessMsg.innerHTML = "Images deleted successfully...";
-       
-        // growl.addSuccessMessage("Images deleted successfully...");
-
+       if(data.success)  {
+        $scope.handledeleteProductImagesSuccess(data.success);
+      }
+      else  if(data.error)  {
+        $scope.handledeleteProductImagesError(data.error);
+      }
       }).error(function (data, status, headers, cfg) {
         // $log.debug(status);
         $scope.enableIMGErrorMsg();
@@ -595,22 +611,11 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
       $("#prodo.productAdminAddProduct").css("display", "none");
     }
   };
-
-  //get Product features
-  $scope.features = [];
+ 
+   $scope.features = [];
   $scope.PFeatures = [];
-  $scope.getProductFeatures = function (prodle, orgid) {
-    if (prodle !== "") {
-      ProductFeatureService.getFeature({
-        orgid: orgid,
-        prodle: prodle
-      }, function (successData) {
-        if (successData.success == undefined) {
-          if ($rootScope.usersession.currentUser.org.isAdmin == true) {
-            //admin tasks
-          } else {}
-        } else {
-          // $log.debug("success    "+JSON.stringify(successData));
+ $scope.handleGetProductFeatureSuccess=function(successData){
+         // $log.debug("success    "+JSON.stringify(successData));
           $scope.features = [];
           $scope.featuretags = [];
           for (i = 0; i < successData.success.productfeature.length; i++) {
@@ -620,7 +625,31 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
           }
           // $scope.features= JSON.stringify($scope.features);
           // $log.debug("pf  "+ $scope.featuretags);
-        }
+ };
+
+ $scope.handleGetProductFeatureError=function(error){
+    if(error.code=='AL001'){
+        $rootScope.showModal();
+      }
+      else{
+         $log.debug(error);
+      }
+ };
+  //get Product features
+
+  $scope.getProductFeatures = function (prodle, orgid) {
+    if (prodle !== "") {
+      ProductFeatureService.getFeature({
+        orgid: orgid,
+        prodle: prodle
+      }, function (successData) {
+        if (successData.success == undefined) {
+         if(successData.error){
+          $scope.handleGetProductFeatureError(successData.error);
+         }
+        } else {
+          $scope.handleGetProductFeatureSuccess(successData);
+           }
       }, function (error) {
         $scope.enableFeatureErrorMsg();
         ProdFERRMsg.innerHTML = "Server Error:" + error.status;
@@ -629,6 +658,26 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
     }
   };
   //get Product features
+
+   $scope.handleDeleteFeatureSuccess=function(success,feature){
+            // $log.debug(JSON.stringify( success));
+          //client side delete
+          var index = $scope.features.indexOf(feature);
+          if (index != -1) $scope.features.splice(index, 1);
+          // growl.addSuccessMessage(success.success.message);
+          $scope.enableFeatureSuccessMsg();
+          ProdFSuccessMsg.innerHTML = success.success.message;
+   };
+
+ $scope.handleDeleteFeatureError=function(error){
+     if(error.code=='AL001'){
+        $rootScope.showModal();
+      }
+      else{
+         $log.debug(error);
+      }
+ }
+
   //delete product feature
   $scope.deleteFeature = function (feature) {
     // $log.debug("deleting feature");
@@ -641,13 +690,12 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
           prodle: $scope.currentProdle,
           productfeatureid: feature.featureid
         }, function (success) {
-          // $log.debug(JSON.stringify( success));
-          //client side delete
-          var index = $scope.features.indexOf(feature);
-          if (index != -1) $scope.features.splice(index, 1);
-          // growl.addSuccessMessage(success.success.message);
-          $scope.enableFeatureSuccessMsg();
-          ProdFSuccessMsg.innerHTML = success.success.message;
+          if(success.success){
+           $scope.handleDeleteFeatureSuccess(success,feature);
+          }
+          else if(success.error){
+           $scope.handleDeleteFeatureError(success.error);
+          } 
         }, function (error) {
           $log.debug(JSON.stringify(error));
           $scope.enableFeatureErrorMsg();
