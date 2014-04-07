@@ -13,7 +13,7 @@
 */
 angular.module('prodo.UploadApp')
 
-.controller('UploadController', ['$scope', '$log', '$rootScope', 'fileReader', 'ENV', 'growl', function ($scope, $log, $rootScope, fileReader, ENV, growl) {
+.controller('UploadController', ['$scope', '$log', '$rootScope', 'fileReader', 'ENV', 'growl','isLoggedin', function ($scope, $log, $rootScope, fileReader, ENV, growl,isLoggedin) {
 
   $scope.socket = io.connect(ENV.apiEndpoint + ENV.port + '/api/prodoupload', {
     query: 'session_id=' + $rootScope.usersession.currentUser.sessionid
@@ -45,8 +45,27 @@ angular.module('prodo.UploadApp')
     $(".alert-success").delay(5000).addClass("in").fadeOut(2000);
     
   };
+  $scope.handleUploadError=function(error){
+   $("#bar").hide();
+   if(error.code=='AL001'){
+        $rootScope.showModal();
+      }else{
+      $log.debug(error);
+      $rootScope.showModal();
+    }
+  };
 
-  $scope.getFile = function (a) {
+$scope.getFile = function (a) {
+ isLoggedin.checkUserSession(
+ function (successData) {
+ if (successData.success == undefined) {
+  if(successData.error)
+  {
+   $scope.handleUploadError(successData.error);
+  } 
+ }
+ else { //add comment
+
     $scope.progressbar = 0;
     $log.debug("source: " + $scope.uploadSrc);
     $log.debug("getFile called ... " + a);
@@ -210,7 +229,10 @@ angular.module('prodo.UploadApp')
       $log.debug("pic emitted");
     });
     //            fileReader.readAsBinaryString($scope.file[a], $scope);
-  };
+
+     }
+  });  // isLoggedin check end
+};
 
   $scope.socket.removeAllListeners('productUploadResponse');
   $scope.socket.on('productUploadResponse', function (error, imagelocation) {
