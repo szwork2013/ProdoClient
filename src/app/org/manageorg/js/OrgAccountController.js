@@ -1,5 +1,5 @@
 angular.module('prodo.OrgApp')
- .controller('OrgAccountController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$log','$modal', 'growl', 'UserSessionService', 'OrgRegistrationService', 'OrgService', 'currentorgdata', 'currentorgaddr', 'currentorgproduct', 'currentorggroup','ENV', function($scope, $rootScope, $state, $http, $timeout, $log, $modal, growl, UserSessionService, OrgRegistrationService, OrgService, currentorgdata, currentorgaddr, currentorgproduct, currentorggroup, ENV) {
+ .controller('OrgAccountController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$log','$modal', 'growl', 'UserSessionService', 'OrgRegistrationService', 'OrgService', 'currentorgdata', 'currentorgaddr', 'currentorgproduct', 'currentorggroup','ENV', 'notify',function($scope, $rootScope, $state, $http, $timeout, $log, $modal, growl, UserSessionService, OrgRegistrationService, OrgService, currentorgdata, currentorgaddr, currentorgproduct, currentorggroup, ENV, notify) {
 
 $scope.submitted= false;    
 $scope.form = {};
@@ -15,7 +15,7 @@ $scope.groups = currentorggroup.success.usergrp;
 $scope.orgaddr = currentorgaddr.success.orgaddress;
 $scope.orgImages = currentorgdata.success.organization.org_images;
 var indexOfOrgAddress = 0; 
-
+$rootScope.currentclientname = '';
 $scope.validateError=false;
 $scope.regexForText = /^[a-zA-Z\s]*$/;
 $scope.regexForNumbers = /[0-9]/;
@@ -728,7 +728,7 @@ $scope.invalidContact3 = '';
       }
     };  
 
-$scope.regexForZipcode = /^[0-9]{5,10}$/;
+$scope.regexForZipcode = /^[0-9]{5,7}$/;
     $scope.updateAddress = function(addr,loctype) { 
         $scope.errorOfValidation = 'Please enter valid ';
         $scope.errorsForEdit  = '';
@@ -1576,11 +1576,13 @@ $scope.errorForEmptyExistingGroupname = '';
     {
           if(flag==='success')
           {
-            growl.addSuccessMessage(message);
+            //growl.addSuccessMessage(message);
+            notify({message:message,template:'assets/html/notification-success.html',position:'center'})
           }
           else
           {
-            growl.addErrorMessage(message);
+             notify({message:message,template:'assets/html/notification-error.html',position:'center'});
+          
           }
          // $scope.resetGrowlMessages();
     };
