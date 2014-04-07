@@ -1656,11 +1656,11 @@ $scope.errorForEmptyExistingGroupname = '';
           if(flag==='success')
           {
             //growl.addSuccessMessage(message);
-            notify({message:message,template:'assets/html/notification-success.html',position:'center'})
+            notify({message:message,template:'common/notification/views/notification-success.html',position:'center'})
           }
           else
           {
-             notify({message:message,template:'assets/html/notification-error.html',position:'center'});
+             notify({message:message,template:'common/notification/views/notification-error.html',position:'center'});
           
           }
          // $scope.resetGrowlMessages();
