@@ -334,8 +334,9 @@ $scope.productUploadResponseHandler=function(error, imagelocation){
 };
 
 $scope.orgKeyClientResponseHandler=function(error, imagelocation){
+    $("#spinner").hide();
  if (error) {
-      $("#bar").hide();
+      // $("#bar").hide();
       
       if (error.error.code == 'AP003') { // user already exist
         $log.debug(error.error.code + " " + error.error.message);
@@ -378,8 +379,9 @@ $scope.orgKeyClientResponseHandler=function(error, imagelocation){
 
 $scope.productUploadLogoResponseHandler=function(error, imagelocation){
          // growl.addSuccessMessage("after uploading");
+           $("#spinner").hide();
     if (error) {
-      $("#bar").hide();
+      // $("#bar").hide();
      if (error.error.code == 'AP003') { // user already exist
         $log.debug(error.error.code + " " + error.error.message);
          $scope.enableErrorMsg();
@@ -419,8 +421,9 @@ $scope.productUploadLogoResponseHandler=function(error, imagelocation){
 };
  
   $scope.orgUploadResponseHandler=function(error, imagelocation){
+      $("#spinner").hide();
    if (error) {
-      $("#bar").hide();
+      // $("#bar").hide();
 
       if (error.error.code == 'AP003') { // user already exist
         $log.debug(error.error.code + " " + error.error.message);
@@ -459,8 +462,9 @@ $scope.productUploadLogoResponseHandler=function(error, imagelocation){
   };
 
    $scope.orgUploadLogoResponseHandler=function(error, imagelocation){
+      $("#spinner").hide();
        if (error) {
-      $("#bar").hide();
+      // $("#bar").hide();
 
       if (error.error.code == 'AP003') { // user already exist
         $log.debug(error.error.code + " " + error.error.message);
@@ -500,8 +504,9 @@ $scope.productUploadLogoResponseHandler=function(error, imagelocation){
   };
 
      $scope.userUploadResponseHandler=function(error, imagelocation){
+        $("#spinner").hide();
      if (error) {
-      $("#bar").hide();
+      // $("#bar").hide();
 
       if (error.error.code == 'AP003') { // user already exist
         $log.debug(error.error.code + " " + error.error.message);
