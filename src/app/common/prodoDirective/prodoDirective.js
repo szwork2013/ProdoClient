@@ -157,7 +157,7 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
         '$rootScope',
         function ($scope, $rootScope) {
           $rootScope.showModal = function () {
-            $('#myModal').modal({ 
+            $('#mySessionModal').modal({ 
               keyboard: false,
               backdrop: 'static',
               show: true
@@ -166,7 +166,7 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
 
           $scope.sessionout = function() {
             UserSessionService.logoutUser();
-            $('#myModal').modal('hide');
+            $('#mySessionModal').modal('hide');
           }
         }
       ]

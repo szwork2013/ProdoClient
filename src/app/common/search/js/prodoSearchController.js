@@ -58,8 +58,10 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
   //This regular expression is used to hide products starting with Prodonus
  
   var cleanEventGotTrendingProducts = $scope.$on('gotTrendingProducts', function (event, data) 
-  {
-      $scope.trendingProducts = data.success.ProductTrends;
+  {   
+      if (data.success !== undefined) {
+         $scope.trendingProducts = data.success.ProductTrends;
+    };
   });
     
   var cleanEventNotGotTrendingProducts = $scope.$on('notGotTrendingProducts', function (event, data) //Error handling needed for 

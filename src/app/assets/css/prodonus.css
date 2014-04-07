@@ -2288,6 +2288,14 @@ border: 1px solid #b3b3b3; padding: 30px;
 	background-color: blue ;
 }*/
 
+.prodo-wall-warranty-container{
+	border: 1px solid #E7EDF1;
+	background-color: #ffffff;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  padding: 20px;
+}
+
 .prodo-wall-org-container{
 	border: 1px solid #E7EDF1;
 	background-color: #ffffff;
@@ -2331,6 +2339,10 @@ margin:2px auto; padding: 5px; display:block; text-align:left; font-weight:bold;
 }
 
 #prodo-user-account-container{
+	margin-top: 20px;
+}
+
+#prodo-warranty-account-container{
 	margin-top: 20px;
 }
 

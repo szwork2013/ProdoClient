@@ -1,7 +1,6 @@
 angular.module('prodo.UserApp')
- .controller('UserAccountController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$log', 'growl', 'UserSessionService', 'OrgRegistrationService', 'userdata', function($scope, $rootScope, $state, $http, $timeout, $log, growl, UserSessionService, OrgRegistrationService, userdata) {
+ .controller('UserAccountController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$log', 'growl', 'UserSessionService', 'OrgRegistrationService', 'userdata', 'checkIfSessionExist', function($scope, $rootScope, $state, $http, $timeout, $log, growl, UserSessionService, OrgRegistrationService, userdata, checkIfSessionExist) {
 
-    $log.debug(userdata.success.user);
     $scope.user ={};
     $scope.editorEnabled = false;
     $scope.editEmail = false;
@@ -14,6 +13,13 @@ angular.module('prodo.UserApp')
     $scope.hasChangedPersonalSettings = false;
     $scope.form = {};
     $scope.submitted = false;
+    $scope.$state = $state;
+
+    $scope.$watch('$state.$current.locals.globals.checkIfSessionExist', function (checkIfSessionExist) {
+      if (checkIfSessionExist.error) {
+        $rootScope.showModal();
+      };
+    });
 
     $scope.prodlesrecommend = [{}];
 
@@ -51,8 +57,7 @@ angular.module('prodo.UserApp')
 var cleanupEventUserUploadResponseSuccess = $scope.$on("userUploadResponseSuccess",function(event,message){
     if(message.error !== undefined && message.error.code === 'AL001' )
        {
-           UserSessionService.resetSession();
-           $state.go('prodo.landing.signin');
+          $rootScope.showModal();
        }
        else
        {
@@ -62,7 +67,7 @@ var cleanupEventUserUploadResponseSuccess = $scope.$on("userUploadResponseSucces
      })
 
 
-    $scope.$state = $state;
+  if (checkIfSessionExist.success && userdata.success) { 
     $scope.$watch('$state.$current.locals.globals.userdata', function (userdata) {
       
       if (userdata.success.user) {
@@ -103,6 +108,7 @@ var cleanupEventUserUploadResponseSuccess = $scope.$on("userUploadResponseSucces
           $scope.showAlert('alert-error', userdata.error.message);  
       }
     });
+  }
 
 		// function to send and stringify user email to Rest APIs for user account update
     $scope.jsonUserAccountData = function()

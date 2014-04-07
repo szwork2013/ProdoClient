@@ -303,7 +303,7 @@ angular.module('prodo.UserApp')
     };
     session.checkUser = function () {
       UserService.IsUserLoggedin.checkUserSession(function (result) {
-        $log.debug('checkuserlogin_' + result);
+        $log.debug(result);
         if (result.success) {
           session.authSuccess(result.success.user);
         } else {

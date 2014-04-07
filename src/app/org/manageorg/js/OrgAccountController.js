@@ -14,8 +14,8 @@ $scope.group = { 'newgroupname': '','grouppname': '','invites': '','newinvites':
 $scope.groups = currentorggroup.success.usergrp; 
 $scope.orgaddr = currentorgaddr.success.orgaddress;
 $scope.orgImages = currentorgdata.success.organization.org_images;
+$scope.orgKeyClients = currentorgdata.success.organization.keyclients;
 var indexOfOrgAddress = 0; 
-$rootScope.currentclientname = '';
 $scope.validateError=false;
 $scope.regexForText = /^[a-zA-Z\s]*$/;
 $scope.regexForNumbers = /[0-9]/;
@@ -429,8 +429,9 @@ $scope.selected_country="";
 
        if(message.error !== undefined && message.error.code === 'AL001' )
        {
-           UserSessionService.resetSession();
-           $state.go('prodo.landing.signin');
+           // UserSessionService.resetSession();
+           // $state.go('prodo.landing.signin');
+           $rootScope.showModal();
        }
        else
        {
@@ -544,8 +545,9 @@ $scope.invalidPassword='';
     var cleanupEventUpdateOrgDone = $scope.$on("updateOrgDone", function(event, message){
        if(message.error !== undefined && message.error.code === 'AL001' )
        {
-           UserSessionService.resetSession();
-           $state.go('prodo.landing.signin');
+           // UserSessionService.resetSession();
+           // $state.go('prodo.landing.signin');
+           $rootScope.showModal();
        }
        else
        {
@@ -693,8 +695,9 @@ $scope.invalidContact3 = '';
     var cleanupEventAddOrgAddressDone = $scope.$on("addOrgAddressDone", function(event, message){
        if(message.error !== undefined && message.error.code === 'AL001' )
        {
-           UserSessionService.resetSession();
-           $state.go('prodo.landing.signin');
+           // UserSessionService.resetSession();
+           // $state.go('prodo.landing.signin');
+           $rootScope.showModal();
        }
        else
        {
@@ -784,8 +787,9 @@ $scope.regexForZipcode = /^[0-9]{5,7}$/;
     var cleanupEventUpdateOrgAddressDone = $scope.$on("updateOrgAddressDone", function(event, message){
        if(message.error !== undefined && message.error.code === 'AL001' )
        {
-           UserSessionService.resetSession();
-           $state.go('prodo.landing.signin');
+           // UserSessionService.resetSession();
+           // $state.go('prodo.landing.signin');
+           $rootScope.showModal();
        }
        else
        {
@@ -863,7 +867,7 @@ $scope.regexForZipcode = /^[0-9]{5,7}$/;
         //$scope.ProdoAppMessage("You cannot delete this address!",'error');
 
 
-        $scope.ProdoAppMessage("You need atleast single address!",'error');
+        $scope.ProdoAppMessage("You cannot delete all company addresses!",'error');
       }
 
     };
@@ -871,8 +875,9 @@ $scope.regexForZipcode = /^[0-9]{5,7}$/;
     var cleanupEventDeleteOrgAddressDone = $scope.$on("deleteOrgAddressDone", function(event, message){
        if(message.error !== undefined && message.error.code === 'AL001' )
        {
-           UserSessionService.resetSession();
-           $state.go('prodo.landing.signin');
+           // UserSessionService.resetSession();
+           // $state.go('prodo.landing.signin');
+           $rootScope.showModal();
        }  
        else
        {
@@ -930,8 +935,9 @@ $scope.regexForZipcode = /^[0-9]{5,7}$/;
     
        if(message.error !== undefined && message.error.code === 'AL001' )
        {
-           UserSessionService.resetSession();
-           $state.go('prodo.landing.signin');
+           // UserSessionService.resetSession();
+           // $state.go('prodo.landing.signin');
+           $rootScope.showModal();
        }
        else
        {
@@ -1087,8 +1093,9 @@ $scope.resetInvites = function()
     var cleanupEventSendOrgInvitesDone = $scope.$on("sendOrgInvitesDone", function(event, data){
       if(data.error !== undefined && data.error.code === 'AL001' )
       {
-         UserSessionService.resetSession();
-         $state.go('prodo.landing.signin');
+         // UserSessionService.resetSession();
+         // $state.go('prodo.landing.signin');
+         $rootScope.showModal();
       }
       else
       {
@@ -1282,8 +1289,8 @@ $scope.errorForEmptyExistingGroupname = '';
     var cleanupEventSendOrgGroupInvitesDone = $scope.$on("sendOrgGroupInvitesDone", function(event, data){
        if(data.error !== undefined && data.error.code === 'AL001' )
        {
-           UserSessionService.resetSession();
-           $state.go('prodo.landing.signin');
+         
+         $rootScope.showModal();
        }
        else
        {
@@ -1390,8 +1397,9 @@ $scope.errorForEmptyExistingGroupname = '';
     var cleanupEventSendOrgCustomerInvitesDone = $scope.$on("sendOrgCustomerInvitesDone", function(event, data){
       if(data.error !== undefined && data.error.code === 'AL001' )
       {
-        UserSessionService.resetSession();
-        $state.go('prodo.landing.signin');
+        // UserSessionService.resetSession();
+        // $state.go('prodo.landing.signin');
+        $rootScope.showModal();
       }
       else
       {
@@ -1424,8 +1432,9 @@ $scope.errorForEmptyExistingGroupname = '';
     var cleanupEventremoveOrgImageDone = $scope.$on("orgImageDeleted",function(event,data){
       if(data.error !== undefined && data.error.code === 'AL001' )
       {
-        UserSessionService.resetSession();
-        $state.go('prodo.landing.signin');
+        // UserSessionService.resetSession();
+        // $state.go('prodo.landing.signin');
+        $rootScope.showModal();
       }
       if(data.success)
       {
@@ -1454,11 +1463,14 @@ $scope.errorForEmptyExistingGroupname = '';
       $scope.orgImages = currentorgdata.success.organization.org_images;
       $scope.org = currentorgdata.success.organization;
 
+      $scope.orgKeyClients = currentorgdata.success.organization.keyclients;
     });
 
     $scope.$watch('$state.$current.locals.globals.currentorgaddr', function (currentorgaddr) {
       $scope.orgaddr = currentorgaddr.success.orgaddress;
     });
+
+
 
     // $scope.$watch('$state.$current.locals.globals.currentorggroup', function (currentorggroup) {
     //   $scope.orgImages = currentorggroup.success.usergrp; 
@@ -1470,6 +1482,23 @@ $scope.errorForEmptyExistingGroupname = '';
       $scope.productlist = currentorgproduct.success.product;
     }
 
+     $scope.removeKeyClientsPermenantly = function()
+     {
+         
+                       $scope.clientids=[];
+                        for(var i=0;i<$scope.orgKeyClients.length;i++)
+                        {
+                            if(document.getElementById(i).checked===true)
+                            {
+                                      $scope.clientids.push($scope.orgKeyClients[i].clientid); 
+                            }      
+                        }
+                        if($scope.clientids.length !==0 )
+                        {
+                                  OrgRegistrationService.keyClientDelete($scope.clientids);
+                        }
+     };
+
      var cleanupEventOrgUploadLogoResponseSuccess = $scope.$on("orgUploadLogoResponseSuccess",function(event,message){
       $state.reload();
      });
@@ -1478,6 +1507,38 @@ $scope.errorForEmptyExistingGroupname = '';
       $state.reload();
      });
 
+     var cleanupeventKeyClientDelete = $scope.$on("clientsDeletesSuccessfully",function(event,data){
+        if(data.error !== undefined && data.error.code === 'AL001' )
+      {
+        // UserSessionService.resetSession();
+        // $state.go('prodo.landing.signin');
+        $rootScope.showModal();
+      }
+      if(data.success)
+      {
+         $scope.ProdoAppMessage(data.success.message,'success');
+         $state.reload();
+      }
+      else {
+        if (data.error.code== 'AU004') {     // enter valid data
+            $scope.ProdoAppMessage(data.error.message,'error');    //ShowAlert
+        } else {
+            $scope.ProdoAppMessage(data.error.message,'error');    //ShowError
+        }
+      }
+          
+     });
+
+     var cleanupeventKeyClientDeleteFails = $scope.$on("clientsNotDeletedSuccessfully",function(event,message){
+               $scope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + data,'error');    //ShowAlert
+   
+     });
+
+   
+    var cleanupeventKeyClientSuccess = $scope.$on("orgKeyClientResponseSuccess",function(event,message){
+        $scope.ProdoAppMessage('Key Client Added Successfully!','success');
+        $state.reload();
+    });
 
 //Other functions for editing; needs to be variefied
     $scope.enableEditing = function(addr) {
@@ -1495,7 +1556,25 @@ $scope.errorForEmptyExistingGroupname = '';
       $scope.reset();
       $scope.islocation = true;      
     };
-    
+    $scope.showKeyClient = 0;
+    $scope.showOrgArtworkImages = 0;
+
+    $scope.invokeKeyClients = function()
+    {
+        $scope.showKeyClient = 1;
+        $scope.showOrgArtworkImages = 0; 
+
+    };
+
+    $scope.invokeOrgArtwork = function()
+    {
+       $scope.showKeyClient = 0;
+       $scope.showOrgArtworkImages = 1;
+    };
+
+
+
+
     $scope.reset = function() {
        $scope.addressErrorMessage = '';
         $scope.invalidCountryError = '';
@@ -1612,6 +1691,8 @@ $scope.errorForEmptyExistingGroupname = '';
       cleanupEventOrgUploadLogoResponseSuccess();
       cleanupEventremoveOrgImageDone();
       cleanupEventOrgUploadResponseSuccess();
+      cleanupeventKeyClientDelete();
+      cleanupeventKeyClientDeleteFails();
     });
 
 
