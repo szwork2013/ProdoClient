@@ -226,7 +226,7 @@
               <dt>*City:</dt>
               <dd><input name="city" type="text" ng-pattern="/^[A-z]*$/" style="width:55%; height:30px; display:block" class="form-control" ng-model="org.city" placeholder="city" required typeahead="city for city in return_cities() | filter:$viewValue | limitTo:8"></dd><div class="error-message" ng-if="invalidCityError!==''" ng-bind="invalidCityError"></div><br>
               <dt>*Zipcode:</dt>
-              <dd><input name="zipcode" type="text" ng-pattern="/^[0-9]*$/" style="width:55%; height:30px; display:block" class="form-control" ng-model="org.zipcode" placeholder="zipcode" required></dd>
+              <dd><input name="zipcode" type="text" ng-pattern="/^[0-9]{5,7}$/" style="width:55%; height:30px; display:block" class="form-control" ng-model="org.zipcode" placeholder="zipcode" required></dd>
               <div class="error-message" ng-if="invalidZipcodeError!==''" ng-bind="invalidZipcodeError" ></div><br>
               <dt>*Contact:</dt>
               <dd ><input name="contact1" type="text" style="width:55%; height:30px; display:block" class="form-control" ng-pattern="/^\(?[+]([0-9]{2,5})\)?[-]?([0-9]{10,15})$/" placeholder="Cust. HelpLine [eg: +91-9000000000]" ng-model="contacts[0].customerhelpline" required/></dd>
@@ -363,6 +363,69 @@
         <button class="btn btn-primary btn-sm pull-right"  ng-click="sendOrgInvites()"><i style="margin-right: 5px;" class="fa fa-share"></i>Send</button>
         </accordion-group>
 
+                    <accordion-group ng-click="invokeKeyClients()">
+                          <accordion-heading>
+                            <p style='font-weight:bold; font-size: 13px; margin: 0;'>KEY CLIENTS<i class="fa fa-pencil pull-right"></i></p>
+                          </accordion-heading>
+                          
+                                <div class="span4 spanErr " ng-if="showKeyClient ===1 ">
+                                  <div class="alert alert-danger fade" id="text">
+                                    <button type="button" class="close" data-dismiss="alert">×</button>
+                                    <div id="UploadErrMsg"></div>
+                                  </div>
+                                </div>
+
+                               <div class="span4 spanSuccess" ng-if="showKeyClient ===1 ">
+                                  <div class="alert alert-success fade">
+                                    <button type="button" class="close" data-dismiss="alert">×</button>
+                                    <div id="UploadSuccessMsg"></div>
+                                  </div>
+                                </div>
+
+                          <div id="prodo-productFeature-fixed"   ng-app="prodo.UploadApp" ng-controller="UploadController"  >
+                              <table   class="table table-hover  prodo-productTableFont">
+                                  <tr>
+                                     <td style="border-color:white;width:50%"><input class="form-control" ng-model="currentclient.name" type="text" placeholder="Name" style="width:100%"></td>
+                                  <td style="border-color:white;width:50%">
+                                    <div class="controls" > 
+                                      <span class="btn btn-primary fileinput-button controls-upload prodo-uploadBtnWidth" style="width:100%;">
+                                        <i class="glyphicon glyphicon-upload " style="padding-left: 17%;"></i>
+                                        <input   type="file" name="file" ng-file-select="onFileSelect($files)" ng-click="uploadSrc = 'orgkeyclient';">
+                                        <span>Upload Logo & Save</span>
+                                      </span>
+                                    </div>
+                                  </td>
+                                </tr>
+                              </table>
+                              
+                              <center>
+                                <div id="FileName" ng-if="showKeyClient ===1 "></div>
+                              </center>
+                            </div>
+                             <div style="height:40px;" ng-if="orgKeyClients.length>0"> <button ng-click="removeKeyClientsPermenantly()" class="btn btn-danger btn-sm " style="margin-left:87%"><i  class="fa fa-trash-o fa-lg" ></i>&nbsp;&nbsp;Delete</button></div>
+                             
+
+                             <div class="imagesOrg" ng-repeat="clients in orgKeyClients" style="margin: 3px;border: rgb(165, 79, 79) solid;min-width: 110px;
+                                      padding: 4px;border-width: thin;">
+                                    <p ng-bind="clients.clientname" style="margin-bottom:0px;"></p>
+                                    <img class="img prodo-OrgImgThumbnail"  ng-src="{{clients.image}}" />
+                                    <input type="checkbox" id="{{$index}}">
+                             </div>
+                            <div class="error-message-org " ng-if="orgKeyClients.length===0" style="text-align:left; font-size:20px;  auto;" >  <p style="text-align:left; font-size:20px; margin: 20px auto;" class="text-success"><strong><em>No Key Clients Added</em></strong></p></div>
+
+
+
+         
+
+
+
+
+
+                    </accordion-group> 
+
+
+
+
   <accordion-group ng-hide="usersession.currentUser.org.orgtype != 'Manufacturer' " >
       <accordion-heading>
             <p style='font-weight:bold; font-size: 13px; margin: 0;'>ORGANIZATION CUSTOMER INVITES<i class="fa fa-pencil pull-right"></i></p>
@@ -468,7 +531,7 @@
     </accordion-group>
 
 
-    <accordion-group ng-hide="usersession.currentUser.org.orgtype != 'Manufacturer' ">
+    <accordion-group ng-hide="usersession.currentUser.org.orgtype != 'Manufacturer' " ng-click="invokeOrgArtwork()">
       <accordion-heading>
         <p style='font-weight:bold; font-size: 13px; margin: 0;'>ORGANIZATION ARTWORK UPLOAD<i class="fa fa-pencil pull-right"></i></p>
       </accordion-heading>
@@ -486,14 +549,14 @@
      
         </div>
       </div> -->
-            <div class="span4 spanErr " >
+      <div class="span4 spanErr " ng-if="showOrgArtworkImages === 1">
         <div class="alert alert-danger fade" id="text">
           <button type="button" class="close" data-dismiss="alert">×</button>
           <div id="UploadErrMsg"></div>
         </div>
       </div>
 
-     <div class="span4 spanSuccess" >
+     <div class="span4 spanSuccess" ng-if="showOrgArtworkImages === 1">
         <div class="alert alert-success fade">
           <button type="button" class="close" data-dismiss="alert">×</button>
           <div id="UploadSuccessMsg"></div>
@@ -527,7 +590,7 @@
             </tr>
           </table>
           <center>
-            <div id="FileName"></div>
+            <div id="FileName" ng-if="showOrgArtworkImages === 1"></div>
           </center>
         </div>
       </accordion-group>

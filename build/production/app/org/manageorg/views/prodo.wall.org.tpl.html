@@ -65,7 +65,7 @@
           <tr ng-repeat="addr in orgAd.location | filter:searchAddress">
           <td>{{$index + 1}}</td>
           <td>
-            {{addr.address.address1}},<br>{{addr.address.address2}},<br>{{addr.address.address3}},<br>{{addr.address.city}},{{addr.address.zipcode}}
+            {{addr.address.address1}}<br>{{addr.address.address2}} {{addr.address.address3}} {{addr.address.city}} {{addr.address.zipcode}}
           </td>
           <td>
             {{addr.address.country}}
@@ -96,6 +96,4 @@
         <input ng-show="product_prodles.indexOf(product.prodle)<0" type="button" id="{{product.prodle + '_fbtn'}}" class="prodo-follow-btn btn btn-primary btn-sm" ng-click='follow(product)' value="Follow" />
       </div>
     </div>
-  	
-
-</div>
+  	</div>
