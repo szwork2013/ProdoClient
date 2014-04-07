@@ -1534,6 +1534,12 @@ $scope.errorForEmptyExistingGroupname = '';
    
      });
 
+   
+    var cleanupeventKeyClientSuccess = $scope.$on("orgKeyClientResponseSuccess",function(event,message){
+        $scope.ProdoAppMessage('Key Client Added Successfully!','success');
+        $state.reload();
+    });
+
 //Other functions for editing; needs to be variefied
     $scope.enableEditing = function(addr) {
       addr.editing=true;
