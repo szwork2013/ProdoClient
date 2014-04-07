@@ -291,8 +291,9 @@ $scope.getFile = function (a) {
   });
 
 $scope.productUploadResponseHandler=function(error, imagelocation){
+    $("#spinner").hide();
  if (error) {
-      $("#bar").hide();
+      // $("#bar").hide();
       
       if (error.error.code == 'AP003') { // user already exist
         $log.debug(error.error.code + " " + error.error.message);
@@ -571,54 +572,72 @@ angular.module('prodo.UploadApp')
             FileName.setAttribute("style", "text-align:left");
             fn.appendChild(FileName);
             fn.setAttribute("style", "text-align:left");
-            fn.style.width = '400px';
+            fn.style.width = '500px';
+            
 
-           
+            var spinnerContainer = document.createElement("span");
+            spinnerContainer.id="spinner";
+            
+            
+             fn.appendChild(spinnerContainer);
+             var spinner = document.createElement("i");
+             spinner.className = 'prodo-loadmoreUpload fa fa-spinner fa-spin ';
+             spinner.id="spinnerChild";
+             spinnerContainer.appendChild(spinner);
+             $("#spinner").show();
 
-            var progressbarc = document.createElement("div");
-            progressbarc.className = ' progress progress-info  active';
-            progressbarc.id = "a2" + i.name;
-            progressbarc.style.textAlign = "left";
-            fn.appendChild(progressbarc);
-            var progressbar = document.createElement("div");
-            progressbar.className = 'bar';
-            progressbar.id = 'bar';
-            var a = document.getElementById("a2" + i.name);
-            progressbar.style.width = '300px';
-            var $bar = $('.bar');
-            a.appendChild(progressbar);
-            $('.bar').css('width','0%');
+
+
+
+             var breakline=document.createElement("br");
+             fn.appendChild(breakline);
+ // <span id="img-spinner" > <i  class=" prodo-loadmoreColor fa fa-spinner fa-spin "> </i></span>
+            // $("#img-spinner").show();
+
+           //  var progressbarc = document.createElement("div");
+           //  progressbarc.className = ' progress progress-info  active';
+           //  progressbarc.id = "a2" + i.name;
+           //  progressbarc.style.textAlign = "left";
+           //  fn.appendChild(progressbarc);
+           //  var progressbar = document.createElement("div");
+           //  progressbar.className = 'bar';
+           //  progressbar.id = 'bar';
+           //  var a = document.getElementById("a2" + i.name);
+           //  progressbar.style.width = '300px';
+           //  var $bar = $('.bar');
+           //  a.appendChild(progressbar);
+           //  $('.bar').css('width','0%');
                    
-            var perc =  '100';
-            var userInput = (i.size/1024)/100;  // in seconds
-            var speed = userInput * 1;
-            var currentPerc = 0;
+           //  var perc =  '100';
+           //  var userInput = (i.size/1024)/100;  // in seconds
+           //  var speed = userInput * 1;
+           //  var currentPerc = 0;
         
            
-           var progress = setInterval(function() {
-               var $bar = $('.bar');
-               if (currentPerc >= perc) {
-                clearInterval(progress);
-                 $('.progress').removeClass('active');
-                } else {
-                 currentPerc += 1;
-                 $bar.css('width', (currentPerc) + '%');
-                }
-                 // $bar.text((currentPerc) + '%');
+           // var progress = setInterval(function() {
+           //     var $bar = $('.bar');
+           //     if (currentPerc >= perc) {
+           //      clearInterval(progress);
+           //       $('.progress').removeClass('active');
+           //      } else {
+           //       currentPerc += 1;
+           //       $bar.css('width', (currentPerc) + '%');
+           //      }
+           //       // $bar.text((currentPerc) + '%');
 
-                   if(currentPerc==100){
-                    // setTimeout(function(){ jQuery("#FileName").hide(); },1000);
-                    // currentPerc=0;
-                   }
+           //         if(currentPerc==100){
+           //          // setTimeout(function(){ jQuery("#FileName").hide(); },1000);
+           //          // currentPerc=0;
+           //         }
 
-            }, speed);
+           //  }, speed);
 
             FileName = "";
             title = "";
             fn = "";
-            progressbarc = "";
-            progressbar = "";
-            progress = "";
+            // progressbarc = "";
+            // progressbar = "";
+            // progress = "";
             a = "";
             // perc="";
             // userInput="";
