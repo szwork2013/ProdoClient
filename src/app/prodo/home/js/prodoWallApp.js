@@ -1,6 +1,14 @@
 angular.module('prodo.ProdoWallApp')
 	.controller('ProdoWallController', ['$rootScope', '$scope', '$state', '$log', 'UserSessionService', 'orgdata', 'orgaddr', 'orgproduct', 'productData', '$stateParams', 'growl', 'checkIfSessionExist', function($rootScope, $scope, $state, $log, UserSessionService, orgdata, orgaddr, orgproduct, productData, $stateParams, growl, checkIfSessionExist) {
-		$log.debug('initialising parent..');
+		
+    $log.debug('initialising parent..');
+    $scope.$state = $state;
+
+    $scope.$watch('$state.$current.locals.globals.checkIfSessionExist', function (checkIfSessionExist) {
+      if (checkIfSessionExist.error) {
+        $rootScope.showModal();
+      };
+    });
     
      $scope.updateimages = function(data) {
       $rootScope.manageSlider="";   // Added this variable to check conditions in tpl
@@ -18,23 +26,33 @@ angular.module('prodo.ProdoWallApp')
     };
 
     $scope.goToOrg = function() {
-      $state.transitionTo('prodo.home.wall-org', null, {'reload':true});
+      if ($state.$current.name !== 'prodo.home.wall-org') {
+        $state.transitionTo('prodo.home.wall-org', null, {'reload':true});
+      };
     }
 
     $scope.goToProduct = function() {
-      $state.transitionTo('prodo.home.wall-product', null, {'reload':true});
+      if ($state.$current.name !== 'prodo.home.wall-product') {
+        $state.transitionTo('prodo.home.wall-product', null, {'reload':true});
+      };
     }
 
     $scope.goToWarranty = function() {
-      $state.transitionTo('prodo.home.wall-warranty', null, {'reload':true});
+     if ($state.$current.name !== 'prodo.home.wall-warranty') {
+        $state.transitionTo('prodo.home.wall-warranty', null, {'reload':true});
+      };
     }
 
     $scope.goToBlog = function() {
-      $state.transitionTo('prodo.home.wall-blog', null, {'reload':true});
+     if ($state.$current.name !== 'prodo.home.wall-blog') {
+        $state.transitionTo('prodo.home.wall-blog', null, {'reload':true});
+      };
     }
 
     $scope.goToDashboard = function() {
-      $state.transitionTo('prodo.home.wall-dashboard', null, {'reload':true});
+      if ($state.$current.name !== 'prodo.home.wall-dashboard') {
+        $state.transitionTo('prodo.home.wall-dashboard', null, {'reload':true});
+      };
     }
 
 

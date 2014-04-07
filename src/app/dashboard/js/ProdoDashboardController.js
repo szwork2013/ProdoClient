@@ -1,9 +1,7 @@
 angular.module('prodo.ProdoWallApp').controller('ProdoDashboardController', [
   '$scope',
   '$state',
-  'dataFromService',
-  function ($scope, $state,dataFromService) {
-    console.log("data received from resolve"+ JSON.stringify(dataFromService));
+  function ($scope, $state) {
     $scope.data = [
       {
         key: 'Awesome',

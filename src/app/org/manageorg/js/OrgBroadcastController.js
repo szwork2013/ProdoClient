@@ -36,9 +36,13 @@ angular.module('prodo.OrgApp')
         growl.addSuccessMessage(data.success.message);    
 
       } else {
-            $log.debug(data.error.message);
-            growl.addSuccessMessage(data.error.message);  
+        if(data.error !== undefined && data.error.code === 'AL001' ) {
+          $rootScope.showModal();
+        } else {
+          $log.debug(data.error.message);
+          growl.addSuccessMessage(data.error.message);  
         }
+      }    
       $scope.hideSpinner();
 
     };
@@ -46,6 +50,7 @@ angular.module('prodo.OrgApp')
     $scope.broadcastMessage = function() {
       if ($scope.form.orgMessageBroadcastform.$valid) {
         $scope.showSpinner();
+        $scope.form.orgMessageBroadcastform.submitted = false;
         OrgRegistrationService.OrgMessagebroadcast( $scope.jsonOrgBroadcastData());
       } else {
         $scope.form.orgMessageBroadcastform.submitted = true;
@@ -57,7 +62,7 @@ angular.module('prodo.OrgApp')
     });
 
     var cleanupOrgBroadcastNotDone = $scope.$on("OrgBroadcastNotDone", function(event, message) {
-      $scope.handleOrgBroadcastResponse(message);
+      growl.addErrorMessage('There is some server error.');
     });
 
     $scope.$on('$destroy', function(event, message) {

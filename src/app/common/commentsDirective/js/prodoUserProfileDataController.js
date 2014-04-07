@@ -37,11 +37,7 @@ angular.module('prodo.CommonApp').controller('prodoUserProfileDataController', [
       $scope.errorIfUserDoesNotExist = '';
       if(data.error !== undefined && data.error.code==='AL001')
       {
-        $('#profileInfoModal').modal('hide');
-        $('.modal-backdrop').remove();
-        UserSessionService.resetSession();
-        $state.go('prodo.landing.signin');
-        // $rootScope.showModal();
+        $rootScope.showModal();
       }
       else if(data.error !== undefined && data.error.code === "AU003")
       {
@@ -50,6 +46,7 @@ angular.module('prodo.CommonApp').controller('prodoUserProfileDataController', [
            $scope.ProductsFollowedMessage="";
            $scope.errorIfUserDoesNotExist = 'This user is deactivated'; 
            $scope.modaluser.profilepic = undefined;
+           $('#profileInfoModal').modal('show');
       }
       else
       { 
@@ -75,6 +72,7 @@ angular.module('prodo.CommonApp').controller('prodoUserProfileDataController', [
         {
           $scope.ProductsRecommendedMessage = "RECOMMENDED PRODUCTS";
         }
+        $('#profileInfoModal').modal('show');
       }
     });
     

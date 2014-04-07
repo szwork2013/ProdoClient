@@ -73,10 +73,7 @@ angular.module('prodo.ProdonusApp')
         } 
       },
       onEnter: function(UserSessionService, checkIfSessionExist, $state){
-        if (checkIfSessionExist.error) {
-          UserSessionService.resetSession();
-          $state.transitionTo('prodo.landing.signin');
-        } else {
+        if (checkIfSessionExist.success) {
           if (checkIfSessionExist.success.user.prodousertype == 'business' && checkIfSessionExist.success.user.org == undefined) {
             $state.transitionTo('prodo.orgregistration.company');
           } else if (checkIfSessionExist.success.user.isOtpPassword) {
@@ -91,7 +88,6 @@ angular.module('prodo.ProdonusApp')
       resolve: {
           UserService: 'UserService',
           userdata: function(UserService, $rootScope) {
-            console.log('getting details');
             return UserService.user_data.getUserSettings({userid: $rootScope.usersession.currentUser.userid}).$promise;
           }
         }
@@ -190,10 +186,7 @@ angular.module('prodo.ProdonusApp')
         } 
       },
       onEnter: function(UserSessionService, checkIfSessionExist, $state){
-        if (checkIfSessionExist.error) {
-          UserSessionService.resetSession();
-          $state.transitionTo('prodo.landing.signin');
-        } else {
+        if (checkIfSessionExist.success) {
           if (checkIfSessionExist.success.user.prodousertype == 'business' && checkIfSessionExist.success.user.org == undefined) {
             $state.transitionTo('prodo.orgregistration.company');
           } else if (checkIfSessionExist.success.user.isOtpPassword) {
@@ -273,10 +266,7 @@ angular.module('prodo.ProdonusApp')
       },
       controller: 'ProdoWallController',
       onEnter: function(UserSessionService, checkIfSessionExist, $state){
-        if (checkIfSessionExist.error) {
-          UserSessionService.resetSession();
-          $state.transitionTo('prodo.landing.signin');
-        } else {
+        if (checkIfSessionExist.success) {
           if (checkIfSessionExist.success.user.prodousertype == 'business' && checkIfSessionExist.success.user.org == undefined) {
             $state.transitionTo('prodo.orgregistration.company');
           } else if (checkIfSessionExist.success.user.isOtpPassword) {
@@ -316,9 +306,15 @@ angular.module('prodo.ProdonusApp')
       }
     }) 
    .state('prodo.home.wall-warranty', {
+      resolve: {
+        warrantydata: function(WarrantyService, $rootScope) {
+          return WarrantyService.get_allwarranties.getAllWarrantyDetails({userid: $rootScope.usersession.currentUser.userid}).$promise;
+        }
+      },
       views: {
         'prodo-content' : {
-          templateUrl:  'warranty/views/prodo.wall.warrantyTabs.tpl.html'
+          templateUrl:  'warranty/views/prodo.wall.warranty.tpl.html',
+          controller: 'ProdoWallWarrantyController',
         },
         'prodo-advertisment' : {
           templateUrl:  'prodo/home/views/prodo.wall.advertisment.tpl.html'
@@ -335,17 +331,7 @@ angular.module('prodo.ProdonusApp')
         }
       }
     }) 
-    .state('prodo.home.wall-dashboard', {
-      resolve : 
-      { 
-        dataFromService : function($http) 
-         {
-            return $http({
-                          method: 'GET',
-                          url: '/api/trendingproducts'
-                        });
-         }
-      },   
+    .state('prodo.home.wall-dashboard', {   
       views: {
         'prodo-content' : {
           templateUrl:  'dashboard/views/prodo.wall.dashboard.tpl.html',
@@ -355,5 +341,37 @@ angular.module('prodo.ProdonusApp')
           templateUrl:  'prodo/home/views/prodo.wall.advertisment.tpl.html'
         }
       } 
-    }) 
+    })
+
+    /* ----Warranty Account Routes---- */
+    .state('prodo.account-warranty', {
+      abstract: true,
+      templateUrl: 'warranty/views/warranty.account.settings.container.html',
+      resolve : {
+        checkIfSessionExist: function(UserService, $rootScope) {
+            return UserService.Is_user_loggedin.checkUserSession().$promise;
+        } 
+      },
+      onEnter: function(UserSessionService, checkIfSessionExist, $state){
+        if (checkIfSessionExist.success) {
+          if (checkIfSessionExist.success.user.prodousertype == 'business' && checkIfSessionExist.success.user.org == undefined) {
+            $state.transitionTo('prodo.orgregistration.company');
+          } else if (checkIfSessionExist.success.user.isOtpPassword) {
+            $state.transitionTo('prodo.landing.resetpassword');
+          } 
+        }
+      }
+    })    
+    .state('prodo.account-warranty.warranty', {
+      templateUrl:  'warranty/views/warranty.account.settings.tpl.html',
+      controller: 'ManageWarrantyController'
+    })
+    /* ----Warranty Account Nested Routes---- */
+    .state('prodo.account-warranty.warranty.detail', {
+       templateUrl:  'warranty/views/warranty.account.details.tpl.html'
+      }) 
+    .state('prodo.account-warranty.warranty.request', {
+       templateUrl:  'warranty/views/warranty.account.service.request.tpl.html'
+      })
+ 
   }]);
