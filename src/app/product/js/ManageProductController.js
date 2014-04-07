@@ -240,6 +240,10 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   $scope.handleSaveProductFeatureResponse = function (data) {
     if (data.success) {
         // $scope.enableFeatureSuccessMsg();
+          // $scope.features.push($scope.newFeature);
+          // $scope.enableFeatureSuccessMsg();
+          // ProdFSuccessMsg.innerHTML = success.success.message;
+          // growl.addSuccessMessage(success.success.message);
         $scope.enableFeatureSuccessMsg();
         ProdFSuccessMsg.innerHTML = "Feature added successfully";
        ProdFSuccessMsg.innerHTML = data.success.message;
@@ -791,10 +795,7 @@ $scope.handledeleteProductImagesError=function(error){
            // $scope.currentProdle=$scope.product.product_prodle;
            $scope.newProduct_ResponseProdle=$scope.currentProdle;
           $scope.handleSaveProductFeatureResponse(success); // calling function to handle success and error responses from server side on POST method success.
-          // $scope.features.push($scope.newFeature);
-          $scope.enableFeatureSuccessMsg();
-          ProdFSuccessMsg.innerHTML = success.success.message;
-          // growl.addSuccessMessage(success.success.message);
+        
         }, function (error) {
           $log.debug(error);
           $scope.enableFeatureErrorMsg();
