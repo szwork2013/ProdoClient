@@ -100,6 +100,12 @@ angular.module('prodo.OrgApp')
             params: {orgid:'@orgid', data: '@data' }
           }
         }),
+        KeyClientsDelete: $resource('/api/keyclient/org/:orgid?orgkeyclientids=:data', {}, {
+          clientDeleteRequest: { 
+            method: 'DELETE', 
+            params: {orgid:'@orgid', data: '@data' }
+          }
+        }),
       }
 
     var organization = {};
@@ -271,6 +277,17 @@ angular.module('prodo.OrgApp')
       //     $rootScope.$broadcast("getOrgNotDone", error.status);
       //   });
       // }
+
+      organization.keyClientDelete = function(clientids) {
+        OrgService.KeyClientsDelete.clientDeleteRequest({orgid:$rootScope.usersession.currentUser.org.orgid, data:clientids},
+          function(success){
+            $log.debug(success);
+            $rootScope.$broadcast("clientsDeletesSuccessfully",success);
+          },
+          function(error){
+            $log.debug(error);$rootScope.$broadcast("clientsNotDeletedSuccessfully",error);
+          });
+      }
 
       organization.updateOrgData = function(orgData, $scope){
           organization.currentOrgData = orgData;

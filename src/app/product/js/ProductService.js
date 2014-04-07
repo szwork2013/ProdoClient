@@ -19,7 +19,7 @@
     getProduct: {method: 'GET', params: {orgid: 'id', prodle: 'id'}},
     updateProduct: {method: 'PUT', params: {orgid: 'id', prodle: 'id'}, isArray: false},
     deleteProduct: {method: 'DELETE', params: {orgid: 'id', prodle: 'id'}},
-    saveProduct: {method: 'POST', params: {orgid: 'id'}}
+    saveProduct: {method: 'POST', params: {orgid: 'id'}},
   });
 }])
 
@@ -61,6 +61,12 @@
   });
 }])
 
+.factory('isLoggedin', ['$resource', function($resource) {
+  return $resource('/api/isloggedin', {},
+  {
+    checkUserSession: { method: 'GET' }
+  });
+}])
 
 
 

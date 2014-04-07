@@ -24,7 +24,8 @@
       '$rootScope',
       'UserSessionService',
       'CommentService',
-      function ($scope, $log, ProductService, $rootScope, UserSessionService, CommentService) {
+      'growl',
+      function ($scope, $log, ProductService, $rootScope, UserSessionService, CommentService,growl) {
         $(document).ready(function () {
           var txtheight;
           var txtwidth;
@@ -94,13 +95,38 @@
     }
     return s;
   };
+  
+  $scope.handleDeleteProductCommentSuccess=function(success){
+    growl.addSuccessMessage("Comment deleted successfully");
+  };
+
+   $scope.handleDeleteProductCommentError=function(error){
+     if(error.code=='AL001'){
+        $rootScope.showModal();
+      }
+      else{
+        $log.debug(error.message);
+      }
+   };
 
   $scope.deleteProductComment = function (comment) {
     if (comment.user.userid == $scope.userIDFromSession ) {
       var index = $scope.productComments.indexOf(comment);
       if (index != -1)
         $scope.productComments.splice(index, 1);
-      CommentService.deleteComment({ commentid: comment.commentid });
+      CommentService.deleteComment({ commentid: comment.commentid },
+       function (success) {
+          if(success.success){
+           $scope.handleDeleteProductCommentSuccess(success);   
+          }else if(success.error){
+            $scope.handleDeleteProductCommentError(success.error);
+          }  
+        }, function (error) {
+          $log.debug(JSON.stringify(error));
+         // growl.addErrorMessage(error);
+        });
+
+
       $log.debug(comment.commentid);
     }
   };

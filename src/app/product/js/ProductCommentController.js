@@ -11,17 +11,32 @@
 * 
 */
 angular.module('prodo.ProductApp')
-.controller('ProductCommentController', ['$scope', '$log', '$rootScope', 'ProductService', 'UserSessionService', '$http', 'CommentLoadMoreService', 'ENV', 'TagReffDictionaryService', 'ProductFeatureService', 'growl',  function ($scope, $log, $rootScope, ProductService, UserSessionService, $http, CommentLoadMoreService, ENV, TagReffDictionaryService, ProductFeatureService, growl) {
+.controller('ProductCommentController', ['$scope', '$log', '$rootScope', 'ProductService', 'UserSessionService', '$http', 'CommentLoadMoreService', 'ENV', 'TagReffDictionaryService', 'ProductFeatureService', 'growl','isLoggedin',  function ($scope, $log, $rootScope, ProductService, UserSessionService, $http, CommentLoadMoreService, ENV, TagReffDictionaryService, ProductFeatureService, growl,isLoggedin) {
+
+
+$scope.handleGetAllTagsSuccess=function(successData){
+     for (var i = 0; i < successData.success.tags.length; i++) {
+      $scope.pretags.push(successData.success.tags[i].tagname);
+    }
+};
+
+$scope.handleGetAllTagsError=function(error){
+   if(error.code=='AL001'){
+        $rootScope.showModal();
+      }else{
+       $log.debug(error);
+     }
+};
 
 //get predefined tags
 TagReffDictionaryService.getAllTags(
-
 function (successData) {
-  if (successData.success == undefined) {} else {
-    for (var i = 0; i < successData.success.tags.length; i++) {
-      $scope.pretags.push(successData.success.tags[i].tagname);
-    }
-  }
+    if (successData.success == undefined) {
+     $scope.handleGetAllTagsError(successData.error);
+    } 
+    else {
+     $scope.handleGetAllTagsSuccess(successData);
+   }
 });
 //get predefined tags
 //Generate GUID for commentid
@@ -64,7 +79,7 @@ $scope.socket.on('addcommentResponse', function (error, result) {
     $log.debug("addcommentResponse success" + result.success.product_comment);
   }
   //   $scope.socket.removeAllListeners();
-})
+});
 //socket response when for add comment
 //productComment response -on the fly comment listener creation
 $scope.productcommentResponseListener = "productcommentResponse" + $rootScope.product_prodle;
@@ -187,9 +202,31 @@ $scope.makeTagsPair = function (noun, adj) {
   }
 };
 
+ $scope.handleAddProductComment=function(error){
+    if(error.code=='AL001'){
+        $rootScope.showModal();
+      }else{
+      $log.debug(error);
+      $rootScope.showModal();
+    }
+ };
 
 //add comment
 $scope.addProductComment = function () {
+  
+
+isLoggedin.checkUserSession(
+function (successData) {
+    if (successData.success == undefined) {
+      if(successData.error)
+      {
+       $scope.handleAddProductComment(successData.error);
+      } 
+     }
+    else { //add comment
+   
+  
+
    $scope.commentError=false;
   if ($scope.commenttextField.userComment == "" || $scope.commenttextField.userComment == undefined || $scope.commenttextField.userComment == null) {
    growl.addErrorMessage("You can not add blank comment");
@@ -311,9 +348,24 @@ $scope.addProductComment = function () {
     }
   
 }
+
+ }
+});  // isLoggedin check end
+
+
 };
 
 $scope.addProductCommentretry = function (comment) {
+isLoggedin.checkUserSession(
+function (successData) {
+    if (successData.success == undefined) {
+      if(successData.error)
+      {
+       $scope.handleAddProductComment(successData.error);
+      } 
+     }
+    else { //add comment
+
  
     // if($rootScope.file_data==undefined){
     if (($rootScope.file_data == "") || ($rootScope.file_data == " ") || ($rootScope.file_data == undefined) || ($rootScope.file_data == null)) {
@@ -416,7 +468,8 @@ $scope.addProductCommentretry = function (comment) {
       $scope.mytags = "";
   
   
-
+ }
+});  // isLoggedin check end
 };
 //Add comment function
 //get latest comments posted by others
@@ -508,12 +561,14 @@ $scope.handleLoadMoreCommentResponse = function (result) {
   } else {
     $("#loadMoreCommentMsg").css("display", "block");
     $("#load-more").css("display", "none");
-    if (result.error.code == 'AC002') {
-
+     if (result.error.code == 'AL001') {
+      $rootScope.showModal();
+    }
+    else if (result.error.code == 'AC002') {
       $("#loadMoreCommentMsg").html(result.error.message);
       $("#load-more").hide();
       $log.debug(result.error.message);
-    } else if (result.error.code == 'AC001') {
+      } else if (result.error.code == 'AC001') {
       $log.debug(result.error.message);
       $("#loadMoreCommentMsg").html(result.error.message);
     } else {

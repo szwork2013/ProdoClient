@@ -13,6 +13,7 @@
 <div id="prodo-productsAdmin">
   <!-- All Product List -->
   <div id="ErrMsging" class="prodo-ErrMsging" ></div>
+  <div prodo-signin-modal></div>
  <!-- <div growl > </div> -->
   <br>
   <div class="prodo-productListCorousel" >
@@ -84,22 +85,22 @@
 <!--  <div  ng-show="productCategoryInvalid==true" class="prodo-product-Invalid">Please enter category</span> -->
   </div>
  <div  ng-show="(productForm.display_name.$dirty && editMode.editorEnabled==true) ||(productForm.submitted==true && productForm.display_name.$invalid==true)" class="prodo-product-Invalid">
-  <span ng-show="productForm.display_name.$error.maxlength"> Display name can be of 15 characters maximum</span>
+  <span ng-show="productForm.display_name.$error.maxlength"> Display name can not be more than 15 characters</span>
   </div>
 
  <div  ng-show="(productForm.name.$dirty  && editMode.editorEnabled==true ) ||(productForm.submitted==true && productForm.name.$invalid==true)" class="prodo-product-Invalid">
   <span ng-show="productForm.name.$error.required">Please enter product name</span>
-  <span ng-show="productForm.name.$error.maxlength">  Product name can be of 50 characters maximum</span>
+  <span ng-show="productForm.name.$error.maxlength">Product name can not be more than 50 characters  </span>
   </div>
    
   <div  ng-show="(productForm.model_no.$dirty  && editMode.editorEnabled==true)||(productForm.submitted==true && productForm.model_no.$invalid==true)" class="prodo-product-Invalid">
    <!-- <span ng-show="productForm.model_no.$error.required">Please enter model number</span> -->
-  <span ng-show="productForm.model_no.$error.maxlength"> Model number can be of 15 characters maximum</span>
+  <span ng-show="productForm.model_no.$error.maxlength"> Model number can not be more than 15 characters </span>
   </div>
 
  <div  ng-show="(productForm.description.$dirty  && editMode.editorEnabled==true)||(productForm.submitted==true && productForm.description.$invalid==true)" class="prodo-product-Invalid">
   <span ng-show="productForm.description.$error.required">Please enter description</span>
-  <span ng-show="productForm.description.$error.maxlength">Description can be of 15 characters maximum</span>
+  <span ng-show="productForm.description.$error.maxlength">Description can not be more than 1000 characters</span>
  </div>
  <span ng-show="productForm.display_name.$error.required && !productForm.display_name.$pristine">Please Enter display name</span>
  
@@ -111,11 +112,11 @@
       <!-- admin tasks -->
       <div ng-show="product.prodle" class="prodo.productAdmin1 pull-right "  id="prodo.productAdmin" ng-style="checkAdmintoUpdateProduct();" >
         <a href="" class="btn btn-primary btn-sm btn-bottom-margin" ng-click="editStatus='update' ; enableEditor() ;  "  onclick="$('.prodo-productDiscontinuedUpdate').show();"> Update &nbsp;<i class="fa fa-pencil-square-o "></i></a>
-        <a href="" class="btn btn-danger btn-sm btn-bottom-margin" data-toggle="modal" data-target="#myModal">  Delete &nbsp; <i class="fa fa-trash-o"></i> </a> 
+        <a href="" class="btn btn-danger btn-sm btn-bottom-margin" data-toggle="modal" data-target="#myModalDelete">  Delete &nbsp; <i class="fa fa-trash-o"></i> </a> 
         <br>
       </div>
       <!-- Modal -->
-      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal fade" id="myModalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -202,7 +203,7 @@
           </tr>
           <tr>
             <td  colspan="2">Description   <textarea  type="text" 
-              ng-maxlength="500" id="prodo-product-featuresDescription_textfield" class="form-control prodo-validation"  ng-model="product.description" required name="description" col="40"  ></textarea>
+              ng-maxlength="1000" id="prodo-product-featuresDescription_textfield" class="form-control prodo-validation"  ng-model="product.description" required name="description" col="40"  ></textarea>
             </td>
           </tr>
           <tr >
@@ -237,22 +238,22 @@
 
   <div  ng-show="(productFeaturesForm.name.$dirty && editMode.editorEnabledF ==true) ||(productFeaturesForm.submitted==true && productFeaturesForm.name.$invalid==true)" class="prodo-product-Invalid">
   <span ng-show="productFeaturesForm.name.$error.required">Please enter feature name</span>
-  <span ng-show="productFeaturesForm.name.$error.maxlength">Feature name can be of 50 characters maximum</span>
+  <span ng-show="productFeaturesForm.name.$error.maxlength">Feature name can not be more than 50 characters</span>
   </div>
 
   <div  ng-show="(productFeaturesForm.description.$dirty  && editMode.editorEnabledF ==true) ||(productFeaturesForm.submitted==true && productFeaturesForm.description.$invalid==true)" class="prodo-product-Invalid">
   <span ng-show="productFeaturesForm.description.$error.required">Please enter feature description</span>
-  <span ng-show="productFeaturesForm.description.$error.maxlength"> Feature description can be of 100 characters maximum</span>
+  <span ng-show="productFeaturesForm.description.$error.maxlength"> Feature description can not be more than 500 characters </span>
   </div>
 
    <div  ng-show="productFeatureUpdate.name.$dirty " class="prodo-product-Invalid">
   <span ng-show="productFeatureUpdate.name.$error.required">Please enter feature name</span>
-  <span ng-show="productFeatureUpdate.name.$error.maxlength">Feature name can be of 50 characters maximum </span>
+  <span ng-show="productFeatureUpdate.name.$error.maxlength">Feature name can not be more than 50 characters </span>
   </div>
 
   <div  ng-show="productFeatureUpdate.description.$dirty  " class="prodo-product-Invalid">
   <span ng-show="productFeatureUpdate.description.$error.required">Please enter feature description</span>
-  <span ng-show="productFeatureUpdate.description.$error.maxlength">Feature description can be of 100 characters maximum</span>
+  <span ng-show="productFeatureUpdate.description.$error.maxlength">Feature description can not be more than 500 characters </span>
   </div>
 
     <div id="productExtraInfo">
@@ -268,7 +269,7 @@
               ng-maxlength="50" type="text"   required name="name" />  </td>
           </tr>
           <tr class="prodo-productTableFont" >
-            <td  colspan="2">Description   <textarea  type="text" id="prodo-product-featuresDescription_textfield" class="form-control prodo-validation"  ng-model="featuredescription"  ng-maxlength="100" required name="description" col="40"  > </textarea>
+            <td  colspan="2">Description   <textarea  type="text" id="prodo-product-featuresDescription_textfield" class="form-control prodo-validation"  ng-model="featuredescription"  ng-maxlength="500" required name="description" col="40"  > </textarea>
             </td>
           </tr>
           <tr  class="prodo-productTableFont">
@@ -296,7 +297,7 @@
             <td ng-hide="edit" > <span class="prodo-featurename" ng-bind="feature.featurename"> </span></td>
             <td  ng-show="edit" ><input ng-model="feature.featurename"  class="form-control prodo-productFeatureName prodo-validation prodo-featurename"  type="text"   ng-maxlength="50"  required name="name" /> </td>
             <td ng-hide="edit" > <span class="prodo-featureDescription" ng-bind="feature.featuredescription"> </span></td>
-            <td  ng-show="edit" ><input ng-model="feature.featuredescription" class="form-control prodo-productFeaturedescription prodo-validation prodo-featureDescription"  ng-maxlength="100" type="text"   required name="description" /> </td>
+            <td  ng-show="edit" ><input ng-model="feature.featuredescription" class="form-control prodo-productFeaturedescription prodo-validation prodo-featureDescription"  ng-maxlength="500" type="text"   required name="description" /> </td>
             <td ng-hide="edit || features.length<2" class="prodo-EditIcons" ng-hide=""> 
               <a  ng-hide="$first" href="" ng-click="edit = ! edit; editStatus='update';  "> <i class="fa fa-pencil " /> </a>
               &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
