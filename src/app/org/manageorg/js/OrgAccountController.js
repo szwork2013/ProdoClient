@@ -43,7 +43,8 @@ $scope.deleteOrgRequestResponse = false;
            // $scope.addCustomerInvites = false;
             $scope.deleteOrgRequestResponse = false;
     };
-
+  $scope.regularExpressionForManufactuter = /^manufacturer/i;
+  $scope.regularExpressionForCompany = /^company/i;
 // The following function is written to calculate total number of addresses  for an organization.
 // The purpose behing writing this function is to restrict user from deleting all addresses from the list
 //
@@ -909,13 +910,17 @@ $scope.regexForZipcode = /^[0-9]{5,7}$/;
       }
     };
 
-    $scope.deleteGroupMember = function(member, userid, index) { 
+    $scope.deleteGroupMember = function(member, userid, index , mail) { 
                     if(member.grpname === 'admin')
                     {
                         var lengthOfAdminMembers = $scope.groups[index].grpmembers.length;
                         if(lengthOfAdminMembers===1)
                         {
                             $scope.ProdoAppMessage("You cannot delete all members of admin group",'error');
+                        }
+                        else if($rootScope.usersession.currentUser.email === mail)
+                        {
+                            $scope.ProdoAppMessage("You cannot delete your own account",'error');
                         }
                         else 
                         {

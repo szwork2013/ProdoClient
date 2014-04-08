@@ -199,14 +199,23 @@
             <dl class="dl-horizontal">
               <dt>*Location Type:</dt>
               <dd>
-              <select name="loctype" type="text" style="width:55%; height:30px; display:block" class="form-control" ng-model="orgaddresstype" autofocus id="orgAddressType" required>
+              <select name="loctype" type="text" style="width:55%; height:30px; display:block" class="form-control" ng-model="orgaddresstype" autofocus id="orgAddressType"   ng-if="regularExpressionForManufactuter.test(usersession.currentUser.usertype) === true" required>
 
 
               
                 <option value="Company Address">Company Address</option>
-                <option value="Service Centers">Service Centers</option></select>
+                <option value="Service Centers">Service Centers</option>
+
+              </select>
+
+              <select name="loctype" type="text" style="width:55%; height:30px; display:block" class="form-control" ng-model="orgaddresstype" autofocus id="orgAddressType"   ng-if="regularExpressionForCompany.test(usersession.currentUser.usertype) === true " required>
 
 
+              
+                <option value="Company Address">Company Address</option>
+
+
+              </select>
 
 
                 <small style='color:red;' ng-show="(form.orgaddlocationform.loctype.$dirty && form.orgaddlocationform.loctype.$error.required)">Address is required.</small></dd>
