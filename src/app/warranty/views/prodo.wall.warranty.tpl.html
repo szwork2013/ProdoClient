@@ -1,3 +1,59 @@
 <div class="prodo-wall-warranty-container container">
-  <strong>Warranty Comming soon...</strong>
+	<div ng-show="warranties.length == 0">
+		<p class="prodo-wall-product-text text-success"><strong><em>Currently no warranties available.</em></strong></p>
+	</div>
+	<div ng-show="warranties.length != 0" ng-repeat="warranty in warranties">
+		<div style=" margin-bottom: 5px;" class="row">
+		  <div class="col-md-9">
+		  	<span style="font-size: 14px; padding: 3px;" class="label label-success"><strong>Expires on Date: {{ warranty.expirydate |  date:'MMM d, y'}}</strong>
+		  	</span>
+		  </div>
+
+		  <div class="col-md-3">
+		  	<button ng-click="OpenInvoiceImage = !OpenInvoiceImage" class="prodo-follow-btn btn btn-primary btn-sm"><i class="prodo-fa fa fa-picture-o"></i>Invoice</button>
+		  </div>
+		</div>
+		<hr size=3 class="prodo-wall-org-hr" noshade>
+		<div class="row">
+		  <div class="col-md-6">
+		  	<dl class="dl-horizontal">
+		  		<dt>Organization Name:</dt>
+				  <dd>{{warranty.orgname}}</dd>
+				  <br>
+				  <dt>Product Name:</dt>
+				  <dd>{{warranty.name}}</dd>
+				  <br>
+				  <dt>Model No.:</dt>
+				  <dd>{{warranty.model_no}}</dd>
+				  <br>
+				  <dt>Purchase Date:</dt>
+				  <dd>{{warranty.purchase_date |  date:'MMM d, y'}}</dd>
+				  <br>
+				  <dt>Description:</dt>
+				  <dd>{{warranty.description}}</dd>
+
+				</dl>
+		  </div>
+
+		  <div class="col-md-6">
+		  	<dl class="dl-horizontal">
+		  		<dt></dt>
+		  		<dd ng-show="warranty.prodle && warranty.orgid"><span class="label label-success" tooltip="The warranty information (model no. & serial no.) are verified with the organization - {{warranty.orgname}}." tooltip-placement="top">Verified</span></dd>
+		  		<dd ng-show="!warranty.orgid"><span class="label label-danger" tooltip="The warranty information (model no. & serial no.) are not verified with the organization - {{warranty.orgname}}." tooltip-placement="top">Not Verified</span></dd>
+		  		<br>
+		  		<dt>Model Name:</dt>
+				  <dd>{{warranty.model_name}}</dd>
+				  <br>
+				  <dt>Serial No.:</dt>
+				  <dd>{{warranty.serial_no}}</dd>
+				  <br>
+				  <dt>Purchase Location:</dt>
+				  <dd>{{warranty.purchase_location}}</dd>
+				</dl>
+		  </div>
+		</div>
+		<div id="#invoice-img-div" ng-show="OpenInvoiceImage" class="row">
+			<img style="width: 98%; margin: 5px;" ng-src="{{warranty.invoice_image}}" alt="..." class="img-rounded">
+		</div>
+	</div>
 </div>

@@ -1080,10 +1080,25 @@ text {
   border-width: 5px 5px 5px 0;
 }
 
+.tooltip.top .tooltip-arrow {
+  border-right-color: #FFE85A;
+  border-width: 5px 5px 0;
+}
+
+.tooltip.bottom .tooltip-arrow {
+  border-right-color: #FFE85A;
+   border-width: 0 5px 5px;
+}
+
+.tooltip.left .tooltip-arrow {
+  border-right-color: #FFE85A;
+   border-width: 5px 0 5px 5px;
+}
+
 .tooltip > .tooltip-inner {
   color: #000;
   font-size: 12px;
- 	min-width: 50px;
+ 	max-width: 350px;
   background: #FFE85A;
   border: solid 1px #FFE85A;
 }
@@ -2303,6 +2318,15 @@ border: 1px solid #b3b3b3; padding: 30px;
   border-radius: 10px;
   padding: 20px;
 }
+
+.prodo-wall-campaign-container{
+	border: 1px solid #E7EDF1;
+	background-color: #ffffff;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  padding: 20px;
+}
+
 .org-address-search-form-control{
 	width: 270px;
 }
@@ -2336,6 +2360,10 @@ margin:2px auto; padding: 5px; display:block; text-align:left; font-weight:bold;
 
 #prodo-org-account-container{
 	margin-top: 20px;
+}
+
+#prodo-campaign-account-container{
+	margin-top:20px;
 }
 
 #prodo-user-account-container{
