@@ -11,4 +11,18 @@ angular.module('prodo.WarrantyApp')
     }
     return warranty;
   }
-]);
+])
+
+.factory('OrgnameService', ['$resource', function($resource) {
+  return $resource('/api/orgnames', {},
+  {
+    getOrgname: {method: 'GET'}
+  });
+}])
+
+.factory('ProductnameService', ['$resource', function($resource) {
+  return $resource('/api/productname', {},
+  {
+    getProductname: {method: 'GET'}
+  });
+}])
