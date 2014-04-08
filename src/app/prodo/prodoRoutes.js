@@ -321,6 +321,17 @@ angular.module('prodo.ProdonusApp')
         }
       }
     }) 
+    .state('prodo.home.wall-campaign', {
+      views: {
+        'prodo-content' : {
+          templateUrl:  'campaign/views/prodo.wall.campaign.tpl.html',
+          controller: 'ProdoWallCampaignController',
+        },
+        'prodo-advertisment' : {
+          templateUrl:  'prodo/home/views/prodo.wall.advertisment.tpl.html'
+        }
+      }
+    }) 
     .state('prodo.home.wall-blog', {
       views: {
         'prodo-content' : {
@@ -369,9 +380,40 @@ angular.module('prodo.ProdonusApp')
     /* ----Warranty Account Nested Routes---- */
     .state('prodo.account-warranty.warranty.detail', {
        templateUrl:  'warranty/views/warranty.account.details.tpl.html'
-      }) 
+    }) 
     .state('prodo.account-warranty.warranty.request', {
        templateUrl:  'warranty/views/warranty.account.service.request.tpl.html'
+    })
+
+    /* ----campaign Account Routes---- */
+    .state('prodo.account-campaign', {
+      abstract: true,
+      templateUrl: 'campaign/views/campaign.account.settings.container.html',
+      resolve : {
+        checkIfSessionExist: function(UserService, $rootScope) {
+            return UserService.Is_user_loggedin.checkUserSession().$promise;
+        } 
+      },
+      onEnter: function(UserSessionService, checkIfSessionExist, $state){
+        if (checkIfSessionExist.success) {
+          if (checkIfSessionExist.success.user.prodousertype == 'business' && checkIfSessionExist.success.user.org == undefined) {
+            $state.transitionTo('prodo.orgregistration.company');
+          } else if (checkIfSessionExist.success.user.isOtpPassword) {
+            $state.transitionTo('prodo.landing.resetpassword');
+          } 
+        }
+      }
+    })    
+    .state('prodo.account-campaign.campaign', {
+      templateUrl:  'campaign/views/campaign.account.settings.tpl.html',
+      controller: 'ManageCampaignController'
+    })
+    /* ----campaign Account Nested Routes---- */
+    .state('prodo.account-campaign.campaign.detail', {
+       templateUrl:  'campaign/views/campaign.account.details.tpl.html'
+      }) 
+    .state('prodo.account-campaign.campaign.analytics', {
+       templateUrl:  'campaign/views/campaign.account.analytics.tpl.html'
       })
  
   }]);
