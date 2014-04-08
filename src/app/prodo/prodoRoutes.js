@@ -367,10 +367,10 @@ angular.module('prodo.ProdonusApp')
         orgnameData: function(OrgnameService, $rootScope) {
           return OrgnameService.getOrgname().$promise;
         }
-        // ,
-        // productnameData: function(ProductnameService, $rootScope) {
-        //   return ProductnameService.getProductname().$promise;
-        // }
+        ,
+        productnameData: function(ProductnameService, $rootScope) {
+          return ProductnameService.getProductname().$promise;
+        }
       },
       templateUrl:  'warranty/views/warranty.account.settings.tpl.html',
       controller: 'ManageWarrantyController'

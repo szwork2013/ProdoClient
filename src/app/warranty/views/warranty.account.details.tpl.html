@@ -25,7 +25,7 @@
             </td>
       
             <td  class="prodo-width50" >Product  <input   id="prodo_warranty_product" class="warranty-textField form-control prodo-validation prodo-display-right" 
-              ng-maxlength="50" type="text" ng-model="name"  required name="warranty_product" />
+              ng-maxlength="50" type="text" ng-model="allProductName"  required name="warranty_product" typeahead="allProductName as allProductName.name for allProductName in allProductNames | filter:$viewValue | limitTo:8" />{{allProductName}}
 
            
               <div  ng-show="(form.WarrantyForm.warranty_product.$dirty && editMode.editorEnabledWarranty ==true) ||(form.WarrantyForm.submitted==true && form.WarrantyForm.warranty_product.$invalid==true)" class="prodo-warranty-Invalid">

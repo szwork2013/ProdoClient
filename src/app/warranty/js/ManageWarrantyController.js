@@ -1,5 +1,5 @@
 angular.module('prodo.WarrantyApp')
- .controller('ManageWarrantyController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$log', 'growl', 'WarrantyService', 'checkIfSessionExist','orgnameData', function($scope, $rootScope, $state, $http, $timeout, $log, growl, WarrantyService, checkIfSessionExist,orgnameData) {
+ .controller('ManageWarrantyController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$log', 'growl', 'WarrantyService', 'checkIfSessionExist','orgnameData','productnameData', function($scope, $rootScope, $state, $http, $timeout, $log, growl, WarrantyService, checkIfSessionExist,orgnameData,productnameData) {
    
 
 
@@ -9,6 +9,7 @@ angular.module('prodo.WarrantyApp')
   };
   $scope.editStatus;
   $scope.allOrgNames=[];
+   $scope.allProductNames=[];
   $scope.form={};
 
 $scope.getAllOrgNames=function(){
@@ -19,6 +20,15 @@ $scope.getAllOrgNames=function(){
 	}
 }
 $scope.getAllOrgNames();
+
+$scope.getAllProductNames=function(){
+	 console.log(productnameData.success.product);
+	if(productnameData.success){
+     $scope.allProductNames=productnameData.success.product;
+	 $log.debug("ProdData: "+$scope.allProductNames);
+	}
+}
+$scope.getAllProductNames();
 
 
   $scope.addWarranty = function (editStatus) {
