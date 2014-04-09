@@ -123,7 +123,7 @@
 
               </td>
                    <td class="prodo-width50"> Warranty type &nbsp; &nbsp;&nbsp; 
-                   <select ng-model="productwarranty.type" ng-options="t for t in type" required name="warranty_type">
+                   <select class="warranty-textField form-control prodo-validation prodo-display-right" ng-model="productwarranty.type" ng-options="t for t in type" required name="warranty_type">
                    </select>
                    
                 
@@ -135,7 +135,7 @@
 
 			 </tr>
            <tr>
-            <td  colspan="2">Invoice Upload    
+            <td  colspan="2">Invoice Upload  <input type="file" ng-model="productwarranty.invoiceUpload" />  
             </td>
           </tr>
          <!--  <tr>

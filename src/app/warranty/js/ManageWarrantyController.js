@@ -44,7 +44,8 @@ angular.module('prodo.WarrantyApp')
   	 description: '',
      disclaimer : '',
   	 coverage : '',
-  	 warranty_type:''
+  	 warranty_type:'',
+  	 invoice_image:''
    }
  $scope.newWarranty ={
   warrantydata:{}
@@ -104,7 +105,8 @@ $scope.getAllProductNames();
   	description: $scope.productwarranty.description,
   	disclaimer: $scope.productwarranty.disclaimer ,
   	coverage: $scope.productwarranty.coverage ,
-  	warranty_type:	$scope.productwarranty.type
+  	warranty_type:	$scope.productwarranty.type,
+  	invoice_image: $scope.productwarranty.invoiceUpload
   }
  };
 
