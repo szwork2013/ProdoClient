@@ -2,6 +2,13 @@
 <div growl></div>
 	<form name="form.orgMessageBroadcastform" class="css-form" ng-submit='' novalidate>
     <dl class="dl-horizontal">
+    	<dt>Message Type:</dt>
+      <dd><select type="text" name="messagetype" class="form-control" name="orgtype" ng-model="broadcast.type" required>
+          <option value="Normal">Normal</option>
+          <option value="Urgent">Urgent</option>
+        </select><small ng-show="((form.orgMessageBroadcastform.messagetype.$dirty && form.orgMessageBroadcastform.messagetype.$invalid) || (form.orgMessageBroadcastform.messagetype.$invalid && form.orgMessageBroadcastform.submitted))">Message type is required!</small></dd>
+      <br>
+    	
       <dt>Your Message:</dt>
       <dd><textarea name="message" type="textarea" ng-maxlength="150" class=" form-control" ng-model="broadcast.message" placeholder="Enter broadcast message here" required></textarea><small ng-show="((form.orgMessageBroadcastform.message.$dirty && form.orgMessageBroadcastform.message.$invalid) || (form.orgMessageBroadcastform.message.$invalid && form.orgMessageBroadcastform.submitted))">Message is required and should not exceed 150 characters!</small></dd>
       <br>

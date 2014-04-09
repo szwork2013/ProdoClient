@@ -1,18 +1,31 @@
 angular.module('prodo.OrgApp')
- .controller('ManageOrgBroadcastController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$log','growl', 'UserSessionService', 'OrgRegistrationService', 'OrgService', function($scope, $rootScope, $state, $http, $timeout, $log, growl, UserSessionService, OrgRegistrationService, OrgService) {
+ .controller('ManageOrgBroadcastController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$log','growl', 'UserSessionService', 'OrgRegistrationService', 'OrgService', 'getBroadcastData', function($scope, $rootScope, $state, $http, $timeout, $log, growl, UserSessionService, OrgRegistrationService, OrgService, getBroadcastData) {
     
     $scope.submitted= false;    
     $scope.form = {};
+    $scope.broadcasts = [];
     $scope.broadcast = {
       message: '',
-      duration: ''
+      duration: '',
+      type: ''
     };
 
     $scope.clear = function() {
       $scope.broadcast = {
         message: '',
-        duration: ''
+        duration: '',
+        type: ''
       };
+    }
+
+    $scope.$state = $state;
+
+    if (getBroadcastData.success) {
+      $scope.$watch('$state.$current.locals.globals.getBroadcastData', function (getBroadcastData) {
+        if (getBroadcastData.success.broadcast.length !== 0) {
+          $scope.broadcasts = getBroadcastData.success.broadcast;
+        }
+      });
     }
 
      // function to send and stringify user registration data to Rest APIs
@@ -22,7 +35,8 @@ angular.module('prodo.OrgApp')
         "broadcast":
           {
             'message' : $scope.broadcast.message,
-            'expireindays' : $scope.broadcast.duration
+            'expireindays' : $scope.broadcast.duration,
+            'broadcasttype': $scope.broadcast.type
           }  
       };
       return JSON.stringify(Data); 
