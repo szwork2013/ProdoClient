@@ -13,9 +13,9 @@
           <tr>
             <td class="prodo-width50" >
            
-			  Organization  <input ng-model="allOrgName.name"  id="prodo_warranty_org" class="warranty-textField form-control prodo-validation  prodo-display-right" 
+			  Organization  <input ng-model="productOrgName.name"  id="prodo_warranty_org" class="warranty-textField form-control prodo-validation  prodo-display-right" 
               ng-maxlength="50" type="text"   required name="warranty_org" typeahead="allOrgName as allOrgName.name for allOrgName in allOrgNames | filter:$viewValue | limitTo:8"  />
-            
+            {{productOrgName}}
              
               <div  ng-show="(form.WarrantyForm.warranty_org.$dirty && editMode.editorEnabledWarranty ==true) ||(form.WarrantyForm.submitted==true && form.WarrantyForm.warranty_org.$invalid==true)" class="prodo-warranty-Invalid">
 			  <span ng-show="form.WarrantyForm.warranty_org.$error.required">Please enter warranty organization</span>
@@ -25,7 +25,7 @@
             </td>
       
             <td  class="prodo-width50" >Product  <input   id="prodo_warranty_product" class="warranty-textField form-control prodo-validation prodo-display-right" 
-              ng-maxlength="50" type="text" ng-model="allProductName.name"  required name="warranty_product" typeahead="allProductName as allProductName.name for allProductName in allProductNames | filter:$viewValue | limitTo:8" />
+              ng-maxlength="50" type="text" ng-model="productallProductName.name"  required name="warranty_product" typeahead="allProductName as allProductName.name for allProductName in allProductNames | filter:$viewValue | limitTo:8" />{{productallProductName}}
 
            
               <div  ng-show="(form.WarrantyForm.warranty_product.$dirty && editMode.editorEnabledWarranty ==true) ||(form.WarrantyForm.submitted==true && form.WarrantyForm.warranty_product.$invalid==true)" class="prodo-warranty-Invalid">
@@ -128,7 +128,7 @@
             <td  colspan="2">Invoice Upload    
             </td>
           </tr>
-          <tr>
+         <!--  <tr>
             <td  colspan="2">Description   <textarea  type="text" 
               ng-maxlength="1000" id="prodo_warranty_textfield" class="form-control prodo-validation prodo-resizeRestrict"   name="warranty_description" col="40" ng-model="productwarranty.description" ></textarea>
 
@@ -162,7 +162,7 @@
 			 </div>
 
             </td>
-          </tr>
+          </tr> -->
 
 
           <tr  class="">

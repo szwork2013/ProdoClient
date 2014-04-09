@@ -11,16 +11,25 @@ angular.module('prodo.WarrantyApp')
   $scope.allOrgNames=[];
    $scope.allProductNames=[];
   $scope.form={};
+  $scope.org={
+  	orgnamefromUser:'',
+  	orgidfromUser:''
+  };
+  $scope.product={
+   productnamefromUser:'',
+   productidfromUser:''
+  };
+
  $scope.purchase_location={
   		city: '',
   		country: ''
   		};
-   $scope.allOrgName={
+   $scope.productOrgName={
    	name:'',
    	orgid:''
    };
 
-   $scope.allProductName={
+   $scope.productallProductName={
    	name:'',
    	prodle:''
    };
@@ -57,12 +66,29 @@ $scope.getAllProductNames=function(){
 $scope.getAllProductNames();
 
  $scope.getNewWarrantyData=function(){
+ 	$scope.orgnamefromUser;
+ 	if($scope.productOrgName.name.name){
+ 		$scope.org.orgnamefromUser=$scope.productOrgName.name.name;
+ 		$scope.org.orgidfromUser=$scope.productOrgName.name.orgid;
+ 	}
+ 	else{
+ 		$scope.org.orgnamefromUser=$scope.productOrgName.name;
+ 		$scope.org.orgidfromUser="";
+ 	}
+ 	if($scope.productallProductName.name.name){
+ 	    $scope.product.productnamefromUser=$scope.productallProductName.name.name;
+ 	   $scope.product.productidfromUser=$scope.productallProductName.name.prodle;
+ 	}
+ 	else{
+         $scope.product.productnamefromUser=$scope.productallProductName.name;
+         $scope.product.productidfromUser="";
+ 	} 
    $scope.newWarranty ={
    warrantydata:{
-  	orgname: $scope.allOrgName.name.name,
-  	orgid: $scope.allOrgName.name.orgid,
-  	name:  $scope.allProductName.name.name,
-  	prodle: $scope.allProductName.name.prodle,
+  	orgname: $scope.org.orgnamefromUser,
+  	orgid: $scope.org.orgidfromUser,
+  	name:  $scope.product.productnamefromUser,
+  	prodle: $scope.product.productidfromUser,
   	model_no: $scope.productwarranty.model_no,
   	model_name: $scope.productwarranty.model_name,
   	serial_no: $scope.productwarranty.serial_no,
@@ -96,31 +122,34 @@ $scope.getAllProductNames();
   		userid:$rootScope.usersession.currentUser.userid
   	},
   	$scope.newWarranty,function(success){
-       $scope.handleAddWarrantySuccess(success);
+  		if(success.success){
+  	     $scope.handleAddWarrantySuccess(success);
+  		}
+       else if(success.error){
+       	 $scope.handleAddWarrantyError(success.error);
+       }
 
   	},function(error){
       $log.debug(error);
   	});
-
-
-
-        
-}
- };
+   }
+};
 
   $scope.handleAddWarrantySuccess=function(success){
     if(success.success){
     	$log.debug(success.success);
     }
-    else if(success.error){
-    	$log.debug(success.error);
-    }
-  }
+   };
  
-
-
-
-
+ $scope.handleAddWarrantyError=function(error){
+ 	if(error.code=='AL001'){
+     $rootScope.showModal();
+    }
+    else{
+     $log.debug(error.message);
+    }
+ };
+    
 
 
 
