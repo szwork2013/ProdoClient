@@ -1,11 +1,12 @@
 angular.module('prodo.ProdoWallApp')
-	.controller('ProdoWallOrgController', ['$rootScope', '$scope', '$state', '$log', 'UserSessionService', 'orgdata', 'orgaddr', 'orgproduct', '$stateParams', 'growl', 'checkIfSessionExist', function($rootScope, $scope, $state, $log, UserSessionService, orgdata, orgaddr, orgproduct, $stateParams, growl, checkIfSessionExist) {
+	.controller('ProdoWallOrgController', ['$rootScope', '$scope', '$state', '$log', 'UserSessionService', 'orgdata', 'orgaddr', 'orgproduct', 'broadcastData', '$stateParams', 'growl', 'checkIfSessionExist', function($rootScope, $scope, $state, $log, UserSessionService, orgdata, orgaddr, orgproduct, broadcastData, $stateParams, growl, checkIfSessionExist) {
 
     $rootScope.orgdata = {};
     $log.debug('initialising org child..');
     $scope.orgaddr = [];
     $scope.productlist = [];
     $scope.messages = [];
+    $scope.keyclients = [];
     $scope.isFollowing = false;
     var planExpiryDate = moment.utc(moment($rootScope.usersession.currentUser.subscription.planexpirydate));
     var todaysDate = moment.utc(moment());
@@ -16,7 +17,11 @@ angular.module('prodo.ProdoWallApp')
     if (checkIfSessionExist.success && orgdata.success) {
       $scope.$watch('$state.$current.locals.globals.orgdata', function (orgdata) {
         $rootScope.orgdata = orgdata.success.organization;
-        $scope.messages = orgdata.success.organization.broadcast;
+        
+        if (orgdata.success.organization.keyclients && orgdata.success.organization.keyclients.length !== 0) {
+          $scope.keyclients = orgdata.success.organization.keyclients;
+        }
+        
         if (orgdata.success.organization.org_logo == undefined) {
           $rootScope.orgdata.org_logo = {image: '../../../assets/images/if_no_logo_images_available.gif'}
         }
@@ -27,6 +32,14 @@ angular.module('prodo.ProdoWallApp')
           $scope.$emit('emittingNoOrgImages',orgdata.success.organization.org_images);
         }
         $log.debug($rootScope.orgdata);
+      });
+    }
+
+    if (checkIfSessionExist.success && broadcastData.success) {
+      $scope.$watch('$state.$current.locals.globals.broadcastData', function (broadcastData) {
+        if (broadcastData.success.broadcast.length !== 0) {
+          $scope.messages = broadcastData.success.broadcast;
+        }
       });
     }
 
@@ -69,7 +82,7 @@ angular.module('prodo.ProdoWallApp')
       if (data.success) {
         UserSessionService.productfollowlist.push(product);
         $state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
-        growl.addSuccessMessage('You have successfully followed' + ' ' + product.name);    
+        growl.addSuccessMessage('You are ready to talk about the' + ' ' + product.name);    
       } else {
           if(data.error !== undefined && data.error.code === 'AL001' ) {
             $rootScope.showModal();

@@ -19,7 +19,7 @@ angular.module('prodo.OrgApp')
     };
     $scope.goBackToInvites = function()
     {
-        $('#reg-groupUsers').css('color','#C9C9C9');
+         $('#reg-groupUsers').css('color','#C9C9C9');
     };
     $scope.countries=[ 'Afghanistan', 
                         'Albania', 
@@ -329,7 +329,7 @@ $scope.errorOrgName ='';
 $scope.errOrgDesc ='';
 $scope.submitted = false;   
 $scope.optionErrorMessage = '';
-
+ 
     $scope.goToAddress = function() { 
         
         $scope.errorOrgName ='';

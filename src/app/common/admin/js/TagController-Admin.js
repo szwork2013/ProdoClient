@@ -3,9 +3,11 @@ angular.module('prodo.AdminApp').controller('prodoAdminTagInputController', [
   '$log',
   '$rootScope',
   'UserSessionService',
+   'notify',
   '$state',
-  'tagAddService',
-  function ($scope, $log, $rootScope, UserSessionService, $state, tagAddService) {
+  'tagAddService','domainTagList',
+
+  function ($scope, $log, $rootScope, UserSessionService, notify, $state, tagAddService, domainTagList) {
 
     $scope.category_selection;
 
@@ -32,6 +34,49 @@ angular.module('prodo.AdminApp').controller('prodoAdminTagInputController', [
     $scope.emotionvalueinsert;
 
     $scope.trimmedURL;
+
+    $scope.categoryDomain = '';
+
+    $scope.allCategories = [];
+
+    $scope.allTagsContain = [];
+    
+    domainTagList.getTags();   
+     // alert(JSON.stringify(getAllTags)) ;
+
+    var cleanupeventgetalltags = $scope.$on("gotAllDomainTags",function(event,data){
+        if(data.error !== undefined && data.error.code === 'AL001' )
+      {
+        $rootScope.showModal();
+      }
+      if(data.success)
+      {
+
+         $scope.allTagsContain = data.success.domain_tags.tags;   
+         $scope.ProdoAppMessage(data.success.message,'success');
+      }
+      else {
+        if (data.error.code== 'AU004') {     // enter valid data
+            $scope.ProdoAppMessage(data.error.message,'error');    //ShowAlert
+        } else {
+            $scope.ProdoAppMessage(data.error.message,'error');    //ShowError
+        }
+      }
+          
+     });
+
+     var cleanupeventnotgotalltags = $scope.$on("notGotAllDomainTags",function(event,message){
+               $scope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + data,'error');    //ShowAlert
+   
+     });
+    
+
+    $scope.addToCategory = function()
+    {      //alert($scope.allCategories);
+           
+            $scope.allCategories.push($scope.categoryDomain);
+            alert($scope.allCategories);
+    };
 
     $scope.setEmotion = function () {
 
@@ -69,6 +114,40 @@ angular.module('prodo.AdminApp').controller('prodoAdminTagInputController', [
         $scope.option3 = 'Adoration [30]';
       }
     };
+     
+     var cleanupeventKeyTagAdded = $scope.$on("tagAddedSuccessfully",function(event,data){
+        if(data.error !== undefined && data.error.code === 'AL001' )
+      {
+        $rootScope.showModal();
+      }
+      if(data.success)
+      {
+         $scope.ProdoAppMessage(data.success.message,'success');
+         $scope.tagname = '';
+         $scope.allCategories = [];
+         $scope.category_selection= '';
+         $scope.emotionvalueinsert = '';
+         $scope.level = '';
+         $scope.result = '';
+         $scope.emotionvalueinsert = '';
+      }
+      else {
+        if (data.error.code== 'AU004') {     // enter valid data
+            $scope.ProdoAppMessage(data.error.message,'error');    //ShowAlert
+        } else {
+            $scope.ProdoAppMessage(data.error.message,'error');    //ShowError
+        }
+      }
+          
+     });
+
+     var cleanupeventKeyTagNotAdded = $scope.$on("tagsNotAddedSuccessfully",function(event,message){
+               $scope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + data,'error');    //ShowAlert
+     });
+    
+
+
+
 
     $scope.submitTag = function () {
         $scope.objectComponents.tagname = $scope.tagname;
@@ -77,6 +156,7 @@ angular.module('prodo.AdminApp').controller('prodoAdminTagInputController', [
         $scope.objectComponents.emotions.emotion = $scope.emotion;
         $scope.objectComponents.emotions.level = $scope.level;
         $scope.objectComponents.emotions.result = $scope.result;
+        $scope.objectComponents.domain_tag = $scope.allCategories;
 
         var fullPath = document.getElementById('4').value;
         if (fullPath) {
@@ -92,22 +172,42 @@ angular.module('prodo.AdminApp').controller('prodoAdminTagInputController', [
         $scope.tagInfo.tagreffdicdata = {};
         $scope.tagInfo.tagreffdicdata = $scope.objectComponents;
         tagAddService.addTagFunction($scope.tagInfo);
+        $scope.allCategories = [];
 
-        var cleanTagsAdded = $scope.$on('tagAddedSuccessfully', function (event, data) {
-           if(data.error !== undefined && data.error.code === 'AL001' )
-           {
-               UserSessionService.resetSession();
-               $state.go('prodo.landing.signin');
-           }
-        });
+        // var cleanTagsAdded = $scope.$on('tagAddedSuccessfully', function (event, data) {
+        //    if(data.error !== undefined && data.error.code === 'AL001' )
+        //    {
+        //        UserSessionService.resetSession();
+        //        $state.go('prodo.landing.signin');
+        //    }
+        // });
         
         // var cleanEventGetSearchProductNotDone =  $scope.$on('getSearchProductNotDone', function (event, data) {
         // });
     };
+     
 
+    $scope.ProdoAppMessage = function(message,flag)
+       {
+          if(flag==='success')
+          {
+            //growl.addSuccessMessage(message);
+            notify({message:message,template:'common/notification/views/notification-success.html',position:'center'})
+          }
+          else
+          {
+             notify({message:message,template:'common/notification/views/notification-error.html',position:'center'});
+          
+          }
+         // $scope.resetGrowlMessages();
+    };   
     $scope.$on('$destroy', function(event, message) {
         // cleanTagsAdded();
         // cleanEventGetSearchProductNotDone();
+        cleanupeventKeyTagAdded();
+        cleanupeventKeyTagNotAdded();
+        cleanupeventgetalltags();
+        cleanupeventnotgotalltags();
     });
   }
 ]);

@@ -3,11 +3,32 @@
 <div>
 
   <!--   <p>Tag ID:<input type="text" id="tagid" ng-model="tagid"> </p>  <br>   -->
-           <p>Tag Name:<input type="text" id="tagName" ng-model="tagname"> </p>
-           <br>  
+           <p>Tag Name:<input type="text" id="tagName" ng-model="tagname" class="form-control"> </p>
+           <br>
+          <!--  <p>Domain Categories : <input type="text" ng-model=""></p>
+
+           <select>
+             <option> </option>
+           </select>
+           <button>Add/Add More</button>
+
+           <br>
+           <br>   -->
              
+    <div style="margin-bottom:30px;">
+
+          Domain Category:    <tags-input  minTags="1" add-on-blur="true" list="allTagsContain" ng-model="allCategories" min-length="1">
+            </tags-input>
+
+           <br>
+    </div>       
+
+<!-- <div style="margin-bottom:30px;">
+          List of added Domail Categories : <div ng-bind="allCategories"></div>
+
+</div> -->
              Category:
-                     <select ng-model="category_selection" ng-mouseout="setEmotion()"> 
+                     <select ng-model="category_selection" ng-mouseout="setEmotion()" class="form-control"> 
                                <option>-</option>
                                <option>Love</option>
                                <option>Optimism</option>
@@ -22,7 +43,7 @@
              <br> <br> <br>
 
              Emotion:
-                       <select ng-model="emotionvalueinsert" ng-mouseout="funct()" id="1"> 
+                       <select ng-model="emotionvalueinsert" ng-mouseout="funct()" id="1" class="form-control"> 
                                 <option ng-bind="option1"></option>
                                 <option ng-bind="option2"></option>  
                                 <option ng-bind="option3"></option>
@@ -30,7 +51,7 @@
                                              
              <br><br><br>  
    
-            Level:<select ng-model="level">
+            Level:<select ng-model="level" class="form-control">
              <option>-</option>
              <option>10</option>
              <option>20</option>
@@ -42,7 +63,7 @@
              <br><br><br>  
    
               Result: 
-                        <select ng-model="result">
+                        <select ng-model="result" class="form-control">
                                    <option>-</option>
                                    <option>Positive</option>
                                    <option>Negative</option>
@@ -51,8 +72,8 @@
                          
                <br><br><br>  
             <!--    <input type="text" placeholder="Browse Image" > -->    
-               <input type="file" id="4"><br><br>
-               <button ng-click="submitTag()">Submit</button><br><br>
+               <input type="file" id="4" class="form-control"><br><br>
+               <button ng-click="submitTag()" class="form-control">Submit</button><br><br>
 
                {{query1}}
 

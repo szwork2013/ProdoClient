@@ -43,6 +43,12 @@ angular.module('prodo.ProdoWallApp')
       };
     }
 
+    $scope.goToCampaign = function() {
+      if ($state.$current.name !== 'prodo.home.wall-campaign') {
+        $state.transitionTo('prodo.home.wall-campaign', null, {'reload':true});
+      };
+    }
+
     $scope.goToBlog = function() {
      if ($state.$current.name !== 'prodo.home.wall-blog') {
         $state.transitionTo('prodo.home.wall-blog', null, {'reload':true});

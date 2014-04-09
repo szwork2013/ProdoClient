@@ -217,7 +217,19 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
       }
     };
   return sliderdef;
-}).directive('prodoNav', function () {
+})
+.directive('prodoBroadcastCarousel', function () {
+  var carouseldef = {
+      restrict: 'A',
+      link: function (scope, ele, attrs, c) {
+        $('#myCarousel').carousel({
+          interval: 3000
+        });
+      }
+    };
+  return carouseldef;
+})
+.directive('prodoNav', function () {
   var nav = {
       restrict: 'A',
       link: function (scope, ele, attrs, c) {

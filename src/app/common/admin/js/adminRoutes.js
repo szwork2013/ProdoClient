@@ -13,7 +13,8 @@ angular.module('prodo.AdminApp')
     .state('admin.tags', {
       url: '/admin-tags',
       templateUrl: 'common/admin/views/prodo.tag_input.tpl.html',
-      controller: "prodoAdminTagInputController"
+      controller: "prodoAdminTagInputController",
+     
     })  
     .state('admin.product', {
       url: '/admin-product',
