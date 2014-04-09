@@ -11,9 +11,35 @@ angular.module('prodo.WarrantyApp')
   $scope.allOrgNames=[];
    $scope.allProductNames=[];
   $scope.form={};
+ $scope.purchase_location={
+  		city: '',
+  		country: ''
+  		};
+   $scope.allOrgName={
+   	name:'',
+   	orgid:''
+   };
 
+   $scope.allProductName={
+   	name:'',
+   	prodle:''
+   };
+
+   $scope.productwarranty = {
+   	 model_no: '',
+  	 model_name: '',
+  	 serial_no: '',
+  	 purchase_date: '',
+  	 purchase_date: '',
+  	 description: '',
+     disclaimer : '',
+  	 coverage : ''
+   }
+ $scope.newWarranty ={
+  warrantydata:{}
+}
 $scope.getAllOrgNames=function(){
-	 console.log(orgnameData.success.OrgNames);
+	 // console.log(orgnameData.success.OrgNames);
 	if(orgnameData.success){
      $scope.allOrgNames=orgnameData.success.OrgNames;
 	 $log.debug("orgData: "+$scope.allOrgNames);
@@ -22,7 +48,7 @@ $scope.getAllOrgNames=function(){
 $scope.getAllOrgNames();
 
 $scope.getAllProductNames=function(){
-	 console.log(productnameData.success.product);
+	 // console.log(productnameData.success.product);
 	if(productnameData.success){
      $scope.allProductNames=productnameData.success.product;
 	 $log.debug("ProdData: "+$scope.allProductNames);
@@ -30,14 +56,71 @@ $scope.getAllProductNames=function(){
 }
 $scope.getAllProductNames();
 
+ $scope.getNewWarrantyData=function(){
+   $scope.newWarranty ={
+   warrantydata:{
+  	orgname: $scope.allOrgName.name.name,
+  	orgid: $scope.allOrgName.name.orgid,
+  	name:  $scope.allProductName.name.name,
+  	prodle: $scope.allProductName.name.prodle,
+  	model_no: $scope.productwarranty.model_no,
+  	model_name: $scope.productwarranty.model_name,
+  	serial_no: $scope.productwarranty.serial_no,
+  	purchase_date: $scope.productwarranty.purchase_date,
+  	expirydate: $scope.productwarranty.purchase_date,
+  	purchase_location:{
+  		city: $scope.purchase_location.city,
+  		country: $scope.purchase_location.country
+  		},
+  	userid:$rootScope.usersession.currentUser.userid,
+  	description: $scope.productwarranty.description,
+  	disclaimer: $scope.productwarranty.disclaimer ,
+  	coverage: $scope.productwarranty.coverage 	
+  }
+ };
 
-  $scope.addWarranty = function (editStatus) {
+
+   
+ };
+
+ $scope.addWarranty = function (editStatus) {
   if($scope.form.WarrantyForm.$invalid){
       $scope.form.WarrantyForm.submitted=true;
     }
+    else{
+  $scope.getNewWarrantyData();
+  $log.debug( $scope.newWarranty);
 
-   
-  };
+  WarrantyService.add_warranty.addWarrantyDetail(
+  	{
+  		userid:$rootScope.usersession.currentUser.userid
+  	},
+  	$scope.newWarranty,function(success){
+       $scope.handleAddWarrantySuccess(success);
+
+  	},function(error){
+      $log.debug(error);
+  	});
+
+
+
+        
+}
+ };
+
+  $scope.handleAddWarrantySuccess=function(success){
+    if(success.success){
+    	$log.debug(success.success);
+    }
+    else if(success.error){
+    	$log.debug(success.error);
+    }
+  }
+ 
+
+
+
+
 
 
 
