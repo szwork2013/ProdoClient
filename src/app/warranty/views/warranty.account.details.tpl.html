@@ -122,6 +122,16 @@
 			 </div>
 
               </td>
+                   <td class="prodo-width50"> Warranty type &nbsp; &nbsp;&nbsp; 
+                   <select ng-model="productwarranty.type" ng-options="t for t in type" required name="warranty_type">
+                   </select>
+                   
+                
+                 <div  ng-show="(form.WarrantyForm.warranty_type.$dirty && editMode.editorEnabledWarranty ==true) ||(form.WarrantyForm.submitted==true && form.WarrantyForm.warranty_type.$invalid==true)" class="prodo-warranty-Invalid">
+			  <span ng-show="form.WarrantyForm.warranty_type.$error.required">Please enter valid warranty period</span>		 
+			 </div>
+
+              </td>
 
 			 </tr>
            <tr>

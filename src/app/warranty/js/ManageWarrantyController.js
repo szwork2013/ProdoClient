@@ -7,6 +7,7 @@ angular.module('prodo.WarrantyApp')
     // editorEnabled: false,
     editorEnabledWarranty : false
   };
+  $scope.type=['extended','standerd']
   $scope.editStatus;
   $scope.allOrgNames=[];
    $scope.allProductNames=[];
@@ -42,7 +43,8 @@ angular.module('prodo.WarrantyApp')
   	 purchase_date: '',
   	 description: '',
      disclaimer : '',
-  	 coverage : ''
+  	 coverage : '',
+  	 warranty_type:''
    }
  $scope.newWarranty ={
   warrantydata:{}
@@ -101,7 +103,8 @@ $scope.getAllProductNames();
   	userid:$rootScope.usersession.currentUser.userid,
   	description: $scope.productwarranty.description,
   	disclaimer: $scope.productwarranty.disclaimer ,
-  	coverage: $scope.productwarranty.coverage 	
+  	coverage: $scope.productwarranty.coverage ,
+  	warranty_type:	$scope.productwarranty.type
   }
  };
 
