@@ -135,8 +135,11 @@
 
 			 </tr>
            <tr>
-            <td  colspan="2">Invoice Upload  <input type="file" ng-model="productwarranty.invoiceUpload" />  
-            </td>
+            <td  colspan="2">Invoice Upload  <!-- <input type="file" id="file" name="files[]" ng-model="productwarranty.invoiceUpload" onchange=" angular.element(this).scope().startRead(file)" /> 
+              -->
+              <input type="file" ng-model-instant id="fileToUpload" multiple onchange="angular.element(this).scope().setFiles(this)" />
+
+             </td>
           </tr>
          <!--  <tr>
             <td  colspan="2">Description   <textarea  type="text" 

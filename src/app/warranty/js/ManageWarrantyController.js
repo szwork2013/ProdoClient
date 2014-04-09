@@ -3,6 +3,7 @@ angular.module('prodo.WarrantyApp')
    
 
 
+
    $scope.editMode = {
     // editorEnabled: false,
     editorEnabledWarranty : false
@@ -106,7 +107,7 @@ $scope.getAllProductNames();
   	disclaimer: $scope.productwarranty.disclaimer ,
   	coverage: $scope.productwarranty.coverage ,
   	warranty_type:	$scope.productwarranty.type,
-  	invoice_image: $scope.productwarranty.invoiceUpload
+  	invoice_image:$scope.files[0]
   }
  };
 
@@ -168,9 +169,18 @@ $scope.getAllProductNames();
     $scope.editMode.editorEnabledWarranty = true;
     growl.addInfoMessage("   Adding warranty data.....");
   };
-
-
-
+$scope.files = []
+    $scope.setFiles = function(element) {
+    $scope.$apply(function($scope) {
+      console.log('files:', element.files);
+      // Turn the FileList object into an Array
+        
+        for (var i = 0; i < element.files.length; i++) {
+          $scope.files.push(element.files[i])
+        }
+      $scope.progressVisible = false
+      });
+    };
 
 $scope.countries=[ 'Afghanistan', 
                         'Albania', 
@@ -436,4 +446,3 @@ $scope.countries=[ 'Afghanistan',
                             'Panaji', 
                             'Pune'] ;      
 }]);
- 
