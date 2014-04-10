@@ -1466,7 +1466,7 @@ $scope.errorForEmptyExistingGroupname = '';
 
     $scope.$watch('$state.$current.locals.globals.currentorgdata', function (currentorgdata) {
       $scope.orgImages = currentorgdata.success.organization.org_images;
-      $scope.org = currentorgdata.success.organization; console.log(JSON.stringify($scope.org));console.log(JSON.stringify($scope.groups));
+      $scope.org = currentorgdata.success.organization; 
 
       $scope.orgKeyClients = currentorgdata.success.organization.keyclients;
     });

@@ -47,45 +47,6 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
       });
     }
   };
-}).directive('notification', [
-  '$timeout',
-  function ($timeout) {
-    return {
-      restrict: 'E',
-      replace: true,
-      scope: { ngModel: '=' },
-      template: '<div class="alert alert-info fade" bs-alert="ngModel"></div>',
-      link: function (scope, element, attrs) {
-        $timeout(function () {
-          element.hide();
-        }, 600000);
-      }
-    };
-  }
-]).directive('popdown', function () {
-  return {
-    restrict: 'E',
-    scope: {},
-    replace: true,
-    controller: [
-      '$scope',
-      'PopdownAPI',
-      function ($scope, PopdownAPI) {
-        $scope.show = false;
-        $scope.api = PopdownAPI;
-        $scope.$watch('api.status', toggledisplay);
-        $scope.$watch('api.message', toggledisplay);
-        $scope.hide = function () {
-          $scope.show = false;
-          $scope.api.clear();
-        };
-        function toggledisplay() {
-          $scope.show = !!($scope.api.status && $scope.api.message);
-        }
-      }
-    ],
-    template: '<div class="alert alert-{{api.status}}" ng-show="show">' + '  <button type="button" class="close" ng-click="hide()">&times;</button>' + '  {{api.message}}' + '</div>'
-  };
 }).directive('prodoAlertMessage', [
   '$timeout',
   function ($timeout) {
@@ -223,7 +184,7 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
       restrict: 'A',
       link: function (scope, ele, attrs, c) {
         $('#myCarousel').carousel({
-          interval: 3000
+          interval: 10000
         });
       }
     };

@@ -1,10 +1,10 @@
 <div id="prodo-view-activateaccount">
   <div id="prodo-activateaccount-panel" class="panel panel-default">
-    <div style="font-weight:bold;" id="prodo-activateaccount-panel-heading" class="panel-heading">Welcome To Prodonus!</div>
-     <div class="panel-body">
-      <div ng-show="showmessage('alert-success', 'Your account is activated, please signin to start using Prodonus.', 'signin', 'Signin')">
-    		<prodo-alert-message></prodo-alert-message>
-    	</div>
+  	 <div class="panel-body">
+  	 	<div class="activateaccount-alert alert alert-success alert-block">
+  	 		<h5 class="alert-heading"><strong><em>Welcome To Prodonus!</em></strong></h5>
+			  	Your account is activated, please <a href="" ui-sref="prodo.landing.signin" class="alert-link">signin</a> to start using Prodonus.
+			</div>
      </div>
   </div>
 </div>

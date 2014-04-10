@@ -30,7 +30,6 @@ angular.module('prodo.ProdonusApp')
       }
     }) 
     .state('prodo.landing.signin', {
-      url: '/signin',
       views: {
         'marketing' : {
           templateUrl:  'prodo/landing/views/prodo.home.marketing.tpl.html'
