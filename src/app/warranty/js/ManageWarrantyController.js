@@ -1,14 +1,22 @@
 angular.module('prodo.WarrantyApp')
- .controller('ManageWarrantyController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$log', 'growl', 'WarrantyService', 'checkIfSessionExist','orgnameData','productnameData', function($scope, $rootScope, $state, $http, $timeout, $log, growl, WarrantyService, checkIfSessionExist,orgnameData,productnameData) {
+ .controller('ManageWarrantyController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$log', 'growl', 'WarrantyService', 'checkIfSessionExist','orgnameData','productnameData','warrantydata','fileReader','ENV','isLoggedin','notify', function($scope, $rootScope, $state, $http, $timeout, $log, growl, WarrantyService, checkIfSessionExist,orgnameData,productnameData,warrantydata,fileReader,ENV,isLoggedin,notify) {
    
+   $scope.$state = $state;
 
-
-
+ $scope.clearText = function () {
+    // prodo-product-features_textfield
+    $scope.productwarranty = {};
+ $scope.purchase_location={};
+  $scope.org={};
+  $scope.product={};
+  }
+$scope.newWarranty_Responsewarranty_id="";
    $scope.editMode = {
     // editorEnabled: false,
     editorEnabledWarranty : false
   };
-  $scope.type=['extended','standerd']
+  $scope.warranty={};
+  $scope.type=['extended','standard']
   $scope.editStatus;
   $scope.allOrgNames=[];
    $scope.allProductNames=[];
@@ -38,24 +46,120 @@ angular.module('prodo.WarrantyApp')
 
    $scope.productwarranty = {
    	 model_no: '',
+   	 orgname:'',
+   	 orgid:'',
+   	 name:'',
+   	 prodle:'',
   	 model_name: '',
   	 serial_no: '',
   	 purchase_date: '',
-  	 purchase_date: '',
+  	 purchase_period: '',
+  	 purchase_location:{
+  	 	city:'',
+  	 	country:''
+  	 },
   	 description: '',
      disclaimer : '',
   	 coverage : '',
-  	 warranty_type:'',
-  	 invoice_image:''
-   }
+  	 warranty_type:''
+  	
+   };
  $scope.newWarranty ={
   warrantydata:{}
 }
+$scope.warranties=[];
+
+//
+  $scope.fileLength;
+  $scope.uploadSrc;
+  $scope.progressbar = 0;
+  $scope.counter = 0;
+  $scope.file;
+  $rootScope.currentclient={name:''};
+  $scope.file_data = {
+        filetype: '',
+        filename: '',
+        filebuffer: ''
+      };
+ $scope.action={};
+ $scope.isValidImage=false;
+ $scope.invoiceimage;
+
+
+
+   $scope.handleAllWarrantyDataError=function(error){
+     $log.debug(JSON.stringify(error));
+      if(error.code=='AL001'){
+        $rootScope.showModal();
+      }else{
+     $("#prodo-ProductDetails").css("display", "none");
+     $("#ErrMsging").css("display", "block");
+     $scope.productlist=[];
+     document.getElementById("ErrMsging").innerHTML = "<br>Product not available ... Add new product<br><br>";
+    }
+  };
+
+  $scope.handleAllWarrantyDataSuccess=function(warrantydata){
+    
+     $scope.warranties = warrantydata.success.Warranty;
+      $log.debug( warrantydata.success.Warranty);
+      if ($scope.warranties.length == 0) { //after deleting product, check for next product from product followed,if no product - display msg
+         $("#prodo-ProductDetails").css("display", "none");
+        $("#ErrMsging").css("display", "block");
+        document.getElementById("ErrMsging").innerHTML = "<br>Warranty not available ... Add new Warranty<br><br>";
+        // growl.addErrorMessage(" Product not available ...");
+      }
+      if ($scope.warranties.length !== 0) {
+
+      
+       $scope.currentWarrantyId = $scope.warranties[0].warranty_id;
+     
+        if($scope.newWarranty_Responsewarranty_id!=="" ){
+          $scope.getWarranty($scope.newWarranty_Responsewarranty_id);
+          $scope.newWarranty_Responsewarranty_id="";
+        }
+        else
+          $scope.getWarranty($scope.currentWarrantyId);
+      }
+  };
+
+
+
+  $scope.$watch('$state.$current.locals.globals.warrantydata', function (warrantydata) {
+  	if (warrantydata.error) {
+      $scope.handleAllWarrantyDataError(warrantydata.error);
+          
+    } else {
+       $scope.handleAllWarrantyDataSuccess(warrantydata);
+    }
+      // $scope.warranties = warrantydata.success.Warranty;
+    });
+
+
+
+//
+ //warranties List pagination
+  $scope.currentPage = 0;
+  $scope.pageSize = 3;
+  $scope.numberOfPages = function () {
+    return Math.ceil($scope.warranties.length / $scope.pageSize);
+  };
+  //warranties List pagination
+$log.debug(warrantydata);
+$scope.getAllWarranties=function(){
+	 // console.log(orgnameData.success.OrgNames);
+	if(warrantydata.success){
+     $scope.warranties=warrantydata.success.Warranty;
+	 $log.debug("warranties: "+$scope.warranties);
+	}
+}
+$scope.getAllWarranties();
+
 $scope.getAllOrgNames=function(){
 	 // console.log(orgnameData.success.OrgNames);
 	if(orgnameData.success){
      $scope.allOrgNames=orgnameData.success.OrgNames;
-	 $log.debug("orgData: "+$scope.allOrgNames);
+	 // $log.debug("orgData: "+$scope.allOrgNames);
 	}
 }
 $scope.getAllOrgNames();
@@ -64,12 +168,61 @@ $scope.getAllProductNames=function(){
 	 // console.log(productnameData.success.product);
 	if(productnameData.success){
      $scope.allProductNames=productnameData.success.product;
-	 $log.debug("ProdData: "+$scope.allProductNames);
+	 // $log.debug("ProdData: "+$scope.allProductNames);
 	}
 }
 $scope.getAllProductNames();
 
+ $scope.changeWarranty=function(warranty1){
+  $scope.form.WarrantyForm.submitted=false;
+   
+    $scope.getWarranty($scope.currentWarrantyId);
+    $scope.editMode.editorEnabledWarranty = false;
+ 
+  };
+    $scope.getWarranty = function (l_warrantyid) {
+    	for(var i=0; i<$scope.warranties.length-1 ; i++){
+    		if(l_warrantyid == $scope.warranties[i].warranty_id){
+            $scope.warranty=$scope.warranties[i];
+    		}
+    	}
+    //get l_warrantyid from $scope.warranties
+  };
+
+  $scope.getSelectedWarranty = function (warranty1) {
+    // jQuery("#FileName").hide();
+    if($scope.editMode.editorEnabledWarranty == true ){
+      // $scope.enableProductErrorMsg();
+      // ProdERRMsg.innerHTML = "Please add product first then view other products..."; 
+         $('#changeWarrantyModal').modal('toggle');
+      $('#changeWarrantyModal').modal('show');
+
+      $('#ChangeWarrantyOkButton').on('click', function (event) {
+        $scope.changeWarranty(warranty1)
+      });
+
+
+      //modal code here , if yes clear data and show product if cancel, prev state
+    }else{
+    $scope.currentWarrantyId=warranty1.warranty_id;
+    $scope.getWarranty($scope.currentWarrantyId);
+    }
+  };
+
+
+
+
+
+ $scope.getNextDateDiffMonths=function(date_l,months_l){
+   $scope.nextdate=moment(date_l).add('M',months_l ).calendar();
+   $log.debug($scope.nextdate);
+   return $scope.nextdate;
+ }
  $scope.getNewWarrantyData=function(){
+
+    $scope.expdate=  $scope.getNextDateDiffMonths($scope.productwarranty.purchase_date,$scope.productwarranty.purchase_period);
+   
+
  	$scope.orgnamefromUser;
  	if($scope.productOrgName.name.name){
  		$scope.org.orgnamefromUser=$scope.productOrgName.name.name;
@@ -97,17 +250,17 @@ $scope.getAllProductNames();
   	model_name: $scope.productwarranty.model_name,
   	serial_no: $scope.productwarranty.serial_no,
   	purchase_date: $scope.productwarranty.purchase_date,
-  	expirydate: $scope.productwarranty.purchase_date,
+  	expirydate:  $scope.expdate,
   	purchase_location:{
-  		city: $scope.purchase_location.city,
-  		country: $scope.purchase_location.country
-  		},
-  	userid:$rootScope.usersession.currentUser.userid,
+  		city:$scope.purchase_location.city,
+  		country:$scope.purchase_location.country
+  	} ,
+   	userid:$rootScope.usersession.currentUser.userid,
   	description: $scope.productwarranty.description,
   	disclaimer: $scope.productwarranty.disclaimer ,
   	coverage: $scope.productwarranty.coverage ,
-  	warranty_type:	$scope.productwarranty.type,
-  	invoice_image:$scope.files[0]
+  	warranty_type:	$scope.productwarranty.type
+
   }
  };
 
@@ -123,44 +276,55 @@ $scope.getAllProductNames();
   $scope.getNewWarrantyData();
   $log.debug( $scope.newWarranty);
 
-  WarrantyService.add_warranty.addWarrantyDetail(
-  	{
-  		userid:$rootScope.usersession.currentUser.userid
-  	},
-  	$scope.newWarranty,function(success){
-  		if(success.success){
-  	     $scope.handleAddWarrantySuccess(success);
-  		}
-       else if(success.error){
-       	 $scope.handleAddWarrantyError(success.error);
-       }
+  if($scope.isValidImage==true){
+      $scope.socket.emit('addWarranty', $rootScope.usersession.currentUser.userid, $scope.newWarranty.warrantydata,$scope.file_data);
+      $log.debug("data emitted");
+     
+  }
+  else{
+  	$log.debug("Upload correct image");
+  }
 
-  	},function(error){
-      $log.debug(error);
-  	});
+
+  // WarrantyService.add_warranty.addWarrantyDetail(
+  // 	{
+  // 		userid:$rootScope.usersession.currentUser.userid
+  // 	},
+  // 	$scope.newWarranty,function(success){
+  // 		if(success.success){
+  // 	     $scope.handleAddWarrantySuccess(success);
+  // 		}
+  //      else if(success.error){
+  //      	 $scope.handleAddWarrantyError(success.error);
+  //      }
+
+  // 	},function(error){
+  //     $log.debug(error);
+  // 	});
    }
 };
 
-  $scope.handleAddWarrantySuccess=function(success){
-    if(success.success){
-    	$log.debug(success.success);
-    }
-   };
+ //  $scope.handleAddWarrantySuccess=function(success){
+ //    if(success.success){
+ //    	$log.debug(success.success);
+ //    }
+ //   };
  
- $scope.handleAddWarrantyError=function(error){
- 	if(error.code=='AL001'){
-     $rootScope.showModal();
-    }
-    else{
-     $log.debug(error.message);
-    }
- };
+ // $scope.handleAddWarrantyError=function(error){
+ // 	if(error.code=='AL001'){
+ //     $rootScope.showModal();
+ //    }
+ //    else{
+ //     $log.debug(error.message);
+ //    }
+ // };
     
 
 
 
  $scope.disableEditorFeature = function () {
     $scope.editMode.editorEnabledWarranty = false;
+       $scope.form.WarrantyForm.submitted=false;
    
   };
 
@@ -169,18 +333,137 @@ $scope.getAllProductNames();
     $scope.editMode.editorEnabledWarranty = true;
     growl.addInfoMessage("   Adding warranty data.....");
   };
-$scope.files = []
-    $scope.setFiles = function(element) {
-    $scope.$apply(function($scope) {
-      console.log('files:', element.files);
-      // Turn the FileList object into an Array
+
+// upload
+
+
+ $scope.socket = io.connect(ENV.apiEndpoint + ENV.port + '/api/prodoupload', {
+    query: 'session_id=' + $rootScope.usersession.currentUser.sessionid
+  });
+  //socket connect 
+
+ 
+  $scope.handleUploadError=function(error){
+   $("#bar").hide();
+   if(error.code=='AL001'){
+        $rootScope.showModal();
+      }else{
+      $log.debug(error);
+      $rootScope.showModal();
+    }
+  };
+
+$scope.getFile = function (a) {
+ isLoggedin.checkUserSession(
+ function (successData) {
+ if (successData.success == undefined) {
+  if(successData.error)
+  {
+   $scope.handleUploadError(successData.error);
+  } 
+ }
+ else { //add comment
+
+    $scope.progressbar = 0;
+    // $log.debug("source: " + $scope.uploadSrc);
+    $log.debug("getFile called ... " + a);
+    fileReader.readAsBinaryString(a, $scope).then(function (result) {
+      $log.debug("reader called ... " + a);
+      var action;
+      $scope.imageBfr = result;
+      $scope.file = a;
+      $scope.file_data = {
+        filetype: $scope.file.type,
+        filename: $scope.file.name,
+        filebuffer: $scope.imageBfr
+      };
+      if (($scope.file.type == 'image/jpg') || ($scope.file.type == 'image/png') || ($scope.file.type == 'image/gif') || ($scope.file.type == 'image/jpeg')) {
+
+   // if ($scope.uploadSrc == "warranty") { // upload product
+        if (($scope.file.size / 1024 < 2048)) {
+            $scope.isValidImage=true;
+
+          } else {
+            
+             $log.debug( 'Image size must ne less than 2MB');
         
-        for (var i = 0; i < element.files.length; i++) {
-          $scope.files.push(element.files[i])
-        }
-      $scope.progressVisible = false
-      });
-    };
+          }
+         // }  
+     } 
+  
+    });
+ 
+  }
+ });  
+};
+
+  $scope.socket.removeAllListeners('addWarrantyResponse');
+  $scope.socket.on('addWarrantyResponse', function (error, imagelocation) {
+   $scope.warrantyResponseHandler(error, imagelocation);
+  });
+
+
+$scope.warrantyResponseHandler=function(error, imagelocation){
+	 $scope.disableEditorFeature ();
+    // $("#spinner").hide();
+ if (error) {
+      // $("#bar").hide();
+       $scope.enableEditorFeature ();
+      if (error.error.code == 'AP003') { // user already exist
+        $log.debug(error.error.code + " " + error.error.message);
+     
+        // growl.addErrorMessage("Error while uploading " + $scope.file.name + " " + error.error.message);
+      } else if (error.error.code == 'AV001') { // user data invalid
+        $log.debug(error.error.code + " " + error.error.message);
+  
+        // growl.addErrorMessage(" Error while uploading " + $scope.file.name + " " + error.error.message);
+      } else {
+        $log.debug(error.error.message);
+       
+        // growl.addErrorMessage("Error while uploading " + $scope.file.name + " " + error.error.message);
+      }
+
+    } else {
+      
+      	     $scope.clearText();
+      
+      
+      $scope.imageSrc = JSON.stringify(imagelocation);
+      $log.debug(JSON.stringify(imagelocation.success.filename));
+      $log.debug("Emit");
+      // var temp1=imagelocation.success.filename.replace(/ /g,'');
+      // document.getElementById('check'+temp1).style.color="#01DF74";
+      $rootScope.$broadcast("productUploadResponseSuccess", "success");
+      $log.debug("getting response for product upload  " + $scope.imageSrc);
+      notify({message:"Warranty added successfully",template:'common/notification/views/notification-success.html',position:'center'})
+      $state.reload();
+      // $scope.newWarranty_Responsewarranty_id= 
+      // $scope.getWarranty();//pass warranty id here from success response
+      $scope.counter++;
+      $log.debug($scope.counter);
+      if ($scope.counter < $scope.fileLength) {
+        $log.debug("emitting image " + $scope.counter);
+        //    $scope.getFile($scope.counter);
+      } else $scope.counter = 0;
+    }
+
+};
+
+
+// upload
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 $scope.countries=[ 'Afghanistan', 
                         'Albania', 
@@ -445,4 +728,19 @@ $scope.countries=[ 'Afghanistan',
                             'Kolkata', 
                             'Panaji', 
                             'Pune'] ;      
-}]);
+}])
+
+
+
+
+
+
+
+angular.module('prodo.WarrantyApp').filter('startFrom', function () {
+  return function (input, start) {
+    if (input !== undefined || start !== undefined) {
+      start = +start;
+      return input.slice(start);
+    }
+  }
+})

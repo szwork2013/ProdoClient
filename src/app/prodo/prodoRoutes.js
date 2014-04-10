@@ -390,6 +390,9 @@ angular.module('prodo.ProdonusApp')
         ,
         productnameData: function(ProductnameService, $rootScope) {
           return ProductnameService.getProductname().$promise;
+        },
+         warrantydata: function(WarrantyService, $rootScope) {
+          return WarrantyService.get_allwarranties.getAllWarrantyDetails({userid: $rootScope.usersession.currentUser.userid}).$promise;
         }
       },
       templateUrl:  'warranty/views/warranty.account.settings.tpl.html',
