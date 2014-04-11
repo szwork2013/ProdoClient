@@ -5,7 +5,7 @@
   <div prodo-signin-modal></div>
   <!-- Features -->
   <div class="prodo-productListCorousel" >
-    <button class="arrowBtn prodo-arrowbtnLeft" ng-show="warranties.length > 4 " ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1" >
+    <button class="arrowBtn prodo-arrowbtnLeft" ng-show="warranties.length > 3 " ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1" >
       <
       <!--  <i style="color:gray; font-weight:weight:lighter" class="fa fa-chevron-left fa-3x"></i>  -->
     </button>
@@ -48,7 +48,7 @@
 
 
     <div ng-show="warranties.length>0"  ng-repeat="warranty1 in warranties  | startFrom:currentPage*pageSize | limitTo:pageSize" >
-    <div class="prodo-productThumbnailView"   ng-class="{activeProduct : warrnty1.warrnty_id==warrnty.warrnty_id}" >
+    <div class="prodo-productThumbnailView"   ng-class="{activeProduct : warranty1.warranty_id==warranty.warranty_id}" >
       <a ng-click="getSelectedWarranty(warranty1);" class="prodo-cursor"  href="" >
         <p class="prodo-AddProductBtn prodo-productNameList" >{{warranty1.warranty_id.substring(0,13)}}</p>
         <img  ng-src="{{warranty1.invoice_image.image}}" alt-SRC src="../assets/images/if_no_logo_images_available.gif"  class="prodo-productThumbnailImg img-rounded">
