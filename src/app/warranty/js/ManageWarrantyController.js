@@ -182,13 +182,47 @@ $scope.getAllProductNames();
     $scope.editMode.editorEnabledWarranty = false;
  
   };
+
+  $scope.handleGetWarrantyError=function(error){
+    //error code check here
+    if(error.code=='AL001'){
+      $rootScope.showModal();
+    }
+    else{
+     notify({message:error.message,template:'common/notification/views/notification-error.html',position:'center'});
+    }       
+ };
+$scope.handleGetWarrantySuccess=function(successData,l_warrantyid){
+  if(successData.success)
+    $log.debug(successData.success)
+        $scope.warranty=successData.success.Warranty;
+        
+  };
+
     $scope.getWarranty = function (l_warrantyid) {
-    	for(var i=0; i<$scope.warranties.length-1 ; i++){
-    		if(l_warrantyid == $scope.warranties[i].warranty_id){
-            $scope.warranty=$scope.warranties[i];
-    		}
-    	}
+    	// for(var i=0; i<$scope.warranties.length-1 ; i++){
+    	// 	if(l_warrantyid == $scope.warranties[i].warranty_id){
+     //        $scope.warranty=$scope.warranties[i];
+    	// 	}
+    	// }
     //get l_warrantyid from $scope.warranties
+    WarrantyService.get_warranty.getWarrantyDetail({
+      userid: $rootScope.usersession.currentUser.userid,
+      warrantyid:l_warrantyid 
+    },
+    function (successData) {
+      if (successData.success == undefined) { //if not product
+         $scope.handleGetWarrantyError(successData.error);
+      } else {
+        $scope.handleGetWarrantySuccess(successData,l_warrantyid); 
+      }
+    }, function (error) { //if error geting product
+      $log.debug(error);
+      notify({message:error.status,template:'common/notification/views/notification-error.html',position:'center'});
+
+      // growl.addErrorMessage( "Server Error:" + error.status);
+    });
+   
   };
 
   $scope.getSelectedWarranty = function (warranty1) {
@@ -273,12 +307,11 @@ $scope.getAllProductNames();
  $scope.addWarranty = function (editStatus) {
  isLoggedin.checkUserSession(
  function (successData) {
- if (successData.success == undefined) {
-  if(successData.error)
-  {
+
+  if(successData.error){
    $scope.handleUploadError(successData.error);
   } 
- }
+
  else{
   if($scope.form.WarrantyForm.$invalid){
       $scope.form.WarrantyForm.submitted=true;
@@ -398,7 +431,7 @@ $scope.getFile = function (a) {
    // if ($scope.uploadSrc == "warranty") { // upload product
         if (($scope.file.size / 1024 < 2048)) {
             $scope.isValidImage=true;
-            $scope.form.WarrantyForm.file.$invalid=false;
+            // $scope.form.WarrantyForm.file.$invalid=false;
           } else {
             
              $log.debug( 'Image size must ne less than 2MB');
@@ -444,21 +477,22 @@ $scope.warrantyResponseHandler=function(error, imagelocation){
       	     $scope.clearText();
       
       
-      $scope.imageSrc = JSON.stringify(imagelocation);
-      $log.debug(JSON.stringify(imagelocation.success.filename));
+      $scope.imageSrc = JSON.stringify(imagelocation.success.invoiceimage);
+      $log.debug(JSON.stringify(imagelocation.success));
       $log.debug("Emit");
       // var temp1=imagelocation.success.filename.replace(/ /g,'');
       // document.getElementById('check'+temp1).style.color="#01DF74";
       $rootScope.$broadcast("productUploadResponseSuccess", "success");
-      $log.debug("getting response for product upload  " + $scope.imageSrc);
+      // $log.debug("getting response for product upload  " + $scope.imageSrc);
       notify({message:"Warranty added successfully",template:'common/notification/views/notification-success.html',position:'center'});
       $state.reload();
-      // $scope.newWarranty_Responsewarranty_id= 
-      // $scope.getWarranty();//pass warranty id here from success response
+      $scope.newWarranty_Responsewarranty_id= imagelocation.success.warranty_id
+      // $scope.changeWarranty($scope.newWarranty_Responsewarranty_id)
+      $scope.getWarranty($scope.newWarranty_Responsewarranty_id);//pass warranty id here from success response
       $scope.counter++;
       $log.debug($scope.counter);
       if ($scope.counter < $scope.fileLength) {
-        $log.debug("emitting image " + $scope.counter);
+        // $log.debug("emitting image " + $scope.counter);
         //    $scope.getFile($scope.counter);
       } else $scope.counter = 0;
     }
