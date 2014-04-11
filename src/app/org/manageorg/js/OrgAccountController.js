@@ -33,44 +33,45 @@ $scope.addOrgInvites = false;
 $scope.deleteOrgRequestResponse = false;
 //$scope.orgaddresstype = "Company Address";
 // The following function will reset all growl messages
-    $scope.resetGrowlMessages = function()
-    {
-            $scope.changedOrgDetails = false;
-            $scope.changedOrgLocation = false;
-            $scope.addedOrgLocation = false;
-            $scope.manageOrgGroup = false;
-            $scope.addOrgInvites = false;
-           // $scope.addCustomerInvites = false;
-            $scope.deleteOrgRequestResponse = false;
-    };
-  $scope.regularExpressionForManufactuter = /^manufacturer/i;
-  $scope.regularExpressionForCompany = /^company/i;
+$scope.resetGrowlMessages = function()
+{
+        $scope.changedOrgDetails = false;
+        $scope.changedOrgLocation = false;
+        $scope.addedOrgLocation = false;
+        $scope.manageOrgGroup = false;
+        $scope.addOrgInvites = false;
+       // $scope.addCustomerInvites = false;
+        $scope.deleteOrgRequestResponse = false;
+};
+
+$scope.regularExpressionForManufactuter = /^manufacturer/i;
+
+$scope.regularExpressionForCompany = /^company/i;
 // The following function is written to calculate total number of addresses  for an organization.
 // The purpose behing writing this function is to restrict user from deleting all addresses from the list
 //
-    $scope.calcNumberOfOrgAddresses = function()
-    {
-      if($scope.orgaddr[1] === undefined && $scope.orgaddr[0] !== undefined)
-      {
-        return $scope.orgaddr[0].location.length;
-      }
-      else if($scope.orgaddr[1] !== undefined && $scope.orgaddr[0] === undefined)
-      {
-        return $scope.orgaddr[1].location.length;
-      }
-      else
-      {
-       return $scope.orgaddr[1].location.length + $scope.orgaddr[0].location.length; 
-      }
-    };
-
+$scope.calcNumberOfOrgAddresses = function()
+{
+  if($scope.orgaddr[1] === undefined && $scope.orgaddr[0] !== undefined)
+  {
+    return $scope.orgaddr[0].location.length;
+  }
+  else if($scope.orgaddr[1] !== undefined && $scope.orgaddr[0] === undefined)
+  {
+    return $scope.orgaddr[1].location.length;
+  }
+  else
+  {
+   return $scope.orgaddr[1].location.length + $scope.orgaddr[0].location.length; 
+  }
+};
 
 var NumberOfOrgAddresses = $scope.calcNumberOfOrgAddresses();
 //OrgRegistrationService.updateOrgData(currentorgdata.success.organization);
-
-
 $scope.editorEnabled = false;
+
 $scope.orgaddresstype='';
+
 $scope.showGrowlMessage=0;
 //Omkars code //
 $scope.countries=[ 'Afghanistan', 
@@ -310,74 +311,76 @@ $scope.countries=[ 'Afghanistan',
     //$scope.countries holds array of list of countries
     //$scope.states is an array of objects where each object will represent states of selected country
     //For time being only india is considered                    
-    $scope.states={};                    
-    $scope.states.india=     [
-                          'Andhra Pradesh', 
-                          'Arunachal Pradesh', 
-                          'Assam', 
-                          'Bihar ', 
-                          'Chhattisgarh ', 
-                          'Goa', 
-                          'Gujarat', 
-                          'Haryana', 
-                          'Himachal Pradesh', 
-                          'Jammu and Kashmir', 
-                          'Jharkhand', 
-                          'Kerala ', 
-                          'Madhya Pradesh', 
-                          'Maharashtra', 
-                          'Manipur', 
-                          'Meghalaya', 
-                          'Mizoram', 
-                          'Nagaland', 
-                          'Orissa ', 
-                          'Punjab', 
-                          'Rajasthan', 
-                          'Sikkim', 
-                          'Tamil Nadu', 
-                          'Tripura', 
-                          'Uttar Pradesh', 
-                          'Uttarakhand', 
-                          'West Bengal' ]                       
+$scope.states={};                    
+$scope.states.india=  [
+                      'Andhra Pradesh', 
+                      'Arunachal Pradesh', 
+                      'Assam', 
+                      'Bihar ', 
+                      'Chhattisgarh ', 
+                      'Goa', 
+                      'Gujarat', 
+                      'Haryana', 
+                      'Himachal Pradesh', 
+                      'Jammu and Kashmir', 
+                      'Jharkhand', 
+                      'Kerala ', 
+                      'Madhya Pradesh', 
+                      'Maharashtra', 
+                      'Manipur', 
+                      'Meghalaya', 
+                      'Mizoram', 
+                      'Nagaland', 
+                      'Orissa ', 
+                      'Punjab', 
+                      'Rajasthan', 
+                      'Sikkim', 
+                      'Tamil Nadu', 
+                      'Tripura', 
+                      'Uttar Pradesh', 
+                      'Uttarakhand', 
+                      'West Bengal' ]                       
                         ;    
     //$scope.cities will store data regarding cities in the states
     //Currently due to unavailability of data, we are resrticting our scope to india
     //So when india is selected from the country list
     //All cities in Indial will be displayed irrespective of states
     //This needs to be modified later.                     
-    $scope.india={};
-    $scope.india.major_cities= [        'Port Blair', 
-                            'Hyderabad', 
-                            'Itanagar', 
-                            'Dispur', 
-                            'Patna', 
-                            'Silvassa', 
-                            'Daman', 
-                            'Delhi', 
-                            'Gandhinagar', 
-                            'Chandigarh', 
-                            'Ranchi', 
-                            'Bengaluru', 
-                            'Thiruvananthapuram', 
-                            'Kavaratti', 
-                            'Bhopal', 
-                            'Imphal', 
-                            'Shillong', 
-                            'Aizwal', 
-                            'Kohima', 
-                            'Bhubaneshwar', 
-                            'Puducherry', 
-                            'Chandigarh', 
-                            'Jaipur', 
-                            'Agartala', 
-                            'Mumbai',
-                            'Lucknow', 
-                            'Kolkata', 
-                            'Panaji', 
-                            'Pune'] ;                          
+$scope.india={};
+$scope.india.major_cities= [        'Port Blair', 
+                    'Hyderabad', 
+                    'Itanagar', 
+                    'Dispur', 
+                    'Patna', 
+                    'Silvassa', 
+                    'Daman', 
+                    'Delhi', 
+                    'Gandhinagar', 
+                    'Chandigarh', 
+                    'Ranchi', 
+                    'Bengaluru', 
+                    'Thiruvananthapuram', 
+                    'Kavaratti', 
+                    'Bhopal', 
+                    'Imphal', 
+                    'Shillong', 
+                    'Aizwal', 
+                    'Kohima', 
+                    'Bhubaneshwar', 
+                    'Puducherry', 
+                    'Chandigarh', 
+                    'Jaipur', 
+                    'Agartala', 
+                    'Mumbai',
+                    'Lucknow', 
+                    'Kolkata', 
+                    'Panaji', 
+                    'Pune'] ;  
+
 $scope.selected_country="";
-  $scope.return_states=function()
-    {    
+
+$scope.return_states=function()
+{    
       if($scope.org.country==="India")
       {
           return $scope.states.india;
@@ -386,13 +389,14 @@ $scope.selected_country="";
       {
           return "";
       }
-    }; //This function is called whenever users enters data in state textbox
-    //This is for fetching states within selected country
-    //Currentyl only india is considered
-    //If any other country is selected; the list will not show any states 
+}; 
+//This function is called whenever users enters data in state textbox
+//This is for fetching states within selected country
+//Currentyl only india is considered
+//If any other country is selected; the list will not show any states 
 
-    $scope.return_cities=function()
-    { 
+$scope.return_cities=function()
+{ 
       if($scope.org.country==="India")
       {
        return $scope.india.major_cities;
@@ -401,171 +405,136 @@ $scope.selected_country="";
       {
           return "";
       }
-    };//This function is actually to fetch cities in states
-    //Currently due to unavailability of data
-    //List of all cities from india will be displayed irrespective to state selected
-    //This needs to be modified when data is available
-    //This function is called when user enters data in cities text box
+};
+//This function is actually to fetch cities in states
+//Currently due to unavailability of data
+//List of all cities from india will be displayed irrespective to state selected
+//This needs to be modified when data is available
+//This function is called when user enters data in cities text box
 
 //End of code
 
 
 
 // Changed organisation delete functionality [Needs to be removed]
-    $scope.handleDeleteOrgRequestResponse = function(data){
-      $scope.deleteOrgRequestResponse = true;
-      if (data.success) {
+$scope.handleDeleteOrgRequestResponse = function(data){
+    $scope.deleteOrgRequestResponse = true;
+      if (data.success) 
+      {
         $scope.ProdoAppMessage(data.success.message,'success');  //ShowAlert
-      } else {
-          $log.debug(data.error.message);
-          $scope.ProdoAppMessage(data.error.message,'error');  //ShowAlert
-        }
-    };
+      } 
+      else 
+      {
+        $log.debug(data.error.message);
+        $scope.ProdoAppMessage(data.error.message,'error');  //ShowAlert
+      }
+};
 
-    $scope.deleteOrgAccountRequest = function() {
+$scope.deleteOrgAccountRequest = function() {
       OrgRegistrationService.removeOrgSettings();
-    };
+};
 
-    var cleanupEventDeleteOrgDone = $scope.$on("deleteOrgRequestSent", function(event, message){
+var cleanupEventDeleteOrgDone = $scope.$on("deleteOrgRequestSent", function(event, message){
 
-       if(message.error !== undefined && message.error.code === 'AL001' )
+   if(message.error !== undefined && message.error.code === 'AL001' )
        {
-           // UserSessionService.resetSession();
-           // $state.go('prodo.landing.signin');
            $rootScope.showModal();
        }
        else
        {
           $scope.handleDeleteOrgRequestResponse(message); 
        }
-    });
+});
 
-    var cleanupEventDeleteOrgNotDone = $scope.$on("deleteOrgRequestNotSent", function(event, message){
-       $scope.deleteOrgRequestResponse = true;
+var cleanupEventDeleteOrgNotDone = $scope.$on("deleteOrgRequestNotSent", function(event, message){
+      $scope.deleteOrgRequestResponse = true;
       $scope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message,'error');    //ShowAlert
-    });  
-
-
-////////---------------------------------------------------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+});  
 
 // function to handle server side responses
-    $scope.handleUpdateOrgAccountResponse = function(data){
-     $scope.changedOrgDetails = true;
-      if (data.success) {
+$scope.handleUpdateOrgAccountResponse = function(data){
+    $scope.changedOrgDetails = true;
+    if (data.success) {
         $scope.editorEnabled=false;
         $state.reload();
-          $scope.ProdoAppMessage(data.success.message, 'success');     //Growl
-      } else {
+        $scope.ProdoAppMessage(data.success.message, 'success');     //Growl
+    } else {
         if (data.error.code== 'AU004') {     // enter valid data
           $scope.ProdoAppMessage(data.error.message, 'error');    //Growl
         } else {
           $scope.ProdoAppMessage(data.error.message,'error');          //Growl
         }
-      }
-    };  
+    }
+};  
 // Update org account details//
 $scope.invalidOrgName='';
+
 $scope.invalidDesc='';
+
 $scope.invalidPassword='';
-            $scope.updateOrgAccount = function() {
-                      $scope.invalidOrgName='';
-                      $scope.invalidDesc='';
-                      $scope.invalidPassword='';
-                      if ($scope.form.orggeneralsettingform.$valid) {
-                        $scope.form.orggeneralsettingform.submitted= true;
-                        OrgRegistrationService.saveOrgSettings($scope.jsonOrgAccountData());
-                      } else {
-                        if($scope.form.orggeneralsettingform.orgname.$valid===false)
-                        {
-                            $scope.invalidOrgName = "Please enter valid Org name";
-                        }
-                        if($scope.form.orggeneralsettingform.description.$valid===false)
-                        {
-                            $scope.invalidDesc = "Please enter valid description";
-                        }
-                        if($scope.form.orggeneralsettingform.password.$valid===false)
-                        {
-                            $scope.invalidPassword = "Please enter valid password";
-                        }
-                        //$scope.form.orggeneralsettingform.submitted= true;
-                      }  
-                
-            };
+
+$scope.updateOrgAccount = function() {
+
+      $scope.invalidOrgName='';
+
+      $scope.invalidDesc='';
+
+      $scope.invalidPassword='';
+
+      if ($scope.form.orggeneralsettingform.$valid) {
+        $scope.form.orggeneralsettingform.submitted= true;
+        OrgRegistrationService.saveOrgSettings($scope.jsonOrgAccountData());
+      } else {
+        if($scope.form.orggeneralsettingform.orgname.$valid===false)
+        {
+            $scope.invalidOrgName = "Please enter valid Org name";
+        }
+        if($scope.form.orggeneralsettingform.description.$valid===false)
+        {
+            $scope.invalidDesc = "Please enter valid description";
+        }
+        if($scope.form.orggeneralsettingform.password.$valid===false)
+        {
+            $scope.invalidPassword = "Please enter valid password";
+        }
+        //$scope.form.orggeneralsettingform.submitted= true;
+      }             
+};
        //The following object is passed to    
-            $scope.jsonOrgAccountData = function()
-            {
-              var orgData = 
-                {
-                  organization:
-                  {
-                  'name' : $scope.org.name,
-                  'description' : $scope.org.description,
-                  'password': $scope.user.password
-                  }
-                };
-              return JSON.stringify(orgData); 
-            };
+$scope.jsonOrgAccountData = function()
+    {
+      var orgData = 
+        {
+          organization:
+          {
+          'name' : $scope.org.name,
+          'description' : $scope.org.description,
+          'password': $scope.user.password
+          }
+        };
+      return JSON.stringify(orgData); 
+};
 //End of block
 
-
-    var cleanupEventUpdateOrgDone = $scope.$on("updateOrgDone", function(event, message){
+var cleanupEventUpdateOrgDone = $scope.$on("updateOrgDone", function(event, message){
        if(message.error !== undefined && message.error.code === 'AL001' )
        {
-           // UserSessionService.resetSession();
-           // $state.go('prodo.landing.signin');
            $rootScope.showModal();
        }
        else
        {
           $scope.handleUpdateOrgAccountResponse(message);  
        }  
-    });
+});
 
-    var cleanupEventUpdateOrgNotDone = $scope.$on("updateOrgNotDone", function(event, message){
+var cleanupEventUpdateOrgNotDone = $scope.$on("updateOrgNotDone", function(event, message){
       $scope.changedOrgDetails = true;
       $scope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message,'error');   
-    }); 
-
+}); 
 
 // The following block adds organisation address 
-
-     $scope.jsonOrgAddressData = function()
-      {
+$scope.jsonOrgAddressData = function()
+{
         var orgAddData = 
           {
             location:
@@ -585,18 +554,25 @@ $scope.invalidPassword='';
             }
           }  
         return JSON.stringify(orgAddData); 
-      }
+};
 
 $scope.addressErrorMessage = '';
+
 $scope.invalidCountryError = '';
+
 $scope.invalidStateError = '';
+
 $scope.invalidCityError = '';
+
 $scope.invalidZipcodeError = '';
+
 $scope.invalidContact1 = '';
+
 $scope.invalidContact2 = '';
+
 $scope.invalidContact3 = '';
 
-    $scope.handleAddOrgAddressResponse = function(data){
+$scope.handleAddOrgAddressResponse = function(data){
      $scope.addedOrgLocation = false;
       if (data.success) {        
         $scope.reset();
@@ -611,118 +587,117 @@ $scope.invalidContact3 = '';
         }
          
       }
-    };  
+};  
 
-    $scope.addOrgAddress = function() { 
-        $scope.addressErrorMessage = '';
-        $scope.invalidCountryError = '';
-        $scope.invalidStateError = '';
-        $scope.invalidCityError = '';
-        $scope.invalidZipcodeError = '';$scope.emptyOrgtypeSelection = '';
-        $scope.invalidContact1 = '';
-        $scope.invalidContact2 = '';
-        $scope.invalidContact3 = '';
-       $scope.orgaddresstype = document.getElementById('orgAddressType').value;
+$scope.addOrgAddress = function() { 
+    $scope.addressErrorMessage = '';
+    $scope.invalidCountryError = '';
+    $scope.invalidStateError = '';
+    $scope.invalidCityError = '';
+    $scope.invalidZipcodeError = '';$scope.emptyOrgtypeSelection = '';
+    $scope.invalidContact1 = '';
+    $scope.invalidContact2 = '';
+    $scope.invalidContact3 = '';
+    $scope.orgaddresstype = document.getElementById('orgAddressType').value;
 
-      if ($scope.form.orgaddlocationform.$valid && ($scope.orgaddresstype==="Company Address" || $scope.orgaddresstype === "Service Centers")) {
-        $scope.form.orgaddlocationform.submitted= true;   
-        OrgRegistrationService.saveOrgAddress($scope.jsonOrgAddressData());
-      } else {
+    if ($scope.form.orgaddlocationform.$valid && ($scope.orgaddresstype==="Company Address" || $scope.orgaddresstype === "Service Centers")) {
+    $scope.form.orgaddlocationform.submitted= true;   
+    OrgRegistrationService.saveOrgAddress($scope.jsonOrgAddressData());
+    } else {
         if($scope.org.address1 === '' || $scope.form.orgaddlocationform.address1.$valid === false)
-            {
-                  $scope.addressErrorMessage = "Please enter valid address "; 
-            }
-            if($scope.form.orgaddlocationform.country.$valid===false || $scope.org.country === '')
-            {
-                   $scope.invalidCountryError = 'Please enter correct country';
-            }
-            if($scope.form.orgaddlocationform.state.$valid === false || $scope.org.country === '' )
-            {        
-                   $scope.invalidStateError = 'Please enter valid state';
-            }
-            if($scope.form.orgaddlocationform.city.$valid === false || $scope.org.city === '' )
-            {        
-                   $scope.invalidCityError = 'Please enter valid city';
-            }
-            if($scope.form.orgaddlocationform.zipcode.$valid === false || $scope.org.zipcode === '' )
-            {         
-                   $scope.invalidZipcodeError = 'Please enter valid Zipcode';
-            }
-            if($scope.form.orgaddlocationform.contact1.$valid === false || $scope.form.orgaddlocationform.contact1.$dirty===false)
-            {
-                   $scope.invalidContact1 = 'Please enter valid phone number';
-            }
-            if($scope.form.orgaddlocationform.contact2.$valid === false  )
-            {
-                   $scope.invalidContact2 = 'Please enter valid phone number';
-            }
-            if($scope.form.orgaddlocationform.contact3.$valid === false  )
-            {
-                   $scope.invalidContact3 = 'Please enter valid phone number';
-            }
-            if($scope.form.orgaddlocationform.loctype.$valid === false || $scope.form.orgaddlocationform.loctype.$dirty === false )
-            {
-                $scope.emptyOrgtypeSelection = "Please select option from above field";}
-        
-        $scope.form.orgaddlocationform.submitted= true;
-      } 
-    };
+        {
+              $scope.addressErrorMessage = "Please enter valid address "; 
+        }
+        if($scope.form.orgaddlocationform.country.$valid===false || $scope.org.country === '')
+        {
+               $scope.invalidCountryError = 'Please enter correct country';
+        }
+        if($scope.form.orgaddlocationform.state.$valid === false || $scope.org.country === '' )
+        {        
+               $scope.invalidStateError = 'Please enter valid state';
+        }
+        if($scope.form.orgaddlocationform.city.$valid === false || $scope.org.city === '' )
+        {        
+               $scope.invalidCityError = 'Please enter valid city';
+        }
+        if($scope.form.orgaddlocationform.zipcode.$valid === false || $scope.org.zipcode === '' )
+        {         
+               $scope.invalidZipcodeError = 'Please enter valid Zipcode';
+        }
+        if($scope.form.orgaddlocationform.contact1.$valid === false || $scope.form.orgaddlocationform.contact1.$dirty===false)
+        {
+               $scope.invalidContact1 = 'Please enter valid phone number';
+        }
+        if($scope.form.orgaddlocationform.contact2.$valid === false  )
+        {
+               $scope.invalidContact2 = 'Please enter valid phone number';
+        }
+        if($scope.form.orgaddlocationform.contact3.$valid === false  )
+        {
+               $scope.invalidContact3 = 'Please enter valid phone number';
+        }
+        if($scope.form.orgaddlocationform.loctype.$valid === false || $scope.form.orgaddlocationform.loctype.$dirty === false )
+        {
+            $scope.emptyOrgtypeSelection = "Please select option from above field";
+        }
+    
+    $scope.form.orgaddlocationform.submitted= true;
+   } 
+};
 
-    $scope.jsonOrgAddressUpdate = function(addr, loctype)
+$scope.jsonOrgAddressUpdate = function(addr, loctype)
+{
+      $scope.contacts[0].customerhelpline=addr.contacts[0].customerhelpline;
+      $scope.contacts[1].customerhelpline=addr.contacts[1].customerhelpline;
+      $scope.contacts[2].customerhelpline=addr.contacts[2].customerhelpline;
+      var orgAddData = 
+      {
+        location:
+        {
+         'address': 
+                {
+                'address1': addr.address.address1,
+                'address2': addr.address.address2,
+                'address3': addr.address.address3,
+                'country': addr.address.country,
+                'city': addr.address.city,
+                'state': addr.address.state,
+                'zipcode': addr.address.zipcode 
+                }, 
+          'contacts': $scope.contacts,
+          'locationtype' : loctype
+        }
+      }
+  return JSON.stringify(orgAddData); 
+};
+
+var cleanupEventAddOrgAddressDone = $scope.$on("addOrgAddressDone", function(event, message){
+    if(message.error !== undefined && message.error.code === 'AL001' )
     {
-          $scope.contacts[0].customerhelpline=addr.contacts[0].customerhelpline;
-          $scope.contacts[1].customerhelpline=addr.contacts[1].customerhelpline;
-          $scope.contacts[2].customerhelpline=addr.contacts[2].customerhelpline;
-          var orgAddData = 
-          {
-            location:
-            {
-             'address': 
-                    {
-                    'address1': addr.address.address1,
-                    'address2': addr.address.address2,
-                    'address3': addr.address.address3,
-                    'country': addr.address.country,
-                    'city': addr.address.city,
-                    'state': addr.address.state,
-                    'zipcode': addr.address.zipcode 
-                    }, 
-              'contacts': $scope.contacts,
-              'locationtype' : loctype
-            }
-          }
-      return JSON.stringify(orgAddData); 
-    };
-
-    var cleanupEventAddOrgAddressDone = $scope.$on("addOrgAddressDone", function(event, message){
-       if(message.error !== undefined && message.error.code === 'AL001' )
-       {
            // UserSessionService.resetSession();
            // $state.go('prodo.landing.signin');
            $rootScope.showModal();
-       }
-       else
-       {
+    }
+    else
+    {
           $scope.handleAddOrgAddressResponse(message);  
           $state.reload();
-       }
-    });
-    var cleanupEventAddOrgAddressNotDone = $scope.$on("addOrgAddressNotDone", function(event, message){
+    }
+});
+
+var cleanupEventAddOrgAddressNotDone = $scope.$on("addOrgAddressNotDone", function(event, message){
          $scope.addedOrgLocation = false;
          $scope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message,'error');    //ShowAlert
-    });
+});
 //End of block
-
-
 // function to handle server side responsesIt looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message
-    $scope.handleUpdateOrgAddressResponse = function(data){
-      $scope.changedOrgLocation = false;
-      if (data.success) {
+$scope.handleUpdateOrgAddressResponse = function(data){
+   $scope.changedOrgLocation = false;
+   if (data.success) {
         $scope.ProdoAppMessage(data.success.message,'success');    //ShowAlert
-
         $scope.reset();
         $state.reload();
-      } else {
+   } else {
         if (data.error.code== 'AU004') {     // enter valid data
             $log.debug(data.error.code + " " + data.error.message);
             $scope.ProdoAppMessage(data.error.message,'error');    //ShowAlert
@@ -730,133 +705,92 @@ $scope.invalidContact3 = '';
             $log.debug(data.error.message);
             $scope.ProdoAppMessage(data.error.message,'error');  //ShowAlert
         }
-      }
-    };  
+  }
+};  
 
 $scope.regexForZipcode = /^[0-9]{5,7}$/;
-    $scope.updateAddress = function(addr,loctype) { 
-        $scope.errorOfValidation = 'Please enter valid ';
-        $scope.errorsForEdit  = '';
-        if(addr.address.address1 === undefined || addr.address.address1 ==='')
-        {
-            $scope.errorsForEdit = $scope.errorsForEdit+"'address1' ";
-        }
-        if(addr.address.city === undefined || $scope.regexForText.test(addr.address.city) !== true )
-        {
-            $scope.errorsForEdit = $scope.errorsForEdit+"'city' ";
-        }
-        if(addr.address.state === undefined || $scope.regexForText.test(addr.address.state) !== true)
-        {
-            $scope.errorsForEdit = $scope.errorsForEdit + "'state' ";
-        }
-        if(addr.address.country === undefined || $scope.regexForText.test(addr.address.country) !== true)
-        {
-            $scope.errorsForEdit = $scope.errorsForEdit + "'country' ";
-        }
-         if(addr.address.zipcode === undefined || $scope.regexForZipcode.test(addr.address.zipcode) !== true)
-        {
-            $scope.errorsForEdit = $scope.errorsForEdit + "'zipcode' ";
-        }
-        // if(addr.contacts[0].customerhelpline !== undefined || addr.contacts[0].customerhelpline !=='' || $scope.regexForPhno.test(addr.contacts[0].customerhelpline) !== true)
-        // {
-            
-        // }
-        if(addr.contacts[0].customerhelpline === undefined || addr.contacts[0].customerhelpline === '' || $scope.regexForPhno.test(addr.contacts[0].customerhelpline) !== true)
-        {
-              $scope.errorsForEdit = $scope.errorsForEdit + "'contact 1' ";
-        }
-        if(addr.contacts[1].customerhelpline !== undefined && addr.contacts[1].customerhelpline !=='' && $scope.regexForPhno.test(addr.contacts[1].customerhelpline) !== true)
-        {
-              $scope.errorsForEdit = $scope.errorsForEdit + "'contact 2' ";
-        }
-         
-        if(addr.contacts[2].customerhelpline !== undefined && addr.contacts[2].customerhelpline!=='' && $scope.regexForPhno.test(addr.contacts[2].customerhelpline) !== true)
-        {
-              $scope.errorsForEdit = $scope.errorsForEdit + "'contact 3' ";
-        }
-         
-        if($scope.errorsForEdit!=='')
-        {
-            $scope.errorOfValidation = $scope.errorOfValidation+$scope.errorsForEdit;
-        }
-        else
-        {
-              addr.editing = false;  
-              OrgRegistrationService.updateOrgAddress($scope.jsonOrgAddressUpdate(addr,loctype),addr.locid);
-        }
 
-    }
-    var cleanupEventUpdateOrgAddressDone = $scope.$on("updateOrgAddressDone", function(event, message){
-       if(message.error !== undefined && message.error.code === 'AL001' )
-       {
-           // UserSessionService.resetSession();
-           // $state.go('prodo.landing.signin');
-           $rootScope.showModal();
-       }
-       else
-       {
-           $scope.handleUpdateOrgAddressResponse(message);
-       } 
-    });
-    var cleanupEventUpdateOrgAddressNotDone = $scope.$on("updateOrgAddressNotDone", function(event, message){
+$scope.updateAddress = function(addr,loctype) { 
+      $scope.errorOfValidation = 'Please enter valid ';
+      $scope.errorsForEdit  = '';
+      if(addr.address.address1 === undefined || addr.address.address1 ==='')
+      {
+        $scope.errorsForEdit = $scope.errorsForEdit+"'address1' ";
+      }
+      if(addr.address.city === undefined || $scope.regexForText.test(addr.address.city) !== true )
+      {
+        $scope.errorsForEdit = $scope.errorsForEdit+"'city' ";
+      }
+      if(addr.address.state === undefined || $scope.regexForText.test(addr.address.state) !== true)
+      {
+        $scope.errorsForEdit = $scope.errorsForEdit + "'state' ";
+      }
+      if(addr.address.country === undefined || $scope.regexForText.test(addr.address.country) !== true)
+      {
+        $scope.errorsForEdit = $scope.errorsForEdit + "'country' ";
+      }
+      if(addr.address.zipcode === undefined || $scope.regexForZipcode.test(addr.address.zipcode) !== true)
+      {
+        $scope.errorsForEdit = $scope.errorsForEdit + "'zipcode' ";
+      }
+      if(addr.contacts[0].customerhelpline === undefined || addr.contacts[0].customerhelpline === '' || $scope.regexForPhno.test(addr.contacts[0].customerhelpline) !== true)
+      {
+          $scope.errorsForEdit = $scope.errorsForEdit + "'contact 1' ";
+      }
+      if(addr.contacts[1].customerhelpline !== undefined && addr.contacts[1].customerhelpline !=='' && $scope.regexForPhno.test(addr.contacts[1].customerhelpline) !== true)
+      {
+          $scope.errorsForEdit = $scope.errorsForEdit + "'contact 2' ";
+      }
+      if(addr.contacts[2].customerhelpline !== undefined && addr.contacts[2].customerhelpline!=='' && $scope.regexForPhno.test(addr.contacts[2].customerhelpline) !== true)
+      {
+          $scope.errorsForEdit = $scope.errorsForEdit + "'contact 3' ";
+      } 
+      if($scope.errorsForEdit!=='')
+      {
+          $scope.errorOfValidation = $scope.errorOfValidation+$scope.errorsForEdit;
+      }
+      else
+      {
+          addr.editing = false;  
+          OrgRegistrationService.updateOrgAddress($scope.jsonOrgAddressUpdate(addr,loctype),addr.locid);
+      }
+
+};
+
+var cleanupEventUpdateOrgAddressDone = $scope.$on("updateOrgAddressDone", function(event, message){
+   if(message.error !== undefined && message.error.code === 'AL001' )
+   {
+       // UserSessionService.resetSession();
+       // $state.go('prodo.landing.signin');
+       $rootScope.showModal();
+   }
+   else
+   {
+       $scope.handleUpdateOrgAddressResponse(message);
+   } 
+});
+
+var cleanupEventUpdateOrgAddressNotDone = $scope.$on("updateOrgAddressNotDone", function(event, message){
       $scope.changedOrgLocation = true;
       $scope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message,'error');    //ShowAlert
-    });    
+});    
 
 //End of block
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The following block changes org address 
 
-    $scope.handleDeleteOrgAddressResponse = function(data){
-        $scope.changedOrgLocation = true;
-      if (data.success) {    
+$scope.handleDeleteOrgAddressResponse = function(data){
+     $scope.changedOrgLocation = true;
+     if (data.success) {    
         $state.reload();     
         $scope.ProdoAppMessage(data.success.message,'success');
-      } else {
+     } else {
           $log.debug(data.error.message);
           $scope.ProdoAppMessage(data.error.message,'error');  //ShowAlert
-        }
-    };
+     }
+};
 
-    $scope.deleteOrgAddress = function(addr,addressId) { 
+$scope.deleteOrgAddress = function(addr,addressId) { 
       $scope.changedOrgLocation = true; 
       NumberOfOrgAddresses = $scope.calcNumberOfOrgAddresses(); 
       NumberOfOrgAddresses--; 
@@ -872,31 +806,28 @@ $scope.regexForZipcode = /^[0-9]{5,7}$/;
         $scope.ProdoAppMessage("You cannot delete all company addresses!",'error');
       }
 
-    };
+};
 
-    var cleanupEventDeleteOrgAddressDone = $scope.$on("deleteOrgAddressDone", function(event, message){
+var cleanupEventDeleteOrgAddressDone = $scope.$on("deleteOrgAddressDone", function(event, message){
        if(message.error !== undefined && message.error.code === 'AL001' )
        {
-           // UserSessionService.resetSession();
-           // $state.go('prodo.landing.signin');
            $rootScope.showModal();
        }  
        else
        {
            $scope.handleDeleteOrgAddressResponse(message);   
        }
-    });
+});
 
-    var cleanupEventDeleteOrgAddressNotDone = $scope.$on("deleteOrgAddressNotDone", function(event, message){
-        $scope.changedOrgLocation = true;
-      $scope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + 'message,error');    //ShowAlert
-    });
+var cleanupEventDeleteOrgAddressNotDone = $scope.$on("deleteOrgAddressNotDone", function(event, message){
+     $scope.changedOrgLocation = true;
+     $scope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + 'message,error');    //ShowAlert
+});
 
 //end of block
-
 //  The following code removes org group member
-    $scope.handleDeleteOrgGroupMemberResponse = function(data){
-        $scope.manageOrgGroup = true;
+$scope.handleDeleteOrgGroupMemberResponse = function(data){
+      $scope.manageOrgGroup = true;
       if (data.success) {
          $state.reload();
         $scope.ProdoAppMessage(data.success.message,'success');  //ShowAlert
@@ -909,52 +840,49 @@ $scope.regexForZipcode = /^[0-9]{5,7}$/;
             $scope.ProdoAppMessage(data.error.message,'error');    //ShowAlert
         }
       }
-    };
+};
 
-    $scope.deleteGroupMember = function(member, userid, index , mail) { 
-                    if(member.grpname === 'admin')
-                    {
-                        var lengthOfAdminMembers = $scope.groups[index].grpmembers.length;
-                        if(lengthOfAdminMembers===1)
-                        {
-                            $scope.ProdoAppMessage("You cannot delete all members of admin group",'error');
-                        }
-                        else if($rootScope.usersession.currentUser.email === mail)
-                        {
-                            $scope.ProdoAppMessage("You cannot delete your own account",'error');
-                        }
-                        else 
-                        {
-                            OrgRegistrationService.deleteMember(member.grpid, userid);
-                        } 
-                    }
-                    // else if( $rootScope.UserSessionService.)
-                    else 
-                    {
-                      OrgRegistrationService.deleteMember(member.grpid, userid); 
-                    }
-    
-    };
+$scope.deleteGroupMember = function(member, userid, index , mail) { 
+            if(member.grpname === 'admin')
+            {
+                var lengthOfAdminMembers = $scope.groups[index].grpmembers.length;
+                if(lengthOfAdminMembers===1)
+                {
+                    $scope.ProdoAppMessage("You cannot delete all members of admin group",'error');
+                }
+                else if($rootScope.usersession.currentUser.email === mail)
+                {
+                    $scope.ProdoAppMessage("You cannot delete your own account",'error');
+                }
+                else 
+                {
+                    OrgRegistrationService.deleteMember(member.grpid, userid);
+                } 
+            }
+            // else if( $rootScope.UserSessionService.)
+            else 
+            {
+              OrgRegistrationService.deleteMember(member.grpid, userid); 
+            }
+};
 
-    var cleanupEventDeleteOrgGroupMemberDone = $scope.$on("deleteOrgGroupMemberDone", function(event, message){
+var cleanupEventDeleteOrgGroupMemberDone = $scope.$on("deleteOrgGroupMemberDone", function(event, message){
      // $scope.handleDeleteOrgGroupMemberResponse(message);  
     
        if(message.error !== undefined && message.error.code === 'AL001' )
        {
-           // UserSessionService.resetSession();
-           // $state.go('prodo.landing.signin');
            $rootScope.showModal();
        }
        else
        {
            $scope.handleDeleteOrgGroupMemberResponse(message);  
        }
-    });
+});
 
-    var cleanupEventDeleteOrgGroupMemberNotDone = $scope.$on("deleteOrgGroupMemberNotDone", function(event, message){
+var cleanupEventDeleteOrgGroupMemberNotDone = $scope.$on("deleteOrgGroupMemberNotDone", function(event, message){
         $scope.manageOrgGroup = true;
       $scope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message,'error');    //ShowAlert
-    });  
+});  
 //End of block
 $scope.resetInvites = function()
 {
@@ -1506,12 +1434,12 @@ $scope.errorForEmptyExistingGroupname = '';
      };
 
      var cleanupEventOrgUploadLogoResponseSuccess = $scope.$on("orgUploadLogoResponseSuccess",function(event,message){
-      $scope.ProdoAppMessage("Organization logo uploaded successfully!",'success');  
+      //$scope.ProdoAppMessage("Organization logo uploaded successfully!",'success');  
       $state.reload();
      });
 
      var cleanupEventOrgUploadResponseSuccess = $scope.$on("orgUploadResponseSuccess",function(event,message){
-        $scope.ProdoAppMessage("Organization artwork images uploaded successfully",'success');
+        //$scope.ProdoAppMessage("Organization artwork images uploaded successfully",'success');
       $state.reload();
      });
 

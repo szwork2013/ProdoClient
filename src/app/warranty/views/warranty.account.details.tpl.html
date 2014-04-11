@@ -210,12 +210,12 @@
            <tr>
             <td  colspan="2">Invoice Upload  &nbsp;&nbsp;&nbsp;&nbsp;
                         
-                <input id="prodo-warrantyUploadBtn" class=" form-control prodo-validation " type="file" name="file" ng-file-selectdata="onFileSelect($files)" ng-model="file1" required>
+                <input id="prodo-warrantyUploadBtn" class=" form-control prodo-validation " type="file" name="file" ng-file-selectdata="onFileSelect($files)" ng-model="file1" >
 
                   <div  ng-show="(form.WarrantyForm.file.$dirty && editMode.editorEnabledWarranty ==true) ||(form.WarrantyForm.submitted==true && form.WarrantyForm.file.$invalid==true)" class="prodo-warranty-Invalid">
 			 
-			  <span ng-show="form.WarrantyForm.file.$error.required">Please add invoice image</span>
-			 </div>
+              			  <span ng-show="form.WarrantyForm.file.$error.required">Please add invoice image</span>
+              			 </div>
                                         
              </td>
           </tr>
@@ -275,7 +275,36 @@
 
 
   <div id="prodo-ProductDetails" class="prodo-ProductDetails"  ng-hide="editMode.editorEnabledWarranty">
+   <div ng-show="warranty.warranty_id" class="prodo.productAdmin1 pull-right " >
+     <!--    <a href="" class="btn btn-primary btn-sm btn-bottom-margin" ng-click="editStatus='update' ; enableEditor() ;  "  onclick="$('.prodo-productDiscontinuedUpdate').show();"> Update &nbsp;<i class="fa fa-pencil-square-o "></i></a> -->
+        <a href="" class="btn btn-danger btn-sm btn-bottom-margin" data-toggle="modal" data-target="#WarrantyDelete">  Delete &nbsp; <i class="fa fa-trash-o"></i> </a> 
+        <br>
+      </div>
 
+            <!-- Modal -->
+      <div class="modal fade" id="WarrantyDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title" id="myModalLabel">Delete Warranty</h4>
+            </div>
+            <div class="modal-body">
+              Once deleted this warranty, it won't be accessible .<br>
+              Are you sure you want to delete ?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default " data-dismiss="modal"> Cancel &nbsp; <i class=" glyphicon glyphicon-remove"></i></button>
+              <button type="button" class="btn btn-danger  " ng-click="deleteWarranty();" data-dismiss="modal" > Delete  &nbsp; <i class=" glyphicon glyphicon-trash"></i></button>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.modal -->
+
+      <br> <br> <br>
 <!-- display mode -->
   <span class="wall-warranty-expiry-label label label-success">Expires on <span ng-bind="warranty.expirydate |  date:'MMM d, y'" ></span>
         </span>

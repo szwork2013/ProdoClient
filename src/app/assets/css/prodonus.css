@@ -20,7 +20,10 @@ font-size: 14px;
 background-color: transparent;
 font-weight: bold; 
 }
-
+.prodo-regTagsWidth{
+	width: 60%;
+	margin: 10px auto;
+}
 #prodo-org-nav-pills>li>a{
 font-size: 14px;
 margin: 2px;

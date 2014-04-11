@@ -58,21 +58,20 @@ $scope.currentCampaign = {};
 
  // getAllCampaigns.getCampaigns();
 
-    $scope.ProdoAppMessage = function(message,flag)
-    {
-          if(flag==='success')
-          {
-            notify({message:message,template:'common/notification/views/notification-success.html',position:'center'})
-          }
-          else
-          {
-             notify({message:message,template:'common/notification/views/notification-error.html',position:'center'}); 
-          }
-    };
+$scope.ProdoAppMessage = function(message,flag)
+{
+      if(flag==='success')
+      {
+        notify({message:message,template:'common/notification/views/notification-success.html',position:'center'})
+      }
+      else
+      {
+         notify({message:message,template:'common/notification/views/notification-error.html',position:'center'}); 
+      }
+};
 
 
-
-
+$scope.noCampaignExists = 1;
 
 if (currentorgproducts.error) 
 {
@@ -86,6 +85,7 @@ else
 	  }
 }
 
+<<<<<<< HEAD
       $scope.$watch('$state.$current.locals.globals.campaigndata', function (campaigndata) {
         console.log(campaigndata);
         if (campaigndata.success) {
@@ -121,24 +121,45 @@ else
         }
   
       });
+=======
+//alert(campaigndata.success.Product_Campaigns.length);
 
+  $scope.$watch('$state.$current.locals.globals.campaigndata', function (campaigndata) {
+    if (campaigndata.success) {
+       $scope.campaignDetailsObject = campaigndata.success.Product_Campaigns; 
+       $scope.campaignName = $scope.campaignDetailsObject[0].name;
+       $scope.campaignDescription = $scope.campaignDetailsObject[0].description;
+       $scope.startDate = $scope.campaignDetailsObject[0].startdate;
+       $scope.category = $scope.campaignDetailsObject[0].category;
+       $scope.endDate = $scope.campaignDetailsObject[0].enddate;
+       $scope.productName = $scope.campaignDetailsObject[0].productname;
+       $scope.currentCampaign = $scope.campaignDetailsObject[0];
+      // $scope.ProdoAppMessage(campaigndata.success.message,'success');
+    } else if(campaigndata.error !== undefined && campaigndata.error.code === 'AL001' ) {
+        $rootScope.showModal();
+    } else if (campaigndata.error) {  
+         $scope.noCampaignExists = 0;
+    }
+>>>>>>> cfc0a121142ae267277fd98eac1a83523e730dd1
+
+  });
 
  // function to send and stringify user registration data to Rest APIs
-    $scope.jsonOrgCampaignData = function(){
-      var Data = 
+$scope.jsonOrgCampaignData = function(){
+  var Data = 
+  {
+    "campaigndata":
       {
-        "campaigndata":
-          {
-            'name' : $scope.campaign.Name,
-            'productname' : $scope.campaign.productName,
-            'enddate': $scope.campaign.endDate,
-            'startdate': $scope.campaign.startDate,
-            'description': $scope.campaign.Description,
-            'category': $scope.campaign.category
-          }  
-      };
-      return JSON.stringify(Data); 
-    } 
+        'name' : $scope.campaign.Name,
+        'productname' : $scope.campaign.productName,
+        'enddate': $scope.campaign.endDate,
+        'startdate': $scope.campaign.startDate,
+        'description': $scope.campaign.Description,
+        'category': $scope.campaign.category
+      }  
+  };
+  return JSON.stringify(Data); 
+} 
 
 
 $scope.saveCampaign = function()
@@ -185,23 +206,21 @@ $scope.saveCampaign = function()
     }
 };
 
-
-     $scope.jsonOrgCampaignDataModify = function(){
-      var Data = 
-      {
-        "campaigndata":
-          {
-            'name' : $scope.currentCampaign.name,
-            'productname' : $scope.currentCampaign.productname,
-            'enddate': $scope.currentCampaign.enddate,
-            'startdate': $scope.currentCampaign.startdate,
-            'description': $scope.currentCampaign.description,
-            'category': $scope.currentCampaign.category
-          }  
-      };
-      return JSON.stringify(Data); 
-    };
-
+$scope.jsonOrgCampaignDataModify = function(){
+var Data = 
+{
+  "campaigndata":
+    {
+      'name' : $scope.currentCampaign.name,
+      'productname' : $scope.currentCampaign.productname,
+      'enddate': $scope.currentCampaign.enddate,
+      'startdate': $scope.currentCampaign.startdate,
+      'description': $scope.currentCampaign.description,
+      'category': $scope.currentCampaign.category
+    }  
+};
+return JSON.stringify(Data); 
+};
 
 $scope.updateCampaign = function()
 {
@@ -213,7 +232,6 @@ $scope.updateCampaign = function()
 	$scope.allValid = 0;
 	$scope.errorForInvalidProduct = '';
 	$scope.getProdle();
-    
     if($scope.currentCampaign.productname === undefined || $scope.regexForText.test($scope.currentCampaign.productname) === false || $scope.currentCampaign.productname ==='')
     {
         $scope.errorForInvalidProduct = "Please select valid product name !";
@@ -241,77 +259,63 @@ $scope.updateCampaign = function()
     }
 };
 
-
-
 $scope.deleteTheCampaign = function(data)
 {
     CampaignService.deleteTheCampaign(data);
 };
 
 
-
-
-
-
-
-
-
-
 var cleanupeventchangedcampaignsuccessfully = $scope.$on("campaignUpdatedSuccessfully", function(event, data){
-	 if(data.error !== undefined && data.error.code === 'AL001' )
-      {
-        $rootScope.showModal();
-      }
-      if(data.success)
-      {
-         $scope.ProdoAppMessage(data.success.message,'success');
-         $scope.enableEditing=0;
-         $state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
+ if(data.error !== undefined && data.error.code === 'AL001' )
+    {
+      $rootScope.showModal();
+    }
+    if(data.success)
+    {
+       $scope.ProdoAppMessage(data.success.message,'success');
+       $scope.enableEditing=0;
+       $state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
 
+    }
+    else {
+      if (data.error.code== 'AU004') {     // enter valid data
+          $scope.ProdoAppMessage(data.error.message,'error');    //ShowAlert
+      } else {
+          $scope.ProdoAppMessage(data.error.message,'error');    //ShowError
       }
-      else {
-        if (data.error.code== 'AU004') {     // enter valid data
-            $scope.ProdoAppMessage(data.error.message,'error');    //ShowAlert
-        } else {
-            $scope.ProdoAppMessage(data.error.message,'error');    //ShowError
-        }
-      }
+    }
 });
 
 var cleanupeventnotchangedcampaignerror = $scope.$on("campaignNotUpdatedSuccessfully", function(event, data){
 	     $scope.ProdoAppMessage("Some issues with server",'error');
 });
+
 var cleanupeventdeletecampaignsuccessfully = $scope.$on("campaignDeletedSuccessfullt", function(event, data){
-	 if(data.error !== undefined && data.error.code === 'AL001' )
-      {
-        $rootScope.showModal();
+ if(data.error !== undefined && data.error.code === 'AL001' )
+    {
+      $rootScope.showModal();
+    }
+    if(data.success)
+    {
+       $scope.ProdoAppMessage(data.success.message,'success');
+       $state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
+    }
+    else {
+      if (data.error.code== 'AU004') {     // enter valid data
+          $scope.ProdoAppMessage(data.error.message,'error');    //ShowAlert
+      } else {
+          $scope.ProdoAppMessage(data.error.message,'error');    //ShowError
       }
-      if(data.success)
-      {
-         $scope.ProdoAppMessage(data.success.message,'success');
-         $state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
-      }
-      else {
-        if (data.error.code== 'AU004') {     // enter valid data
-            $scope.ProdoAppMessage(data.error.message,'error');    //ShowAlert
-        } else {
-            $scope.ProdoAppMessage(data.error.message,'error');    //ShowError
-        }
-      }
+    }
 });
 
 var cleanupeventdeletecampaignerror = $scope.$on("campaignNotDeleteSuccessfully", function(event, data){
 	     $scope.ProdoAppMessage("Some issues with server",'error');
 });
-    // $scope.campaignName = $scope.campaignDetailsObject[index].name;
-    // $scope.campaignDescription = $scope.campaignDetailsObject[index].description;
-    // $scope.startDate = $scope.campaignDetailsObject[index].startdate;
-    // $scope.category = $scope.campaignDetailsObject[index].category;
-    // $scope.endDate = $scope.campaignDetailsObject[index].enddate;
-    // $scope.productName = $scope.campaignDetailsObject[index].productname; 
 
 $scope.showDetails = function(index)
 {
+  
     $scope.campaignName = $scope.campaignDetailsObject[index].name;
     $scope.campaignDescription = $scope.campaignDetailsObject[index].description;
     $scope.startDate = $scope.campaignDetailsObject[index].startdate;
@@ -335,98 +339,81 @@ $scope.showDetails = function(index)
     }
     var day=d.getDate();
    $scope.currentCampaign.enddate = year + "-" + month + "-" + day;  
-
 };
-
-//CampaignService.createCampaign($scope.JSON,$scope.prodleContent);
-
-
-
-// console.log(JSON.stringify($scope.productlist));
 
 $scope.add = function()
 {
-
     $scope.addNewCampaign = 1;
-
 };
+
 $scope.cancel = function()
 {
-    $scope.addNewCampaign = 0;
+    $scope.addNewCampaign = 0;$state.reload();
 };
 
 $scope.getProdle = function()
 { 
-            for(var i =0;i<currentorgproducts.success.product.length;i++)
-            {
-            	if($scope.campaign.productName === currentorgproducts.success.product[i].name)
-            	{
-            		$scope.prodleContent = currentorgproducts.success.product[i].prodle;
-            	
-            	}
-            }
+  for(var i =0;i<currentorgproducts.success.product.length;i++)
+  {
+  	if($scope.campaign.productName === currentorgproducts.success.product[i].name)
+  	{
+  		$scope.prodleContent = currentorgproducts.success.product[i].prodle;
+  	
+  	}
+  }
 };
+
 $scope.disableEditingCampaign = function()
 {
     $scope.enableEditing = 0;
+    $state.reload();
 };
+
  $scope.enableEditingCampaign = function() {
       $scope.enableEditing = 1;
  };
 
-
-
-
-
-
-
 var cleanupeventaddedcampaignsuccessfully = $scope.$on("campaignAddedSuccessfully", function(event, data){
-	 if(data.error !== undefined && data.error.code === 'AL001' )
-      {
-        $rootScope.showModal();
+ if(data.error !== undefined && data.error.code === 'AL001' )
+    {
+      $rootScope.showModal();
+    }
+    if(data.success)
+    {
+       $scope.ProdoAppMessage(data.success.message,'success');
+       $scope.enableEditing = 0;
+       $state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
+    }
+    else {
+      if (data.error.code== 'AU004') {     // enter valid data
+          $scope.ProdoAppMessage(data.error.message,'error');    //ShowAlert
+      } else {
+          $scope.ProdoAppMessage(data.error.message,'error');    //ShowError
       }
-      if(data.success)
-      {
-         $scope.ProdoAppMessage(data.success.message,'success');
-         $scope.enableEditing = 0;
-         $state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
-      }
-      else {
-        if (data.error.code== 'AU004') {     // enter valid data
-            $scope.ProdoAppMessage(data.error.message,'error');    //ShowAlert
-        } else {
-            $scope.ProdoAppMessage(data.error.message,'error');    //ShowError
-        }
-      }
+    }
 });
 
 var cleanupeventaddedcampaignerror = $scope.$on("campaignNotAddedSuccessfully", function(event, data){
 	     $scope.ProdoAppMessage("Some issues with server",'error');
 });
 
-  $scope.currentPage = 0;
-    $scope.pageSize = 5;
-   $scope.numberOfPages = function () {
+$scope.currentPage = 0;
+
+$scope.pageSize = 5;
+
+$scope.numberOfPages = function () {
      return Math.ceil($scope.productlist.length / $scope.pageSize);
-    };
+};
 
-
-  $scope.$on('$destroy', function(event, message) 
-  {
-		cleanupeventaddedcampaignsuccessfully();
-		cleanupeventaddedcampaignerror();
-		cleanupeventchangedcampaignsuccessfully();
-		cleanupeventnotchangedcampaignerror();
-		cleanupeventaddedcampaignsuccessfully();
-		cleanupeventaddedcampaignerror();
-		cleanupeventdeletecampaignsuccessfully();
-		cleanupeventdeletecampaignerror();
-  });
-
-
-
-
-
-
-
+$scope.$on('$destroy', function(event, message) 
+{
+	cleanupeventaddedcampaignsuccessfully();
+	cleanupeventaddedcampaignerror();
+	cleanupeventchangedcampaignsuccessfully();
+	cleanupeventnotchangedcampaignerror();
+	cleanupeventaddedcampaignsuccessfully();
+	cleanupeventaddedcampaignerror();
+	cleanupeventdeletecampaignsuccessfully();
+	cleanupeventdeletecampaignerror();
+});
 }]);
