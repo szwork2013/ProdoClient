@@ -96,7 +96,7 @@ $scope.warranties=[];
       }else{
      $("#prodo-ProductDetails").css("display", "none");
      $("#ErrMsging").css("display", "block");
-     $scope.productlist=[];
+     $scope.warranties=[];
      document.getElementById("ErrMsging").innerHTML = "<br>Product not available ... Add new product<br><br>";
     }
   };
@@ -271,6 +271,7 @@ $scope.getAllProductNames();
  };
 
  $scope.addWarranty = function (editStatus) {
+
   if($scope.form.WarrantyForm.$invalid){
       $scope.form.WarrantyForm.submitted=true;
     }
@@ -384,7 +385,7 @@ $scope.getFile = function (a) {
    // if ($scope.uploadSrc == "warranty") { // upload product
         if (($scope.file.size / 1024 < 2048)) {
             $scope.isValidImage=true;
-
+            $scope.form.WarrantyForm.file.$invalid=false;
           } else {
             
              $log.debug( 'Image size must ne less than 2MB');
