@@ -4,8 +4,8 @@ angular.module('prodo.ProdonusApp').value('cgNotifyTemplateName','angular-notify
 angular.module('prodo.ProdonusApp').factory('notify',['$timeout','cgNotifyTemplateName','$http','$compile','$templateCache','$rootScope',
 	function($timeout,cgNotifyTemplateName,$http,$compile,$templateCache,$rootScope){
 
-		var startTop = 0;
-		var verticalSpacing = 30;
+		var startTop = 2;
+		var verticalSpacing = 35;
 
 		var messageElements = [];
 
