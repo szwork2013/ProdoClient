@@ -2,14 +2,57 @@
 <div growl></div>
 	<form name="form.orgMessageBroadcastform" class="css-form" ng-submit='' novalidate>
     <dl class="dl-horizontal">
+    	<dt>Message Type:</dt>
+      <dd><select type="text" name="messagetype" class="form-control" name="orgtype" ng-model="broadcast.type" ng-options="option.name for option in options" required>
+        </select><small ng-show="((form.orgMessageBroadcastform.messagetype.$dirty && form.orgMessageBroadcastform.messagetype.$invalid) || (form.orgMessageBroadcastform.messagetype.$invalid && form.orgMessageBroadcastform.submitted))">Message type is required!</small></dd>
+      <br>
+    	
       <dt>Your Message:</dt>
       <dd><textarea name="message" type="textarea" ng-maxlength="150" class=" form-control" ng-model="broadcast.message" placeholder="Enter broadcast message here" required></textarea><small ng-show="((form.orgMessageBroadcastform.message.$dirty && form.orgMessageBroadcastform.message.$invalid) || (form.orgMessageBroadcastform.message.$invalid && form.orgMessageBroadcastform.submitted))">Message is required and should not exceed 150 characters!</small></dd>
       <br>
       <dt>Duration For:</dt>
       <dd><input name="duration" type="text" ng-pattern="/^[0-9]*$/" class=" form-control" ng-model="broadcast.duration" placeholder="Enter duration in days" required /><small ng-show="((form.orgMessageBroadcastform.duration.$dirty && form.orgMessageBroadcastform.duration.$invalid) || (form.orgMessageBroadcastform.duration.$invalid && form.orgMessageBroadcastform.submitted))">Duration is required and must be in digits only!</small></dd>
+    </dl>
 
 	<br>
 
 	<button class="prodo-account-btn btn btn-primary btn-sm pull-right" ng-click="broadcastMessage()"><i class="prodo-fa fa fa-share"></i>Broadcast&nbsp; &nbsp; <div prodo-spinner></div></button>
+  </form>
+
+  <br>
+  <br>
+  <br>
+  <div ng-show="broadcasts.length != 0">
+    <h5 class="prodo-wall-org-heading-text">LIST OF BROADCAST</h5>
+    <hr size=3 class="prodo-wall-org-hr" noshade> 
+    <br>
+    <table class="table table-hover table-condensed">
+      <tr style="font-weight: bold">
+        <td style="width:5%">#</td>
+        <td style="width:40%">Message</td>
+        <td style="width:20%">Expiry Date</td>
+        <td style="width:20%">Type</td>
+        <td style="width:15%">Action</td>
+      </tr>
+      <tbody>
+        <tr ng-repeat="broadcast in broadcasts">
+          <td>{{$index + 1}}</td>
+          <td>
+            {{broadcast.message}}
+          </td>
+          <td>
+            {{broadcast.expirydate | date:'MMM d, y'}}
+          </td>
+          <td>
+            {{broadcast.broadcasttype}}
+          </td>
+          <td>
+            <a class="prodo-broadcast-delete-btn btn btn-danger btn-sm "  ng-click="deleteBroadcast(broadcast.broadcastid)"><i  class="prodo-fa fa fa-trash-o fa-lg" ></i>Delete</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>  
+  </div>
+  
 
 </div>

@@ -4,11 +4,17 @@ angular.module('prodo.ProdoWallApp')
     $log.debug('initialising parent..');
     $scope.$state = $state;
 
+    if ($state.$current.name == 'prodo.home.wall-org') {
+      $rootScope.index = 0;
+    }
+
     $scope.$watch('$state.$current.locals.globals.checkIfSessionExist', function (checkIfSessionExist) {
       if (checkIfSessionExist.error) {
         $rootScope.showModal();
-      };
+      } 
     });
+
+    $scope.navs = [{name: 'Organization', id: '1'},{name: 'Product', id: '2'},{name: 'MyWarranty', id: '3'},{name: 'Campaign', id: '4'},{name: 'Blog', id: '5'},{name: 'Dashboard', id: '6'}]
     
      $scope.updateimages = function(data) {
       $rootScope.manageSlider="";   // Added this variable to check conditions in tpl
@@ -25,44 +31,27 @@ angular.module('prodo.ProdoWallApp')
       }
     };
 
-    $scope.goToOrg = function() {
-      if ($state.$current.name !== 'prodo.home.wall-org') {
+    $scope.goToState = function(id) {
+      if (id == 1 && $state.$current.name !== 'prodo.home.wall-org') {
+        $rootScope.index = 0;
         $state.transitionTo('prodo.home.wall-org', null, {'reload':true});
-      };
-    }
-
-    $scope.goToProduct = function() {
-      if ($state.$current.name !== 'prodo.home.wall-product') {
+      } else if (id == 2 && $state.$current.name !== 'prodo.home.wall-product') {
+        $rootScope.index = 1;
         $state.transitionTo('prodo.home.wall-product', null, {'reload':true});
-      };
-    }
-
-    $scope.goToWarranty = function() {
-     if ($state.$current.name !== 'prodo.home.wall-warranty') {
+      } else if (id == 3 && $state.$current.name !== 'prodo.home.wall-warranty') {
+        $rootScope.index = 2;
         $state.transitionTo('prodo.home.wall-warranty', null, {'reload':true});
-      };
-    }
-
-    $scope.goToCampaign = function() {
-      if ($state.$current.name !== 'prodo.home.wall-campaign') {
+      } else if (id == 4 && $state.$current.name !== 'prodo.home.wall-campaign') {
+        $rootScope.index = 3;
         $state.transitionTo('prodo.home.wall-campaign', null, {'reload':true});
-      };
-    }
-
-    $scope.goToBlog = function() {
-     if ($state.$current.name !== 'prodo.home.wall-blog') {
+      } else if (id == 5 && $state.$current.name !== 'prodo.home.wall-blog') {
+        $rootScope.index = 4;
         $state.transitionTo('prodo.home.wall-blog', null, {'reload':true});
-      };
-    }
-
-    $scope.goToDashboard = function() {
-      if ($state.$current.name !== 'prodo.home.wall-dashboard') {
+      } else if (id == 6 && $state.$current.name !== 'prodo.home.wall-dashboard') {
+        $rootScope.index = 5;
         $state.transitionTo('prodo.home.wall-dashboard', null, {'reload':true});
       };
     }
-
-
-    $scope.$state = $state;
 
     var cleanEventOrgProdleEmit = $scope.$on("emittingOrgid", function(event, success){
       $log.debug('Listening in Org controller by simple search');

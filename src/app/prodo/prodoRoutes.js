@@ -30,7 +30,6 @@ angular.module('prodo.ProdonusApp')
       }
     }) 
     .state('prodo.landing.signin', {
-      url: '/signin',
       views: {
         'marketing' : {
           templateUrl:  'prodo/landing/views/prodo.home.marketing.tpl.html'
@@ -221,7 +220,13 @@ angular.module('prodo.ProdonusApp')
       }) 
     .state('prodo.account-org.org.broadcast', {
        templateUrl:  'org/manageorg/views/org.wall.orgBroadcast.tpl.html',
-       controller: 'ManageOrgBroadcastController'
+       controller: 'ManageOrgBroadcastController',
+       resolve: {
+          OrgService: 'OrgService',
+          getBroadcastData: function(OrgService, $rootScope) {
+            return OrgService.GetOrg_Broadcast_Messages.getOrgBroadcastMessage({orgid: $rootScope.usersession.currentUser.org.orgid}).$promise;
+          }
+       }
       })
     .state('prodo.account-org.org.Productdetail', {
        templateUrl:  'product/views/prodo.wall.productFeatures.tpl.html',
@@ -259,6 +264,9 @@ angular.module('prodo.ProdonusApp')
             return orgproduct;
           }
           
+        },
+        broadcastData: function(OrgService, $rootScope) {
+            return OrgService.GetOrg_Broadcast_Messages.getOrgBroadcastMessage({orgid: $rootScope.orgid}).$promise;
         },
         checkIfSessionExist: function(UserService, $rootScope) {
             return UserService.Is_user_loggedin.checkUserSession().$promise;

@@ -319,6 +319,10 @@ color: #595365;
  margin: 5px; min-width: 80px; font-size: 12px; font-weight:bold;
 }
 
+.prodo-broadcast-delete-btn{
+	min-width: 80px; font-size: 12px; font-weight:bold;
+}
+
 .prodo-account-invites-btn{
 	background-color:#47707C; border-color:#3C555C; border-radius: 10px; margin: 15px;
 }
@@ -617,13 +621,27 @@ small {
 	 
 }
 
-/*Change the Verification Panel heading style*/  
-#prodo-verification-panel-heading{
-	 
-	font-weight: bold;
-	font-family: 20px;
+.verification-alert{
+	margin-bottom: 0px;
 }
 
+#prodo-activateaccount-panel{
+	margin-top: 50px;
+	 
+}
+
+.activateaccount-alert{
+	margin-bottom: 0px;
+}
+
+#prodo-otpnotification-panel{
+	margin-top: 50px;
+	 
+}
+
+.otpnotification-alert{
+	margin-bottom: 0px;
+}
 
 /**
 *	Orgregistration
@@ -2197,7 +2215,7 @@ text-align: right;
 	margin-top: 30px; min-height: 50px; padding-bottom: 9px; border-bottom: 1px solid #ddd;
 }
 
-#prodo-wall-blog-container{
+.prodo-wall-blog-container{
   background-color: #ffffff;
   margin-bottom: 20px;
   border-radius: 10px;
@@ -2401,7 +2419,6 @@ vertical-align: bottom;
 }
 .manage-Campaign-tr {
 	margin :20px;
-
 }
 .manage-Campaign-td1 {
    width : 40%;
@@ -2415,6 +2432,95 @@ vertical-align: bottom;
 {
 	margin-bottom: 20px;
 }
+
+.wall-warranty-list{
+	margin-bottom: 10px;
+	-webkit-border-radius: 3px;
+	-webkit-box-orient: vertical;
+	-webkit-transition: 200ms -webkit-transform;
+	background: white;
+	box-shadow: 0 1px 2px 1px rgba(248, 245, 245, 0.2), 0 2px 6px rgba(0,0,0,0.15);
+	color: #333;
+	display: -webkit-box;
+	padding: 10px;
+	position: relative;
+	z-index: 0;
+}
+
+.wall-warranty-expiry-label{
+	font-size: 14px; padding: 3px;
+}
+
+.wall-warranty-invoice-btn{
+	height:23px; padding:1px; background-color:#3D566B; width: 80%;
+}
+
+.wall-warranty-invoice-btn:hover{
+	height:23px; padding:1px; background-color:#3D566B; width: 80%;
+}
+
+.wall-warranty-invoice-btn:focus, .wall-warranty-invoice-btn:active{
+	height:23px; padding:1px; background-color:#3D566B; width: 80%;
+}
+
+.wall-warranty-invoice-img{
+	width: 90%; margin-left: 30px;
+}
+
+.wall-broadcast-carousel{
+ background-color:  rgb(250, 248, 239);	border: 1px solid #9FBACC; font-size:20px; font-weight: 100; font-family:monospace; padding: 10px; border-radius: 6px; min-height: 40px;
+}
+
+.wall-broadcast-carousel-normal-item{
+ color: rgb(60, 143, 106);
+}
+
+.wall-broadcast-carousel-urgent-item{
+ color: rgb(201, 84, 84);
+}
+
+.vertical .carousel-inner {
+  height: 100%;
+}
+
+.carousel.vertical .item {
+  -webkit-transition: 0.6s ease-in-out top;
+     -moz-transition: 0.6s ease-in-out top;
+      -ms-transition: 0.6s ease-in-out top;
+       -o-transition: 0.6s ease-in-out top;
+          transition: 0.6s ease-in-out top;
+}
+
+.carousel.vertical .active {
+  top: 0;
+}
+
+.carousel.vertical .next {
+  top: 400px;
+}
+
+.carousel.vertical .prev {
+  top: -400px;
+}
+
+.carousel.vertical .next.left,
+.carousel.vertical .prev.right {
+  top: 0;
+}
+
+.carousel.vertical .active.left {
+  top: -400px;
+}
+
+.carousel.vertical .active.right {
+  top: 400px;
+}
+
+.carousel.vertical .item {
+    left: 0;
+}
+
+
 
 /*.fa-check:before {
 content: "\f000";

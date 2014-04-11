@@ -195,13 +195,8 @@
 	<div id="wall-navbar" class="">
 
 		<div id="prodo-view-navbar" class="">
-      <ul prodo-nav id="prodo-slider-nav-pills" class="nav nav-pills nav-justified">
-	   		<li class="active"><a href="" ng-click="goToOrg()">Organization</a></li>
-	      <li><a href="" ng-click="goToProduct()">Product</a></li>
-				<li><a href="" ng-click="goToWarranty()">MyWarranty</a></li>
-				<li><a href="" ng-click="goToCampaign()">Campaign</a></li>
-				<li><a href="" ng-click="goToBlog()">Blog</a></li>
-				<li><a href="" ng-click="goToDashboard()">Dashboard</a></li>
+      <ul id="prodo-slider-nav-pills" class="nav nav-pills nav-justified">
+	   		<li id="{{nav.id}}" ng-class="{active: navs.indexOf(nav) == index}" ng-repeat="nav in navs"><a showtab="" href="" ng-click='goToState(nav.id)'>{{nav.name}}</a></li>
 			</ul>
     </div>
 
@@ -321,7 +316,7 @@
 					                    <a ng-click="orgProdleEmitter(fp.prodle,fp.orgid)" class="hyperlinkPointer" ng-bind="fp.name" ></a>   
 					                </td>
 					                <td>                    
-					                    <button class="btn btn-default btn-xs floatRight unfollowButton" ng-click="unfollowProduct(fp)" >Unfollow</button>   
+					                    <button class="btn btn-default btn-xs floatRight unfollowButton" ng-click="unfollowProduct(fp)" >Talkout</button>   
 					                </td>
 					            </tr>        
 					          </table>               
