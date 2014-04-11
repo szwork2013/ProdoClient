@@ -13,7 +13,23 @@ angular.module('prodo.AdminApp')
     .state('admin.tags', {
       url: '/admin-tags',
       templateUrl: 'common/admin/views/prodo.tag_input.tpl.html',
-      controller: "prodoAdminTagInputController",
+      resolve: {
+        tagdata: function(domainTagList){
+           var n = domainTagList.Tags.getTag().$promise;
+           return n;
+        }
+      },
+  
+      onEnter : function($rootScope,$state)
+      { 
+        var restrict = $rootScope.usersession.isLoggedIn;
+        if(restrict === false)
+        {
+          $state.go('prodo.landing.signin');
+        }
+      },
+
+      controller: "prodoAdminTagInputController"
      
     })  
     .state('admin.product', {

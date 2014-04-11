@@ -15,7 +15,7 @@ $scope.groups = currentorggroup.success.usergrp;
 $scope.orgaddr = currentorgaddr.success.orgaddress;
 $scope.orgImages = currentorgdata.success.organization.org_images;
 $scope.orgKeyClients = currentorgdata.success.organization.keyclients;
-var indexOfOrgAddress = 0; 
+var indexOfOrgAddress = 0 ; 
 $scope.validateError=false;
 $scope.regexForText = /^[a-zA-Z\s]*$/;
 $scope.regexForNumbers = /[0-9]/;
@@ -31,7 +31,7 @@ $scope.manageOrgGroup = false;
 $scope.addOrgInvites = false;
 //$scope.addCustomerInvites = false;
 $scope.deleteOrgRequestResponse = false;
-
+//$scope.orgaddresstype = "Company Address";
 // The following function will reset all growl messages
     $scope.resetGrowlMessages = function()
     {
@@ -623,6 +623,7 @@ $scope.invalidContact3 = '';
         $scope.invalidContact2 = '';
         $scope.invalidContact3 = '';
        $scope.orgaddresstype = document.getElementById('orgAddressType').value;
+
       if ($scope.form.orgaddlocationform.$valid && ($scope.orgaddresstype==="Company Address" || $scope.orgaddresstype === "Service Centers")) {
         $scope.form.orgaddlocationform.submitted= true;   
         OrgRegistrationService.saveOrgAddress($scope.jsonOrgAddressData());
@@ -1466,7 +1467,7 @@ $scope.errorForEmptyExistingGroupname = '';
 
     $scope.$watch('$state.$current.locals.globals.currentorgdata', function (currentorgdata) {
       $scope.orgImages = currentorgdata.success.organization.org_images;
-      $scope.org = currentorgdata.success.organization; console.log(JSON.stringify($scope.org));console.log(JSON.stringify($scope.groups));
+      $scope.org = currentorgdata.success.organization; 
 
       $scope.orgKeyClients = currentorgdata.success.organization.keyclients;
     });
@@ -1505,10 +1506,12 @@ $scope.errorForEmptyExistingGroupname = '';
      };
 
      var cleanupEventOrgUploadLogoResponseSuccess = $scope.$on("orgUploadLogoResponseSuccess",function(event,message){
+      $scope.ProdoAppMessage("Organization logo uploaded successfully!",'success');  
       $state.reload();
      });
 
      var cleanupEventOrgUploadResponseSuccess = $scope.$on("orgUploadResponseSuccess",function(event,message){
+        $scope.ProdoAppMessage("Organization artwork images uploaded successfully",'success');
       $state.reload();
      });
 

@@ -39,6 +39,7 @@ angular.module('prodo.ProdoWallApp')
       $scope.$watch('$state.$current.locals.globals.broadcastData', function (broadcastData) {
         if (broadcastData.success.broadcast.length !== 0) {
           $scope.messages = broadcastData.success.broadcast;
+          $log.debug($scope.messages);
         }
       });
     }

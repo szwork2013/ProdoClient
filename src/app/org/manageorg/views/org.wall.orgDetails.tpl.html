@@ -3,8 +3,8 @@
       <div ng-if="deleteOrgResponse === true">
             <div growl></div>
       </div>
-      <img ng-show="((usersession.currentUser.org.orgtype.toLowerCase() == 'manufacturer') && org.org_logo)" ng-src="{{org.org_logo.image}}" style="width: 160px; height:120px; margin: 20px; ">
-      <img ng-show="((usersession.currentUser.org.orgtype.toLowerCase() == 'manufacturer') && org.org_logo === '')" style="width: 160px; height:120px; margin: 20px; " src="../../../assets/images/if_no_logo_images_available.gif">
+      <img ng-show="((usersession.currentUser.org.orgtype.toLowerCase() == 'manufacturer'))" ng-src="{{org.org_logo.image}}" style="width: 160px; height:120px; margin: 20px; " src="../../../assets/images/if_no_logo_images_available.gif">
+    <!--   <img ng-show="((usersession.currentUser.org.orgtype.toLowerCase() == 'manufacturer') && org.org_logo === '')" style="width: 160px; height:120px; margin: 20px; " src="../../../assets/images/if_no_logo_images_available.gif"> -->
       <a class="manage-org-btn btn btn-danger btn-sm pull-right  " href="" data-toggle="modal" data-target="#myModal"><i style="margin-right: 5px;" class="fa fa-trash-o fa-lg"></i>Delete Request</a>
   </div>
 
@@ -212,7 +212,7 @@
 
 
               
-                <option value="Company Address">Company Address</option>
+                <option value="Company Address"> Company Address</option>
 
 
               </select>
@@ -414,9 +414,9 @@
                              <div style="height:40px;" ng-if="orgKeyClients.length>0"> <button ng-click="removeKeyClientsPermenantly()" class="btn btn-danger btn-sm " style="margin-left:87%"><i  class="fa fa-trash-o fa-lg" ></i>&nbsp;&nbsp;Delete</button></div>
                              
 
-                             <div class="imagesOrg" ng-repeat="clients in orgKeyClients" style="margin: 3px;border: rgb(165, 79, 79) solid;min-width: 110px;
+                             <div class="imagesOrg" ng-repeat="clients in orgKeyClients" style="margin: 3px;border: #090808 solid;min-width: 110px;
                                       padding: 4px;border-width: thin;">
-                                    <p ng-bind="clients.clientname" style="margin-bottom:0px;"></p>
+                                    <p ng-bind="clients.clientname" style="margin-bottom:0px;width:100px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap; margin-bottom:0px;"></p>
                                     <img class="img prodo-OrgImgThumbnail"  ng-src="{{clients.image}}" />
                                     <input type="checkbox" id="{{$index}}">
                              </div>
@@ -475,7 +475,7 @@
 
 
 
-              <div class="imagesOrg" ng-repeat="img in orgImages" style="margin: 3px;border: rgb(165, 79, 79) solid;min-width: 110px;
+              <div class="imagesOrg" ng-repeat="img in orgImages" style="margin: 3px;border: #090808 solid;min-width: 110px;
                   padding: 4px;border-width: thin;">
                 <input type="checkbox" ng-click="test(img)" id="{{$index}}">
                 <img class="img prodo-OrgImgThumbnail"  ng-src="{{img.image}}" />
@@ -558,7 +558,7 @@
      
         </div>
       </div> -->
-      <div class="span4 spanErr " ng-if="showOrgArtworkImages === 1">
+<!--       <div class="span4 spanErr " ng-if="showOrgArtworkImages === 1">
         <div class="alert alert-danger fade" id="text">
           <button type="button" class="close" data-dismiss="alert">×</button>
           <div id="UploadErrMsg"></div>
@@ -570,7 +570,7 @@
           <button type="button" class="close" data-dismiss="alert">×</button>
           <div id="UploadSuccessMsg"></div>
         </div>
-      </div>
+      </div> -->
 
           <table   class="table table-hover table-bordered prodo-productTableFont">
             <tr>

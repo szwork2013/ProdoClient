@@ -70,6 +70,10 @@ angular.module('prodo.OrgApp')
         { 
           sendOrgBroadcastMessage: { method: 'POST', params: { orgid: '@orgid'}} 
         }),
+        deleteOrg_Broadcast_Messages: $resource('/api/organization/broadcast/:orgid/:broadcastid', {}, 
+        { 
+          deleteOrgBroadcastMessage: { method: 'Delete', params: { orgid: '@orgid', broadcastid: '@broadcastid'}} 
+        }),
         OtherOrgInvites: $resource('/api/otherorginvite/:orgid', {},
         {
           sendOtherOrgInvites: { method: 'POST', params: { orgid: '@orgid'}}
@@ -181,6 +185,18 @@ angular.module('prodo.OrgApp')
       //     $rootScope.$broadcast("getOrgAddressNotDone", error.status);
       //   });
       // }
+      organization.DeleteMessagebroadcast = function(orgBroadcastId){
+        OrgService.deleteOrg_Broadcast_Messages.deleteOrgBroadcastMessage({orgid: $rootScope.usersession.currentUser.org.orgid, broadcastid: orgBroadcastId},
+          function(success){
+            $log.debug(success);
+            $rootScope.$broadcast("DeleteOrgBroadcastDone", success);
+          },
+          function(error){
+            $log.debug(error);
+            $rootScope.$broadcast("DeleteOrgBroadcastNotDone", error.status);
+        });
+      }
+      
       organization.OrgMessagebroadcast = function(orgBroadcastData){
         OrgService.sendOrg_Broadcast_Messages.sendOrgBroadcastMessage({orgid: $rootScope.usersession.currentUser.org.orgid}, orgBroadcastData,
           function(success){
@@ -192,8 +208,6 @@ angular.module('prodo.OrgApp')
             $rootScope.$broadcast("OrgBroadcastNotDone", error.status);
         });
       }
-      
-
 
       organization.saveOrgAddress= function (orgAddData) {
         OrgService.ManageOrgLocation.addOrgAddress({orgid: $rootScope.usersession.currentUser.org.orgid}, orgAddData,     // calling function of UserSigninService to make POST method call to signin user.
