@@ -5,9 +5,9 @@ angular.module('prodo.AdminApp').controller('prodoAdminTagInputController', [
   'UserSessionService',
    'notify',
   '$state',
-  'tagAddService','domainTagList',
+  'tagAddService','domainTagList', 'tagdata',
 
-  function ($scope, $log, $rootScope, UserSessionService, notify, $state, tagAddService, domainTagList) {
+  function ($scope, $log, $rootScope, UserSessionService, notify, $state, tagAddService, domainTagList, tagdata) {
 
     $scope.category_selection;
 
@@ -40,19 +40,23 @@ angular.module('prodo.AdminApp').controller('prodoAdminTagInputController', [
     $scope.allCategories = [];
 
     $scope.allTagsContain = [];
-    
-    domainTagList.getTags();   
+    if(tagdata.success !== undefined)
+    {
+             $scope.allTagsContain = tagdata.success.domain_tags.tags;   
+    }
+    //alert(JSON.stringify(tagdata));
+    // domainTagList.getTags();   
      // alert(JSON.stringify(getAllTags)) ;
 
     var cleanupeventgetalltags = $scope.$on("gotAllDomainTags",function(event,data){
         if(data.error !== undefined && data.error.code === 'AL001' )
       {
-        $rootScope.showModal();
+        $state.go('prodo.landing.signin');
       }
       if(data.success)
       {
 
-         $scope.allTagsContain = data.success.domain_tags.tags;   
+        
          $scope.ProdoAppMessage(data.success.message,'success');
       }
       else {

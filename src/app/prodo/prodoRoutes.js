@@ -406,6 +406,11 @@ angular.module('prodo.ProdonusApp')
     })    
     .state('prodo.account-campaign.campaign', {
       templateUrl:  'campaign/views/campaign.account.settings.tpl.html',
+      resolve : {
+             currentorgproducts: function(OrgService, $rootScope) {
+            return  OrgService.GetOrgProducts.getAllOrgProducts({orgid: $rootScope.usersession.currentUser.org.orgid}).$promise;
+             }
+        },
       controller: 'ManageCampaignController'
     })
     /* ----campaign Account Nested Routes---- */

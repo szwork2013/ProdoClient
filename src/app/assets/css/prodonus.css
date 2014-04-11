@@ -2399,7 +2399,22 @@ vertical-align: bottom;
   margin-right: 0 !important;
   overflow: auto;
 }
+.manage-Campaign-tr {
+	margin :20px;
 
+}
+.manage-Campaign-td1 {
+   width : 40%;
+}
+.manage-Campaign-td2 {
+	width:60%;
+
+}
+
+.manage-campaign-marginbottom
+{
+	margin-bottom: 20px;
+}
 
 /*.fa-check:before {
 content: "\f000";
