@@ -97,7 +97,7 @@ $scope.warranties=[];
      $("#prodo-ProductDetails").css("display", "none");
      $("#ErrMsging").css("display", "block");
      $scope.warranties=[];
-     document.getElementById("ErrMsging").innerHTML = "<br>Product not available ... Add new product<br><br>";
+     document.getElementById("ErrMsging").innerHTML = "<br>Warranty not available ... Add new Warranty<br><br>";
     }
   };
 
@@ -271,7 +271,15 @@ $scope.getAllProductNames();
  };
 
  $scope.addWarranty = function (editStatus) {
-
+ isLoggedin.checkUserSession(
+ function (successData) {
+ if (successData.success == undefined) {
+  if(successData.error)
+  {
+   $scope.handleUploadError(successData.error);
+  } 
+ }
+ else{
   if($scope.form.WarrantyForm.$invalid){
       $scope.form.WarrantyForm.submitted=true;
     }
@@ -286,6 +294,7 @@ $scope.getAllProductNames();
   }
   else{
   	$log.debug("Upload correct image");
+      notify({message:"Upload correct image",template:'common/notification/views/notification-error.html',position:'center'});
   }
 
 
@@ -305,6 +314,9 @@ $scope.getAllProductNames();
   //     $log.debug(error);
   // 	});
    }
+ }
+ }); 
+
 };
 
  //  $scope.handleAddWarrantySuccess=function(success){
@@ -335,6 +347,7 @@ $scope.getAllProductNames();
  	$scope.form.WarrantyForm.$setPristine();
     $scope.editMode.editorEnabledWarranty = true;
     growl.addInfoMessage("   Adding warranty data.....");
+     notify({message:" Adding warranty data.....",template:'common/notification/views/notification-success.html',position:'center'});
   };
 
 // upload
@@ -389,7 +402,7 @@ $scope.getFile = function (a) {
           } else {
             
              $log.debug( 'Image size must ne less than 2MB');
-        
+              notify({message:'Image size must ne less than 2MB',template:'common/notification/views/notification-error.html',position:'center'});
           }
          // }  
      } 
@@ -414,15 +427,15 @@ $scope.warrantyResponseHandler=function(error, imagelocation){
        $scope.enableEditorFeature ();
       if (error.error.code == 'AP003') { // user already exist
         $log.debug(error.error.code + " " + error.error.message);
-     
+         notify({message:error.error.message,template:'common/notification/views/notification-error.html',position:'center'});
         // growl.addErrorMessage("Error while uploading " + $scope.file.name + " " + error.error.message);
       } else if (error.error.code == 'AV001') { // user data invalid
         $log.debug(error.error.code + " " + error.error.message);
-  
+         notify({message:error.error.message,template:'common/notification/views/notification-error.html',position:'center'});
         // growl.addErrorMessage(" Error while uploading " + $scope.file.name + " " + error.error.message);
       } else {
         $log.debug(error.error.message);
-       
+        notify({message:error.error.message,template:'common/notification/views/notification-error.html',position:'center'});
         // growl.addErrorMessage("Error while uploading " + $scope.file.name + " " + error.error.message);
       }
 
@@ -438,7 +451,7 @@ $scope.warrantyResponseHandler=function(error, imagelocation){
       // document.getElementById('check'+temp1).style.color="#01DF74";
       $rootScope.$broadcast("productUploadResponseSuccess", "success");
       $log.debug("getting response for product upload  " + $scope.imageSrc);
-      notify({message:"Warranty added successfully",template:'common/notification/views/notification-success.html',position:'center'})
+      notify({message:"Warranty added successfully",template:'common/notification/views/notification-success.html',position:'center'});
       $state.reload();
       // $scope.newWarranty_Responsewarranty_id= 
       // $scope.getWarranty();//pass warranty id here from success response
