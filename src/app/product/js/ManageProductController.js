@@ -10,7 +10,7 @@
  * 27-3/2013 | xyx | Add a new property
  * 
  */
-angular.module('prodo.ProductApp').controller('ManageProductController', ['$scope', '$log', '$rootScope', 'ProductService', 'UserSessionService', '$http', 'CommentLoadMoreService', 'ENV', 'TagReffDictionaryService', 'ProductFeatureService', 'growl', 'allproductdata','allproductCategories', '$state','CategoryTags', function ($scope, $log, $rootScope, ProductService, UserSessionService, $http, CommentLoadMoreService, ENV, TagReffDictionaryService, ProductFeatureService, growl, allproductdata,allproductCategories, $state,CategoryTags) {
+angular.module('prodo.ProductApp').controller('ManageProductController', ['$scope', '$log', '$rootScope', 'ProductService', 'UserSessionService', '$http', 'CommentLoadMoreService', 'ENV', 'TagReffDictionaryService', 'ProductFeatureService', 'growl', 'allproductdata','allproductCategories', '$state','CategoryTags','notify', function ($scope, $log, $rootScope, ProductService, UserSessionService, $http, CommentLoadMoreService, ENV, TagReffDictionaryService, ProductFeatureService, growl, allproductdata,allproductCategories, $state,CategoryTags,notify) {
 
   $scope.$state = $state;
 
@@ -108,11 +108,11 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   //get Categories
   $scope.listProductCategories=function(){
      if(allproductCategories.error){
-     $log.debug("err");
+     // $log.debug("err");
       return ['product','software'];
      }
      else if(allproductCategories.success){
-      $log.debug("suc");
+      // $log.debug("suc");
       return allproductCategories.success.categorytags;
      }
  };
@@ -204,6 +204,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
     if (data.success) {
        $scope.enableProductSuccessMsg();
        ProdSuccessMsg.innerHTML = data.success.message;
+       // notify({message:data.success.message,template:'common/notification/views/notification-success.html',position:'center'});
        $scope.disableEditor();
        // growl.addSuccessMessage(data.success.message);
       $state.reload();
@@ -218,17 +219,20 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
         $log.debug(data.error.code + " " + data.error.message);
         $scope.enableProductErrorMsg();
         ProdERRMsg.innerHTML = data.error.message;
+          // notify({message:data.error.message,template:'common/notification/views/notification-error.html',position:'center'});
         // growl.addErrorMessage(data.error.message);
 
       } else if (data.error.code == 'AP001') { // user data invalid
         $log.debug(data.error.code + " " + data.error.message);
         $scope.enableProductErrorMsg();
         ProdERRMsg.innerHTML = data.error.message;
+        // notify({message:data.error.message,template:'common/notification/views/notification-error.html',position:'center'});
         // growl.addErrorMessage(data.error.message);
       } else {
         $log.debug(data.error.message);
         $scope.enableProductErrorMsg();
         ProdERRMsg.innerHTML = data.error.message; 
+         // notify({message:data.error.message,template:'common/notification/views/notification-error.html',position:'center'});
         // growl.addErrorMessage(data.error.message);
       }
     }
@@ -246,7 +250,10 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
           // growl.addSuccessMessage(success.success.message);
         $scope.enableFeatureSuccessMsg();
         ProdFSuccessMsg.innerHTML = "Feature added successfully";
-       ProdFSuccessMsg.innerHTML = data.success.message;
+       // ProdFSuccessMsg.innerHTML = data.success.message;
+        //  notify({message:"Feature added successfully",template:'common/notification/views/notification-success.html',position:'center'});
+       
+
        $scope.disableEditor();
        // growl.addSuccessMessage(data.success.message);
       $state.reload();
@@ -259,17 +266,21 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
         $log.debug(data.error.code + " " + data.error.message);
        $scope.enableFeatureErrorMsg();
         ProdFERRMsg.innerHTML = data.error.message;
+         // notify({message:data.error.message,template:'common/notification/views/notification-error.html',position:'center'});
+
         // growl.addErrorMessage(data.error.message);
 
       } else if (data.error.code == 'AP001') { // user data invalid
         $log.debug(data.error.code + " " + data.error.message);
-      $scope.enableFeatureErrorMsg();
+        $scope.enableFeatureErrorMsg();
         ProdFERRMsg.innerHTML = data.error.message;
+       // notify({message:data.error.message,template:'common/notification/views/notification-error.html',position:'center'});
         // growl.addErrorMessage(data.error.message);
       } else {
         $log.debug(data.error.message);
        $scope.enableFeatureErrorMsg();
         ProdFERRMsg.innerHTML = data.error.message; 
+        // notify({message:data.error.message,template:'common/notification/views/notification-error.html',position:'center'});
         // growl.addErrorMessage(data.error.message);
       }
     }
@@ -293,7 +304,8 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
 
     if($scope.category.length==0 ){
      $scope.enableProductErrorMsg();
-        ProdERRMsg.innerHTML = "Please add category";  
+        ProdERRMsg.innerHTML = "Please add category";
+        // notify({message:"Please add category",template:'common/notification/views/notification-error.html',position:'center'});  
      // $scope.productCategoryInvalid=true;
   } else{
       // $scope.productCategoryInvalid=false;
@@ -323,6 +335,8 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
           // $scope.editMode.editorEnabled = true;
            $scope.enableProductErrorMsg();
            ProdERRMsg.innerHTML = error; 
+        // notify({message:error,template:'common/notification/views/notification-error.html',position:'center'});  
+
             $scope.category=[];
           $log.debug(error);
         });
@@ -330,6 +344,8 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
       } else{
          $scope.enableProductErrorMsg();
          ProdERRMsg.innerHTML = data.error.message; 
+        // notify({message:data.error.message,template:'common/notification/views/notification-error.html',position:'center'});  
+
          // growl.addErrorMessage("You dont have rights to add product...");
       }
     }
@@ -337,7 +353,9 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
 
     if($scope.product.category.length==0 ){
      $scope.enableProductErrorMsg();
-        ProdERRMsg.innerHTML = "Please add category";  
+        ProdERRMsg.innerHTML = "Please add category";
+      // notify({message:"Please add category",template:'common/notification/views/notification-error.html',position:'center'});  
+
      // $scope.productCategoryInvalid=true;
     } else{
         // $scope.productCategoryInvalid=false;
@@ -361,9 +379,10 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
             prodle: $scope.currentProdle
           }, $scope.newProduct, function (success) {
             $scope.newProduct_ResponseProdle=$scope.currentProdle;
-            $log.debug(success);
+            $log.debug("update......"+success);
             $scope.enableProductSuccessMsg();
             ProdSuccessMsg.innerHTML ="Product updated successfully...";
+            // notify({message:"Product updated successfully...",template:'common/notification/views/notification-success.html',position:'center'});  
             $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
             $scope.getProduct($scope.currentProdle, $scope.currentOrgid);
             $scope.disableEditor();
@@ -372,12 +391,15 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
              $scope.editMode.editorEnabled = true;
             $scope.enableProductErrorMsg();
             ProdERRMsg.innerHTML = error; 
+            // notify({message:error,template:'common/notification/views/notification-error.html',position:'center'});  
             // growl.addErrorMessage(error);
           });
         }
       } else{
         $scope.enableProductErrorMsg();
         ProdERRMsg.innerHTML = "You dont have rights to update this product...";
+            // notify({message:"You dont have rights to update this product...",template:'common/notification/views/notification-error.html',position:'center'});  
+       
         // growl.addErrorMessage("You dont have rights to update this product..."); 
       } 
     }
@@ -389,6 +411,8 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
       $log.debug(JSON.stringify(success));
           $scope.enableProductSuccessMsg();
           ProdSuccessMsg.innerHTML ="Product deleted successfully...";
+            // notify({message:"Product deleted successfully...",template:'common/notification/views/notification-success.html',position:'center'});  
+
           // growl.addSuccessMessage("Product deleted successfully...");
           $("#prodo-ProductDetails").css("display", "none");
           $state.reload();
