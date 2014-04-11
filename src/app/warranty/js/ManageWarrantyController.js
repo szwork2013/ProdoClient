@@ -89,6 +89,64 @@ $scope.warranties=[];
   };
 
 
+   $scope.handleDeleteWarrantyError=function(error){
+    if(error.code=='AL001'){
+        $rootScope.showModal();
+      }
+      else{
+          notify({message:error.message,template:'common/notification/views/notification-error.html',position:'center'});
+         $log.debug(error.message);
+      }
+  };
+
+    $scope.handleDeleteWarrantySuccess=function(success){
+      $log.debug(JSON.stringify(success));
+          // $scope.enableProductSuccessMsg();
+          // ProdSuccessMsg.innerHTML ="Product deleted successfully...";
+            notify({message:"Warranty deleted successfully...",template:'common/notification/views/notification-success.html',position:'center'});  
+
+          // growl.addSuccessMessage("Product deleted successfully...");
+          $("#prodo-ProductDetails").css("display", "none");
+          $state.reload();
+          
+  };
+  
+
+
+  //delete product
+$scope.deleteWarranty=function(){
+$log.debug("Deleting");
+
+
+      if ($scope.warranty.userid==$rootScope.usersession.currentUser.userid) { //if owener of warranty
+        WarrantyService.delete_warranty.deleteWarranty({
+          userid: $rootScope.usersession.currentUser.userid,
+          warrantyid: $scope.warranty.warranty_id
+        }, function (success) {
+          if(success.success){
+           $scope.handleDeleteWarrantySuccess(success);   
+          }else if(success.error){
+            $scope.handleDeleteWarrantyError(success.error);
+          }  
+        }, function (error) {
+          $log.debug(JSON.stringify(error));
+          // $scope.enableProductErrorMsg();
+          // ProdERRMsg.innerHTML = error;
+          notify({message:error,template:'common/notification/views/notification-error.html',position:'center'});
+           // growl.addErrorMessage(error);
+        });
+      }
+      // }
+      else{
+        // $scope.enableProductErrorMsg();
+        // ProdERRMsg.innerHTML = "You dont have rights to delete this warranty...";
+          notify({message:"You dont have rights to delete this warranty...",template:'common/notification/views/notification-error.html',position:'center'});
+       
+       // growl.addErrorMessage("You dont have rights to delete this product...");
+      }
+
+};
+
    $scope.handleAllWarrantyDataError=function(error){
      $log.debug(JSON.stringify(error));
       if(error.code=='AL001'){
@@ -194,7 +252,8 @@ $scope.getAllProductNames();
  };
 $scope.handleGetWarrantySuccess=function(successData,l_warrantyid){
   if(successData.success)
-    $log.debug(successData.success)
+    $log.debug(successData.success);
+   $("#prodo-ProductDetails").css("display", "block");
         $scope.warranty=successData.success.Warranty;
         
   };
