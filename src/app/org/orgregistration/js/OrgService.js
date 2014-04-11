@@ -9,6 +9,7 @@ angular.module('prodo.OrgApp')
       name:"",
       orgtype: "",
       description:"", 
+      industry: [],
       contractid:"",
       orginvites: [],
       subscription: [],
@@ -33,14 +34,16 @@ angular.module('prodo.OrgApp')
  .factory('OrgService', [
   '$resource',
   function ($resource) {
-    var OrgS = {
+    var OrgService = {
         org_data: $resource('/api/organization/:orgid', {}, { getOrgSettings: { method: 'GET'} }),
         ManageOrgLocation: $resource('/api/orgaddress/:orgid/:orgaddressid', {}, { getAllOrgAddress: { method: 'GET'} }),
         GetOrgProducts: $resource('/api/product/:orgid', {}, { getAllOrgProducts: { method: 'GET'} }),
         GetOrgGroupMembers: $resource('/api/orggroupmembers/:orgid', {}, { getGroupDetails: { method: 'GET'} }),
-        GetOrg_Broadcast_Messages: $resource('/api/organization/broadcast/:orgid', {}, { getOrgBroadcastMessage: { method: 'GET'} })
+        GetOrg_Broadcast_Messages: $resource('/api/organization/broadcast/:orgid', {}, { getOrgBroadcastMessage: { method: 'GET'} }),
+        GetOrg_Industry_Category: $resource('/api/orgindustrycategory', {}, { getAllIndustryCategory: { method: 'GET'} })
+
     }
-    return OrgS;
+    return OrgService;
   }
 ])
 // factory service to make call to REST APIs using $resource
@@ -55,7 +58,7 @@ angular.module('prodo.OrgApp')
           updateOrgSettings: { method: 'PUT', params: { orgid: '@orgid' }, isArray: false},
           // deleteOrgSettings: { method: 'DELETE', params: { orgid: '@orgid' }}
         }),
-        OrgDeleteRequest: $resource('/api/orgdelreq/:orgid',{},
+        OrgDeleteRequest: $resource('/api/orgdeleterequest/:orgid',{},
         {
           sendDeleteRequest: {method: 'POST', params: { orgid:'@orgid'}}
         }),

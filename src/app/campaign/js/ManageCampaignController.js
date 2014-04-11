@@ -1,5 +1,5 @@
 angular.module('prodo.CampaignApp')
- .controller('ManageCampaignController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$log', 'growl', 'checkIfSessionExist','currentorgproducts','CampaignService','getAllCampaigns','notify', function($scope, $rootScope, $state, $http, $timeout, $log, growl, checkIfSessionExist, currentorgproducts, CampaignService, getAllCampaigns , notify) {
+ .controller('ManageCampaignController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$stateParams', '$log', 'growl', 'checkIfSessionExist','currentorgproducts','CampaignService','getAllCampaigns','notify', 'campaigndata', function($scope, $rootScope, $state, $http, $timeout, $stateParams, $log, growl, checkIfSessionExist, currentorgproducts, CampaignService, getAllCampaigns , notify, campaigndata) {
  		
 
  $scope.newCampaignAdd = 0;
@@ -29,7 +29,7 @@ angular.module('prodo.CampaignApp')
  $scope.invalidDesc = '';
  $scope.showCampaign = 1;
 
-
+ $scope.$state = $state;
  $scope.addNewCampaign = 0; 
  // $scope.campaignDescription = '';
 
@@ -57,7 +57,23 @@ $scope.errorForInvalidProduct = '';
 $scope.enableEditing = 0;
 $scope.currentCampaign = {};
 
- getAllCampaigns.getCampaigns();
+ // getAllCampaigns.getCampaigns();
+
+    $scope.ProdoAppMessage = function(message,flag)
+    {
+          if(flag==='success')
+          {
+            notify({message:message,template:'common/notification/views/notification-success.html',position:'center'})
+          }
+          else
+          {
+             notify({message:message,template:'common/notification/views/notification-error.html',position:'center'}); 
+          }
+    };
+
+
+
+
 
 if (currentorgproducts.error) 
 {
@@ -71,39 +87,25 @@ else
 	  }
 }
 
-
- var cleanupeventcampaigngetsuccessfully = $scope.$on("gotAllCampaigns", function(event, data){
-	 if(data.error !== undefined && data.error.code === 'AL001' )
-      {
-        $rootScope.showModal();
-      }
-      if(data.success)
-      {
-         $scope.campaignDetailsObject = data.success.Product_Campaigns;
-         $scope.campaignName = $scope.campaignDetailsObject[0].name;
-         $scope.campaignDescription = $scope.campaignDetailsObject[0].description;
-         $scope.startDate = $scope.campaignDetailsObject[0].startdate;
-         $scope.category = $scope.campaignDetailsObject[0].category;
-         $scope.endDate = $scope.campaignDetailsObject[0].enddate;
-         $scope.productName = $scope.campaignDetailsObject[0].productname;
-         $scope.currentCampaign = $scope.campaignDetailsObject[0];
-         $scope.ProdoAppMessage(data.success.message,'success');
-         $state.reload();
-      }
-      else {
-        if (data.error.code== 'AU004') {     // enter valid data
-            $scope.ProdoAppMessage(data.error.message,'error');    //ShowAlert
-        } else {
-            $scope.ProdoAppMessage(data.error.message,'error');    //ShowError
+      $scope.$watch('$state.$current.locals.globals.campaigndata', function (campaigndata) {
+        console.log(campaigndata);
+        if (campaigndata.success) {
+           $scope.campaignDetailsObject = campaigndata.success.Product_Campaigns;
+           $scope.campaignName = $scope.campaignDetailsObject[0].name;
+           $scope.campaignDescription = $scope.campaignDetailsObject[0].description;
+           $scope.startDate = $scope.campaignDetailsObject[0].startdate;
+           $scope.category = $scope.campaignDetailsObject[0].category;
+           $scope.endDate = $scope.campaignDetailsObject[0].enddate;
+           $scope.productName = $scope.campaignDetailsObject[0].productname;
+           $scope.currentCampaign = $scope.campaignDetailsObject[0];
+           $scope.ProdoAppMessage(campaigndata.success.message,'success');
+        } else if(campaigndata.error !== undefined && campaigndata.error.code === 'AL001' ) {
+            $rootScope.showModal();
+        } else if (campaigndata.error) {  
+              $scope.ProdoAppMessage(campaigndata.error.message,'error');    //ShowAlert
         }
-      }
-});
-
-var cleanupeventcampaigngeterror = $scope.$on("notGotAllCampaigns", function(event, data){
-	     $scope.ProdoAppMessage("Some issues with server",'error');
-});
-
-
+  
+      });
 
 
  // function to send and stringify user registration data to Rest APIs
@@ -168,6 +170,24 @@ $scope.saveCampaign = function()
     }
 };
 
+
+     $scope.jsonOrgCampaignDataModify = function(){
+      var Data = 
+      {
+        "campaigndata":
+          {
+            'name' : $scope.currentCampaign.name,
+            'productname' : $scope.currentCampaign.productname,
+            'enddate': $scope.currentCampaign.enddate,
+            'startdate': $scope.currentCampaign.startdate,
+            'description': $scope.currentCampaign.description,
+            'category': $scope.currentCampaign.category
+          }  
+      };
+      return JSON.stringify(Data); 
+    };
+
+
 $scope.updateCampaign = function()
 {
 	$scope.errorForWrongCampaignname = '';  
@@ -197,29 +217,7 @@ $scope.updateCampaign = function()
          $scope.valid = 1;
 
     }
-
-
-
-     $scope.jsonOrgCampaignDataModify = function(){
-      var Data = 
-      {
-        "campaigndata":
-          {
-            'name' : $scope.currentCampaign.name,
-            'productname' : $scope.currentCampaign.productname,
-            'enddate': $scope.currentCampaign.enddate,
-            'startdate': $scope.currentCampaign.startdate,
-            'description': $scope.currentCampaign.description,
-            'category': $scope.currentCampaign.category
-          }  
-      };
-      return JSON.stringify(Data); 
-    };
-
-
-
-
-
+    
     if($scope.allValid === 0 )
     {    
         
@@ -253,7 +251,8 @@ var cleanupeventchangedcampaignsuccessfully = $scope.$on("campaignUpdatedSuccess
       {
          $scope.ProdoAppMessage(data.success.message,'success');
          $scope.enableEditing=0;
-         $state.reload();
+         $state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
+
       }
       else {
         if (data.error.code== 'AU004') {     // enter valid data
@@ -275,7 +274,7 @@ var cleanupeventdeletecampaignsuccessfully = $scope.$on("campaignDeletedSuccessf
       if(data.success)
       {
          $scope.ProdoAppMessage(data.success.message,'success');
-         $state.reload();
+         $state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
       }
       else {
         if (data.error.code== 'AU004') {     // enter valid data
@@ -346,18 +345,6 @@ $scope.disableEditingCampaign = function()
 
 
 
-    $scope.ProdoAppMessage = function(message,flag)
-    {
-          if(flag==='success')
-          {
-            notify({message:message,template:'common/notification/views/notification-success.html',position:'center'})
-          }
-          else
-          {
-             notify({message:message,template:'common/notification/views/notification-error.html',position:'center'}); 
-          }
-    };
-
 
 
 
@@ -371,7 +358,7 @@ var cleanupeventaddedcampaignsuccessfully = $scope.$on("campaignAddedSuccessfull
       {
          $scope.ProdoAppMessage(data.success.message,'success');
          $scope.enableEditing = 0;
-         $state.reload();
+         $state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
       }
       else {
         if (data.error.code== 'AU004') {     // enter valid data

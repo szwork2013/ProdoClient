@@ -17,15 +17,19 @@ angular.module('prodo.AdminApp')
         tagdata: function(domainTagList){
            var n = domainTagList.Tags.getTag().$promise;
            return n;
+        },
+        checkIfSessionExist: function(UserService, $rootScope) {
+            return UserService.Is_user_loggedin.checkUserSession().$promise;
         }
       },
   
-      onEnter : function($rootScope,$state)
+      onEnter : function(checkIfSessionExist, $rootScope,$state)
       { 
-        var restrict = $rootScope.usersession.isLoggedIn;
-        if(restrict === false)
-        {
+        if (checkIfSessionExist.error) {
           $state.go('prodo.landing.signin');
+        } else if (checkIfSessionExist.success && checkIfSessionExist.success.user.isAdmin === false)
+        {
+          $state.transitionTo($state.$current);
         }
       },
 

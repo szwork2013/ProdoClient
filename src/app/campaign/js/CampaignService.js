@@ -82,22 +82,10 @@ angular.module('prodo.CampaignApp')
   '$log',
      function ($rootScope, $resource, $log) {
     var getAllCampaign = { Product: $resource('/api/productcampaign/:orgid', {}, { getCampaignDetails: { method: 'GET' , params : {orgid : '@orgid'}} }) };
-     // var modifyCurrent = { Product: $resource('/api/productcampaign/:orgid/:campaign_id', {}, { getCampaignDetails: { method: 'GET' , params : {orgid : '@orgid', campaign_id:'@campaign_id'}} }) };
-     var campaign = {};
-    campaign.getCampaigns = function () {
-      getAllCampaign.Product.getCampaignDetails({orgid:$rootScope.usersession.currentUser.org.orgid},function (success) {
-        $log.debug(success);
-        $rootScope.$broadcast('gotAllCampaigns', success);
-      }), function (error) {
-        $log.debug(error);
-        $rootScope.$broadcast('notGotAllCampaigns', error);
-      };
-    };
 
 
 
-
-    return campaign;
+    return getAllCampaign;
   }
 ]);
 

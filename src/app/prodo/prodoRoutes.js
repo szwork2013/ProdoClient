@@ -152,27 +152,29 @@ angular.module('prodo.ProdonusApp')
     /* ----Organization wizard Routes---- */
     .state('prodo.orgregistration', {
       templateUrl: 'org/orgregistration/views/orgregistration.container.html',
-      abstract: true
+      abstract: true,
+      controller: 'OrgRegistrationController',
+      resolve : {
+        OrgService: 'OrgService',
+        industrycategorydata: function(OrgService, $rootScope) {
+          return  OrgService.GetOrg_Industry_Category.getAllIndustryCategory().$promise;
+        }
+      }
     })
     .state('prodo.orgregistration.company', {
-      templateUrl: 'org/orgregistration/views/orgregistration.company.tpl.html',
-      controller: 'OrgRegistrationController'
+      templateUrl: 'org/orgregistration/views/orgregistration.company.tpl.html'
     }) 
     .state('prodo.orgregistration.address', {
-        templateUrl:  'org/orgregistration/views/orgregistration.address.tpl.html',
-        controller: 'OrgRegistrationController'
+        templateUrl:  'org/orgregistration/views/orgregistration.address.tpl.html'
     })
     .state('prodo.orgregistration.groupuser', {
-        templateUrl: 'org/orgregistration/views/orgregistration.groupusers.tpl.html',
-        controller: 'OrgRegistrationController'
+        templateUrl: 'org/orgregistration/views/orgregistration.groupusers.tpl.html'
     })     
     .state('prodo.orgregistration.terms', {
-        templateUrl: 'org/orgregistration/views/orgregistration.terms.tpl.html',
-        controller: 'OrgRegistrationController'
+        templateUrl: 'org/orgregistration/views/orgregistration.terms.tpl.html'
     })        
     .state('prodo.orgregistration.finish', {
-        templateUrl: 'org/orgregistration/views/orgregistration.finish.tpl.html',
-        controller: 'OrgRegistrationController'
+        templateUrl: 'org/orgregistration/views/orgregistration.finish.tpl.html'
     })
 
      /* ----Organization Account Routes---- */
@@ -400,7 +402,7 @@ angular.module('prodo.ProdonusApp')
       resolve : {
         checkIfSessionExist: function(UserService, $rootScope) {
             return UserService.Is_user_loggedin.checkUserSession().$promise;
-        } 
+        }
       },
       onEnter: function(UserSessionService, checkIfSessionExist, $state){
         if (checkIfSessionExist.success) {
@@ -415,9 +417,12 @@ angular.module('prodo.ProdonusApp')
     .state('prodo.account-campaign.campaign', {
       templateUrl:  'campaign/views/campaign.account.settings.tpl.html',
       resolve : {
-             currentorgproducts: function(OrgService, $rootScope) {
+            currentorgproducts: function(OrgService, $rootScope) {
             return  OrgService.GetOrgProducts.getAllOrgProducts({orgid: $rootScope.usersession.currentUser.org.orgid}).$promise;
-             }
+          },
+            campaigndata: function(getAllCampaigns, $rootScope){
+            return getAllCampaigns.Product.getCampaignDetails({orgid:$rootScope.usersession.currentUser.org.orgid}).$promise;
+          }
         },
       controller: 'ManageCampaignController'
     })
