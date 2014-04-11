@@ -384,6 +384,18 @@ angular.module('prodo.ProdonusApp')
       }
     })    
     .state('prodo.account-warranty.warranty', {
+            resolve: {
+        orgnameData: function(OrgnameService, $rootScope) {
+          return OrgnameService.getOrgname().$promise;
+        }
+        ,
+        productnameData: function(ProductnameService, $rootScope) {
+          return ProductnameService.getProductname().$promise;
+        },
+         warrantydata: function(WarrantyService, $rootScope) {
+          return WarrantyService.get_allwarranties.getAllWarrantyDetails({userid: $rootScope.usersession.currentUser.userid}).$promise;
+        }
+      },
       templateUrl:  'warranty/views/warranty.account.settings.tpl.html',
       controller: 'ManageWarrantyController'
     })

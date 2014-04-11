@@ -605,7 +605,7 @@ $scope.handledeleteProductImagesError=function(error){
       }
     }
     if ($rootScope.isAdminCheck == true) {
-      // $("#prodo.productAdmin").css("display", "inline"); 
+      // $("#prodo.productAdmin").c$scope.warranties[i]ss("display", "inline"); 
       $("#prodo.productAdminAddProduct").css("display", "inline");
     } else if ($rootScope.usersession.currentUser.org.isAdmin == true) {
       $("#prodo.productAdmin").css("display", "none");
