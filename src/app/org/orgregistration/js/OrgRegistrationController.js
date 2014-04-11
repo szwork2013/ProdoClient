@@ -2,12 +2,22 @@
 *	Org Registration Controller
 **/
 angular.module('prodo.OrgApp')
-	.controller('OrgRegistrationController', ['$scope', '$rootScope', 'OrgModel', '$state', '$stateParams', '$log', 'OrgRegistrationService', 'UserSessionService', function($scope, $rootScope, OrgModel, $state, $stateParams, $log, OrgRegistrationService, UserSessionService) {
+	.controller('OrgRegistrationController', ['$scope', '$rootScope', 'OrgModel', '$state', '$stateParams', '$log', 'OrgRegistrationService', 'UserSessionService', 'industrycategorydata', function($scope, $rootScope, OrgModel, $state, $stateParams, $log, OrgRegistrationService, UserSessionService, industrycategorydata) {
 
     $scope.errmessage = '';
     $scope.mobileRegex = "/^\(?[+]([0-9]{2,5})\)?[-]?([0-9]{10,15})$/";
     $scope.org = OrgModel;   // assining OrgModel service to org to update org model data
     $scope.regexForEmail = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+
+    if (industrycategorydata.success) {
+      $scope.$watch('$state.$current.locals.globals.industrycategorydata', function (industrycategorydata) {
+        if (industrycategorydata.success.industry_category.length !== 0) {
+           $scope.org.industry = campaigndata.success.industry_category;
+        }
+      });
+    }
+
+
     $scope.back = function()
     {
         $('#reg-companyDetails').css('color','#C9C9C9');
@@ -527,6 +537,7 @@ $scope.invalidContact3 = '';
       $scope.org.name = '';
       $scope.org.description = '';
       $scope.org.orgtype= '';
+      $scope.org.industry = [];
       $scope.org.contractid= '';
       $scope.org.address1= '';
       $scope.org.address2= '';
@@ -596,6 +607,7 @@ $scope.org.orgaddresstype="Company Address";
   	          'name':$scope.org.name,
   	          'description':$scope.org.description, 
   	          'orgtype':$scope.org.orgtype,
+              'industry_category': $scope.org.industry,
   	          'contractid':$scope.org.contractid,
   	          'location': 
                 [ {
