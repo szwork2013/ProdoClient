@@ -210,12 +210,12 @@
            <tr>
             <td  colspan="2">Invoice Upload  &nbsp;&nbsp;&nbsp;&nbsp;
                         
-                <input id="prodo-warrantyUploadBtn" class=" form-control prodo-validation " type="file" name="file" ng-file-selectdata="onFileSelect($files)" ng-model="file1" required>
+                <input id="prodo-warrantyUploadBtn" class=" form-control prodo-validation " type="file" name="file" ng-file-selectdata="onFileSelect($files)" ng-model="file1" >
 
                   <div  ng-show="(form.WarrantyForm.file.$dirty && editMode.editorEnabledWarranty ==true) ||(form.WarrantyForm.submitted==true && form.WarrantyForm.file.$invalid==true)" class="prodo-warranty-Invalid">
 			 
-			  <span ng-show="form.WarrantyForm.file.$error.required">Please add invoice image</span>
-			 </div>
+              			  <span ng-show="form.WarrantyForm.file.$error.required">Please add invoice image</span>
+              			 </div>
                                         
              </td>
           </tr>

@@ -9,14 +9,20 @@ angular.module('prodo.OrgApp')
     $scope.org = OrgModel;   // assining OrgModel service to org to update org model data
     $scope.regexForEmail = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
 
+    $scope.$state=$state;
     if (industrycategorydata.success) {
       $scope.$watch('$state.$current.locals.globals.industrycategorydata', function (industrycategorydata) {
         if (industrycategorydata.success.industry_category.length !== 0) {
-           $scope.org.industry = campaigndata.success.industry_category;
+           $scope.org.industries = industrycategorydata.success.industry_category;
         }
       });
     }
-
+  $scope.industrycategory=function(){
+     if (industrycategorydata.success.industry_category.length !== 0) {
+           $scope.org.industries = industrycategorydata.success.industry_category;
+           return $scope.org.industries;
+        }
+ };
 
     $scope.back = function()
     {
