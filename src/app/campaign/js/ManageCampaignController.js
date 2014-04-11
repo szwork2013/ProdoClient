@@ -43,7 +43,6 @@ $scope.errorForInvalidProduct = '';
 
  //$scope.enddate = '';
  $scope.startDate = '';
-
  $scope.category = [];
 
  $scope.endDate= '';// $scope.endDates = '';
@@ -98,6 +97,22 @@ else
            $scope.endDate = $scope.campaignDetailsObject[0].enddate;
            $scope.productName = $scope.campaignDetailsObject[0].productname;
            $scope.currentCampaign = $scope.campaignDetailsObject[0];
+           var d=new Date($scope.campaignDetailsObject[0].startdate);
+            var year=d.getFullYear();
+            var month=d.getMonth()+1;
+            if (month<10){
+              month="0" + month;
+            }
+            var day=d.getDate();
+           $scope.currentCampaign.startdate = year + "-" + month + "-" + day;
+           var d=new Date($scope.campaignDetailsObject[0].enddate);
+            var year=d.getFullYear();
+            var month=d.getMonth()+1;
+            if (month<10){
+              month="0" + month;
+            }
+            var day=d.getDate();
+           $scope.currentCampaign.enddate = year + "-" + month + "-" + day;
            $scope.ProdoAppMessage(campaigndata.success.message,'success');
         } else if(campaigndata.error !== undefined && campaigndata.error.code === 'AL001' ) {
             $rootScope.showModal();
@@ -303,7 +318,23 @@ $scope.showDetails = function(index)
     $scope.category = $scope.campaignDetailsObject[index].category;
     $scope.endDate = $scope.campaignDetailsObject[index].enddate;
     $scope.productName = $scope.campaignDetailsObject[index].productname; 
-    $scope.currentCampaign = $scope.campaignDetailsObject[index];    
+    $scope.currentCampaign = $scope.campaignDetailsObject[index];  
+    var d=new Date($scope.campaignDetailsObject[index].startdate);
+    var year=d.getFullYear();
+    var month=d.getMonth()+1;
+    if (month<10){
+      month="0" + month;
+    }
+    var day=d.getDate();
+    $scope.currentCampaign.startdate = year + "-" + month + "-" + day;
+    var d=new Date($scope.campaignDetailsObject[index].enddate);
+    var year=d.getFullYear();
+    var month=d.getMonth()+1;
+    if (month<10){
+      month="0" + month;
+    }
+    var day=d.getDate();
+   $scope.currentCampaign.enddate = year + "-" + month + "-" + day;  
 
 };
 
