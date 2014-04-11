@@ -13,7 +13,27 @@ angular.module('prodo.AdminApp')
     .state('admin.tags', {
       url: '/admin-tags',
       templateUrl: 'common/admin/views/prodo.tag_input.tpl.html',
-      controller: "prodoAdminTagInputController",
+      resolve: {
+        tagdata: function(domainTagList){
+           var n = domainTagList.Tags.getTag().$promise;
+           return n;
+        },
+        checkIfSessionExist: function(UserService, $rootScope) {
+            return UserService.Is_user_loggedin.checkUserSession().$promise;
+        }
+      },
+  
+      onEnter : function(checkIfSessionExist, $rootScope,$state)
+      { 
+        if (checkIfSessionExist.error) {
+          $state.go('prodo.landing.signin');
+        } else if (checkIfSessionExist.success && checkIfSessionExist.success.user.isAdmin === false)
+        {
+          $state.transitionTo($state.$current);
+        }
+      },
+
+      controller: "prodoAdminTagInputController"
      
     })  
     .state('admin.product', {

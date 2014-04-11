@@ -21,7 +21,12 @@
         <input type="text" class="prodo-wizard-form-control form-control" name="companyname" ng-model="org.name" placeholder="Business Name" required required popover-placement="right" popover="Organization name can only have characters" popover-trigger="mouseenter" id="orgName"/>
         <div class="error-message-wizard" ng-if="errorOrgName !== '' " ng-bind="errorOrgName"></div>   
         <textarea type="textarea" rows=8 class="prodo-wizard-form-control form-control" name="description" ng-model="org.description" placeholder="Business Description" required popover-placement="right" popover="Please enter detailed description regarding your organization" popover-trigger="mouseenter"></textarea>
-        <div class="error-message-wizard" ng-if="errOrgDesc !== '' "ng-bind="errOrgDesc"></div>    
+        <div class="error-message-wizard" ng-if="errOrgDesc !== '' "ng-bind="errOrgDesc"></div> 
+        <!-- implement tags typeahead for industry lookup here -->
+        <div class="prodo-regTagsWidth">
+         <!--  <input type="text" class="prodo-wizard-form-control form-control" name="industry" ng-model="org.industry" placeholder="Industry Domain" /> -->
+           <tags-input minTags="1" add-on-blur="true" ng-model="org.industry" list="industrycategory()"  min-length="1" ></tags-input>  
+        </div>   
         <input type="text" class="prodo-wizard-form-control form-control" name="contractid" ng-model="org.contractid" placeholder="Contract Id" />
         
       </div> 

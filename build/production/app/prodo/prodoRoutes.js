@@ -30,7 +30,6 @@ angular.module('prodo.ProdonusApp')
       }
     }) 
     .state('prodo.landing.signin', {
-      url: '/signin',
       views: {
         'marketing' : {
           templateUrl:  'prodo/landing/views/prodo.home.marketing.tpl.html'
@@ -153,27 +152,29 @@ angular.module('prodo.ProdonusApp')
     /* ----Organization wizard Routes---- */
     .state('prodo.orgregistration', {
       templateUrl: 'org/orgregistration/views/orgregistration.container.html',
-      abstract: true
+      abstract: true,
+      controller: 'OrgRegistrationController',
+      resolve : {
+        OrgService: 'OrgService',
+        industrycategorydata: function(OrgService, $rootScope) {
+          return  OrgService.GetOrg_Industry_Category.getAllIndustryCategory().$promise;
+        }
+      }
     })
     .state('prodo.orgregistration.company', {
-      templateUrl: 'org/orgregistration/views/orgregistration.company.tpl.html',
-      controller: 'OrgRegistrationController'
+      templateUrl: 'org/orgregistration/views/orgregistration.company.tpl.html'
     }) 
     .state('prodo.orgregistration.address', {
-        templateUrl:  'org/orgregistration/views/orgregistration.address.tpl.html',
-        controller: 'OrgRegistrationController'
+        templateUrl:  'org/orgregistration/views/orgregistration.address.tpl.html'
     })
     .state('prodo.orgregistration.groupuser', {
-        templateUrl: 'org/orgregistration/views/orgregistration.groupusers.tpl.html',
-        controller: 'OrgRegistrationController'
+        templateUrl: 'org/orgregistration/views/orgregistration.groupusers.tpl.html'
     })     
     .state('prodo.orgregistration.terms', {
-        templateUrl: 'org/orgregistration/views/orgregistration.terms.tpl.html',
-        controller: 'OrgRegistrationController'
+        templateUrl: 'org/orgregistration/views/orgregistration.terms.tpl.html'
     })        
     .state('prodo.orgregistration.finish', {
-        templateUrl: 'org/orgregistration/views/orgregistration.finish.tpl.html',
-        controller: 'OrgRegistrationController'
+        templateUrl: 'org/orgregistration/views/orgregistration.finish.tpl.html'
     })
 
      /* ----Organization Account Routes---- */
@@ -221,7 +222,13 @@ angular.module('prodo.ProdonusApp')
       }) 
     .state('prodo.account-org.org.broadcast', {
        templateUrl:  'org/manageorg/views/org.wall.orgBroadcast.tpl.html',
-       controller: 'ManageOrgBroadcastController'
+       controller: 'ManageOrgBroadcastController',
+       resolve: {
+          OrgService: 'OrgService',
+          getBroadcastData: function(OrgService, $rootScope) {
+            return OrgService.GetOrg_Broadcast_Messages.getOrgBroadcastMessage({orgid: $rootScope.usersession.currentUser.org.orgid}).$promise;
+          }
+       }
       })
     .state('prodo.account-org.org.Productdetail', {
        templateUrl:  'product/views/prodo.wall.productFeatures.tpl.html',
@@ -259,6 +266,9 @@ angular.module('prodo.ProdonusApp')
             return orgproduct;
           }
           
+        },
+        broadcastData: function(OrgService, $rootScope) {
+            return OrgService.GetOrg_Broadcast_Messages.getOrgBroadcastMessage({orgid: $rootScope.orgid}).$promise;
         },
         checkIfSessionExist: function(UserService, $rootScope) {
             return UserService.Is_user_loggedin.checkUserSession().$promise;
@@ -374,6 +384,18 @@ angular.module('prodo.ProdonusApp')
       }
     })    
     .state('prodo.account-warranty.warranty', {
+            resolve: {
+        orgnameData: function(OrgnameService, $rootScope) {
+          return OrgnameService.getOrgname().$promise;
+        }
+        ,
+        productnameData: function(ProductnameService, $rootScope) {
+          return ProductnameService.getProductname().$promise;
+        },
+         warrantydata: function(WarrantyService, $rootScope) {
+          return WarrantyService.get_allwarranties.getAllWarrantyDetails({userid: $rootScope.usersession.currentUser.userid}).$promise;
+        }
+      },
       templateUrl:  'warranty/views/warranty.account.settings.tpl.html',
       controller: 'ManageWarrantyController'
     })
@@ -392,7 +414,7 @@ angular.module('prodo.ProdonusApp')
       resolve : {
         checkIfSessionExist: function(UserService, $rootScope) {
             return UserService.Is_user_loggedin.checkUserSession().$promise;
-        } 
+        }
       },
       onEnter: function(UserSessionService, checkIfSessionExist, $state){
         if (checkIfSessionExist.success) {
@@ -406,6 +428,14 @@ angular.module('prodo.ProdonusApp')
     })    
     .state('prodo.account-campaign.campaign', {
       templateUrl:  'campaign/views/campaign.account.settings.tpl.html',
+      resolve : {
+            currentorgproducts: function(OrgService, $rootScope) {
+            return  OrgService.GetOrgProducts.getAllOrgProducts({orgid: $rootScope.usersession.currentUser.org.orgid}).$promise;
+          },
+            campaigndata: function(getAllCampaigns, $rootScope){
+            return getAllCampaigns.Product.getCampaignDetails({orgid:$rootScope.usersession.currentUser.org.orgid}).$promise;
+          }
+        },
       controller: 'ManageCampaignController'
     })
     /* ----campaign Account Nested Routes---- */

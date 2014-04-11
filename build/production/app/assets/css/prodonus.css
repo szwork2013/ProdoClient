@@ -20,7 +20,10 @@ font-size: 14px;
 background-color: transparent;
 font-weight: bold; 
 }
-
+.prodo-regTagsWidth{
+	width: 60%;
+	margin: 10px auto;
+}
 #prodo-org-nav-pills>li>a{
 font-size: 14px;
 margin: 2px;
@@ -317,6 +320,10 @@ color: #595365;
 
 .prodo-account-btn{
  margin: 5px; min-width: 80px; font-size: 12px; font-weight:bold;
+}
+
+.prodo-broadcast-delete-btn{
+	min-width: 80px; font-size: 12px; font-weight:bold;
 }
 
 .prodo-account-invites-btn{
@@ -617,13 +624,27 @@ small {
 	 
 }
 
-/*Change the Verification Panel heading style*/  
-#prodo-verification-panel-heading{
-	 
-	font-weight: bold;
-	font-family: 20px;
+.verification-alert{
+	margin-bottom: 0px;
 }
 
+#prodo-activateaccount-panel{
+	margin-top: 50px;
+	 
+}
+
+.activateaccount-alert{
+	margin-bottom: 0px;
+}
+
+#prodo-otpnotification-panel{
+	margin-top: 50px;
+	 
+}
+
+.otpnotification-alert{
+	margin-bottom: 0px;
+}
 
 /**
 *	Orgregistration
@@ -2197,7 +2218,7 @@ text-align: right;
 	margin-top: 30px; min-height: 50px; padding-bottom: 9px; border-bottom: 1px solid #ddd;
 }
 
-#prodo-wall-blog-container{
+.prodo-wall-blog-container{
   background-color: #ffffff;
   margin-bottom: 20px;
   border-radius: 10px;
@@ -2236,7 +2257,7 @@ border-radius: 4px;
 -webkit-box-shadow: 0 6px 12px rgba(0,0,0,0.175);
 box-shadow: 0 6px 12px rgba(0,0,0,0.175);
 background-clip: padding-box;
-width: 90%;
+/*width: 90%;*/
 overflow: hidden;
 }
 /* width: 51px; */
@@ -2399,6 +2420,109 @@ vertical-align: bottom;
   margin-right: 0 !important;
   overflow: auto;
 }
+.manage-Campaign-tr {
+	margin :20px;
+}
+.manage-Campaign-td1 {
+   width : 40%;
+}
+.manage-Campaign-td2 {
+	width:60%;
+
+}
+
+.manage-campaign-marginbottom
+{
+	margin-bottom: 20px;
+}
+
+.wall-warranty-list{
+	margin-bottom: 10px;
+	-webkit-border-radius: 3px;
+	-webkit-box-orient: vertical;
+	-webkit-transition: 200ms -webkit-transform;
+	background: white;
+	box-shadow: 0 1px 2px 1px rgba(248, 245, 245, 0.2), 0 2px 6px rgba(0,0,0,0.15);
+	color: #333;
+	display: -webkit-box;
+	padding: 10px;
+	position: relative;
+	z-index: 0;
+}
+
+.wall-warranty-expiry-label{
+	font-size: 14px; padding: 3px;
+}
+
+.wall-warranty-invoice-btn{
+	height:23px; padding:1px; background-color:#3D566B; width: 80%;
+}
+
+.wall-warranty-invoice-btn:hover{
+	height:23px; padding:1px; background-color:#3D566B; width: 80%;
+}
+
+.wall-warranty-invoice-btn:focus, .wall-warranty-invoice-btn:active{
+	height:23px; padding:1px; background-color:#3D566B; width: 80%;
+}
+
+.wall-warranty-invoice-img{
+	width: 90%; margin-left: 30px;
+}
+
+.wall-broadcast-carousel{
+ background-color:  rgb(250, 248, 239);	border: 1px solid #9FBACC; font-size:20px; font-weight: 100; font-family:monospace; padding: 10px; border-radius: 6px; min-height: 40px;
+}
+
+.wall-broadcast-carousel-normal-item{
+ color: rgb(60, 143, 106);
+}
+
+.wall-broadcast-carousel-urgent-item{
+ color: rgb(201, 84, 84);
+}
+
+.vertical .carousel-inner {
+  height: 100%;
+}
+
+.carousel.vertical .item {
+  -webkit-transition: 0.6s ease-in-out top;
+     -moz-transition: 0.6s ease-in-out top;
+      -ms-transition: 0.6s ease-in-out top;
+       -o-transition: 0.6s ease-in-out top;
+          transition: 0.6s ease-in-out top;
+}
+
+.carousel.vertical .active {
+  top: 0;
+}
+
+.carousel.vertical .next {
+  top: 400px;
+}
+
+.carousel.vertical .prev {
+  top: -400px;
+}
+
+.carousel.vertical .next.left,
+.carousel.vertical .prev.right {
+  top: 0;
+}
+
+.carousel.vertical .active.left {
+  top: -400px;
+}
+
+.carousel.vertical .active.right {
+  top: 400px;
+}
+
+.carousel.vertical .item {
+    left: 0;
+}
+
 
 
 /*.fa-check:before {
@@ -2414,4 +2538,15 @@ top: -35px;
 left: 173px;
 }*/
 
-
+.prodo-invoiceImage{ max-width: 500px;max-height: 500px;}
+.prodo-WarrantyAdd{float:right; padding-left:10px; padding-bottom:20px;}
+.warranty-textField{width: 160px; height: 30PX; font-size: 12PX; display:inline-block;}
+.prodo-warranty-Invalid{color:red; font-size: 12px;display: inline-block;}
+.prodo-width50{width: 50%;}
+.prodo-resizeRestrict{ resize: none;}
+#prodo-warrantyUploadBtn{display: inline}
+.prodo-padding-left{margin-left: 40px;}
+.prodo-fontWeight{font-weight: bold;}
+.prodo-warrantyInvoiceBtn{background-color: white;}
+.prodo-warrantBottomMargine{margin-bottom: 5px;}
+/*{ height:75px;border-radius:10px;font-size:12px; font-family: Helvetica ;  max-height: 75;max-width: 518;resize: none;}*/
