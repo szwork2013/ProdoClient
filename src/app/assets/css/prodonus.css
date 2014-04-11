@@ -2493,7 +2493,7 @@ top: -35px;
 left: 173px;
 }*/
 
-.prodo-invoiceImage{ max-width: 300px;}
+.prodo-invoiceImage{ max-width: 500px;max-height: 500px;}
 .prodo-WarrantyAdd{float:right; padding-left:10px; padding-bottom:20px;}
 .warranty-textField{width: 160px; height: 30PX; font-size: 12PX; display:inline-block;}
 .prodo-warranty-Invalid{color:red; font-size: 12px;display: inline-block;}
@@ -2501,4 +2501,7 @@ left: 173px;
 .prodo-resizeRestrict{ resize: none;}
 #prodo-warrantyUploadBtn{display: inline}
 .prodo-padding-left{margin-left: 40px;}
+.prodo-fontWeight{font-weight: bold;}
+.prodo-warrantyInvoiceBtn{background-color: white;}
+.prodo-warrantBottomMargine{margin-bottom: 5px;}
 /*{ height:75px;border-radius:10px;font-size:12px; font-family: Helvetica ;  max-height: 75;max-width: 518;resize: none;}*/

@@ -50,12 +50,12 @@
     <div ng-show="warranties.length>0"  ng-repeat="warranty1 in warranties  | startFrom:currentPage*pageSize | limitTo:pageSize" >
     <div class="prodo-productThumbnailView"   ng-class="{activeProduct : warranty1.warranty_id==warranty.warranty_id}" >
       <a ng-click="getSelectedWarranty(warranty1);" class="prodo-cursor"  href="" >
-        <p class="prodo-AddProductBtn prodo-productNameList" >{{warranty1.warranty_id.substring(0,13)}}</p>
+        <p class="prodo-AddProductBtn prodo-productNameList" >{{warranty1.name.substring(0,13)}}</p>
         <img  ng-src="{{warranty1.invoice_image.image}}" alt-SRC src="../assets/images/if_no_logo_images_available.gif"  class="prodo-productThumbnailImg img-rounded">
       </a>
     </div>
     </div>
-    <button class="arrowBtn prodo-arrowbtnRight"  ng-show="warranties.length > 4 " ng-disabled="currentPage >= warranties.length/pageSize - 1" ng-click="currentPage=currentPage+1" >
+    <button class="arrowBtn prodo-arrowbtnRight"  ng-show="warranties.length > 3 " ng-disabled="currentPage >= warranties.length/pageSize - 1" ng-click="currentPage=currentPage+1" >
       >
       <!-- <i style="color:gray; font-weight:weight:lighter" class=" fa fa-chevron-right fa-3x"></i>  -->
     </button>
@@ -274,33 +274,41 @@
 
 
 
-  <div id="prodo-ProductDetails" class="prodo-ProductDetails">
+  <div id="prodo-ProductDetails" class="prodo-ProductDetails"  ng-hide="editMode.editorEnabledWarranty">
 
 <!-- display mode -->
-  <div class="pull-right">
-		  	<button ng-click="OpenInvoiceImage = !OpenInvoiceImage" ><i class="prodo-fa fa fa-picture-o"></i></button>
+  <span class="wall-warranty-expiry-label label label-success">Expires on <span ng-bind="warranty.expirydate |  date:'MMM d, y'" ></span>
+        </span>
+  <div class="pull-right prodo-warrantBottomMargine">
+    <span class="wall-warranty-expiry-label label label-info"><span ng-bind="warranty.warranty_type" ></span>&nbsp; warranty
+        </span>
+ &nbsp;  &nbsp; 
+		  	<button ng-click="OpenInvoiceImage = !OpenInvoiceImage" class="prodo-warrantyInvoiceBtn " ><i class=" fa fa-picture-o"></i></button>
 		  </div>
- <table class="  prodo-productTableFont  table child table-bordered table-hover "  ng-hide="editMode.editorEnabledWarranty" id="prodo-WarrantyTable">
+ <table class="  prodo-productTableFont  table child table-bordered table-hover "  id="prodo-WarrantyTable">
    
           <tr>
             <td class="prodo-width50" >
 
        
 
-			  Organization  &nbsp; <span ng-bind="warranty.orgname" > </span>
+			      <span class="prodo-fontWeight">Organization:  &nbsp; </span> <span ng-bind="warranty.orgname" > </span>
             
             </td>
       
-            <td  class="prodo-width50" >Product  &nbsp; <span ng-bind="warranty.name" > </span>
+            <td  class="prodo-width50" >
+             <span class="prodo-fontWeight">Product:  &nbsp; </span> <span ng-bind="warranty.name" > </span>
             </td>
            
           </tr>
 
           <tr class="" >
-            <td class="prodo-width50"> Model no    &nbsp; <span ng-bind="warranty.model_no" > </span>
+            <td class="prodo-width50"> 
+             <span class="prodo-fontWeight">Model no    &nbsp; </span><span ng-bind="warranty.model_no" > </span>
              </td>
 
-              <td class="prodo-width50"> Model name    &nbsp; <span ng-bind="warranty.model_name" > </span>
+              <td class="prodo-width50"> 
+               <span class="prodo-fontWeight">Model name    &nbsp; </span><span ng-bind="warranty.model_name" > </span>
              </td>
 
 
@@ -309,10 +317,12 @@
           </tr>
 
           <tr class="" >
-             <td  class="prodo-width50">Serial no    &nbsp; <span ng-bind="warranty.serial_no" > </span>
+             <td  class="prodo-width50">
+              <span class="prodo-fontWeight">Serial no    &nbsp;</span> <span ng-bind="warranty.serial_no" > </span>
             </td>
 
-            <td class="prodo-width50"> Purchase date     &nbsp; <span ng-bind="warranty.purchase_date" > </span>
+            <td class="prodo-width50">
+             <span class="prodo-fontWeight"> Purchase date     &nbsp;</span> <span ng-bind="formatDate(warranty.purchase_date)" > </span>
 
                </td>
           
@@ -321,40 +331,36 @@
 
            <tr class="" >
 
-            <td  class="prodo-width50">Purchase country   &nbsp; <span ng-bind="warranty.purchase_location.country" > </span>
+            <td  class="prodo-width50">
+             <span class="prodo-fontWeight">Purchase country   &nbsp; 
+             </span><span ng-bind="warranty.purchase_location.country" > </span>
 
             </td>
 
-            <td class="prodo-width50" >Purchase city   &nbsp; <span ng-bind="warranty.purchase_location.city" > </span>
+            <td class="prodo-width50" >
+             <span class="prodo-fontWeight">Purchase city   &nbsp;</span> <span ng-bind="warranty.purchase_location.city" > </span>
             </td>
           
           </tr>
 
-			 <tr class="" >
-	           <td class="prodo-width50"> Warranty expires on   &nbsp; <span ng-bind="warranty.expirydate" > </span>
-
-              </td>
-                   <td class="prodo-width50"> Warranty type  &nbsp; <span ng-bind="warranty.warranty_type" > </span>
-
-              </td>
-
-			 </tr>
+			
      
 
 
 
        <!--     <tr>
-            <td  colspan="2">Description   &nbsp; <span ng-bind="product.display_name" > </span>
+            <td  colspan="2"><span class="prodo-fontWeight">Description   &nbsp;</span> <span ng-bind="product.display_name" > </span>
             </td>
           </tr>
           <tr>
-            <td  colspan="2">Disclaimer    &nbsp; <span ng-bind="product.display_name" > </span>
+            <td  colspan="2">
+            <span class="prodo-fontWeight"> Disclaimer    &nbsp; </span><span ng-bind="product.display_name" > </span>
 
 
             </td>
           </tr>
           <tr>
-            <td  colspan="2">Coverage   &nbsp; <span ng-bind="product.display_name" > </span>
+            <td  colspan="2"><span class="prodo-fontWeight">Coverage   &nbsp;</span> <span ng-bind="product.display_name" > </span>
 
             </td>
           </tr> -->
@@ -363,8 +369,8 @@
      
         </table>
         <center>
-        <div id="#invoice-img-div" ng-show="OpenInvoiceImage" class="row prodo-invoiceImage" >
-			<img ng-src="{{warranty.invoice_image.image}}" alt="..." class=" img-rounded">
+        <div id="#invoice-img-div" ng-show="OpenInvoiceImage" class="row" >
+			<img ng-src="{{warranty.invoice_image.image}}" alt="..." class=" prodo-invoiceImage img-rounded">
 		</div>
 		</center>
 </div>

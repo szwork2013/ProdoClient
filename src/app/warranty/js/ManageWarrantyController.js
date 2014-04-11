@@ -84,7 +84,9 @@ $scope.warranties=[];
  $scope.action={};
  $scope.isValidImage=false;
  $scope.invoiceimage;
-
+  $scope.formatDate = function (time) {
+    return (moment(time).format('DD MMM YYYY'));
+  };
 
 
    $scope.handleAllWarrantyDataError=function(error){
