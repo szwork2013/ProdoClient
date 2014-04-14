@@ -258,6 +258,7 @@ $scope.handleGetWarrantySuccess=function(successData,l_warrantyid){
     $log.debug(successData.success);
    $("#prodo-ProductDetails").css("display", "block");
         $scope.warranty=successData.success.Warranty;
+        $scope.OpenInvoiceImage=false;
         
   };
 
@@ -436,21 +437,58 @@ $scope.handleGetWarrantySuccess=function(successData,l_warrantyid){
     }
  };
 
-$scope.updateWarranty=function(){
-$log.debug($scope.warranty);
-  if($scope.form.WarrantyFormUpdate.$invalid){
-      $scope.form.WarrantyFormUpdate.submitted=true;
-    }
-    else{
+  $scope.org_l={
+    orgnamefromUser:'',
+    orgidfromUser:''
+  };
+  $scope.product_l={
+   productnamefromUser:'',
+   productidfromUser:''
+  };
+   $scope.updatedWarranty={};
 
+$scope.getOrgProductDetailsForUpdate=function(){
  
+
+
+ if($scope.warranty.orgname.name){
+    $scope.org_l.orgnamefromUser=$scope.warranty.orgname.name;
+    $scope.org_l.orgidfromUser=$scope.warranty.orgname.orgid;
+  }
+  else{
+    $scope.org_l.orgnamefromUser=$scope.warranty.orgname;
+    $scope.org_l.orgidfromUser="";
+  }
+  if($scope.warranty.name.name){
+      $scope.product_l.productnamefromUser=$scope.warranty.name.name;
+     $scope.product_l.productidfromUser=$scope.warranty.name.prodle;
+  }
+  else{
+         $scope.product_l.productnamefromUser=$scope.warranty.name;
+         $scope.product_l.productidfromUser="";
+  } 
+
+for(i=0; i<$scope.allOrgNames.length-1; i++){
+   if($scope.warranty.orgname==$scope.allOrgNames[i].name){
+      $scope.org_l.orgnamefromUser=$scope.allOrgNames[i].name;
+      $scope.org_l.orgidfromUser=$scope.allOrgNames[i].orgid;
+   }
+}
+
+for(i=0; i<$scope.allProductNames.length-1; i++){
+   if($scope.warranty.name==$scope.allProductNames[i].name){
+       $scope.product_l.productnamefromUser=$scope.allProductNames[i].name;
+     $scope.product_l.productidfromUser=$scope.allProductNames[i].prodle;
+     }
+}
+  
 
  $scope.updatedWarranty={
   warrantydata: {
-    orgname: $scope.warranty.orgname,
-    // orgid: $scope.org.orgidfromUser,
-    name:  $scope.warranty.name,
-    // prodle: $scope.product.productidfromUser,
+    orgname:$scope.org_l.orgnamefromUser,
+    orgid: $scope.org_l.orgidfromUser,
+    name:  $scope.product_l.productnamefromUser,
+    prodle: $scope.product_l.productidfromUser,
     model_no: $scope.warranty.model_no,
     model_name: $scope.warranty.model_name,
     serial_no: $scope.warranty.serial_no,
@@ -467,6 +505,22 @@ $log.debug($scope.warranty);
 
   }
   };
+
+
+
+};
+
+
+$scope.updateWarranty=function(){
+
+$log.debug($scope.warranty);
+  if($scope.form.WarrantyFormUpdate.$invalid){
+      $scope.form.WarrantyFormUpdate.submitted=true;
+    }
+    else{
+
+$scope.getOrgProductDetailsForUpdate();
+
  
  $log.debug($scope.updatedWarranty);
 

@@ -279,7 +279,7 @@
 
         Organization  <input ng-model="warranty.orgname"  id="prodo_warranty_org" class="warranty-textField form-control prodo-validation  prodo-display-right" 
               ng-maxlength="50" type="text"   required name="warranty_org" typeahead="allOrgName as allOrgName.name for allOrgName in allOrgNames | filter:$viewValue | limitTo:8"  />
-           
+         
              
               <div  ng-show="(form.WarrantyFormUpdate.warranty_org.$dirty && editMode.editorEnabledWarrantyUpdate ==true) ||(form.WarrantyFormUpdate.submitted==true && form.WarrantyFormUpdate.warranty_org.$invalid==true)" class="prodo-warranty-Invalid">
         <span ng-show="form.WarrantyFormUpdate.warranty_org.$error.required">Please enter warranty organization</span>
@@ -382,7 +382,7 @@
                type="number"   required name="warranty_purchase_period" ng-model="productwarranty.purchase_period"  placeholder ="Number of months"/>  -->
 
                 Warranty Expires on  <input   id="prodo_warranty_period" class="warranty-textField form-control prodo-validation prodo-display-right" 
-                   name="warranty_purchase_period" ng-model="warranty.expirydate"  />  
+                   name="warranty_purchase_period" ng-model="warranty.expirydate" required />  
                 
                  <div  ng-show="(form.WarrantyFormUpdate.warranty_purchase_period.$dirty && editMode.editorEnabledWarrantyUpdate ==true) ||(form.WarrantyFormUpdate.submitted==true && form.WarrantyFormUpdate.warranty_purchase_period.$invalid==true)" class="prodo-warranty-Invalid">
         <span ng-show="form.WarrantyFormUpdate.warranty_purchase_period.$error.required">Please enter warranty expiry date</span>
