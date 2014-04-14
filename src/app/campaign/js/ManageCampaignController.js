@@ -43,7 +43,6 @@ $scope.errorForInvalidProduct = '';
 
  //$scope.enddate = '';
  $scope.startDate = '';
-
  $scope.category = [];
 
  $scope.endDate= '';// $scope.endDates = '';
@@ -86,26 +85,41 @@ else
 	  }
 }
 
-//alert(campaigndata.success.Product_Campaigns.length);
-
-  $scope.$watch('$state.$current.locals.globals.campaigndata', function (campaigndata) {
-    if (campaigndata.success) {
-       $scope.campaignDetailsObject = campaigndata.success.Product_Campaigns; 
-       $scope.campaignName = $scope.campaignDetailsObject[0].name;
-       $scope.campaignDescription = $scope.campaignDetailsObject[0].description;
-       $scope.startDate = $scope.campaignDetailsObject[0].startdate;
-       $scope.category = $scope.campaignDetailsObject[0].category;
-       $scope.endDate = $scope.campaignDetailsObject[0].enddate;
-       $scope.productName = $scope.campaignDetailsObject[0].productname;
-       $scope.currentCampaign = $scope.campaignDetailsObject[0];
-      // $scope.ProdoAppMessage(campaigndata.success.message,'success');
-    } else if(campaigndata.error !== undefined && campaigndata.error.code === 'AL001' ) {
-        $rootScope.showModal();
-    } else if (campaigndata.error) {  
-         $scope.noCampaignExists = 0;
-    }
-
-  });
+      $scope.$watch('$state.$current.locals.globals.campaigndata', function (campaigndata) {
+        console.log(campaigndata);
+        if (campaigndata.success) {
+           $scope.campaignDetailsObject = campaigndata.success.Product_Campaigns;
+           $scope.campaignName = $scope.campaignDetailsObject[0].name;
+           $scope.campaignDescription = $scope.campaignDetailsObject[0].description;
+           $scope.startDate = $scope.campaignDetailsObject[0].startdate;
+           $scope.category = $scope.campaignDetailsObject[0].category;
+           $scope.endDate = $scope.campaignDetailsObject[0].enddate;
+           $scope.productName = $scope.campaignDetailsObject[0].productname;
+           $scope.currentCampaign = $scope.campaignDetailsObject[0];
+           var d1=new Date($scope.campaignDetailsObject[0].startdate);
+            var year1=d1.getFullYear();
+            var month1=d1.getMonth()+1;
+            if (month1<10){
+              month1="0" + month1;
+            }
+            var day1=d1.getDate();
+           $scope.currentCampaign.startdate = year1 + "-" + month1+ "-" + day1;
+           var d=new Date($scope.campaignDetailsObject[0].enddate);
+            var year=d.getFullYear();
+            var month=d.getMonth()+1;
+            if (month<10){
+              month="0" + month;
+            }
+            var day=d.getDate();
+           $scope.currentCampaign.enddate = year + "-" + month + "-" + day;
+           $scope.ProdoAppMessage(campaigndata.success.message,'success');
+        } else if(campaigndata.error !== undefined && campaigndata.error.code === 'AL001' ) {
+            $rootScope.showModal();
+        } else if (campaigndata.error) {  
+              $scope.ProdoAppMessage(campaigndata.error.message,'error');    //ShowAlert
+        }
+  
+      });
 
  // function to send and stringify user registration data to Rest APIs
 $scope.jsonOrgCampaignData = function(){
@@ -278,14 +292,30 @@ var cleanupeventdeletecampaignerror = $scope.$on("campaignNotDeleteSuccessfully"
 
 $scope.showDetails = function(index)
 {
-  $scope.campaignName = $scope.campaignDetailsObject[index].name;
-  $scope.campaignDescription = $scope.campaignDetailsObject[index].description;
-  $scope.startDate = $scope.campaignDetailsObject[index].startdate;
-  $scope.category = $scope.campaignDetailsObject[index].category;
-  $scope.endDate = $scope.campaignDetailsObject[index].enddate;
-  $scope.productName = $scope.campaignDetailsObject[index].productname; 
-  $scope.currentCampaign = $scope.campaignDetailsObject[index];    
-
+  
+    $scope.campaignName = $scope.campaignDetailsObject[index].name;
+    $scope.campaignDescription = $scope.campaignDetailsObject[index].description;
+    $scope.startDate = $scope.campaignDetailsObject[index].startdate;
+    $scope.category = $scope.campaignDetailsObject[index].category;
+    $scope.endDate = $scope.campaignDetailsObject[index].enddate;
+    $scope.productName = $scope.campaignDetailsObject[index].productname; 
+    $scope.currentCampaign = $scope.campaignDetailsObject[index];  
+    var d1=new Date($scope.campaignDetailsObject[index].startdate);
+    var year1=d1.getFullYear();
+    var month1=d1.getMonth()+1;
+    if (month1<10){
+      month1="0" + month1;
+    }
+    var day1=d1.getDate();
+    $scope.currentCampaign.startdate = year1 + "-" + month1 + "-" + day1;
+    var d=new Date($scope.campaignDetailsObject[index].enddate);
+    var year=d.getFullYear();
+    var month=d.getMonth()+1;
+    if (month<10){
+      month="0" + month;
+    }
+    var day=d.getDate();
+   $scope.currentCampaign.enddate = year + "-" + month + "-" + day;  
 };
 
 $scope.add = function()
