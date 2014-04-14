@@ -158,6 +158,36 @@ $scope.getFile = function (a) {
 
 
         }  
+        else if ($scope.uploadSrc == "warranty") { // upload product
+
+          // if($scope.file.type !== 'image/png' ){
+           if (($scope.file.size / 1024 < 2048)) {
+            action = {
+              warranty: {
+                userid: $rootScope.usersession.currentUser.userid,
+                warranty_id: $rootScope.Upload_warranty_id
+              }
+            };
+          } else {
+             // $scope.enableErrorMsg();
+             // UploadErrMsg.innerHTML = 'Image size must ne less than 2MB';
+             notify({message:" Image size must ne less than 2MB",template:'common/notification/views/notification-error.html',position:'center'});
+            // growl.addErrorMessage("Image size must ne less than 2MB");
+            $("#bar").hide();
+            setTimeout(function(){ jQuery("#FileName").hide(); },1000);
+          }
+          // }
+          // else{
+          //    $scope.enableErrorMsg();
+          //    UploadErrMsg.innerHTML = 'Please select image other than png';
+          //   // growl.addErrorMessage("Image size must ne less than 2MB");
+          //   $("#bar").hide();
+          //   setTimeout(function(){ jQuery("#FileName").hide(); },1000);
+          // }
+     
+
+
+        }  
         else if ($scope.uploadSrc == "org") { // upload org
         // if($scope.file.type !== 'image/png' ){
           if (($scope.file.size / 1024 < 2048)) {
@@ -282,6 +312,12 @@ $scope.getFile = function (a) {
   $scope.socket.on('orgKeyClientResponse', function (error, imagelocation) {
    $scope.orgKeyClientResponseHandler(error, imagelocation);
   });
+
+   $scope.socket.removeAllListeners('warrantyUploadResponse');
+  $scope.socket.on('warrantyUploadResponse', function (error, imagelocation) {
+   $scope.warrantyUploadResponseHandler(error, imagelocation);
+  });
+
     $scope.socket.removeAllListeners('productUploadLogoResponse');
   $scope.socket.on('productUploadLogoResponse', function (error, imagelocation) {
      $scope.productUploadLogoResponseHandler(error, imagelocation);
@@ -332,6 +368,53 @@ $scope.productUploadResponseHandler=function(error, imagelocation){
       document.getElementById('check'+temp1).style.color="#01DF74";
       $rootScope.$broadcast("productUploadResponseSuccess", "success");
       $log.debug("getting response for product upload  " + $scope.imageSrc);
+      // $scope.enableSuccessMsg();
+      // UploadSuccessMsg.innerHTML = 'File Uploaded successfully...';
+       notify({message:" File Uploaded successfully...",template:'common/notification/views/notification-success.html',position:'center'});
+      // growl.addSuccessMessage("File Uploaded successfully...");
+      $scope.counter++;
+      $log.debug($scope.counter);
+      if ($scope.counter < $scope.fileLength) {
+        $log.debug("emitting image " + $scope.counter);
+        //    $scope.getFile($scope.counter);
+      } else $scope.counter = 0;
+    }
+  setTimeout(function(){ jQuery("#FileName").hide(); },1000);
+};
+
+$scope.warrantyUploadResponseHandler=function(error, imagelocation){
+    $("#spinner").hide();
+ if (error) {
+      // $("#bar").hide();
+      
+      if (error.error.code == 'AP003') { // user already exist
+        $log.debug(error.error.code + " " + error.error.message);
+        // $scope.enableErrorMsg();
+        // UploadErrMsg.innerHTML = "Error while uploading " + $scope.file.name + " " + error.error.message;
+        notify({message:"Error while uploading " + $scope.file.name + " " + error.error.message,template:'common/notification/views/notification-error.html',position:'center'});
+        // growl.addErrorMessage("Error while uploading " + $scope.file.name + " " + error.error.message);
+      } else if (error.error.code == 'AV001') { // user data invalid
+        $log.debug(error.error.code + " " + error.error.message);
+        // $scope.enableErrorMsg();
+        // UploadErrMsg.innerHTML = "Error while uploading "+ $scope.file.name + " " + error.error.message;
+         notify({message:"Error while uploading " + $scope.file.name + " " + error.error.message,template:'common/notification/views/notification-error.html',position:'center'});
+        // growl.addErrorMessage(" Error while uploading " + $scope.file.name + " " + error.error.message);
+      } else {
+        $log.debug(error.error.message);
+        // $scope.enableErrorMsg();
+        // UploadErrMsg.innerHTML = "Error while uploading "+ $scope.file.name + " " + error.error.message;
+         notify({message:"Error while uploading " + $scope.file.name + " " + error.error.message,template:'common/notification/views/notification-error.html',position:'center'});
+        // growl.addErrorMessage("Error while uploading " + $scope.file.name + " " + error.error.message);
+      }
+
+    } else {
+      $scope.imageSrc = JSON.stringify(imagelocation);
+      $log.debug(JSON.stringify(imagelocation.success.filename));
+      $log.debug("Emit");
+      var temp1=imagelocation.success.filename.replace(/ /g,'');
+      document.getElementById('check'+temp1).style.color="#01DF74";
+      $rootScope.$broadcast("warrantyUploadLogoResponseSuccess", "success");
+      $log.debug("getting response for warranty upload  " + $scope.imageSrc);
       // $scope.enableSuccessMsg();
       // UploadSuccessMsg.innerHTML = 'File Uploaded successfully...';
        notify({message:" File Uploaded successfully...",template:'common/notification/views/notification-success.html',position:'center'});

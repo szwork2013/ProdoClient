@@ -597,11 +597,39 @@
 
      
         </table>
-        <center>
+       
         <div id="#invoice-img-div" ng-show="OpenInvoiceImage" class="row" >
+           
+          
+    <center>
 			<img ng-src="{{warranty.invoice_image.image}}" alt="..." class=" prodo-invoiceImage img-rounded">
-		</div>
 		</center>
+<br><br>
+     <div    ng-app="prodo.UploadApp" ng-controller="UploadController"  >
+    
+
+
+          <center>
+              <div class="controls" > 
+                <span class="btn btn-primary fileinput-button controls-upload prodo-uploadBtnWidth" >
+                <i class="glyphicon glyphicon-upload "></i>
+                <input   type="file" name="file" ng-file-select="onFileSelect($files)"  ng-click="uploadSrc = 'warranty';">
+                <span>Change Invoice </span>
+                </span>
+              </div>
+                <div id="FileName" > 
+          </div>
+           
+      </center>
+     
+
+
+
+          <!-- <span id="spinner" > <i  class=" prodo-loadmoreColor fa fa-spinner fa-spin "> </i></span>
+   
+      </div>
+    </div>
+	
 </div>
 <!-- display mode -->
 

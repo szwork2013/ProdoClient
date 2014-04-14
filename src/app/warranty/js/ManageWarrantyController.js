@@ -258,6 +258,7 @@ $scope.handleGetWarrantySuccess=function(successData,l_warrantyid){
     $log.debug(successData.success);
    $("#prodo-ProductDetails").css("display", "block");
         $scope.warranty=successData.success.Warranty;
+        $rootScope.Upload_warranty_id=$scope.warranty.warranty_id;
         $scope.OpenInvoiceImage=false;
         
   };
@@ -693,7 +694,11 @@ $scope.warrantyResponseHandler=function(error, imagelocation){
 // upload
 
 
-
+   var cleanupEventwarrantyUploadLogoResponseSuccess = $scope.$on("warrantyUploadLogoResponseSuccess",function(event,message){
+       // $log.debug("Listening");
+       $scope.newWarranty_Responsewarranty_id= $scope.warranty.warranty_id;
+      $state.reload();
+   });
 
 
 
