@@ -13,7 +13,8 @@ angular.module('prodo.WarrantyApp')
 $scope.newWarranty_Responsewarranty_id="";
    $scope.editMode = {
     // editorEnabled: false,
-    editorEnabledWarranty : false
+    editorEnabledWarranty : false,
+    editorEnabledWarrantyUpdate : false
   };
   $scope.warranty={};
   $scope.type=['extended','standard']
@@ -235,9 +236,11 @@ $scope.getAllProductNames();
 
  $scope.changeWarranty=function(warranty1){
   $scope.form.WarrantyForm.submitted=false;
+  $scope.form.WarrantyFormUpdate.submitted=false;
    
     $scope.getWarranty($scope.currentWarrantyId);
     $scope.editMode.editorEnabledWarranty = false;
+     $scope.editMode.editorEnabledWarrantyUpdate = false;
  
   };
 
@@ -286,7 +289,7 @@ $scope.handleGetWarrantySuccess=function(successData,l_warrantyid){
 
   $scope.getSelectedWarranty = function (warranty1) {
     // jQuery("#FileName").hide();
-    if($scope.editMode.editorEnabledWarranty == true ){
+    if($scope.editMode.editorEnabledWarranty == true || $scope.editMode.editorEnabledWarrantyUpdate == true ){
       // $scope.enableProductErrorMsg();
       // ProdERRMsg.innerHTML = "Please add product first then view other products..."; 
          $('#changeWarrantyModal').modal('toggle');
@@ -411,21 +414,95 @@ $scope.handleGetWarrantySuccess=function(successData,l_warrantyid){
 
 };
 
- //  $scope.handleAddWarrantySuccess=function(success){
- //    if(success.success){
- //    	$log.debug(success.success);
- //    }
- //   };
+  $scope.handleUpdateWarrantySuccess=function(success){
+    if(success.success){
+    	$log.debug(success.success);
+      $scope.disableEditorFeatureUpdate ();
+      $scope.newWarranty_Responsewarranty_id= $scope.warranty.warranty_id;
+      $state.reload();
+      // $scope.changeWarranty($scope.newWarranty_Responsewarranty_id)
+      // $scope.getWarranty($scope.newWarranty_Responsewarranty_id);//pass warranty id here from success response
+    }
+   };
  
- // $scope.handleAddWarrantyError=function(error){
- // 	if(error.code=='AL001'){
- //     $rootScope.showModal();
- //    }
- //    else{
- //     $log.debug(error.message);
- //    }
- // };
-    
+ $scope.handleUpdateWarrantyError=function(error){
+
+ 	if(error.code=='AL001'){
+     $rootScope.showModal();
+    }
+    else{
+       $scope.enableEditorFeatureUpdate ();
+     $log.debug(error.message);
+    }
+ };
+
+$scope.updateWarranty=function(){
+$log.debug($scope.warranty);
+  if($scope.form.WarrantyFormUpdate.$invalid){
+      $scope.form.WarrantyFormUpdate.submitted=true;
+    }
+    else{
+
+ 
+
+ $scope.updatedWarranty={
+  warrantydata: {
+    orgname: $scope.warranty.orgname,
+    // orgid: $scope.org.orgidfromUser,
+    name:  $scope.warranty.name,
+    // prodle: $scope.product.productidfromUser,
+    model_no: $scope.warranty.model_no,
+    model_name: $scope.warranty.model_name,
+    serial_no: $scope.warranty.serial_no,
+    purchase_date: $scope.warranty.purchase_date,
+    expirydate:  $scope.warranty.expirydate,
+    purchase_location:{
+      city:$scope.warranty.purchase_location.city,
+      country:$scope.warranty.purchase_location.country
+    } ,
+    description: $scope.warranty.description,
+    disclaimer: $scope.warranty.disclaimer ,
+    coverage: $scope.warranty.coverage ,
+    warranty_type:  $scope.warranty.warranty_type
+
+  }
+  };
+ 
+ $log.debug($scope.updatedWarranty);
+
+  WarrantyService.update_warranty.updateWarranty(
+   {
+     userid:$rootScope.usersession.currentUser.userid,
+     warrantyid:$scope.warranty.warranty_id
+   },  $scope.updatedWarranty,
+   function(success){
+     if(success.success){
+        $scope.handleUpdateWarrantySuccess(success);
+     }
+       else if(success.error){
+          $scope.handleUpdateWarrantyError(success.error);
+       }
+
+   },function(error){
+      $log.debug(error);
+   });
+   }
+ };
+
+
+
+ $scope.disableEditorFeatureUpdate = function () {
+    $scope.editMode.editorEnabledWarrantyUpdate = false;
+       $scope.form.WarrantyFormUpdate.submitted=false;
+   
+  };
+
+ $scope.enableEditorFeatureUpdate = function () {
+  $scope.form.WarrantyFormUpdate.$setPristine();
+    $scope.editMode.editorEnabledWarrantyUpdate = true;
+    growl.addInfoMessage("   Updating warranty data.....");
+     notify({message:" updating warranty data.....",template:'common/notification/views/notification-success.html',position:'center'});
+  };
 
 
 
