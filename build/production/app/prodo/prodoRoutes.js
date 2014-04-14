@@ -396,12 +396,12 @@ angular.module('prodo.ProdonusApp')
           return WarrantyService.get_allwarranties.getAllWarrantyDetails({userid: $rootScope.usersession.currentUser.userid}).$promise;
         }
       },
-      templateUrl:  'warranty/views/warranty.account.settings.tpl.html',
-      controller: 'ManageWarrantyController'
+      templateUrl:  'warranty/views/warranty.account.settings.tpl.html'
     })
     /* ----Warranty Account Nested Routes---- */
     .state('prodo.account-warranty.warranty.detail', {
-       templateUrl:  'warranty/views/warranty.account.details.tpl.html'
+       templateUrl:  'warranty/views/warranty.account.details.tpl.html',
+      controller: 'ManageWarrantyController'
     }) 
     .state('prodo.account-warranty.warranty.request', {
        templateUrl:  'warranty/views/warranty.account.service.request.tpl.html'
