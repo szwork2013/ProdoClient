@@ -573,10 +573,30 @@ $scope.getOrgProductDetailsForUpdate();
   };
 
  $scope.enableEditorFeature = function () {
- 	$scope.form.WarrantyForm.$setPristine();
-    $scope.editMode.editorEnabledWarranty = true;
-    growl.addInfoMessage("   Adding warranty data.....");
+
+    if($scope.editMode.editorEnabledWarranty == true || $scope.editMode.editorEnabledWarrantyUpdate == true ){
+      // $scope.enableProductErrorMsg();
+      // ProdERRMsg.innerHTML = "Please add product first then view other products..."; 
+         $('#addWarrantyModal').modal('toggle');
+      $('#addWarrantyModal').modal('show');
+
+      $('#addWarrantyOkButton').on('click', function (event) {
+         $scope.form.WarrantyForm.$setPristine();
+         $scope.editMode.editorEnabledWarranty = true;
+          $scope.disableEditorFeatureUpdate();
+         // growl.addInfoMessage("   Adding warranty data.....");
+         notify({message:" Adding warranty data.....",template:'common/notification/views/notification-success.html',position:'center'});
+      });
+
+
+      //modal code here , if yes clear data and show product if cancel, prev state
+    }else{
+     $scope.form.WarrantyForm.$setPristine();
+     $scope.editMode.editorEnabledWarranty = true;
+     // growl.addInfoMessage("   Adding warranty data.....");
      notify({message:" Adding warranty data.....",template:'common/notification/views/notification-success.html',position:'center'});
+  
+   }
   };
 
 // upload
