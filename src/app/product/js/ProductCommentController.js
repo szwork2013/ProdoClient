@@ -344,7 +344,7 @@ function (successData) {
       $("#prodo-uploadedCommentImage").css("display", "none");
       $scope.mytags = "";
     } else {
-      growl.addErrorMessage("Please follow this product to start commenting...");
+      growl.addErrorMessage("Please talkin this product to start commenting...");
     }
   
 }

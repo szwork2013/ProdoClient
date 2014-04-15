@@ -1411,6 +1411,7 @@ margin: 2px auto; position:absolute; }
 ul {/*list-style-type: none;*/ }
 /*li:nth-child(odd) {background-color:#F2F2F2;}*/
 .prodo-paddingLeft{padding-left: 50px;}
+.prodoCommentDeleteUp{font-size: 20px;color: rgb(185, 106, 141);margin-right: 5px;}
 #prodo-comment-textBox-container {padding-bottom: 10px;}
 #prodo-comment-media-list{border:3px;font-family: Helvetica ;font-size:14px;}
 #prodo-comment-Textbox { padding: 5px; height:40px;border-radius:10px;font-size:12px;   overflow: hidden;
