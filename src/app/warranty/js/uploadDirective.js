@@ -1,3 +1,16 @@
+/* Overview: Upload directive
+ * Upload directive to create buffer
+ * Dated: 08/04/2014.
+ * Author: Bhagyashri Jangam
+ * Copyright: Prodonus Software Private Limited and GiantLeap Systems Private Limited 2013
+ * Change History:
+ *
+ * date | author | description 
+ *
+ * 27-3/2013 | xyx | Add a new property
+ * 
+ */
+
 angular.module('prodo.WarrantyApp')
 .directive('ngFileSelectdata', ['fileReader', function( ) {
   return {
