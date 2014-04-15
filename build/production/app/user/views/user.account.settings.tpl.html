@@ -1,7 +1,9 @@
 <div class="container">
   <div prodo-signin-modal></div>
   <h4 id="user-account-heading">USER ACCOUNT</h4>
-
+  <div>
+    <div growl></div>
+  </div>
   <div class="account-profile-pic-container" ng-controller="UploadController">
     <div id="prodo-account-row" class="row">
 
@@ -61,55 +63,44 @@
     	<accordion-heading>
         <p class="prodo-accordion-heading">GENERAL SETTINGS<i class="fa fa-pencil pull-right"></i></p>
       </accordion-heading>
-        <div ng-show='hasChangedEmail'>
-          <div growl></div>
-        </div>
-        <a ng-hide="editEmail" class="prodo-account-btn btn btn-primary btn-sm pull-right" href="#" ng-click="emailEditor()"><i class="prodo-fa fa fa-pencil-square-o"></i>Edit</a>
+        
+        <h5 class="prodo-wall-org-heading-text">CHANGE EMAIL</h5>
+        <hr size=3 class="prodo-wall-org-hr" noshade>    
+        <br>
         <div>
           <form name="form.usergeneralsettingform" class="css-form" ng-submit='' novalidate>
             <dl class="dl-horizontal">
               <dt>Email:</dt>
               <dd ng-hide="editEmail">{{user.email}}</dd>
-              <dd ng-show="editEmail"><input name="email" type="email" class="prodo-account-form-control form-control" placeholder="example@gmail.com" ng-model="user.email" required><small ng-show="(form.usergeneralsettingform.email.$error.required && !form.usergeneralsettingform.submitted)">Email is required!</small><small ng-show="(form.usergeneralsettingform.email.$error.email && !form.usergeneralsettingform.submitted)">Enter valid email!</small>
+              <dd ng-show="editEmail"><input name="email" type="email" class="prodo-account-form-control form-control" placeholder="example@gmail.com" ng-model="user.email" required>
+                <small ng-show="((form.usergeneralsettingform.email.$dirty && form.usergeneralsettingform.email.$invalid) || (form.usergeneralsettingform.email.$invalid && form.usergeneralsettingform.submitted))">*Please enter a valid email address!</small>
               </dd>
               <br>
               <dt ng-show="editEmail">Password:</dt>
-              <dd ng-show="editEmail"><input name="password" class="prodo-account-form-control form-control" type="password" ng-model="user.password" placeholder="Please enter your password" required><small ng-show="(form.usergeneralsettingform.password.$dirty && form.usergeneralsettingform.password.$error.required && !form.usergeneralsettingform.submitted)">Password is required!</small></dd>
-              <dd ng-show="(form.usergeneralsettingform.submitted && form.usergeneralsettingform.$invalid)"><p class="text-danger">
-                <small ><ul>Please enter correct data.
-                  <li ng-show="form.usergeneralsettingform.email.$error.required">Email is required!</li>
-                  <li ng-show="form.usergeneralsettingform.email.$error.email">Email is required!</li>
-                  <li ng-show="form.usergeneralsettingform.password.$error.required">Password is required!</li>
-                </ul></small>
-              </p></dd>
+              <dd ng-show="editEmail"><input name="password" class="prodo-account-form-control form-control" type="password" ng-model="user.password" placeholder="Please enter your password" required><small ng-show="((form.usergeneralsettingform.password.$dirty && form.usergeneralsettingform.password.$invalid) || (form.usergeneralsettingform.password.$invalid && form.usergeneralsettingform.submitted))">*Password is required!</small></dd>
             </dl>
               <button ng-show="editEmail" class="prodo-account-btn btn btn-primary btn-sm pull-right" ng-click='updateUserEmail()'><i class="prodo-fa fa fa-save"></i>Save</button>
               <button ng-show="editEmail" class="prodo-account-btn btn btn-primary btn-sm pull-right" ng-click="emailEditor()"><i class="prodo-fa fa fa-times"></i>Cancel</button>
           </form>
+          <a ng-hide="editEmail" class="prodo-account-btn btn btn-primary btn-sm pull-right" href="#" ng-click="emailEditor()"><i class="prodo-fa fa fa-pencil-square-o"></i>Edit</a>
         </div>
         <br>
-        <hr size=3 class="prodo-account-hr" noshade>
-        <p class="prodo-account-text-info text-info"><strong>Change Password Settings</strong></p>
-        <div ng-show='hasChangedPassword'>
-          <div growl></div>
-        </div>
+        <br>
+        <h5 class="prodo-wall-org-heading-text">CHANGE PASSWORD</h5>
+        <hr size=3 class="prodo-wall-org-hr" noshade>    
+        <br>
         <div>
           <form name="form.userpasswordsettingform" ng-submit='' novalidate>
             <dl class="dl-horizontal">
               <dt>Current Password:</dt>
-              <dd><input name="currentpwd" type="password" class="prodo-account-form-control form-control" ng-model="user.currentpassword" placeholder="Please enter your current password" required><small ng-show="(form.userpasswordsettingform.currentpwd.$dirty && form.userpasswordsettingform.currentpwd.$error.required && form.userpasswordsettingform.submitted)">Password is required!</small></dd>
+              <dd><input name="currentpwd" type="password" class="prodo-account-form-control form-control" ng-model="user.currentpassword" placeholder="Please enter your current password" required><small ng-show="((form.userpasswordsettingform.currentpwd.$dirty && form.userpasswordsettingform.currentpwd.$invalid) || (form.userpasswordsettingform.currentpwd.$invalid && form.userpasswordsettingform.submitted))">*Password is required!</small></dd>
               <br>
               <dt>New Password:</dt>
               <dd><input name="newpwd" type="password" class="prodo-account-form-control form-control" ng-model="user.newpassword" prodonus-password-validate placeholder="Please enter your new password" required>
-              <small ng-show="(form.userpasswordsettingform.newpwd.$dirty && form.userpasswordsettingform.newpwd.$invalid && form.userpasswordsettingform.submitted)">Password should contain atleast 6 characters, a number, alphabet and special symbol.</small></dd>
+              <small ng-show="((form.userpasswordsettingform.newpwd.$dirty && form.userpasswordsettingform.newpwd.$invalid) || (form.userpasswordsettingform.newpwd.$invalid && form.userpasswordsettingform.submitted))">*Password should contain atleast 6 characters, a number, alphabet and special symbol!</small></dd>
               <br>
               <dt>Confirm Password:</dt>
-              <dd><input name="confirmpwd" type="password" class="prodo-account-form-control form-control" ng-model="user.confirmpassword" prodonus-password-check="user.newpassword" placeholder="Please confirm your password" required><small ng-show="(form.userpasswordsettingform.confirmpwd.$dirty && (form.userpasswordsettingform.confirmpwd.$error.required || form.userpasswordsettingform.confirmpwd.$invalid) && form.userpasswordsettingform.submitted)">Password is must and should be same as above.</small></dd>
-              <br>
-              <dd ng-show="(form.userpasswordsettingform.submitted && form.userpasswordsettingform.$invalid)"><p class="text-danger">
-                <small>Please enter correct data.
-                </small>
-              </p></dd>
+              <dd><input name="confirmpwd" type="password" class="prodo-account-form-control form-control" ng-model="user.confirmpassword" prodonus-password-check="user.newpassword" placeholder="Please confirm your password" required><small ng-show="((form.userpasswordsettingform.confirmpwd.$dirty && form.userpasswordsettingform.confirmpwd.$invalid) || (form.userpasswordsettingform.confirmpwd.$invalid && form.userpasswordsettingform.submitted))">*Password is must and should be same as above!</small></dd>
             </dl>
             <div>
               <button class="prodo-account-btn btn btn-primary btn-sm pull-right" ng-click='changePassword()'><i class="prodo-fa fa fa-save"></i>Save</button>
@@ -119,22 +110,22 @@
         </div>
 
         <br>
-        <hr class="prodo-account-hr" size=3 noshade>
-        <p class="prodo-account-text-info text-info"><strong>Personal Settings</strong></p>
-        <div ng-show='hasChangedPersonalSettings'>
-          <div growl></div>
-        </div>
-        <a ng-hide="!hasPersonalDetail || editorEnabled" class="prodo-account-btn btn btn-primary btn-sm pull-right" href="#" ng-click="enableEditor()"><i class="prodo-fa fa fa-pencil-square-o"></i>Edit</a>
+        <br>
+        <h5 ng-show="!hasPersonalDetail" class="prodo-wall-org-heading-text">ADD PERSONAL DETAILS</h5>
+        <h5 ng-hide="!hasPersonalDetail" class="prodo-wall-org-heading-text">CHANGE PERSONAL DETAILS</h5>
+        <hr size=3 class="prodo-wall-org-hr" noshade>    
+        <br>
+        
         <div>
           <form name="form.userpersonalsettingform" ng-submit='' novalidate>
             <dl class="dl-horizontal">
               <dt>Firstname:</dt>
               <dd ng-hide="!hasPersonalDetail || editorEnabled">{{user.firstname}}</dd>
-              <dd ng-show="!hasPersonalDetail || editorEnabled"><input type="text" name="fname" class="prodo-account-form-control form-control" ng-model="user.firstname" placeholder="firstname" required><small ng-show="(form.userpersonalsettingform.fname.$dirty && form.userpersonalsettingform.fname.$error.required)">Firstname is required!</small></dd>
+              <dd ng-show="!hasPersonalDetail || editorEnabled"><input type="text" name="fname" class="prodo-account-form-control form-control" ng-model="user.firstname" placeholder="firstname" required><small ng-show="((form.userpersonalsettingform.fname.$dirty && form.userpersonalsettingform.fname.$invalid) || (form.userpersonalsettingform.fname.$invalid && form.userpersonalsettingform.submitted))">*Firstname is required!</small></dd>
               <br>
               <dt>Lastname:</dt>
               <dd ng-hide="!hasPersonalDetail || editorEnabled">{{user.lastname}}</dd>
-              <dd ng-show="!hasPersonalDetail || editorEnabled"><input type="text" name="lname" class="prodo-account-form-control form-control" ng-model="user.lastname" placeholder="lastname" required><small ng-show="(form.userpersonalsettingform.lname.$dirty && form.userpersonalsettingform.lname.$error.required)">Lastname is required!</small></dd>
+              <dd ng-show="!hasPersonalDetail || editorEnabled"><input type="text" name="lname" class="prodo-account-form-control form-control" ng-model="user.lastname" placeholder="lastname" required><small ng-show="((form.userpersonalsettingform.lname.$dirty && form.userpersonalsettingform.lname.$invalid) || (form.userpersonalsettingform.lname.$invalid && form.userpersonalsettingform.submitted))">*Lastname is required!</small></dd>
               <br>
               <dt>Date Of Birth:</dt>
               <dd ng-hide="!hasPersonalDetail || editorEnabled">{{user.dob | date: 'MMM-dd-yyyy'}}</dd>
@@ -147,14 +138,13 @@
               <br>
               <dt>Mobile No:</dt>
               <dd ng-hide="!hasPersonalDetail || editorEnabled">{{user.mobile}}</dd>
-              <dd ng-show="!hasPersonalDetail || editorEnabled"><input type="text" name="mobile" ng-pattern="/^[0-9]{10}$/" class="prodo-account-form-control form-control" ng-model="user.mobile" placeholder="mobile no."><small ng-show="(form.userpersonalsettingform.mobile.$dirty && form.userpersonalsettingform.mobile.$error.pattern)">Mobile no. should not be more than 10 digits.</small></dd>
+              <dd ng-show="!hasPersonalDetail || editorEnabled"><input type="text" name="mobile" ng-pattern="/^[0-9]{10}$/" class="prodo-account-form-control form-control" ng-model="user.mobile" placeholder="mobile no."><small ng-show="((form.userpersonalsettingform.mobile.$dirty && form.userpersonalsettingform.mobile.$invalid) || (form.userpersonalsettingform.mobile.$invalid && form.userpersonalsettingform.submitted))">*Mobile no. should contain exactly 10 digits!</small></dd>
               <br>
               <dt>Phone No:</dt>
               <dd ng-hide="!hasPersonalDetail || editorEnabled">{{user.phone}}</dd>
-              <dd ng-show="!hasPersonalDetail || editorEnabled"><input type="text" name="phone" ng-pattern="/^[0-9]*$/" class="prodo-account-form-control form-control" ng-model="user.phone" placeholder="phone no.(020-2123456)"><small ng-show="(form.userpersonalsettingform.phone.$dirty && form.userpersonalsettingform.phone.$error.pattern)">Phone no should only contain digits.</small></dd>
-              <br>
-              <dd><p class="text-danger"><small>{{personalsettingchange}}</small></p></dd>
+              <dd ng-show="!hasPersonalDetail || editorEnabled"><input type="text" name="phone" ng-pattern="/^[0-9]*$/" class="prodo-account-form-control form-control" ng-model="user.phone" placeholder="phone no.(0202123456)"><small ng-show="((form.userpersonalsettingform.phone.$dirty && form.userpersonalsettingform.phone.$invalid) || (form.userpersonalsettingform.phone.$invalid && form.userpersonalsettingform.submitted))">*Phone no. should only contain digits!</small></dd>
             </dl>
+            <a ng-hide="!hasPersonalDetail || editorEnabled" class="prodo-account-btn btn btn-primary btn-sm pull-right" href="#" ng-click="enableEditor()"><i class="prodo-fa fa fa-pencil-square-o"></i>Edit</a>
             <div ng-show="(!hasPersonalDetail && !editorEnabled) || (hasPersonalDetail && editorEnabled)">
               <button class="prodo-account-btn btn btn-primary btn-sm pull-right" ng-click='updateUserAccount()'><i class="prodo-fa fa fa-save"></i>Save</button>
               <button class="prodo-account-btn btn btn-primary btn-sm pull-right" ng-click="disableEditor()"><i class="prodo-fa fa fa-times"></i>Cancel</button>
@@ -162,32 +152,34 @@
           </form>
         </div>
     </accordion-group>
-    
+
+<!-- ////////////////////////////////////////////////////////////////////// -->    
     <accordion-group ng-hide="user.org.orgid">
     	<accordion-heading>
         <p class="prodo-accordion-heading">LOCATION<i class="fa fa-pencil pull-right"></i></p>
       </accordion-heading>
-        <p class="prodo-account-text-info text-info"><strong>User Address Settings</strong></p>
-        <div ng-show='hasChangedAddress'>
-          <div growl></div>
+        <div ng-show="(!hasAddress || editAddress)">
+        <h5 class="prodo-wall-org-heading-text">ADD LOCATION DETAILS</h5>
+        <hr size=3 class="prodo-wall-org-hr" noshade>    
+        <br>
         </div>
         <div ng-show="(!hasAddress || editAddress)">
           <form name="form.userlocationsettingform" ng-submit='' novalidate>
             <dl class="dl-horizontal">
               <dt>Address Line1:</dt>
-              <dd><input name="address1" type="text" class="prodo-account-form-control form-control" ng-model="user.address.address1" placeholder="address line1" required><small ng-show="(form.userlocationsettingform.address1.$dirty && form.userlocationsettingform.address1.$error.required)">Address is required.</small></dd><br>
+              <dd><input name="address1" type="text" class="prodo-account-form-control form-control" ng-model="user.address.address1" placeholder="address line1" required><small ng-show="((form.userlocationsettingform.address1.$dirty && form.userlocationsettingform.address1.$invalid) || (form.userlocationsettingform.address1.$invalid && form.userlocationsettingform.submitted))">*Address is required!</small></dd><br>
               <dt>Address Line2:</dt>
-              <dd><input name="address2" type="text" class="prodo-account-form-control form-control" ng-model="user.address.address2" placeholder="address line2" required><small ng-show="(form.userlocationsettingform.address2.$dirty && form.userlocationsettingform.address2.$error.required)">Address is required.</small></dd><br>
+              <dd><input name="address2" type="text" class="prodo-account-form-control form-control" ng-model="user.address.address2" placeholder="address line2" required><small ng-show="((form.userlocationsettingform.address2.$dirty && form.userlocationsettingform.address2.$invalid) || (form.userlocationsettingform.address2.$invalid && form.userlocationsettingform.submitted))">*Address is required!</small></dd><br>
               <dt>Address Line3:</dt>
               <dd><input name="address3" type="text" class="prodo-account-form-control form-control" ng-model="user.address.address3" placeholder="address line3"></dd><br>
               <dt>Country:</dt>
-              <dd><input name="country" type="text" ng-pattern="/^[A-z]*$/" class="prodo-account-form-control form-control" ng-model="user.address.country" placeholder="country" required><small ng-show="(form.userlocationsettingform.country.$dirty && form.userlocationsettingform.country.$invalid)">Country should contain only letters.</small></dd><br>
+              <dd><input name="country" type="text" ng-pattern="/^[A-z]*$/" class="prodo-account-form-control form-control" ng-model="user.address.country" placeholder="country" required typeahead="country for country in countries | filter:$viewValue | limitTo:8"><small ng-show="((form.userlocationsettingform.country.$dirty && form.userlocationsettingform.country.$invalid) || (form.userlocationsettingform.country.$invalid && form.userlocationsettingform.submitted))">*Country should contain only letters!</small></dd><br>
               <dt>State:</dt>
-              <dd><input name="state" type="text" ng-pattern="/^[A-z]*$/"  class="prodo-account-form-control form-control" ng-model="user.address.state" placeholder="state" required><small ng-show="(form.userlocationsettingform.state.$dirty && form.userlocationsettingform.state.$invalid)">State should contain only letters.</small></dd><br>
+              <dd><input name="state" type="text" ng-pattern="/^[A-z]*$/"  class="prodo-account-form-control form-control" ng-model="user.address.state" placeholder="state" required typeahead="state for state in return_states() | filter:$viewValue | limitTo:8"><small ng-show="((form.userlocationsettingform.state.$dirty && form.userlocationsettingform.state.$invalid) || (form.userlocationsettingform.state.$invalid && form.userlocationsettingform.submitted))">*State should contain only letters!</small></dd><br>
               <dt>City:</dt>
-              <dd><input name="city" type="text" ng-pattern="/^[A-z]*$/" class="prodo-account-form-control form-control" ng-model="user.address.city" placeholder="city" required><small ng-show="(form.userlocationsettingform.city.$dirty && form.userlocationsettingform.city.$invalid)">City should contain only letters.</small></dd><br>
+              <dd><input name="city" type="text" ng-pattern="/^[A-z]*$/" class="prodo-account-form-control form-control" ng-model="user.address.city" placeholder="city" required typeahead="city for city in return_cities() | filter:$viewValue | limitTo:8"><small ng-show="((form.userlocationsettingform.city.$dirty && form.userlocationsettingform.city.$invalid) || (form.userlocationsettingform.city.$invalid && form.userlocationsettingform.submitted))">*City should contain only letters!</small></dd><br>
               <dt>Zipcode:</dt>
-              <dd><input name="zipcode" type="text" ng-pattern="/^[0-9]*$/" class="prodo-account-form-control form-control" ng-model="user.address.zipcode" placeholder="zipcode"><small ng-show="(form.userlocationsettingform.zipcode.$dirty && form.userlocationsettingform.zipcode.$invalid)">Zipcode should only contain digits.</small></dd>
+              <dd><input name="zipcode" type="text" ng-pattern="/^[0-9]*$/" class="prodo-account-form-control form-control" ng-model="user.address.zipcode" placeholder="zipcode"><small ng-show="((form.userlocationsettingform.zipcode.$dirty && form.userlocationsettingform.zipcode.$invalid) || (form.userlocationsettingform.zipcode.$invalid && form.userlocationsettingform.submitted))">*Zipcode should only contain digits!</small></dd>
               <br>
               <dd><p class="text-danger"><small>{{locationsettingchange}}</small></p></dd>
             </dl>
@@ -198,30 +190,36 @@
           </form>
         </div>
         <div ng-show="(hasAddress && !editAddress)">
-          <a ng-hide="editAddress" class=" prodo-account-btn btn btn-primary btn-sm pull-right" href="#" ng-click="addrEditor()"><i class="prodo-fa fa fa-pencil-square-o"></i>Edit</a>
+          <br>
+          <h5 class="prodo-wall-org-heading-text">CHANGE LOCATION DETAILS</h5>
+          <hr size=3 class="prodo-wall-org-hr" noshade>    
+          <br>
           <dl class="dl-horizontal">
               <dt>Address:</dt>
               <dd>
                 <address>
-                  {{user.address.address1}},<br>
-                  {{user.address.address2}},<br>
-                  {{user.address.address3}}, {{user.address.city}}<br>
+                  {{user.address.address1}}<br>
+                  {{user.address.address2}}<br>
+                  {{user.address.address3}} {{user.address.city}}<br>
                   {{user.address.state}}, {{user.address.country}}<br>
-                  <abbr title="Zipcode">Z:</abbr> {{user.address.zipcode}}
+                  <abbr title="Zipcode">Zipcode:</abbr> {{user.address.zipcode}}
                 </address>
               </dd>
             </dl>
+            <a ng-hide="editAddress" class=" prodo-account-btn btn btn-primary btn-sm pull-right" href="#" ng-click="addrEditor()"><i class="prodo-fa fa fa-pencil-square-o"></i>Edit</a>
         </div>
            
     </accordion-group>
 
+<!-- ////////////////////////////////////////////////////////////////////// -->
+    
     <accordion-group>
     	<accordion-heading>
         <p class="prodo-accordion-heading">INVITES<i class="fa fa-pencil pull-right"></i></p>
       </accordion-heading>
-        <div ng-show='isInvites'>
-          <div growl></div>
-        </div>
+        <h5 class="prodo-wall-org-heading-text">SEND INVITES</h5>
+        <hr size=3 class="prodo-wall-org-hr" noshade>    
+        <br>
         <button class="prodo-account-invites-btn btn btn-info btn-sm" ng-click="addUserInvites()"><i class="prodo-fa fa fa-plus-square"></i>Add More Users</button>
         
         <form name="form.userinvitesform" ng-submit='' novalidate>
@@ -229,19 +227,21 @@
             <tbody>
             
               <tr ng-repeat="userinvite in userinvites">
-                <td width="45%"><input class="form-control" ng-model="userinvite.name" type="text" placeholder="name" required> </td>
-                <td width="45%"><input class="form-control" ng-model="userinvite.email" type="email" placeholder="example@gmail.com" required></td>
+                <td width="45%"><input class="form-control" ng-model="userinvite.name" type="text" name="name" placeholder="name" required><small ng-show="((form.userinvitesform.name.$dirty && form.userinvitesform.name.$invalid) || (form.userinvitesform.name.$invalid && form.userinvitesform.submitted))">*Name is required!</small> </td>
+                <td width="45%"><input class="form-control" ng-model="userinvite.email" name="email" type="email" placeholder="example@gmail.com" required><small ng-show="((form.userinvitesform.email.$dirty && form.userinvitesform.email.$invalid) || (form.userinvitesform.email.$invalid && form.userinvitesform.submitted))">*Enter valid email!</small> </td>
                 <td width="10%"><button class="prodo-account-btn btn btn-danger btn-sm" ng-click='removeInvites(userinvite)'><i class="prodo-fa fa fa-times"></i>remove</button></td>
               </tr>
               <br>
               <p class="text-danger"><small>{{invitesettingchange}}</small></p>
             </tbody>
           </table>
-          <button class="prodo-account-btn btn btn-primary btn-sm pull-right" ng-click='sendUserInvites()'><i class="prodo-fa fa fa-share"></i>Send</button>
+          <button ng-show="userinvites.length > 0" class="prodo-account-btn btn btn-primary btn-sm pull-right" ng-click='sendUserInvites()'><i class="prodo-fa fa fa-share"></i>Send</button>
         </form>
         
         
     </accordion-group>
+
+<!-- ////////////////////////////////////////////////////////////////////// -->
 
     <accordion-group>
     	<accordion-heading>
@@ -250,30 +250,21 @@
         <div ng-show='isUnfollowed'>
           <div growl></div>
         </div>
-        <div ng-show="(user.products_followed.length == 0)">
-          <p class="prodo-account-text-success text-success"><strong><em>You are not following any products.</em></strong></p>
-        </div>
-        <div class="product-container" ng-repeat="productf in products_followed">
-          <p class="product-name-heading">{{productf.name}}</p>
-          <img ng-show="productf.product_logo" src="{{productf.product_logo.image}}" alt=" No Image" class="prodo-product-img img-rounded">
-          <img ng-hide="productf.product_logo" alt=" No Image" class="prodo-product-img img-rounded" src="../../assets/images/if_no_logo_images_available.gif">
-          <button class="prodo-account-unfollow-btn btn btn-primary btn-sm" ng-click='unfollow(productf)'>Talkout</button>
-        </div>
-    </accordion-group>
-    <accordion-group>
-      <accordion-heading>
-            <p class="prodo-accordion-heading">PRODUCTS RECOMMENDED<i class="fa fa-pencil pull-right"></i></p>
-        </accordion-heading>
-          <div ng-show="(user.products_recommends.length == 0)">
-            <p class="prodo-account-text-success text-success"><strong><em>You have not recommended any products.</em></strong></p>
+        <div class="row">
+          <div ng-show="(user.products_followed.length == 0)">
+            <p class="prodo-account-text-success text-success"><strong><em>You are not following any products.</em></strong></p>
           </div>
-          <div class="product-container" ng-repeat="productr in products_recommends">
-            <p class="product-name-heading">{{productr.name}}</p>
-            <img ng-show="productr.product_logo" src="{{productr.product_logo.image}}" alt=" No Image" class="prodo-product-img img-rounded">
-            <img ng-hide="productr.product_logo" alt=" No Image" class="prodo-product-img img-rounded" src="../../assets/images/if_no_logo_images_available.gif">
+          <div class="prodo-wall-org-product-container col-xs-2" ng-repeat="productf in products_followed">
+            
+            <p class="truncated-product-name prodo-wall-org-product-name" tooltip="{{productf.name}}" tooltip-placement="right">{{productf.name}}</p>
+            <img ng-show="productf.product_logo" src="{{productf.product_logo.image}}" alt=" No Image" class="prodo-wall-org-productimg img-rounded">
+            <img ng-hide="productf.product_logo" src="../../../assets/images/if_no_logo_images_available.gif" alt=" No Image" class="prodo-wall-org-productimg img-rounded">
+            <button class="prodo-follow-btn btn btn-primary btn-sm" ng-click='unfollow(productf)'>Talkout</button>
+          </div>
         </div>
     </accordion-group>
 
+<!-- ////////////////////////////////////////////////////////////////////// -->
     <accordion-group ng-hide='user.org.orgid'>
     	<accordion-heading>
            <p class="prodo-accordion-heading">SUBSCRIPTION<i class="fa fa-pencil pull-right"></i></p>
@@ -283,7 +274,7 @@
           No payment has been taken during trial plan.</em></strong></p>
         </div>
     </accordion-group>
-
+<!-- ////////////////////////////////////////////////////////////////////// -->
     <accordion-group ng-hide='user.org.orgid'>
     	<accordion-heading>
             <p class="prodo-accordion-heading">PAYMENT<i class="fa fa-pencil pull-right"></i></p>
@@ -293,7 +284,7 @@
           No payment has been taken during trial plan.</em></strong></p>
         </div>
     </accordion-group>
-
+<!-- ////////////////////////////////////////////////////////////////////// -->
     <accordion-group ng-hide='user.org.orgid'>
     	<accordion-heading>
             <p class="prodo-accordion-heading">PAYMENT HISTORY<i class="fa fa-pencil pull-right"></i></p>
