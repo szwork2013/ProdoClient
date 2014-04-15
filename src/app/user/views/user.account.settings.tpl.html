@@ -153,7 +153,7 @@
         </div>
     </accordion-group>
 
-<!-- ////////////////////////////////////////////////////////////////////// -->    
+    
     <accordion-group ng-hide="user.org.orgid">
     	<accordion-heading>
         <p class="prodo-accordion-heading">LOCATION<i class="fa fa-pencil pull-right"></i></p>
@@ -211,7 +211,7 @@
            
     </accordion-group>
 
-<!-- ////////////////////////////////////////////////////////////////////// -->
+
     
     <accordion-group>
     	<accordion-heading>
@@ -232,7 +232,7 @@
                 <td width="10%"><button class="prodo-account-btn btn btn-danger btn-sm" ng-click='removeInvites(userinvite)'><i class="prodo-fa fa fa-times"></i>remove</button></td>
               </tr>
               <br>
-              <p class="text-danger"><small>{{invitesettingchange}}</small></p>
+              <p ng-show="userinvites.length > 0" class="text-danger"><small>{{invitesettingchange}}</small></p>
             </tbody>
           </table>
           <button ng-show="userinvites.length > 0" class="prodo-account-btn btn btn-primary btn-sm pull-right" ng-click='sendUserInvites()'><i class="prodo-fa fa fa-share"></i>Send</button>
@@ -241,7 +241,7 @@
         
     </accordion-group>
 
-<!-- ////////////////////////////////////////////////////////////////////// -->
+
 
     <accordion-group>
     	<accordion-heading>
@@ -264,7 +264,7 @@
         </div>
     </accordion-group>
 
-<!-- ////////////////////////////////////////////////////////////////////// -->
+
     <accordion-group ng-hide='user.org.orgid'>
     	<accordion-heading>
            <p class="prodo-accordion-heading">SUBSCRIPTION<i class="fa fa-pencil pull-right"></i></p>
@@ -274,7 +274,7 @@
           No payment has been taken during trial plan.</em></strong></p>
         </div>
     </accordion-group>
-<!-- ////////////////////////////////////////////////////////////////////// -->
+
     <accordion-group ng-hide='user.org.orgid'>
     	<accordion-heading>
             <p class="prodo-accordion-heading">PAYMENT<i class="fa fa-pencil pull-right"></i></p>
@@ -284,7 +284,7 @@
           No payment has been taken during trial plan.</em></strong></p>
         </div>
     </accordion-group>
-<!-- ////////////////////////////////////////////////////////////////////// -->
+
     <accordion-group ng-hide='user.org.orgid'>
     	<accordion-heading>
             <p class="prodo-accordion-heading">PAYMENT HISTORY<i class="fa fa-pencil pull-right"></i></p>
