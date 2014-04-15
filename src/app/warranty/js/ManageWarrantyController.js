@@ -5,10 +5,16 @@ angular.module('prodo.WarrantyApp')
 
  $scope.clearText = function () {
     // prodo-product-features_textfield
-    $scope.productwarranty = {};
- $scope.purchase_location={};
+  $scope.productwarranty = {};
+  $scope.purchase_location={};
   $scope.org={};
   $scope.product={};
+  $scope.productOrgName.name="";
+  $scope.productallProductName.name="";
+  $scope.file_data={} ;
+  $scope.file={};
+  $scope.file1="";
+  $scope.isValidImage=false;
   }
 $scope.newWarranty_Responsewarranty_id="";
    $scope.editMode = {
@@ -179,8 +185,9 @@ $log.debug("Deleting");
           $scope.getWarranty($scope.newWarranty_Responsewarranty_id);
           $scope.newWarranty_Responsewarranty_id="";
         }
-        else
+        else{
           $scope.getWarranty($scope.currentWarrantyId);
+        }
       }
   };
 
@@ -704,13 +711,14 @@ $scope.warrantyResponseHandler=function(error, imagelocation){
       $state.reload();
       $scope.newWarranty_Responsewarranty_id= imagelocation.success.warranty_id
       // $scope.changeWarranty($scope.newWarranty_Responsewarranty_id)
-      $scope.getWarranty($scope.newWarranty_Responsewarranty_id);//pass warranty id here from success response
+      // $scope.getWarranty($scope.newWarranty_Responsewarranty_id);//pass warranty id here from success response
       $scope.counter++;
       $log.debug($scope.counter);
       if ($scope.counter < $scope.fileLength) {
         // $log.debug("emitting image " + $scope.counter);
         //    $scope.getFile($scope.counter);
       } else $scope.counter = 0;
+
     }
 
 };
