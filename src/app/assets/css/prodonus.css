@@ -327,7 +327,11 @@ color: #595365;
 }
 
 .prodo-account-invites-btn{
-	background-color:#47707C; border-color:#3C555C; border-radius: 10px; margin: 15px;
+	background-color:#47707C; border-color:#3C555C;
+}
+
+.prodo-account-invites-btn:hover, .prodo-account-invites-btn:active, .prodo-account-invites-btn:focus {
+	background-color:#47706D; border-color:#3C555C;
 }
 
 .prodo-account-unfollow-btn{

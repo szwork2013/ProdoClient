@@ -537,15 +537,17 @@ angular.module('prodo.UserApp')
 
     // Update Personal settings for user start........................................
 
-    $scope.enableEditor = function() {
-      if ($scope.editorEnabled) {
-        $scope.form.userpersonalsettingform.submitted = false;
-        $scope.form.userpersonalsettingform.$setPristine();
-        $scope.editorEnabled = false;
-      } else {
-        $scope.editorEnabled = true;
-      }
+    $scope.disableEditor = function() {
+      $scope.form.userpersonalsettingform.submitted = false;
+      $scope.form.userpersonalsettingform.$setPristine();
+      $scope.editorEnabled = false;
     };
+
+    $scope.enableEditor = function() {
+      $scope.editorEnabled = true;
+    };
+
+
     
     // function to send and stringify user email to Rest APIs for user account update
     $scope.jsonUserAccountData = function()
@@ -584,7 +586,7 @@ angular.module('prodo.UserApp')
 
     $scope.updateUserAccount = function() {
       if ($scope.form.userpersonalsettingform.$valid) {
-        $scope.enableEditor();
+        $scope.disableEditor();
         UserSessionService.saveUserSettings($scope.jsonUserAccountData());
       } else {
         $scope.form.userpersonalsettingform.submitted = true;
