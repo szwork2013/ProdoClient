@@ -1,5 +1,5 @@
 angular.module('prodo.WarrantyApp')
- .controller('ManageWarrantyController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$log', 'growl', 'WarrantyService', 'checkIfSessionExist','orgnameData','productnameData','warrantydata','fileReader','ENV','isLoggedin','notify', function($scope, $rootScope, $state, $http, $timeout, $log, growl, WarrantyService, checkIfSessionExist,orgnameData,productnameData,warrantydata,fileReader,ENV,isLoggedin,notify) {
+ .controller('ManageWarrantyController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$log', 'growl', 'WarrantyService', 'checkIfSessionExist','orgnameData','productnameData','warrantydata','fileReader','ENV','isLoggedin','notify','dateFilter', function($scope, $rootScope, $state, $http, $timeout, $log, growl, WarrantyService, checkIfSessionExist,orgnameData,productnameData,warrantydata,fileReader,ENV,isLoggedin,notify,dateFilter) {
    
    $scope.$state = $state;
 
@@ -253,11 +253,15 @@ $scope.getAllProductNames();
      notify({message:error.message,template:'common/notification/views/notification-error.html',position:'center'});
     }       
  };
+
+
 $scope.handleGetWarrantySuccess=function(successData,l_warrantyid){
   if(successData.success)
     $log.debug(successData.success);
    $("#prodo-ProductDetails").css("display", "block");
         $scope.warranty=successData.success.Warranty;
+        $scope.warranty.purchase_date = dateFilter($scope.warranty.purchase_date, 'yyyy-MM-dd');
+        $scope.warranty.expirydate = dateFilter($scope.warranty.expirydate, 'yyyy-MM-dd');
         $rootScope.Upload_warranty_id=$scope.warranty.warranty_id;
         $scope.OpenInvoiceImage=false;
         
@@ -418,6 +422,7 @@ $scope.handleGetWarrantySuccess=function(successData,l_warrantyid){
 
   $scope.handleUpdateWarrantySuccess=function(success){
     if(success.success){
+       notify({message:"Warranty updated successfully",template:'common/notification/views/notification-success.html',position:'center'});
     	$log.debug(success.success);
       $scope.disableEditorFeatureUpdate ();
       $scope.newWarranty_Responsewarranty_id= $scope.warranty.warranty_id;
@@ -697,6 +702,7 @@ $scope.warrantyResponseHandler=function(error, imagelocation){
    var cleanupEventwarrantyUploadLogoResponseSuccess = $scope.$on("warrantyUploadLogoResponseSuccess",function(event,message){
        // $log.debug("Listening");
        $scope.newWarranty_Responsewarranty_id= $scope.warranty.warranty_id;
+        $scope.OpenInvoiceImage=true;
       $state.reload();
    });
 

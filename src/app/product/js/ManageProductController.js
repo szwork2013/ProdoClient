@@ -10,7 +10,7 @@
  * 27-3/2013 | xyx | Add a new property
  * 
  */
-angular.module('prodo.ProductApp').controller('ManageProductController', ['$scope', '$log', '$rootScope', 'ProductService', 'UserSessionService', '$http', 'CommentLoadMoreService', 'ENV', 'TagReffDictionaryService', 'ProductFeatureService', 'growl', 'allproductdata','allproductCategories', '$state','CategoryTags','notify', function ($scope, $log, $rootScope, ProductService, UserSessionService, $http, CommentLoadMoreService, ENV, TagReffDictionaryService, ProductFeatureService, growl, allproductdata,allproductCategories, $state,CategoryTags,notify) {
+angular.module('prodo.ProductApp').controller('ManageProductController', ['$scope', '$log', '$rootScope', 'ProductService', 'UserSessionService', '$http', 'CommentLoadMoreService', 'ENV', 'TagReffDictionaryService', 'ProductFeatureService', 'growl', 'allproductdata','allproductCategories', '$state','CategoryTags','notify','dateFilter', function ($scope, $log, $rootScope, ProductService, UserSessionService, $http, CommentLoadMoreService, ENV, TagReffDictionaryService, ProductFeatureService, growl, allproductdata,allproductCategories, $state,CategoryTags,notify,dateFilter) {
 
   $scope.$state = $state;
 
@@ -148,6 +148,16 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
         $("#prodo-ProductFeatureTable").css("display", "table");
         $scope.currentProdle=successData.success.product.prodle;
         $scope.product = successData.success.product;
+        
+        if($scope.product.sale_discontinuation_date){
+        $scope.product.sale_discontinuation_date = dateFilter($scope.product.sale_discontinuation_date, 'yyyy-MM-dd');
+        }
+        if($scope.product.support_discontinuation_date){
+        $scope.product.support_discontinuation_date = dateFilter($scope.product.support_discontinuation_date, 'yyyy-MM-dd');
+        }
+        if($scope.product.banneddate){
+        $scope.product.banneddate = dateFilter($scope.product.banneddate, 'yyyy-MM-dd');
+        }
         $rootScope.currentProdleRoot=successData.success.product.prodle;
         $scope.productComments = successData.success.product.product_comments;
         $scope.pImages_l = successData.success.product.product_images;
@@ -412,7 +422,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
           $scope.enableProductSuccessMsg();
           ProdSuccessMsg.innerHTML ="Product deleted successfully...";
             // notify({message:"Product deleted successfully...",template:'common/notification/views/notification-success.html',position:'center'});  
-
+           $scope.editMode.editorEnabled=false;
           // growl.addSuccessMessage("Product deleted successfully...");
           $("#prodo-ProductDetails").css("display", "none");
           $state.reload();
