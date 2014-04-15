@@ -6,6 +6,7 @@ angular.module('prodo.WarrantyApp')
         add_warranty: $resource('/api/warranty/:userid', {}, { addWarrantyDetail: { method: 'POST'} , headers:{'Content-Type':'multipart/form-data'}}),
         get_warranty: $resource('/api/warranty/:userid/:warrantyid', {}, { getWarrantyDetail: { method: 'GET'} }),
         get_allwarranties: $resource('/api/warranty/:userid', {}, { getAllWarrantyDetails: { method: 'GET'} }),
+        update_warranty: $resource('/api/warranty/:userid/:warrantyid', {}, { updateWarranty: { method: 'PUT'} }),
         delete_warranty: $resource('/api/warranty/:userid/:warrantyid', {}, { deleteWarranty: { method: 'DELETE'} })
 
     }
