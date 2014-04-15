@@ -96,6 +96,12 @@ $scope.warranties=[];
   };
 
 
+  $scope.startsWith = function(list, viewValue) {
+     return list.substr(0, viewValue.length).toLowerCase() == viewValue.toLowerCase();
+  } 
+
+
+
    $scope.handleDeleteWarrantyError=function(error){
     if(error.code=='AL001'){
         $rootScope.showModal();

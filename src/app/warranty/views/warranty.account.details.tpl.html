@@ -110,7 +110,7 @@
        
 
 			  Organization  <input ng-model="productOrgName.name"  id="prodo_warranty_org" class="warranty-textField form-control prodo-validation  prodo-display-right" 
-              ng-maxlength="50" type="text"   required name="warranty_org" typeahead="allOrgName as allOrgName.name for allOrgName in allOrgNames | filter:$viewValue | limitTo:8"  />
+              ng-maxlength="50" type="text"   required name="warranty_org" typeahead="allOrgName as allOrgName.name for allOrgName in allOrgNames | filter:$viewValue:startsWith | limitTo:8"  />
            
              
               <div  ng-show="(form.WarrantyForm.warranty_org.$dirty && editMode.editorEnabledWarranty ==true) ||(form.WarrantyForm.submitted==true && form.WarrantyForm.warranty_org.$invalid==true)" class="prodo-warranty-Invalid">
@@ -121,7 +121,7 @@
             </td>
       
             <td  class="prodo-width50" >Product  <input   id="prodo_warranty_product" class="warranty-textField form-control prodo-validation prodo-display-right" 
-              ng-maxlength="50" type="text" ng-model="productallProductName.name"  required name="warranty_product" typeahead="allProductName as allProductName.name for allProductName in allProductNames | filter:$viewValue | limitTo:8" />
+              ng-maxlength="50" type="text" ng-model="productallProductName.name"  required name="warranty_product" typeahead="allProductName as allProductName.name for allProductName in allProductNames | filter:$viewValue:startsWith | limitTo:8" />
 
            
               <div  ng-show="(form.WarrantyForm.warranty_product.$dirty && editMode.editorEnabledWarranty ==true) ||(form.WarrantyForm.submitted==true && form.WarrantyForm.warranty_product.$invalid==true)" class="prodo-warranty-Invalid">
@@ -185,7 +185,7 @@
            <tr class="" >
 
             <td  class="prodo-width50">Purchase country  <input   id="prodo_warranty_purchase_country" class="warranty-textField form-control prodo-validation prodo-display-right" ng-model="purchase_location.country"
-              ng-maxlength="50" type="text"   required name="warranty_purchase_country" typeahead="country for country in countries | filter:$viewValue | limitTo:8" />  
+              ng-maxlength="50" type="text"   required name="warranty_purchase_country" typeahead="country for country in countries | filter:$viewValue:startsWith | limitTo:8" />  
           
               <div  ng-show="(form.WarrantyForm.warranty_purchase_country.$dirty && editMode.editorEnabledWarranty ==true) ||(form.WarrantyForm.submitted==true && form.WarrantyForm.warranty_purchase_country.$invalid==true)" class="prodo-warranty-Invalid">
 			  <span ng-show="form.WarrantyForm.warranty_purchase_country.$error.required">Please enter country name</span>
@@ -195,7 +195,7 @@
             </td>
 
             <td class="prodo-width50" >Purchase city  <input   id="prodo_warranty_purchase_city" class="warranty-textField form-control prodo-validation prodo-display-right" 
-              ng-maxlength="50" type="text"   required name="warranty_purchase_city" ng-model="purchase_location.city" typeahead="city for city in cities | filter:$viewValue | limitTo:8"/> 
+              ng-maxlength="50" type="text"   required name="warranty_purchase_city" ng-model="purchase_location.city" typeahead="city for city in cities | filter:$viewValue:startsWith | limitTo:8"/> 
 
               <div  ng-show="(form.WarrantyForm.warranty_purchase_city.$dirty && editMode.editorEnabledWarranty ==true) ||(form.WarrantyForm.submitted==true && form.WarrantyForm.warranty_purchase_city.$invalid==true)" class="prodo-warranty-Invalid">
 			  <span ng-show="form.WarrantyForm.warranty_purchase_city.$error.required">Please enter city name</span>
@@ -301,7 +301,7 @@
        
 
         Organization  <input ng-model="warranty.orgname"  id="prodo_warranty_org" class="warranty-textField form-control prodo-validation  prodo-display-right" 
-              ng-maxlength="50" type="text"   required name="warranty_org" typeahead="allOrgName as allOrgName.name for allOrgName in allOrgNames | filter:$viewValue | limitTo:8"  />
+              ng-maxlength="50" type="text"   required name="warranty_org" typeahead="allOrgName as allOrgName.name for allOrgName in allOrgNames | filter:$viewValue:startsWith | limitTo:8"  />
          
              
               <div  ng-show="(form.WarrantyFormUpdate.warranty_org.$dirty && editMode.editorEnabledWarrantyUpdate ==true) ||(form.WarrantyFormUpdate.submitted==true && form.WarrantyFormUpdate.warranty_org.$invalid==true)" class="prodo-warranty-Invalid">
@@ -312,7 +312,7 @@
             </td>
       
             <td  class="prodo-width50" >Product  <input   id="prodo_warranty_product" class="warranty-textField form-control prodo-validation prodo-display-right" 
-              ng-maxlength="50" type="text" ng-model="warranty.name"  required name="warranty_product" typeahead="allProductName as allProductName.name for allProductName in allProductNames | filter:$viewValue | limitTo:8" />
+              ng-maxlength="50" type="text" ng-model="warranty.name"  required name="warranty_product" typeahead="allProductName as allProductName.name for allProductName in allProductNames | filter:$viewValue:startsWith | limitTo:8" />
 
            
               <div  ng-show="(form.WarrantyFormUpdate.warranty_product.$dirty && editMode.editorEnabledWarrantyUpdate ==true) ||(form.WarrantyFormUpdate.submitted==true && form.WarrantyFormUpdate.warranty_product.$invalid==true)" class="prodo-warranty-Invalid">
@@ -376,7 +376,7 @@
            <tr class="" >
 
             <td  class="prodo-width50">Purchase country  <input   id="prodo_warranty_purchase_country" class="warranty-textField form-control prodo-validation prodo-display-right" ng-model="warranty.purchase_location.country"
-              ng-maxlength="50" type="text"   required name="warranty_purchase_country" typeahead="country for country in countries | filter:$viewValue | limitTo:8" />  
+              ng-maxlength="50" type="text"   required name="warranty_purchase_country" typeahead="country for country in countries | filter:$viewValue:startsWith | limitTo:8" />  
           
               <div  ng-show="(form.WarrantyFormUpdate.warranty_purchase_country.$dirty && editMode.editorEnabledWarrantyUpdate ==true) ||(form.WarrantyFormUpdate.submitted==true && form.WarrantyFormUpdate.warranty_purchase_country.$invalid==true)" class="prodo-warranty-Invalid">
         <span ng-show="form.WarrantyFormUpdate.warranty_purchase_country.$error.required">Please enter country name</span>
@@ -386,7 +386,7 @@
             </td>
 
             <td class="prodo-width50" >Purchase city  <input   id="prodo_warranty_purchase_city" class="warranty-textField form-control prodo-validation prodo-display-right" 
-              ng-maxlength="50" type="text"   required name="warranty_purchase_city" ng-model="warranty.purchase_location.city" typeahead="city for city in cities | filter:$viewValue | limitTo:8"/> 
+              ng-maxlength="50" type="text"   required name="warranty_purchase_city" ng-model="warranty.purchase_location.city" typeahead="city for city in cities | filter:$viewValue:startsWith | limitTo:8"/> 
 
               <div  ng-show="(form.WarrantyFormUpdate.warranty_purchase_city.$dirty && editMode.editorEnabledWarrantyUpdate ==true) ||(form.WarrantyFormUpdate.submitted==true && form.WarrantyFormUpdate.warranty_purchase_city.$invalid==true)" class="prodo-warranty-Invalid">
         <span ng-show="form.WarrantyFormUpdate.warranty_purchase_city.$error.required">Please enter city name</span>
