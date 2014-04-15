@@ -208,7 +208,7 @@
 
 			 <tr class="" >
 	           <td class="prodo-width50"> Warranty Period  <input   id="prodo_warranty_period" class="warranty-textField form-control prodo-validation prodo-display-right" ng-maxlength="3"
-               type="number"   required name="warranty_purchase_period" ng-model="productwarranty.purchase_period"  placeholder ="Number of months"/>  
+               type="number"  min="0" required name="warranty_purchase_period" ng-model="productwarranty.purchase_period"  placeholder ="Number of months"/>  
                 
                  <div  ng-show="(form.WarrantyForm.warranty_purchase_period.$dirty && editMode.editorEnabledWarranty ==true) ||(form.WarrantyForm.submitted==true && form.WarrantyForm.warranty_purchase_period.$invalid==true)" class="prodo-warranty-Invalid">
 			  <span ng-show="form.WarrantyForm.warranty_purchase_period.$error.required">Please enter valid warranty period</span>
