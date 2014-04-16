@@ -1415,7 +1415,7 @@ ul {/*list-style-type: none;*/ }
 #prodo-comment-textBox-container {padding-bottom: 10px;}
 #prodo-comment-media-list{border:3px;font-family: Helvetica ;font-size:14px;}
 #prodo-comment-Textbox { padding: 5px; height:40px;border-radius:10px;font-size:12px;   overflow: hidden;
-	font-family: Helvetica ; border: solid 1px #5bc0de; max-height: 75px;max-width: 87%;resize: none;}
+	font-family: Helvetica ; border: solid 1px #5bc0de; max-height: 75px;max-width: 473px;resize: none;}
 #prodo-comment-search-Textbox {  height:40px;width:87%;border-radius:10px;font-size:12px; 
 	font-family: Helvetica ; border: solid 1px #5bc0de; }
 #prodo-comment-fixed { margin-left:17px;}
