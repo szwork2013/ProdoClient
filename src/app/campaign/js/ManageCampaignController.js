@@ -393,4 +393,24 @@ $scope.$on('$destroy', function(event, message)
 	cleanupeventdeletecampaignsuccessfully();
 	cleanupeventdeletecampaignerror();
 });
+
+ // pagination
+  $scope.currentPage = 0;
+  $scope.pageSize = 3;
+  $scope.numberOfPages = function () {
+    return Math.ceil($scope.warranties.length / $scope.pageSize);
+  };
+  // pagination
+
+
 }]);
+
+
+angular.module('prodo.CampaignApp').filter('startFrom', function () {
+  return function (input, start) {
+    if (input !== undefined || start !== undefined) {
+      start = +start;
+      return input.slice(start);
+    }
+  }
+})

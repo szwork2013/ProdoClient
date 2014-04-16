@@ -52,25 +52,35 @@
 				  </div>
 
   </div> -->
-    <div class="prodo-productThumbnailView" ng-click="add()">
-        <p class="prodo-AddProductBtn " >Add Campaign</p>
+
+
+<!-- corousel -->
+
+    <button class="arrowBtn prodo-arrowbtnLeft" ng-show="campaignDetailsObject.length > 3 " ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1" >
+      <
+    </button>
+   
+        <a href="" class="prodo-cursor" ng-click="add() " class=""> 
+        <div class="prodo-productThumbnailView prodo-padding-left" >
+        <p class="prodo-AddProductBtn " >Add Warranty</p>
         <div class="prodo-productThumbnailImg fa fa-plus fa-4x img-rounded"  align="center" ></div>
-    </div>
-
-   <!--  <div class="prodo-productThumbnailView" ng-click="" ng-repeat="list in campaignDetailsObject">
-        <p class="prodo-AddProductBtn" ng-bind="list.name"></p>
-        <img > 
-    </div> -->
-
-    <div ng-show="campaignDetailsObject.length>0"  ng-repeat="list in campaignDetailsObject  |  limitTo:pageSize" ng-click="showDetails($index)">
-    <div class="prodo-productThumbnailView"   ng-class="{activeProduct : list.name==list.name}" >
-      <a ng-click="" class="prodo-cursor"  href="" >
-        <p class="prodo-AddProductBtn prodo-productNameList" ng-bind="list.name.substring(0,13)"></p>
-        <img  ng-src="" alt-SRC src="../assets/images/if_no_logo_images_available.gif"  class="prodo-productThumbnailImg img-rounded">
+        </div>
+       </a> 
+      
+    <div ng-show="campaignDetailsObject.length>0"  ng-repeat="list in campaignDetailsObject  | startFrom:currentPage*pageSize | limitTo:pageSize" >
+    <div class="prodo-productThumbnailView"   ng-class="{activeProduct : list.name==campaignName}" >
+      <a ng-click="showDetails($index)" class="prodo-cursor"  href="" >
+        <p class="prodo-AddProductBtn prodo-productNameList" >{{list.name.substring(0,13)}}</p>
+        <img  ng-src="{{list.artwork.photos[0].image}}" alt-SRC src="../assets/images/if_no_logo_images_available.gif"  class="prodo-productThumbnailImg img-rounded">
       </a>
     </div>
     </div>
+    <button class="arrowBtn prodo-arrowbtnRight"  ng-show="campaignDetailsObject.length > 3 " ng-disabled="currentPage >= campaignDetailsObject.length/pageSize - 1" ng-click="currentPage=currentPage+1" >
+      >
+      </button>
+  </div>
 
+<!-- corousel -->
 
 
 
