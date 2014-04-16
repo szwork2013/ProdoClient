@@ -112,7 +112,7 @@ else
             }
             var day=d.getDate();
            $scope.currentCampaign.enddate = year + "-" + month + "-" + day;
-           $scope.ProdoAppMessage(campaigndata.success.message,'success');
+           //$scope.ProdoAppMessage(campaigndata.success.message,'success');
         } else if(campaigndata.error !== undefined && campaigndata.error.code === 'AL001' ) {
             $rootScope.showModal();
         } else if (campaigndata.error) {  
