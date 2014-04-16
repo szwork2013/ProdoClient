@@ -740,7 +740,7 @@ angular.module('prodo.UserApp')
         for (var i = 0, ii = products_followed.length; i < ii; i++) {
           if (product === products_followed[i]) { products_followed.splice(i, 1); }
         } 
-        growl.addSuccessMessage('You have successfully unfollowed product:' + ' ' + product.name);    
+        growl.addSuccessMessage('You have left your product conversation for' + ' ' + product.name);    
       } else {
         if (data.error.code== 'AL001') {     // enter valid data
             $log.debug(data.error.code + " " + data.error.message);

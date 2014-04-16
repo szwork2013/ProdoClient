@@ -153,7 +153,6 @@ angular.module('prodo.ProdonusApp')
     .state('prodo.orgregistration', {
       templateUrl: 'org/orgregistration/views/orgregistration.container.html',
       abstract: true,
-      controller: 'OrgRegistrationController',
       resolve : {
         OrgService: 'OrgService',
         industrycategorydata: function(OrgService, $rootScope) {
@@ -162,18 +161,23 @@ angular.module('prodo.ProdonusApp')
       }
     })
     .state('prodo.orgregistration.company', {
+      controller: 'OrgRegistrationController',
       templateUrl: 'org/orgregistration/views/orgregistration.company.tpl.html'
     }) 
     .state('prodo.orgregistration.address', {
+      controller: 'OrgRegistrationController',
         templateUrl:  'org/orgregistration/views/orgregistration.address.tpl.html'
     })
     .state('prodo.orgregistration.groupuser', {
+      controller: 'OrgRegistrationController',
         templateUrl: 'org/orgregistration/views/orgregistration.groupusers.tpl.html'
     })     
     .state('prodo.orgregistration.terms', {
+      controller: 'OrgRegistrationController',
         templateUrl: 'org/orgregistration/views/orgregistration.terms.tpl.html'
     })        
     .state('prodo.orgregistration.finish', {
+      controller: 'OrgRegistrationController',
         templateUrl: 'org/orgregistration/views/orgregistration.finish.tpl.html'
     })
 
