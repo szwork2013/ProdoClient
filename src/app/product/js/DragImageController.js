@@ -1,16 +1,16 @@
 angular.module('prodo.ProductApp')
-.controller('DragImageController', ['$scope', '$rootScope', '$log','growl' , function($scope, $rootScope, $log,growl) {
+.controller('DragImageController', ['$scope', '$rootScope', '$log','growl', 'notify' , function($scope, $rootScope, $log,growl, notify) {
  var reader;
  var reader1;
  $rootScope.count=0;
 
 //Comment Image error handling
-var UploadErrMsg = document.getElementById('UploadCommentIMGErrMsg');
-$scope.enableErrorMsg=function(){
-   $(".spanCommentIMGErr").css("display", "block");
-   $(".alert-danger").removeClass("in").show();
-   $(".alert-danger").delay(5000).addClass("in").fadeOut(2000);
-};
+// var UploadErrMsg = document.getElementById('UploadCommentIMGErrMsg');
+// $scope.enableErrorMsg=function(){
+//    $(".spanCommentIMGErr").css("display", "block");
+//    $(".alert-danger").removeClass("in").show();
+//    $(".alert-danger").delay(5000).addClass("in").fadeOut(2000);
+// };
   
  //Comment Image error handling
 
@@ -33,20 +33,13 @@ acceptedTypes = {
 fileupload = document.getElementById('upload');
 
 function previewfile(file) {
-  if (tests.filereader === true && acceptedTypes[file.type] === true) {
+  if (tests.filereader === true && acceptedTypes[file.type] === true && $rootScope.count===1) {
    reader = new FileReader();
    reader.onload = function (event) {
      $("#prodo-uploadedCommentImage").css("display", "inline");   
-    // var image = new Image();
-    // image.src = event.target.result; 
-    // image.id="prodo-uploadedCommentImage";
     document.getElementById("crossButton").style.display="inline";
-    // document.getElementById("prodo-uploadedCommentImage").style.display="inline";
     $("#prodo-uploadedCommentImage").attr('src', event.target.result);
     $rootScope.comment_image_l=[{image:event.target.result}];
-      // image.width = 250; // a fake resize
-      // holder.appendChild(image);
-      //document.getElementById('prodo-comment-commentContainer').style.marginTop='80px';
     };
 
     reader.readAsDataURL(file);
@@ -62,9 +55,7 @@ function previewfile(file) {
       $rootScope.file_data = {filetype: file.type, filename: file.name, filebuffer: buffer};
 
     };
-
     reader1.readAsBinaryString(file);  
-//getbuffer
 }
 
 function readfiles(files) {
@@ -83,39 +74,51 @@ if (tests.dnd) {
   holder.ondragleave = function () { this.className = ''; return false; };
   holder.ondrop = function (e) 
   { 
+    $scope.validImageContent = 0;
    $rootScope.count++;
    this.className = '';
    e.preventDefault();
    
    if(e.dataTransfer.files[0].size/1024>500)
-
     { 
-        $scope.enableErrorMsg();
-        UploadErrMsg.innerHTML = 'Image size must ne less than 500KB';
-        // growl.addErrorMessage(" Image size must ne less than 500kb ");
-       
+           $scope.ProdoAppMessage("Please drag image of size upto 500KB","error")  ; 
+           $rootScope.count =0; 
+           e.dataTransfer.files = [];
+           $scope.validImageContent = 1; 
     }
-  else if(acceptedTypes[e.dataTransfer.files[0].type] === false)
+    if(e.dataTransfer.files[0].type !== "image/png" && e.dataTransfer.files[0].type !== "image/jpeg" && e.dataTransfer.files[0].type !== "image/jpg" && e.dataTransfer.files[0].type !== "image/gif")
     {
-      $scope.enableErrorMsg();
-      UploadErrMsg.innerHTML = 'Add image only';
-        // growl.addErrorMessage("Add image only");
+           $scope.ProdoAppMessage("Please verify extension of image dragged","error")  ;
+           $rootScope.count =0; 
+           e.dataTransfer.files = []; 
+           $scope.validImageContent = 1;
     }
-  else if($rootScope.count>1)
-    {
-      $scope.enableErrorMsg();
-      UploadErrMsg.innerHTML = 'Add only one image at a time';
-      // growl.addErrorMessage("Add only one image at a time");
+    if($rootScope.count>1)
+    { 
+          $scope.ProdoAppMessage("You can only drag one image for a comment","error"); 
+          $scope.validImageContent = 1; 
     }
-  else if($rootScope.count==1 && acceptedTypes[e.dataTransfer.files[0].type] === true && e.dataTransfer.files[0].size/1024<500)
-    readfiles(e.dataTransfer.files );
+  else if($rootScope.count==1 && $scope.validImageContent === 0)
+    readfiles(e.dataTransfer.files ); console.log("Here its finally set");
   
 }
 
 }
 
 //drag comment image
-
+$scope.ProdoAppMessage = function(message,flag)
+    {
+          if(flag==='success')
+          {
+            //growl.addSuccessMessage(message);
+            notify({message:message,template:'common/notification/views/notification-success.html',position:'center'})
+          }
+          else
+          {
+             notify({message:message,template:'common/notification/views/notification-error.html',position:'center'});   
+          }
+         // $scope.resetGrowlMessages();
+    };
 
 
 $scope.clearReader=function()
@@ -131,12 +134,7 @@ $scope.clearReader=function()
   $rootScope.file_data ="";
   $rootScope.count=0;
   var element=document.getElementById('prodo-uploadedCommentImage');
-  // if (typeof(element) != 'undefined' && element != null)
-  // {
-  //   element.parentNode.removeChild(element);
-  //                                   // exists.
-  //                                 }
-                                }
+};
 
 
-                              }]);
+}]);
