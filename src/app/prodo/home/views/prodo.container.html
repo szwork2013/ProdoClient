@@ -308,7 +308,7 @@
 					<div id="prodo-sidebar-followedproductlist-container">
 					 <div id="prodo-sidebar-list-group" class="list-group">
 					   <div id="prodo-sidebar-list" class="list">
-					      <a class="prodo-wall-sidebar-list-heading list-group-item active" >Products Followed</a>
+					      <a class="prodo-wall-sidebar-list-heading list-group-item active" >Products In Conversation</a>
 					      <div ng-repeat="fp in usersession.productfollowlist | limitTo:followedProductsCount track by $index" href="#" id="prodo-sidebar-list-group-item" class="list-group-item " ng-if="regularExpressionForProdonus.test(fp.name) !== true">          
 					          <table class="sidebarTableStyling">  
 					            <tr>
@@ -347,7 +347,7 @@
 					                  </div>  
 				                  
 		                  <div class="modalAppearance">
-		                    <div class="modalMessageContainer">*Type Comma (,) between all the words you want.Eg: Apple Iphone , Samsung Duos</div>            
+		                    <div class="modalMessageContainer">*Type Comma (,) between all the words you want. Eg: Apple Iphone , Samsung Duos</div>            
 		                      <div class="textBoxContainer" >                                                  
 		                      <input type="text" class="prodoAdvancedSearchTextbox form-control" placeholder="Organization Name [ eg:Prodonus ]" id="textBoxOrgName" ng-model="org"/>       
 
@@ -402,7 +402,7 @@
                 </tr> 
                 <tr>
                   <td style="border-right:1px solid #dbdbdb;" class="thinnerFonts" style=" width: 50%;">
-                    <div style="font-size: 18px;"  ng-bind="product.followedcount"></div><div style="font-size: 10px;"> Followers</div> 
+                    <div style="font-size: 18px;"  ng-bind="product.followedcount"></div><div style="font-size: 10px;"> Talkins</div> 
                   </td>
                   <td class="thinnerFonts" style=" width: 50%;">
                       <div style="font-size: 18px;" ng-bind="product.commentcount"></div><div style="font-size: 10px;"> Comments</div> 

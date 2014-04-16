@@ -64,7 +64,9 @@
         <p class="prodo-accordion-heading">GENERAL SETTINGS<i class="fa fa-pencil pull-right"></i></p>
       </accordion-heading>
         
-        <a ng-hide="editEmail" class="prodo-account-btn btn btn-primary btn-sm pull-right" href="#" ng-click="emailEditor()"><i class="prodo-fa fa fa-pencil-square-o"></i>Edit</a>
+        <h5 class="prodo-wall-org-heading-text">CHANGE EMAIL</h5>
+        <hr size=3 class="prodo-wall-org-hr" noshade>    
+        <br>
         <div>
           <form name="form.usergeneralsettingform" class="css-form" ng-submit='' novalidate>
             <dl class="dl-horizontal">
@@ -80,10 +82,13 @@
               <button ng-show="editEmail" class="prodo-account-btn btn btn-primary btn-sm pull-right" ng-click='updateUserEmail()'><i class="prodo-fa fa fa-save"></i>Save</button>
               <button ng-show="editEmail" class="prodo-account-btn btn btn-primary btn-sm pull-right" ng-click="emailEditor()"><i class="prodo-fa fa fa-times"></i>Cancel</button>
           </form>
+          <a ng-hide="editEmail" class="prodo-account-btn btn btn-primary btn-sm pull-right" href="#" ng-click="emailEditor()"><i class="prodo-fa fa fa-pencil-square-o"></i>Edit</a>
         </div>
         <br>
-        <hr size=3 class="prodo-account-hr" noshade>
-        <p class="prodo-account-text-info text-info"><strong>Change Password Settings</strong></p>
+        <br>
+        <h5 class="prodo-wall-org-heading-text">CHANGE PASSWORD</h5>
+        <hr size=3 class="prodo-wall-org-hr" noshade>    
+        <br>
         <div>
           <form name="form.userpasswordsettingform" ng-submit='' novalidate>
             <dl class="dl-horizontal">
@@ -105,8 +110,11 @@
         </div>
 
         <br>
-        <hr class="prodo-account-hr" size=3 noshade>
-        <p class="prodo-account-text-info text-info"><strong>Personal Settings</strong></p>
+        <br>
+        <h5 ng-show="!hasPersonalDetail" class="prodo-wall-org-heading-text">ADD PERSONAL DETAILS</h5>
+        <h5 ng-hide="!hasPersonalDetail" class="prodo-wall-org-heading-text">CHANGE PERSONAL DETAILS</h5>
+        <hr size=3 class="prodo-wall-org-hr" noshade>    
+        <br>
         
         <div>
           <form name="form.userpersonalsettingform" ng-submit='' novalidate>
@@ -139,18 +147,22 @@
             <a ng-hide="!hasPersonalDetail || editorEnabled" class="prodo-account-btn btn btn-primary btn-sm pull-right" href="#" ng-click="enableEditor()"><i class="prodo-fa fa fa-pencil-square-o"></i>Edit</a>
             <div ng-show="(!hasPersonalDetail && !editorEnabled) || (hasPersonalDetail && editorEnabled)">
               <button class="prodo-account-btn btn btn-primary btn-sm pull-right" ng-click='updateUserAccount()'><i class="prodo-fa fa fa-save"></i>Save</button>
-              <button class="prodo-account-btn btn btn-primary btn-sm pull-right" ng-click="enableEditor()"><i class="prodo-fa fa fa-times"></i>Cancel</button>
+              <button class="prodo-account-btn btn btn-primary btn-sm pull-right" ng-click="disableEditor()"><i class="prodo-fa fa fa-times"></i>Cancel</button>
             </div>
           </form>
         </div>
     </accordion-group>
 
-<!-- ////////////////////////////////////////////////////////////////////// -->    
+    
     <accordion-group ng-hide="user.org.orgid">
     	<accordion-heading>
         <p class="prodo-accordion-heading">LOCATION<i class="fa fa-pencil pull-right"></i></p>
       </accordion-heading>
-        <p class="prodo-account-text-info text-info"><strong>User Address Settings</strong></p>
+        <div ng-show="(!hasAddress || editAddress)">
+        <h5 class="prodo-wall-org-heading-text">ADD LOCATION DETAILS</h5>
+        <hr size=3 class="prodo-wall-org-hr" noshade>    
+        <br>
+        </div>
         <div ng-show="(!hasAddress || editAddress)">
           <form name="form.userlocationsettingform" ng-submit='' novalidate>
             <dl class="dl-horizontal">
@@ -178,7 +190,10 @@
           </form>
         </div>
         <div ng-show="(hasAddress && !editAddress)">
-          
+          <br>
+          <h5 class="prodo-wall-org-heading-text">CHANGE LOCATION DETAILS</h5>
+          <hr size=3 class="prodo-wall-org-hr" noshade>    
+          <br>
           <dl class="dl-horizontal">
               <dt>Address:</dt>
               <dd>
@@ -196,12 +211,15 @@
            
     </accordion-group>
 
-<!-- ////////////////////////////////////////////////////////////////////// -->
+
     
     <accordion-group>
     	<accordion-heading>
         <p class="prodo-accordion-heading">INVITES<i class="fa fa-pencil pull-right"></i></p>
       </accordion-heading>
+        <h5 class="prodo-wall-org-heading-text">SEND INVITES</h5>
+        <hr size=3 class="prodo-wall-org-hr" noshade>    
+        <br>
         <button class="prodo-account-invites-btn btn btn-info btn-sm" ng-click="addUserInvites()"><i class="prodo-fa fa fa-plus-square"></i>Add More Users</button>
         
         <form name="form.userinvitesform" ng-submit='' novalidate>
@@ -214,7 +232,7 @@
                 <td width="10%"><button class="prodo-account-btn btn btn-danger btn-sm" ng-click='removeInvites(userinvite)'><i class="prodo-fa fa fa-times"></i>remove</button></td>
               </tr>
               <br>
-              <p class="text-danger"><small>{{invitesettingchange}}</small></p>
+              <p ng-show="userinvites.length > 0" class="text-danger"><small>{{invitesettingchange}}</small></p>
             </tbody>
           </table>
           <button ng-show="userinvites.length > 0" class="prodo-account-btn btn btn-primary btn-sm pull-right" ng-click='sendUserInvites()'><i class="prodo-fa fa fa-share"></i>Send</button>
@@ -223,7 +241,7 @@
         
     </accordion-group>
 
-<!-- ////////////////////////////////////////////////////////////////////// -->
+
 
     <accordion-group>
     	<accordion-heading>
@@ -246,7 +264,7 @@
         </div>
     </accordion-group>
 
-<!-- ////////////////////////////////////////////////////////////////////// -->
+
     <accordion-group ng-hide='user.org.orgid'>
     	<accordion-heading>
            <p class="prodo-accordion-heading">SUBSCRIPTION<i class="fa fa-pencil pull-right"></i></p>
@@ -256,7 +274,7 @@
           No payment has been taken during trial plan.</em></strong></p>
         </div>
     </accordion-group>
-<!-- ////////////////////////////////////////////////////////////////////// -->
+
     <accordion-group ng-hide='user.org.orgid'>
     	<accordion-heading>
             <p class="prodo-accordion-heading">PAYMENT<i class="fa fa-pencil pull-right"></i></p>
@@ -266,7 +284,7 @@
           No payment has been taken during trial plan.</em></strong></p>
         </div>
     </accordion-group>
-<!-- ////////////////////////////////////////////////////////////////////// -->
+
     <accordion-group ng-hide='user.org.orgid'>
     	<accordion-heading>
             <p class="prodo-accordion-heading">PAYMENT HISTORY<i class="fa fa-pencil pull-right"></i></p>
