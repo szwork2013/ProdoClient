@@ -98,6 +98,11 @@ angular.module('prodo.UserApp')
             method: 'GET',
             params: { userid: '@userid' }
           }
+        }),
+        Activate_Request: $resource('/api/activateaccountrequest', {}, {
+          sendAccountActivateRequest: {
+            method: 'POST'
+          }
         })
       };
     var session = {};
@@ -114,6 +119,17 @@ angular.module('prodo.UserApp')
         $rootScope.$broadcast('signupNotDone', error.status);
       });
     };
+
+    session.activateaccount = function (userdata) {
+      UserService.Activate_Request.sendAccountActivateRequest(userdata, function (success) {
+        $log.debug(success);
+        $rootScope.$broadcast('activateAccountTokenDone', success);
+      }, function (error) {
+        $log.debug(error);
+        $rootScope.$broadcast('activateAccountTokenNotDone', error.status);
+      });
+    };
+
     session.signinUser = function (userdata) {
       UserService.Signin.signinUser(userdata, function (success) {
         $log.debug(success);
