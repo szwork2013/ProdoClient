@@ -418,7 +418,7 @@
                                       padding: 4px;border-width: thin;">
                                     <p ng-bind="clients.clientname" style="margin-bottom:0px;width:100px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap; margin-bottom:0px;"></p>
                                     <img class="img prodo-OrgImgThumbnail"  ng-src="{{clients.image}}" />
-                                    <input type="checkbox" id="{{$index}}">
+                                    <input type="checkbox" id="{{'keyClient'+$index}}">
                              </div>
                             <div class="error-message-org " ng-if="orgKeyClients.length===0" style="text-align:left; font-size:20px;  auto;" >  <p style="text-align:left; font-size:20px; margin: 20px auto;" class="text-success"><strong><em>No Key Clients Added</em></strong></p></div>
 
@@ -468,8 +468,6 @@
 <div style="height:40px;" ng-if="orgImages.length>0"> <button ng-click="deleteOrgArtworImages()" class="btn btn-danger btn-sm pull-right"><i  class="fa fa-trash-o fa-lg" ></i>&nbsp;&nbsp;Delete</button></div>
 
 
-
-
         <div class="error-message-org " ng-if="orgImages.length===0" style="text-align:left; font-size:20px;  auto;" >  <p style="text-align:left; font-size:20px; margin: 20px auto;" class="text-success"><strong><em>No Images Exists</em></strong></p></div>
 
 
@@ -477,7 +475,8 @@
 
               <div class="imagesOrg" ng-repeat="img in orgImages" style="margin: 3px;border: #090808 solid;min-width: 110px;
                   padding: 4px;border-width: thin;">
-                <input type="checkbox" ng-click="test(img)" id="{{$index}}">
+                <input type="checkbox" id='{{$index}}'>
+
                 <img class="img prodo-OrgImgThumbnail"  ng-src="{{img.image}}" />
               <!--   <button ng-click="deleteOrgArtworImages(img.imageid)" style="width:100px;margin-bottom:5px;height:23px;border-radius:5px;margin-top:3px;padding-bottom:20px;background-color:#d43f3a;color:white;" class="btn-group btn-group-xs" ><i class="fa fa-trash-o fa-fw"></i>&nbsp;&nbsp;Delete</button> -->
 <!--                 <i class="fa fa-trash-o fa-fw" ng-click="deleteOrgArtworImages(img.imageid)"></i> -->
