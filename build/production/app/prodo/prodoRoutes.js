@@ -118,6 +118,16 @@ angular.module('prodo.ProdonusApp')
       templateUrl: 'user/views/user.signin.forgotpassword.otp.tpl.html',
       controller: 'UserSigninController'
     })
+    .state('prodo.user-content.reactivate', {
+      url: '/reactivate',
+      templateUrl: 'user/views/user.signup.reactivate.tpl.html',
+      controller: 'UserRegistrationController'
+    })
+    .state('prodo.user-content.activaterequest', {
+      url: '/activaterequest',
+      templateUrl: 'user/views/user.signup.activaterequestsent.tpl.html',
+      controller: 'UserRegistrationController'
+    })
 
     /* ----Footer Content Routes---- */
     .state('prodo.footer-content', {
@@ -153,7 +163,6 @@ angular.module('prodo.ProdonusApp')
     .state('prodo.orgregistration', {
       templateUrl: 'org/orgregistration/views/orgregistration.container.html',
       abstract: true,
-      controller: 'OrgRegistrationController',
       resolve : {
         OrgService: 'OrgService',
         industrycategorydata: function(OrgService, $rootScope) {
@@ -162,18 +171,23 @@ angular.module('prodo.ProdonusApp')
       }
     })
     .state('prodo.orgregistration.company', {
+      controller: 'OrgRegistrationController',
       templateUrl: 'org/orgregistration/views/orgregistration.company.tpl.html'
     }) 
     .state('prodo.orgregistration.address', {
+      controller: 'OrgRegistrationController',
         templateUrl:  'org/orgregistration/views/orgregistration.address.tpl.html'
     })
     .state('prodo.orgregistration.groupuser', {
+      controller: 'OrgRegistrationController',
         templateUrl: 'org/orgregistration/views/orgregistration.groupusers.tpl.html'
     })     
     .state('prodo.orgregistration.terms', {
+      controller: 'OrgRegistrationController',
         templateUrl: 'org/orgregistration/views/orgregistration.terms.tpl.html'
     })        
     .state('prodo.orgregistration.finish', {
+      controller: 'OrgRegistrationController',
         templateUrl: 'org/orgregistration/views/orgregistration.finish.tpl.html'
     })
 
@@ -318,7 +332,7 @@ angular.module('prodo.ProdonusApp')
    .state('prodo.home.wall-warranty', {
       resolve: {
         warrantydata: function(WarrantyService, $rootScope) {
-          return WarrantyService.get_allwarranties.getAllWarrantyDetails({userid: $rootScope.usersession.currentUser.userid}).$promise;
+          return WarrantyService.get_latest5warranties.getLatestWarrantyDetails({userid: $rootScope.usersession.currentUser.userid}).$promise;
         }
       },
       views: {

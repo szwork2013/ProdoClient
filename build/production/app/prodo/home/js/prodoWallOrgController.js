@@ -83,7 +83,7 @@ angular.module('prodo.ProdoWallApp')
       if (data.success) {
         UserSessionService.productfollowlist.push(product);
         $state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
-        growl.addSuccessMessage('You are ready to talk about the' + ' ' + product.name);    
+        growl.addSuccessMessage('You can start your product conversation for' + ' ' + product.name);    
       } else {
           if(data.error !== undefined && data.error.code === 'AL001' ) {
             $rootScope.showModal();

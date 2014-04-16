@@ -1,0 +1,22 @@
+<div id="prodo-view-activateaccount">
+  <div id="prodo-activateaccount-panel" class="panel panel-default">
+  	 <div class="panel-body">
+  	 	<div class="activateaccount-alert alert alert-success alert-block">
+  	 		<h5 class="alert-heading"><strong><em>Welcome To Prodonus!</em></strong></h5>
+			  	Your account has been deactivated, if you want to activate your account please enter your email address below to generate account activation request.
+			  	<br>
+			  	<br>
+			  	<form id="prodo-form-signin" name="activateaccountForm" class="css-form" ng-submit="activate_account_request()" novalidate>
+
+				    <div class="control-group">
+				      <input name="email" class="prodo-input-activateaccount form-control" type="email" placeholder="please enter your email" required ng-model="activateaccount.email" />
+				      <button id="prodo-button-activateaccount" class="btn btn-sm btn-primary">Submit&nbsp;&nbsp;<div prodo-spinner></div></button> 
+				    </div>
+				  </form>
+			</div>
+     </div>
+  </div>
+</div>
+  
+     
+ 
