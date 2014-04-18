@@ -116,7 +116,8 @@ else
         } else if(campaigndata.error !== undefined && campaigndata.error.code === 'AL001' ) {
             $rootScope.showModal();
         } else if (campaigndata.error) {  
-              $scope.ProdoAppMessage(campaigndata.error.message,'error');    //ShowAlert
+              //$scope.ProdoAppMessage(campaigndata.error.message,'error');    //ShowAlert
+              $scope.noCampaignExists = 0;
         }
   
       });
