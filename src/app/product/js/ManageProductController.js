@@ -72,7 +72,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
        $scope.listCategory.productCategories=allproductCategories.success.categorytags;
      }
       $scope.productlist = allproductdata.success.product;
-      console.log( allproductdata.success.product);
+      // console.log( allproductdata.success.product);
       if ($scope.productlist.length == 0) { //after deleting product, check for next product from product followed,if no product - display msg
          $("#prodo-ProductDetails").css("display", "none");
         $("#ErrMsging").css("display", "block");

@@ -14,21 +14,10 @@
 angular.module('prodo.WarrantyApp')
  .controller('ManageWarrantyController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$log', 'growl', 'WarrantyService', 'checkIfSessionExist','orgnameData','productnameData','warrantydata','fileReader','ENV','isLoggedin','notify','dateFilter', function($scope, $rootScope, $state, $http, $timeout, $log, growl, WarrantyService, checkIfSessionExist,orgnameData,productnameData,warrantydata,fileReader,ENV,isLoggedin,notify,dateFilter) {
    
-   $scope.$state = $state;
-
- $scope.clearText = function () {
-    // prodo-product-features_textfield
-  $scope.productwarranty = {};
-  $scope.purchase_location={};
-  $scope.org={};
-  $scope.product={};
-  $scope.productOrgName.name="";
-  $scope.productallProductName.name="";
-  $scope.file_data={} ;
-  $scope.file={};
-  $scope.file1="";
-  $scope.isValidImage=false;
-  }
+$scope.$state = $state;
+var setmaxPurchaseDateValue=moment().format("YYYY-MM-DD");
+$("#prodo_warranty_purchase_date").attr('max', setmaxPurchaseDateValue);
+$("#prodo_warranty_purchase_dateUpdate").attr('max', setmaxPurchaseDateValue);
 $scope.newWarranty_Responsewarranty_id="";
    $scope.editMode = {
     // editorEnabled: false,
@@ -89,6 +78,7 @@ $scope.newWarranty_Responsewarranty_id="";
 }
 $scope.warranties=[];
 
+
 //
   $scope.fileLength;
   $scope.uploadSrc;
@@ -104,6 +94,21 @@ $scope.warranties=[];
  $scope.action={};
  $scope.isValidImage=false;
  $scope.invoiceimage;
+
+  $scope.clearText = function () {
+    // prodo-product-features_textfield
+  $scope.productwarranty = {};
+  $scope.purchase_location={};
+  $scope.org={};
+  $scope.product={};
+  $scope.productOrgName.name="";
+  $scope.productallProductName.name="";
+  $scope.file_data={} ;
+  $scope.file={};
+  $scope.file1="";
+  $scope.isValidImage=false;
+  }
+  
   $scope.formatDate = function (time) {
     return (moment(time).format('DD MMM YYYY'));
   };
@@ -199,7 +204,7 @@ $log.debug("Deleting");
 
       
        $scope.currentWarrantyId = $scope.warranties[0].warranty_id;
-     
+         $("#ErrMsging").css("display", "none");
         if($scope.newWarranty_Responsewarranty_id!=="" ){
           $scope.getWarranty($scope.newWarranty_Responsewarranty_id);
           $scope.newWarranty_Responsewarranty_id="";
@@ -281,6 +286,11 @@ $scope.getAllProductNames();
  };
 
 
+
+$scope.setDatesValidations=function(){
+var warrantyPeriod=$scope.warranty.purchase_date;
+$("#prodo_warranty_periodUpdate").attr('min', warrantyPeriod);
+}
 $scope.handleGetWarrantySuccess=function(successData,l_warrantyid){
   if(successData.success)
     $log.debug(successData.success);
@@ -288,6 +298,7 @@ $scope.handleGetWarrantySuccess=function(successData,l_warrantyid){
         $scope.warranty=successData.success.Warranty;
         $scope.warranty.purchase_date = dateFilter($scope.warranty.purchase_date, 'yyyy-MM-dd');
         $scope.warranty.expirydate = dateFilter($scope.warranty.expirydate, 'yyyy-MM-dd');
+        $scope.setDatesValidations();
         $rootScope.Upload_warranty_id=$scope.warranty.warranty_id;
         $scope.OpenInvoiceImage=false;
         
@@ -420,8 +431,8 @@ $scope.handleGetWarrantySuccess=function(successData,l_warrantyid){
      
   }
   else{
-  	$log.debug("Upload correct image");
-      notify({message:"Upload correct image",template:'common/notification/views/notification-error.html',position:'center'});
+  	$log.debug("Upload invoice image");
+      notify({message:"Upload invoice image",template:'common/notification/views/notification-error.html',position:'center'});
   }
 
 
@@ -580,8 +591,8 @@ $scope.getOrgProductDetailsForUpdate();
  $scope.disableEditorFeatureUpdate = function () {
     $scope.editMode.editorEnabledWarrantyUpdate = false;
        $scope.form.WarrantyFormUpdate.submitted=false;
-   
-  };
+        $scope.getWarranty($scope.warranty.warranty_id);
+ };
 
  $scope.enableEditorFeatureUpdate = function () {
   $scope.form.WarrantyFormUpdate.$setPristine();
@@ -595,7 +606,8 @@ $scope.getOrgProductDetailsForUpdate();
  $scope.disableEditorFeature = function () {
     $scope.editMode.editorEnabledWarranty = false;
        $scope.form.WarrantyForm.submitted=false;
-   
+         $scope.getWarranty($scope.warranty.warranty_id);
+   $scope.clearText();
   };
 
  $scope.enableEditorFeature = function () {
@@ -681,6 +693,9 @@ $scope.getFile = function (a) {
           }
          // }  
      } 
+     else{
+       notify({message:'Please upload image only',template:'common/notification/views/notification-error.html',position:'center'});
+     }
   
     });
  

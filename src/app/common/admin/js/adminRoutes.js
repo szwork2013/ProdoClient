@@ -49,4 +49,8 @@ angular.module('prodo.AdminApp')
       templateUrl: 'common/admin/views/prodo.org_details.tpl.html'
     })  
     
+    .state('admin.landingpageslider', {
+      url: '/admin-landingpageslider',
+      templateUrl: 'common/admin/views/prodo.landingpageslider.tpl.html'
+    })  
   }]);

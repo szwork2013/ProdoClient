@@ -130,7 +130,9 @@ $scope.getFile = function (a) {
         }else if ($scope.uploadSrc == "orgkeyclient") { // upload product
 
           // if($scope.file.type !== 'image/png' ){
+
            if (($scope.file.size / 1024 < 2048)) {
+            if($rootScope.currentclient.name){
             action = {
               orgkeyclient: {
                 userid: $rootScope.usersession.currentUser.userid,
@@ -138,6 +140,13 @@ $scope.getFile = function (a) {
                 clientname: $rootScope.currentclient.name
               }
             };
+          }
+          else{
+              notify({message:" Please enter key client name",template:'common/notification/views/notification-error.html',position:'center'});
+              $("#spinner").hide();
+              $("#bar").hide();
+              setTimeout(function(){ jQuery("#FileName").hide(); },1000);
+          }
           } else {
              // $scope.enableErrorMsg();
              // UploadErrMsg.innerHTML = 'Image size must ne less than 2MB';
@@ -157,6 +166,29 @@ $scope.getFile = function (a) {
      
 
 
+        }  
+        else if ($scope.uploadSrc == "campaign") { // upload product
+
+          // if($scope.file.type !== 'image/png' ){
+
+           if (($scope.file.size / 1024 < 2048)) {
+        
+            action = {
+              campaign: {
+                userid: $rootScope.usersession.currentUser.userid,
+                 campaign_id:$rootScope.campaign_id
+              }
+            };
+                 
+          } else {
+             // $scope.enableErrorMsg();
+             // UploadErrMsg.innerHTML = 'Image size must ne less than 2MB';
+             notify({message:" Image size must ne less than 2MB",template:'common/notification/views/notification-error.html',position:'center'});
+            // growl.addErrorMessage("Image size must ne less than 2MB");
+            $("#bar").hide();
+            setTimeout(function(){ jQuery("#FileName").hide(); },1000);
+          }
+      
         }  
         else if ($scope.uploadSrc == "warranty") { // upload product
 
@@ -248,7 +280,7 @@ $scope.getFile = function (a) {
             setTimeout(function(){ jQuery("#FileName").hide(); },1000);
           }
         }
-
+   
 
       } else { //data 
         if ($scope.uploadSrc == "product") { // upload product
@@ -313,6 +345,11 @@ $scope.getFile = function (a) {
    $scope.orgKeyClientResponseHandler(error, imagelocation);
   });
 
+  $scope.socket.removeAllListeners('campaignUploadResponse');
+  $scope.socket.on('campaignUploadResponse', function (error, imagelocation) {
+   $scope.campaignUploadResponseHandler(error, imagelocation);
+  });
+
    $scope.socket.removeAllListeners('warrantyUploadResponse');
   $scope.socket.on('warrantyUploadResponse', function (error, imagelocation) {
    $scope.warrantyUploadResponseHandler(error, imagelocation);
@@ -322,7 +359,7 @@ $scope.getFile = function (a) {
   $scope.socket.on('productUploadLogoResponse', function (error, imagelocation) {
      $scope.productUploadLogoResponseHandler(error, imagelocation);
   });
-   $scope.socket.removeAllListeners('orgUploadsResponse');
+   $scope.socket.removeAllListeners('orgUploadResponse');
   $scope.socket.on('orgUploadResponse', function (error, imagelocation) {
     $scope.orgUploadResponseHandler(error, imagelocation);
   });
@@ -370,7 +407,54 @@ $scope.productUploadResponseHandler=function(error, imagelocation){
       $log.debug("getting response for product upload  " + $scope.imageSrc);
       // $scope.enableSuccessMsg();
       // UploadSuccessMsg.innerHTML = 'File Uploaded successfully...';
-       notify({message:" File Uploaded successfully...",template:'common/notification/views/notification-success.html',position:'center'});
+       notify({message:temp1+"  uploaded successfully...",template:'common/notification/views/notification-success.html',position:'center'});
+      // growl.addSuccessMessage("File Uploaded successfully...");
+      $scope.counter++;
+      $log.debug($scope.counter);
+      if ($scope.counter < $scope.fileLength) {
+        $log.debug("emitting image " + $scope.counter);
+        //    $scope.getFile($scope.counter);
+      } else $scope.counter = 0;
+    }
+  setTimeout(function(){ jQuery("#FileName").hide(); },1000);
+};
+
+$scope.campaignUploadResponseHandler=function(error, imagelocation){
+    $("#spinner").hide();
+ if (error) {
+      // $("#bar").hide();
+      
+      if (error.error.code == 'AP003') { // user already exist
+        $log.debug(error.error.code + " " + error.error.message);
+        // $scope.enableErrorMsg();
+        // UploadErrMsg.innerHTML = "Error while uploading " + $scope.file.name + " " + error.error.message;
+        notify({message:"Error while uploading " + $scope.file.name + " " + error.error.message,template:'common/notification/views/notification-error.html',position:'center'});
+        // growl.addErrorMessage("Error while uploading " + $scope.file.name + " " + error.error.message);
+      } else if (error.error.code == 'AV001') { // user data invalid
+        $log.debug(error.error.code + " " + error.error.message);
+        // $scope.enableErrorMsg();
+        // UploadErrMsg.innerHTML = "Error while uploading "+ $scope.file.name + " " + error.error.message;
+         notify({message:"Error while uploading " + $scope.file.name + " " + error.error.message,template:'common/notification/views/notification-error.html',position:'center'});
+        // growl.addErrorMessage(" Error while uploading " + $scope.file.name + " " + error.error.message);
+      } else {
+        $log.debug(error.error.message);
+        // $scope.enableErrorMsg();
+        // UploadErrMsg.innerHTML = "Error while uploading "+ $scope.file.name + " " + error.error.message;
+         notify({message:"Error while uploading " + $scope.file.name + " " + error.error.message,template:'common/notification/views/notification-error.html',position:'center'});
+        // growl.addErrorMessage("Error while uploading " + $scope.file.name + " " + error.error.message);
+      }
+
+    } else {
+      $scope.imageSrc = JSON.stringify(imagelocation);
+      $log.debug(JSON.stringify(imagelocation.success.filename));
+      $log.debug("Emit");
+      var temp1=imagelocation.success.filename.replace(/ /g,'');
+      document.getElementById('check'+temp1).style.color="#01DF74";
+      $rootScope.$broadcast("campaignUploadResponseSuccess", "success");
+      $log.debug("getting response for campaign upload  " + $scope.imageSrc);
+      // $scope.enableSuccessMsg();
+      // UploadSuccessMsg.innerHTML = 'File Uploaded successfully...';
+       notify({message:temp1+"  uploaded successfully...",template:'common/notification/views/notification-success.html',position:'center'});
       // growl.addSuccessMessage("File Uploaded successfully...");
       $scope.counter++;
       $log.debug($scope.counter);
@@ -417,7 +501,7 @@ $scope.warrantyUploadResponseHandler=function(error, imagelocation){
       $log.debug("getting response for warranty upload  " + $scope.imageSrc);
       // $scope.enableSuccessMsg();
       // UploadSuccessMsg.innerHTML = 'File Uploaded successfully...';
-       notify({message:" File Uploaded successfully...",template:'common/notification/views/notification-success.html',position:'center'});
+       notify({message:temp1+" uploaded successfully...",template:'common/notification/views/notification-success.html',position:'center'});
       // growl.addSuccessMessage("File Uploaded successfully...");
       $scope.counter++;
       $log.debug($scope.counter);
@@ -464,7 +548,7 @@ $scope.orgKeyClientResponseHandler=function(error, imagelocation){
       $log.debug("getting response for orgKeyClient upload  " + $scope.imageSrc);
       // $scope.enableSuccessMsg();
       // UploadSuccessMsg.innerHTML = 'File Uploaded successfully...';
-      notify({message:" File Uploaded successfully...",template:'common/notification/views/notification-success.html',position:'center'});
+      notify({message:temp1+" key Client added successfully...",template:'common/notification/views/notification-success.html',position:'center'});
       // growl.addSuccessMessage("File Uploaded successfully...");
       $scope.counter++;
       $log.debug($scope.counter);
@@ -512,7 +596,7 @@ $scope.productUploadLogoResponseHandler=function(error, imagelocation){
       // growl.addSuccessMessage("File Uploaded successfully...");
       // $scope.enableSuccessMsg();
       // UploadSuccessMsg.innerHTML = 'File Uploaded successfully...';
-      notify({message:" File Uploaded successfully...",template:'common/notification/views/notification-success.html',position:'center'});
+      notify({message:temp1+" uploaded successfully...",template:'common/notification/views/notification-success.html',position:'center'});
       $scope.imageSrc = imagelocation;
       $scope.counter++;
       $log.debug($scope.counter);
@@ -675,7 +759,7 @@ angular.module('prodo.UploadApp')
         $scope.fileLength = (e.srcElement || e.target).files;
         //console.log("counter= " + $scope.counter);
         $scope.file = (e.srcElement || e.target).files;
-        if ($scope.uploadSrc == "user") $scope.getFile($scope.file[0]);
+        // if ($scope.uploadSrc == "user") $scope.getFile($scope.file[0]);
         var addUploads = function (i) {
           var fn = document.getElementById("FileName");
             $("#FileName").show();
@@ -771,7 +855,7 @@ angular.module('prodo.UploadApp')
               
           }
             
-        for (var i = 0; i <= $scope.file.length; i++) {
+        for (var i = 0; i < $scope.file.length; i++) {
           addUploads($scope.file[i]);
           $scope.getFile($scope.file[i]);
         }

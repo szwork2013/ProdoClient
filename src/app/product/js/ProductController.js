@@ -15,7 +15,13 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
       $scope.pimgs = [];
 
     $scope.$watch('$state.$current.locals.globals.productData', function (productData) {
-       $scope.features = [];
+     if(productData.error){
+         $("#prodo-ProductDetails").css("display", "none");
+      $("#ErrMsging").css("display", "block");
+      document.getElementById("ErrMsging").innerHTML = "Product not available";
+     }
+     else{
+        $scope.features = [];
     $("#productLogo").attr('src', '');
     var temp = document.getElementById('prodo-comment-container');
       if(productData.success){
@@ -23,6 +29,8 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
           $scope.tabComment=true;
          $scope.getProduct(productData.success.product.prodle,productData.success.product.orgid);
       }
+     }
+    
      });
  
   $scope.productComments = {
@@ -183,14 +191,18 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
         } 
    };
     $scope.getProductHandleError=function(error){
-      if(error.code=='AL001'){
+      if(error){ 
+        if(error.code=='AL001'){
         $rootScope.showModal();
-      }else{
+      }
+   
+     else{
       $log.debug(error);
       $("#prodo-ProductDetails").css("display", "none");
       $("#ErrMsging").css("display", "inline");
       document.getElementById("ErrMsging").innerHTML = "Product not available " + error.message;
     }
+     }
    }
   $scope.getProduct = function (l_prodle, l_orgid) {
     $log.debug("Prodle n orgid "+ l_prodle + " "+l_orgid);

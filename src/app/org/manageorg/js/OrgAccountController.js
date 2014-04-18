@@ -1453,7 +1453,7 @@ $scope.removeKeyClientsPermenantly = function()
  });
  
 var cleanupeventKeyClientSuccess = $scope.$on("orgKeyClientResponseSuccess",function(event,message){
-    $rootScope.ProdoAppMessage('Key Client Added Successfully!','success');
+    // $rootScope.ProdoAppMessage('Key Client Added Successfully!','success');
     $state.reload();
 });
 

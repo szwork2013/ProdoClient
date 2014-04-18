@@ -116,9 +116,10 @@ else
         } else if(campaigndata.error !== undefined && campaigndata.error.code === 'AL001' ) {
             $rootScope.showModal();
         } else if (campaigndata.error) {  
-              $scope.ProdoAppMessage(campaigndata.error.message,'error');    //ShowAlert
+              //$scope.ProdoAppMessage(campaigndata.error.message,'error');    //ShowAlert
+              $scope.noCampaignExists = 0;
         }
-  
+        $rootScope.campaign_id = $scope.currentCampaign.campaign_id;
       });
 
  // function to send and stringify user registration data to Rest APIs
@@ -314,8 +315,10 @@ $scope.showDetails = function(index)
     if (month<10){
       month="0" + month;
     }
-    var day=d.getDate();
+    var day=d.getDate();$rootScope.campaign_id = $scope.currentCampaign.campaign_id;
    $scope.currentCampaign.enddate = year + "-" + month + "-" + day;  
+
+
 };
 
 $scope.add = function()
@@ -325,7 +328,8 @@ $scope.add = function()
 
 $scope.cancel = function()
 {
-    $scope.addNewCampaign = 0;$state.reload();
+    $scope.addNewCampaign = 0;
+    $state.reload();
 };
 
 $scope.getProdle = function()
@@ -378,30 +382,35 @@ $scope.currentPage = 0;
 
 $scope.pageSize = 5;
 
-$scope.numberOfPages = function () {
-     return Math.ceil($scope.productlist.length / $scope.pageSize);
-};
+
+
+
+
+ var cleanupartworkcampaignsuccess = $scope.$on("campaignUploadResponseSuccess", function(event, data){
+  $state.reload();
+});// pagination
+  $scope.currentPage = 0;
+  $scope.pageSize = 3;
+
+  $scope.numberOfPages = function () {
+    return Math.ceil($scope.campaignDetailsObject.length / $scope.pageSize);
+  };
+
+  // pagination
+//campaignUploadResponseSuccess
 
 $scope.$on('$destroy', function(event, message) 
 {
-	cleanupeventaddedcampaignsuccessfully();
-	cleanupeventaddedcampaignerror();
-	cleanupeventchangedcampaignsuccessfully();
-	cleanupeventnotchangedcampaignerror();
-	cleanupeventaddedcampaignsuccessfully();
-	cleanupeventaddedcampaignerror();
-	cleanupeventdeletecampaignsuccessfully();
-	cleanupeventdeletecampaignerror();
+  cleanupeventaddedcampaignsuccessfully();
+  cleanupeventaddedcampaignerror();
+  cleanupeventchangedcampaignsuccessfully();
+  cleanupeventnotchangedcampaignerror();
+  cleanupeventaddedcampaignsuccessfully();
+  cleanupeventaddedcampaignerror();
+  cleanupeventdeletecampaignsuccessfully();
+  cleanupeventdeletecampaignerror();
+  cleanupartworkcampaignsuccess();
 });
-
- // pagination
-  $scope.currentPage = 0;
-  $scope.pageSize = 3;
-  $scope.numberOfPages = function () {
-    return Math.ceil($scope.warranties.length / $scope.pageSize);
-  };
-  // pagination
-
 
 }]);
 
@@ -413,4 +422,4 @@ angular.module('prodo.CampaignApp').filter('startFrom', function () {
       return input.slice(start);
     }
   }
-})
+});
