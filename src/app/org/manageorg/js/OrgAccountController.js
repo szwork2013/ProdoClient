@@ -43,30 +43,6 @@ $scope.regexForPhno = /^\(?[+]([0-9]{2,5})\)?[-]?([0-9]{10,15})$/;
 
 $scope.regexForMultipleEmail = /(([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)(\s*,\s*|\s*$)+)/;
 
-$scope.changedOrgDetails = false;
-
-$scope.changedOrgLocation = false;
-
-$scope.addedOrgLocation = false;
-
-$scope.manageOrgGroup = false;
-
-$scope.addOrgInvites = false;
-//$scope.addCustomerInvites = false;
-$scope.deleteOrgRequestResponse = false;
-//$scope.orgaddresstype = "Company Address";
-// The following function will reset all growl messages
-$scope.resetGrowlMessages = function()
-{
-        $scope.changedOrgDetails = false;
-        $scope.changedOrgLocation = false;
-        $scope.addedOrgLocation = false;
-        $scope.manageOrgGroup = false;
-        $scope.addOrgInvites = false;
-       // $scope.addCustomerInvites = false;
-        $scope.deleteOrgRequestResponse = false;
-};
-
 $scope.regularExpressionForManufactuter = /^manufacturer/i;
 
 $scope.regularExpressionForCompany = /^company/i;
@@ -456,12 +432,12 @@ $scope.handleDeleteOrgRequestResponse = function(data){
     $scope.deleteOrgRequestResponse = true;
       if (data.success) 
       {
-        $scope.ProdoAppMessage(data.success.message,'success');  //ShowAlert
+        $rootScope.ProdoAppMessage(data.success.message,'success');  //ShowAlert
       } 
       else 
       {
         $log.debug(data.error.message);
-        $scope.ProdoAppMessage(data.error.message,'error');  //ShowAlert
+        $rootScope.ProdoAppMessage(data.error.message,'error');  //ShowAlert
       }
 };
 
@@ -483,7 +459,7 @@ var cleanupEventDeleteOrgDone = $scope.$on("deleteOrgRequestSent", function(even
 
 var cleanupEventDeleteOrgNotDone = $scope.$on("deleteOrgRequestNotSent", function(event, message){
       $scope.deleteOrgRequestResponse = true;
-      $scope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message,'error');    //ShowAlert
+      $rootScope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message,'error');    //ShowAlert
 });  
 
 // function to handle server side responses
@@ -492,12 +468,12 @@ $scope.handleUpdateOrgAccountResponse = function(data){
     if (data.success) {
         $scope.editorEnabled=false;
         $state.reload();
-        $scope.ProdoAppMessage(data.success.message, 'success');     //Growl
+        $rootScope.ProdoAppMessage(data.success.message, 'success');     //Growl
     } else {
         if (data.error.code== 'AU004') {     // enter valid data
-          $scope.ProdoAppMessage(data.error.message, 'error');    //Growl
+          $rootScope.ProdoAppMessage(data.error.message, 'error');    //Growl
         } else {
-          $scope.ProdoAppMessage(data.error.message,'error');          //Growl
+          $rootScope.ProdoAppMessage(data.error.message,'error');          //Growl
         }
     }
 };  
@@ -564,7 +540,7 @@ var cleanupEventUpdateOrgDone = $scope.$on("updateOrgDone", function(event, mess
 
 var cleanupEventUpdateOrgNotDone = $scope.$on("updateOrgNotDone", function(event, message){
       $scope.changedOrgDetails = true;
-      $scope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message,'error');   
+      $rootScope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message,'error');   
 }); 
 
 // The following block adds organisation address 
@@ -611,14 +587,14 @@ $scope.handleAddOrgAddressResponse = function(data){
      $scope.addedOrgLocation = false;
       if (data.success) {        
         $scope.reset();
-        $scope.ProdoAppMessage(data.success.message,'success');          //ShowAlert
+        $rootScope.ProdoAppMessage(data.success.message,'success');          //ShowAlert
       } else {
         if (data.error.code== 'AU004') {     // enter valid data
             $log.debug(data.error.code + " " + data.error.message);
-            $scope.ProdoAppMessage(data.error.message,'error');          //ShowAlert
+            $rootScope.ProdoAppMessage(data.error.message,'error');          //ShowAlert
         } else {
             $log.debug(data.error.message);
-            $scope.ProdoAppMessage(data.error.message,'error');          //ShowAlert
+            $rootScope.ProdoAppMessage(data.error.message,'error');          //ShowAlert
         }
          
       }
@@ -722,23 +698,23 @@ var cleanupEventAddOrgAddressDone = $scope.$on("addOrgAddressDone", function(eve
 
 var cleanupEventAddOrgAddressNotDone = $scope.$on("addOrgAddressNotDone", function(event, message){
          $scope.addedOrgLocation = false;
-         $scope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message,'error');    //ShowAlert
+         $rootScope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message,'error');    //ShowAlert
 });
 //End of block
 // function to handle server side responsesIt looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message
 $scope.handleUpdateOrgAddressResponse = function(data){
    $scope.changedOrgLocation = false;
    if (data.success) {
-        $scope.ProdoAppMessage(data.success.message,'success');    //ShowAlert
+        $rootScope.ProdoAppMessage(data.success.message,'success');    //ShowAlert
         $scope.reset();
         $state.reload();
    } else {
         if (data.error.code== 'AU004') {     // enter valid data
             $log.debug(data.error.code + " " + data.error.message);
-            $scope.ProdoAppMessage(data.error.message,'error');    //ShowAlert
+            $rootScope.ProdoAppMessage(data.error.message,'error');    //ShowAlert
         } else {
             $log.debug(data.error.message);
-            $scope.ProdoAppMessage(data.error.message,'error');  //ShowAlert
+            $rootScope.ProdoAppMessage(data.error.message,'error');  //ShowAlert
         }
   }
 };  
@@ -807,7 +783,7 @@ var cleanupEventUpdateOrgAddressDone = $scope.$on("updateOrgAddressDone", functi
 
 var cleanupEventUpdateOrgAddressNotDone = $scope.$on("updateOrgAddressNotDone", function(event, message){
       $scope.changedOrgLocation = true;
-      $scope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message,'error');    //ShowAlert
+      $rootScope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message,'error');    //ShowAlert
 });    
 
 //End of block
@@ -818,10 +794,10 @@ $scope.handleDeleteOrgAddressResponse = function(data){
      $scope.changedOrgLocation = true;
      if (data.success) {    
         $state.reload();     
-        $scope.ProdoAppMessage(data.success.message,'success');
+        $rootScope.ProdoAppMessage(data.success.message,'success');
      } else {
           $log.debug(data.error.message);
-          $scope.ProdoAppMessage(data.error.message,'error');  //ShowAlert
+          $rootScope.ProdoAppMessage(data.error.message,'error');  //ShowAlert
      }
 };
 
@@ -835,10 +811,10 @@ $scope.deleteOrgAddress = function(addr,addressId) {
       }
       else
       {
-        //$scope.ProdoAppMessage("You cannot delete this address!",'error');
+        //$rootScope.ProdoAppMessage("You cannot delete this address!",'error');
 
 
-        $scope.ProdoAppMessage("You cannot delete all company addresses!",'error');
+        $rootScope.ProdoAppMessage("You cannot delete all company addresses!",'error');
       }
 
 };
@@ -856,7 +832,7 @@ var cleanupEventDeleteOrgAddressDone = $scope.$on("deleteOrgAddressDone", functi
 
 var cleanupEventDeleteOrgAddressNotDone = $scope.$on("deleteOrgAddressNotDone", function(event, message){
      $scope.changedOrgLocation = true;
-     $scope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + 'message,error');    //ShowAlert
+     $rootScope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + 'message,error');    //ShowAlert
 });
 
 //end of block
@@ -865,14 +841,14 @@ $scope.handleDeleteOrgGroupMemberResponse = function(data){
       $scope.manageOrgGroup = true;
       if (data.success) {
          $state.reload();
-        $scope.ProdoAppMessage(data.success.message,'success');  //ShowAlert
+        $rootScope.ProdoAppMessage(data.success.message,'success');  //ShowAlert
       } else {
         if (data.error.code== 'AU004') {     // enter valid data
             $log.debug(data.error.code + " " + data.error.message);
-            $scope.ProdoAppMessage(data.error.message,'error');    //ShowAlert
+            $rootScope.ProdoAppMessage(data.error.message,'error');    //ShowAlert
         } else {
             $log.debug(data.error.message);
-            $scope.ProdoAppMessage(data.error.message,'error');    //ShowAlert
+            $rootScope.ProdoAppMessage(data.error.message,'error');    //ShowAlert
         }
       }
 };
@@ -883,11 +859,11 @@ $scope.deleteGroupMember = function(member, userid, index , mail) {
                 var lengthOfAdminMembers = $scope.groups[index].grpmembers.length;
                 if(lengthOfAdminMembers===1)
                 {
-                    $scope.ProdoAppMessage("You cannot delete all members of admin group",'error');
+                    $rootScope.ProdoAppMessage("You cannot delete all members of admin group",'error');
                 }
                 else if($rootScope.usersession.currentUser.email === mail)
                 {
-                    $scope.ProdoAppMessage("You cannot delete your own account",'error');
+                    $rootScope.ProdoAppMessage("You cannot delete your own account",'error');
                 }
                 else 
                 {
@@ -916,7 +892,7 @@ var cleanupEventDeleteOrgGroupMemberDone = $scope.$on("deleteOrgGroupMemberDone"
 
 var cleanupEventDeleteOrgGroupMemberNotDone = $scope.$on("deleteOrgGroupMemberNotDone", function(event, message){
         $scope.manageOrgGroup = true;
-      $scope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message,'error');    //ShowAlert
+      $rootScope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message,'error');    //ShowAlert
 });  
 //End of block
 $scope.resetInvites = function()
@@ -937,14 +913,14 @@ $scope.jsonOrgInvitesData = function(){
 $scope.handleOrgInviteResponse = function(data){
     $scope.addOrgInvites = true;
   if (data.success) { $scope.orginvites=[{'name': '','orgname': '','email': ''}];
-    $scope.ProdoAppMessage(data.success.message,'success');    //ShowAlert
+    $rootScope.ProdoAppMessage(data.success.message,'success');    //ShowAlert
   } else {
     if (data.error.code== 'AU004') {     // enter valid data
         $log.debug(data.error.code + " " + data.error.message);
-        $scope.ProdoAppMessage(data.error.message,'error');    //ShowAlert
+        $rootScope.ProdoAppMessage(data.error.message,'error');    //ShowAlert
     } else {
         $log.debug(data.error.message);
-        $scope.ProdoAppMessage(data.error.message,'error');    //ShowAlert
+        $rootScope.ProdoAppMessage(data.error.message,'error');    //ShowAlert
     }
   }
 }; 
@@ -1074,7 +1050,7 @@ var cleanupEventSendOrgInvitesDone = $scope.$on("sendOrgInvitesDone", function(e
 
 var cleanupEventSendOrgInvitesNotDone = $scope.$on("sendOrgInvitesNotDone", function(event, data){
     $scope.addOrgInvites= true;
-  $scope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + data,'error');    //ShowAlert
+  $rootScope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + data,'error');    //ShowAlert
 });
 
 //End of block
@@ -1086,14 +1062,14 @@ $scope.handleOrgGroupInviteResponse = function(data){
     $scope.showExistingInvites = false;
     $scope.showNewInvites = false;
     $scope.group = {'newgroupname': '', 'grouppname': '', 'invites': '', 'newinvites': ''};
-    $scope.ProdoAppMessage(data.success.message,'success'); 
+    $rootScope.ProdoAppMessage(data.success.message,'success'); 
   } else {
     if (data.error.code== 'AU004') {     // enter valid data
         $log.debug(data.error.code + " " + data.error.message);
-        $scope.ProdoAppMessage(data.error.message,'error');    //Growl
+        $rootScope.ProdoAppMessage(data.error.message,'error');    //Growl
     } else {
         $log.debug(data.error.message);
-         $scope.ProdoAppMessage(data.error.message,'error');    //Growl
+         $rootScope.ProdoAppMessage(data.error.message,'error');    //Growl
     }
   }
 };  
@@ -1262,21 +1238,21 @@ var cleanupEventSendOrgGroupInvitesDone = $scope.$on("sendOrgGroupInvitesDone", 
 
 var cleanupEventSendOrgGroupInvitesNotDone = $scope.$on("sendOrgGroupInvitesNotDone", function(event, data){
     $scope.manageOrgGroup = true;
-  $scope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message,'error');    //growl
+  $rootScope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message,'error');    //growl
 });
 //End of block
 //  The following block is used to send invites to org customer
 $scope.handleOrgCustomerInviteResponse = function(data){
 // $scope.addCustomerInvites = true;
   if (data.success) {  $scope.customerinvites=[{'name': '','email': ''}];
-    $scope.ProdoAppMessage(data.success.message,'success');    //ShowAlert
+    $rootScope.ProdoAppMessage(data.success.message,'success');    //ShowAlert
   } else {
     if (data.error.code== 'AU004') {     // enter valid data
         $log.debug(data.error.code + " " + data.error.message);
-        $scope.ProdoAppMessage(data.error.message,'error');    //ShowAlert
+        $rootScope.ProdoAppMessage(data.error.message,'error');    //ShowAlert
     } else {
         $log.debug(data.error.message);
-        $scope.ProdoAppMessage(data.error.message,'error');    //ShowError
+        $rootScope.ProdoAppMessage(data.error.message,'error');    //ShowError
     }
   }
 };  
@@ -1370,7 +1346,7 @@ var cleanupEventSendOrgCustomerInvitesDone = $scope.$on("sendOrgCustomerInvitesD
 
 var cleanupEventSendOrgCustomerInvitesNotDone = $scope.$on("sendOrgCustomerInvitesNotDone", function(event, data){
    //  $scope.addCustomerInvites = true;
-  $scope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." ,'error');    //ShowAlert
+  $rootScope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." ,'error');    //ShowAlert
 }); 
    
 var cleanupEventremoveOrgImageDone = $scope.$on("orgImageDeleted",function(event,data){
@@ -1382,20 +1358,20 @@ var cleanupEventremoveOrgImageDone = $scope.$on("orgImageDeleted",function(event
   }
   if(data.success)
   {
-     $scope.ProdoAppMessage(data.success.message,'success');
+     $rootScope.ProdoAppMessage(data.success.message,'success');
      $state.reload();
   }
   else {
     if (data.error.code== 'AU004') {     // enter valid data
-        $scope.ProdoAppMessage(data.error.message,'error');    //ShowAlert
+        $rootScope.ProdoAppMessage(data.error.message,'error');    //ShowAlert
     } else {
-        $scope.ProdoAppMessage(data.error.message,'error');    //ShowError
+        $rootScope.ProdoAppMessage(data.error.message,'error');    //ShowError
     }
   }
 });
 
 var cleanupEventremoveOrgImageNotDone = $scope.$on("orgImageDeleteNotDone",function(event,data){
-        $scope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." ,'error');    //ShowAlert
+        $rootScope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." ,'error');    //ShowAlert
 });
 
 //  End of block
@@ -1441,12 +1417,12 @@ $scope.removeKeyClientsPermenantly = function()
 };
 
  var cleanupEventOrgUploadLogoResponseSuccess = $scope.$on("orgUploadLogoResponseSuccess",function(event,message){
-  //$scope.ProdoAppMessage("Organization logo uploaded successfully!",'success');  
+  //$rootScope.ProdoAppMessage("Organization logo uploaded successfully!",'success');  
   $state.reload();
  });
 
  var cleanupEventOrgUploadResponseSuccess = $scope.$on("orgUploadResponseSuccess",function(event,message){
-    //$scope.ProdoAppMessage("Organization artwork images uploaded successfully",'success');
+    //$rootScope.ProdoAppMessage("Organization artwork images uploaded successfully",'success');
   $state.reload();
  });
 
@@ -1459,25 +1435,25 @@ $scope.removeKeyClientsPermenantly = function()
   }
   if(data.success)
   {
-     $scope.ProdoAppMessage(data.success.message,'success');
+     $rootScope.ProdoAppMessage(data.success.message,'success');
      $state.reload();
   }
   else {
     if (data.error.code== 'AU004') {     // enter valid data
-        $scope.ProdoAppMessage(data.error.message,'error');    //ShowAlert
+        $rootScope.ProdoAppMessage(data.error.message,'error');    //ShowAlert
     } else {
-        $scope.ProdoAppMessage(data.error.message,'error');    //ShowError
+        $rootScope.ProdoAppMessage(data.error.message,'error');    //ShowError
     }
   }    
  });
 
  var cleanupeventKeyClientDeleteFails = $scope.$on("clientsNotDeletedSuccessfully",function(event,message){
-           $scope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + data,'error');    //ShowAlert
+           $rootScope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + data,'error');    //ShowAlert
 
  });
  
 var cleanupeventKeyClientSuccess = $scope.$on("orgKeyClientResponseSuccess",function(event,message){
-    $scope.ProdoAppMessage('Key Client Added Successfully!','success');
+    $rootScope.ProdoAppMessage('Key Client Added Successfully!','success');
     $state.reload();
 });
 
@@ -1574,18 +1550,27 @@ $scope.enableEditor = function(addr) {
 };
     
 
-$scope.ProdoAppMessage = function(message,flag)
-{
-      if(flag==='success')
-      {
-        notify({message:message,template:'common/notification/views/notification-success.html',position:'center'})
-      }
-      else
-      {
-         notify({message:message,template:'common/notification/views/notification-error.html',position:'center'});
+// $rootScope.ProdoAppMessage = function(message,flag)
+// {
+//   if(flag==='success')
+//   {
+//     growl.addSuccessMessage(message); 
+//     // notify({message:message,template:'common/notification/views/notification-success.html',position:'center'})
+//   }
+//   else {
+//     if (flag==='error') {
+//       growl.addErrorMessage(message); 
+//       // notify({message:message,template:'common/notification/views/notification-error.html',position:'center'});
+//     } else if (flag==='info') {
+//       growl.addInfoMessage(data.error.message); 
+//       // notify({message:message,template:'common/notification/views/notification-error.html',position:'center'});
+//     } else {
+//       growl.addWarningMessage(data.error.message); 
+//       // notify({message:message,template:'common/notification/views/notification-error.html',position:'center'});
+//     } 
+//   }
       
-      }
-};
+// };
 
 $scope.$on('$destroy', function(event, message) {
       cleanupEventUpdateOrgDone();      

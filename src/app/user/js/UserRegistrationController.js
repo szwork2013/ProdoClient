@@ -2,7 +2,7 @@
 *Registration Controller
 **/
 angular.module('prodo.UserApp')
-  .controller('UserRegistrationController', ['$scope', '$state', '$http', '$timeout', '$sce', '$log', 'UserSessionService', 'UserSignupService', 'vcRecaptchaService', 'UserRecaptchaService', function($scope, $state, $http, $timeout, $sce, $log, UserSessionService, UserSignupService, vcRecaptchaService, UserRecaptchaService) {
+  .controller('UserRegistrationController', ['$scope', '$state', '$http', '$timeout', '$sce', '$log', 'growl', 'UserSessionService', 'UserSignupService', 'vcRecaptchaService', 'UserRecaptchaService', function($scope, $state, $http, $timeout, $sce, $log, growl, UserSessionService, UserSignupService, vcRecaptchaService, UserRecaptchaService) {
     $scope.submitted = false;     
 
     $scope.user = 
@@ -22,10 +22,6 @@ angular.module('prodo.UserApp')
       $scope.user.email = '';
       $scope.user.password = '';
     }
-  
-    $timeout(function(){
-       $scope.hideAlert();
-      }, 50000);
 
     $('#recaptcha_reload_button').on('click', function() {
       var placeholder = $(this).find(':selected').data('placeholder');
@@ -61,19 +57,19 @@ angular.module('prodo.UserApp')
       } else {
         if (data.error.code== 'AU001') {     // user already exist
             $log.debug(data.error.code + " " + data.error.message);
-            $scope.showAlert('alert-danger', data.error.message);
+            growl.addErrorMessage(data.error.message);
         } else if (data.error.code=='ACT001') {  // user data invalid
             $log.debug(data.error.code + " " + data.error.message);
             $state.transitionTo('prodo.user-content.reactivate');
         } else if (data.error.code=='AV001') {  // user data invalid
             $log.debug(data.error.code + " " + data.error.message);
-            $scope.showAlert('alert-danger', data.error.message);
+            growl.addErrorMessage(data.error.message);
         } else if (data.error.code=='AT001') {   // user has not verified
             $log.debug(data.error.code + " " + data.error.message);
             $state.transitionTo('user-content.resetGenerateToken');
         } else {
             $log.debug(data.error.message);
-            $scope.showAlert('alert-danger', 'Prodonus Database Server error. Please wait for some time.');
+            growl.addErrorMessage('Prodonus Database Server error. Please wait for some time.');
         }
       }
       $scope.hideSpinner();
@@ -93,13 +89,13 @@ angular.module('prodo.UserApp')
 
     var cleanupEventRecaptchaNotDone = $scope.$on("recaptchaNotDone", function(event, message){
       $scope.hideSpinner();
-      $scope.showAlert('alert-danger', 'Recaptcha failed, please try again');
+      growl.addErrorMessage('Recaptcha failed, please try again');
       
     });
 
     var cleanupEventRecaptchaFailure = $scope.$on("recaptchaFailure", function(event, message){
       $scope.hideSpinner();
-      $scope.showAlert('alert-danger', "Server is not responding. Error:" + message);
+      growl.addErrorMessage("Server is not responding. Error:" + message);
     });
 
     var cleanupEventRecaptchaDone = $scope.$on("recaptchaDone", function(event, message){
@@ -114,7 +110,7 @@ angular.module('prodo.UserApp')
     var cleanupEventSignupNotDone = $scope.$on("signupNotDone", function(event, message){
       $scope.hideSpinner();
       $log.debug(message);
-      $scope.showAlert('alert-danger', "Server Error:" + message.status);
+      growl.addErrorMessage("Server Error:" + message.status);
     });
 
     // function to send and stringify user email to Rest APIs for token regenerate
@@ -136,10 +132,10 @@ angular.module('prodo.UserApp')
       } else {
         if (data.error.code== 'AU004') {     // enter valid data
             $log.debug(data.error.code + " " + data.error.message);
-            $scope.showAlert('alert-danger', data.error.message);
+            growl.addErrorMessage(data.error.message);
         } else {
             $log.debug(data.error.message);
-            $scope.showAlert('alert-danger', data.error.message);
+            growl.addErrorMessage(data.error.message);
         }
       }
     };  
@@ -178,10 +174,10 @@ angular.module('prodo.UserApp')
       } else {
         if (data.error.code== 'AU004') {     // enter valid data
             $log.debug(data.error.code + " " + data.error.message);
-            $scope.showAlert('alert-danger', data.error.message);
+            growl.addErrorMessage(data.error.message);
         } else {
             $log.debug(data.error.message);
-            $scope.showAlert('alert-danger', data.error.message);
+            growl.addErrorMessage(data.error.message);
         }
       }
     };   

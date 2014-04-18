@@ -83,14 +83,14 @@ angular.module('prodo.ProdoWallApp')
       if (data.success) {
         UserSessionService.productfollowlist.push(product);
         $state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
-        growl.addSuccessMessage('You can start your product conversation for' + ' ' + product.name);    
+        $rootScope.ProdoAppMessage('You can start your product conversation for' + ' ' + product.name,'success');
       } else {
-          if(data.error !== undefined && data.error.code === 'AL001' ) {
-            $rootScope.showModal();
-          } else {
-            $log.debug(data.error.message);
-            growl.addErrorMessage(data.error.message); 
-          }
+        if(data.error !== undefined && data.error.code === 'AL001' ) {
+          $rootScope.showModal();
+        } else {
+          $log.debug(data.error.message);
+          $rootScope.ProdoAppMessage(data.error.message,'error');        
+        }
       }
     }; 
 
@@ -105,7 +105,7 @@ angular.module('prodo.ProdoWallApp')
 
     var cleanupEventFollowProductNotDone = $scope.$on('followProductNotDone', function(event, data) {
         $scope.isFollowing = true;
-        growl.addErrorMessage('There is some server error.');
+        $rootScope.ProdoAppMessage('It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it','error');
       });    
 
     $scope.$on('$destroy', function(event, data) {

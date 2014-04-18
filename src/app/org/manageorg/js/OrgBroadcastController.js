@@ -1,5 +1,5 @@
 angular.module('prodo.OrgApp')
- .controller('ManageOrgBroadcastController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$log','growl', 'UserSessionService', 'OrgRegistrationService', 'OrgService', 'getBroadcastData', function($scope, $rootScope, $state, $http, $timeout, $log, growl, UserSessionService, OrgRegistrationService, OrgService, getBroadcastData) {
+ .controller('ManageOrgBroadcastController', ['$scope', '$rootScope', '$stateParams', '$state', '$http', '$timeout', '$log','growl', 'UserSessionService', 'OrgRegistrationService', 'OrgService', 'getBroadcastData', function($scope, $rootScope, $stateParams, $state, $http, $timeout, $log, growl, UserSessionService, OrgRegistrationService, OrgService, getBroadcastData) {
     
     $scope.submitted= false;    
     $scope.form = {};
@@ -62,15 +62,14 @@ angular.module('prodo.OrgApp')
       if (data.success) {
         $log.debug('OrgBroadcast_' + data);
         $scope.clear();
-        $state.reload();
-        growl.addSuccessMessage(data.success.message);    
-
+        $state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
+        $rootScope.ProdoAppMessage(data.success.message,'success');
       } else {
         if(data.error !== undefined && data.error.code === 'AL001' ) {
           $rootScope.showModal();
         } else {
           $log.debug(data.error.message);
-          growl.addErrorMessage(data.error.message);  
+          $rootScope.ProdoAppMessage(data.error.message,'error');
         }
       }    
       $scope.hideSpinner();
@@ -78,7 +77,6 @@ angular.module('prodo.OrgApp')
     };
 
     $scope.broadcastMessage = function() {
-      console.log($scope.jsonOrgBroadcastData());
       if ($scope.form.orgMessageBroadcastform.$valid) {
         $scope.showSpinner();
         $scope.form.orgMessageBroadcastform.submitted = false;
@@ -93,22 +91,22 @@ angular.module('prodo.OrgApp')
     });
 
     var cleanupOrgBroadcastNotDone = $scope.$on("OrgBroadcastNotDone", function(event, message) {
-      growl.addErrorMessage('There is some server error.');
+      $rootScope.ProdoAppMessage('It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it','error');
     });
 
     // function to handle server side responses
     $scope.handleDeleteOrgBroadcastResponse = function(data){
       if (data.success) {
         $log.debug('DeleteOrgBroadcast_' + data);
-        growl.addSuccessMessage(data.success.message);
-        $state.reload();    
+        $rootScope.ProdoAppMessage(data.success.message,'success');
+        $state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
 
       } else {
         if(data.error !== undefined && data.error.code === 'AL001' ) {
           $rootScope.showModal();
         } else {
           $log.debug(data.error.message);
-          growl.addErrorMessage(data.error.message);  
+          $rootScope.ProdoAppMessage(data.error.message,'error');
         }
       }    
     };
@@ -124,7 +122,7 @@ angular.module('prodo.OrgApp')
     });
 
     var cleanupDeleteOrgBroadcastNotDone = $scope.$on("DeleteOrgBroadcastNotDone", function(event, message) {
-      growl.addErrorMessage('There is some server error.');
+      $rootScope.ProdoAppMessage('It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it','error');
     });
 
 
