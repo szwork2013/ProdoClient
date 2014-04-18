@@ -118,6 +118,16 @@ angular.module('prodo.ProdonusApp')
       templateUrl: 'user/views/user.signin.forgotpassword.otp.tpl.html',
       controller: 'UserSigninController'
     })
+    .state('prodo.user-content.reactivate', {
+      url: '/reactivate',
+      templateUrl: 'user/views/user.signup.reactivate.tpl.html',
+      controller: 'UserRegistrationController'
+    })
+    .state('prodo.user-content.activaterequest', {
+      url: '/activaterequest',
+      templateUrl: 'user/views/user.signup.activaterequestsent.tpl.html',
+      controller: 'UserRegistrationController'
+    })
 
     /* ----Footer Content Routes---- */
     .state('prodo.footer-content', {
@@ -322,7 +332,7 @@ angular.module('prodo.ProdonusApp')
    .state('prodo.home.wall-warranty', {
       resolve: {
         warrantydata: function(WarrantyService, $rootScope) {
-          return WarrantyService.get_allwarranties.getAllWarrantyDetails({userid: $rootScope.usersession.currentUser.userid}).$promise;
+          return WarrantyService.get_latest5warranties.getLatestWarrantyDetails({userid: $rootScope.usersession.currentUser.userid}).$promise;
         }
       },
       views: {

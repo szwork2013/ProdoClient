@@ -14,6 +14,8 @@ angular.module('prodo.UserApp')
         'type': 'business'
       };
 
+    $scope.activateaccount = { 'email': ''};
+
     // function to clear form data on submit
     $scope.clearformData = function() {
       $scope.user.username = '';
@@ -60,6 +62,9 @@ angular.module('prodo.UserApp')
         if (data.error.code== 'AU001') {     // user already exist
             $log.debug(data.error.code + " " + data.error.message);
             $scope.showAlert('alert-danger', data.error.message);
+        } else if (data.error.code=='ACT001') {  // user data invalid
+            $log.debug(data.error.code + " " + data.error.message);
+            $state.transitionTo('prodo.user-content.reactivate');
         } else if (data.error.code=='AV001') {  // user data invalid
             $log.debug(data.error.code + " " + data.error.message);
             $scope.showAlert('alert-danger', data.error.message);
@@ -126,7 +131,7 @@ angular.module('prodo.UserApp')
     // function to handle server side responses
     $scope.handleRegenerateTokenResponse = function(data){
       if (data.success) {
-        $state.transitionTo('messageContent.emailverification');
+        $state.transitionTo('prodo.user-content.regeneratetoken');
         $scope.clearformData();    
       } else {
         if (data.error.code== 'AU004') {     // enter valid data
@@ -156,7 +161,52 @@ angular.module('prodo.UserApp')
       $scope.clearformData();
       $scope.hideSpinner(); 
     });
+
+    $scope.jsonActivateAccountTokenData = function()
+      {
+        var userData = 
+          {
+            'email' : $scope.activateaccount.email
+          };
+        return JSON.stringify(userData); 
+      }
     
+    // function to handle server side responses
+    $scope.handleActivateAccountTokenResponse = function(data){
+      if (data.success) {
+        $state.transitionTo('prodo.user-content.activaterequest'); 
+      } else {
+        if (data.error.code== 'AU004') {     // enter valid data
+            $log.debug(data.error.code + " " + data.error.message);
+            $scope.showAlert('alert-danger', data.error.message);
+        } else {
+            $log.debug(data.error.message);
+            $scope.showAlert('alert-danger', data.error.message);
+        }
+      }
+    };   
+    
+
+    $scope.activate_account_request = function() {
+      if ($scope.activateaccountForm.$valid) {
+        UserSessionService.activateaccount($scope.jsonActivateAccountTokenData());
+      } else {
+        $scope.activateaccountForm.submitted = true;
+      }
+    }
+
+    var cleanupEventActivateAccountTokenDone = $scope.$on("activateAccountTokenDone", function(event, message){
+      $scope.clearformData();
+      $scope.handleActivateAccountTokenResponse(message);  
+      $scope.hideSpinner();           
+    });
+
+    var cleanupEventActivateAccountTokenNotDone = $scope.$on("activateAccountTokenNotDone", function(event, message){
+      $scope.clearformData();
+      $scope.hideSpinner(); 
+    });
+
+
     $scope.$on('$destroy', function(event, message) {
       cleanupEventRecaptchaNotDone();
       cleanupEventRecaptchaFailure();
@@ -165,6 +215,8 @@ angular.module('prodo.UserApp')
       cleanupEventSignupNotDone();
       cleanupEventRegenerateTokenDone();
       cleanupEventRegenerateTokenNotDone(); 
+      cleanupEventActivateAccountTokenNotDone();
+      cleanupEventActivateAccountTokenDone();
     });
 
   }]);
