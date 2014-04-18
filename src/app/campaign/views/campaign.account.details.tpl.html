@@ -157,22 +157,25 @@
                     <div class="manage-Campaign-td1">Campaign Artwork:  </div>
 		                   <div class="manage-Campaign-td2 manage-campaign-marginbottom" >
 				              
+
 				           </div>
               </div>
 
               <div class="manage-Campaign-tr">
                     <div class="manage-Campaign-td1">Upload Artwork:  </div>
 		                   <div class="manage-Campaign-td2 manage-campaign-marginbottom" >
-				               
+				                <div    ng-app="prodo.UploadApp" ng-controller="UploadController"  >
 							              <div class="controls" > 
 							                  <span class="btn btn-primary fileinput-button controls-upload prodo-uploadBtnWidth" style="padding-left:28px;">
 							                    <i class="glyphicon glyphicon-upload "></i>
-							                    <input   type="file" name="file" ng-file-select="onFileSelect($files)" multiple ng-click="uploadSrc = 'org';">
+							                    <input   type="file" name="file" ng-file-select="onFileSelect($files)" multiple ng-click="uploadSrc = 'campaign';">
 							                    <span>Upload Org Art Work</span>
 							                  </span>
 							                </div>
+							                <div id="FileName" >  </div>
 
 
+				           </div>
 				           </div>
               </div>
               <div>

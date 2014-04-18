@@ -401,9 +401,11 @@ $scope.$on('$destroy', function(event, message)
  // pagination
   $scope.currentPage = 0;
   $scope.pageSize = 3;
-  // $scope.numberOfPages = function () {
-  //   return Math.ceil($scope.warranties.length / $scope.pageSize);
-  // };
+
+  $scope.numberOfPages = function () {
+    return Math.ceil($scope.campaignDetailsObject.length / $scope.pageSize);
+  };
+
   // pagination
 
 
