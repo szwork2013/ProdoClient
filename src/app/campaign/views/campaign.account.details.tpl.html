@@ -59,11 +59,11 @@
 			</tr>
 
 			<tr>
-					<td  >Start Date: </td> <td  ><span ng-bind = "startDate | date: 'medium' "></span></td>
+					<td  >Start Date: </td> <td  ><span ng-bind = "startDate | date: 'fullDate' "></span></td>
 			</tr>
 
 			<tr >
-					<td  >End Date: </td> <td  ><span ng-bind="endDate | date: 'medium'"></span></td>
+					<td  >End Date: </td> <td  ><span ng-bind="endDate | date: 'fullDate'"></span></td>
 			</tr>
 
 			<tr>
@@ -249,6 +249,7 @@
 				  <div class="manage-Campaign-td2"> 
 
 				     <input type="date" placeholder="Plaese enter start date" ng-model="campaign.startDate" class="form-control" name="startDate"  />
+				         
 				          
 
 				  </div>

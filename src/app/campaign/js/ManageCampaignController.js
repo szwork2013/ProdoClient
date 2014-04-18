@@ -328,7 +328,8 @@ $scope.add = function()
 
 $scope.cancel = function()
 {
-    $scope.addNewCampaign = 0;$state.reload();
+    $scope.addNewCampaign = 0;
+    $state.reload();
 };
 
 $scope.getProdle = function()
@@ -381,9 +382,9 @@ $scope.currentPage = 0;
 
 $scope.pageSize = 5;
 
-$scope.numberOfPages = function () {
-     return Math.ceil($scope.productlist.length / $scope.pageSize);
-};
+// $scope.numberOfPages = function () {
+//      return Math.ceil($scope.productlist.length / $scope.pageSize);
+// };
 
 $scope.$on('$destroy', function(event, message) 
 {
@@ -400,9 +401,11 @@ $scope.$on('$destroy', function(event, message)
  // pagination
   $scope.currentPage = 0;
   $scope.pageSize = 3;
+
   $scope.numberOfPages = function () {
     return Math.ceil($scope.campaignDetailsObject.length / $scope.pageSize);
   };
+
   // pagination
 
 
