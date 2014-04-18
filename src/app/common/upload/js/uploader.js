@@ -130,7 +130,9 @@ $scope.getFile = function (a) {
         }else if ($scope.uploadSrc == "orgkeyclient") { // upload product
 
           // if($scope.file.type !== 'image/png' ){
+
            if (($scope.file.size / 1024 < 2048)) {
+            if($rootScope.currentclient.name){
             action = {
               orgkeyclient: {
                 userid: $rootScope.usersession.currentUser.userid,
@@ -138,6 +140,13 @@ $scope.getFile = function (a) {
                 clientname: $rootScope.currentclient.name
               }
             };
+          }
+          else{
+              notify({message:" Please enter key client name",template:'common/notification/views/notification-error.html',position:'center'});
+              $("#spinner").hide();
+              $("#bar").hide();
+              setTimeout(function(){ jQuery("#FileName").hide(); },1000);
+          }
           } else {
              // $scope.enableErrorMsg();
              // UploadErrMsg.innerHTML = 'Image size must ne less than 2MB';
@@ -248,7 +257,7 @@ $scope.getFile = function (a) {
             setTimeout(function(){ jQuery("#FileName").hide(); },1000);
           }
         }
-
+   
 
       } else { //data 
         if ($scope.uploadSrc == "product") { // upload product
@@ -370,7 +379,7 @@ $scope.productUploadResponseHandler=function(error, imagelocation){
       $log.debug("getting response for product upload  " + $scope.imageSrc);
       // $scope.enableSuccessMsg();
       // UploadSuccessMsg.innerHTML = 'File Uploaded successfully...';
-       notify({message:" File Uploaded successfully...",template:'common/notification/views/notification-success.html',position:'center'});
+       notify({message:temp1+"  uploaded successfully...",template:'common/notification/views/notification-success.html',position:'center'});
       // growl.addSuccessMessage("File Uploaded successfully...");
       $scope.counter++;
       $log.debug($scope.counter);
@@ -417,7 +426,7 @@ $scope.warrantyUploadResponseHandler=function(error, imagelocation){
       $log.debug("getting response for warranty upload  " + $scope.imageSrc);
       // $scope.enableSuccessMsg();
       // UploadSuccessMsg.innerHTML = 'File Uploaded successfully...';
-       notify({message:" File Uploaded successfully...",template:'common/notification/views/notification-success.html',position:'center'});
+       notify({message:temp1+" uploaded successfully...",template:'common/notification/views/notification-success.html',position:'center'});
       // growl.addSuccessMessage("File Uploaded successfully...");
       $scope.counter++;
       $log.debug($scope.counter);
@@ -464,7 +473,7 @@ $scope.orgKeyClientResponseHandler=function(error, imagelocation){
       $log.debug("getting response for orgKeyClient upload  " + $scope.imageSrc);
       // $scope.enableSuccessMsg();
       // UploadSuccessMsg.innerHTML = 'File Uploaded successfully...';
-      notify({message:" File Uploaded successfully...",template:'common/notification/views/notification-success.html',position:'center'});
+      notify({message:temp1+" key Client added successfully...",template:'common/notification/views/notification-success.html',position:'center'});
       // growl.addSuccessMessage("File Uploaded successfully...");
       $scope.counter++;
       $log.debug($scope.counter);
@@ -512,7 +521,7 @@ $scope.productUploadLogoResponseHandler=function(error, imagelocation){
       // growl.addSuccessMessage("File Uploaded successfully...");
       // $scope.enableSuccessMsg();
       // UploadSuccessMsg.innerHTML = 'File Uploaded successfully...';
-      notify({message:" File Uploaded successfully...",template:'common/notification/views/notification-success.html',position:'center'});
+      notify({message:temp1+" uploaded successfully...",template:'common/notification/views/notification-success.html',position:'center'});
       $scope.imageSrc = imagelocation;
       $scope.counter++;
       $log.debug($scope.counter);
@@ -675,7 +684,7 @@ angular.module('prodo.UploadApp')
         $scope.fileLength = (e.srcElement || e.target).files;
         //console.log("counter= " + $scope.counter);
         $scope.file = (e.srcElement || e.target).files;
-        if ($scope.uploadSrc == "user") $scope.getFile($scope.file[0]);
+        // if ($scope.uploadSrc == "user") $scope.getFile($scope.file[0]);
         var addUploads = function (i) {
           var fn = document.getElementById("FileName");
             $("#FileName").show();
@@ -771,7 +780,7 @@ angular.module('prodo.UploadApp')
               
           }
             
-        for (var i = 0; i <= $scope.file.length; i++) {
+        for (var i = 0; i < $scope.file.length; i++) {
           addUploads($scope.file[i]);
           $scope.getFile($scope.file[i]);
         }
