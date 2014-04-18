@@ -359,7 +359,7 @@ $scope.getFile = function (a) {
   $scope.socket.on('productUploadLogoResponse', function (error, imagelocation) {
      $scope.productUploadLogoResponseHandler(error, imagelocation);
   });
-   $scope.socket.removeAllListeners('orgUploadsResponse');
+   $scope.socket.removeAllListeners('orgUploadResponse');
   $scope.socket.on('orgUploadResponse', function (error, imagelocation) {
     $scope.orgUploadResponseHandler(error, imagelocation);
   });
