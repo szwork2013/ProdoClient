@@ -13,7 +13,7 @@
 angular.module('prodo.ProductApp')
 .controller('ProductCommentController', ['$scope', '$log', '$rootScope', 'ProductService', 'UserSessionService', '$http', 'CommentLoadMoreService', 'ENV', 'TagReffDictionaryService', 'ProductFeatureService', 'growl','isLoggedin',  function ($scope, $log, $rootScope, ProductService, UserSessionService, $http, CommentLoadMoreService, ENV, TagReffDictionaryService, ProductFeatureService, growl,isLoggedin) {
 
-
+ $scope.count;
 $scope.handleGetAllTagsSuccess=function(successData){
      for (var i = 0; i < successData.success.tags.length; i++) {
       $scope.pretags.push(successData.success.tags[i].tagname);
