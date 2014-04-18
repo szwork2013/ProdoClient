@@ -382,23 +382,13 @@ $scope.currentPage = 0;
 
 $scope.pageSize = 5;
 
-// $scope.numberOfPages = function () {
-//      return Math.ceil($scope.productlist.length / $scope.pageSize);
-// };
 
-$scope.$on('$destroy', function(event, message) 
-{
-	cleanupeventaddedcampaignsuccessfully();
-	cleanupeventaddedcampaignerror();
-	cleanupeventchangedcampaignsuccessfully();
-	cleanupeventnotchangedcampaignerror();
-	cleanupeventaddedcampaignsuccessfully();
-	cleanupeventaddedcampaignerror();
-	cleanupeventdeletecampaignsuccessfully();
-	cleanupeventdeletecampaignerror();
-});
 
- // pagination
+
+
+ var cleanupartworkcampaignsuccess = $scope.$on("campaignUploadResponseSuccess", function(event, data){
+  $state.reload();
+});// pagination
   $scope.currentPage = 0;
   $scope.pageSize = 3;
 
@@ -407,7 +397,20 @@ $scope.$on('$destroy', function(event, message)
   };
 
   // pagination
+//campaignUploadResponseSuccess
 
+$scope.$on('$destroy', function(event, message) 
+{
+  cleanupeventaddedcampaignsuccessfully();
+  cleanupeventaddedcampaignerror();
+  cleanupeventchangedcampaignsuccessfully();
+  cleanupeventnotchangedcampaignerror();
+  cleanupeventaddedcampaignsuccessfully();
+  cleanupeventaddedcampaignerror();
+  cleanupeventdeletecampaignsuccessfully();
+  cleanupeventdeletecampaignerror();
+  cleanupartworkcampaignsuccess();
+});
 
 }]);
 
