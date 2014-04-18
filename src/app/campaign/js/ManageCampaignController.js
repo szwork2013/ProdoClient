@@ -116,9 +116,10 @@ else
         } else if(campaigndata.error !== undefined && campaigndata.error.code === 'AL001' ) {
             $rootScope.showModal();
         } else if (campaigndata.error) {  
-              $scope.ProdoAppMessage(campaigndata.error.message,'error');    //ShowAlert
+              //$scope.ProdoAppMessage(campaigndata.error.message,'error');    //ShowAlert
+              $scope.noCampaignExists = 0;
         }
-  
+        $rootScope.campaign_id = $scope.currentCampaign.campaign_id;
       });
 
  // function to send and stringify user registration data to Rest APIs
@@ -314,8 +315,10 @@ $scope.showDetails = function(index)
     if (month<10){
       month="0" + month;
     }
-    var day=d.getDate();
+    var day=d.getDate();$rootScope.campaign_id = $scope.currentCampaign.campaign_id;
    $scope.currentCampaign.enddate = year + "-" + month + "-" + day;  
+
+
 };
 
 $scope.add = function()
@@ -413,4 +416,4 @@ angular.module('prodo.CampaignApp').filter('startFrom', function () {
       return input.slice(start);
     }
   }
-})
+});
