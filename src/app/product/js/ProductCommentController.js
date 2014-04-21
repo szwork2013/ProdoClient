@@ -68,7 +68,7 @@ $scope.socket.on('addcommentResponse', function (error, result) {
   if (error) {
     $scope.commentError=error.error.message;
     $log.debug(error.error.message);
-     growl.addErrorMessage(error.error.message);
+     $rootScope.ProdoAppMessage(error.error.message, 'error');
     $scope.showErrorIfCommentNotAdded(); //If error retry add comment 
     $scope.showRetryIconIfCommentNotAdded();
     // if(retry) retry.textContent("Error posting comment.. Please try again");
@@ -87,7 +87,7 @@ $scope.socket.removeAllListeners($scope.productcommentResponseListener);
 $scope.socket.on($scope.productcommentResponseListener, function (error, result) {
   if (error) {
     $log.debug(error.error.message);
-    growl.addErrorMessage(error.error.message);
+    $rootScope.ProdoAppMessage(error.error.message, 'error');
   } else if (result) {
     $log.debug("productcomment  Response success" + JSON.stringify(result.success.product_comment));
     //  $scope.productCommentResponsearray.push( JSON.stringify(result.success.product_comment));
@@ -229,7 +229,7 @@ function (successData) {
 
    $scope.commentError=false;
   if ($scope.commenttextField.userComment == "" || $scope.commenttextField.userComment == undefined || $scope.commenttextField.userComment == null) {
-   growl.addErrorMessage("You can not add blank comment");
+   $rootScope.ProdoAppMessage("You can not add blank comment", 'error');
   }
   else{
 
@@ -344,7 +344,7 @@ function (successData) {
       $("#prodo-uploadedCommentImage").css("display", "none");
       $scope.mytags = "";
     } else {
-      growl.addErrorMessage("Please talkin this product to start commenting...");
+      $rootScope.ProdoAppMessage("Please talkin this product to start commenting...", 'info');
     }
   
 }

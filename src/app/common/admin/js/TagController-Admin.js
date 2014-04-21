@@ -41,7 +41,7 @@ angular.module('prodo.AdminApp').controller('prodoAdminTagInputController', [
     $scope.allTagsContain = [];
     if(tagdata.success !== undefined)
     {
-             $scope.allTagsContain = tagdata.success.domain_tags.tags;   
+      $scope.allTagsContain = tagdata.success.domain_tags.tags;   
     }
     //alert(JSON.stringify(tagdata));
     // domainTagList.getTags();   
