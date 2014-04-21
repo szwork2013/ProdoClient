@@ -1,18 +1,8 @@
 angular.module('prodo.ProductApp')
-.controller('DragImageController', ['$scope', '$rootScope', '$log','growl', function($scope, $rootScope, $log,growl) {
+.controller('DragImageController', ['$scope', '$rootScope', '$log', function($scope, $rootScope, $log) {
  var reader;
  var reader1;
  $rootScope.count=0;
-
-//Comment Image error handling
-// var UploadErrMsg = document.getElementById('UploadCommentIMGErrMsg');
-// $scope.enableErrorMsg=function(){
-//    $(".spanCommentIMGErr").css("display", "block");
-//    $(".alert-danger").removeClass("in").show();
-//    $(".alert-danger").delay(5000).addClass("in").fadeOut(2000);
-// };
-  
- //Comment Image error handling
 
 var holder = document.getElementById('holder'),
 tests = {

@@ -10,7 +10,7 @@
  * 27-3/2013 | xyx | Add a new property
  * 
  */
-angular.module('prodo.ProductApp').controller('ManageProductController', ['$scope', '$log', '$rootScope', 'ProductService', 'UserSessionService', '$http', 'CommentLoadMoreService', 'ENV', 'TagReffDictionaryService', 'ProductFeatureService', 'growl', 'allproductdata','allproductCategories', '$state','CategoryTags','notify','dateFilter', function ($scope, $log, $rootScope, ProductService, UserSessionService, $http, CommentLoadMoreService, ENV, TagReffDictionaryService, ProductFeatureService, growl, allproductdata,allproductCategories, $state,CategoryTags,notify,dateFilter) {
+angular.module('prodo.ProductApp').controller('ManageProductController', ['$scope', '$log', '$rootScope', 'ProductService', 'UserSessionService', '$http', 'CommentLoadMoreService', 'ENV', 'TagReffDictionaryService', 'ProductFeatureService',  'allproductdata','allproductCategories', '$state','CategoryTags','dateFilter', function ($scope, $log, $rootScope, ProductService, UserSessionService, $http, CommentLoadMoreService, ENV, TagReffDictionaryService, ProductFeatureService, allproductdata,allproductCategories, $state,CategoryTags,dateFilter) {
 
   $scope.$state = $state;
 
@@ -77,7 +77,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
          $("#prodo-ProductDetails").css("display", "none");
         $("#ErrMsging").css("display", "block");
         document.getElementById("ErrMsging").innerHTML = "<br>Product not available ... Add new product<br><br>";
-        // growl.addErrorMessage(" Product not available ...");
+       
       }
       if ($scope.productlist.length !== 0) {
          // $log.debug("ADDED."+$scope.newProduct_ResponseProdle);
@@ -182,7 +182,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
      $("#prodo-ProductDetails").css("display", "none");
      $("#ErrMsging").css("display", "block");
      if (document.getElementById("ErrMsging") !== null) document.getElementById("ErrMsging").innerHTML = "Product not available , please select product....";
-     // growl.addErrorMessage(" Product not available....");
+   
     }       
  };
 
@@ -203,7 +203,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
       $("#prodo-ProductDetails").css("display", "none");
       $("#ErrMsging").css("display", "inline");
       document.getElementById("ErrMsging").innerHTML = "Server Error:" + error.status;
-      // growl.addErrorMessage( "Server Error:" + error.status);
+     
     });
   }
   //get product function declaration  
@@ -212,11 +212,8 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   //error handling for add product
   $scope.handleSaveProductResponse = function (data) {
     if (data.success) {
-       $scope.enableProductSuccessMsg();
-       ProdSuccessMsg.innerHTML = data.success.message;
-       // notify({message:data.success.message,template:'common/notification/views/notification-success.html',position:'center'});
+       $rootScope.ProdoAppMessage(data.success.message, 'success');
        $scope.disableEditor();
-       // growl.addSuccessMessage(data.success.message);
       $state.reload();
     } else {
        // $scope.disableEditor();
@@ -227,23 +224,15 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   
       if (data.error.code == 'AV001') { // user already exist
         $log.debug(data.error.code + " " + data.error.message);
-        $scope.enableProductErrorMsg();
-        ProdERRMsg.innerHTML = data.error.message;
-          // notify({message:data.error.message,template:'common/notification/views/notification-error.html',position:'center'});
-        // growl.addErrorMessage(data.error.message);
+        $rootScope.ProdoAppMessage(data.error.message, 'error');
 
       } else if (data.error.code == 'AP001') { // user data invalid
         $log.debug(data.error.code + " " + data.error.message);
-        $scope.enableProductErrorMsg();
-        ProdERRMsg.innerHTML = data.error.message;
-        // notify({message:data.error.message,template:'common/notification/views/notification-error.html',position:'center'});
-        // growl.addErrorMessage(data.error.message);
+        $rootScope.ProdoAppMessage(data.error.message, 'error');
+        
       } else {
         $log.debug(data.error.message);
-        $scope.enableProductErrorMsg();
-        ProdERRMsg.innerHTML = data.error.message; 
-         // notify({message:data.error.message,template:'common/notification/views/notification-error.html',position:'center'});
-        // growl.addErrorMessage(data.error.message);
+        $rootScope.ProdoAppMessage(data.error.message, 'error');
       }
     }
   };
@@ -253,20 +242,9 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   //error handling for add product
   $scope.handleSaveProductFeatureResponse = function (data) {
     if (data.success) {
-        // $scope.enableFeatureSuccessMsg();
-          // $scope.features.push($scope.newFeature);
-          // $scope.enableFeatureSuccessMsg();
-          // ProdFSuccessMsg.innerHTML = success.success.message;
-          // growl.addSuccessMessage(success.success.message);
-        $scope.enableFeatureSuccessMsg();
-        ProdFSuccessMsg.innerHTML = "Feature added successfully";
-       // ProdFSuccessMsg.innerHTML = data.success.message;
-        //  notify({message:"Feature added successfully",template:'common/notification/views/notification-success.html',position:'center'});
-       
-
+       $rootScope.ProdoAppMessage("Feature added successfully", 'success');
        $scope.disableEditor();
-       // growl.addSuccessMessage(data.success.message);
-      $state.reload();
+       $state.reload();
     } else {
        // $scope.disableEditor();
        if(data.error.code=='AL001'){
@@ -274,25 +252,15 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
       }
       if (data.error.code == 'AV001') { // user already exist
         $log.debug(data.error.code + " " + data.error.message);
-       $scope.enableFeatureErrorMsg();
-        ProdFERRMsg.innerHTML = data.error.message;
-         // notify({message:data.error.message,template:'common/notification/views/notification-error.html',position:'center'});
-
-        // growl.addErrorMessage(data.error.message);
+        $rootScope.ProdoAppMessage(data.error.message, 'error');
 
       } else if (data.error.code == 'AP001') { // user data invalid
         $log.debug(data.error.code + " " + data.error.message);
-        $scope.enableFeatureErrorMsg();
-        ProdFERRMsg.innerHTML = data.error.message;
-       // notify({message:data.error.message,template:'common/notification/views/notification-error.html',position:'center'});
-        // growl.addErrorMessage(data.error.message);
+        $rootScope.ProdoAppMessage(data.error.message, 'error');
       } else {
         $log.debug(data.error.message);
-       $scope.enableFeatureErrorMsg();
-        ProdFERRMsg.innerHTML = data.error.message; 
-        // notify({message:data.error.message,template:'common/notification/views/notification-error.html',position:'center'});
-        // growl.addErrorMessage(data.error.message);
-      }
+        $rootScope.ProdoAppMessage(data.error.message, 'error');
+     }
     }
   };
   //error handling for add product
@@ -300,8 +268,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
 
   $scope.addProduct = function (editStatus) {
   if($scope.productForm.$invalid){
-      // $scope.enableProductErrorMsg();
-      // ProdERRMsg.innerHTML = "Please add valid information"; 
+      // $rootScope.ProdoAppMessage("Please add valid information", 'error');
       $scope.productForm.submitted=true;
     }
   else{
@@ -313,10 +280,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
     if (editStatus == 'add') { //add product
 
     if($scope.category.length==0 ){
-     $scope.enableProductErrorMsg();
-        ProdERRMsg.innerHTML = "Please add category";
-        // notify({message:"Please add category",template:'common/notification/views/notification-error.html',position:'center'});  
-     // $scope.productCategoryInvalid=true;
+      $rootScope.ProdoAppMessage("Please add category", 'error');
   } else{
       // $scope.productCategoryInvalid=false;
       $scope.newProduct = {
@@ -341,32 +305,21 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
          // $scope.disableEditor();
          $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
         }, function (error) {
-         // growl.addErrorMessage(error);
-          // $scope.editMode.editorEnabled = true;
-           $scope.enableProductErrorMsg();
-           ProdERRMsg.innerHTML = error; 
-        // notify({message:error,template:'common/notification/views/notification-error.html',position:'center'});  
-
-            $scope.category=[];
+          $rootScope.ProdoAppMessage(error, 'error');
+          $scope.category=[];
           $log.debug(error);
         });
 
       } else{
-         $scope.enableProductErrorMsg();
-         ProdERRMsg.innerHTML = data.error.message; 
-        // notify({message:data.error.message,template:'common/notification/views/notification-error.html',position:'center'});  
-
-         // growl.addErrorMessage("You dont have rights to add product...");
+         $rootScope.ProdoAppMessage(data.error.message, 'error');
       }
     }
     } else if (editStatus == 'update') { //update product
 
     if($scope.product.category.length==0 ){
-     $scope.enableProductErrorMsg();
-        ProdERRMsg.innerHTML = "Please add category";
-      // notify({message:"Please add category",template:'common/notification/views/notification-error.html',position:'center'});  
 
-     // $scope.productCategoryInvalid=true;
+        $rootScope.ProdoAppMessage("Please add category", 'error');
+
     } else{
         // $scope.productCategoryInvalid=false;
         $scope.newProduct = {
@@ -390,27 +343,19 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
           }, $scope.newProduct, function (success) {
             $scope.newProduct_ResponseProdle=$scope.currentProdle;
             $log.debug("update......"+success);
-            $scope.enableProductSuccessMsg();
-            ProdSuccessMsg.innerHTML ="Product updated successfully...";
-            // notify({message:"Product updated successfully...",template:'common/notification/views/notification-success.html',position:'center'});  
+            $rootScope.ProdoAppMessage("Product updated successfully...", 'success');
             $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
             $scope.getProduct($scope.currentProdle, $scope.currentOrgid);
             $scope.disableEditor();
           }, function (error) {
             $log.debug(error);
              $scope.editMode.editorEnabled = true;
-            $scope.enableProductErrorMsg();
-            ProdERRMsg.innerHTML = error; 
-            // notify({message:error,template:'common/notification/views/notification-error.html',position:'center'});  
-            // growl.addErrorMessage(error);
+            $rootScope.ProdoAppMessage(error, 'error');
+
           });
         }
       } else{
-        $scope.enableProductErrorMsg();
-        ProdERRMsg.innerHTML = "You dont have rights to update this product...";
-            // notify({message:"You dont have rights to update this product...",template:'common/notification/views/notification-error.html',position:'center'});  
-       
-        // growl.addErrorMessage("You dont have rights to update this product..."); 
+         $rootScope.ProdoAppMessage( "You dont have rights to update this product...", 'error'); 
       } 
     }
    }
@@ -419,11 +364,8 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
 
   $scope.handleDeleteProductSuccess=function(success){
       $log.debug(JSON.stringify(success));
-          $scope.enableProductSuccessMsg();
-          ProdSuccessMsg.innerHTML ="Product deleted successfully...";
-            // notify({message:"Product deleted successfully...",template:'common/notification/views/notification-success.html',position:'center'});  
+           $rootScope.ProdoAppMessage( "Product deleted successfully...", 'success'); 
            $scope.editMode.editorEnabled=false;
-          // growl.addSuccessMessage("Product deleted successfully...");
           $("#prodo-ProductDetails").css("display", "none");
           $state.reload();
           // $scope.handleProductDeleted();
@@ -441,7 +383,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
 
   $scope.deleteProduct = function () {
     $log.debug("Deleting product  ..."+$scope.currentProdle );
-    growl.addInfoMessage("Deleting product  ..."+$scope.currentProdle );
+    $rootScope.ProdoAppMessage("Deleting product  ..."+$scope.currentProdle, 'info');
     if ($scope.currentProdle !== undefined || $scope.currentProdle !== null || $scope.currentProdle !== "") {
       if ($rootScope.isAdminCheck == true) { //if owener of product
         ProductService.deleteProduct({
@@ -455,16 +397,13 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
           }  
         }, function (error) {
           $log.debug(JSON.stringify(error));
-          $scope.enableProductErrorMsg();
-          ProdERRMsg.innerHTML = error;
-           // growl.addErrorMessage(error);
+          $rootScope.ProdoAppMessage(error, 'error'); 
         });
       }
       // }
       else{
-        $scope.enableProductErrorMsg();
-        ProdERRMsg.innerHTML = "You dont have rights to delete this product...";
-       // growl.addErrorMessage("You dont have rights to delete this product...");
+       $rootScope.ProdoAppMessage("You dont have rights to delete this product...", 'error'); 
+
       }
     }
   };
@@ -525,9 +464,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
       $('#imgDelModal').modal('toggle');
       $('#imgDelModal').modal('show');
     } else { //if no image selected to delete
-       $scope.enableIMGErrorMsg();
-       ProdIMGERRMsg.innerHTML = "Select atlest 1 image to delete ";
-      // growl.addErrorMessage("Select atlest 1 image to delete");
+       $rootScope.ProdoAppMessage("Select atlest 1 image to delete ", 'error'); 
     }
   };
   //Delete product image validation
@@ -547,10 +484,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   //if product admin, show delete images options
 $scope.handledeleteProductImagesSuccess=function(success){
   $log.debug(success);
-      $scope.enableIMGSuccessMsg();
-      ProdIMGSuccessMsg.innerHTML = "Images deleted successfully...";
-       
-        // growl.addSuccessMessage("Images deleted successfully...");
+       $rootScope.ProdoAppMessage("Images deleted successfully...", 'success'); 
 };
 
 $scope.handledeleteProductImagesError=function(error){
@@ -566,7 +500,7 @@ $scope.handledeleteProductImagesError=function(error){
  $scope.deleteProductImages = function (index) {
     if ($rootScope.isAdminCheck == true) {
       //get selected ids to delete images
-      // growl.addInfoMessage("Deleting product images ...");
+      
       $scope.imgIds = [{}];
       $scope.ids;
       $(':checkbox:checked').each(function (i) {
@@ -596,16 +530,15 @@ $scope.handledeleteProductImagesError=function(error){
       }
       }).error(function (data, status, headers, cfg) {
         // $log.debug(status);
-        $scope.enableIMGErrorMsg();
-       ProdIMGERRMsg.innerHTML = status;
-        // growl.addErrorMessage(status);
-      });
+       $rootScope.ProdoAppMessage(status, 'error'); 
+     });
     } else {
-      $scope.enableIMGErrorMsg();
-       ProdIMGERRMsg.innerHTML = "You dont have rights to delete images";
+
+       $rootScope.ProdoAppMessage("You dont have rights to delete images", 'error'); 
+
     }
     
-    // growl.addErrorMessage("You dont have rights to delete images");
+    
   };
   //delete images
 
@@ -689,9 +622,7 @@ $scope.handledeleteProductImagesError=function(error){
           $scope.handleGetProductFeatureSuccess(successData);
            }
       }, function (error) {
-        $scope.enableFeatureErrorMsg();
-        ProdFERRMsg.innerHTML = "Server Error:" + error.status;
-        // growl.addErrorMessage("Server Error:" + error.status);
+       $rootScope.ProdoAppMessage("Server Error:" + error.status, 'error'); 
       });
     }
   };
@@ -702,9 +633,7 @@ $scope.handledeleteProductImagesError=function(error){
           //client side delete
           var index = $scope.features.indexOf(feature);
           if (index != -1) $scope.features.splice(index, 1);
-          // growl.addSuccessMessage(success.success.message);
-          $scope.enableFeatureSuccessMsg();
-          ProdFSuccessMsg.innerHTML = success.success.message;
+          $rootScope.ProdoAppMessage(success.success.message, 'success'); 
    };
 
  $scope.handleDeleteFeatureError=function(error){
@@ -720,7 +649,7 @@ $scope.handledeleteProductImagesError=function(error){
   $scope.deleteFeature = function (feature) {
     // $log.debug("deleting feature");
     if (feature !== undefined || feature !== null || feature !== "") {
-      growl.addInfoMessage("Deleting product feature ...");
+        $rootScope.ProdoAppMessage("Deleting product feature ...", 'info');
       // $log.debug(feature.featureid);
       if ($rootScope.isAdminCheck == true) { //if product owner
         ProductFeatureService.deleteFeature({
@@ -736,15 +665,10 @@ $scope.handledeleteProductImagesError=function(error){
           } 
         }, function (error) {
           $log.debug(JSON.stringify(error));
-          $scope.enableFeatureErrorMsg();
-          ProdFERRMsg.innerHTML = JSON.stringify(error);
-          // growl.addErrorMessage(JSON.stringify(error))
-
-        });
+          $rootScope.ProdoAppMessage(JSON.stringify(error), 'error'); 
+      });
       } else { //if not owner display msg
-      // growl.addErrorMessage("You dont have rights to delete this feature...");
-      $scope.enableFeatureErrorMsg();
-      ProdFERRMsg.innerHTML = "You dont have rights to delete this feature...";
+          $rootScope.ProdoAppMessage("You dont have rights to delete this feature...", 'error'); 
       }
     }
   };
@@ -752,8 +676,7 @@ $scope.handledeleteProductImagesError=function(error){
   //add product feature
   $scope.addProductFeature = function (editStatus) {
    if($scope.productFeaturesForm.$invalid){
-    // $scope.enableFeatureErrorMsg();
-    // ProdFERRMsg.innerHTML ="Please add valid information";
+    // $rootScope.ProdoAppMessage("Please add valid information", 'error'); 
     $scope.productFeaturesForm.submitted=true;
    }
   else{
@@ -782,24 +705,21 @@ $scope.handledeleteProductImagesError=function(error){
             $scope.handleSaveProductFeatureResponse(success); // calling function to handle success and error responses from server side on POST method success.
             $log.debug("new Feature : " + JSON.stringify($scope.newFeature.productfeature[0]));
             $scope.features.push($scope.newFeature.productfeature[0]);
-            // $scope.enableFeatureSuccessMsg();
-            // ProdFSuccessMsg.innerHTML = "Feature added successfully";
+            // $rootScope.ProdoAppMessage("Feature added successfully", 'success'); 
             $scope.featurename="";
             $scope.featuredescription="";
-            // growl.addSuccessMessage("Feature added successfully");
             $log.debug($scope.features);
             $scope.feature = "";
           }, function (error) {
-            // growl.addErrorMessage(error);
              $scope.enableFeatureErrorMsg();
              ProdFERRMsg.innerHTML = error;
+             $rootScope.ProdoAppMessage(error, 'error'); 
             $log.debug(error);
           });
         } //if not owner display msg
         else{
-          $scope.enableFeatureErrorMsg();
-          ProdFERRMsg.innerHTML = "You dont have rights to add product feature...";
-          // growl.addErrorMessage("You dont have rights to add product feature...");
+             $rootScope.ProdoAppMessage( "You dont have rights to add product feature...", 'error'); 
+
         } 
       }
     }
@@ -810,9 +730,8 @@ $scope.handledeleteProductImagesError=function(error){
   //update product feature
   $scope.updateProductFeature = function (data, id) {
     if($scope.productFeatureUpdate.$invalid){
-      $scope.enableFeatureErrorMsg();
-      ProdFERRMsg.innerHTML = "Please add valid information";
-    }
+        $rootScope.ProdoAppMessage( "Please add valid information", 'error'); 
+      }
     else{
 
     console.log(data);
@@ -832,15 +751,12 @@ $scope.handledeleteProductImagesError=function(error){
         
         }, function (error) {
           $log.debug(error);
-          $scope.enableFeatureErrorMsg();
-          ProdFERRMsg.innerHTML = error;
-          // growl.addErrorMessage(error);
+          $rootScope.ProdoAppMessage(error, 'error'); 
+          
         });
       } else{
-       // growl.addErrorMessage("You dont have rights to update product feature...");
-       $scope.enableFeatureErrorMsg();
-       ProdFERRMsg.innerHTML = "You dont have rights to update product feature...";
-     }
+       $rootScope.ProdoAppMessage("You dont have rights to update product feature...", 'error'); 
+      }
     }
   }
   };
@@ -856,7 +772,8 @@ $scope.handledeleteProductImagesError=function(error){
   
   $scope.enableEditor = function () {
     $scope.editMode.editorEnabled = true;
-    growl.addInfoMessage("   Adding product data.....");
+    $rootScope.ProdoAppMessage("   Adding product data....", 'info');
+
   };
   $scope.disableEditor = function () {
     $scope.editMode.editorEnabled = false;
@@ -876,7 +793,8 @@ $scope.handledeleteProductImagesError=function(error){
 
   $scope.enableEditorFeature = function () {
     $scope.editMode.editorEnabledF = true;
-    growl.addInfoMessage("   Adding product data.....");
+    $rootScope.ProdoAppMessage("   Adding product data....", 'info');
+
   };
   $scope.disableEditorFeature = function () {
     $scope.editMode.editorEnabledF = false;
@@ -924,8 +842,7 @@ $scope.handledeleteProductImagesError=function(error){
   $scope.getSelectedProduct = function (product1) {
     jQuery("#FileName").hide();
     if(($scope.editMode.editorEnabled == true)|| ($scope.editMode.editorEnabledF ==true) ){
-      // $scope.enableProductErrorMsg();
-      // ProdERRMsg.innerHTML = "Please add product first then view other products..."; 
+     
          $('#changeProductModal').modal('toggle');
       $('#changeProductModal').modal('show');
 
@@ -977,66 +894,7 @@ $scope.handledeleteProductImagesError=function(error){
    // cleanupEventproductUploadLogoResponseSuccess();
 
 
-  var ProdFERRMsg = document.getElementById('ProdFERRMsg');
-  var ProdFSuccessMsg=document.getElementById('ProdFSuccessMsg');
-  $scope.enableFeatureErrorMsg=function(){
-     $(".spanProdIMGERR").css("display", "none");
-     $(".spanProdERR").css("display", "none");
-     $(".spanErr").css("display", "none");
-     $(".spanProdFERR").css("display", "block");
-     $(".alert-danger").removeClass("in").show();
-     $(".alert-danger").delay(5000).addClass("in").fadeOut(2000);
-  };
-  $scope.enableFeatureSuccessMsg=function(){
-    $(".spanProdIMGSuccess").css("display", "none");
-    $(".spanSuccess").css("display", "none");
-    $(".spanProdSuccess").css("display", "none");
-    $(".spanProdFSuccess").css("display", "block");
-    $(".alert-success").removeClass("in").show();
-    $(".alert-success").delay(5000).addClass("in").fadeOut(2000);
-  };
 
-  var ProdIMGERRMsg = document.getElementById('ProdIMGERRMsg');
-  var ProdIMGSuccessMsg=document.getElementById('ProdIMGSuccessMsg');
-  $scope.enableIMGErrorMsg=function(){
-     $(".spanProdERR").css("display", "none");
-     $(".spanProdFERR").css("display", "none");
-     $(".spanErr").css("display", "none");
-     $(".spanProdIMGERR").css("display", "block");
-     $(".alert-danger").removeClass("in").show();
-     $(".alert-danger").delay(5000).addClass("in").fadeOut(2000);
-    
-  };
-  $scope.enableIMGSuccessMsg=function(){
-    $(".spanProdSuccess").css("display", "none");
-    $(".spanProdFSuccess").css("display", "none");
-    $(".spanSuccess").css("display", "none");
-    $(".spanProdIMGSuccess").css("display", "block");
-    $(".alert-success").removeClass("in").show();
-    $(".alert-success").delay(5000).addClass("in").fadeOut(2000);
-    
-  };
-
-  var ProdERRMsg = document.getElementById('ProdERRMsg');
-  var ProdSuccessMsg=document.getElementById('ProdSuccessMsg');
-  $scope.enableProductErrorMsg=function(){
-     $(".spanProdFERR").css("display", "none");
-     $(".spanProdIMGERR").css("display", "none");
-     $(".spanErr").css("display", "none");
-     $(".spanProdERR").css("display", "block");
-     $(".alert-danger").removeClass("in").show();
-     $(".alert-danger").delay(5000).addClass("in").fadeOut(2000);
-    
-  };
-  $scope.enableProductSuccessMsg=function(){
-    $(".spanProdFSuccess").css("display", "none");
-    $(".spanProdIMGSuccess").css("display", "none");
-    $(".spanSuccess").css("display", "none");
-    $(".spanProdSuccess").css("display", "block");
-    $(".alert-success").removeClass("in").show();
-    $(".alert-success").delay(5000).addClass("in").fadeOut(2000);
-    
-  };
 }])
  
  angular.module('prodo.ProductApp').filter('startFrom', function () {

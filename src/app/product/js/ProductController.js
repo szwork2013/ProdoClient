@@ -10,7 +10,7 @@
  * 27-3/2013 | xyx | Add a new property
  *
  */
-angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$log', '$rootScope', 'ProductService', 'UserSessionService', '$http', 'CommentLoadMoreService', 'ENV', 'TagReffDictionaryService', 'ProductFeatureService', 'growl','$state','productData', function ($scope, $log, $rootScope, ProductService, UserSessionService, $http, CommentLoadMoreService, ENV, TagReffDictionaryService, ProductFeatureService, growl,$state,productData) {
+angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$log', '$rootScope', 'ProductService', 'UserSessionService', '$http', 'CommentLoadMoreService', 'ENV', 'TagReffDictionaryService', 'ProductFeatureService', '$state','productData', function ($scope, $log, $rootScope, ProductService, UserSessionService, $http, CommentLoadMoreService, ENV, TagReffDictionaryService, ProductFeatureService, $state,productData) {
  
       $scope.pimgs = [];
 
@@ -89,7 +89,7 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
   //watch prodle if changed by user by product search or any other source
   $rootScope.$watch('product_prodle', function () {
     // $log.debug("Listening" + $rootScope.product_prodle);
-    // growl.addInfoMessage("Getting product details");
+  
     $scope.features = [];
     $("#productLogo").attr('src', '');
     var temp = document.getElementById('prodo-comment-container');
@@ -101,7 +101,7 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
       $("#prodo-ProductDetails").css("display", "none");
       $("#ErrMsging").css("display", "block");
       document.getElementById("ErrMsging").innerHTML = "Product not available";
-      // growl.addErrorMessage(" You are not following any product , Please start following product....");
+      
     }
 
   });
@@ -213,7 +213,7 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
         $("#prodo-ProductDetails").css("display", "none");
         $("#ErrMsging").css("display", "block");
         if (document.getElementById("ErrMsging") !== null) document.getElementById("ErrMsging").innerHTML = "Product not available , please select product....";
-        // growl.addErrorMessage(" Product not available....");
+       
       } else {
         $scope.getProductHandleSuccess(l_prodle, l_orgid);
             }
@@ -221,7 +221,7 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
      if(productData.error) { //if error geting product
       $scope.getProductHandleError(productData.error);
       
-      // growl.addErrorMessage( "Server Error:" + error.status);
+    
     };
   $scope.isCollapsed = true;  //added by omkar 
   };
