@@ -38,7 +38,7 @@ angular.module('prodo.CampaignApp')
     var addCampaign = { Product: $resource('/api/productcampaign/:orgid/:prodle', {}, { addCampaignContent: { method: 'POST', params : {orgid : '@orgid' , prodle:'@prodle'} } }) };
     var deleteSelectedCampaign = { Product: $resource('/api/productcampaign/:campaign_id', {}, { deleteCampaign: { method: 'DELETE' , params : {campaign_id:'@campaign_id'}} }) };
     var modifyCurrentCampaign = { Product: $resource('/api/productcampaign/:orgid/:campaign_id', {}, { modifySelectedCampaign: { method: 'PUT' , params : {orgid : '@orgid' ,campaign_id:'@campaign_id'}} }) };
-   // var deleteSelectedCampaign = { Product: $resource('/api/productcampaign/:orgid/:campaign_id', {}, { deleteCampaign: { method: 'DELETE' , params : {orgid : '@orgid' , campaign_id:'@campaign_id'}} }) };
+    var campaignArtworkDelete = { Product: $resource('/api/productcampaign/image/:orgid/:campaign_id?camimageids=:data', {}, {deleteCampaignImage: { method: 'DELETE', params: {orgid:'@orgid', campaign_id:'@campaign_id', data: '@data' }}})};// var deleteSelectedCampaign = { Product: $resource('/api/productcampaign/:orgid/:campaign_id', {}, { deleteCampaign: { method: 'DELETE' , params : {orgid : '@orgid' , campaign_id:'@campaign_id'}} }) };
  
     var products = {};
     products.createCampaign = function (campaignContent,prodle) {
@@ -70,7 +70,15 @@ angular.module('prodo.CampaignApp')
         $rootScope.$broadcast('campaignNotDeleteSuccessfully', error);
       };
     };
-
+     products.deleteCampaignArtwork = function (campaign_id, image_id) {
+      campaignArtworkDelete.Product.deleteCampaignImage({orgid:$rootScope.usersession.currentUser.org.orgid, campaign_id:campaign_id, data:image_id}, function (success) {
+        $log.debug(success);
+        $rootScope.$broadcast('campaignImagesDeletedSuccessfully', success);
+      }), function (error) {
+        $log.debug(error);
+        $rootScope.$broadcast('campaignImagesNotDeletedSuccessfully', error);
+      };
+    };
 
     return products;
   }
