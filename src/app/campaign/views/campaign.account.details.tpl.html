@@ -36,323 +36,227 @@
 
   
     
-   <div ng-if="addNewCampaign===0" style="margin-top:0%;width:100%;">
-
-   <div ng-if="enableEditing===0 && campaignDetailsObject.length>0">
-		
-		<div>
-			<h5 class="prodo-wall-org-heading-text">CAMPAIGN DETAILS</h5>
-			<hr class="prodo-wall-org-hr" size=3 noshade>
-			<br>
-		</div>
-
-       <a   ng-click="enableEditingCampaign()" class="btn btn-primary btn-sm pull-right" style="width:80px;margin-bottom:5px;margin-left:5px"><i class="fa fa-pencil fa-fw" ></i>&nbsp;&nbsp;Edit</a>
-
-       <a  class="btn btn-danger btn-sm pull-right"  ng-click="deleteTheCampaign(currentCampaign.campaign_id)" style="width:140px;margin-bottom:5px;"><i  class="fa fa-trash-o fa-lg" ></i>&nbsp;&nbsp;Stop Campaign</a>
-
-       <table class="  prodo-productTableFont  table child table-bordered table-hover "  id="prodo-WarrantyTable">
-		    <tr style="width:100%;">
-					<td  style="width:30%">Campaign Name:</td> <td><span ng-bind="currentCampaign.name"></span></td>
-			</tr>
-
-			<tr>
-					<td  >Campaign Description: </td> <td  ><span ng-bind="currentCampaign.description"></span></td>
-			</tr>
-
-			<tr>
-					<td  >Product Name: </td> <td  ><span ng-bind="currentCampaign.productname"></span></td>
-			</tr>
-
-			<tr>
-					<td  >Start Date: </td> <td  ><span ng-bind = "currentCampaign.startdate | date: 'fullDate' "></span></td>
-			</tr>
-
-			<tr >
-					<td  >End Date: </td> <td  ><span ng-bind="currentCampaign.enddate | date: 'fullDate'"></span></td>
-			</tr>
-
-			<tr>
-					<td  > Category: </td> 
-					<td  >
-						<ul style = "margin-left:0%;padding-left:0%">
-						  <li ng-repeat = "list in currentCampaign.category"   class="prodo-categoryTags">
-							    <span ng-bind="list"></span>
-						</li>
-						</ul>
-					</td>
-			</tr>
-
-			<tr>
-			    <td>Campaign Artwork:</td>
-			    <td>
-			    	     <div class="imagesOrg" ng-repeat="img in currentCampaign.artwork" style="margin: 3px;border: #090808 solid;min-width: 110px;
-			                  padding: 4px;border-width: thin;">
-					                <!-- <input type="checkbox" id='{{$index}}'> -->
-
-					                <img class="img prodo-OrgImgThumbnail"  ng-src="{{img.image}}" />
-			              </div>
-			              <div ng-if="currentCampaign.artwork.length===0"><h5>Currently no campaign artwork added</h5></div>
-             
-			    </td>
-			</tr>
-
-			<tr >
-					<td  >Artwork: </td> <td  >       <div class="manage-Campaign-td2 manage-campaign-marginbottom" >
-				                <div    ng-app="prodo.UploadApp" ng-controller="UploadController"  >
-							              <div class="controls" > 
-							                  <span class="btn btn-primary fileinput-button controls-upload prodo-uploadBtnWidth" style="padding-left:28px;left:0px;width:230px;">
-							                    <i class="glyphicon glyphicon-upload "></i>
-							                    <input   type="file" name="file" ng-file-select="onFileSelect($files)" multiple ng-click="uploadSrc = 'campaign';">
-							                    <span>Upload Campaign Art Work</span>
-							                  </span>
-							                </div>
-							                <div id="FileName" >  </div>
-
-
-				           </div>
-				           </div></td>
-			</tr>
-				
-		</table>
+<div ng-if="addNewCampaign===0" style="margin-top:0%;width:100%;">
+   <div ng-if="enableEditing===0 && campaignDetailsObject.length>0">		
+	<div>
+		<h5 class="prodo-wall-org-heading-text">CAMPAIGN DETAILS</h5>
+		<hr class="prodo-wall-org-hr" size=3 noshade>
+		<br>
 	</div>
 
+   <a   ng-click="enableEditingCampaign()" class="btn btn-primary btn-sm pull-right" style="width:80px;margin-bottom:5px;margin-left:5px"><i class="fa fa-pencil fa-fw" ></i>&nbsp;&nbsp;Edit</a>
+
+   <a  class="btn btn-danger btn-sm pull-right"  ng-click="deleteTheCampaign(currentCampaign.campaign_id)" style="width:140px;margin-bottom:5px;"><i  class="fa fa-trash-o fa-lg" ></i>&nbsp;&nbsp;Stop Campaign</a>
+
+   <table class="  prodo-productTableFont  table child table-bordered table-hover "  id="prodo-WarrantyTable">
+	    <tr style="width:100%;">
+				<td  style="width:30%">Campaign Name:</td> <td><span ng-bind="currentCampaign.name"></span></td>
+		</tr>
+
+		<tr>
+				<td  >Campaign Description: </td> <td  ><span ng-bind="currentCampaign.description"></span></td>
+		</tr>
+
+		<tr>
+				<td  >Product Name: </td> <td  ><span ng-bind="currentCampaign.productname"></span></td>
+		</tr>
+
+		<tr>
+				<td  >Start Date: </td> <td  ><span ng-bind = "currentCampaign.startdate | date: 'fullDate' "></span></td>
+		</tr>
+
+		<tr >
+				<td  >End Date: </td> <td  ><span ng-bind="currentCampaign.enddate | date: 'fullDate'"></span></td>
+		</tr>
+
+		<tr>
+	       <td  > Category: </td> 
+		   <td  >
+		   <ul style = "margin-left:0%;padding-left:0%">
+			  <li ng-repeat = "list in currentCampaign.category"   class="prodo-categoryTags">
+				    <span ng-bind="list"></span>
+			   </li>
+		    </ul>
+		    </td>
+		</tr>
+
+		<tr>
+		    <td>Campaign Artwork:</td>
+		    <td>
+		    	   <div class="imagesOrg" ng-repeat="img in currentCampaign.artwork" style="margin: 3px;border: #090808 solid;min-width: 110px;padding: 4px;border-width: thin;">
+				                <!-- <input type="checkbox" id='{{$index}}'> -->
+
+				                <img class="img prodo-OrgImgThumbnail"  ng-src="{{img.image}}" />
+		           </div>
+		        <div ng-if="currentCampaign.artwork.length===0"><h5>Currently no campaign artwork added</h5></div>     
+		    </td>
+		</tr>
+
+		<tr >
+			<td  >Artwork: </td> 
+			<td  >      
+			    <div class="manage-Campaign-td2 manage-campaign-marginbottom" >
+		            <div    ng-app="prodo.UploadApp" ng-controller="UploadController"  >
+					   <div class="controls" > 
+			                  <span class="btn btn-primary fileinput-button controls-upload prodo-uploadBtnWidth" style="padding-left:28px;left:0px;width:230px;">
+			                    <i class="glyphicon glyphicon-upload "></i>
+			                    <input   type="file" name="file" ng-file-select="onFileSelect($files)" multiple ng-click="uploadSrc = 'campaign';">
+			                    <span>Upload Campaign Art Work</span>
+			                  </span>
+					   </div>
+					   <div id="FileName" >  </div>
+		           </div>
+		         </div>
+		    </td>
+		</tr>			
+    </table>
+</div>
+
 	<div ng-if="enableEditing===1">
+          <div class="manage-Campaign-tr">
+			 <div class="manage-Campaign-td1">*Product Name:</div> 			
+             <div class="manage-Campaign-td2">  
+             		<input type="text" ng-model="currentCampaign.productname" typeahead="name for name in productlist" popover-placement="right" popover="Please select product name from typeahead" popover-trigger="mouseenter" class="form-control" typeahead-on-select="">       
+			  		 <div class="error-message-registration" ng-if="errorForInvalidProduct !== '' "ng-bind="errorForInvalidProduct"></div>
+			 </div>
+		  </div>
 
-		 <div class="manage-Campaign-tr">
-						  <div class="manage-Campaign-td1">*Product Name:</div> 
-					
-                         <div class="manage-Campaign-td2">  
-                         		<input type="text" ng-model="currentCampaign.productname" typeahead="name for name in productlist" popover-placement="right" popover="Please select product name from typeahead" popover-trigger="mouseenter" class="form-control" typeahead-on-select="">
+		  <div class="manage-Campaign-tr">
+				  <div class="manage-Campaign-td1">*Campaign Name:</div> 
+				  <div class="manage-Campaign-td2"> <input type="text" class="form-control" ng-model="currentCampaign.name"></div>
+		          <div class="error-message-registration" ng-if="errorForWrongCampaignname !== '' "ng-bind="errorForWrongCampaignname"></div> 
+		  </div>
+				                         
 
-                      
-						  		 <div class="error-message-registration" ng-if="errorForInvalidProduct !== '' "ng-bind="errorForInvalidProduct"></div> 
+	      <div class="manage-Campaign-tr">
+			  <div class="manage-Campaign-td1">*Campaign Description:</div>
+			  <div class="manage-Campaign-td2"> 
+			   <textarea  class="form-control" ng-model="currentCampaign.description" name=""></textarea>
+			  </div>
+          <div class="error-message-registration" ng-if="invalidDesc !== '' " ng-bind="invalidDesc"></div> 
+          </div>
+				     
+		  <div class="manage-Campaign-tr">
+			  <div class="manage-Campaign-td1">*Start Date: </div>
+			  <div class="manage-Campaign-td2"> 
+			     <input type="date" placeholder="Plaese enter start date" ng-model="currentCampaign.startdate" class="form-control" name="startDate"  popover-placement="right" popover="Current start date is {{currentCampaign.startdate}}" popover-trigger="mouseenter">			        
+			  </div>
+			  <div class="error-message-registration" ng-if="errorForCampaignStart !=='' " ng-bind = "errorForCampaignStart" ></div>
+		  </div>
 
-						 </div>
+		  <div class="manage-Campaign-tr">
+			  <div class="manage-Campaign-td1">*End Date: </div>
+			  <div class="manage-Campaign-td2"> 
+			      <input type="date" placeholder="Please enter end date" ng-model="currentCampaign.enddate" class="form-control" name="endDates" popover-placement="right" popover="Current end date is {{currentCampaign.enddate}}" popover-trigger="mouseenter">
+			  </div>
+			  <div class="error-message-registration" ng-if="errorForInvalidEnddate !=='' " ng-bind = "errorForInvalidEnddate" ></div>
+		  </div>				                             							  
 
+		  <div class="manage-Campaign-tr">
+               <div class="manage-Campaign-td1">Category:  </div>
+               <div class="manage-Campaign-td2 manage-campaign-marginbottom" >
+                   <tags-input  minTags="1" add-on-blur="true" list="temp" ng-model="currentCampaign.category" min-length="1" >
+                   </tags-input>
+               </div>
+          </div>
 
-				  </div>
+          <div class="manage-Campaign-tr">
+              <div class="manage-Campaign-td1">Campaign Artwork:  </div>
+              <div class="manage-Campaign-td2 manage-campaign-marginbottom" >      
+	              <div style="height:40px;" ng-if="currentCampaign.artwork.length>0"> 
+	                    <button ng-click="deleteCampaignImages()" class="btn btn-danger btn-sm " style="margin-left:87%"><i  class="fa fa-trash-o fa-lg" ></i>&nbsp;&nbsp;Delete</button>
+	              </div>
 
-				  <div class="manage-Campaign-tr">
-						  <div class="manage-Campaign-td1">*Campaign Name:</div> 
-						  <div class="manage-Campaign-td2"> <input type="text" class="form-control" ng-model="currentCampaign.name"></div>
-				  <div class="error-message-registration" ng-if="errorForWrongCampaignname !== '' "ng-bind="errorForWrongCampaignname"></div> 
-				  </div>
-                         
-
-				  <div class="manage-Campaign-tr">
-						  <div class="manage-Campaign-td1">*Campaign Description:</div>
-						  <div class="manage-Campaign-td2"> <textarea  class="form-control" ng-model="currentCampaign.description" name=""></textarea></div>
-				  
-                      <div class="error-message-registration" ng-if="invalidDesc !== '' " ng-bind="invalidDesc"></div> 
-                      </div>
-     
-				  <div class="manage-Campaign-tr">
-					  <div class="manage-Campaign-td1">*Start Date: </div>
-					  <div class="manage-Campaign-td2"> 
-					     <input type="date" placeholder="Plaese enter start date" ng-model="currentCampaign.startdate" class="form-control" name="startDate"  popover-placement="right" popover="Current start date is {{currentCampaign.startdate}}" popover-trigger="mouseenter">			        
-					  </div>
-					 <div class="error-message-registration" ng-if="errorForCampaignStart !=='' " ng-bind = "errorForCampaignStart" ></div>
-				  </div>
-
-
-				  <div class="manage-Campaign-tr">
-						  <div class="manage-Campaign-td1">*End Date: </div>
-						  <div class="manage-Campaign-td2"> 
-
-						  <input type="date" placeholder="Please enter end date" ng-model="currentCampaign.enddate" class="form-control" name="endDates" popover-placement="right" popover="Current end date is {{currentCampaign.enddate}}" popover-trigger="mouseenter">
-
-						  </div>
-						    <div class="error-message-registration" ng-if="errorForInvalidEnddate !=='' " ng-bind = "errorForInvalidEnddate" ></div>
-				  </div>
-
-
-                               
-				  
-
-				  <div class="manage-Campaign-tr">
-		                   <div class="manage-Campaign-td1">Category:  </div>
-		                   <div class="manage-Campaign-td2 manage-campaign-marginbottom" >
-				                   <tags-input  minTags="1" add-on-blur="true" list="temp" ng-model="currentCampaign.category" min-length="1" >
-		                           </tags-input>
-    <!--         <input type="text" class="form-control" ng-model="category"></div> -->
-				           </div>
-
+	              <div class="imagesOrg" ng-repeat="img in currentCampaign.artwork" style="margin: 3px;border: #090808 solid;min-width: 110px;
+                  padding: 4px;border-width: thin;">
+		                <input type="checkbox" id='{{$index}}'>
+		                <img class="img prodo-OrgImgThumbnail"  ng-src="{{img.image}}" >
+                  </div>
+	              <div ng-if="currentCampaign.artwork.length===0"><h5>Currently no campaign artwork added</h5></div>
               </div>
-
-              <div class="manage-Campaign-tr">
-                    <div class="manage-Campaign-td1">Campaign Artwork:  </div>
-		                   <div class="manage-Campaign-td2 manage-campaign-marginbottom" >
+          </div>
+		
+          <div class="manage-Campaign-tr" >
+                <div class="manage-Campaign-td1">Upload Artwork:  </div>
+                <div class="manage-Campaign-td2 manage-campaign-marginbottom" >
+	                <div    ng-app="prodo.UploadApp" ng-controller="UploadController"  >
+		              <div class="controls" > 
+		                  <span class="btn btn-primary fileinput-button controls-upload prodo-uploadBtnWidth" style="padding-left:28px;">
+		                    <i class="glyphicon glyphicon-upload "></i>
+		                    <input   type="file" name="file" ng-file-select="onFileSelect($files)" multiple ng-click="uploadSrc = 'campaign';">
+		                    <span>Upload Org Art Work</span>
+		                  </span>
+		                </div>
+		                <div id="FileName" >  </div>
+	                 </div>
+	            </div>
+          </div>
 				              
-                               
-				            
-                            <div style="height:40px;" ng-if="currentCampaign.artwork.length>0"> <button ng-click="deleteCampaignImages()" class="btn btn-danger btn-sm " style="margin-left:87%"><i  class="fa fa-trash-o fa-lg" ></i>&nbsp;&nbsp;Delete</button></div>
-
-				            <div class="imagesOrg" ng-repeat="img in currentCampaign.artwork" style="margin: 3px;border: #090808 solid;min-width: 110px;
-			                  padding: 4px;border-width: thin;">
-					                <input type="checkbox" id='{{$index}}'>
-
-					                <img class="img prodo-OrgImgThumbnail"  ng-src="{{img.image}}" >
-			                </div>
-			                <div ng-if="currentCampaign.artwork.length===0"><h3>Currently no campaign artwork added</h3></div>
-            
-
-
-			              </div>
-              </div>
-<div></div>
-              <div class="manage-Campaign-tr" >
-                    <div class="manage-Campaign-td1">Upload Artwork:  </div>
-		                   <div class="manage-Campaign-td2 manage-campaign-marginbottom" >
-				                <div    ng-app="prodo.UploadApp" ng-controller="UploadController"  >
-							              <div class="controls" > 
-							                  <span class="btn btn-primary fileinput-button controls-upload prodo-uploadBtnWidth" style="padding-left:28px;">
-							                    <i class="glyphicon glyphicon-upload "></i>
-							                    <input   type="file" name="file" ng-file-select="onFileSelect($files)" multiple ng-click="uploadSrc = 'campaign';">
-							                    <span>Upload Org Art Work</span>
-							                  </span>
-							                </div>
-							                <div id="FileName" >  </div>
-
-
-				                 </div>
-				           </div>
-              </div>
-              
-                 <div>
-
-
-
-				  <div class="manage-Campaign-td2" > 
-									   <button class="btn btn btn-primary btn-sm pull-right" style="width:25%;display:inline;margin:5px;" ng-click="updateCampaign()"><i style="margin-right: 5px;" class="fa fa-save"></i>Submit</button>
-									   <button class="btn btn-primary btn-sm pull-right"style="width:25%;display:inline;margin:5px;" ng-click="disableEditingCampaign()"><i style="margin-right: 5px;" class="fa fa-times"></i>Cancel</button>
-				     </div>
-				  </div>
-
-
+          <div>
+		        <div class="manage-Campaign-td2" > 
+				   <button class="btn btn btn-primary btn-sm pull-right" style="width:25%;display:inline;margin:5px;" ng-click="updateCampaign()"><i style="margin-right: 5px;" class="fa fa-save"></i>Submit</button>
+				   <button class="btn btn-primary btn-sm pull-right"style="width:25%;display:inline;margin:5px;" ng-click="disableEditingCampaign()"><i style="margin-right: 5px;" class="fa fa-times"></i>Cancel</button>
+		         </div>
+		  </div>
+	</div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-
-
-
-
 
  <form name="form.campaign" ng-submit='' novalidate> 
       <div ng-if="addNewCampaign === 1" style="margin-top:0%;">
-      	          <div class="manage-Campaign-tr">
-						  <div class="manage-Campaign-td1">*Product Name:</div> 
-					
-                         <div class="manage-Campaign-td2">  
-                         <input type="text" ng-model="campaign.productName" typeahead="name for name in productlist" popover-placement="right" popover="Please select product name from typeahead" popover-trigger="mouseenter" class="form-control" typeahead-on-select="">
+	      <div class="manage-Campaign-tr">
+			<div class="manage-Campaign-td1">*Product Name:</div> 
+            <div class="manage-Campaign-td2">  
+                 <input type="text" ng-model="campaign.productName" typeahead="name for name in productlist" popover-placement="right" popover="Please select product name from typeahead" popover-trigger="mouseenter" class="form-control" typeahead-on-select="">    
+				 <div class="error-message-registration" ng-if="errorForInvalidProduct !== '' "ng-bind="errorForInvalidProduct"></div> 
+			</div>
+		  </div>
 
-                      
-						   <div class="error-message-registration" ng-if="errorForInvalidProduct !== '' "ng-bind="errorForInvalidProduct"></div> 
-
-						   </div>
-
-
-				  </div>
-
-				  <div class="manage-Campaign-tr">
-						  <div class="manage-Campaign-td1">*Campaign Name:</div> 
-						  <div class="manage-Campaign-td2"> <input type="text" class="form-control" ng-model="campaign.Name"></div>
-				  <div class="error-message-registration" ng-if="errorForWrongCampaignname !== '' "ng-bind="errorForWrongCampaignname"></div> 
-				  </div>
+		  <div class="manage-Campaign-tr">
+				  <div class="manage-Campaign-td1">*Campaign Name:</div> 
+				  <div class="manage-Campaign-td2"> <input type="text" class="form-control" ng-model="campaign.Name"></div>
+		          <div class="error-message-registration" ng-if="errorForWrongCampaignname !== '' "ng-bind="errorForWrongCampaignname"></div> 
+		  </div>
                          
 
-				  <div class="manage-Campaign-tr">
-						  <div class="manage-Campaign-td1">*Campaign Description:</div>
-						  <div class="manage-Campaign-td2"> <textarea  class="form-control" ng-model="campaign.Description" name=""></textarea></div>
-				  
-                      <div class="error-message-registration" ng-if="invalidDesc !== '' "ng-bind="invalidDesc"></div> 
-                      </div>
-     
-				  <div class="manage-Campaign-tr">
-				  <div class="manage-Campaign-td1">*Start Date: </div>
+		  <div class="manage-Campaign-tr">
+				  <div class="manage-Campaign-td1">*Campaign Description:</div>
 				  <div class="manage-Campaign-td2"> 
-
-				     <input type="date" placeholder="Plaese enter start date" ng-model="campaign.startDate" class="form-control" name="startDate"  />
-				         
-				          
-
+				      <textarea  class="form-control" ng-model="campaign.Description" name=""></textarea>
 				  </div>
+	              <div class="error-message-registration" ng-if="invalidDesc !== '' "ng-bind="invalidDesc"></div> 
+           </div>
+     
+		  <div class="manage-Campaign-tr">
+			  <div class="manage-Campaign-td1">*Start Date: </div>
+			  <div class="manage-Campaign-td2"> 
+			     <input type="date" placeholder="Plaese enter start date" ng-model="campaign.startDate" class="form-control" name="startDate"  />					         					          
+			  </div>
+			  <div class="error-message-registration" ng-if="errorForCampaignStart !=='' " ng-bind = "errorForCampaignStart" ></div>
+		  </div>
 
-				  <div class="error-message-registration" ng-if="errorForCampaignStart !=='' " ng-bind = "errorForCampaignStart" ></div>
-				  </div>
+		  <div class="manage-Campaign-tr">
+			  <div class="manage-Campaign-td1">*End Date: </div>
+			  <div class="manage-Campaign-td2"> 
+			      <input type="date" placeholder="Please enter end date" ng-model="campaign.endDate" class="form-control" name="endDates"/>
+			  </div>
+			  <div class="error-message-registration" ng-if="errorForInvalidEnddate !=='' " ng-bind = "errorForInvalidEnddate" ></div>
+		  </div>
+                              				
+		  <div class="manage-Campaign-tr">
+                   <div class="manage-Campaign-td1">Category:  </div>
+                   <div class="manage-Campaign-td2 manage-campaign-marginbottom" >
+		                   <tags-input  minTags="1" add-on-blur="true" list="temp" ng-model="campaign.category" min-length="1" >
+                           </tags-input>
+<!--         <input type="text" class="form-control" ng-model="category"></div> -->
+		           </div>
 
-
-
-				  <div class="manage-Campaign-tr">
-						  <div class="manage-Campaign-td1">*End Date: </div>
-						  <div class="manage-Campaign-td2"> 
-
-						  <input type="date" placeholder="Please enter end date" ng-model="campaign.endDate" class="form-control" name="endDates"/>
-
-						  </div>
-						    <div class="error-message-registration" ng-if="errorForInvalidEnddate !=='' " ng-bind = "errorForInvalidEnddate" ></div>
-				  </div>
-
-
-                               
-				  
-
-				  <div class="manage-Campaign-tr">
-		                   <div class="manage-Campaign-td1">Category:  </div>
-		                   <div class="manage-Campaign-td2 manage-campaign-marginbottom" >
-				                   <tags-input  minTags="1" add-on-blur="true" list="temp" ng-model="campaign.category" min-length="1" >
-		                           </tags-input>
-    <!--         <input type="text" class="form-control" ng-model="category"></div> -->
-				           </div>
-
-				  <div class="manage-Campaign-td2" > 
-									   <button class="btn btn btn-primary btn-sm pull-right" style="width:25%;display:inline;margin:5px;" ng-click="saveCampaign()"><i style="margin-right: 5px;" class="fa fa-save"></i>Submit</button>
-									   <button class="btn btn-primary btn-sm pull-right" style="width:25%;display:inline;margin:5px;" ng-click="cancel()"><i style="margin-right: 5px;" class="fa fa-times"></i>Cancel</button>
-				     </div>
-				  </div>
-
+					<div class="manage-Campaign-td2" > 
+						   <button class="btn btn btn-primary btn-sm pull-right" style="width:25%;display:inline;margin:5px;" ng-click="saveCampaign()"><i style="margin-right: 5px;" class="fa fa-save"></i>Submit</button>
+						   <button class="btn btn-primary btn-sm pull-right" style="width:25%;display:inline;margin:5px;" ng-click="cancel()"><i style="margin-right: 5px;" class="fa fa-times"></i>Cancel</button>
+					</div>
+		  </div>
       </div> 
-
-</form>
-
-
-
-<!--   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="myModalLabel">Confirm Delete</h4>
-          </div>
-          <div class="modal-body">
-            You have selected to send delete request for your Organization. This would stop you from any further interaction with the organization. Do you want to proceed?
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary manage-org-btn" data-dismiss="modal" ng-click="deleteOrgAccountRequest()" >Send Delete Request</button>
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-          </div>
-        </div>
-      </div>
-    </div> -->
-
-
-
+  </form>
 
 
 
