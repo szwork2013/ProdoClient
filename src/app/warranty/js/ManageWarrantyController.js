@@ -605,9 +605,11 @@ $scope.getOrgProductDetailsForUpdate();
 
  $scope.disableEditorFeature = function () {
     $scope.editMode.editorEnabledWarranty = false;
-       $scope.form.WarrantyForm.submitted=false;
-         $scope.getWarranty($scope.warranty.warranty_id);
-   $scope.clearText();
+    $scope.form.WarrantyForm.submitted=false;
+    if($scope.warranty.warranty_id ){
+        $scope.getWarranty($scope.warranty.warranty_id);
+     }
+    $scope.clearText();
   };
 
  $scope.enableEditorFeature = function () {
