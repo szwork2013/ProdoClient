@@ -86,18 +86,14 @@ angular.module('prodo.ProdonusApp', [
       if(flag==='success')
       {
         growl.addSuccessMessage(message); 
-        // notify({message:message,template:'common/notification/views/notification-success.html',position:'center'})
       }
       else {
         if (flag==='error') {
           growl.addErrorMessage(message); 
-          // notify({message:message,template:'common/notification/views/notification-error.html',position:'center'});
         } else if (flag==='info') {
-          growl.addInfoMessage(data.error.message); 
-          // notify({message:message,template:'common/notification/views/notification-error.html',position:'center'});
+          growl.addInfoMessage(message); 
         } else {
-          growl.addWarningMessage(data.error.message); 
-          // notify({message:message,template:'common/notification/views/notification-error.html',position:'center'});
+          growl.addWarningMessage(message); 
         } 
       }
           
@@ -106,7 +102,7 @@ angular.module('prodo.ProdonusApp', [
     var cleanupEventSession_Changed_Failure = $scope.$on('session-changed-failure', function (event, message) {
       UserSessionService.authfailed();
       $state.transitionTo('prodo.landing.signup');
-      growl.addErrorMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message);   
+      $rootScope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message, 'error');   
     });
 
     var cleanupEventSessionDone = $scope.$on('session', function (event, data) {
@@ -152,11 +148,11 @@ angular.module('prodo.ProdonusApp', [
     var cleanupEventLogoutDone = $scope.$on('logoutDone', function (event, message) {
       $log.debug($rootScope.usersession.isLoggedIn);
       $state.transitionTo('prodo.landing.signup');
-      growl.addSuccessMessage('You are successfully signed out.');   
+      $rootScope.ProdoAppMessage('You are successfully signed out.', 'success');   
 
     });
     var cleanupEventLogoutNotDone = $scope.$on('logoutNotDone', function (event, message) {
-      growl.addErrorMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message);   
+      $rootScope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message, 'error');   
     });
 
     $scope.$on('$destroy', function(event, message) {

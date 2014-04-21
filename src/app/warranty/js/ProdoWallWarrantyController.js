@@ -20,9 +20,10 @@ angular.module('prodo.WarrantyApp')
         }
         $scope.warranties.push(warranty);
       }
+      $rootScope.ProdoAppMessage(data.success.message, 'success');
     } else {
       $log.debug(data.error.message);
-      $scope.showAlert('alert-danger', data.error.message);
+      $rootScope.ProdoAppMessage(data.error.message, 'error');
     }
     $scope.hideSpinner();
   };   
@@ -41,6 +42,7 @@ angular.module('prodo.WarrantyApp')
 
   var cleanupEventGetMoreWarrantiesNotDone = $scope.$on("getMoreWarrantiesNotDone", function(event, message){
     $scope.hideSpinner(); 
+    $rootScope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message, 'error');
   });
 
   $scope.$on('$destroy', function(event, message) {

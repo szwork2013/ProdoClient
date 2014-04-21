@@ -40,16 +40,17 @@ angular.module('prodo.UserApp')
       } else {
         if (data.error.user == undefined) {     
             $log.debug(data.error.code + " " + data.error.message);
-            growl.addErrorMessage(data.error.message);
+            $rootScope.ProdoAppMessage(data.error.message,'error');
         } else if (data.error.user) {
           if (data.error.code == 'AW001') {
               $log.debug(data.error.code + " " + data.error.message);
               UserSessionService.authSuccess(data.error.user);
-              growl.addInfoMessage(data.error.message);
+              $rootScope.ProdoAppMessage(data.error.message,'error');
           } else {
               $log.debug(data.error.code + " " + data.error.message);
               UserSessionService.authSuccess(data.error.user);
-              growl.addErrorMessage(data.error.message);          }
+              $rootScope.ProdoAppMessage(data.error.message,'error');         
+            }
         } 
       }
     };  
@@ -72,7 +73,7 @@ angular.module('prodo.UserApp')
     var cleanupEventSigninNotDone = $scope.$on("signinNotDone", function(event, message){
       $scope.clearformData();
       $scope.hideSpinner();
-      $scope.showAlert('alert-danger', "It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message);
+      $rootScope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message, 'error');
     });
 
     // function to send and stringify user signin data to Rest APIsIt looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message
@@ -91,20 +92,20 @@ angular.module('prodo.UserApp')
     // function to handle server side responses
     $scope.handleForgotPasswordResponse = function(data){
       if (data.success) {   
-        growl.addInfoMessage('Your temporary password settings has been sent. Please check your email, and follow instructions.');
+        $rootScope.ProdoAppMessage('Your temporary password settings has been sent. Please check your email, and follow instructions.', 'info');
       } else {
         if (data.error.code== 'AV001') {     // enter valid data
             $log.debug(data.error.code + " " + data.error.message);
-            growl.addErrorMessage(data.error.message);
+            $rootScope.ProdoAppMessage(data.error.message, 'error');
         } else if (data.error.code=='AV004') {  // enter prodonus registered emailid
             $log.debug(data.error.code + " " + data.error.message);
-            growl.addErrorMessage(data.error.message);
+            $rootScope.ProdoAppMessage(data.error.message, 'error');
         } else if (data.error.code== 'AT001') {    // user has not done any payment
             $log.debug(data.error.code + " " + data.error.message);
-            growl.addErrorMessage(data.error.message);
+            $rootScope.ProdoAppMessage(data.error.message, 'error');
         } else {
             $log.debug(data.error.message);
-            growl.addErrorMessage(data.error.message);
+            $rootScope.ProdoAppMessage(data.error.message, 'error');
         }
       }
     };  
@@ -123,7 +124,7 @@ angular.module('prodo.UserApp')
     var cleanupEventForgotPasswordNotDone = $scope.$on("forgotPasswordNotDone", function(event, message){
         $scope.clearformData();
         $scope.hideSpinner();
-        $scope.showAlert('alert-danger', "It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message);
+        $rootScope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message, 'error');
       });
 
     // function to send and stringify user reset password data to Rest APIs
@@ -157,7 +158,7 @@ angular.module('prodo.UserApp')
             $rootScope.showModal();
         } else {
             $log.debug(data.error.message);
-            growl.addErrorMessage(data.error.message);
+            $rootScope.ProdoAppMessage(data.error.message, 'error');
         }
       }
       $scope.hideSpinner();
@@ -181,7 +182,7 @@ angular.module('prodo.UserApp')
     var cleanupEventResetPasswordNotDone = $scope.$on("resetPasswordNotDone", function(event, message){
         $scope.clearformData();
         $scope.hideSpinner();
-        $scope.showAlert('alert-danger', "It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message);
+        $rootScope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message, 'error');
     });
 
     $scope.$on('$destroy', function(event, message) {

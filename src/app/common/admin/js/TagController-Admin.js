@@ -3,11 +3,10 @@ angular.module('prodo.AdminApp').controller('prodoAdminTagInputController', [
   '$log',
   '$rootScope',
   'UserSessionService',
-   'notify',
   '$state',
   'tagAddService','domainTagList', 'tagdata',
 
-  function ($scope, $log, $rootScope, UserSessionService, notify, $state, tagAddService, domainTagList, tagdata) {
+  function ($scope, $log, $rootScope, UserSessionService, $state, tagAddService, domainTagList, tagdata) {
 
     $scope.category_selection;
 
@@ -42,7 +41,7 @@ angular.module('prodo.AdminApp').controller('prodoAdminTagInputController', [
     $scope.allTagsContain = [];
     if(tagdata.success !== undefined)
     {
-             $scope.allTagsContain = tagdata.success.domain_tags.tags;   
+      $scope.allTagsContain = tagdata.success.domain_tags.tags;   
     }
     //alert(JSON.stringify(tagdata));
     // domainTagList.getTags();   
@@ -57,29 +56,27 @@ angular.module('prodo.AdminApp').controller('prodoAdminTagInputController', [
       {
 
         
-         $scope.ProdoAppMessage(data.success.message,'success');
+         $rootScope.ProdoAppMessage(data.success.message,'success');
       }
       else {
         if (data.error.code== 'AU004') {     // enter valid data
-            $scope.ProdoAppMessage(data.error.message,'error');    //ShowAlert
+          $rootScope.ProdoAppMessage(data.error.message,'error');    //ShowAlert
         } else {
-            $scope.ProdoAppMessage(data.error.message,'error');    //ShowError
+          $rootScope.ProdoAppMessage(data.error.message,'error');    //ShowError
         }
       }
           
      });
 
      var cleanupeventnotgotalltags = $scope.$on("notGotAllDomainTags",function(event,message){
-               $scope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + data,'error');    //ShowAlert
+      $rootScope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + data,'error');    //ShowAlert
    
      });
     
 
     $scope.addToCategory = function()
-    {      //alert($scope.allCategories);
-           
-            $scope.allCategories.push($scope.categoryDomain);
-            alert($scope.allCategories);
+    { 
+      $scope.allCategories.push($scope.categoryDomain);
     };
 
     $scope.setEmotion = function () {
@@ -126,7 +123,7 @@ angular.module('prodo.AdminApp').controller('prodoAdminTagInputController', [
       }
       if(data.success)
       {
-         $scope.ProdoAppMessage(data.success.message,'success');
+         $rootScope.ProdoAppMessage(data.success.message,'success');
          $scope.tagname = '';
          $scope.allCategories = [];
          $scope.category_selection= '';
@@ -137,22 +134,18 @@ angular.module('prodo.AdminApp').controller('prodoAdminTagInputController', [
       }
       else {
         if (data.error.code== 'AU004') {     // enter valid data
-            $scope.ProdoAppMessage(data.error.message,'error');    //ShowAlert
+          $rootScope.ProdoAppMessage(data.error.message,'error');    //ShowAlert
         } else {
-            $scope.ProdoAppMessage(data.error.message,'error');    //ShowError
+          $rootScope.ProdoAppMessage(data.error.message,'error');    //ShowError
         }
       }
           
      });
 
      var cleanupeventKeyTagNotAdded = $scope.$on("tagsNotAddedSuccessfully",function(event,message){
-               $scope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + data,'error');    //ShowAlert
+        $rootScope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + data,'error');    //ShowAlert
      });
     
-
-
-
-
     $scope.submitTag = function () {
         $scope.objectComponents.tagname = $scope.tagname;
         $scope.objectComponents.emotions = {};
@@ -190,21 +183,6 @@ angular.module('prodo.AdminApp').controller('prodoAdminTagInputController', [
         // });
     };
      
-
-    $scope.ProdoAppMessage = function(message,flag)
-       {
-          if(flag==='success')
-          {
-            //growl.addSuccessMessage(message);
-            notify({message:message,template:'common/notification/views/notification-success.html',position:'center'})
-          }
-          else
-          {
-             notify({message:message,template:'common/notification/views/notification-error.html',position:'center'});
-          
-          }
-         // $scope.resetGrowlMessages();
-    };   
     $scope.$on('$destroy', function(event, message) {
         // cleanTagsAdded();
         // cleanEventGetSearchProductNotDone();

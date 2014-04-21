@@ -445,14 +445,14 @@ angular.module('prodo.UserApp')
       if (data.success) {
         $scope.emailEditor();
         $state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
-        growl.addSuccessMessage(data.success.message);   
+        $rootScope.ProdoAppMessage(data.success.message, 'success');   
       } else {
         if (data.error.code== 'AL001') {     // enter valid data
             $log.debug(data.error.code + " " + data.error.message);
             $rootScope.showModal();
         } else {
             $log.debug(data.error.message);
-            growl.addErrorMessage(data.error.message);
+            $rootScope.ProdoAppMessage(data.error.message, 'error');
         }
       }
     };  
@@ -471,7 +471,7 @@ angular.module('prodo.UserApp')
     });
 
     var cleanupEventUpdateUserEmailNotDone = $scope.$on("updateUserEmailNotDone", function(event, message){
-      growl.addErrorMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message);   
+      $rootScope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message, 'error');   
     });
   
 		// Update Email for user ends........................................
@@ -505,14 +505,14 @@ angular.module('prodo.UserApp')
       if (data.success) {
         $scope.clear();  
         $state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
-        growl.addSuccessMessage(data.success.message);  
+        $rootScope.ProdoAppMessage(data.success.message,'success');  
       } else {
         if (data.error.code== 'AL001') {     // enter valid data
             $log.debug(data.error.code + " " + data.error.message);
             $rootScope.showModal();
         } else {
             $log.debug(data.error.message);
-            growl.addErrorMessage(data.error.message);
+            $rootScope.ProdoAppMessage(data.error.message, 'error');
         }
       }
     };  
@@ -530,7 +530,7 @@ angular.module('prodo.UserApp')
     });
 
     var cleanupEventUpdateUserPasswordNotDone = $scope.$on("updateUserPasswordNotDone", function(event, message){
-      growl.addErrorMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message);
+      $rootScope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message, 'error');
     });
 
     // Update Password for user ends........................................
@@ -572,14 +572,14 @@ angular.module('prodo.UserApp')
     $scope.handleUpdateUserResponse = function(data){
       if (data.success) {
        $state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
-      growl.addSuccessMessage(data.success.message);   
+       $rootScope.ProdoAppMessage(data.success.message, 'success');   
       } else {
         if (data.error.code== 'AL001') {     // enter valid data
             $log.debug(data.error.code + " " + data.error.message);
             $rootScope.showModal();
         } else {
             $log.debug(data.error.message);
-            growl.addErrorMessage(data.error.message); 
+            $rootScope.ProdoAppMessage(data.error.message,'error'); 
         }
       }
     };  
@@ -598,7 +598,7 @@ angular.module('prodo.UserApp')
     });
 
     var cleanupEventUpdateUserNotDone = $scope.$on("updateUserNotDone", function(event, message){
-      growl.addErrorMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message);
+      $rootScope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message, 'error');
     });
 
 
@@ -699,14 +699,14 @@ angular.module('prodo.UserApp')
     $scope.handleUserInviteResponse = function(data){
       if (data.success) {
         $scope.clearInvites();
-        growl.addSuccessMessage('Your invites has been successfully sent.');
+        $rootScope.ProdoAppMessage('Your invites has been successfully sent.', 'success');
       } else {
         if (data.error.code== 'AL001') {     // enter valid data
             $log.debug(data.error.code + " " + data.error.message);
             $rootScope.showModal();
         } else {
             $log.debug(data.error.message);
-            growl.addErrorMessage(data.error.message);
+            $rootScope.ProdoAppMessage(data.error.message, 'error');
         }
       }
     };  
@@ -725,7 +725,7 @@ angular.module('prodo.UserApp')
     });
 
     var cleanupEventSendUserInvitesNotDone = $scope.$on("sendUserInvitesNotDone", function(event, data){
-      growl.addErrorMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + data);    
+      $rootScope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + data, 'error');    
     });
 
 
@@ -740,14 +740,14 @@ angular.module('prodo.UserApp')
         for (var i = 0, ii = products_followed.length; i < ii; i++) {
           if (product === products_followed[i]) { products_followed.splice(i, 1); }
         } 
-        growl.addSuccessMessage('You have left your product conversation for' + ' ' + product.name);    
+        $rootScope.ProdoAppMessage('You have left your product conversation for' + ' ' + product.name, 'success');    
       } else {
         if (data.error.code== 'AL001') {     // enter valid data
             $log.debug(data.error.code + " " + data.error.message);
             $rootScope.showModal();
         } else {
             $log.debug(data.error.message);
-            growl.addErrorMessage(data.error.message);
+            $rootScope.ProdoAppMessage(data.error.message, 'error');
         }
       }
     }; 
@@ -761,7 +761,7 @@ angular.module('prodo.UserApp')
     });
 
     var cleanupEventUnfollowProductNotDone = $scope.$on("unfollowProductNotDone", function(event, data){
-      growl.addErrorMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + data);   
+      $rootScope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + data, 'error');   
     });
 
     // Unfollow product ends........................................
@@ -772,21 +772,21 @@ angular.module('prodo.UserApp')
     $scope.handleDeleteUserResponse = function(data){
       if (data.success) {
         UserSessionService.logoutUser();
-        $scope.showAlert('alert-success', data.success.message);   
+        $rootScope.ProdoAppMessage(data.success.message, 'success'); 
       } else {
         if (data.error.code== 'AL001') {     // enter valid data
             $log.debug(data.error.code + " " + data.error.message);
             $rootScope.showModal();
         } else {
             $log.debug(data.error.message);
-            growl.addErrorMessage(data.error.message);
+            $rootScope.ProdoAppMessage(data.error.message, 'error');
         }
       }
     };
 
     var cleanupEventLogoutDone = $scope.$on("logoutDone", function(event, message){
       $state.transitionTo('prodo.landing.signin');
-      $scope.showAlert('alert-success', message);   
+      $rootScope.ProdoAppMessage(message, 'success'); 
     });
 
     $scope.deleteUserAccount = function() {
@@ -797,7 +797,7 @@ angular.module('prodo.UserApp')
       $scope.handleDeleteUserResponse(message);
     });
     var cleanupEventDeleteUserNotDone = $scope.$on("deleteUserNotDone", function(event, message){
-      $scope.showAlert('alert-danger', "It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message);
+      $rootScope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message, 'error');
     });
 
     // Delete user account ends........................................

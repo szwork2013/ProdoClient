@@ -261,7 +261,7 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
           $scope.handleGetProductFeaturesSuccess(successData);
         }
       }, function (error) {
-        growl.addErrorMessage("Server Error:" + error.status);
+        $rootScope.ProdoAppMessage("Server Error:" + error.status, 'error');
       });
     }
   };
@@ -319,7 +319,7 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
 
   var cleanEventFollowProductDone = $scope.$on('followProductDone', function (event, data) {
     if (data.success) {
-        growl.addSuccessMessage("Following product");
+        $rootScope.ProdoAppMessage("You can start your product conversation", 'success');
         UserSessionService.productfollowlist.unshift($scope.product);
         $("#prodo-followBtn").css("display", "none");
       }

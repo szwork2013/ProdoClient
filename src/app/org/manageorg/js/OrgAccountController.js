@@ -1,5 +1,5 @@
 angular.module('prodo.OrgApp')
- .controller('OrgAccountController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$log','$modal', 'growl', 'UserSessionService', 'OrgRegistrationService', 'OrgService', 'currentorgdata', 'currentorgaddr', 'currentorgproduct', 'currentorggroup','ENV', 'notify',function($scope, $rootScope, $state, $http, $timeout, $log, $modal, growl, UserSessionService, OrgRegistrationService, OrgService, currentorgdata, currentorgaddr, currentorgproduct, currentorggroup, ENV, notify) {
+ .controller('OrgAccountController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$log','$modal', 'growl', 'UserSessionService', 'OrgRegistrationService', 'OrgService', 'currentorgdata', 'currentorgaddr', 'currentorgproduct', 'currentorggroup','ENV', function($scope, $rootScope, $state, $http, $timeout, $log, $modal, growl, UserSessionService, OrgRegistrationService, OrgService, currentorgdata, currentorgaddr, currentorgproduct, currentorggroup, ENV) {
 
 $scope.submitted= false;   
 
@@ -1548,29 +1548,6 @@ $scope.enableEditor = function(addr) {
     $scope.reset();
   $scope.editorEnabled = true;
 };
-    
-
-// $rootScope.ProdoAppMessage = function(message,flag)
-// {
-//   if(flag==='success')
-//   {
-//     growl.addSuccessMessage(message); 
-//     // notify({message:message,template:'common/notification/views/notification-success.html',position:'center'})
-//   }
-//   else {
-//     if (flag==='error') {
-//       growl.addErrorMessage(message); 
-//       // notify({message:message,template:'common/notification/views/notification-error.html',position:'center'});
-//     } else if (flag==='info') {
-//       growl.addInfoMessage(data.error.message); 
-//       // notify({message:message,template:'common/notification/views/notification-error.html',position:'center'});
-//     } else {
-//       growl.addWarningMessage(data.error.message); 
-//       // notify({message:message,template:'common/notification/views/notification-error.html',position:'center'});
-//     } 
-//   }
-      
-// };
 
 $scope.$on('$destroy', function(event, message) {
       cleanupEventUpdateOrgDone();      

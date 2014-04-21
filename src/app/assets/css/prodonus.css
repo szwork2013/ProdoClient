@@ -2442,12 +2442,14 @@ vertical-align: bottom;
 }
 .manage-Campaign-tr {
 	margin :20px;
+	
 }
 .manage-Campaign-td1 {
+	font-weight: bold;
    width : 40%;
 }
 .manage-Campaign-td2 {
-	width:60%;
+	width:100%;
 
 }
 
