@@ -145,7 +145,8 @@ $scope.getFile = function (a) {
               notify({message:" Please enter key client name",template:'common/notification/views/notification-error.html',position:'center'});
               $("#spinner").hide();
               $("#bar").hide();
-              setTimeout(function(){ jQuery("#FileName").hide(); },1000);
+                 setTimeout(function(){ jQuery("#FileName").hide(); },1000);
+                 $('#fileInputs')[0].reset();
           }
           } else {
              // $scope.enableErrorMsg();
@@ -745,15 +746,17 @@ $scope.productUploadLogoResponseHandler=function(error, imagelocation){
     }
      setTimeout(function(){ jQuery("#FileName").hide(); },1000);
   };
-
+$scope.filess=[];
 }]);
 
 angular.module('prodo.UploadApp')
 .directive('ngFileSelect', ['fileReader', function( ) {
+
   return {
     link: function ($scope, el) {
       el.bind("change", function (e) {
         $scope.file = (e.srcElement || e.target).files;
+        $scope.filess=$scope.file;
         //console.log($scope.file);
          document.getElementById("FileName").innerHTML="";
         $scope.fileLength = (e.srcElement || e.target).files;
@@ -782,10 +785,8 @@ angular.module('prodo.UploadApp')
             fn.setAttribute("style", "text-align:left");
             fn.style.width = '500px';
             
-
             var spinnerContainer = document.createElement("span");
             spinnerContainer.id="spinner";
-            
             
              fn.appendChild(spinnerContainer);
              var spinner = document.createElement("i");
@@ -794,65 +795,15 @@ angular.module('prodo.UploadApp')
              spinnerContainer.appendChild(spinner);
              $("#spinner").show();
 
-
-
-
              var breakline=document.createElement("br");
              fn.appendChild(breakline);
- // <span id="img-spinner" > <i  class=" prodo-loadmoreColor fa fa-spinner fa-spin "> </i></span>
-            // $("#img-spinner").show();
-
-           //  var progressbarc = document.createElement("div");
-           //  progressbarc.className = ' progress progress-info  active';
-           //  progressbarc.id = "a2" + i.name;
-           //  progressbarc.style.textAlign = "left";
-           //  fn.appendChild(progressbarc);
-           //  var progressbar = document.createElement("div");
-           //  progressbar.className = 'bar';
-           //  progressbar.id = 'bar';
-           //  var a = document.getElementById("a2" + i.name);
-           //  progressbar.style.width = '300px';
-           //  var $bar = $('.bar');
-           //  a.appendChild(progressbar);
-           //  $('.bar').css('width','0%');
-                   
-           //  var perc =  '100';
-           //  var userInput = (i.size/1024)/100;  // in seconds
-           //  var speed = userInput * 1;
-           //  var currentPerc = 0;
-        
-           
-           // var progress = setInterval(function() {
-           //     var $bar = $('.bar');
-           //     if (currentPerc >= perc) {
-           //      clearInterval(progress);
-           //       $('.progress').removeClass('active');
-           //      } else {
-           //       currentPerc += 1;
-           //       $bar.css('width', (currentPerc) + '%');
-           //      }
-           //       // $bar.text((currentPerc) + '%');
-
-           //         if(currentPerc==100){
-           //          // setTimeout(function(){ jQuery("#FileName").hide(); },1000);
-           //          // currentPerc=0;
-           //         }
-
-           //  }, speed);
 
             FileName = "";
             title = "";
             fn = "";
-            // progressbarc = "";
-            // progressbar = "";
-            // progress = "";
             a = "";
-            // perc="";
-            // userInput="";
-            // speed="";
-             // currentPerc="";
-          
-              
+           
+             
           }
             
         for (var i = 0; i < $scope.file.length; i++) {
