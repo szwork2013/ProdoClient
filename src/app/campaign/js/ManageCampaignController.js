@@ -1,7 +1,15 @@
 angular.module('prodo.CampaignApp')
  .controller('ManageCampaignController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$stateParams', '$log', 'growl', 'checkIfSessionExist','currentorgproducts','CampaignService','getAllCampaigns','notify', 'campaigndata', function($scope, $rootScope, $state, $http, $timeout, $stateParams, $log, growl, checkIfSessionExist, currentorgproducts, CampaignService, getAllCampaigns , notify, campaigndata) {
  		
+ // pagination
+  $scope.currentPage = 0;
+  $scope.pageSize = 3;
 
+  $scope.numberOfPages = function () {
+    return Math.ceil($scope.campaignDetailsObject.length / $scope.pageSize);
+  };
+
+  // pagination
  $scope.newCampaignAdd = 0;
 
  $scope.temp = [];
@@ -37,7 +45,7 @@ $scope.campaign = {productName: '',Name:'',Description:'',startDate:'',endDate:'
 $scope.errorForInvalidProduct = '';
 
  
- $scope.campaignDetailsObject = {};
+ $scope.campaignDetailsObject = [];
 
  $scope.campaignName = '';
 
@@ -378,26 +386,13 @@ var cleanupeventaddedcampaignerror = $scope.$on("campaignNotAddedSuccessfully", 
 	     $scope.ProdoAppMessage("Some issues with server",'error');
 });
 
-$scope.currentPage = 0;
-
-$scope.pageSize = 5;
-
-
-
 
 
  var cleanupartworkcampaignsuccess = $scope.$on("campaignUploadResponseSuccess", function(event, data){
   $state.reload();
-});// pagination
-  $scope.currentPage = 0;
-  $scope.pageSize = 3;
-
-  $scope.numberOfPages = function () {
-    return Math.ceil($scope.campaignDetailsObject.length / $scope.pageSize);
-  };
-
-  // pagination
+});
 //campaignUploadResponseSuccess
+
 
 $scope.$on('$destroy', function(event, message) 
 {
@@ -412,7 +407,7 @@ $scope.$on('$destroy', function(event, message)
   cleanupartworkcampaignsuccess();
 });
 
-}]);
+}])
 
 
 angular.module('prodo.CampaignApp').filter('startFrom', function () {
@@ -422,4 +417,4 @@ angular.module('prodo.CampaignApp').filter('startFrom', function () {
       return input.slice(start);
     }
   }
-});
+})

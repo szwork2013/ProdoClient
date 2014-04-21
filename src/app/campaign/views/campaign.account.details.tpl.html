@@ -1,7 +1,7 @@
 <div class="container">
   
 <!-- corousel -->
-
+  <div class="prodo-productListCorousel" >
     <button class="arrowBtn prodo-arrowbtnLeft" ng-show="campaignDetailsObject.length > 3 " ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1" >
       <
     </button>
@@ -24,6 +24,9 @@
     <button class="arrowBtn prodo-arrowbtnRight"  ng-show="campaignDetailsObject.length > 3 " ng-disabled="currentPage >= campaignDetailsObject.length/pageSize - 1" ng-click="currentPage=currentPage+1" >
       >
       </button>
+        </div>
+
+        
        <div ng-if="noCampaignExists === 0"><i><h3>Currently no campaigns exists!</h3></i></div>
   </div>
 
