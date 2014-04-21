@@ -57,19 +57,19 @@ angular.module('prodo.UserApp')
       } else {
         if (data.error.code== 'AU001') {     // user already exist
             $log.debug(data.error.code + " " + data.error.message);
-            growl.addErrorMessage(data.error.message);
+            $rootScope.ProdoAppMessage(data.error.message, 'error');
         } else if (data.error.code=='ACT001') {  // user data invalid
             $log.debug(data.error.code + " " + data.error.message);
             $state.transitionTo('prodo.user-content.reactivate');
         } else if (data.error.code=='AV001') {  // user data invalid
             $log.debug(data.error.code + " " + data.error.message);
-            growl.addErrorMessage(data.error.message);
+            $rootScope.ProdoAppMessage(data.error.message, 'error');
         } else if (data.error.code=='AT001') {   // user has not verified
             $log.debug(data.error.code + " " + data.error.message);
             $state.transitionTo('user-content.resetGenerateToken');
         } else {
             $log.debug(data.error.message);
-            growl.addErrorMessage('Prodonus Database Server error. Please wait for some time.');
+            $rootScope.ProdoAppMessage('Prodonus Database Server error. Please wait for some time.', 'error');
         }
       }
       $scope.hideSpinner();
@@ -89,13 +89,13 @@ angular.module('prodo.UserApp')
 
     var cleanupEventRecaptchaNotDone = $scope.$on("recaptchaNotDone", function(event, message){
       $scope.hideSpinner();
-      growl.addErrorMessage('Recaptcha failed, please try again');
+      $rootScope.ProdoAppMessage('Recaptcha failed, please try again', 'error');
       
     });
 
     var cleanupEventRecaptchaFailure = $scope.$on("recaptchaFailure", function(event, message){
       $scope.hideSpinner();
-      growl.addErrorMessage("Server is not responding. Error:" + message);
+      $rootScope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message, 'error');   
     });
 
     var cleanupEventRecaptchaDone = $scope.$on("recaptchaDone", function(event, message){
@@ -110,7 +110,7 @@ angular.module('prodo.UserApp')
     var cleanupEventSignupNotDone = $scope.$on("signupNotDone", function(event, message){
       $scope.hideSpinner();
       $log.debug(message);
-      growl.addErrorMessage("Server Error:" + message.status);
+      $rootScope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message, 'error');   
     });
 
     // function to send and stringify user email to Rest APIs for token regenerate
@@ -132,10 +132,10 @@ angular.module('prodo.UserApp')
       } else {
         if (data.error.code== 'AU004') {     // enter valid data
             $log.debug(data.error.code + " " + data.error.message);
-            growl.addErrorMessage(data.error.message);
+            $rootScope.ProdoAppMessage(data.error.message, 'error');
         } else {
             $log.debug(data.error.message);
-            growl.addErrorMessage(data.error.message);
+            $rootScope.ProdoAppMessage(data.error.message, 'error');
         }
       }
     };  
@@ -156,6 +156,8 @@ angular.module('prodo.UserApp')
     var cleanupEventRegenerateTokenNotDone = $scope.$on("regenerateTokenNotDone", function(event, message){
       $scope.clearformData();
       $scope.hideSpinner(); 
+      $rootScope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message, 'error');   
+
     });
 
     $scope.jsonActivateAccountTokenData = function()
@@ -174,10 +176,10 @@ angular.module('prodo.UserApp')
       } else {
         if (data.error.code== 'AU004') {     // enter valid data
             $log.debug(data.error.code + " " + data.error.message);
-            growl.addErrorMessage(data.error.message);
+            $rootScope.ProdoAppMessage(data.error.message, 'error');
         } else {
             $log.debug(data.error.message);
-            growl.addErrorMessage(data.error.message);
+            $rootScope.ProdoAppMessage(data.error.message, 'error');
         }
       }
     };   
@@ -200,6 +202,8 @@ angular.module('prodo.UserApp')
     var cleanupEventActivateAccountTokenNotDone = $scope.$on("activateAccountTokenNotDone", function(event, message){
       $scope.clearformData();
       $scope.hideSpinner(); 
+      $rootScope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message, 'error');   
+
     });
 
 
