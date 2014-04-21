@@ -367,10 +367,10 @@
                                   <tr>
                                      <td style="border-color:white;width:50%"><input class="form-control" ng-model="currentclient.name" type="text" placeholder="Name" style="width:100%"></td>
                                   <td style="border-color:white;width:50%">
-                                    <div class="controls" > 
+                                    <div class="controls" > <form id="fileInputs">
                                       <span class="btn btn-primary fileinput-button controls-upload prodo-uploadBtnWidth" style="width:100%;">
                                         <i class="glyphicon glyphicon-upload " style="padding-left: 17%;"></i>
-                                        <input   type="file" name="file" ng-file-select="onFileSelect($files)" ng-click="uploadSrc = 'orgkeyclient';">
+                                        <input   type="file" name="file" ng-file-select="onFileSelect($files)" ng-click="uploadSrc = 'orgkeyclient';" > </form>
                                         <span>Upload Logo & Save</span>
                                       </span>
                                     </div>
