@@ -1,9 +1,6 @@
 <div class="container">
   <div prodo-signin-modal></div>
   <h4 id="user-account-heading">USER ACCOUNT</h4>
-  <div>
-    <div growl></div>
-  </div>
   <div class="account-profile-pic-container" ng-controller="UploadController">
     <div id="prodo-account-row" class="row">
 
@@ -247,9 +244,6 @@
     	<accordion-heading>
         <p class="prodo-accordion-heading">PRODUCTS FOLLOWED<i class="fa fa-pencil pull-right"></i></p>
       </accordion-heading>
-        <div ng-show='isUnfollowed'>
-          <div growl></div>
-        </div>
         <div class="row">
           <div ng-show="(user.products_followed.length == 0)">
             <p class="prodo-account-text-success text-success"><strong><em>You are not following any products.</em></strong></p>

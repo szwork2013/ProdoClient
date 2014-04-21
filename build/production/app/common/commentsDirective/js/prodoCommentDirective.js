@@ -97,7 +97,7 @@
   };
   
   $scope.handleDeleteProductCommentSuccess=function(success){
-    growl.addSuccessMessage("Comment deleted successfully");
+    $rootScope.ProdoAppMessage("Comment deleted successfully", 'success');
   };
 
    $scope.handleDeleteProductCommentError=function(error){
@@ -106,6 +106,7 @@
       }
       else{
         $log.debug(error.message);
+        $rootScope.ProdoAppMessage('error.message', 'error');
       }
    };
 
@@ -123,7 +124,6 @@
           }  
         }, function (error) {
           $log.debug(JSON.stringify(error));
-         // growl.addErrorMessage(error);
         });
 
 
