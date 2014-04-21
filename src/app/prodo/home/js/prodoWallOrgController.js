@@ -113,5 +113,5 @@ angular.module('prodo.ProdoWallApp')
       cleanupEventFollowProductNotDone();  
       cleanEventUnfollowProductFromSidelist();
     });
-
+    
 	}]);

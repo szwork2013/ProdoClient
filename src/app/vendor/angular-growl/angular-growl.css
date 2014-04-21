@@ -16,11 +16,11 @@
     font-weight: bold;
     font-size: 12px;
     position:fixed;
-    top:-2px;
-    margin-top: 10px;
-    min-width: 500px;
-    margin-left: 400px;
+    width: 98%;
+    min-height: 25px;
     z-index: 9999;
+    display: block;
+    margin: 10px;
 }
 
 .growl-item.ng-enter,

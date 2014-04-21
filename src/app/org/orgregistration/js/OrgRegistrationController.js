@@ -573,7 +573,7 @@ $scope.invalidContact3 = '';
            $rootScope.showModal();
        } else {
             $log.debug(data.error);
-            $scope.showAlert('alert-danger', data.error.message);
+            $rootScope.ProdoAppMessage(data.error.message, 'error');
        }
       }
       $scope.hideSpinner();
@@ -666,7 +666,7 @@ $scope.org.orgaddresstype="Company Address";
     });
 
     var cleanupEventOrgRegistrationNotDone = $scope.$on("orgRegistrationNotDone", function(event, message){
-      $scope.showAlert('alert-danger', "It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message);  
+      $rootScope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message, 'error');
     });  
     
     $scope.$on('$destroy', function(event, message) {
