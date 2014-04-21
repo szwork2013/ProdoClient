@@ -387,20 +387,25 @@ var cleanupeventaddedcampaignerror = $scope.$on("campaignNotAddedSuccessfully", 
 });
 
 
+
+ var cleanupartworkcampaignsuccess = $scope.$on("campaignUploadResponseSuccess", function(event, data){
+  $state.reload();
+});
+//campaignUploadResponseSuccess
+
+
 $scope.$on('$destroy', function(event, message) 
 {
-	cleanupeventaddedcampaignsuccessfully();
-	cleanupeventaddedcampaignerror();
-	cleanupeventchangedcampaignsuccessfully();
-	cleanupeventnotchangedcampaignerror();
-	cleanupeventaddedcampaignsuccessfully();
-	cleanupeventaddedcampaignerror();
-	cleanupeventdeletecampaignsuccessfully();
-	cleanupeventdeletecampaignerror();
+  cleanupeventaddedcampaignsuccessfully();
+  cleanupeventaddedcampaignerror();
+  cleanupeventchangedcampaignsuccessfully();
+  cleanupeventnotchangedcampaignerror();
+  cleanupeventaddedcampaignsuccessfully();
+  cleanupeventaddedcampaignerror();
+  cleanupeventdeletecampaignsuccessfully();
+  cleanupeventdeletecampaignerror();
+  cleanupartworkcampaignsuccess();
 });
-
-
-
 
 }])
 

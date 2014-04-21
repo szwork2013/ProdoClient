@@ -47,44 +47,46 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
       });
     }
   };
-}).directive('prodoAlertMessage', [
-  '$timeout',
-  function ($timeout) {
-    return {
-      restrict: 'EA',
-      replace: true,
-      template: '<div style="text-align:left; padding: 8px; margin: 10px;" class="alert {{mainAlert.alertType}}" ng-show="mainAlert.isShown">' + '<button type="button" class="close" ng-click="closeAlert()" aria-hidden="true">&times;</button>' + '{{mainAlert.message}}' + '<a href="#/{{mainAlert.linkpage}}" class="alert-link"> {{mainAlert.linkmessage}}</a>' + '</div>',
-      controller: [
-        '$scope',
-        '$rootScope',
-        function ($scope, $rootScope) {
-          $scope.mainAlert = { isShown: false };
-          $scope.showAlert = function (alertType, message, linkpage, linkmessage) {
-            $scope.mainAlert.message = message;
-            $scope.mainAlert.isShown = true;
-            $scope.mainAlert.linkpage = linkpage;
-            $scope.mainAlert.linkmessage = linkmessage;
-            $scope.mainAlert.alertType = alertType;
-          };
-          $scope.showmessage = function (alertclass, msg, alertlink, linkmsg) {
-            var alerttype = alertclass;
-            var alertmessage = msg;
-            var link = alertlink;
-            var linkmessage = linkmsg;
-            $scope.showAlert(alerttype, alertmessage, link, linkmessage);
-            return true;
-          };
-          $scope.closeAlert = function () {
-            $scope.mainAlert.isShown = false;
-          };
-          $scope.hideAlert = function () {
-            $scope.mainAlert.isShown = false;
-          };
-        }
-      ]
-    };
-}
-]).directive('prodoSpinner', [
+})
+// .directive('prodoAlertMessage', [
+//   '$timeout',
+//   function ($timeout) {
+//     return {
+//       restrict: 'EA',
+//       replace: true,
+//       template: '<div style="text-align:left; padding: 5px; font-style: italic; font-weight: bold; font-size: 12px; position:fixed; top:-2px; min-width: 500px; margin-left: 400px; margin-top: 10px; z-index: 9999;" class="alert {{mainAlert.alertType}}" ng-show="mainAlert.isShown">' + '<button type="button" class="close" ng-click="hideAlert()" aria-hidden="true">&times;</button>' + '{{mainAlert.message}}' + '<a href="#/{{mainAlert.linkpage}}" class="alert-link"> {{mainAlert.linkmessage}}</a>' + '</div>',
+//       controller: [
+//         '$scope',
+//         '$rootScope',
+//         function ($scope, $rootScope) {
+//           $scope.mainAlert = { isShown: false };
+//           $scope.showAlert = function (alertType, message, linkpage, linkmessage) {
+//             $scope.mainAlert.message = message;
+//             $scope.mainAlert.isShown = true;
+//             $scope.mainAlert.linkpage = linkpage;
+//             $scope.mainAlert.linkmessage = linkmessage;
+//             $scope.mainAlert.alertType = alertType;
+//           };
+//           $scope.showmessage = function (alertclass, msg, alertlink, linkmsg) {
+//             var alerttype = alertclass;
+//             var alertmessage = msg;
+//             var link = alertlink;
+//             var linkmessage = linkmsg;
+//             $scope.showAlert(alerttype, alertmessage, link, linkmessage);
+//             return true;
+//           };
+//           $scope.closeAlert = function () {
+//             $scope.mainAlert.isShown = false;
+//           };
+//           $scope.hideAlert = function () {
+//             $scope.mainAlert.isShown = false;
+//           };
+//         }
+//       ]
+//     };
+// }
+// ])
+.directive('prodoSpinner', [
   '$timeout',
   function ($timeout) {
     return {

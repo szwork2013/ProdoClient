@@ -2,7 +2,7 @@
 *	User Signin Controller
 **/
 angular.module('prodo.UserApp')
- 	.controller('UserSigninController', ['$scope', '$rootScope', '$state', '$timeout', '$stateParams', '$log', 'UserSessionService', 'OrgRegistrationService', function($scope, $rootScope, $state, $timeout, $stateParams, $log, UserSessionService, OrgRegistrationService) {
+ 	.controller('UserSigninController', ['$scope', '$rootScope', '$state', '$timeout', '$stateParams', '$log', 'growl', 'UserSessionService', 'OrgRegistrationService', function($scope, $rootScope, $state, $timeout, $stateParams, $log, growl, UserSessionService, OrgRegistrationService) {
     $scope.submitted = false;  // form submit property is false
     $scope.user = 
       {
@@ -23,10 +23,6 @@ angular.module('prodo.UserApp')
       $scope.user.currentpassword = '';
     }
 
-    $timeout(function() {
-       $scope.hideAlert();
-    }, 5000);
-
     // function to send and stringify user signin data to Rest APIs
     $scope.jsonUserSigninData = function() {
       var userSigninData = 
@@ -41,21 +37,19 @@ angular.module('prodo.UserApp')
     $scope.handleSigninResponse = function(data){
       if (data.success) {
         UserSessionService.authSuccess(data.success.user);
-        // $scope.showAlert('alert-success', 'Welcome to Prodonus, you have successfully signed up.');
       } else {
         if (data.error.user == undefined) {     
             $log.debug(data.error.code + " " + data.error.message);
-            $scope.showAlert('alert-danger', data.error.message);
+            growl.addErrorMessage(data.error.message);
         } else if (data.error.user) {
           if (data.error.code == 'AW001') {
               $log.debug(data.error.code + " " + data.error.message);
               UserSessionService.authSuccess(data.error.user);
-              $scope.showAlert('alert-info', data.error.message);
+              growl.addInfoMessage(data.error.message);
           } else {
               $log.debug(data.error.code + " " + data.error.message);
               UserSessionService.authSuccess(data.error.user);
-              $scope.showAlert('alert-danger', data.error.message);
-          }
+              growl.addErrorMessage(data.error.message);          }
         } 
       }
     };  
@@ -97,21 +91,20 @@ angular.module('prodo.UserApp')
     // function to handle server side responses
     $scope.handleForgotPasswordResponse = function(data){
       if (data.success) {   
-        $scope.showAlert('alert-info', 'Your temporary password settings has been sent. Please check your email, and follow instructions.');
-
+        growl.addInfoMessage('Your temporary password settings has been sent. Please check your email, and follow instructions.');
       } else {
         if (data.error.code== 'AV001') {     // enter valid data
             $log.debug(data.error.code + " " + data.error.message);
-            $scope.showAlert('alert-danger', data.error.message);
+            growl.addErrorMessage(data.error.message);
         } else if (data.error.code=='AV004') {  // enter prodonus registered emailid
             $log.debug(data.error.code + " " + data.error.message);
-            $scope.showAlert('alert-danger', data.error.message);
+            growl.addErrorMessage(data.error.message);
         } else if (data.error.code== 'AT001') {    // user has not done any payment
             $log.debug(data.error.code + " " + data.error.message);
-            $scope.showAlert('alert-danger', data.error.message);
+            growl.addErrorMessage(data.error.message);
         } else {
             $log.debug(data.error.message);
-            $scope.showAlert('alert-danger', data.error.message);
+            growl.addErrorMessage(data.error.message);
         }
       }
     };  
@@ -164,7 +157,7 @@ angular.module('prodo.UserApp')
             $rootScope.showModal();
         } else {
             $log.debug(data.error.message);
-            $scope.showAlert('alert-danger', data.error.message);
+            growl.addErrorMessage(data.error.message);
         }
       }
       $scope.hideSpinner();
