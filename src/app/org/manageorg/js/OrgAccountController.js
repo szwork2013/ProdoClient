@@ -1454,6 +1454,8 @@ $scope.removeKeyClientsPermenantly = function()
  
 var cleanupeventKeyClientSuccess = $scope.$on("orgKeyClientResponseSuccess",function(event,message){
     // $rootScope.ProdoAppMessage('Key Client Added Successfully!','success');
+    $rootScope.currentclient.name = '';
+
     $state.reload();
 });
 
