@@ -66,24 +66,24 @@ $scope.currentCampaign = {};
 
  // getAllCampaigns.getCampaigns();
 
-$scope.ProdoAppMessage = function(message,flag)
-{
-      if(flag==='success')
-      {
-        notify({message:message,template:'common/notification/views/notification-success.html',position:'center'})
-      }
-      else
-      {
-         notify({message:message,template:'common/notification/views/notification-error.html',position:'center'}); 
-      }
-};
+// $scope.ProdoAppMessage = function(message,flag)
+// {
+//       if(flag==='success')
+//       {
+//         notify({message:message,template:'common/notification/views/notification-success.html',position:'center'})
+//       }
+//       else
+//       {
+//          notify({message:message,template:'common/notification/views/notification-error.html',position:'center'}); 
+//       }
+// };
 
 
 $scope.noCampaignExists = 1;
 
 if (currentorgproducts.error) 
 {
-      $scope.ProdoAppMessage("Currently no products exists in the organization",'error');
+      //$scope.ProdoAppMessage("Currently no products exists in the organization",'error');
 } 
 else 
 {
@@ -97,12 +97,12 @@ else
         console.log(campaigndata);
         if (campaigndata.success) {
            $scope.campaignDetailsObject = campaigndata.success.Product_Campaigns;
-           $scope.campaignName = $scope.campaignDetailsObject[0].name;
-           $scope.campaignDescription = $scope.campaignDetailsObject[0].description;
-           $scope.startDate = $scope.campaignDetailsObject[0].startdate;
-           $scope.category = $scope.campaignDetailsObject[0].category;
-           $scope.endDate = $scope.campaignDetailsObject[0].enddate;
-           $scope.productName = $scope.campaignDetailsObject[0].productname;
+           // $scope.campaignName = $scope.campaignDetailsObject[0].name;
+           // $scope.campaignDescription = $scope.campaignDetailsObject[0].description;
+           // $scope.startDate = $scope.campaignDetailsObject[0].startdate;
+           // $scope.category = $scope.campaignDetailsObject[0].category;
+           // $scope.endDate = $scope.campaignDetailsObject[0].enddate;
+           // $scope.productName = $scope.campaignDetailsObject[0].productname;
            $scope.currentCampaign = $scope.campaignDetailsObject[0];
            var d1=new Date($scope.campaignDetailsObject[0].startdate);
             var year1=d1.getFullYear();
@@ -258,22 +258,22 @@ var cleanupeventchangedcampaignsuccessfully = $scope.$on("campaignUpdatedSuccess
     }
     if(data.success)
     {
-       $scope.ProdoAppMessage(data.success.message,'success');
+       $rootScope.ProdoAppMessage(data.success.message,'success');
        $scope.enableEditing=0;
        $state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
 
     }
     else {
       if (data.error.code== 'AU004') {     // enter valid data
-          $scope.ProdoAppMessage(data.error.message,'error');    //ShowAlert
+          $rootScope.ProdoAppMessage(data.error.message,'error');    //ShowAlert
       } else {
-          $scope.ProdoAppMessage(data.error.message,'error');    //ShowError
+          $rootScope.ProdoAppMessage(data.error.message,'error');    //ShowError
       }
     }
 });
 
 var cleanupeventnotchangedcampaignerror = $scope.$on("campaignNotUpdatedSuccessfully", function(event, data){
-	     $scope.ProdoAppMessage("Some issues with server",'error');
+	     $rootScope.ProdoAppMessage("Some issues with server",'error');
 });
 
 var cleanupeventdeletecampaignsuccessfully = $scope.$on("campaignDeletedSuccessfullt", function(event, data){
@@ -283,20 +283,20 @@ var cleanupeventdeletecampaignsuccessfully = $scope.$on("campaignDeletedSuccessf
     }
     if(data.success)
     {
-       $scope.ProdoAppMessage(data.success.message,'success');
+       $rootScope.ProdoAppMessage(data.success.message,'success');
        $state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
     }
     else {
       if (data.error.code== 'AU004') {     // enter valid data
-          $scope.ProdoAppMessage(data.error.message,'error');    //ShowAlert
+          $rootScope.ProdoAppMessage(data.error.message,'error');    //ShowAlert
       } else {
-          $scope.ProdoAppMessage(data.error.message,'error');    //ShowError
+          $rootScope.ProdoAppMessage(data.error.message,'error');    //ShowError
       }
     }
 });
 
 var cleanupeventdeletecampaignerror = $scope.$on("campaignNotDeleteSuccessfully", function(event, data){
-	     $scope.ProdoAppMessage("Some issues with server",'error');
+	     $rootScope.ProdoAppMessage("Some issues with server",'error');
 });
 
 $scope.showDetails = function(index)
@@ -315,16 +315,21 @@ $scope.showDetails = function(index)
     if (month1<10){
       month1="0" + month1;
     }
+
     var day1=d1.getDate();
     $scope.currentCampaign.startdate = year1 + "-" + month1 + "-" + day1;
+
     var d=new Date($scope.campaignDetailsObject[index].enddate);
     var year=d.getFullYear();
     var month=d.getMonth()+1;
     if (month<10){
       month="0" + month;
     }
-    var day=d.getDate();$rootScope.campaign_id = $scope.currentCampaign.campaign_id;
-   $scope.currentCampaign.enddate = year + "-" + month + "-" + day;  
+    var day=d.getDate();
+
+   $scope.currentCampaign.enddate = year + "-" + month + "-" + day; 
+   $rootScope.campaign_id = $scope.currentCampaign.campaign_id; 
+   //alert($scope.currentCampaign.enddate);
 
 
 };
@@ -369,21 +374,21 @@ var cleanupeventaddedcampaignsuccessfully = $scope.$on("campaignAddedSuccessfull
     }
     if(data.success)
     {
-       $scope.ProdoAppMessage(data.success.message,'success');
+       $rootScope.ProdoAppMessage(data.success.message,'success');
        $scope.enableEditing = 0;
        $state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
     }
     else {
       if (data.error.code== 'AU004') {     // enter valid data
-          $scope.ProdoAppMessage(data.error.message,'error');    //ShowAlert
+          $rootScope.ProdoAppMessage(data.error.message,'error');    //ShowAlert
       } else {
-          $scope.ProdoAppMessage(data.error.message,'error');    //ShowError
+          $rootScope.ProdoAppMessage(data.error.message,'error');    //ShowError
       }
     }
 });
 
 var cleanupeventaddedcampaignerror = $scope.$on("campaignNotAddedSuccessfully", function(event, data){
-	     $scope.ProdoAppMessage("Some issues with server",'error');
+	     $rootScope.ProdoAppMessage("Some issues with server",'error');
 });
 
 
@@ -393,6 +398,46 @@ var cleanupeventaddedcampaignerror = $scope.$on("campaignNotAddedSuccessfully", 
 });
 //campaignUploadResponseSuccess
 
+ $scope.deleteCampaignImages = function()
+ {
+    $scope.imageids=[];   
+    for(var i=0;i<$scope.currentCampaign.artwork.length;i++)  
+    { 
+        if(document.getElementById(i).checked === true)
+        {    
+                  $scope.imageids.push($scope.currentCampaign.artwork[i].imageid); 
+        }      
+    }
+    if($scope.imageids.length !==0 )
+    {
+              CampaignService.deleteCampaignArtwork($scope.currentCampaign.campaign_id,$scope.imageids);
+    }
+ };
+ var cleanupeventcampaignartworkimagesdeletesuccess= $scope.$on("campaignImagesDeletedSuccessfully", function(event, data){
+
+  if(data.error !== undefined && data.error.code === 'AL001' )
+    {
+      $rootScope.showModal();
+    }
+    if(data.success)
+    {
+       $rootScope.ProdoAppMessage(data.success.message,'success');
+        // $state.reload();
+       $state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
+
+    }
+    else {
+      if (data.error.code== 'AU004') {     // enter valid data
+          $rootScope.ProdoAppMessage(data.error.message,'error');    //ShowAlert
+      } else {
+          $rootScope.ProdoAppMessage(data.error.message,'error');    //ShowError
+      }
+    }
+ });
+ var cleanupeventcampaignartworkimagesdeleteerror = $scope.$on("campaignImagesNotDeletedSuccessfully", function(event, data){
+
+$rootScope.ProdoAppMessage("Some issues with server",'error');
+ });
 
 $scope.$on('$destroy', function(event, message) 
 {
@@ -405,6 +450,8 @@ $scope.$on('$destroy', function(event, message)
   cleanupeventdeletecampaignsuccessfully();
   cleanupeventdeletecampaignerror();
   cleanupartworkcampaignsuccess();
+  cleanupeventcampaignartworkimagesdeletesuccess();
+  cleanupeventcampaignartworkimagesdeleteerror();
 });
 
 }])

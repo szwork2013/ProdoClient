@@ -24,10 +24,12 @@
     <button class="arrowBtn prodo-arrowbtnRight"  ng-show="campaignDetailsObject.length > 3 " ng-disabled="currentPage >= campaignDetailsObject.length/pageSize - 1" ng-click="currentPage=currentPage+1" >
       >
       </button>
+
         </div>
 
         
        <div ng-if="noCampaignExists === 0"><i><h3>Currently no campaigns exists!</h3></i></div>
+
   </div>
 
 <!-- corousel -->
@@ -50,30 +52,30 @@
 
        <table class="  prodo-productTableFont  table child table-bordered table-hover "  id="prodo-WarrantyTable">
 		    <tr style="width:100%;">
-					<td  style="width:30%">Campaign Name:</td> <td><span ng-bind="campaignName"></span></td>
+					<td  style="width:30%">Campaign Name:</td> <td><span ng-bind="currentCampaign.name"></span></td>
 			</tr>
 
 			<tr>
-					<td  >Campaign Description: </td> <td  ><span ng-bind="campaignDescription"></span></td>
+					<td  >Campaign Description: </td> <td  ><span ng-bind="currentCampaign.description"></span></td>
 			</tr>
 
 			<tr>
-					<td  >Product Name: </td> <td  ><span ng-bind="productName"></span></td>
+					<td  >Product Name: </td> <td  ><span ng-bind="currentCampaign.productname"></span></td>
 			</tr>
 
 			<tr>
-					<td  >Start Date: </td> <td  ><span ng-bind = "startDate | date: 'fullDate' "></span></td>
+					<td  >Start Date: </td> <td  ><span ng-bind = "currentCampaign.startdate | date: 'fullDate' "></span></td>
 			</tr>
 
 			<tr >
-					<td  >End Date: </td> <td  ><span ng-bind="endDate | date: 'fullDate'"></span></td>
+					<td  >End Date: </td> <td  ><span ng-bind="currentCampaign.enddate | date: 'fullDate'"></span></td>
 			</tr>
 
 			<tr>
 					<td  > Category: </td> 
 					<td  >
 						<ul style = "margin-left:0%;padding-left:0%">
-						  <li ng-repeat = "list in category"   class="prodo-categoryTags">
+						  <li ng-repeat = "list in currentCampaign.category"   class="prodo-categoryTags">
 							    <span ng-bind="list"></span>
 						</li>
 						</ul>
@@ -85,10 +87,11 @@
 			    <td>
 			    	     <div class="imagesOrg" ng-repeat="img in currentCampaign.artwork" style="margin: 3px;border: #090808 solid;min-width: 110px;
 			                  padding: 4px;border-width: thin;">
-					                <input type="checkbox" id='{{$index}}'>
+					                <!-- <input type="checkbox" id='{{$index}}'> -->
 
 					                <img class="img prodo-OrgImgThumbnail"  ng-src="{{img.image}}" />
 			              </div>
+			              <div ng-if="currentCampaign.artwork.length===0"><h5>Currently no campaign artwork added</h5></div>
              
 			    </td>
 			</tr>
@@ -144,24 +147,19 @@
                       </div>
      
 				  <div class="manage-Campaign-tr">
-				  <div class="manage-Campaign-td1">*Start Date: </div>
-				  <div class="manage-Campaign-td2"> 
-
-				     <input type="date" placeholder="Plaese enter start date" ng-model="currentCampaign.startdate" class="form-control" name="startDate"  popover-placement="right" popover="Current start date is {{currentCampaign.startdate}}" popover-trigger="mouseenter">
-				          
-
+					  <div class="manage-Campaign-td1">*Start Date: </div>
+					  <div class="manage-Campaign-td2"> 
+					     <input type="date" placeholder="Plaese enter start date" ng-model="currentCampaign.startdate" class="form-control" name="startDate"  popover-placement="right" popover="Current start date is {{currentCampaign.startdate}}" popover-trigger="mouseenter">			        
+					  </div>
+					 <div class="error-message-registration" ng-if="errorForCampaignStart !=='' " ng-bind = "errorForCampaignStart" ></div>
 				  </div>
-
-				  <div class="error-message-registration" ng-if="errorForCampaignStart !=='' " ng-bind = "errorForCampaignStart" ></div>
-				  </div>
-
 
 
 				  <div class="manage-Campaign-tr">
 						  <div class="manage-Campaign-td1">*End Date: </div>
 						  <div class="manage-Campaign-td2"> 
 
-						  <input type="date" placeholder="Please enter end date" ng-model="currentCampaign.enddate" class="form-control" name="endDates" popover-placement="right" popover="Current start date is {{currentCampaign.enddate}}" popover-trigger="mouseenter">
+						  <input type="date" placeholder="Please enter end date" ng-model="currentCampaign.enddate" class="form-control" name="endDates" popover-placement="right" popover="Current end date is {{currentCampaign.enddate}}" popover-trigger="mouseenter">
 
 						  </div>
 						    <div class="error-message-registration" ng-if="errorForInvalidEnddate !=='' " ng-bind = "errorForInvalidEnddate" ></div>
@@ -185,11 +183,24 @@
                     <div class="manage-Campaign-td1">Campaign Artwork:  </div>
 		                   <div class="manage-Campaign-td2 manage-campaign-marginbottom" >
 				              
+                               
+				            
+                            <div style="height:40px;" ng-if="currentCampaign.artwork.length>0"> <button ng-click="deleteCampaignImages()" class="btn btn-danger btn-sm " style="margin-left:87%"><i  class="fa fa-trash-o fa-lg" ></i>&nbsp;&nbsp;Delete</button></div>
 
-				           </div>
+				            <div class="imagesOrg" ng-repeat="img in currentCampaign.artwork" style="margin: 3px;border: #090808 solid;min-width: 110px;
+			                  padding: 4px;border-width: thin;">
+					                <input type="checkbox" id='{{$index}}'>
+
+					                <img class="img prodo-OrgImgThumbnail"  ng-src="{{img.image}}" >
+			                </div>
+			                <div ng-if="currentCampaign.artwork.length===0"><h3>Currently no campaign artwork added</h3></div>
+            
+
+
+			              </div>
               </div>
-
-              <div class="manage-Campaign-tr">
+<div></div>
+              <div class="manage-Campaign-tr" >
                     <div class="manage-Campaign-td1">Upload Artwork:  </div>
 		                   <div class="manage-Campaign-td2 manage-campaign-marginbottom" >
 				                <div    ng-app="prodo.UploadApp" ng-controller="UploadController"  >
@@ -203,10 +214,11 @@
 							                <div id="FileName" >  </div>
 
 
-				           </div>
+				                 </div>
 				           </div>
               </div>
-              <div>
+              
+                 <div>
 
 
 
