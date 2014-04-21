@@ -345,8 +345,13 @@ $scope.handleGetWarrantySuccess=function(successData,l_warrantyid){
 
       //modal code here , if yes clear data and show product if cancel, prev state
     }else{
-    $scope.currentWarrantyId=warranty1.warranty_id;
-    $scope.getWarranty($scope.currentWarrantyId);
+       $scope.currentWarrantyId=warranty1.warranty_id;
+       if($scope.currentWarrantyId == $scope.warranty.warranty_id){
+       
+      }else{
+         $scope.getWarranty($scope.currentWarrantyId);
+      }
+
     }
   };
 
@@ -597,8 +602,8 @@ $scope.getOrgProductDetailsForUpdate();
  $scope.enableEditorFeatureUpdate = function () {
   $scope.form.WarrantyFormUpdate.$setPristine();
     $scope.editMode.editorEnabledWarrantyUpdate = true;
-    growl.addInfoMessage("   Updating warranty data.....");
-     notify({message:" updating warranty data.....",template:'common/notification/views/notification-success.html',position:'center'});
+    // growl.addInfoMessage("   Updating warranty data.....");
+     // notify({message:" updating warranty data.....",template:'common/notification/views/notification-success.html',position:'center'});
   };
 
 
@@ -625,7 +630,7 @@ $scope.getOrgProductDetailsForUpdate();
          $scope.editMode.editorEnabledWarranty = true;
           $scope.disableEditorFeatureUpdate();
          // growl.addInfoMessage("   Adding warranty data.....");
-         notify({message:" Adding warranty data.....",template:'common/notification/views/notification-success.html',position:'center'});
+         // notify({message:" Adding warranty data.....",template:'common/notification/views/notification-success.html',position:'center'});
       });
 
 
@@ -634,7 +639,7 @@ $scope.getOrgProductDetailsForUpdate();
      $scope.form.WarrantyForm.$setPristine();
      $scope.editMode.editorEnabledWarranty = true;
      // growl.addInfoMessage("   Adding warranty data.....");
-     notify({message:" Adding warranty data.....",template:'common/notification/views/notification-success.html',position:'center'});
+     // notify({message:" Adding warranty data.....",template:'common/notification/views/notification-success.html',position:'center'});
   
    }
   };
