@@ -227,7 +227,7 @@
                type="number"  min="0" required name="warranty_purchase_period" ng-model="productwarranty.purchase_period"  placeholder ="Number of months"/>  
                 
                  <div  ng-show="(form.WarrantyForm.warranty_purchase_period.$dirty && editMode.editorEnabledWarranty ==true) ||(form.WarrantyForm.submitted==true && form.WarrantyForm.warranty_purchase_period.$invalid==true)" class="prodo-warranty-Invalid">
-			  <span ng-show="form.WarrantyForm.warranty_purchase_period.$error.required">Warranty period reqiured </span>
+			  <span ng-show="form.WarrantyForm.warranty_purchase_period.$error.required">Please enter Warranty period  </span>
 
 			  <span ng-show="form.WarrantyForm.warranty_purchase_period.$error.maxlength">Warranty period must maximum 3 digits only</span>
 			 
@@ -586,7 +586,7 @@
             <td  class="prodo-width50" >
              <span class="prodo-fontWeight">Product:  &nbsp; </span> <span ng-bind="warranty.name" > </span>
             </td>
-            
+
             <td class="prodo-width50"> 
              <span class="prodo-fontWeight">Model no    &nbsp; </span><span ng-bind="warranty.model_no" > </span>
              </td>
