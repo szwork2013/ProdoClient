@@ -107,6 +107,7 @@ $scope.warranties=[];
   $scope.file={};
   $scope.file1="";
   $scope.isValidImage=false;
+  $scope.productwarranty.type=$scope.type[1];
   }
   
   $scope.formatDate = function (time) {
@@ -132,6 +133,7 @@ $scope.warranties=[];
 
     $scope.handleDeleteWarrantySuccess=function(success){
         $log.debug(JSON.stringify(success));
+        $scope.warranty={};
         $rootScope.ProdoAppMessage("Warranty deleted successfully...", 'success');
         $("#prodo-ProductDetails").css("display", "none");
         $state.reload();
@@ -747,6 +749,7 @@ $scope.warrantyResponseHandler=function(error, imagelocation){
         //    $scope.getFile($scope.counter);
       } else $scope.counter = 0;
      $scope.clearText();
+     $('#EditWarranty')[0].reset();
      $scope.disableEditorFeature ();
     }
 
