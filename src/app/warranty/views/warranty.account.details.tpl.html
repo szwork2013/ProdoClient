@@ -233,7 +233,7 @@
 
               </td>
                    <td class="prodo-width50"> Warranty type &nbsp; &nbsp;&nbsp; 
-                   <select class="warranty-textField form-control prodo-validation prodo-display-right" ng-model="productwarranty.type" ng-options="t for t in type" required name="warranty_type">
+                   <select ng-init="productwarranty.type = type[1]" class="warranty-textField form-control prodo-validation prodo-display-right" ng-model="productwarranty.type" ng-options="t for t in type"  required name="warranty_type">
                    </select>
                    
                 
