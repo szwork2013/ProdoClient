@@ -59,7 +59,7 @@ $scope.newWarranty_Responsewarranty_id="";
    	 orgid:'',
    	 name:'',
    	 prodle:'',
-  	 // model_name: '',
+  	 model_name: '',
   	 serial_no: '',
   	 purchase_date: '',
   	 purchase_period: '',
@@ -707,16 +707,16 @@ $scope.getFile = function (a) {
 
 
 $scope.warrantyResponseHandler=function(error, imagelocation){
-	 $scope.disableEditorFeature ();
+	
     // $("#spinner").hide();
  if (error) {
       // $("#bar").hide();
-       $scope.enableEditorFeature ();
-      if (error.error.code == 'AP003') { // user already exist
+       // $scope.enableEditorFeature ();
+      if (error.error.code == 'AP003') { 
         $log.debug(error.error.code + " " + error.error.message);
         $rootScope.ProdoAppMessage(error.error.message, 'error');
         
-      } else if (error.error.code == 'AV001') { // user data invalid
+      } else if (error.error.code == 'AV001') { 
         $log.debug(error.error.code + " " + error.error.message);
         $rootScope.ProdoAppMessage(error.error.message, 'error');
        
@@ -727,10 +727,7 @@ $scope.warrantyResponseHandler=function(error, imagelocation){
       }
 
     } else {
-      
-      	     $scope.clearText();
-      
-      
+
       $scope.imageSrc = JSON.stringify(imagelocation.success.invoiceimage);
       $log.debug(JSON.stringify(imagelocation.success));
       $log.debug("Emit");
@@ -749,7 +746,8 @@ $scope.warrantyResponseHandler=function(error, imagelocation){
         // $log.debug("emitting image " + $scope.counter);
         //    $scope.getFile($scope.counter);
       } else $scope.counter = 0;
-
+     $scope.clearText();
+     $scope.disableEditorFeature ();
     }
 
 };
