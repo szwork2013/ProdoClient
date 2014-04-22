@@ -134,20 +134,22 @@
             
             </td>
       
-            <td  class="prodo-width50" >Product  <input   id="prodo_warranty_product" class="warranty-textField form-control prodo-validation prodo-display-right" 
-              ng-maxlength="50" type="text" ng-model="productallProductName.name"  required name="warranty_product" typeahead="allProductName as allProductName.name for allProductName in allProductNames | filter:$viewValue:startsWith | limitTo:8" />
-
            
-              <div  ng-show="(form.WarrantyForm.warranty_product.$dirty && editMode.editorEnabledWarranty ==true) ||(form.WarrantyForm.submitted==true && form.WarrantyForm.warranty_product.$invalid==true)" class="prodo-warranty-Invalid">
-			  <span ng-show="form.WarrantyForm.warranty_product.$error.required">Please enter  product name</span>
-			  <span ng-show="form.WarrantyForm.warranty_product.$error.maxlength"> Product name can not be more than 50 characters</span>
-			 </div>
-            
-            </td>
            
           </tr>
 
           <tr class="" >
+           <td  class="prodo-width50" >Product  <input   id="prodo_warranty_product" class="warranty-textField form-control prodo-validation prodo-display-right" 
+              ng-maxlength="50" type="text" ng-model="productallProductName.name"  required name="warranty_product" typeahead="allProductName as allProductName.name for allProductName in allProductNames | filter:$viewValue:startsWith | limitTo:8" />
+
+           
+              <div  ng-show="(form.WarrantyForm.warranty_product.$dirty && editMode.editorEnabledWarranty ==true) ||(form.WarrantyForm.submitted==true && form.WarrantyForm.warranty_product.$invalid==true)" class="prodo-warranty-Invalid">
+        <span ng-show="form.WarrantyForm.warranty_product.$error.required">Please enter  product name</span>
+        <span ng-show="form.WarrantyForm.warranty_product.$error.maxlength"> Product name can not be more than 50 characters</span>
+       </div>
+            
+            </td>
+
             <td class="prodo-width50"> Model no  <input   id="prodo_warranty_model_no" class="warranty-textField form-control prodo-validation prodo-display-right" 
               ng-maxlength="50" type="text"  ng-model="productwarranty.model_no" required name="warranty_model_no" /> 
               
@@ -157,14 +159,14 @@
 			 </div>
              </td>
 
-              <td class="prodo-width50"> Model name  <input   id="prodo_warranty_model_name" class="warranty-textField form-control prodo-validation prodo-display-right" 
+<!--               <td class="prodo-width50"> Model name  <input   id="prodo_warranty_model_name" class="warranty-textField form-control prodo-validation prodo-display-right" 
               ng-maxlength="50" type="text"  ng-model="productwarranty.model_name" required name="warranty_model_name" /> 
               
               <div  ng-show="(form.WarrantyForm.warranty_model_name.$dirty && editMode.editorEnabledWarranty ==true) ||(form.WarrantyForm.submitted==true && form.WarrantyForm.warranty_model_name.$invalid==true)" class="prodo-warranty-Invalid">
 			  <span ng-show="form.WarrantyForm.warranty_model_name.$error.required">Please enter product model name</span>
 			  <span ng-show="form.WarrantyForm.warranty_model_name.$error.maxlength">Product model name can not be more than 50 characters</span>
 			 </div>
-             </td>
+             </td> -->
 
 
           
@@ -331,7 +333,13 @@
             
             </td>
       
-            <td  class="prodo-width50" >Product  <input   id="prodo_warranty_product" class="warranty-textField form-control prodo-validation prodo-display-right" 
+      
+           
+          </tr>
+
+          <tr class="" >
+
+                <td  class="prodo-width50" >Product  <input   id="prodo_warranty_product" class="warranty-textField form-control prodo-validation prodo-display-right" 
               ng-maxlength="50" type="text" ng-model="warranty.name"  required name="warranty_product" typeahead="allProductName as allProductName.name for allProductName in allProductNames | filter:$viewValue:startsWith | limitTo:8" />
 
            
@@ -341,10 +349,8 @@
        </div>
             
             </td>
-           
-          </tr>
 
-          <tr class="" >
+
             <td class="prodo-width50"> Model no  <input   id="prodo_warranty_model_no" class="warranty-textField form-control prodo-validation prodo-display-right" 
               ng-maxlength="50" type="text"  ng-model="warranty.model_no" required name="warranty_model_no" /> 
               
@@ -354,14 +360,14 @@
        </div>
              </td>
 
-              <td class="prodo-width50"> Model name  <input   id="prodo_warranty_model_name" class="warranty-textField form-control prodo-validation prodo-display-right" 
+ <!--              <td class="prodo-width50"> Model name  <input   id="prodo_warranty_model_name" class="warranty-textField form-control prodo-validation prodo-display-right" 
               ng-maxlength="50" type="text"  ng-model="warranty.model_name" required name="warranty_model_name" /> 
               
               <div  ng-show="(form.WarrantyFormUpdate.warranty_model_name.$dirty && editMode.editorEnabledWarrantyUpdate ==true) ||(form.WarrantyFormUpdate.submitted==true && form.WarrantyFormUpdate.warranty_model_name.$invalid==true)" class="prodo-warranty-Invalid">
         <span ng-show="form.WarrantyFormUpdate.warranty_model_name.$error.required">Please enter product model name</span>
         <span ng-show="form.WarrantyFormUpdate.warranty_model_name.$error.maxlength">Product model name can not be more than 50 characters</span>
        </div>
-             </td>
+             </td> -->
 
 
           
@@ -572,20 +578,22 @@
             
             </td>
       
-            <td  class="prodo-width50" >
-             <span class="prodo-fontWeight">Product:  &nbsp; </span> <span ng-bind="warranty.name" > </span>
-            </td>
            
           </tr>
 
           <tr class="" >
+
+            <td  class="prodo-width50" >
+             <span class="prodo-fontWeight">Product:  &nbsp; </span> <span ng-bind="warranty.name" > </span>
+            </td>
+            
             <td class="prodo-width50"> 
              <span class="prodo-fontWeight">Model no    &nbsp; </span><span ng-bind="warranty.model_no" > </span>
              </td>
 
-              <td class="prodo-width50"> 
+            <!--   <td class="prodo-width50"> 
                <span class="prodo-fontWeight">Model name    &nbsp; </span><span ng-bind="warranty.model_name" > </span>
-             </td>
+             </td> -->
 
 
           
