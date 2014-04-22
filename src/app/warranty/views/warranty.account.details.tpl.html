@@ -184,9 +184,17 @@
 
             </td>
 
-            <td class="prodo-width50"> Purchase date  <input   id="prodo_warranty_purchase_date" class="warranty-textField form-control prodo-validation prodo-display-right" 
-              type="date" max="*jsvariable*"  required name="warranty_purchase_date" ng-model="productwarranty.purchase_date" /> 
+            <td class="prodo-width50"> Purchase date <!--  <input   id="prodo_warranty_purchase_date" class="warranty-textField form-control prodo-validation prodo-display-right" 
+              type="date" max="*jsvariable*"  required name="warranty_purchase_date" ng-model="productwarranty.purchase_date" />  -->
              
+
+
+
+             ﻿  <input id="prodo_warranty_purchase_date"  type="text" placeholder=""name="warranty_purchase_date" ng-model="productwarranty.purchase_date" class="warranty-textField form-control prodo-validation prodo-display-right"  datepicker-popup="{{format}}"  is-open="opened1" max="maxDatePurchase"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)" required close-text="Close">
+
+
+
+
               <div  ng-show="(form.WarrantyForm.warranty_purchase_date.$dirty && editMode.editorEnabledWarranty ==true) ||(form.WarrantyForm.submitted==true && form.WarrantyForm.warranty_purchase_date.$invalid==true)" class="prodo-warranty-Invalid">
 			  <span ng-show="form.WarrantyForm.warranty_purchase_date.$error.required">Please enter purchase date</span>
 			 
@@ -385,8 +393,8 @@
 
             </td>
 
-            <td class="prodo-width50"> Purchase date  <input   id="prodo_warranty_purchase_dateUpdate" class="warranty-textField form-control prodo-validation prodo-display-right" type="date" 
-               required name="warranty_purchase_date"  ng-model="warranty.purchase_date " max="*jsvariable*"  /> 
+            <td class="prodo-width50"> Purchase date  <input   id="prodo_warranty_purchase_dateUpdate" class="warranty-textField form-control prodo-validation prodo-display-right" type="text" 
+               required name="warranty_purchase_date"  ng-model="warranty.purchase_date " datepicker-popup="{{format}}"  is-open="opened2" max="maxDatePurchase"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)"  close-text="Close" /> 
              
               <div  ng-show="(form.WarrantyFormUpdate.warranty_purchase_date.$dirty && editMode.editorEnabledWarrantyUpdate ==true) ||(form.WarrantyFormUpdate.submitted==true && form.WarrantyFormUpdate.warranty_purchase_date.$invalid==true)" class="prodo-warranty-Invalid">
         <span ng-show="form.WarrantyFormUpdate.warranty_purchase_date.$error.required">Please enter purchase date</span>
@@ -430,8 +438,8 @@
             <input   id="prodo_warranty_period" class="warranty-textField form-control prodo-validation prodo-display-right" ng-maxlength="3"
                type="number"   required name="warranty_purchase_period" ng-model="productwarranty.purchase_period"  placeholder ="Number of months"/>  -->
 
-                Warranty Expires on  <input   id="prodo_warranty_periodUpdate" class="warranty-textField form-control prodo-validation prodo-display-right" type="date" 
-                   name="warranty_purchase_period" ng-model="warranty.expirydate" required min="*jsvariable*"  />  
+                Warranty Expires on  <input   id="prodo_warranty_periodUpdate" class="warranty-textField form-control prodo-validation prodo-display-right" type="text" 
+                   name="warranty_purchase_period" ng-model="warranty.expirydate" required datepicker-popup="{{format}}"  is-open="opened3" min="warranty.purchase_date"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)"  close-text="Close" />  
                 
                  <div  ng-show="(form.WarrantyFormUpdate.warranty_purchase_period.$dirty && editMode.editorEnabledWarrantyUpdate ==true) ||(form.WarrantyFormUpdate.submitted==true && form.WarrantyFormUpdate.warranty_purchase_period.$invalid==true)" class="prodo-warranty-Invalid">
         <span ng-show="form.WarrantyFormUpdate.warranty_purchase_period.$error.required">Please enter warranty expiry date</span>

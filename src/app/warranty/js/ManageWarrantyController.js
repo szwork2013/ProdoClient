@@ -12,10 +12,11 @@
  */
  
 angular.module('prodo.WarrantyApp')
- .controller('ManageWarrantyController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$log',  'WarrantyService', 'checkIfSessionExist','orgnameData','productnameData','warrantydata','fileReader','ENV','isLoggedin','dateFilter', function($scope, $rootScope, $state, $http, $timeout, $log,  WarrantyService, checkIfSessionExist,orgnameData,productnameData,warrantydata,fileReader,ENV,isLoggedin,dateFilter) {
+ .controller('ManageWarrantyController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$log',  'WarrantyService', 'checkIfSessionExist','orgnameData','productnameData','warrantydata','fileReader','ENV','isLoggedin', function($scope, $rootScope, $state, $http, $timeout, $log,  WarrantyService, checkIfSessionExist,orgnameData,productnameData,warrantydata,fileReader,ENV,isLoggedin) {
    
 $scope.$state = $state;
 var setmaxPurchaseDateValue=moment().format("YYYY-MM-DD");
+$scope.maxDatePurchase=moment().format("YYYY-MM-DD");
 $("#prodo_warranty_purchase_date").attr('max', setmaxPurchaseDateValue);
 $("#prodo_warranty_purchase_dateUpdate").attr('max', setmaxPurchaseDateValue);
 $scope.newWarranty_Responsewarranty_id="";
@@ -110,6 +111,12 @@ $scope.warranties=[];
   $scope.productwarranty.type=$scope.type[1];
   }
   
+$scope.open = function($event,opened) {
+    $event.preventDefault();
+    $event.stopPropagation();
+    $scope[opened] = true;
+};
+
   $scope.formatDate = function (time) {
     return (moment(time).format('DD MMM YYYY'));
   };
@@ -278,19 +285,11 @@ $scope.getAllProductNames();
  };
 
 
-
-$scope.setDatesValidations=function(){
-var warrantyPeriod=$scope.warranty.purchase_date;
-$("#prodo_warranty_periodUpdate").attr('min', warrantyPeriod);
-}
 $scope.handleGetWarrantySuccess=function(successData,l_warrantyid){
   if(successData.success)
     $log.debug(successData.success);
    $("#prodo-ProductDetails").css("display", "block");
         $scope.warranty=successData.success.Warranty;
-        $scope.warranty.purchase_date = dateFilter($scope.warranty.purchase_date, 'yyyy-MM-dd');
-        $scope.warranty.expirydate = dateFilter($scope.warranty.expirydate, 'yyyy-MM-dd');
-        $scope.setDatesValidations();
         $rootScope.Upload_warranty_id=$scope.warranty.warranty_id;
         $scope.OpenInvoiceImage=false;
         
@@ -642,6 +641,7 @@ $scope.getOrgProductDetailsForUpdate();
     query: 'session_id=' + $rootScope.usersession.currentUser.sessionid
   });
   //socket connect 
+
 
  
   $scope.handleUploadError=function(error){

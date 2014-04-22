@@ -89,6 +89,12 @@
   <span ng-show="productForm.description.$error.required">Please enter description</span>
   <span ng-show="productForm.description.$error.maxlength">Description can not be more than 1000 characters</span>
  </div>
+   <div  ng-show="(productForm.prodDis.$dirty  && editMode.editorEnabled==true)||(productForm.submitted==true && productForm.prodDis.$invalid==true)" class="prodo-product-Invalid">
+   <span ng-show="productForm.prodDis.$invalid"> Please enter valid product discontinued date </span>
+  </div>
+    <div  ng-show="(productForm.supDis.$dirty  && editMode.editorEnabled==true)||(productForm.submitted==true && productForm.supDis.$invalid==true)" class="prodo-product-Invalid">
+    <span ng-show="productForm.supDis.$invalid"> Please enter valid support discontinued date </span>
+  </div>
  <span ng-show="productForm.display_name.$error.required && !productForm.display_name.$pristine">Please Enter display name</span>
  
   <div id="prodo-ProductDetails" class="prodo-ProductDetails">
@@ -159,11 +165,11 @@
        <div class="prodo-product-general productDisplay " >
         <table class="table child table-hover table-bordered prodo-productTableFont" id="prodo-ProductFeatureTable">
           <!-- <tr ng-show="editStatus=='update'" class="prodo-productDiscontinuedUpdate prodo-productTabledis prodo-display-discont " id="prodo-productDiscontinuedUpdate"  > -->
-          <!--   <td >Product Banned on  <input  id="prodo-product-features_textfield" type="date" class="form-control prodo-display-right" ng-model="product.banneddate" name="banneddate"   /></td> -->
+          <!--   <td >Product Banned on  <input  id="prodo-product-features_textfield" type="text" class="form-control prodo-display-right" ng-model="product.banneddate" name="banneddate"  datepicker-popup="{{format}}"  is-open="opened6"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)"  close-text="Close" /></td> -->
           <!-- </tr> -->
           <tr   ng-show="editStatus=='update'"  class="prodo-productDiscontinuedUpdate prodo-productTabledis prodo-display-discont "  >
-            <td class="prodo-productTabledis" >Product Discontinued   <input  id="prodo-product-features_textfield" type="date" class="form-control prodo-display-right" ng-model="product.sale_discontinuation_date" name="prodDis"   /></td>
-            <td class="prodo-productTabledis" >Support Discontinued   <input id="prodo-product-features_textfield" type="date" class="form-control prodo-display-right" ng-model="product.support_discontinuation_date" name="supDis"  /></td>
+            <td class="prodo-productTabledis" >Product Discontinued   <input  id="prodo-product-features_textfield" type="text" class="form-control prodo-display-right" ng-model="product.sale_discontinuation_date" name="prodDis"  datepicker-popup="{{format}}"  is-open="opened4"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)"  close-text="Close" /></td>
+            <td class="prodo-productTabledis" >Support Discontinued   <input id="prodo-product-features_textfield" type="text" class="form-control prodo-display-right" ng-model="product.support_discontinuation_date" name="supDis"  datepicker-popup="{{format}}"  is-open="opened5"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)"  close-text="Close"/></td>
           </tr>
            <tr>
             <td >   Product Display Name <input ng-model="product.display_name"
