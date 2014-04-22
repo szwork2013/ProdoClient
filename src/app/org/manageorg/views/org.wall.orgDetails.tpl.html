@@ -341,13 +341,53 @@
         <button class="btn btn-info btn-sm" style="background-color:#47707C; border-color:#3C555C; border-radius: 10px; margin: 15px;" ng-click="addMoreInvites()"><i style="margin-right: 5px;" class="fa fa-plus-square"></i>Add More Invites</button>
         <table class="table table-condensed">
           <tbody>
-            <tr ng-repeat="invite in orginvites">
-              <td style="width:30%"><input class="form-control" ng-model="invite.name" type="text" placeholder="Name" > </td>
-              <td style="width:30%"><input class="form-control" ng-model="invite.orgname" type="text" placeholder="Organization Name" ></td>
-              <td style="width:30%">
-                           <!--  <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span> -->
+            <tr >
+                            <td style="width:30%"><input class="form-control" ng-model="invite.name" type="text" placeholder="Name" > </td>
+                            <td style="width:30%"><input class="form-control" ng-model="invite.orgname" type="text" placeholder="Organization Name" ></td>
+                            <td style="width:30%">
+                          
                            <input class="form-control" ng-model="invite.email" type="email" placeholder="Email" ></td>
+
+<!--               <td>
+                              <input type="text" class="form-control" placeholder="From" style="margin-bottom:20px;" ng-model="fromOrgDetails" ng-disabled="true">
+                              <input type="text" class="form-control" placeholder="To" style="margin-bottom:20px;">
+                              <input type="text" class="form-control" placeholder="Subject" style="margin-bottom:20px;">
+                              <textarea class="form-control" style="margin-bottom:20px;" rows=28>Dear <name>,
+
+We've got great news. Today we're excited to tell you how you can 
+come closer to your customers, get to know their needs,understand their issues, 
+complaints better, and also engage them to create
+innovative ideas, in addition to managing their warranties.
+
+We offer a warranty and social platform for products, for all product manufacturers and
+their customers sharing their insights on products. Prodonus is a social network
+and warranty platform for products, enabling conversations, building
+relationships and gathering real-time market intelligence from customers. We
+bring business closer to customers to engage them more directly. It helps to
+share your concerns, complaints, compliments, innovative ideas, business
+perspectives and product recommendations among the manufacturing business and
+product consumers.
+
+We look forward to meeting you to discuss your
+requirements to signup on our new platform.
+
+All thebest,
+<fromusername> ( <orgname> )
+
+You are receiving this email because your friend <from username> referred you to us and 
+mentioned you might be interested to subscribe to Prodonus. If you have any further questions,
+please write to business@prodonus.com. We would get in touch with you."    
+
+</textarea>
+              </td> -->
+
+
             </tr>
+
+<!-- 
+            <tr>
+                <td> </td>
+            </tr> -->
           </tbody>
         </table>
         <div class="error-message-registration" ng-if="orgInvitesNameError!==''" ng-bind="orgInvitesNameError"></div>
@@ -413,10 +453,49 @@
            <button class="btn btn-info btn-sm" style="background-color:#47707C; border-color:#3C555C; border-radius: 10px; margin: 15px;" ng-click="addCustomerInvites()"><i style="margin-right: 5px;" class="fa fa-plus-square"></i>Add More Invites</button>
         <table class="table table-condensed">
           <tbody>
-            <tr ng-repeat="customer in customerinvites">
+            <tr >
               <td style="width:50%"><input class="form-control" ng-model="customer.name" type="text" placeholder="Name" > </td>
               <td style="width:50%">  
-  <!--                           <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span> --><input class="form-control" ng-model="customer.email" type="email" placeholder="Email"></td>
+                       <input class="form-control" ng-model="customer.email" type="email" placeholder="Email"></td>
+
+
+<!-- 
+                               <input type="text" class="form-control" placeholder="From" style="margin-bottom:20px;" ng-model="fromOrgCustDetails" ng-disabled="true">
+                              <input type="text" class="form-control" placeholder="To" style="margin-bottom:20px;">
+                              <input type="text" class="form-control" placeholder="Subject" style="margin-bottom:20px;">
+                              <textarea class="form-control" style="margin-bottom:20px;" rows=30> Hi <customername>,
+
+We have subscribed to Prodonus
+(https://www.prodonus.com) that offers a warranty and social network platform
+for products, enabling conversations with product manufacturers or service
+providers. It helps to share our concerns, complaints, compliments, innovative
+ideas, business perspectives and product recommendations with the manufacturing
+business.
+
+
+As a consumer one can follow what's happening on our products.
+Prodonus helps you share your perspective on the products using words, video
+links and picture/images with manufacturer's and other consumers. Conversations
+are purposeful and intended to catch our attention. Share your views and make it
+known to the other users and us immediately. In addition, you can store your
+product warranty data and get instant access to it and also, be notified of
+changing status immediately, especially expiration status.Eager to start? Signup
+with prodonus.com and start following our products, and there’s no limit to the
+number of products you can follow.
+
+Sincerely,
+<fromusername> from
+<b><orgname></b>
+
+
+You are receiving this email because your are one of the
+important customers of <b><orgname></b> subscribed to Prodonus. Write to
+support@prodonus.com and for any business enquiries write to
+business@prodonus.com</textarea>
+ -->
+
+
+
             </tr>
           </tbody>
         </table>

@@ -67,6 +67,7 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
   var cleanEventNotGotTrendingProducts = $scope.$on('notGotTrendingProducts', function (event, data) //Error handling needed for 
   {
       $scope.errors = "Server Error";
+      $rootScope.ProdoAppMessage("There is some issue with the server! Please try after some time",'error');
   });
 
   //The following function is called when search button is clicked from advanced search modal
@@ -157,7 +158,7 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
      });
 
      var cleanEventGetSearchProductNotDone = $scope.$on('getSearchProductNotDone', function (event, data) {
-      $scope.errors = "It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it.";
+          $rootScope.ProdoAppMessage("There is some issue with the server! Please try after some time",'error');
      });
 
   //This function assigns prodles and orgid to rootscope 
@@ -244,7 +245,7 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
             document.getElementById('tabMore').innerHTML= "Read Less";
             $scope.followedProductsCount = 100;     
       }
-  };
+  };    
 
   $scope.$on('$destroy', function(event, message) {
       cleanEventGotTrendingProducts();

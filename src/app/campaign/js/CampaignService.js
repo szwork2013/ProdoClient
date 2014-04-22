@@ -89,7 +89,7 @@ angular.module('prodo.CampaignApp')
   '$resource',
   '$log',
      function ($rootScope, $resource, $log) {
-    var getAllCampaign = { Product: $resource('/api/productcampaign/:orgid', {}, { getCampaignDetails: { method: 'GET' , params : {orgid : '@orgid'}} }) };
+    var getAllCampaign = { Product: $resource('/api/orgcampaign/:orgid', {}, { getCampaignDetails: { method: 'GET' , params : {orgid : '@orgid'}} }) };
 
 
 
