@@ -7,6 +7,24 @@ html,body{
 	height:100%;
 }
 
+.wordwrap {
+
+white-space: -moz-pre-wrap !important;  /* Mozilla, since 1999 */
+white-space: -pre-wrap;      /* Opera 4-6 */
+white-space: -o-pre-wrap;    /* Opera 7 */
+white-space: pre-wrap;       /* css-3 */
+word-wrap: break-word;       /* Internet Explorer 5.5+ */
+word-break: break-all;
+white-space: normal;
+
+}
+
+.warranty-table tbody>tr>td{
+	table-layout:fixed;
+	padding: 5px;
+	border-top: 0px;
+}
+
 .btn:focus {
 outline: thin dotted transparent;
 outline-offset: -2px;
@@ -184,7 +202,7 @@ color: #fff;
 
 /*change the View: marketing div style*/
 #prodo-view-marketing{
-	margin-top: 150px;
+	margin-top: 110px;
 	margin-left: 60px;
 }
 
@@ -1423,7 +1441,7 @@ margin: 2px auto; position:absolute; }
 /*#fa-removeComment:hover{zoom:1.2;-webkit-transform: scale( 1.2); -moz-transform: scale( 1.2);}*/
 /*#fa-removeComment:hover{color:gray;}*/
 
-ul {/*list-style-type: none;*/ }
+ul {list-style-type: none; }
 /*li:nth-child(odd) {background-color:#F2F2F2;}*/
 .prodo-paddingLeft{padding-left: 50px;}
 .prodoCommentDeleteUp{font-size: 20px;color: rgb(185, 106, 141);margin-right: 5px;}
@@ -2577,7 +2595,7 @@ left: 173px;
 
 .prodo-invoiceImage{ max-width: 500px;max-height: 500px;}
 .prodo-WarrantyAdd{float:right; padding-left:10px; padding-bottom:20px;}
-.warranty-textField{width: 160px; height: 30PX; font-size: 12PX; display:inline-block;}
+.warranty-textField{width: 160px; height: 30px;  display:inline-block;}
 .prodo-warranty-Invalid{color:red; font-size: 12px;display: inline-block;}
 .prodo-width50{width: 50%;}
 .prodo-resizeRestrict{ resize: none;}

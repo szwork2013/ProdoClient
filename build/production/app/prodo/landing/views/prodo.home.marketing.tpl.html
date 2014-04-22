@@ -1,3 +1,16 @@
+<style type="text/css"media="screen">
+
+			
+		#marketinglayerslider * {
+			font-family: Oswald;
+		}
+
+		#slider-wrapper {
+			padding-bottom: 100px;
+			margin-top: 20px;
+		}
+
+		</style>
 <!-- Prodonus Marketing View-->
 <div id="prodo-view-marketing">
 
@@ -5,10 +18,16 @@
 
 	<h4 id="prodo-view-marketing-text">Social Network and Warranty Platform for Products</h4>
 
-<!-- 	<button type="button" id="prodo-view-marketing-btn" class="btn btn-primary btn-md">Learn More ...</button>
+		<div id="slider-wrapper">	
 
-	<button type="button" id="prodo-view-marketing-btn" class="btn btn-primary btn-md">Play Video</button> -->
-
+			<div id="marketinglayerslider" marketing-slider class="ls-wp-container" style="width:1280px;height:470px;max-width:1280px;">
+				<div class="ls-slide" ng-repeat="slide in slides" data-ls="transition2d:73;">
+					<img style="width:1280px;height:470px;max-width:1280px;" class="ls-l" ng-src="{{slide.artwork.image}}">
+					<h6 class="ls-l-1" style="top:77%; left:20px; durationin:500;delayin:600;fadein:false;rotatein:-30;durationout:500;fadeout:false;slidedirection:fade;slideoutdirection:fade;scalein:0.1;scaleout:0.1;font-weight: 400; box-shadow: 0px 2px 8px -2px black;padding-top:5px;padding-right:20px;padding-bottom:5px;padding-left:20px;font-size:35px;color:#ffffff;background:#ff7700;border-radius:5px;white-space: nowrap;">{{slide.name}}</h6>
+					<h6 class="ls-l-1" style="top:90%; height:50px; left:20px; durationin:500;delayin:500;fadein:false;rotatein:-30;durationout:500;fadeout:false;slidedirection:fade;slideoutdirection:fade;scalein:0.1;scaleout:0.1;font-weight: 400; box-shadow: 0px 2px 8px -2px black;padding-top:5px;padding-right:20px;padding-left:20px;font-size:32px;color:#ffffff;background:#000000;border-radius:5px;white-space: nowrap;">{{slide.description}}</h6>
+				</div>
+			</div>
+		</div>
 </div>
 
  

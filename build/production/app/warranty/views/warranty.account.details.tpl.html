@@ -134,20 +134,22 @@
             
             </td>
       
-            <td  class="prodo-width50" >Product  <input   id="prodo_warranty_product" class="warranty-textField form-control prodo-validation prodo-display-right" 
-              ng-maxlength="50" type="text" ng-model="productallProductName.name"  required name="warranty_product" typeahead="allProductName as allProductName.name for allProductName in allProductNames | filter:$viewValue:startsWith | limitTo:8" />
-
            
-              <div  ng-show="(form.WarrantyForm.warranty_product.$dirty && editMode.editorEnabledWarranty ==true) ||(form.WarrantyForm.submitted==true && form.WarrantyForm.warranty_product.$invalid==true)" class="prodo-warranty-Invalid">
-			  <span ng-show="form.WarrantyForm.warranty_product.$error.required">Please enter  product name</span>
-			  <span ng-show="form.WarrantyForm.warranty_product.$error.maxlength"> Product name can not be more than 50 characters</span>
-			 </div>
-            
-            </td>
            
           </tr>
 
           <tr class="" >
+           <td  class="prodo-width50" >Product  <input   id="prodo_warranty_product" class="warranty-textField form-control prodo-validation prodo-display-right" 
+              ng-maxlength="50" type="text" ng-model="productallProductName.name"  required name="warranty_product" typeahead="allProductName as allProductName.name for allProductName in allProductNames | filter:$viewValue:startsWith | limitTo:8" />
+
+           
+              <div  ng-show="(form.WarrantyForm.warranty_product.$dirty && editMode.editorEnabledWarranty ==true) ||(form.WarrantyForm.submitted==true && form.WarrantyForm.warranty_product.$invalid==true)" class="prodo-warranty-Invalid">
+        <span ng-show="form.WarrantyForm.warranty_product.$error.required">Please enter  product name</span>
+        <span ng-show="form.WarrantyForm.warranty_product.$error.maxlength"> Product name can not be more than 50 characters</span>
+       </div>
+            
+            </td>
+
             <td class="prodo-width50"> Model no  <input   id="prodo_warranty_model_no" class="warranty-textField form-control prodo-validation prodo-display-right" 
               ng-maxlength="50" type="text"  ng-model="productwarranty.model_no" required name="warranty_model_no" /> 
               
@@ -157,14 +159,14 @@
 			 </div>
              </td>
 
-              <td class="prodo-width50"> Model name  <input   id="prodo_warranty_model_name" class="warranty-textField form-control prodo-validation prodo-display-right" 
+<!--               <td class="prodo-width50"> Model name  <input   id="prodo_warranty_model_name" class="warranty-textField form-control prodo-validation prodo-display-right" 
               ng-maxlength="50" type="text"  ng-model="productwarranty.model_name" required name="warranty_model_name" /> 
               
               <div  ng-show="(form.WarrantyForm.warranty_model_name.$dirty && editMode.editorEnabledWarranty ==true) ||(form.WarrantyForm.submitted==true && form.WarrantyForm.warranty_model_name.$invalid==true)" class="prodo-warranty-Invalid">
 			  <span ng-show="form.WarrantyForm.warranty_model_name.$error.required">Please enter product model name</span>
 			  <span ng-show="form.WarrantyForm.warranty_model_name.$error.maxlength">Product model name can not be more than 50 characters</span>
 			 </div>
-             </td>
+             </td> -->
 
 
           
@@ -182,9 +184,17 @@
 
             </td>
 
-            <td class="prodo-width50"> Purchase date  <input   id="prodo_warranty_purchase_date" class="warranty-textField form-control prodo-validation prodo-display-right" 
-              type="date" max="*jsvariable*"  required name="warranty_purchase_date" ng-model="productwarranty.purchase_date" /> 
+            <td class="prodo-width50"> Purchase date <!--  <input   id="prodo_warranty_purchase_date" class="warranty-textField form-control prodo-validation prodo-display-right" 
+              type="date" max="*jsvariable*"  required name="warranty_purchase_date" ng-model="productwarranty.purchase_date" />  -->
              
+
+
+
+             ﻿  <input id="prodo_warranty_purchase_date"  type="text" placeholder=""name="warranty_purchase_date" ng-model="productwarranty.purchase_date" class="warranty-textField form-control prodo-validation prodo-display-right"  datepicker-popup="{{format}}"  is-open="opened1" max="maxDatePurchase"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)" required close-text="Close">
+
+
+
+
               <div  ng-show="(form.WarrantyForm.warranty_purchase_date.$dirty && editMode.editorEnabledWarranty ==true) ||(form.WarrantyForm.submitted==true && form.WarrantyForm.warranty_purchase_date.$invalid==true)" class="prodo-warranty-Invalid">
 			  <span ng-show="form.WarrantyForm.warranty_purchase_date.$error.required">Please enter purchase date</span>
 			 
@@ -225,7 +235,7 @@
                type="number"  min="0" required name="warranty_purchase_period" ng-model="productwarranty.purchase_period"  placeholder ="Number of months"/>  
                 
                  <div  ng-show="(form.WarrantyForm.warranty_purchase_period.$dirty && editMode.editorEnabledWarranty ==true) ||(form.WarrantyForm.submitted==true && form.WarrantyForm.warranty_purchase_period.$invalid==true)" class="prodo-warranty-Invalid">
-			  <span ng-show="form.WarrantyForm.warranty_purchase_period.$error.required">Warranty period reqiured </span>
+			  <span ng-show="form.WarrantyForm.warranty_purchase_period.$error.required">Please enter Warranty period  </span>
 
 			  <span ng-show="form.WarrantyForm.warranty_purchase_period.$error.maxlength">Warranty period must maximum 3 digits only</span>
 			 
@@ -233,7 +243,7 @@
 
               </td>
                    <td class="prodo-width50"> Warranty type &nbsp; &nbsp;&nbsp; 
-                   <select class="warranty-textField form-control prodo-validation prodo-display-right" ng-model="productwarranty.type" ng-options="t for t in type" required name="warranty_type">
+                   <select ng-init="productwarranty.type = type[1]"  class="warranty-textField form-control prodo-validation prodo-display-right" ng-model="productwarranty.type" ng-options="t for t in type"  required name="warranty_type">
                    </select>
                    
                 
@@ -295,8 +305,8 @@
 
           <tr  class="">
             <td colspan="2">
-              <a    ng-click="addWarranty(editStatus);" class="btn btn-primary btn-sm  pull-right prodo-margin5" > Save &nbsp;<i class="fa fa-floppy-o"></i></a>
-              <a class="btn btn-default btn-sm  pull-right prodo-margin5" ng-click="disableEditorFeature() ; "> Cancel&nbsp;<i class="glyphicon glyphicon-remove"></i></a>
+              <a    ng-click="addWarranty(editStatus);" class="btn btn-primary   pull-right prodo-margin5" > Save &nbsp;<i class="fa fa-floppy-o"></i></a>
+              <a class="btn btn-default   pull-right prodo-margin5" ng-click="disableEditorFeature() ; "> Cancel&nbsp;<i class="glyphicon glyphicon-remove"></i></a>
             </td>
           </tr>
         </table>
@@ -307,7 +317,7 @@
 <!-- //////////////////////// Warranty Update /////////////////////-->
 
 
-  <form  name="form.WarrantyFormUpdate"  id="EditWarranty" ng-show="editMode.editorEnabledWarrantyUpdate " enctype="multipart/form-data"  >
+  <form  name="form.WarrantyFormUpdate"  id="EditWarrantyUpdate" ng-show="editMode.editorEnabledWarrantyUpdate " enctype="multipart/form-data"  >
 
   <h5 class="prodo-wall-org-heading-text">WARRANTY DETAILS</h5>
   <hr class="prodo-wall-org-hr" size=3 noshade>
@@ -331,7 +341,13 @@
             
             </td>
       
-            <td  class="prodo-width50" >Product  <input   id="prodo_warranty_product" class="warranty-textField form-control prodo-validation prodo-display-right" 
+      
+           
+          </tr>
+
+          <tr class="" >
+
+                <td  class="prodo-width50" >Product  <input   id="prodo_warranty_product" class="warranty-textField form-control prodo-validation prodo-display-right" 
               ng-maxlength="50" type="text" ng-model="warranty.name"  required name="warranty_product" typeahead="allProductName as allProductName.name for allProductName in allProductNames | filter:$viewValue:startsWith | limitTo:8" />
 
            
@@ -341,10 +357,8 @@
        </div>
             
             </td>
-           
-          </tr>
 
-          <tr class="" >
+
             <td class="prodo-width50"> Model no  <input   id="prodo_warranty_model_no" class="warranty-textField form-control prodo-validation prodo-display-right" 
               ng-maxlength="50" type="text"  ng-model="warranty.model_no" required name="warranty_model_no" /> 
               
@@ -354,14 +368,14 @@
        </div>
              </td>
 
-              <td class="prodo-width50"> Model name  <input   id="prodo_warranty_model_name" class="warranty-textField form-control prodo-validation prodo-display-right" 
+ <!--              <td class="prodo-width50"> Model name  <input   id="prodo_warranty_model_name" class="warranty-textField form-control prodo-validation prodo-display-right" 
               ng-maxlength="50" type="text"  ng-model="warranty.model_name" required name="warranty_model_name" /> 
               
               <div  ng-show="(form.WarrantyFormUpdate.warranty_model_name.$dirty && editMode.editorEnabledWarrantyUpdate ==true) ||(form.WarrantyFormUpdate.submitted==true && form.WarrantyFormUpdate.warranty_model_name.$invalid==true)" class="prodo-warranty-Invalid">
         <span ng-show="form.WarrantyFormUpdate.warranty_model_name.$error.required">Please enter product model name</span>
         <span ng-show="form.WarrantyFormUpdate.warranty_model_name.$error.maxlength">Product model name can not be more than 50 characters</span>
        </div>
-             </td>
+             </td> -->
 
 
           
@@ -379,8 +393,8 @@
 
             </td>
 
-            <td class="prodo-width50"> Purchase date  <input   id="prodo_warranty_purchase_dateUpdate" class="warranty-textField form-control prodo-validation prodo-display-right" type="date" 
-               required name="warranty_purchase_date"  ng-model="warranty.purchase_date " max="*jsvariable*"  /> 
+            <td class="prodo-width50"> Purchase date  <input   id="prodo_warranty_purchase_dateUpdate" class="warranty-textField form-control prodo-validation prodo-display-right" type="text" 
+               required name="warranty_purchase_date"  ng-model="warranty.purchase_date " datepicker-popup="{{format}}"  is-open="opened2" max="maxDatePurchase"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)"  close-text="Close" /> 
              
               <div  ng-show="(form.WarrantyFormUpdate.warranty_purchase_date.$dirty && editMode.editorEnabledWarrantyUpdate ==true) ||(form.WarrantyFormUpdate.submitted==true && form.WarrantyFormUpdate.warranty_purchase_date.$invalid==true)" class="prodo-warranty-Invalid">
         <span ng-show="form.WarrantyFormUpdate.warranty_purchase_date.$error.required">Please enter purchase date</span>
@@ -424,8 +438,8 @@
             <input   id="prodo_warranty_period" class="warranty-textField form-control prodo-validation prodo-display-right" ng-maxlength="3"
                type="number"   required name="warranty_purchase_period" ng-model="productwarranty.purchase_period"  placeholder ="Number of months"/>  -->
 
-                Warranty Expires on  <input   id="prodo_warranty_periodUpdate" class="warranty-textField form-control prodo-validation prodo-display-right" type="date" 
-                   name="warranty_purchase_period" ng-model="warranty.expirydate" required min="*jsvariable*"  />  
+                Warranty Expires on  <input   id="prodo_warranty_periodUpdate" class="warranty-textField form-control prodo-validation prodo-display-right" type="text" 
+                   name="warranty_purchase_period" ng-model="warranty.expirydate" required datepicker-popup="{{format}}"  is-open="opened3" min="warranty.purchase_date"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)"  close-text="Close" />  
                 
                  <div  ng-show="(form.WarrantyFormUpdate.warranty_purchase_period.$dirty && editMode.editorEnabledWarrantyUpdate ==true) ||(form.WarrantyFormUpdate.submitted==true && form.WarrantyFormUpdate.warranty_purchase_period.$invalid==true)" class="prodo-warranty-Invalid">
         <span ng-show="form.WarrantyFormUpdate.warranty_purchase_period.$error.required">Please enter warranty expiry date</span>
@@ -505,8 +519,8 @@
 
           <tr  class="">
             <td colspan="2">
-              <a    ng-click="updateWarranty();" class="btn btn-primary btn-sm  pull-right prodo-margin5" > Update &nbsp;<i class="fa fa-floppy-o"></i></a>
-              <a class="btn btn-default btn-sm  pull-right prodo-margin5" ng-click="disableEditorFeatureUpdate() ; "> Cancel&nbsp;<i class="glyphicon glyphicon-remove"></i></a>
+              <a    ng-click="updateWarranty();" class="btn btn-primary   pull-right prodo-margin5" > Update &nbsp;<i class="fa fa-floppy-o"></i></a>
+              <a class="btn btn-default   pull-right prodo-margin5" ng-click="disableEditorFeatureUpdate() ; "> Cancel&nbsp;<i class="glyphicon glyphicon-remove"></i></a>
             </td>
           </tr>
         </table>
@@ -523,8 +537,8 @@
 <br>
 
    <div  class="prodo.productAdmin1 pull-right " >
-        <a href="" class="btn btn-primary btn-sm btn-bottom-margin" ng-click="enableEditorFeatureUpdate() ;  editStatus='update'; form.WarrantyFormUpdate.$setPristine();"  > Update &nbsp;<i class="fa fa-pencil-square-o "></i></a>
-        <a href="" class="btn btn-danger btn-sm btn-bottom-margin" data-toggle="modal" data-target="#WarrantyDelete">  Delete &nbsp; <i class="fa fa-trash-o"></i> </a> 
+        <a href="" class="btn btn-primary  btn-bottom-margin" ng-click="enableEditorFeatureUpdate() ;  editStatus='update'; form.WarrantyFormUpdate.$setPristine();"  > Update &nbsp;<i class="fa fa-pencil-square-o "></i></a>
+        <a href="" class="btn btn-danger btn-bottom-margin" data-toggle="modal" data-target="#WarrantyDelete">  Delete &nbsp; <i class="fa fa-trash-o"></i> </a> 
         <br>
       </div>
 
@@ -572,20 +586,22 @@
             
             </td>
       
-            <td  class="prodo-width50" >
-             <span class="prodo-fontWeight">Product:  &nbsp; </span> <span ng-bind="warranty.name" > </span>
-            </td>
            
           </tr>
 
           <tr class="" >
+
+            <td  class="prodo-width50" >
+             <span class="prodo-fontWeight">Product:  &nbsp; </span> <span ng-bind="warranty.name" > </span>
+            </td>
+
             <td class="prodo-width50"> 
              <span class="prodo-fontWeight">Model no    &nbsp; </span><span ng-bind="warranty.model_no" > </span>
              </td>
 
-              <td class="prodo-width50"> 
+            <!--   <td class="prodo-width50"> 
                <span class="prodo-fontWeight">Model name    &nbsp; </span><span ng-bind="warranty.model_name" > </span>
-             </td>
+             </td> -->
 
 
           
@@ -649,7 +665,7 @@
            
           
     <center>
-			<img ng-src="{{warranty.invoice_image.image}}" alt="..." class=" prodo-invoiceImage img-rounded">
+			<img ng-src="{{warranty.invoice_image.image}}" alt="..."  class="wall-warranty-invoice-img prodo-invoiceImage img-rounded">
 		</center>
 <br><br>
      <div    ng-app="prodo.UploadApp" ng-controller="UploadController"  >
@@ -684,4 +700,7 @@
 
 
 
+</div>
+</div>
+</div>
 </div>
