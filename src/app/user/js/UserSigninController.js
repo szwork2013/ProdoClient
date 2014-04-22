@@ -37,6 +37,8 @@ angular.module('prodo.UserApp')
     $scope.handleSigninResponse = function(data){
       if (data.success) {
         UserSessionService.authSuccess(data.success.user);
+        $scope.signinForm.$setPristine();
+        $scope.clearformData();
       } else {
         if (data.error.user == undefined) {     
             $log.debug(data.error.code + " " + data.error.message);
@@ -53,12 +55,14 @@ angular.module('prodo.UserApp')
             }
         } 
       }
+      $scope.hideSpinner();
     };  
 
     // function to signin to Prodonus App using REST APIs and performs form validation.
     $scope.signin = function() {
       if ($scope.signinForm.$valid) {
         $scope.showSpinner();
+        $scope.signinForm.submitted = false;
         $log.debug('User Data entered successfully');
         UserSessionService.signinUser($scope.jsonUserSigninData());
       } else {
@@ -67,10 +71,10 @@ angular.module('prodo.UserApp')
     }
     var cleanupEventSigninDone = $scope.$on("signinDone", function(event, message){
       $scope.handleSigninResponse(message);
-      $scope.hideSpinner();
     });
 
     var cleanupEventSigninNotDone = $scope.$on("signinNotDone", function(event, message){
+      $scope.signinForm.$setPristine();
       $scope.clearformData();
       $scope.hideSpinner();
       $rootScope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message, 'error');
@@ -93,6 +97,7 @@ angular.module('prodo.UserApp')
     $scope.handleForgotPasswordResponse = function(data){
       if (data.success) {   
         $rootScope.ProdoAppMessage('Your temporary password settings has been sent. Please check your email, and follow instructions.', 'info');
+        $scope.clearformData();
       } else {
         if (data.error.code== 'AV001') {     // enter valid data
             $log.debug(data.error.code + " " + data.error.message);
@@ -108,6 +113,8 @@ angular.module('prodo.UserApp')
             $rootScope.ProdoAppMessage(data.error.message, 'error');
         }
       }
+      
+      $scope.hideSpinner();
     };  
 
     // function for forgotpassword to Prodonus App using REST APIs and performs form validation.
@@ -116,13 +123,10 @@ angular.module('prodo.UserApp')
       UserSessionService.forgotPasswordUser($scope.jsonForgotPasswordData());
     }
     var cleanupEventForgotPasswordDone = $scope.$on("forgotPasswordDone", function(event, message){
-        $scope.clearformData();
-        $scope.hideSpinner();
         $scope.handleForgotPasswordResponse(message);
     });
     
     var cleanupEventForgotPasswordNotDone = $scope.$on("forgotPasswordNotDone", function(event, message){
-        $scope.clearformData();
         $scope.hideSpinner();
         $rootScope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message, 'error');
       });
@@ -152,6 +156,8 @@ angular.module('prodo.UserApp')
           } else if ($rootScope.usersession.currentUser.hasDonePayment) {
             $state.transitionTo('prodo.home.wall-org');
           } 
+          $scope.resetPasswordForm.$setPristine();
+          $scope.clearformData();
       } else {
         if (data.error.code== 'AL001') {     // enter valid data
             $log.debug(data.error.code + " " + data.error.message);
@@ -168,6 +174,7 @@ angular.module('prodo.UserApp')
     $scope.resetpassword = function() {
       if ($scope.resetPasswordForm.$valid) {
         $scope.showSpinner();
+        $scope.resetPasswordForm.submitted = false;
         UserSessionService.resetPasswordUser($scope.jsonResetPasswordData());
       } else {
         $scope.resetPasswordForm.submitted = true;
@@ -175,11 +182,11 @@ angular.module('prodo.UserApp')
     }
 
     var cleanupEventResetPasswordDone = $scope.$on("resetPasswordDone", function(event, message){
-        $scope.clearformData();
         $scope.handleResetPasswordResponse(message);  
     });
 
     var cleanupEventResetPasswordNotDone = $scope.$on("resetPasswordNotDone", function(event, message){
+        $scope.resetPasswordForm.$setPristine();
         $scope.clearformData();
         $scope.hideSpinner();
         $rootScope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message, 'error');

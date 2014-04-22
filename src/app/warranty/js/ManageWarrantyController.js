@@ -12,10 +12,11 @@
  */
  
 angular.module('prodo.WarrantyApp')
- .controller('ManageWarrantyController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$log',  'WarrantyService', 'checkIfSessionExist','orgnameData','productnameData','warrantydata','fileReader','ENV','isLoggedin','dateFilter', function($scope, $rootScope, $state, $http, $timeout, $log,  WarrantyService, checkIfSessionExist,orgnameData,productnameData,warrantydata,fileReader,ENV,isLoggedin,dateFilter) {
+ .controller('ManageWarrantyController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$log',  'WarrantyService', 'checkIfSessionExist','orgnameData','productnameData','warrantydata','fileReader','ENV','isLoggedin', function($scope, $rootScope, $state, $http, $timeout, $log,  WarrantyService, checkIfSessionExist,orgnameData,productnameData,warrantydata,fileReader,ENV,isLoggedin) {
    
 $scope.$state = $state;
 var setmaxPurchaseDateValue=moment().format("YYYY-MM-DD");
+$scope.maxDatePurchase=moment().format("YYYY-MM-DD");
 $("#prodo_warranty_purchase_date").attr('max', setmaxPurchaseDateValue);
 $("#prodo_warranty_purchase_dateUpdate").attr('max', setmaxPurchaseDateValue);
 $scope.newWarranty_Responsewarranty_id="";
@@ -107,8 +108,15 @@ $scope.warranties=[];
   $scope.file={};
   $scope.file1="";
   $scope.isValidImage=false;
+  $scope.productwarranty.type=$scope.type[1];
   }
   
+$scope.open = function($event,opened) {
+    $event.preventDefault();
+    $event.stopPropagation();
+    $scope[opened] = true;
+};
+
   $scope.formatDate = function (time) {
     return (moment(time).format('DD MMM YYYY'));
   };
@@ -132,6 +140,7 @@ $scope.warranties=[];
 
     $scope.handleDeleteWarrantySuccess=function(success){
         $log.debug(JSON.stringify(success));
+        $scope.warranty={};
         $rootScope.ProdoAppMessage("Warranty deleted successfully...", 'success');
         $("#prodo-ProductDetails").css("display", "none");
         $state.reload();
@@ -276,19 +285,11 @@ $scope.getAllProductNames();
  };
 
 
-
-$scope.setDatesValidations=function(){
-var warrantyPeriod=$scope.warranty.purchase_date;
-$("#prodo_warranty_periodUpdate").attr('min', warrantyPeriod);
-}
 $scope.handleGetWarrantySuccess=function(successData,l_warrantyid){
   if(successData.success)
     $log.debug(successData.success);
    $("#prodo-ProductDetails").css("display", "block");
         $scope.warranty=successData.success.Warranty;
-        $scope.warranty.purchase_date = dateFilter($scope.warranty.purchase_date, 'yyyy-MM-dd');
-        $scope.warranty.expirydate = dateFilter($scope.warranty.expirydate, 'yyyy-MM-dd');
-        $scope.setDatesValidations();
         $rootScope.Upload_warranty_id=$scope.warranty.warranty_id;
         $scope.OpenInvoiceImage=false;
         
@@ -382,7 +383,7 @@ $scope.handleGetWarrantySuccess=function(successData,l_warrantyid){
   	name:  $scope.product.productnamefromUser,
   	prodle: $scope.product.productidfromUser,
   	model_no: $scope.productwarranty.model_no,
-  	model_name: $scope.productwarranty.model_name,
+  	// model_name: $scope.productwarranty.model_name,
   	serial_no: $scope.productwarranty.serial_no,
   	purchase_date: $scope.productwarranty.purchase_date,
   	expirydate:  $scope.expdate,
@@ -426,7 +427,7 @@ $scope.handleGetWarrantySuccess=function(successData,l_warrantyid){
   }
   else{
   	$log.debug("Upload invoice image");
-    $rootScope.ProdoAppMessage("Upload invoice image", 'error');
+    $rootScope.ProdoAppMessage("Invoice is mandatory. Please upload the scanned image , digital or pdf of invoice...", 'error');
    }
 
 
@@ -527,7 +528,7 @@ for(i=0; i<$scope.allProductNames.length-1; i++){
     name:  $scope.product_l.productnamefromUser,
     prodle: $scope.product_l.productidfromUser,
     model_no: $scope.warranty.model_no,
-    model_name: $scope.warranty.model_name,
+    // model_name: $scope.warranty.model_name,
     serial_no: $scope.warranty.serial_no,
     purchase_date: $scope.warranty.purchase_date,
     expirydate:  $scope.warranty.expirydate,
@@ -585,7 +586,10 @@ $scope.getOrgProductDetailsForUpdate();
  $scope.disableEditorFeatureUpdate = function () {
     $scope.editMode.editorEnabledWarrantyUpdate = false;
        $scope.form.WarrantyFormUpdate.submitted=false;
+         if($scope.warranty.warranty_id ){
         $scope.getWarranty($scope.warranty.warranty_id);
+     }
+      
  };
 
  $scope.enableEditorFeatureUpdate = function () {
@@ -638,6 +642,7 @@ $scope.getOrgProductDetailsForUpdate();
   });
   //socket connect 
 
+
  
   $scope.handleUploadError=function(error){
    $("#bar").hide();
@@ -673,7 +678,7 @@ $scope.getFile = function (a) {
         filename: $scope.file.name,
         filebuffer: $scope.imageBfr
       };
-      if (($scope.file.type == 'image/jpg') || ($scope.file.type == 'image/png') || ($scope.file.type == 'image/gif') || ($scope.file.type == 'image/jpeg')) {
+      if (($scope.file.type == 'image/jpg') || ($scope.file.type == 'image/png') || ($scope.file.type == 'image/gif') || ($scope.file.type == 'image/jpeg') || ($scope.file.type == 'application/pdf')) {
 
    // if ($scope.uploadSrc == "warranty") { // upload product
         if (($scope.file.size / 1024 < 2048)) {
@@ -688,7 +693,7 @@ $scope.getFile = function (a) {
          // }  
      } 
      else{
-       $rootScope.ProdoAppMessage("Please upload image only", 'error'); 
+       $rootScope.ProdoAppMessage("Please upload invoice of correct format ", 'error'); 
      }
   
     });
@@ -704,16 +709,16 @@ $scope.getFile = function (a) {
 
 
 $scope.warrantyResponseHandler=function(error, imagelocation){
-	 $scope.disableEditorFeature ();
+	
     // $("#spinner").hide();
  if (error) {
       // $("#bar").hide();
-       $scope.enableEditorFeature ();
-      if (error.error.code == 'AP003') { // user already exist
+       // $scope.enableEditorFeature ();
+      if (error.error.code == 'AP003') { 
         $log.debug(error.error.code + " " + error.error.message);
         $rootScope.ProdoAppMessage(error.error.message, 'error');
         
-      } else if (error.error.code == 'AV001') { // user data invalid
+      } else if (error.error.code == 'AV001') { 
         $log.debug(error.error.code + " " + error.error.message);
         $rootScope.ProdoAppMessage(error.error.message, 'error');
        
@@ -724,10 +729,7 @@ $scope.warrantyResponseHandler=function(error, imagelocation){
       }
 
     } else {
-      
-      	     $scope.clearText();
-      
-      
+
       $scope.imageSrc = JSON.stringify(imagelocation.success.invoiceimage);
       $log.debug(JSON.stringify(imagelocation.success));
       $log.debug("Emit");
@@ -746,7 +748,9 @@ $scope.warrantyResponseHandler=function(error, imagelocation){
         // $log.debug("emitting image " + $scope.counter);
         //    $scope.getFile($scope.counter);
       } else $scope.counter = 0;
-
+     $scope.clearText();
+     $('#EditWarranty')[0].reset();
+     $scope.disableEditorFeature ();
     }
 
 };

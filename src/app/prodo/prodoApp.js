@@ -60,6 +60,9 @@ angular.module('prodo.ProdonusApp', [
     $rootScope.usersession = UserSessionService;
     $rootScope.organizationData = OrgRegistrationService;
     $rootScope.$log = $log;
+     $rootScope.$on('$stateChangeSuccess', function(event, to, toParams, from, fromParams) {
+      $rootScope.previousState = from.name;
+     });
   }
 ]).controller('ProdoMainController', [
   '$scope',
@@ -71,7 +74,7 @@ angular.module('prodo.ProdonusApp', [
   '$timeout',
   'UserSessionService',
   'OrgRegistrationService',
-  function ($scope, $rootScope, $state, $log, $location, growl, $timeout, UserSessionService, OrgRegistrationService) {
+  function ($scope, $rootScope, $state, $log, $location, growl, $timeout, UserSessionService, OrgRegistrationService, marketingData) {
     $state.transitionTo('prodo.landing.signup');
     $scope.prodlesfollowed = [{}];
     $scope.showSignin = function () {
@@ -79,6 +82,10 @@ angular.module('prodo.ProdonusApp', [
     };
     $scope.showSignup = function () {
       $state.transitionTo('prodo.landing.signup');
+    };
+
+    $rootScope.goState = function() {
+      $state.transitionTo($rootScope.previousState);
     };
 
     $rootScope.ProdoAppMessage = function(message,flag)

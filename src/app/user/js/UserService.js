@@ -4,7 +4,8 @@ angular.module('prodo.UserApp')
   function ($resource) {
     var UserS = {
         user_data: $resource('/api/user/:userid', {}, { getUserSettings: { method: 'GET'} }),
-        Is_user_loggedin: $resource('/api/isloggedin', {}, { checkUserSession: { method: 'GET' } })
+        Is_user_loggedin: $resource('/api/isloggedin', {}, { checkUserSession: { method: 'GET' } }),
+        marketing: $resource('/api/marketing', {}, { getMarketingData: { method: 'GET' } })
     }
     return UserS;
   }

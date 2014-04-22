@@ -17,7 +17,16 @@ angular.module('prodo.ProdonusApp')
     /* ----Landing Routes---- */
     .state('prodo.landing', {
       abstract: true,
-      templateUrl: 'user/views/user.registration.container.html'
+      templateUrl: 'user/views/user.registration.container.html',
+      controller:'ProdoMarketingController',
+      resolve: {
+        marketingData: function(UserService, $rootScope) {
+          console.log('marketing data..');
+          var n = UserService.marketing.getMarketingData().$promise;
+          console.log(n);
+          return n;
+        } 
+      }
     })    
     .state('prodo.landing.signup', {
       views: {

@@ -10,7 +10,7 @@
  * 27-3/2013 | xyx | Add a new property
  * 
  */
-angular.module('prodo.ProductApp').controller('ManageProductController', ['$scope', '$log', '$rootScope', 'ProductService', 'UserSessionService', '$http', 'CommentLoadMoreService', 'ENV', 'TagReffDictionaryService', 'ProductFeatureService',  'allproductdata','allproductCategories', '$state','CategoryTags','dateFilter', function ($scope, $log, $rootScope, ProductService, UserSessionService, $http, CommentLoadMoreService, ENV, TagReffDictionaryService, ProductFeatureService, allproductdata,allproductCategories, $state,CategoryTags,dateFilter) {
+angular.module('prodo.ProductApp').controller('ManageProductController', ['$scope', '$log', '$rootScope', 'ProductService', 'UserSessionService', '$http', 'CommentLoadMoreService', 'ENV', 'TagReffDictionaryService', 'ProductFeatureService',  'allproductdata','allproductCategories', '$state','CategoryTags', function ($scope, $log, $rootScope, ProductService, UserSessionService, $http, CommentLoadMoreService, ENV, TagReffDictionaryService, ProductFeatureService, allproductdata,allproductCategories, $state,CategoryTags) {
 
   $scope.$state = $state;
 
@@ -148,16 +148,6 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
         $("#prodo-ProductFeatureTable").css("display", "table");
         $scope.currentProdle=successData.success.product.prodle;
         $scope.product = successData.success.product;
-        
-        if($scope.product.sale_discontinuation_date){
-        $scope.product.sale_discontinuation_date = dateFilter($scope.product.sale_discontinuation_date, 'yyyy-MM-dd');
-        }
-        if($scope.product.support_discontinuation_date){
-        $scope.product.support_discontinuation_date = dateFilter($scope.product.support_discontinuation_date, 'yyyy-MM-dd');
-        }
-        if($scope.product.banneddate){
-        $scope.product.banneddate = dateFilter($scope.product.banneddate, 'yyyy-MM-dd');
-        }
         $rootScope.currentProdleRoot=successData.success.product.prodle;
         $scope.productComments = successData.success.product.product_comments;
         $scope.pImages_l = successData.success.product.product_images;
