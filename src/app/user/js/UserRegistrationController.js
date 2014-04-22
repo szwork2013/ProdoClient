@@ -18,6 +18,7 @@ angular.module('prodo.UserApp')
 
     // function to clear form data on submit
     $scope.clearformData = function() {
+      $scope.signupForm.$setPristine();
       $scope.user.username = '';
       $scope.user.email = '';
       $scope.user.password = '';
@@ -53,7 +54,7 @@ angular.module('prodo.UserApp')
     $scope.handleSignupResponse = function(data){
       if (data.success) {
         $state.transitionTo('prodo.user-content.emailverification');
-
+        $scope.clearformData();
       } else {
         if (data.error.code== 'AU001') {     // user already exist
             $log.debug(data.error.code + " " + data.error.message);
@@ -73,12 +74,12 @@ angular.module('prodo.UserApp')
         }
       }
       $scope.hideSpinner();
-
     };
   
     $scope.signup = function(){
       if ($scope.signupForm.$valid) {
         $scope.showSpinner();
+        $scope.signupForm.submitted = false;
         var jsondata=$scope.jsonUserData();
         $log.debug('User Data entered successfully');
         UserRecaptchaService.validate($scope);

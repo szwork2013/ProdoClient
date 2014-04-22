@@ -1441,7 +1441,7 @@ margin: 2px auto; position:absolute; }
 /*#fa-removeComment:hover{zoom:1.2;-webkit-transform: scale( 1.2); -moz-transform: scale( 1.2);}*/
 /*#fa-removeComment:hover{color:gray;}*/
 
-ul {/*list-style-type: none;*/ }
+ul {list-style-type: none; }
 /*li:nth-child(odd) {background-color:#F2F2F2;}*/
 .prodo-paddingLeft{padding-left: 50px;}
 .prodoCommentDeleteUp{font-size: 20px;color: rgb(185, 106, 141);margin-right: 5px;}
