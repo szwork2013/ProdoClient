@@ -426,7 +426,7 @@ $scope.handleGetWarrantySuccess=function(successData,l_warrantyid){
   }
   else{
   	$log.debug("Upload invoice image");
-    $rootScope.ProdoAppMessage("Upload invoice image", 'error');
+    $rootScope.ProdoAppMessage("Invoice is mandatory. Please upload the scanned image , digital or pdf of invoice...", 'error');
    }
 
 
@@ -676,7 +676,7 @@ $scope.getFile = function (a) {
         filename: $scope.file.name,
         filebuffer: $scope.imageBfr
       };
-      if (($scope.file.type == 'image/jpg') || ($scope.file.type == 'image/png') || ($scope.file.type == 'image/gif') || ($scope.file.type == 'image/jpeg')) {
+      if (($scope.file.type == 'image/jpg') || ($scope.file.type == 'image/png') || ($scope.file.type == 'image/gif') || ($scope.file.type == 'image/jpeg') || ($scope.file.type == 'application/pdf')) {
 
    // if ($scope.uploadSrc == "warranty") { // upload product
         if (($scope.file.size / 1024 < 2048)) {
@@ -691,7 +691,7 @@ $scope.getFile = function (a) {
          // }  
      } 
      else{
-       $rootScope.ProdoAppMessage("Please upload image only", 'error'); 
+       $rootScope.ProdoAppMessage("Please upload invoice of correct format ", 'error'); 
      }
   
     });
