@@ -2595,7 +2595,7 @@ left: 173px;
 
 .prodo-invoiceImage{ max-width: 500px;max-height: 500px;}
 .prodo-WarrantyAdd{float:right; padding-left:10px; padding-bottom:20px;}
-.warranty-textField{width: 160px; height: 30PX; font-size: 12PX; display:inline-block;}
+.warranty-textField{width: 160px; height: 30px;  display:inline-block;}
 .prodo-warranty-Invalid{color:red; font-size: 12px;display: inline-block;}
 .prodo-width50{width: 50%;}
 .prodo-resizeRestrict{ resize: none;}
