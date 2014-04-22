@@ -2,7 +2,7 @@
 *Registration Controller
 **/
 angular.module('prodo.UserApp')
-  .controller('UserRegistrationController', ['$scope', '$state', '$http', '$timeout', '$sce', '$log', 'growl', 'UserSessionService', 'UserSignupService', 'vcRecaptchaService', 'UserRecaptchaService', function($scope, $state, $http, $timeout, $sce, $log, growl, UserSessionService, UserSignupService, vcRecaptchaService, UserRecaptchaService) {
+  .controller('UserRegistrationController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$sce', '$log', 'growl', 'UserSessionService', 'UserSignupService', 'vcRecaptchaService', 'UserRecaptchaService', function($scope, $rootScope, $state, $http, $timeout, $sce, $log, growl, UserSessionService, UserSignupService, vcRecaptchaService, UserRecaptchaService) {
     $scope.submitted = false;     
 
     $scope.user = 

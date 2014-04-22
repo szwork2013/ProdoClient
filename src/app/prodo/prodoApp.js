@@ -71,7 +71,7 @@ angular.module('prodo.ProdonusApp', [
   '$timeout',
   'UserSessionService',
   'OrgRegistrationService',
-  function ($scope, $rootScope, $state, $log, $location, growl, $timeout, UserSessionService, OrgRegistrationService) {
+  function ($scope, $rootScope, $state, $log, $location, growl, $timeout, UserSessionService, OrgRegistrationService, marketingData) {
     $state.transitionTo('prodo.landing.signup');
     $scope.prodlesfollowed = [{}];
     $scope.showSignin = function () {

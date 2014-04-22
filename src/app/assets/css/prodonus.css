@@ -7,6 +7,24 @@ html,body{
 	height:100%;
 }
 
+.wordwrap {
+
+white-space: -moz-pre-wrap !important;  /* Mozilla, since 1999 */
+white-space: -pre-wrap;      /* Opera 4-6 */
+white-space: -o-pre-wrap;    /* Opera 7 */
+white-space: pre-wrap;       /* css-3 */
+word-wrap: break-word;       /* Internet Explorer 5.5+ */
+word-break: break-all;
+white-space: normal;
+
+}
+
+.warranty-table tbody>tr>td{
+	table-layout:fixed;
+	padding: 5px;
+	border-top: 0px;
+}
+
 .btn:focus {
 outline: thin dotted transparent;
 outline-offset: -2px;
@@ -184,7 +202,7 @@ color: #fff;
 
 /*change the View: marketing div style*/
 #prodo-view-marketing{
-	margin-top: 150px;
+	margin-top: 110px;
 	margin-left: 60px;
 }
 
