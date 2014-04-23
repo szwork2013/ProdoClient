@@ -120,12 +120,13 @@ $scope.getFile = function (a) {
             $("#spinner").hide();
             $("#bar").hide();
             setTimeout(function(){ jQuery("#FileName").hide(); },1000);
-            $('#fileInputs')[0].reset();
+            $('.fileInputsUploadorgkeyclient')[0].reset();
           }
           } else {
             $rootScope.ProdoAppMessage("Image size must ne less than 2MB", 'error');
             $("#bar").hide();
             setTimeout(function(){ jQuery("#FileName").hide(); },1000);
+            $('.fileInputsUploadorgkeyclient')[0].reset();
           }
           // }
           // else{
@@ -199,6 +200,7 @@ $scope.getFile = function (a) {
             $rootScope.ProdoAppMessage("Image size must ne less than 2MB", 'error');
             $("#bar").hide();
             setTimeout(function(){ jQuery("#FileName").hide(); },1000);
+            $('.fileInputsUploadorg')[0].reset();
           }
         // }
          // else{
@@ -235,7 +237,8 @@ $scope.getFile = function (a) {
              $rootScope.ProdoAppMessage("Image size must ne less than 1MB", 'error');
             $("#bar").hide();
             setTimeout(function(){ jQuery("#FileName").hide(); },1000);
-          }
+            $('.fileInputsUploadorglogo')[0].reset();
+         }
         }
    
 
@@ -266,6 +269,7 @@ $scope.getFile = function (a) {
              $rootScope.ProdoAppMessage("Image size must ne less than 1MB", 'error');
             $("#bar").hide();
             setTimeout(function(){ jQuery("#FileName").hide(); },1000);
+              $('.fileInputsUploadorg')[0].reset();
           }
         } else {
           $rootScope.ProdoAppMessage("Please upload file of images type...", 'error');
