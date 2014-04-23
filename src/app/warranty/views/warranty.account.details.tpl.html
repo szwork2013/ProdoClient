@@ -47,8 +47,8 @@
               Are you sure you want to change warranty ?
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default " data-dismiss="modal"> Cancel &nbsp;<!-- <i class="glyphicon glyphicon-remove"></i> --></button>
-              <button type="button" class="btn btn-danger " id="ChangeWarrantyOkButton" data-dismiss="modal" >OK &nbsp;<!-- <i class="glyphicon glyphicon-trash"></i> --></button>
+              <button type="button" class="btn btn-default " data-dismiss="modal"> <i class="glyphicon glyphicon-remove"></i> &nbsp;  Cancel</button>
+              <button type="button" class="btn btn-danger " id="ChangeWarrantyOkButton" data-dismiss="modal" ><i class="glyphicon glyphicon-trash"></i> &nbsp; OK</button>
             </div>
           </div>
           <!-- /.modal-content -->
@@ -70,8 +70,9 @@
               Are you sure you want to add new warranty ?
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default " data-dismiss="modal"> Cancel &nbsp;<!-- <i class="glyphicon glyphicon-remove"></i> --></button>
-              <button type="button" class="btn btn-danger " id="addWarrantyOkButton" data-dismiss="modal" >OK &nbsp;<!-- <i class="glyphicon glyphicon-trash"></i> --></button>
+              <button type="button" class="btn btn-default " data-dismiss="modal"> 
+              <i class="glyphicon glyphicon-remove"></i> &nbsp; Cancel</button>
+              <button type="button" class="btn btn-danger " id="addWarrantyOkButton" data-dismiss="modal" > &nbsp; OK<i class="glyphicon glyphicon-trash"></i></button>
             </div>
           </div>
           <!-- /.modal-content -->
@@ -294,8 +295,8 @@
 
           <tr  class="">
             <td colspan="2">
-              <a    ng-click="addWarranty(editStatus);" class="btn btn-primary   pull-right prodo-margin5" > Save &nbsp;<i class="fa fa-floppy-o"></i></a>
-              <a class="btn btn-default   pull-right prodo-margin5" ng-click="disableEditorFeature() ; "> Cancel&nbsp;<i class="glyphicon glyphicon-remove"></i></a>
+              <a    ng-click="addWarranty(editStatus);" class="btn btn-primary   pull-right prodo-margin5" > <i class="fa fa-floppy-o"></i>&nbsp; Save </a>
+              <a class="btn btn-default   pull-right prodo-margin5" ng-click="disableEditorFeature() ; "> <i class="glyphicon glyphicon-remove"></i>&nbsp; Cancel</a>
             </td>
           </tr>
         </table>
@@ -508,8 +509,8 @@
 
           <tr  class="">
             <td colspan="2">
-              <a    ng-click="updateWarranty();" class="btn btn-primary   pull-right prodo-margin5" > Update &nbsp;<i class="fa fa-floppy-o"></i></a>
-              <a class="btn btn-default   pull-right prodo-margin5" ng-click="disableEditorFeatureUpdate() ; "> Cancel&nbsp;<i class="glyphicon glyphicon-remove"></i></a>
+              <a    ng-click="updateWarranty();" class="btn btn-primary   pull-right prodo-margin5" ><i class="fa fa-floppy-o"></i>  &nbsp; Update</a>
+              <a class="btn btn-default   pull-right prodo-margin5" ng-click="disableEditorFeatureUpdate() ; "> <i class="glyphicon glyphicon-remove"></i>&nbsp; Cancel</a>
             </td>
           </tr>
         </table>
@@ -526,8 +527,8 @@
 <br>
 
    <div  class="prodo.productAdmin1 pull-right " >
-        <a href="" class="btn btn-primary  btn-bottom-margin" ng-click="enableEditorFeatureUpdate() ;  editStatus='update'; form.WarrantyFormUpdate.$setPristine();"  > Update &nbsp;<i class="fa fa-pencil-square-o "></i></a>
-        <a href="" class="btn btn-danger btn-bottom-margin" data-toggle="modal" data-target="#WarrantyDelete">  Delete &nbsp; <i class="fa fa-trash-o"></i> </a> 
+        <a href="" class="btn btn-primary  btn-bottom-margin" ng-click="enableEditorFeatureUpdate() ;  editStatus='update'; form.WarrantyFormUpdate.$setPristine();"  > <i class="fa fa-pencil-square-o "></i>&nbsp; Update </a>
+        <a href="" class="btn btn-danger btn-bottom-margin" data-toggle="modal" data-target="#WarrantyDelete">   <i class="fa fa-trash-o"></i> &nbsp;  Delete</a> 
         <br>
       </div>
 
@@ -544,8 +545,8 @@
               Are you sure you want to delete ?
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default " data-dismiss="modal"> Cancel &nbsp; <i class=" glyphicon glyphicon-remove"></i></button>
-              <button type="button" class="btn btn-danger  " ng-click="deleteWarranty();" data-dismiss="modal" > Delete  &nbsp; <i class=" glyphicon glyphicon-trash"></i></button>
+              <button type="button" class="btn btn-default " data-dismiss="modal"> <i class=" glyphicon glyphicon-remove"></i> &nbsp; Cancel </button>
+              <button type="button" class="btn btn-danger  " ng-click="deleteWarranty();" data-dismiss="modal" >  <i class=" glyphicon glyphicon-trash"></i> &nbsp; Delete </button>
             </div>
           </div>
           <!-- /.modal-content -->
