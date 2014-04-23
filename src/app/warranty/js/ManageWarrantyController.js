@@ -15,6 +15,7 @@ angular.module('prodo.WarrantyApp')
  .controller('ManageWarrantyController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$log',  'WarrantyService', 'checkIfSessionExist','orgnameData','productnameData','warrantydata','fileReader','ENV','isLoggedin', function($scope, $rootScope, $state, $http, $timeout, $log,  WarrantyService, checkIfSessionExist,orgnameData,productnameData,warrantydata,fileReader,ENV,isLoggedin) {
    
 $scope.$state = $state;
+$scope.format="dd MMM yyyy"
 var setmaxPurchaseDateValue=moment().format("YYYY-MM-DD");
 $scope.maxDatePurchase=moment().format("YYYY-MM-DD");
 $("#prodo_warranty_purchase_date").attr('max', setmaxPurchaseDateValue);
@@ -26,7 +27,7 @@ $scope.newWarranty_Responsewarranty_id="";
     editorEnabledWarrantyUpdate : false
   };
   $scope.warranty={};
-  $scope.type=['extended','standard']
+  $scope.type=['standard','extended'];
   $scope.editStatus;
   $scope.allOrgNames=[];
    $scope.allProductNames=[];
@@ -291,7 +292,7 @@ $scope.handleGetWarrantySuccess=function(successData,l_warrantyid){
    $("#prodo-ProductDetails").css("display", "block");
         $scope.warranty=successData.success.Warranty;
         $rootScope.Upload_warranty_id=$scope.warranty.warranty_id;
-        $scope.OpenInvoiceImage=false;
+        // $scope.OpenInvoiceImage=false;
         
   };
 
@@ -762,7 +763,7 @@ $scope.warrantyResponseHandler=function(error, imagelocation){
    var cleanupEventwarrantyUploadLogoResponseSuccess = $scope.$on("warrantyUploadLogoResponseSuccess",function(event,message){
        // $log.debug("Listening");
        $scope.newWarranty_Responsewarranty_id= $scope.warranty.warranty_id;
-        $scope.OpenInvoiceImage=true;
+        // $scope.OpenInvoiceImage=true;
       $state.reload();
    });
 
