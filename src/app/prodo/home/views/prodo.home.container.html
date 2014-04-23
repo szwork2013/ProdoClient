@@ -1,16 +1,19 @@
 <!-- Prodonus Home -->
-<div style="margin-top: 20px; " id="prodo-row-main-view" class="row">
+<div class="prodo-home-container">
+  <div ui-view="prodo-home-walladvertising"></div>
+  <div style="margin: 2px auto;" id="prodo-row-main-view" class="row">
 
-	<div style="padding-right: 2px; padding-left: 2px;" class="col-md-1"></div>
-	<!-- Prodonus Home - SideSearch View-->
-  <div style="padding-right: 2px; padding-left: 2px;" class="col-md-2">
-  	<div ui-view="prodo-home-wallsearch"></div> 
+    <div style="padding-right: 2px; padding-left: 2px;" class="col-md-1"></div>
+    <!-- Prodonus Home - SideSearch View-->
+    <div style="padding-right: 2px; padding-left: 2px;" class="col-md-2">
+      <div ui-view="prodo-home-wallsearch"></div> 
+    </div>
+
+    <!-- Prodonus Home - Wall View-->
+    <div style="padding-right: 2px; padding-left: 2px;" class="col-md-8">
+      <div ui-view="prodo-home-wall"></div>
+    </div>
+    <div style="padding-right: 2px; padding-left: 2px;" class="col-md-1"></div>
+
   </div>
-
-  <!-- Prodonus Home - Wall View-->
-  <div style="padding-right: 2px; padding-left: 2px;" class="col-md-8">
-    <div ui-view="prodo-home-wall"></div>
-  </div>
-  <div style="padding-right: 2px; padding-left: 2px;" class="col-md-1"></div>
-
 </div>

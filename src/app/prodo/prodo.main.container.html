@@ -5,13 +5,13 @@
         <p ng-hide="usersession.isLoggedIn" id="prodo-navbar-text" class="navbar-text navbar-right"><a href="" ng-click='showSignin()' id="prodo-navbar-link1" class="navbar-link">Sign In</a>&nbsp;|&nbsp;<a href="" ng-click='showSignup()' id="prodo-navbar-link2" class="navbar-link">Sign Up</a></p>
       </div>
 
-      <ul ng-cloak ng-show="usersession.isLoggedIn" class="nav navbar-nav navbar-right">
+      <ul ng-cloak ng-show="usersession.isLoggedIn" class="nav-ul nav navbar-nav navbar-right">
 
         <li><a class="btn defaultPointer" >{{daysRemaining}}</a></li>
 
-        <li><a class="btn" id="navbar-home-link" ui-sref="prodo.home.wall"><i  class="prodo-fa-navbar fa fa-home"></i>Home</a></li>
+        <li><a class="navbar-home-link btn" ui-sref="prodo.home.wall"><i class="prodo-fa-navbar fa fa-home"></i>Home</a></li>
 
-        <li><a class="btn" id="navbar-home-link" ui-sref="prodo.productwall.wall-org">Productwall</a></li>
+        <li><a class="navbar-home-link btn" ui-sref="prodo.productwall.wall-org"><i class="fa fa-bars"></i></i>Productwall</a></li>
 
         <li class="dropdown">
           <a id="navbar-username-link" href="#" class="dropdown-toggle" data-toggle="dropdown"><strong>{{usersession.currentUser.username}}</strong><b class="caret"></b></a>

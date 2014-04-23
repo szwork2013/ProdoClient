@@ -128,8 +128,19 @@ color: #fff;
 	color:#E0E6EE;
 }
 
-#navbar-home-link{
-	color:#E0E6EE;
+
+.navbar-home-link{
+  color:#E0E6EE;
+}
+
+ul.nav-ul a:hover { 
+	color: #000 !important;
+}
+
+.navbar-home-link:focus, .navbar-home-link.active{
+	color: #000 !important;
+	font-size: 15px;
+	font-weight: bold;
 }
 
 .logout-img{
