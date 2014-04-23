@@ -349,15 +349,15 @@
 		                  <div class="modalAppearance">
 		                    <div class="modalMessageContainer">*Type Comma (,) between all the words you want. Eg: Apple Iphone , Samsung Duos</div>            
 		                      <div class="textBoxContainer" >                                                  
-		                      <input type="text" class="prodoAdvancedSearchTextbox form-control" placeholder="Organization Name [ eg:Prodonus ]" id="textBoxOrgName" ng-model="org"/>       
+		                      <input type="text" class="prodoAdvancedSearchTextbox form-control" placeholder="Organization Name [ eg:Prodonus ]" id="textBoxOrgName" ng-model="org" ng-enter="searchProductData()"/>       
 
-		                      <input type="text" class="prodoAdvancedSearchTextbox form-control" placeholder="Product Name [ eg:Samsung, Nokia ]" id="textBoxProductName" ng-model="product_name"> 
+		                      <input type="text" class="prodoAdvancedSearchTextbox form-control" placeholder="Product Name [ eg:Samsung, Nokia ]" id="textBoxProductName" ng-model="product_name" ng-enter="searchProductData()"> 
 
-		                      <input type="text" class="prodoAdvancedSearchTextbox form-control"  placeholder="Feature [ eg:JBL Speaker, BOSE Speakers ]" id="textBoxFeatureName"  ng-model="feature" >   
+		                      <input type="text" class="prodoAdvancedSearchTextbox form-control"  placeholder="Feature [ eg:JBL Speaker, BOSE Speakers ]" id="textBoxFeatureName"  ng-model="feature" ng-enter="searchProductData()">   
 
-		                     <input type="text" class="prodoAdvancedSearchTextbox form-control" placeholder="Category [ eg:Mobiles, Tablets ]" id="textBoxCategoryName" ng-model="category">           
+		                     <input type="text" class="prodoAdvancedSearchTextbox form-control" placeholder="Category [ eg:Mobiles, Tablets ]" id="textBoxCategoryName" ng-model="category" ng-enter="searchProductData()">           
 
-		                       <input type="text" placeholder="Please Enter Exact  Model Number [ eg:Grand Duos, S4 ]"  ng-model="model_number" id="textBoxModelNumber" class="prodoAdvancedSearchTextbox form-control">              
+		                       <input type="text" placeholder="Please Enter Exact  Model Number [ eg:Grand Duos, S4 ]"  ng-model="model_number" id="textBoxModelNumber" class="prodoAdvancedSearchTextbox form-control" ng-enter="searchProductData()">              
 		                      </div>    
 
                       <div id="prodo-searchResults"><br>

@@ -2589,7 +2589,12 @@ vertical-align: bottom;
 	width: 98%;
 }
 
-
+.campaign-banner-image
+{
+	width: 100%;
+    /*//height: 52px;*/
+    height : 70px;
+}
 
 /*.fa-check:before {
 content: "\f000";
