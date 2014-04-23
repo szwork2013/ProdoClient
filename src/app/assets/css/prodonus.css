@@ -2595,7 +2595,41 @@ vertical-align: bottom;
     /*//height: 52px;*/
     height : 70px;
 }
+.homeContainerAdvancedsearch
+{
+		width: 100%;
+		padding-right: 20px;
+		padding-left: 20px;
+		padding-top: 20px;
+}
 
+.homesContainerPaddingTop
+{
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.homeContainerMargin
+{
+	margin:5px;
+	margin-bottom: 40px;
+}
+.homeContainerMarginLeft
+{
+	margin-left: 20px;
+}
+.homeContainerMarginRight
+{
+	margin-right: 20px;
+}
+.homeContainerWidth
+{
+	width: 41%;
+}
+.width
+{
+	width:90%;
+}
 /*.fa-check:before {
 content: "\f000";
 font-family: FontAwesome;

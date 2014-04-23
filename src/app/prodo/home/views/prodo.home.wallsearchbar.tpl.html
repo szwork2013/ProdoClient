@@ -1,3 +1,49 @@
 <div class="prodo-wall-advertisment-container" id="prodo-advertisment-container">
-	<h4>wallsearch....</h4>
+
+	<center><button class="btn btn-info homesContainerPaddingTop width" ng-click="isCollapsed = !isCollapsed">Advance Search</button></center>
+
+	<div collapse="isCollapsed">
+		<div>
+
+				 <div class="homeContainerAdvancedsearch" >                                                  
+				                      <input type="text" class="prodoAdvancedSearchTextbox form-control" placeholder="Organization Name" id="textBoxOrgName"  />       
+
+				                      <input type="text" class="prodoAdvancedSearchTextbox form-control" placeholder="Product Name" id="textBoxProductName" > 
+
+				                      <input type="text" class="prodoAdvancedSearchTextbox form-control"  placeholder="Feature" id="textBoxFeatureName"  >   
+
+				                     <input type="text" class="prodoAdvancedSearchTextbox form-control" placeholder="Category" id="textBoxCategoryName" >           
+
+				                       <input type="text" placeholder="Model Number"   id="textBoxModelNumber" class="prodoAdvancedSearchTextbox form-control" >              
+				 </div>    
+		</div> 
+
+		<div>
+		    <button class="btn homeContainerMargin homeContainerMarginLeft homeContainerWidth">Cancel</button>
+		    <button class="btn homeContainerMargin homeContainerMarginRight homeContainerWidth">Search</button>
+		</div>
+	</div>
+
+	 <div id="prodo-sidebar-list" class="list" ng-if="trendingProducts.length >0 ">
+	     <div class="list-group-item active prodo-wall-sidebar-list-heading" ><center>Trending Products</center></div>
+          <div ng-click="trendingProductEmit(product.prodle,product.orgid)" class="list-group-item hyperlinkPointer" ng-if="regularExpressionForProdonus.test(product.name) !== true" ng-repeat="product in trendingProducts | limitTo:6"   > 
+             <table style=" width: 100%; color: black;text-align: center">
+                <tr style="">
+                  <td colspan ="2" style="">
+                      <div style="font-size: 16px; text-align: center ; " ng-bind="product.name"></div>
+                  </td>
+                </tr> 
+                <tr>
+                  <td style="border-right:1px solid #dbdbdb;" class="thinnerFonts" style=" width: 50%;">
+                    <div style="font-size: 18px;"  ng-bind="product.followedcount"></div><div style="font-size: 10px;"> Talkins</div> 
+                  </td>
+                  <td class="thinnerFonts" style=" width: 50%;">
+                      <div style="font-size: 18px;" ng-bind="product.commentcount"></div><div style="font-size: 10px;"> Comments</div> 
+                  </td>
+                </tr>
+             </table>
+          </div>
+        </div>
+
+
 </div> 
