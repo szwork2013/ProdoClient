@@ -1,39 +1,11 @@
 angular.module('prodo.CampaignApp')
  .controller('ManageCampaignController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$stateParams', '$log', 'growl', 'checkIfSessionExist','currentorgproducts','CampaignService','getAllCampaigns', 'campaigndata', 'fileReader','ENV','isLoggedin', function($scope, $rootScope, $state, $http, $timeout, $stateParams, $log, growl, checkIfSessionExist, currentorgproducts, CampaignService, getAllCampaigns , campaigndata ,fileReader,ENV,isLoggedin) {
- 		
-     // pagination
-    $scope.currentPage = 0;
-    $scope.pageSize = 3;
-
-    $scope.numberOfPages = function () {
-      return Math.ceil($scope.campaignDetailsObject.length / $scope.pageSize);
-    };
-
-    // pagination
-
-  $scope.fileLength;
-  $scope.uploadSrc;
-  
-  $scope.counter = 0;
-  $scope.file;
-  
-  $scope.file_data = {
-        filetype: '',
-        filename: '',
-        filebuffer: ''
-      };
- $scope.action={};
- $scope.isValidImage=false;
- $scope.invoiceimage;
-    $scope.newCampaignAdd = 0;
-
-    $scope.temp = [];
-
-    $scope.temp2 = [];
 
     $scope.productlist = {};
 
     $scope.form = {};
+
+    $scope.targettedAudience = [];
 
     $scope.regexForText = /^[a-zA-Z\s]*$/;
 
@@ -83,6 +55,39 @@ angular.module('prodo.CampaignApp')
 
     $scope.today = moment().format('YYYY-MM-DD');
 
+     // pagination
+    $scope.currentPage = 0;
+
+    $scope.pageSize = 3;
+
+    $scope.numberOfPages = function () {
+      return Math.ceil($scope.campaignDetailsObject.length / $scope.pageSize);
+    };
+
+    // pagination
+
+    $scope.fileLength;
+
+    $scope.uploadSrc;
+      
+    $scope.counter = 0;
+
+    $scope.file;
+      
+    $scope.file_data = {
+            filetype: '',
+            filename: '',
+            filebuffer: ''
+    };
+
+    $scope.action={};
+
+    $scope.isValidImage=false;
+
+    $scope.invoiceimage;
+    
+    $scope.newCampaignAdd = 0;
+
     $scope.open = function($event,opened) {
         $event.preventDefault();
         $event.stopPropagation();
@@ -108,23 +113,7 @@ angular.module('prodo.CampaignApp')
     $scope.$watch('$state.$current.locals.globals.campaigndata', function (campaigndata) { 
       if (campaigndata.success) {
          $scope.campaignDetailsObject = campaigndata.success.Product_Campaigns;
-         $scope.currentCampaign = $scope.campaignDetailsObject[0];
-         var d1=new Date($scope.campaignDetailsObject[0].startdate);
-          var year1=d1.getFullYear();
-          var month1=d1.getMonth()+1;
-          if (month1<10){
-            month1="0" + month1;
-          }
-          var day1=d1.getDate();
-         $scope.currentCampaign.startdate = year1 + "-" + month1+ "-" + day1;
-         var d=new Date($scope.campaignDetailsObject[0].enddate);
-          var year=d.getFullYear();
-          var month=d.getMonth()+1;
-          if (month<10){
-            month="0" + month;
-          }
-          var day=d.getDate();
-         $scope.currentCampaign.enddate = year + "-" + month + "-" + day;
+         $scope.currentCampaign = $scope.campaignDetailsObject[0]; 
          //$scope.ProdoAppMessage(campaigndata.success.message,'success');
       } else if(campaigndata.error !== undefined && campaigndata.error.code === 'AL001' ) {
           $rootScope.showModal();
@@ -193,14 +182,11 @@ angular.module('prodo.CampaignApp')
              // alert($scope.prodleContent);
 
              if($scope.isValidImage==true){
-              console.log($scope.jsonOrgCampaignData());
-                  $scope.socket.emit('addProductCampaign', $rootScope.usersession.currentUser.userid, $rootScope.usersession.currentUser.org.orgid,$scope.prodleContent, $scope.jsonOrgCampaignData(),$scope.file_data);
-                  $log.debug("data emitted");
-                 
+
+                  $scope.socket.emit('addProductCampaign', $rootScope.usersession.currentUser.userid, $rootScope.usersession.currentUser.org.orgid,$scope.prodleContent, $scope.jsonOrgCampaignData(),$scope.file_data);               
               }
               else{
-                $log.debug("Upload campaign image");
-                $rootScope.ProdoAppMessage("Upload campaign image", 'error');
+                $rootScope.ProdoAppMessage("Please select banner image to upload", 'error');
                }
         }
     };
@@ -230,34 +216,31 @@ angular.module('prodo.CampaignApp')
     	$scope.errorForInvalidEnddate = ''; 
     	$scope.invalidDesc ='';
     	$scope.errorForInvalidProduct = '';
-    	$scope.allValid = 0;
+    	$scope.allValidContent = 0;
     	$scope.errorForInvalidProduct = '';
     	$scope.getProdle();
-        if($scope.currentCampaign.productname === undefined || $scope.regexForText.test($scope.currentCampaign.productname) === false || $scope.currentCampaign.productname ==='')
-        {
-            $scope.errorForInvalidProduct = "Please select valid product name !";
-            $scope.allValid = 1;
-        }
 
-        if($scope.currentCampaign.description === undefined || $scope.currentCampaign.description === '')
-        {
-        	$scope.invalidDesc = "Please enter valid description";
-        	$scope.allValid = 1;   
-        }
-        if($scope.currentCampaign.name ===undefined || $scope.currentCampaign.name ==='' || $scope.regexForText.test($scope.currentCampaign.name) === false)
-        {
-        	
-             $scope.errorForWrongCampaignname = 'Please enter valid campaign name!';
-             $scope.valid = 1;
+      if($scope.currentCampaign.productname === undefined || $scope.currentCampaign.productname ==='')
+      {
+          $scope.errorForInvalidProduct = "Please select valid product name !";
+          $scope.allValidContent = 1;
+      }
 
-        }
-        
-        if($scope.allValid === 0 )
-        {    
-            
-             CampaignService.updateCampaign($scope.jsonOrgCampaignDataModify() ,$scope.currentCampaign.campaign_id);    
-             // alert($scope.prodleContent);
-        }
+      if($scope.currentCampaign.description === undefined || $scope.currentCampaign.description === '')
+      {
+      	$scope.invalidDesc = "Please enter valid description";
+      	$scope.allValidContent = 1;   
+      }
+      if($scope.currentCampaign.name ===undefined || $scope.currentCampaign.name ==='' )
+      {    	
+           $scope.errorForWrongCampaignname = 'Please enter valid campaign name!';
+           $scope.allValidContent = 1;
+      }
+      
+      if($scope.allValidContent === 0 )
+      {    
+           CampaignService.updateCampaign($scope.jsonOrgCampaignDataModify() ,$scope.currentCampaign.campaign_id);    
+      }
     };
 
     $scope.deleteTheCampaign = function(data)
@@ -272,7 +255,8 @@ angular.module('prodo.CampaignApp')
         }
         if(data.success)
         {
-           $rootScope.ProdoAppMessage(data.success.message,'success');
+           $rootScope.ProdoAppMessage(data.success.message,'success'); 
+          
            $scope.enableEditing=0;
            $state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
 
@@ -315,33 +299,11 @@ angular.module('prodo.CampaignApp')
 
     $scope.showDetails = function(index)
     {     
-        $scope.campaignName = $scope.campaignDetailsObject[index].name;
-        $scope.campaignDescription = $scope.campaignDetailsObject[index].description;
-        $scope.startDate = $scope.campaignDetailsObject[index].startdate;
-        $scope.category = $scope.campaignDetailsObject[index].category;
-        $scope.endDate = $scope.campaignDetailsObject[index].enddate;
-        $scope.productName = $scope.campaignDetailsObject[index].productname; 
+        // $scope.productName = $scope.campaignDetailsObject[index].productname; 
         $scope.currentCampaign = $scope.campaignDetailsObject[index];  
-        var d1=new Date($scope.campaignDetailsObject[index].startdate);
-        var year1=d1.getFullYear();
-        var month1=d1.getMonth()+1;
-        if (month1<10){
-          month1="0" + month1;
-        }
-
-        var day1=d1.getDate();
-        $scope.currentCampaign.startdate = year1 + "-" + month1 + "-" + day1;
-
-        var d=new Date($scope.campaignDetailsObject[index].enddate);
-        var year=d.getFullYear();
-        var month=d.getMonth()+1;
-        if (month<10){
-          month="0" + month;
-        }
-        var day=d.getDate();
-
-       $scope.currentCampaign.enddate = year + "-" + month + "-" + day; 
-       $rootScope.campaign_id = $scope.currentCampaign.campaign_id; $scope.enableEditing =0;
+        $rootScope.campaign_id = $scope.currentCampaign.campaign_id; 
+        $scope.enableEditing = 0;
+        $scope.addNewCampaign = 0;
     };
 
     $scope.add = function()
@@ -352,8 +314,9 @@ angular.module('prodo.CampaignApp')
     $scope.cancel = function()
     {
         $scope.addNewCampaign = 0;
+        $scope.addNewCampaign = 0;
         $state.reload();
-         $scope.campaign = {productName: '',Name:'',Description:'',startDate:'',endDate:'',category:[]};
+        $scope.campaign = {productName: '',Name:'',Description:'',startDate:'',endDate:'',category:[]};
     };
 
     $scope.getProdle = function()
@@ -374,6 +337,7 @@ angular.module('prodo.CampaignApp')
     $scope.disableEditingCampaign = function()
     {
         $scope.enableEditing = 0;
+        $scope.addNewCampaign = 0;
         $state.reload();
     };
 
@@ -390,7 +354,6 @@ angular.module('prodo.CampaignApp')
         {
            $rootScope.ProdoAppMessage(data.success.message,'success');
            $scope.enableEditing = 0; 
-
            $state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
           // $scope.currentCampaign = $scope.campaignDetailsObject[$scope.campaignDetailsObject.length-1]; 
         }
@@ -412,21 +375,21 @@ angular.module('prodo.CampaignApp')
     });
 //campaignUploadResponseSuccess
 
-     $scope.deleteCampaignImages = function()
-     {
-        $scope.imageids=[];   
-        for(var i=0;i<$scope.currentCampaign.artwork.length;i++)  
-        { 
-            if(document.getElementById(i).checked === true)
-            {    
-                      $scope.imageids.push($scope.currentCampaign.artwork[i].imageid); 
-            }      
-        }
-        if($scope.imageids.length !==0 )
-        {
-                  CampaignService.deleteCampaignArtwork($scope.currentCampaign.campaign_id,$scope.imageids);
-        }
-     };
+    $scope.deleteCampaignImages = function()
+    {
+       $scope.imageids=[];   
+       for(var i=0;i<$scope.currentCampaign.artwork.length;i++)  
+       { 
+           if(document.getElementById(i).checked === true)
+           {    
+                     $scope.imageids.push($scope.currentCampaign.artwork[i].imageid); 
+           }      
+       }
+       if($scope.imageids.length !==0 )
+       {
+                 CampaignService.deleteCampaignArtwork($scope.currentCampaign.campaign_id,$scope.imageids);
+       }
+    };
 
      var cleanupeventcampaignartworkimagesdeletesuccess= $scope.$on("campaignImagesDeletedSuccessfully", function(event, data){
       if(data.error !== undefined && data.error.code === 'AL001' )
@@ -454,144 +417,96 @@ angular.module('prodo.CampaignApp')
              $rootScope.ProdoAppMessage("Some issues with server",'error');
      });
 
+    // /////////////////////////////////////////////////////
+    // upload
+
+     $scope.socket = io.connect(ENV.apiEndpoint + ENV.port + '/api/prodoupload', {
+        query: 'session_id=' + $rootScope.usersession.currentUser.sessionid
+      });
     
-
-
-
-// /////////////////////////////////////////////////////
-// upload
-
-
- $scope.socket = io.connect(ENV.apiEndpoint + ENV.port + '/api/prodoupload', {
-    query: 'session_id=' + $rootScope.usersession.currentUser.sessionid
-  });
-  //socket connect 
-
- 
-  $scope.handleUploadError=function(error){
-   $("#bar").hide();
-   if(error.code=='AL001'){
-        $rootScope.showModal();
-      }else{
-      $log.debug(error);
-      $rootScope.showModal();
-    }
-  };
-
-$scope.getFile = function (a) {
- isLoggedin.checkUserSession(
- function (successData) {
- if (successData.success == undefined) {
-  if(successData.error)
-  {
-   $scope.handleUploadError(successData.error);
-  } 
- }
- else { //add comment
-
-    $scope.progressbar = 0;
-    // $log.debug("source: " + $scope.uploadSrc);
-    $log.debug("getFile called ... " + a);
-    fileReader.readAsBinaryString(a, $scope).then(function (result) {
-      $log.debug("reader called ... " + a);
-      var action;
-      $scope.imageBfr = result;
-      $scope.file = a;
-      $scope.file_data = {
-        filetype: $scope.file.type,
-        filename: $scope.file.name,
-        filebuffer: $scope.imageBfr
+      $scope.handleUploadError=function(error){
+       $("#bar").hide();
+       if(error.code=='AL001'){
+            $rootScope.showModal();
+          }else{
+          $log.debug(error);
+          $rootScope.showModal();
+        }
       };
-      if (($scope.file.type == 'image/jpg') || ($scope.file.type == 'image/png') || ($scope.file.type == 'image/gif') || ($scope.file.type == 'image/jpeg')) {
 
-   // if ($scope.uploadSrc == "warranty") { // upload product
-        if (($scope.file.size / 1024 < 2048)) {
-            $scope.isValidImage=true;
-            // $scope.form.WarrantyForm.file.$invalid=false;
-          } else {
-            
-             $log.debug( 'Image size must ne less than 2MB');
-             $rootScope.ProdoAppMessage("Image size must ne less than 2MB", 'error');       
-         
+    $scope.getFile = function (a) {
+         isLoggedin.checkUserSession(
+         function (successData) {
+                 if (successData.success == undefined) {
+                      if(successData.error)
+                      {
+                         $scope.handleUploadError(successData.error);
+                      } 
+                 }
+                 else { //add comment
+                          fileReader.readAsBinaryString(a, $scope).then(function (result) {
+                          var action;
+                          $scope.imageBfr = result;
+                          $scope.file = a;
+                          $scope.file_data = {
+                            filetype: $scope.file.type,
+                            filename: $scope.file.name,
+                            filebuffer: $scope.imageBfr
+                          };
+                          if (($scope.file.type == 'image/jpg') || ($scope.file.type == 'image/png') || ($scope.file.type == 'image/gif') || ($scope.file.type == 'image/jpeg')) {
+                            if (($scope.file.size / 1024 < 2048)) {
+                                $scope.isValidImage=true;
+                              } else {
+                                 $rootScope.ProdoAppMessage("Image size must ne less than 2MB", 'error');        
+                              }
+                         } 
+                         else{
+                           $rootScope.ProdoAppMessage("Please upload image only", 'error'); 
+                           }
+                        
+                          });
+                    }
+           });  
+      };
+
+      $scope.socket.removeAllListeners('addProductCampaignResponse');
+
+      $scope.socket.on('addProductCampaignResponse', function (error, imagelocation) {
+                     $scope.addProductCampaignResponseHandler(error, imagelocation);
+      });
+
+      $scope.addProductCampaignResponseHandler=function(error, imagelocation){
+       if (error) {         
+            if (error.error.code == 'AP003') { // user already exist
+              $log.debug(error.error.code + " " + error.error.message);
+              $rootScope.ProdoAppMessage(error.error.message, 'error');
+              
+            } else if (error.error.code == 'AV001') { // user data invalid
+              $scope.ProdoAppMessage(error.error.message, 'error');
+              $log.debug('response from server');
+              //notify({ message:error.error.message, template:'campaign/js/abc.html'} );
+            } else {
+              $log.debug(error.error.message);
+              $rootScope.ProdoAppMessage(error.error.message, 'error');            
+            }
+          } else{
+            $scope.imageSrc = JSON.stringify(imagelocation.success.invoiceimage);
+            $rootScope.$broadcast("campaignUploadResponseSuccess", "success");
+            $rootScope.ProdoAppMessage("Campaign added successfully", 'success');
+            $state.enableEditing = 0;
+            $state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
+            $scope.counter++;
+            $log.debug($scope.counter);
+            if ($scope.counter < $scope.fileLength) {
+            } else
+            { 
+              $scope.counter = 0;
+            }
           }
-         // }  
-     } 
-     else{
-       $rootScope.ProdoAppMessage("Please upload image only", 'error'); 
-     }
-  
-    });
- 
-  }
- });  
-};
+      };
+       var cleanupEventcampaignUploadResponseSuccess = $scope.$on("campaignUploadResponseSuccess",function(event,message){
 
-  $scope.socket.removeAllListeners('addProductCampaignResponse');
-  $scope.socket.on('addProductCampaignResponse', function (error, imagelocation) {
-   $scope.addProductCampaignResponseHandler(error, imagelocation);
-  });
-
-
-$scope.addProductCampaignResponseHandler=function(error, imagelocation){
-   // $scope.disableEditorFeature ();
-    // $("#spinner").hide();
- if (error) {
-      // $("#bar").hide();
-      
-      if (error.error.code == 'AP003') { // user already exist
-        $log.debug(error.error.code + " " + error.error.message);
-        $rootScope.ProdoAppMessage(error.error.message, 'error');
-        
-      } else if (error.error.code == 'AV001') { // user data invalid
-        $log.debug(error.error.code + " " + error.error.message);
-        $rootScope.ProdoAppMessage(error.error.message, 'error');
-       
-      } else {
-        $log.debug(error.error.message);
-        $rootScope.ProdoAppMessage(error.error.message, 'error');
-        
-      }
-
-    } else {
-      
-             // $scope.clearText(); //clear varibles for file
-      
-      
-      $scope.imageSrc = JSON.stringify(imagelocation.success.invoiceimage);
-      $log.debug(JSON.stringify(imagelocation.success));
-      $log.debug("Emit");
-     
-      $rootScope.$broadcast("campaignUploadResponseSuccess", "success");
-     
-      $rootScope.ProdoAppMessage("Campaign added successfully", 'success');
-      $state.reload();
-     
-      $scope.counter++;
-      $log.debug($scope.counter);
-      if ($scope.counter < $scope.fileLength) {
-       
-      } else $scope.counter = 0;
-
-    }
-
-};
-
-
-// upload
-
-
-   var cleanupEventcampaignUploadResponseSuccess = $scope.$on("campaignUploadResponseSuccess",function(event,message){
-       // $log.debug("Listening");
-      
-    
-   });
-
-
-
-
-
-// //////////////////////////////////////////////////////
-
+       });
 
     $scope.$on('$destroy', function(event, message) 
     {
@@ -607,10 +522,7 @@ $scope.addProductCampaignResponseHandler=function(error, imagelocation){
               cleanupeventcampaignartworkimagesdeletesuccess();
               cleanupeventcampaignartworkimagesdeleteerror();
     });
-
-
-
-}])
+}]);
 
 
 angular.module('prodo.CampaignApp').filter('startFrom', function () {

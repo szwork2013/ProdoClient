@@ -148,7 +148,7 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
   var sliderdef = {
       restrict: 'A',
       link: function (scope, ele, attrs, c) {
-        $('#marketinglayerslider').layerSlider({
+        $(ele).layerSlider({
             autoStart: true,
             skin: 'noskin',
             showCircleTimer: false

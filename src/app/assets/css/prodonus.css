@@ -128,8 +128,19 @@ color: #fff;
 	color:#E0E6EE;
 }
 
-#navbar-home-link{
-	color:#E0E6EE;
+
+.navbar-home-link{
+  color:#E0E6EE;
+}
+
+ul.nav-ul a:hover { 
+	color: #000 !important;
+}
+
+.navbar-home-link:focus, .navbar-home-link.active{
+	color: #000 !important;
+	font-size: 15px;
+	font-weight: bold;
 }
 
 .logout-img{
@@ -2578,7 +2589,23 @@ vertical-align: bottom;
     left: 0;
 }
 
+.truncated-org-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
+.prodo-home-hr{
+	background-color:#BDBDBD; height:1px; margin: 1px auto;
+	width: 98%;
+}
+
+.campaign-banner-image
+{
+	width: 100%;
+    /*//height: 52px;*/
+    height : 70px;
+}
 
 /*.fa-check:before {
 content: "\f000";
