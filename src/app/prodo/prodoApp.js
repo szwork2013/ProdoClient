@@ -38,7 +38,7 @@ angular.module('prodo.ProdonusApp', [
   'prodo.SubscriptionApp',
   'prodo.UploadApp',
   'prodo.CampaignApp',
-  'configSocket'
+  'configSocket',
 ]).config([
   '$logProvider', 'growlProvider', '$httpProvider',
   function ($logProvider, growlProvider) {
@@ -74,7 +74,8 @@ angular.module('prodo.ProdonusApp', [
   '$timeout',
   'UserSessionService',
   'OrgRegistrationService',
-  function ($scope, $rootScope, $state, $log, $location, growl, $timeout, UserSessionService, OrgRegistrationService, marketingData) {
+  'notify',
+  function ($scope, $rootScope, $state, $log, $location, growl, $timeout, UserSessionService, OrgRegistrationService, notify, marketingData) {
     $state.transitionTo('prodo.landing.signup');
     $scope.prodlesfollowed = [{}];
     $scope.showSignin = function () {
@@ -92,15 +93,17 @@ angular.module('prodo.ProdonusApp', [
     {
       if(flag==='success')
       {
-        growl.addSuccessMessage(message); 
+        //growl.addSuccessMessage(message); 
+        //notify()
+        notify({message:message,template:'common/notification/views/prodo-notify-success.html',position:'center'});
       }
       else {
         if (flag==='error') {
-          growl.addErrorMessage(message); 
+           notify({message:message,template:'common/notification/views/prodo-notify-error.html',position:'center'});
         } else if (flag==='info') {
-          growl.addInfoMessage(message); 
+          //growl.addInfoMessage(message); 
         } else {
-          growl.addWarningMessage(message); 
+          //growl.addWarningMessage(message); 
         } 
       }
           
