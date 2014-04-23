@@ -22,6 +22,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   $scope.product = {
     product: [{}]
   };
+  $scope.ErrMsging=0;
   $scope.newProduct = {
     product: [{}]
   };
@@ -58,7 +59,8 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
         $rootScope.showModal();
       }else{
      $("#prodo-ProductDetails").css("display", "none");
-     $("#ErrMsging").css("display", "block");
+     $scope.ErrMsging=1;
+     // $("#ErrMsging").css("display", "block");
      $scope.productlist=[];
      document.getElementById("ErrMsging").innerHTML = "<br>Product not available ... Add new product<br><br>";
     }
@@ -75,7 +77,8 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
       // console.log( allproductdata.success.product);
       if ($scope.productlist.length == 0) { //after deleting product, check for next product from product followed,if no product - display msg
          $("#prodo-ProductDetails").css("display", "none");
-        $("#ErrMsging").css("display", "block");
+        // $("#ErrMsging").css("display", "block");
+        $scope.ErrMsging=1;
         document.getElementById("ErrMsging").innerHTML = "<br>Product not available ... Add new product<br><br>";
        
       }
@@ -142,7 +145,8 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
         $('#showHideAllchk').prop('checked', false);
         $("#prodo-ProductDetails").css("display", "block");
         $("productExtraInfo").css("display", "block");
-        $("#ErrMsging").css("display", "none");
+        // $("#ErrMsging").css("display", "none");
+        $scope.ErrMsging=0;
         $log.debug(successData.success.product);
         $scope.getProductFeatures(l_prodle, l_orgid);
         $("#prodo-ProductFeatureTable").css("display", "table");
@@ -170,7 +174,8 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
     else{
      $log.debug(error.message);
      $("#prodo-ProductDetails").css("display", "none");
-     $("#ErrMsging").css("display", "block");
+     // $("#ErrMsging").css("display", "block");
+     $scope.ErrMsging=1;
      if (document.getElementById("ErrMsging") !== null) document.getElementById("ErrMsging").innerHTML = "Product not available , please select product....";
    
     }       
@@ -191,7 +196,8 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
     }, function (error) { //if error geting product
       $log.debug(error);
       $("#prodo-ProductDetails").css("display", "none");
-      $("#ErrMsging").css("display", "inline");
+      // $("#ErrMsging").css("display", "inline");
+      $scope.ErrMsging=1;
       document.getElementById("ErrMsging").innerHTML = "Server Error:" + error.status;
      
     });
@@ -232,7 +238,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   //error handling for add product
   $scope.handleSaveProductFeatureResponse = function (data) {
     if (data.success) {
-       $rootScope.ProdoAppMessage("Feature added successfully", 'success');
+       $rootScope.ProdoAppMessage(data.success.message, 'success');
        $scope.disableEditor();
        $state.reload();
     } else {
@@ -264,7 +270,8 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   else{
     $scope.productForm.$setPristine();
     $("productExtraInfo").css("display", "none");
-    $("#ErrMsging").css("display", "none");
+    // $("#ErrMsging").css("display", "none");
+    $scope.ErrMsging=0;
     //Input check validations are on Client side( using Angular validations)
     // $log.debug($scope.orgidFromSession);
     if (editStatus == 'add') { //add product
@@ -304,7 +311,8 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
          $rootScope.ProdoAppMessage(data.error.message, 'error');
       }
     }
-    } else if (editStatus == 'update') { //update product
+    }
+     else if (editStatus == 'update') { //update product
 
     if($scope.product.category.length==0 ){
 
@@ -771,7 +779,8 @@ $scope.handledeleteProductImagesError=function(error){
     $scope.feature = "";
     if ($scope.currentProdle == undefined || $scope.currentProdle == null || $scope.currentProdle == "") {
       $("#prodo-ProductDetails").css("display", "none");
-        $("#ErrMsging").css("display", "block");
+        // $("#ErrMsging").css("display", "block");
+        $scope.ErrMsging=1;
       document.getElementById("ErrMsging").innerHTML = "<br>Product not available ... Add new product<br><br>";
     }
     else{

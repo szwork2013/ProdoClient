@@ -1563,7 +1563,7 @@ margin-bottom: 10px;
  .prodo-categorypaddingLeft{padding-left: 15px;}
 #prodo-ProductFeatureTable tr:nth-child(even)    { background-color:white;  }
 #prodo-ProductFeatureTable{border: 3px;word-wrap: break-word;  }
-#prodo-product-features_textfield{width: 160px; height: 30PX; font-size: 12PX; display:inline-block;}
+#prodo-product-features_textfield{width: 160px; height: 30PX;  display:inline-block;}
 #prodo-product-featuresDescription_textfield{ height:75px;border-radius:10px;font-size:12px; font-family: Helvetica ;  max-height: 75;max-width: 518;resize: none;}
 #prodo-product-productgeneralbtn{text-align: left; height: 37px; width: 560px; background-color: #f3f5f3; color: black; font-size: 16px;box-shadow: 5px 5px 3px #888888;}
 #prodo-product-productgeneralbtn:hover{ background-color: activeborder;}

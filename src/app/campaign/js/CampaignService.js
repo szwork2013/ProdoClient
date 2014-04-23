@@ -96,7 +96,7 @@ angular.module('prodo.CampaignApp')
 
     return getAllCampaign;
   }
-]);
+])
 
 
 // .factory('deleteCampaigns', [
@@ -124,3 +124,10 @@ angular.module('prodo.CampaignApp')
 //   }
 // ])
 
+ .factory('CampaignWallService', ['$resource', function($resource) {
+  return $resource('/api/prodductcampaign/:prodle/:campaign_id', {},
+  {
+    getAllProductCampaigns: {method: 'GET', params: { prodle: 'id' }},
+    getProductCampaign: {method: 'GET', params: { prodle: 'id', campaign_id :'id'}}
+  });
+}])
