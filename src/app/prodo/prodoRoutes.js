@@ -96,6 +96,9 @@ angular.module('prodo.ProdonusApp')
     })
     .state('prodo.home.wall', {
       views: {
+        'prodo-home-walladvertising': {
+          templateUrl: 'prodo/home/views/prodo.home.walladvertising.tpl.html'
+        },
         'prodo-home-wallsearch' : {
           templateUrl:  'prodo/home/views/prodo.home.wallsearchbar.tpl.html'
         },
