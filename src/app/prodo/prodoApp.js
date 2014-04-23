@@ -137,12 +137,12 @@ angular.module('prodo.ProdonusApp', [
               if (data.org && data.org.orgtype == 'Manufacturer') {
                 $rootScope.orgid = data.org.orgid;
                 $log.debug('manufacturer_' + $rootScope.orgid);
-                $state.transitionTo('prodo.home.wall-org');
+                $state.transitionTo('prodo.home.wall');
               } else if (data.products_followed.length > 0) {
                 var  lastProductFollowed = data.products_followed.length - 1;
                 $rootScope.orgid= data.products_followed[ lastProductFollowed].orgid;
                 $log.debug('others_' + $rootScope.orgid);
-                $state.transitionTo('prodo.home.wall-org');
+                $state.transitionTo('prodo.home.wall');
               } 
             }         
         } 

@@ -21,10 +21,7 @@ angular.module('prodo.ProdonusApp')
       controller:'ProdoMarketingController',
       resolve: {
         marketingData: function(UserService, $rootScope) {
-          console.log('marketing data..');
-          var n = UserService.marketing.getMarketingData().$promise;
-          console.log(n);
-          return n;
+          return UserService.marketing.getMarketingData().$promise;
         } 
       }
     })    
@@ -70,6 +67,43 @@ angular.module('prodo.ProdonusApp')
         }
       }
     })
+
+    /* ----Prodo Home Routes---- */
+    .state('prodo.home', {
+      abstract: true,
+      templateUrl: 'prodo/home/views/prodo.home.container.html',
+      controller:'ProdoHomeController',
+      resolve: {
+        allOrgData: function(OrgService, $rootScope) {
+          return OrgService.all_org_data.getAllOrgAnalytics().$promise;
+        },
+        latestSignupData: function(OrgService, $rootScope) {
+          return OrgService.latest_signup_data.getLatestSignups().$promise;
+        },
+        checkIfSessionExist: function(UserService, $rootScope) {
+            return UserService.Is_user_loggedin.checkUserSession().$promise;
+        } 
+      },
+      onEnter: function(UserSessionService, checkIfSessionExist, $state){
+        if (checkIfSessionExist.success) {
+          if (checkIfSessionExist.success.user.prodousertype == 'business' && checkIfSessionExist.success.user.org == undefined) {
+            $state.transitionTo('prodo.orgregistration.company');
+          } else if (checkIfSessionExist.success.user.isOtpPassword) {
+            $state.transitionTo('prodo.landing.resetpassword');
+          } 
+        }
+      }
+    })
+    .state('prodo.home.wall', {
+      views: {
+        'prodo-home-wallsearch' : {
+          templateUrl:  'prodo/home/views/prodo.home.wallsearchbar.tpl.html'
+        },
+        'prodo-home-wall' : {
+          templateUrl:  'prodo/home/views/prodo.home.wall.tpl.html'
+        }
+      }
+    }) 
 
     /* ----User Account Routes---- */
     .state('prodo.account-user', {
@@ -268,8 +302,8 @@ angular.module('prodo.ProdonusApp')
       }
       })
 
-    /* ----ProdoHome Wall Routes---- */
-    .state('prodo.home', {
+    /* ----Prodo ProductWall Routes---- */
+    .state('prodo.productwall', {
       resolve: {
         orgdata: function(OrgService, $rootScope) {
           return OrgService.org_data.getOrgSettings({orgid: $rootScope.orgid}).$promise;
@@ -298,7 +332,7 @@ angular.module('prodo.ProdonusApp')
         } 
       },
       controller: 'ProdoWallController',
-      onEnter: function(UserSessionService, checkIfSessionExist, $state){
+      onEnter: function(UserSessionService, checkIfSessionExist, $state, $rootScope){
         if (checkIfSessionExist.success) {
           if (checkIfSessionExist.success.user.prodousertype == 'business' && checkIfSessionExist.success.user.org == undefined) {
             $state.transitionTo('prodo.orgregistration.company');
@@ -307,22 +341,22 @@ angular.module('prodo.ProdonusApp')
           } 
         }
       },
-      templateUrl: 'prodo/home/views/prodo.container.html',
+      templateUrl: 'prodo/productwall/views/prodo.container.html',
       abstract: true
 
     })    
-    .state('prodo.home.wall-org', {
+    .state('prodo.productwall.wall-org', {
       views: {
         'prodo-content' : {
           templateUrl:  'org/manageorg/views/prodo.wall.org.tpl.html',
           controller: 'ProdoWallOrgController',
         },
         'prodo-advertisment' : {
-          templateUrl:  'prodo/home/views/prodo.wall.advertisment.tpl.html'
+          templateUrl:  'prodo/productwall/views/prodo.wall.advertisment.tpl.html'
         }
       }
     })    
-    .state('prodo.home.wall-product', {
+    .state('prodo.productwall.wall-product', {
       resolve: {
         productData: function(ProductService, $rootScope) {
           return ProductService.getProduct({orgid: $rootScope.orgid, prodle: $rootScope.product_prodle}).$promise;
@@ -334,11 +368,11 @@ angular.module('prodo.ProdonusApp')
           controller: 'ProductController'
         },
         'prodo-advertisment' : {
-          templateUrl:  'prodo/home/views/prodo.wall.advertisment.tpl.html'
+          templateUrl:  'prodo/productwall/views/prodo.wall.advertisment.tpl.html'
         }
       }
     }) 
-   .state('prodo.home.wall-warranty', {
+   .state('prodo.productwall.wall-warranty', {
       resolve: {
         warrantydata: function(WarrantyService, $rootScope) {
           return WarrantyService.get_latest5warranties.getLatestWarrantyDetails({userid: $rootScope.usersession.currentUser.userid}).$promise;
@@ -350,39 +384,39 @@ angular.module('prodo.ProdonusApp')
           controller: 'ProdoWallWarrantyController',
         },
         'prodo-advertisment' : {
-          templateUrl:  'prodo/home/views/prodo.wall.advertisment.tpl.html'
+          templateUrl:  'prodo/productwall/views/prodo.wall.advertisment.tpl.html'
         }
       }
     }) 
-    .state('prodo.home.wall-campaign', {
+    .state('prodo.productwall.wall-campaign', {
       views: {
         'prodo-content' : {
           templateUrl:  'campaign/views/prodo.wall.campaign.tpl.html',
           controller: 'ProdoWallCampaignController',
         },
         'prodo-advertisment' : {
-          templateUrl:  'prodo/home/views/prodo.wall.advertisment.tpl.html'
+          templateUrl:  'prodo/productwall/views/prodo.wall.advertisment.tpl.html'
         }
       }
     }) 
-    .state('prodo.home.wall-blog', {
+    .state('prodo.productwall.wall-blog', {
       views: {
         'prodo-content' : {
           templateUrl:  'blog/views/prodo.wall.blog.tpl.html'
         },
         'prodo-advertisment' : {
-          templateUrl:  'prodo/home/views/prodo.wall.advertisment.tpl.html'
+          templateUrl:  'prodo/productwall/views/prodo.wall.advertisment.tpl.html'
         }
       }
     }) 
-    .state('prodo.home.wall-dashboard', {   
+    .state('prodo.productwall.wall-dashboard', {   
       views: {
         'prodo-content' : {
           templateUrl:  'dashboard/views/prodo.wall.dashboard.tpl.html',
           controller: 'ProdoDashboardController'
         },
         'prodo-advertisment' : {
-          templateUrl:  'prodo/home/views/prodo.wall.advertisment.tpl.html'
+          templateUrl:  'prodo/productwall/views/prodo.wall.advertisment.tpl.html'
         }
       } 
     })
