@@ -21,13 +21,32 @@ $scope.customerinvites=[{'name': '','email': ''}];
 
 $scope.group = { 'newgroupname': '','grouppname': '','invites': '','newinvites': ''};
 
-$scope.groups = currentorggroup.success.usergrp; 
+if(currentorggroup.success)
+{
+    $scope.groups = currentorggroup.success.usergrp; 
+}
+else
+{
+    $rootScope.ProdoAppMessage("There is some issue with the server! Please try after some time");
+}
 
+if(currentorgaddr.success)
+{
 $scope.orgaddr = currentorgaddr.success.orgaddress;
+}
+else{
+    $rootScope.ProdoAppMessage("There is some issue with the server! Please try after some time");
+}
 
-$scope.orgImages = currentorgdata.success.organization.org_images;
+if(currentorgdata.success)    
+{
+    $scope.orgImages = currentorgdata.success.organization.org_images; 
 
-$scope.orgKeyClients = currentorgdata.success.organization.keyclients;
+    $scope.orgKeyClients = currentorgdata.success.organization.keyclients;
+}else 
+{
+    $rootScope.ProdoAppMessage("There is some issue with the server! Please try after some time");
+}
 
 var indexOfOrgAddress = 0 ; 
 
@@ -49,6 +68,10 @@ $scope.regularExpressionForCompany = /^company/i;
 // The following function is written to calculate total number of addresses  for an organization.
 // The purpose behing writing this function is to restrict user from deleting all addresses from the list
 //
+$scope.fromOrgDetails = "From: support@prodonus.com";
+
+$scope.fromOrgCustDetails = "From: support@prodonus.com";
+
 $scope.calcNumberOfOrgAddresses = function()
 {
   if($scope.orgaddr[1] === undefined && $scope.orgaddr[0] !== undefined)

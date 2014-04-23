@@ -89,13 +89,13 @@ angular.module('prodo.CampaignApp')
   '$resource',
   '$log',
      function ($rootScope, $resource, $log) {
-    var getAllCampaign = { Product: $resource('/api/productcampaign/:orgid', {}, { getCampaignDetails: { method: 'GET' , params : {orgid : '@orgid'}} }) };
+    var getAllCampaign = { Product: $resource('/api/orgcampaign/:orgid', {}, { getCampaignDetails: { method: 'GET' , params : {orgid : '@orgid'}} }) };
 
 
 
     return getAllCampaign;
   }
-]);
+])
 
 
 // .factory('deleteCampaigns', [
@@ -123,3 +123,10 @@ angular.module('prodo.CampaignApp')
 //   }
 // ])
 
+ .factory('CampaignWallService', ['$resource', function($resource) {
+  return $resource('/api/prodductcampaign/:prodle/:campaign_id', {},
+  {
+    getAllProductCampaigns: {method: 'GET', params: { prodle: 'id' }},
+    getProductCampaign: {method: 'GET', params: { prodle: 'id', campaign_id :'id'}}
+  });
+}])
