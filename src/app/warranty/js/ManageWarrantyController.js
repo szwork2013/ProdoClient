@@ -16,8 +16,8 @@ angular.module('prodo.WarrantyApp')
    
 $scope.$state = $state;
 $scope.format="dd MMM yyyy"
-var setmaxPurchaseDateValue=moment().format("YYYY-MM-DD");
-$scope.maxDatePurchase=moment().format("YYYY-MM-DD");
+var setmaxPurchaseDateValue=moment().format("dd MMM yyyy");
+$scope.maxDatePurchase=moment();
 $("#prodo_warranty_purchase_date").attr('max', setmaxPurchaseDateValue);
 $("#prodo_warranty_purchase_dateUpdate").attr('max', setmaxPurchaseDateValue);
 $scope.newWarranty_Responsewarranty_id="";
@@ -408,45 +408,33 @@ $scope.handleGetWarrantySuccess=function(successData,l_warrantyid){
  $scope.addWarranty = function (editStatus) {
  isLoggedin.checkUserSession(
  function (successData) {
-
   if(successData.error){
    $scope.handleUploadError(successData.error);
   } 
-
  else{
   if($scope.form.WarrantyForm.$invalid){
       $scope.form.WarrantyForm.submitted=true;
+      $log.debug("Invalid data");
+       if($scope.productwarranty.purchase_date > $scope.maxDatePurchase){
+      $log.debug("Wrong purchase_date");
+      $rootScope.ProdoAppMessage("Purchase date should not be greater than todays date. Please Enter correct purchase date", 'error'); 
+    }
     }
     else{
   $scope.getNewWarrantyData();
   $log.debug( $scope.newWarranty);
 
   if($scope.isValidImage==true){
-      $scope.socket.emit('addWarranty', $rootScope.usersession.currentUser.userid, $scope.newWarranty.warrantydata,$scope.file_data);
-      $log.debug("data emitted");
-     
+
+       $scope.socket.emit('addWarranty', $rootScope.usersession.currentUser.userid, $scope.newWarranty.warrantydata,$scope.file_data);
+       $log.debug("data emitted");
+ 
   }
   else{
   	$log.debug("Upload invoice image");
     $rootScope.ProdoAppMessage("Invoice is mandatory. Please upload the scanned image , digital or pdf of invoice...", 'error');
    }
 
-
-  // WarrantyService.add_warranty.addWarrantyDetail(
-  // 	{
-  // 		userid:$rootScope.usersession.currentUser.userid
-  // 	},
-  // 	$scope.newWarranty,function(success){
-  // 		if(success.success){
-  // 	     $scope.handleAddWarrantySuccess(success);
-  // 		}
-  //      else if(success.error){
-  //      	 $scope.handleAddWarrantyError(success.error);
-  //      }
-
-  // 	},function(error){
-  //     $log.debug(error);
-  // 	});
    }
  }
  }); 
@@ -555,6 +543,15 @@ $scope.updateWarranty=function(){
 $log.debug($scope.warranty);
   if($scope.form.WarrantyFormUpdate.$invalid){
       $scope.form.WarrantyFormUpdate.submitted=true;
+      $log.debug("Invalid data");
+      if($scope.warranty.purchase_date > $scope.maxDatePurchase){
+      $log.debug("Wrong purchase_date");
+      $rootScope.ProdoAppMessage("Purchase date should not be greater than todays date. Please Enter correct purchase date", 'error'); 
+    }
+     if($scope.warranty.expirydate < $scope.warranty.purchase_date){
+      $log.debug("Wrong expiry date");
+      $rootScope.ProdoAppMessage("Expiry date should not be greater than purchase date. Please Enter correct expiry date", 'error'); 
+    }
     }
     else{
 
@@ -689,12 +686,13 @@ $scope.getFile = function (a) {
             
              $log.debug( 'Image size must ne less than 2MB');
              $rootScope.ProdoAppMessage("Image size must ne less than 2MB", 'error');       
-         
+             $('#EditWarranty')[0].reset();
           }
          // }  
      } 
      else{
        $rootScope.ProdoAppMessage("Please upload invoice of correct format ", 'error'); 
+       $('#EditWarranty')[0].reset();
      }
   
     });
@@ -710,7 +708,7 @@ $scope.getFile = function (a) {
 
 
 $scope.warrantyResponseHandler=function(error, imagelocation){
-	
+	    $('#EditWarranty')[0].reset();
     // $("#spinner").hide();
  if (error) {
       // $("#bar").hide();

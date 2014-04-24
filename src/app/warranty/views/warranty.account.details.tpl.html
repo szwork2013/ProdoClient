@@ -180,14 +180,14 @@
 
 
 
-             ﻿  <input id="prodo_warranty_purchase_date"  type="text" placeholder=""name="warranty_purchase_date" ng-model="productwarranty.purchase_date" class="warranty-textField form-control prodo-validation prodo-display-right"  datepicker-popup="{{format}}"  is-open="opened1" max="maxDatePurchase"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)" required close-text="Close" >
+             ﻿  <input id="prodo_warranty_purchase_date"  type="text" placeholder=""name="warranty_purchase_date" ng-model="productwarranty.purchase_date" class="warranty-textField form-control prodo-validation prodo-display-right"  datepicker-popup="{{format}}"  is-open="opened1" max="maxDatePurchase" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" required close-text="Close" >
 
 
 
 
               <div  ng-show="(form.WarrantyForm.warranty_purchase_date.$dirty && editMode.editorEnabledWarranty ==true) ||(form.WarrantyForm.submitted==true && form.WarrantyForm.warranty_purchase_date.$invalid==true)" class="prodo-warranty-Invalid">
 			  <span ng-show="form.WarrantyForm.warranty_purchase_date.$error.required">Please enter purchase date</span>
-			 
+          
 			 </div>
 
 
@@ -233,7 +233,7 @@
 
               </td>
                    <td class="prodo-width50"> Warranty type &nbsp; &nbsp;&nbsp; 
-                   <select ng-init="productwarranty.type = type[1]"  class="warranty-textField form-control prodo-validation prodo-display-right" ng-model="productwarranty.type" ng-options="t for t in type"  required name="warranty_type">
+                   <select ng-init="productwarranty.type = type[0]"  class="warranty-textField form-control prodo-validation prodo-display-right" ng-model="productwarranty.type" ng-options="t for t in type"  required name="warranty_type">
                    </select>
                    
                 
@@ -663,12 +663,13 @@
 
 
           <center>
-              <div class="controls" > 
+              <div class="controls" > <form id="fileInputsUploadwarranty">
                 <span class="btn btn-primary fileinput-button controls-upload prodo-uploadBtnWidth" >
                 <i class="glyphicon glyphicon-upload "></i>
                 <input   type="file" name="file" ng-file-select="onFileSelect($files)"  ng-click="uploadSrc = 'warranty';">
                 <span>Change Invoice </span>
                 </span>
+                </form>
               </div>
                 <div id="FileName" > 
           </div>
