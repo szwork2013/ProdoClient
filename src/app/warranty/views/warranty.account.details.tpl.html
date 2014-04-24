@@ -233,7 +233,7 @@
 
               </td>
                    <td class="prodo-width50"> Warranty type &nbsp; &nbsp;&nbsp; 
-                   <select ng-init="productwarranty.type = type[1]"  class="warranty-textField form-control prodo-validation prodo-display-right" ng-model="productwarranty.type" ng-options="t for t in type"  required name="warranty_type">
+                   <select ng-init="productwarranty.type = type[0]"  class="warranty-textField form-control prodo-validation prodo-display-right" ng-model="productwarranty.type" ng-options="t for t in type"  required name="warranty_type">
                    </select>
                    
                 
@@ -663,12 +663,13 @@
 
 
           <center>
-              <div class="controls" > 
+              <div class="controls" > <form id="fileInputsUploadwarranty">
                 <span class="btn btn-primary fileinput-button controls-upload prodo-uploadBtnWidth" >
                 <i class="glyphicon glyphicon-upload "></i>
                 <input   type="file" name="file" ng-file-select="onFileSelect($files)"  ng-click="uploadSrc = 'warranty';">
                 <span>Change Invoice </span>
                 </span>
+                </form>
               </div>
                 <div id="FileName" > 
           </div>

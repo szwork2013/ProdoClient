@@ -407,7 +407,7 @@ please write to business@prodonus.com. We would get in touch with you."
                                   <tr>
                                      <td style="border-color:white;width:50%"><input class="form-control" ng-model="currentclient.name" type="text" placeholder="Name" style="width:100%"></td>
                                   <td style="border-color:white;width:50%">
-                                    <div class="controls" > <form class="fileInputsUploadorgkeyclient">
+                                    <div class="controls" > <form id="fileInputsUploadorgkeyclient">
                                       <span class="btn btn-primary fileinput-button controls-upload prodo-uploadBtnWidth" style="width:100%;">
                                         <i class="glyphicon glyphicon-upload " style="padding-left: 17%;"></i>
                                         <input   type="file" name="file" ng-file-select="onFileSelect($files)" ng-click="uploadSrc = 'orgkeyclient';" > </form>
@@ -596,7 +596,7 @@ business@prodonus.com</textarea>
             <tr>
               <td>Logo</td>
               <td>
-                <div class="controls" > <form class="fileInputsUploadorglogo">
+                <div class="controls" > <form id="fileInputsUploadorglogo">
                   <span class="btn btn-primary fileinput-button controls-upload prodo-uploadBtnWidth" >
                     <i class="glyphicon glyphicon-upload "></i>
                     <input   type="file" name="file" ng-file-select="onFileSelect($files)" ng-click="uploadSrc = 'orglogo';">
@@ -609,7 +609,7 @@ business@prodonus.com</textarea>
             <tr>
               <td>Art Work</td>
               <td>
-                <div class="controls" > <form class="fileInputsUploadorg">
+                <div class="controls" > <form id="fileInputsUploadorg">
                   <span class="btn btn-primary fileinput-button controls-upload prodo-uploadBtnWidth" >
                     <i class="glyphicon glyphicon-upload "></i>
                     <input   type="file" name="file" ng-file-select="onFileSelect($files)" multiple ng-click="uploadSrc = 'org';">

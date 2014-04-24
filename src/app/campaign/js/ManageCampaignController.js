@@ -457,11 +457,13 @@ angular.module('prodo.CampaignApp')
                             if (($scope.file.size / 1024 < 2048)) {
                                 $scope.isValidImage=true;
                               } else {
-                                 $rootScope.ProdoAppMessage("Image size must ne less than 2MB", 'error');        
+                                 $rootScope.ProdoAppMessage("Image size must ne less than 2MB", 'error');  
+                                 $('#addCampaignForm')[0].reset();      
                               }
                          } 
                          else{
                            $rootScope.ProdoAppMessage("Please upload image only", 'error'); 
+                            $('#addCampaignForm')[0].reset();      
                            }
                         
                           });
@@ -476,6 +478,7 @@ angular.module('prodo.CampaignApp')
       });
 
       $scope.addProductCampaignResponseHandler=function(error, imagelocation){
+       $('#addCampaignForm')[0].reset();      
        if (error) {         
             if (error.error.code == 'AP003') { // user already exist
               $log.debug(error.error.code + " " + error.error.message);

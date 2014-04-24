@@ -114,12 +114,13 @@
 			<td  >      
 			    <div class="manage-Campaign-td2 manage-campaign-marginbottom" >
 		            <div    ng-app="prodo.UploadApp" ng-controller="UploadController"  >
-					   <div class="controls" > 
+					   <div class="controls" > <form id="fileInputsUploadcampaign">
 			                  <span class="btn btn-primary fileinput-button controls-upload prodo-uploadBtnWidth" style="padding-left:28px;left:0px;width:230px;">
 			                    <i class="glyphicon glyphicon-upload "></i>
 			                    <input   type="file" name="file" ng-file-select="onFileSelect($files)" multiple ng-click="uploadSrc = 'campaign';">
 			                    <span>Upload Campaign Art Work</span>
 			                  </span>
+			                  </form>
 					   </div>
 					   <div id="FileName" >  </div>
 		           </div>
@@ -252,7 +253,7 @@
 	</div>
 </div>
 
- <form name="form.campaign" ng-submit='' novalidate> 
+ <form name="form.campaign" ng-submit='' novalidate id="addCampaignForm"> 
       <div ng-if="addNewCampaign === 1" style="margin-top:0%;">
 	      <div class="manage-Campaign-tr">
 			<div class="manage-Campaign-td1">*Product Name:</div> 

@@ -689,12 +689,13 @@ $scope.getFile = function (a) {
             
              $log.debug( 'Image size must ne less than 2MB');
              $rootScope.ProdoAppMessage("Image size must ne less than 2MB", 'error');       
-         
+             $('#EditWarranty')[0].reset();
           }
          // }  
      } 
      else{
        $rootScope.ProdoAppMessage("Please upload invoice of correct format ", 'error'); 
+       $('#EditWarranty')[0].reset();
      }
   
     });
@@ -710,7 +711,7 @@ $scope.getFile = function (a) {
 
 
 $scope.warrantyResponseHandler=function(error, imagelocation){
-	
+	    $('#EditWarranty')[0].reset();
     // $("#spinner").hide();
  if (error) {
       // $("#bar").hide();
