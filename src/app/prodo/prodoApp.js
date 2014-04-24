@@ -13,6 +13,7 @@ angular.module('prodo.AdminApp', []);
 angular.module('prodo.SubscriptionApp', []);
 angular.module('prodo.UploadApp', []);
 angular.module('prodo.CampaignApp', []);
+angular.module('prodo.ProdoHomeApp', []);
 angular.module('prodo.ProdonusApp', [
   'ui.router',
   'ui.bootstrap',
@@ -38,6 +39,7 @@ angular.module('prodo.ProdonusApp', [
   'prodo.SubscriptionApp',
   'prodo.UploadApp',
   'prodo.CampaignApp',
+  'prodo.ProdoHomeApp',
   'configSocket',
 ]).config([
   '$logProvider', 'growlProvider', '$httpProvider',
