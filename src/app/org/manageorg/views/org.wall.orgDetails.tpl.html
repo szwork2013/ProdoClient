@@ -37,6 +37,17 @@
                   <br>
                   <b>Organization Description:</b><div ng-bind="org.description"></div>
                   <br>
+                  <b>Organization Category:</b><div>
+                    
+                    <ul style = "margin-left:0%;padding-left:0%">
+                        <li ng-repeat = "tags in org.industry_category"   class="prodo-categoryTags">
+                            <span ng-bind="tags"></span>
+                         </li>
+                    </ul>
+
+
+                  </div>
+                  <br>
                   <button ng-click="enableEditor()" class="btn btn-primary btn-sm pull-right" style="width:80px;"><i class="fa fa-pencil fa-fw"></i>&nbsp;&nbsp;Edit</button>
               </div>
 
@@ -52,12 +63,20 @@
                   </div>
 
                   <div class="error-message" ng-if="invalidDesc !== '' "ng-bind="invalidDesc"></div>  <br> 
-                  
+                   <b>*Organization Category</b>
+                   <div  >
+                           <tags-input  minTags="1" add-on-blur="true" list="returnOrganizationCategory()" ng-model="org.industry_category" min-length="1" required>
+                           </tags-input>
+                   </div>
+                    <div class="error-message" ng-if="errorCategory !=='' " ng-bind="errorCategory"></div>
+                   <br>
                   <b>*Password:</b>
                   <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
                         <input  type="password"  ng-model="user.password" type="password" name="password" class="form-control"  placeholder="Please enter your password" required>
                   </div>
+
+
 
 
 
