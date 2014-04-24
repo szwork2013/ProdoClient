@@ -180,14 +180,14 @@
 
 
 
-             ﻿  <input id="prodo_warranty_purchase_date"  type="text" placeholder=""name="warranty_purchase_date" ng-model="productwarranty.purchase_date" class="warranty-textField form-control prodo-validation prodo-display-right"  datepicker-popup="{{format}}"  is-open="opened1" max="maxDatePurchase"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)" required close-text="Close" >
+             ﻿  <input id="prodo_warranty_purchase_date"  type="text" placeholder=""name="warranty_purchase_date" ng-model="productwarranty.purchase_date" class="warranty-textField form-control prodo-validation prodo-display-right"  datepicker-popup="{{format}}"  is-open="opened1" max="maxDatePurchase" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" required close-text="Close" >
 
 
 
 
               <div  ng-show="(form.WarrantyForm.warranty_purchase_date.$dirty && editMode.editorEnabledWarranty ==true) ||(form.WarrantyForm.submitted==true && form.WarrantyForm.warranty_purchase_date.$invalid==true)" class="prodo-warranty-Invalid">
 			  <span ng-show="form.WarrantyForm.warranty_purchase_date.$error.required">Please enter purchase date</span>
-			 
+          
 			 </div>
 
 
