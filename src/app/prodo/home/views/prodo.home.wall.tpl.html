@@ -6,75 +6,104 @@
 		}
 
 		#campaign-slider-wrapper {
-			padding: 5px;
-			/*margin-top: 10px;*/
+		/*	padding: 5px;*/
+			margin-top: 10px;
 		}
 
 </style>
 
 <div class="prodo-wall-advertisment-container" id="prodo-advertisment-container">
 	<div prodo-signin-modal></div>
-	<div style="margin: 20px;" class="row">
-    <h5 class="prodo-wall-org-heading-text">LIST OF ORGANIZATIONS</h5>
-    <hr size=3 class="prodo-wall-org-hr" noshade>
-    <br>
-	  <div style="padding-right: 3px; padding-left: 3px; margin-bottom:10px;" class="col-md-6" ng-repeat="analytics in allorganalytics | limitTo:10">
-		  <div style="border:1px solid #b3b3b3; width: 100%; margin:2px; min-height: 100px; border-radius: 1px;">
-		  	<div class="row container">
-		  		<div style="margin: 1px auto; height: 110px; padding-right: 0px; padding-left: 0px; border-right:1px solid #b3b3b9;" class="col-md-3">
-		  			<a href="" ng-click='transitionToOrgWall(analytics.orgid)'>
-		  				<div style="margin: 2px;">
-			  				<img ng-show="analytics.org_logo" ng-src="{{analytics.org_logo.image}}" style="width:100%; height:110px;" class="img-rounded">
-		    				<img ng-hide="analytics.org_logo" src="../../../assets/images/if_no_logo_images_available.gif" style=" width:100%; height:110px;" class="img-rounded">
+	<div style="margin: 10px;" class="row">
+		<div style="padding-right: 10px; padding-left: 3px; margin-bottom:10px; border-right:1px solid #b3b3b9;" class="col-md-9">
+			<h5 class="prodo-wall-org-heading-text">LIST OF ORGANIZATIONS</h5>
+	    <hr size=3 class="prodo-wall-org-hr" noshade>
+	    <br>
+			<div style="margin: 10px;" class="row">
+				<div style="margin: 5px auto;"  class="col-md-4" ng-repeat="analytics in allorganalytics | limitTo:10">
+					<a href="" ng-click='transitionToOrgWall(analytics.orgid)'>
+						<div style="height: 140px;" class="div-outer">
+		  				<div class="inner-1" style="margin: 2px;">
+			  				<img ng-show="analytics.org_logo" ng-src="{{analytics.org_logo.image}}" style="width:180px; height:140px;" class="img-rounded">
+		    				<img ng-hide="analytics.org_logo" src="../../../assets/images/if_no_logo_images_available.gif" style=" width:180px; height:140px;" class="img-rounded">
 		  				</div>
-		  			</a>
-		    	</div>
-		    	<div style="margin: 1px auto; height: 110px; padding-right: 0px; padding-left: 0px;" class="col-md-9">
-		    		<div style="margin: 2px; display:block;">
-		    			<h6 class="truncated-org-name"><strong><em>{{analytics.name}}</em></strong></h6>
-		    			<h6 class="truncated-org-name">{{analytics.description}}</h6>
+			  			<div class="inner-2" style="margin: 2px; height:140px;">
+			  				<h5><strong><em>{{analytics.name}}</em></strong></h5>
+			  				<p style="font-size: 14px; font-weight: 200;">{{analytics.productcount}} Products</p> 
+			    			<p  style="font-size: 12px; font-weight: 100;">[ {{analytics.followedcount}} Talkins | {{analytics.commentcount}} Comments ]</p>
+			  			</div>
 		    		</div>
-		    		<hr class="prodo-home-hr" size=3 noshade>
-		    		<div style="margin: 2px; display:block;">
-		    			<p style="font-size: 10px; font-weight: 200;">{{analytics.productcount}} Products</p> 
-		    			<p  style="font-size: 10px; font-weight: 100;">[ {{analytics.followedcount}} Talkins | {{analytics.commentcount}} Comments ]</p>
-		    		</div>
+		    	</a>	
+				</div>
+			</div>
+			<div style="margin: 10px;" ng-show='latestsignups.length != 0'>
+		    <br>
+		    <h5 class="prodo-wall-org-heading-text">NEW SIGNUP</h5>
+		    <hr size=3 class="prodo-wall-org-hr" noshade>
+		    <br>
+		    <div style="margin: 10px;" class="row">
+		      <div style="margin: 5px auto;" class="col-md-4" ng-repeat="signup in latestsignups">
+		      	<a href="" ng-click='transitionToOrgWall(signup.orgid)'>
+		      		<div style="height: 140px;" class="div-outer">
+		      			<div class="inner-1" style="margin: 2px;">
+					        <img style="width:180px; height:140px;" ng-show="signup.org_logo" ng-src="{{signup.org_logo.image}}" alt="{{signup.name}}" class="img-rounded">
+					        <img style="width:180px; height:140px;" ng-hide="signup.org_logo" src="../../../assets/images/if_no_logo_images_available.gif" alt="{{signup.name}}" class="img-rounded">
+		      			</div>
+		      			<div class="inner-2" style="margin: 2px;">
+		      				<h5><strong><em>{{signup.name}}</em></strong></h5>
+				  				<p style="font-size: 14px; font-weight: 200;">{{signup.productcount}} Products</p> 
+				    			<p  style="font-size: 12px; font-weight: 100;">[ {{signup.followedcount}} Talkins | {{signup.commentcount}} Comments ]</p>
+		      			</div>
+
+		      		</div>
+		        </a>
 		    	</div>
-		  	</div>
-		  	<hr class="prodo-home-hr" size=3 noshade>
-		  	<div class="">
-		  		<div id="campaign-slider-wrapper">	
+		    </div>
+		  </div>
+		  <div style="margin: 10px;" ng-show='orgsponsers.length != 0'>
+		    <br>
+		    <h5 class="prodo-wall-org-heading-text">SPONSERED</h5>
+		    <hr size=3 class="prodo-wall-org-hr" noshade>
+		    <br>
+		    <div style="margin: 10px;" class="row">
+		      <div style="margin: 5px auto;" class="col-md-4" ng-repeat="sponser in orgsponsers">
+		      	<a href="" ng-click='transitionToOrgWall(sponser.orgid)'>
+		      		<div style="height: 140px;" class="div-outer">
+		      			<div class="inner-1" style="margin: 2px;">
+					        <img style="width:180px; height:140px;" ng-show="sponser.org_logo" ng-src="{{sponser.org_logo.image}}" alt="{{sponser.name}}" class="img-rounded">
+					        <img style="width:180px; height:140px;" ng-hide="sponser.org_logo" src="../../../assets/images/if_no_logo_images_available.gif" alt="{{sponser.name}}" class="img-rounded">
+		      			</div>
+		      			<div class="inner-2" style="margin: 2px;">
+		      				<h5><strong><em>{{sponser.name}}</em></strong></h5>
+				  				<p style="font-size: 14px; font-weight: 200;">{{sponser.productcount}} Products</p> 
+				    			<p  style="font-size: 12px; font-weight: 100;"> {{sponser.followedcount}} Talkins</p>
+				    			<p  style="font-size: 12px; font-weight: 100;"> {{sponser.commentcount}} Comments </p>
+		      			</div>
+
+		      		</div>
+		        </a>
+		    	</div>
+		    </div>
+		  </div>
+		</div>
+
+		<div style="padding-right: 3px; padding-left: 10px; margin-bottom:10px;" class="col-md-3">
+			<h5 class="prodo-wall-org-heading-text">CURRENT CAMPAIGNS</h5>
+	    <hr size=3 class="prodo-wall-org-hr" noshade>
+	    <br>
+			<div ng-repeat="analytics in allorganalytics | limitTo:10">
+				<a href="">
+					<div ng-show="analytics.campaign.length != 0" id="campaign-slider-wrapper">
+						<p style="font-size: 18px; font-weight: 300; margin: 0px;" class="truncated-product-name" tooltip="{{analytics.name}}" tooltip-placement="top">{{analytics.name}}</p>	
 						<div id="campaignlayerslider" marketing-slider class="ls-wp-container" style="width:100%;height:80px;">
-							<div ng-click='transitionToCampaignWall(analytics.orgid)' ng-show="!analytics.campaign" class="ls-slide" data-ls="transition2d:5;">
-								<img style="width:100%;height:80px;" class="ls-l" src="../../../assets/images/banner.jpg">
-							</div>
-							<div ng-click='transitionToCampaignWall(analytics.orgid)' ng-show="analytics.campaign" class="ls-slide" ng-repeat="slide in analytics.campaign" data-ls="transition2d:5;">
+							<div ng-show="analytics.campaign" class="ls-slide" ng-repeat="slide in analytics.campaign" ng-click='transitionToCampaignWall(slide.orgid, slide.campaign_id, slide.prodle)' data-ls="transition2d:5;">
 								<img ng-show="slide.banner_image" style="" class="ls-bg" ng-src="{{slide.banner_image.image}}">
-								<img ng-hide="slide.banner_image" style="" class="ls-bg" src="../../../assets/images/campaign-logo.jpg">
-								<h6 class="ls-l-1" style="top:47%; left:20px; durationin:500;delayin:600;fadein:false;rotatein:-30;durationout:500;fadeout:false;slidedirection:fade;slideoutdirection:fade;scalein:0.1;scaleout:0.1;font-weight: 200; box-shadow: 0px 2px 8px -2px black; padding: 2px; font-size:15px;color:#ffffff;background:#ff7700;border-radius:5px;white-space: nowrap;">{{slide.name}}</h6>
-								<h6 class="ls-l-1" style="top:80%; left:20px; durationin:500;delayin:500;fadein:false;rotatein:-30;durationout:500;fadeout:false;slidedirection:fade;slideoutdirection:fade;scalein:0.1;scaleout:0.1;font-weight: 200; box-shadow: 0px 2px 8px -2px black;padding: 2px;font-size:13px;color:#ffffff;background:#000000;border-radius:5px;white-space: nowrap;">{{slide.description}}</h6>
+								<img ng-hide="slide.banner_image" style="" class="ls-bg" src="../../../assets/images/banner.jpg">
 							</div>
 						</div>
 					</div>
-		  	</div>
-		  </div>
+				</a>
+			</div>
 		</div>
-	</div> 
-
-	<div style="margin: 20px;" ng-show='latestsignups.length != 0'>
-    <br>
-    <h5 class="prodo-wall-org-heading-text">NEW SIGNUP</h5>
-    <hr size=3 class="prodo-wall-org-hr" noshade>
-    <br>
-    <div class="row">
-      <div class="prodo-wall-org-product-container col-xs-2" ng-repeat="signup in latestsignups">
-      	<a href="" ng-click='transitionToOrgWall(signup.orgid)'>
-	      	<p class="truncated-org-name prodo-wall-org-product-name" tooltip="{{signup.name}}" tooltip-placement="right">{{signup.name}}</p>
-	        <img ng-show="signup.org_logo" ng-src="{{signup.org_logo.image}}" alt="{{signup.name}}" class="prodo-wall-org-productimg img-rounded">
-	        <img ng-hide="signup.org_logo" src="../../../assets/images/if_no_logo_images_available.gif" alt="{{signup.name}}" class="prodo-wall-org-productimg img-rounded">
-        </a>
-    	</div>
-    </div>
-  </div>
-
+	</div>
 </div>
