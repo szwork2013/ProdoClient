@@ -6,6 +6,18 @@ angular.module('prodo.ProdoWallApp')
 
     if ($state.$current.name == 'prodo.productwall.wall-org') {
       $rootScope.index = 0;
+    } else {
+        if ($state.$current.name == 'prodo.productwall.wall-product') {
+          $rootScope.index = 1;
+      } else if ($state.$current.name == 'prodo.productwall.wall-warranty') {
+          $rootScope.index = 2;
+      } else if ($state.$current.name == 'prodo.productwall.wall-campaign') {
+          $rootScope.index = 3;
+      } else if ($state.$current.name == 'prodo.productwall.wall-blog') {
+          $rootScope.index = 4;
+      } else if ($state.$current.name == 'prodo.productwall.wall-dashboard') {
+          $rootScope.index = 4;
+      } 
     }
 
     $scope.$watch('$state.$current.locals.globals.checkIfSessionExist', function (checkIfSessionExist) {

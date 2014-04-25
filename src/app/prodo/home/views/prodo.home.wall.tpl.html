@@ -29,8 +29,13 @@
 		  				</div>
 			  			<div class="inner-2" style="margin: 2px; height:140px;">
 			  				<h5><strong><em>{{analytics.name}}</em></strong></h5>
-			  				<p style="font-size: 14px; font-weight: 200;">{{analytics.productcount}} Products</p> 
-			    			<p  style="font-size: 12px; font-weight: 100;">[ {{analytics.followedcount}} Talkins | {{analytics.commentcount}} Comments ]</p>
+			  				<p ng-show="analytics.productcount != 0" style="font-size: 14px; font-weight: bold;">{{analytics.productcount}} Products</p> 
+
+			    			<p ng-show="analytics.productcount != 0" style="margin-left: 7px; font-size: 12px; font-weight: 100;"> {{analytics.followedcount}} Talkins</p>
+
+				    		<p ng-show="analytics.productcount != 0" style="margin-left: 7px; font-size: 12px; font-weight: 100;"> {{analytics.commentcount}} Comments </p>
+
+			    			<p ng-show="analytics.productcount == 0" style="font-size: 13px; font-weight: 300;">This organization has not added any products.</p>
 			  			</div>
 		    		</div>
 		    	</a>	
@@ -51,8 +56,11 @@
 		      			</div>
 		      			<div class="inner-2" style="margin: 2px;">
 		      				<h5><strong><em>{{signup.name}}</em></strong></h5>
-				  				<p style="font-size: 14px; font-weight: 200;">{{signup.productcount}} Products</p> 
-				    			<p  style="font-size: 12px; font-weight: 100;">[ {{signup.followedcount}} Talkins | {{signup.commentcount}} Comments ]</p>
+				  				<p ng-show="signup.productcount != 0" style="font-size: 14px; font-weight: bold;">{{signup.productcount}} Products</p> 
+				    			<p ng-show="signup.productcount != 0" style="margin-left: 7px; font-size: 12px; font-weight: 100;"> {{signup.followedcount}} Talkins</p>
+				    			<p ng-show="signup.productcount != 0" style="margin-left: 7px; font-size: 12px; font-weight: 100;"> {{signup.commentcount}} Comments </p>
+
+				    			<p ng-show="signup.productcount == 0" style="font-size: 13px; font-weight: 300;">This organization has not added any products.</p>
 		      			</div>
 
 		      		</div>
@@ -75,9 +83,10 @@
 		      			</div>
 		      			<div class="inner-2" style="margin: 2px;">
 		      				<h5><strong><em>{{sponser.name}}</em></strong></h5>
-				  				<p style="font-size: 14px; font-weight: 200;">{{sponser.productcount}} Products</p> 
-				    			<p  style="font-size: 12px; font-weight: 100;"> {{sponser.followedcount}} Talkins</p>
-				    			<p  style="font-size: 12px; font-weight: 100;"> {{sponser.commentcount}} Comments </p>
+				  				<p ng-show="sponser.productcount != 0" style="font-size: 14px; font-weight: bold;">{{sponser.productcount}} Products</p>
+				    			<p ng-show="sponser.productcount != 0" style="margin-left: 7px; font-size: 12px; font-weight: 100;"> {{sponser.followedcount}} Talkins</p>
+				    			<p ng-show="sponser.productcount != 0" style="margin-left: 7px; font-size: 12px; font-weight: 100;"> {{sponser.commentcount}} Comments </p>
+				    			<p ng-show="sponser.productcount == 0" style="font-size: 13px; font-weight: 300;">This organization has not added any products.</p>
 		      			</div>
 
 		      		</div>
