@@ -2766,3 +2766,9 @@ left: 173px;
 .prodo-warrantyInvoiceBtn{background-color: white;}
 .prodo-warrantBottomMargine{margin-bottom: 5px;}
 /*{ height:75px;border-radius:10px;font-size:12px; font-family: Helvetica ;  max-height: 75;max-width: 518;resize: none;}*/
+
+
+/*Campaign wall*/
+.prodo-campaignBanner{	max-width: 610px;max-height: 100px;width: 80%;margin-left: 50px;}
+.prodo-CampaignName{font-weight: bolder;font-size: 20px; margin-left: 50px;}
+/*Campaign wall*/
