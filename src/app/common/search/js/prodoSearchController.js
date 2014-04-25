@@ -76,7 +76,7 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
       $scope.message = "";
       $scope.result = [];
       $scope.countForEmptyTextbox = 0;
-      $scope.search.productsearchdata = {};
+      $scope.search.productsearchdata = {};$scope.search.productsearchdata.searchtype = "wall";
       if ($scope.product_name !== '') 
       {
              var temp = $scope.product_name.replace(/\s/g, "");     //Declared temporary variable to remove spaces from search query
@@ -135,6 +135,7 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
       //If all are empty then dont call API
       if($scope.countForEmptyTextbox == 5)  // 5 is for textboxes present in advance search modal
       {
+        $rootScope.ProdoAppMessage("Please enter atleast one search criteria to proceed" , 'error');
       }
      else
       {         

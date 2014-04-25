@@ -134,7 +134,7 @@
     </table>
 </div>
 
-	<div ng-if="enableEditing===1">
+	<div ng-if="enableEditing===1" style="margin-left:17%;margin-right:17%;				">
           <div class="manage-Campaign-tr">
 			 <div class="manage-Campaign-td1">*Product Name:</div> 			
              <div class="manage-Campaign-td2">  
@@ -158,21 +158,24 @@
           <div class="error-message-registration" ng-if="invalidDesc !== '' " ng-bind="invalidDesc"></div> 
           </div>
 				     
-		  <div class="manage-Campaign-tr">
-			  <div class="manage-Campaign-td1">*Start Date: </div>
+		  <div class="manage-Campaign-tr" style="margin-bottom:20%">
+			  <div class="manage-Campaign-td1" style="width:48%;float:left;">*Start Date: </div>
+			  <div class="manage-Campaign-td1" style="width:48%;float:right;">*End Date: </div>
 			  <div class="manage-Campaign-td2"> 
-			     <input type="text" placeholder="Plaese select start date" ng-model="currentCampaign.startdate" class="form-control" name="startDate"  datepicker-popup="{{format}}"  is-open="opened1" min="today"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close">			        
+			     <input type="text" placeholder="Plaese select start date" ng-model="currentCampaign.startdate" class="form-control" name="startDate"  datepicker-popup="{{format}}"  is-open="opened1" min="today"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" style="width:48%;float:left;">			
+			     	      <input type="text" placeholder="Please select end date" ng-model="currentCampaign.enddate" class="form-control" name="endDates" datepicker-popup="{{format}}"  is-open="opened4" min="currentCampaign.startdate"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" style="width:48%;float:right;">        
 			  </div>
 			  <div class="error-message-registration" ng-if="errorForCampaignStart !=='' " ng-bind = "errorForCampaignStart" ></div>
+			  <div class="error-message-registration" ng-if="errorForInvalidEnddate !=='' " ng-bind = "errorForInvalidEnddate" ></div>
 		  </div>
 
-		  <div class="manage-Campaign-tr">
+	<!-- 	  <div class="manage-Campaign-tr">
 			  <div class="manage-Campaign-td1">*End Date: </div>
 			  <div class="manage-Campaign-td2"> 
 			      <input type="text" placeholder="Please select end date" ng-model="currentCampaign.enddate" class="form-control" name="endDates" datepicker-popup="{{format}}"  is-open="opened2" min="currentCampaign.startdate"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close">
 			  </div>
 			  <div class="error-message-registration" ng-if="errorForInvalidEnddate !=='' " ng-bind = "errorForInvalidEnddate" ></div>
-		  </div>				                             							  
+		  </div>	 -->			                             							  
 
    
 
@@ -257,8 +260,10 @@
 	</div>
 </div>
 
- <form name="form.campaign" ng-submit='' novalidate id="addCampaignForm"> 
-      <div ng-if="addNewCampaign === 1" style="margin-top:0%;">
+
+ <form name="form.campaign" ng-submit='' novalidate> 
+      <div ng-if="addNewCampaign === 1" style="margin-top:0%;margin-left:17%;margin-right:17%;">
+
 	      <div class="manage-Campaign-tr">
 			<div class="manage-Campaign-td1">*Product Name:</div> 
             <div class="manage-Campaign-td2">  
@@ -282,21 +287,26 @@
 	              <div class="error-message-registration" ng-if="invalidDesc !== '' "ng-bind="invalidDesc"></div> 
            </div>
      
-		  <div class="manage-Campaign-tr">
-			  <div class="manage-Campaign-td1">*Start Date: </div>
+		  <div class="manage-Campaign-tr" style="margin-bottom:20%;">
+			  <div class="manage-Campaign-td1" style="width:48%;float:left">*Start Date: </div> <div class="manage-Campaign-td1" style="width:48%;float:right">*End Date: </div>
 			  <div class="manage-Campaign-td2"> 
-			     <input type="text" placeholder="Please select start date" ng-model="campaign.startDate" class="form-control" name="startDate"  datepicker-popup="{{format}}"  is-open="opened1" min="today"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />					         					          
+			     <input type="text" placeholder="Please select start date" ng-model="campaign.startDate" class="form-control" name="startDate"  datepicker-popup="{{format}}"  is-open="opened1" min="today"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" style="width:48%;float:left"/>	
+
+			     <input ng-click="restrictEndDates()" type="text" placeholder="Please select end date" ng-model="campaign.endDate" class="form-control" name="endDates" datepicker-popup="{{format}}"  is-open="opened3" min="restrictEndDate"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" style="width:48%;float:right;"/>
+
+
 			  </div>
 			  <div class="error-message-registration" ng-if="errorForCampaignStart !=='' " ng-bind = "errorForCampaignStart" ></div>
+			   <div class="error-message-registration" ng-if="errorForInvalidEnddate !=='' " ng-bind = "errorForInvalidEnddate" ></div>
 		  </div>
 
-		  <div class="manage-Campaign-tr">
+	<!-- 	  <div class="manage-Campaign-tr">
 			  <div class="manage-Campaign-td1">*End Date: </div>
 			  <div class="manage-Campaign-td2"> 
 			      <input ng-click="restrictEndDates()" type="text" placeholder="Please select end date" ng-model="campaign.endDate" class="form-control" name="endDates" datepicker-popup="{{format}}"  is-open="opened2" min="restrictEndDate"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close"/>
 			  </div>
 			  <div class="error-message-registration" ng-if="errorForInvalidEnddate !=='' " ng-bind = "errorForInvalidEnddate" ></div>
-		  </div>
+		  </div> -->
                               				
 		  <div class="manage-Campaign-tr">
                    <div class="manage-Campaign-td1">Targeted Audience:  </div>

@@ -1,27 +1,28 @@
 <div class="prodo-wall-advertisment-container" id="prodo-advertisment-container">
 
-	<center><button class="btn btn-info homesContainerPaddingTop width" ng-click="isCollapsed = !isCollapsed">Advance Search</button></center>
+	<center><button class="mainSearchBackgroundColor homesContainerPaddingTop width " ng-click="isCollapsed = !isCollapsed"><b><i class="fa fa-search"></i>&nbsp;&nbsp;Advance Search&nbsp;&nbsp;<i class="fa fa-arrow-down" ng-if="isCollapsed===true"></i><i class="fa fa-arrow-up" ng-if="isCollapsed===false"></i></b></button></center>
 
 	<div collapse="isCollapsed">
 		<div>
 
 				 <div class="homeContainerAdvancedsearch" >                                                  
-				                      <input type="text" class="prodoAdvancedSearchTextbox form-control" placeholder="Organization Name" id="textBoxOrgName"  />       
+				                      <input type="text" class="prodoAdvancedSearchTextbox form-control" placeholder="Organization Name" id="textBoxOrgName"  ng-model="org.orgName" ng-enter="homeSearchInit()"/>       
 
-				                      <input type="text" class="prodoAdvancedSearchTextbox form-control" placeholder="Product Name" id="textBoxProductName" > 
+				                      <input type="text" class="prodoAdvancedSearchTextbox form-control" placeholder="Product Name" id="textBoxProductName" ng-model="org.nameOfProduct" ng-enter="homeSearchInit()"> 
 
-				                      <input type="text" class="prodoAdvancedSearchTextbox form-control"  placeholder="Feature" id="textBoxFeatureName"  >   
+				                      <input type="text" class="prodoAdvancedSearchTextbox form-control"  placeholder="Feature" id="textBoxFeatureName" ng-model="org.feature" ng-enter="homeSearchInit()">   
 
-				                     <input type="text" class="prodoAdvancedSearchTextbox form-control" placeholder="Category" id="textBoxCategoryName" >           
+				                     <input type="text" class="prodoAdvancedSearchTextbox form-control" placeholder="Category" id="textBoxCategoryName" ng-model="org.category" ng-enter="homeSearchInit()">           
 
-				                       <input type="text" placeholder="Model Number"   id="textBoxModelNumber" class="prodoAdvancedSearchTextbox form-control" >              
+				                       <input type="text" placeholder="Model Number"   id="textBoxModelNumber" class="prodoAdvancedSearchTextbox form-control" ng-model="org.model_Number" ng-enter="homeSearchInit()">       
+
+				                        <button class="btn btn-info prodoAdvancedSearchTextbox" ng-click="homeSearchInit()">Search</button>       
 				 </div>    
 		</div> 
 
-		<div>
-		    <button class="btn homeContainerMargin homeContainerMarginLeft homeContainerWidth">Cancel</button>
-		    <button class="btn homeContainerMargin homeContainerMarginRight homeContainerWidth">Search</button>
-		</div>
+<!-- 		<div>
+		   
+		</div> -->
 	</div>
 
 	 <div id="prodo-sidebar-list" class="list" ng-if="trendingProducts.length >0 ">
