@@ -1,11 +1,12 @@
+
 angular.module('prodo.ProdoHomeApp')
-	.controller('ProdoHomeController', ['$rootScope', '$scope', '$state', '$log', 'UserSessionService', '$stateParams', 'growl', 'allOrgData', 'latestSignupData','prodoSearchService', 'checkIfSessionExist','trendingProductService', function($rootScope, $scope, $state, $log, UserSessionService, $stateParams, growl, allOrgData, latestSignupData, prodoSearchService, checkIfSessionExist, trendingProductService) {
-		
+	.controller('ProdoHomeController', ['$rootScope', '$scope', '$state', '$log', 'UserSessionService', '$stateParams', 'growl', 'allOrgData','prodoSearchService', 'checkIfSessionExist','trendingProductService', function($rootScope, $scope, $state, $log, UserSessionService, $stateParams, growl, allOrgData, prodoSearchService, checkIfSessionExist, trendingProductService) {
+
     $log.debug('initialising home controller..');
     console.log(allOrgData);
-    console.log(latestSignupData);
     $scope.allorganalytics = [];
     $scope.latestsignups = [];
+    $scope.orgsponsers = [];
 
     $scope.isCollapsed = true;
 
@@ -56,11 +57,18 @@ angular.module('prodo.ProdoHomeApp')
     });
 
     if (allOrgData.success) {
-      $scope.allorganalytics = allOrgData.success.organalytics;
-    };
+      if (allOrgData.success.organalyticsall.length !== 0) {
+        $scope.allorganalytics = allOrgData.success.organalyticsall;
+      }
 
-    if (latestSignupData.success) {
-      $scope.latestsignups = latestSignupData.success.OrgNames;
+      if (allOrgData.success.organalyticslatest.length !== 0) {
+        $scope.latestsignups = allOrgData.success.organalyticslatest;
+      }
+
+      if (allOrgData.success.organalyticssponser.length !== 0) {
+        $scope.orgsponsers = allOrgData.success.organalyticssponser;
+      }
+      
     };
    
 
@@ -69,8 +77,10 @@ angular.module('prodo.ProdoHomeApp')
       $state.transitionTo('prodo.productwall.wall-org');
     };
 
-    $scope.transitionToCampaignWall = function(orgid){
+    $scope.transitionToCampaignWall = function(orgid, campaignid, prodle){
       $rootScope.orgid = orgid;
+      $rootScope.product_prodle = prodle;
+      $rootScope.campaign_id = campaignid;
       $state.transitionTo('prodo.productwall.wall-campaign');
     };
 
@@ -95,18 +105,19 @@ angular.module('prodo.ProdoHomeApp')
         {
 
            
-           $scope.search.productsearchdata.searchtype = "home";
-           if ($scope.org.orgName !== '') 
+          
+              if ($scope.org.nameOfProduct !== '') 
               {
-                     var temp = $scope.org.orgName.replace(/\s/g, "");     //Declared temporary variable to remove spaces from search query
-                     $scope.search.productsearchdata.Organization_Name = temp;
-                     temp = "";
+                    var temp=$scope.org.nameOfProduct.replace(/\s/g, "");
+                    $scope.search.productsearchdata.Product_Name = temp;
+                    temp = "";
               }
               else
               {
-                   $scope.search.productsearchdata.Product_Name = ""; 
-                   $scope.countForEmptyTextbox++;
+                    $scope.search.productsearchdata.Product_Name = "";
+                    $scope.countForEmptyTextbox++;     
               }
+       
               if ($scope.org.model_number !== '') {
                    var temp=$scope.org.model_number.replace(/\s/g, "");
                    $scope.search.productsearchdata.Model_Number = temp;
@@ -115,6 +126,16 @@ angular.module('prodo.ProdoHomeApp')
               else
               {
                    $scope.search.productsearchdata.Model_Number = "";
+                   $scope.countForEmptyTextbox++;
+              }
+                 if ($scope.org.feature !== '') {
+                   var temp=$scope.org.feature.replace(/\s/g, "");
+                   $scope.search.productsearchdata.Feature = temp;
+                   temp = "";
+              }
+              else
+              {
+                   $scope.search.productsearchdata.Feature="";
                    $scope.countForEmptyTextbox++;
               }
               if ($scope.org.category !== '') 
@@ -128,44 +149,48 @@ angular.module('prodo.ProdoHomeApp')
                    $scope.search.productsearchdata.Category = "";
                    $scope.countForEmptyTextbox++;
               }
-              if ($scope.org.feature !== '') {
-                   var temp=$scope.org.feature.replace(/\s/g, "");
-                   $scope.search.productsearchdata.Feature = temp;
-                   temp = "";
+              if ($scope.org.orgName !== '') 
+              {
+                     var temp = $scope.org.orgName.replace(/\s/g, "");     //Declared temporary variable to remove spaces from search query
+                     $scope.search.productsearchdata.Organization_Name = temp;
+                     temp = "";
               }
               else
               {
-                   $scope.search.productsearchdata.Feature="";
+                   $scope.search.productsearchdata.Organization_Name = ""; 
                    $scope.countForEmptyTextbox++;
               }
-              if ($scope.org.nameOfProduct !== '') 
-              {
-                    var temp=$scope.org.nameOfProduct.replace(/\s/g, "");
-                    $scope.search.productsearchdata.Product_Name = temp;
-                    temp = "";
-              }
-              else
-              {
-                    $scope.search.productsearchdata.Product_Name = "";
-                    $scope.countForEmptyTextbox++;     
-              }
+               $scope.search.productsearchdata.searchtype = "home";
                   console.log(JSON.stringify($scope.search));
                   prodoSearchService.searchProduct($scope.search);
         }
       };
+       $scope.clearTextboxContent = function()
+       {
+          $scope.org = {orgName:'',nameOfProduct:'',feature:'',category:'',model_number:''};
+       }
+
         var cleanEventGetSearchProductDone = $scope.$on('getSearchProductDone', function (event, data) 
           {
             if(data.error!==undefined && data.error.code==='AL001')
             {
-              $('#advancedSearchModal').modal('hide');  //code for cloasing modal
-              $('.modal-backdrop').remove(); 
               $rootScope.showModal();
+            }
+            else if(data.error)
+            {
+              $rootScope.ProdoAppMessage(data.error.message,'error');
             }
             else
             {
-             $scope.allorganalytics = data.success.doc;
-             // $scope.message = "";
-             // $scope.message = data.success.message;
+              if(data.success.organalytics  !== undefined)
+                  {
+                        $scope.allorganalytics = data.success.organalytics;
+                  }
+           
+                     if(data.success.organalytics === undefined)
+                     {
+                          $rootScope.ProdoAppMessage("No organizations found for specified search criteria",'success');
+                     }
              }
              });
 

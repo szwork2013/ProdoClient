@@ -77,9 +77,6 @@ angular.module('prodo.ProdonusApp')
         allOrgData: function(OrgService, $rootScope) {
           return OrgService.all_org_data.getAllOrgAnalytics().$promise;
         },
-        latestSignupData: function(OrgService, $rootScope) {
-          return OrgService.latest_signup_data.getLatestSignups().$promise;
-        },
         checkIfSessionExist: function(UserService, $rootScope) {
             return UserService.Is_user_loggedin.checkUserSession().$promise;
         } 

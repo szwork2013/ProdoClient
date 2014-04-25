@@ -15,9 +15,13 @@ $scope.$state=$state;
 
 $scope.contacts= [{'customerhelpline': ''},{'customerhelpline': ''},{'customerhelpline': ''}];
 
-$scope.orginvites=[{'name': '','orgname': '','email': ''}];
+$scope.orginvites={'to': '','subject': '','body': ''};
 
-$scope.customerinvites=[{'name': '','email': ''}];
+$scope.orginvites.body ="Dear 'name',We have got great news. Today we are excited to tell you how you can come closer to your customers, get to know their needs,understand their issues, complaints better, and also engage them to createinnovative ideas, in addition to managing their warranties.We offer a warranty and social platform for products, for all product manufacturers andtheir customers sharing their insights on products. Prodonus is a social networkand warranty platform for products, enabling conversations, buildingrelationships and gathering real-time market intelligence from customers. Webring business closer to customers to engage them more directly. It helps toshare your concerns, complaints, compliments, innovative ideas, businessperspectives and product recommendations among the manufacturing business andproduct consumers.We look forward to meeting you to discuss yourrequirements to signup on our new platform.All thebest,'orgname'";
+
+$scope.customerinvites={'to': '','subject': '','body': ''};
+
+$scope.customerinvites.body = " Hi <customername>,We have subscribed to Prodonus(https://www.prodonus.com) that offers a warranty and social network platformfor products, enabling conversations with product manufacturers or serviceproviders. It helps to share our concerns, complaints, compliments, innovativeideas, business perspectives and product recommendations with the manufacturingbusiness.As a consumer one can follow what's happening on our products.Prodonus helps you share your perspective on the products using words, videolinks and picture/images with manufacturer's and other consumers. Conversationsare purposeful and intended to catch our attention. Share your views and make itknown to the other users and us immediately. In addition, you can store yourproduct warranty data and get instant access to it and also, be notified of changing status immediately, especially expiration status.Eager to start? Signupwith prodonus.com and start following our products, and there’s no limit to thenumber of products you can follow.Sincerely,<fromusername> from<b><orgname></b>";
 
 $scope.group = { 'newgroupname': '','grouppname': '','invites': '','newinvites': ''};
 
@@ -83,9 +87,9 @@ $scope.regularExpressionForCompany = /^company/i;
 // The following function is written to calculate total number of addresses  for an organization.
 // The purpose behing writing this function is to restrict user from deleting all addresses from the list
 //
-$scope.fromOrgDetails = "From: support@prodonus.com";
+$scope.fromOrgDetails = "From: business@prodonus.com";
 
-$scope.fromOrgCustDetails = "From: support@prodonus.com";
+$scope.fromOrgCustDetails = "From: business@prodonus.com";
 
 $scope.calcNumberOfOrgAddresses = function()
 {
@@ -945,8 +949,8 @@ var cleanupEventDeleteOrgGroupMemberNotDone = $scope.$on("deleteOrgGroupMemberNo
 //End of block
 $scope.resetInvites = function()
 {
-    $scope.orginvites=[{'name': '','orgname': '','email': ''}];
-    $scope.customerinvites=[{'name': '','email': ''}];
+    $scope.orginvites={'name': '','orgname': '','email': ''};
+    $scope.customerinvites={'name': '','email': ''};
 }
 
 // The following block manages org invites
@@ -960,7 +964,7 @@ $scope.jsonOrgInvitesData = function(){
 
 $scope.handleOrgInviteResponse = function(data){
     $scope.addOrgInvites = true;
-  if (data.success) { $scope.orginvites=[{'name': '','orgname': '','email': ''}];
+  if (data.success) { $scope.orginvites={'name': '','orgname': '','email': ''};
     $rootScope.ProdoAppMessage(data.success.message,'success');    //ShowAlert
   } else {
     if (data.error.code== 'AU004') {     // enter valid data
@@ -995,91 +999,91 @@ $scope.handleOrgInviteResponse = function(data){
  var allInviteDataValid = 0;
 
 $scope.sendOrgInvites = function() { 
-  $scope.orgInvitesNameError='';
-  $scope.orgInvitesOrgnameError=''; 
-  $scope.orgInvitesEmailError='';   
+  // $scope.orgInvitesNameError='';
+  // $scope.orgInvitesOrgnameError=''; 
+  // $scope.orgInvitesEmailError='';   
 
-  for(var i=0;i<$scope.orginvites.length;i++)
-  {
-    if($scope.regexForText.test($scope.orginvites[i].name) === false )
-    {
-        if($scope.orginvites.length===1)
-        {
-          $scope.orgInvitesNameError='Names can have only characters! Please verify from above field';
+  // for(var i=0;i<$scope.orginvites.length;i++)
+  // {
+  //   if($scope.regexForText.test($scope.orginvites[i].name) === false )
+  //   {
+  //       if($scope.orginvites.length===1)
+  //       {
+  //         $scope.orgInvitesNameError='Names can have only characters! Please verify from above field';
 
-          allInviteDataValid = 0;
-        }
-        else
-        {
-          $scope.orgInvitesNameError='Names can have only characters! Please verify from the list';
-          allInviteDataValid = 0;
-        }
+  //         allInviteDataValid = 0;
+  //       }
+  //       else
+  //       {
+  //         $scope.orgInvitesNameError='Names can have only characters! Please verify from the list';
+  //         allInviteDataValid = 0;
+  //       }
         
-    }
-    if($scope.regexForText.test($scope.orginvites[i].orgname) === false )
-    {
-        if($scope.orginvites.length===1)
-        {
-            $scope.orgInvitesOrgnameError='Organization Name can have only characters! Please verify from above field';
-            allInviteDataValid = 0;
-        }
-        else
-        {
-          $scope.orgInvitesOrgnameError='Organization Name can have only characters! Please verify from the list';
-          allInviteDataValid = 0;
-        }
+  //   }
+  //   if($scope.regexForText.test($scope.orginvites[i].orgname) === false )
+  //   {
+  //       if($scope.orginvites.length===1)
+  //       {
+  //           $scope.orgInvitesOrgnameError='Organization Name can have only characters! Please verify from above field';
+  //           allInviteDataValid = 0;
+  //       }
+  //       else
+  //       {
+  //         $scope.orgInvitesOrgnameError='Organization Name can have only characters! Please verify from the list';
+  //         allInviteDataValid = 0;
+  //       }
         
-    }
-    if($scope.regexForEmail.test($scope.orginvites[i].email) === false )
-    {  
-        if($scope.orginvites.length===1)
-        {
-             $scope.orgInvitesEmailError='Please verify your email id from above field';
-             allInviteDataValid = 0;
-        }
-        else
-        {
-             $scope.orgInvitesEmailError='Please verify your email id from above list';
-             allInviteDataValid = 0;
-        }  
-    }
-    if($scope.orginvites[i].name=== '' )
-    {
-        if($scope.orginvites.length===1)
-        {
-          $scope.orgInvitesNameError='Name cant be empty! Please verify from above field';
-          allInviteDataValid = 0;
-        }
-        else
-        {
-          $scope.orgInvitesNameError='Names cant be empty! Please verify from the list';
-          allInviteDataValid = 0;
-        }
+  //   }
+  //   if($scope.regexForEmail.test($scope.orginvites[i].email) === false )
+  //   {  
+  //       if($scope.orginvites.length===1)
+  //       {
+  //            $scope.orgInvitesEmailError='Please verify your email id from above field';
+  //            allInviteDataValid = 0;
+  //       }
+  //       else
+  //       {
+  //            $scope.orgInvitesEmailError='Please verify your email id from above list';
+  //            allInviteDataValid = 0;
+  //       }  
+  //   }
+  //   if($scope.orginvites[i].name=== '' )
+  //   {
+  //       if($scope.orginvites.length===1)
+  //       {
+  //         $scope.orgInvitesNameError='Name cant be empty! Please verify from above field';
+  //         allInviteDataValid = 0;
+  //       }
+  //       else
+  //       {
+  //         $scope.orgInvitesNameError='Names cant be empty! Please verify from the list';
+  //         allInviteDataValid = 0;
+  //       }
         
-    }
-    if($scope.orginvites[i].orgname=== '' )
-    {
-        if($scope.orginvites.length===1)
-        {
-           $scope.orgInvitesOrgnameError='Organization names cant be empty! Please verify from above field';
-           allInviteDataValid = 0;
-        }
-        else
-        {
-           $scope.orgInvitesOrgnameError='Organization name cant be empty! Please verify from the list';
-           allInviteDataValid = 0;
-        }
+  //   }
+  //   if($scope.orginvites[i].orgname=== '' )
+  //   {
+  //       if($scope.orginvites.length===1)
+  //       {
+  //          $scope.orgInvitesOrgnameError='Organization names cant be empty! Please verify from above field';
+  //          allInviteDataValid = 0;
+  //       }
+  //       else
+  //       {
+  //          $scope.orgInvitesOrgnameError='Organization name cant be empty! Please verify from the list';
+  //          allInviteDataValid = 0;
+  //       }
         
-    }
-    if($scope.orgInvitesEmailError==='' && $scope.orgInvitesOrgnameError==='' && $scope.orgInvitesNameError ==='')
-    {
-           allInviteDataValid=1;
-    }
-   }
-   if(allInviteDataValid===1)
-   {
+  //   }
+  //   if($scope.orgInvitesEmailError==='' && $scope.orgInvitesOrgnameError==='' && $scope.orgInvitesNameError ==='')
+  //   {
+  //          allInviteDataValid=1;
+  //   }
+  //  }
+   // if(allInviteDataValid===1)
+   // {
      OrgRegistrationService.sendInvites($scope.jsonOrgInvitesData());
-   }
+   // }
   };
      
 
@@ -1292,7 +1296,7 @@ var cleanupEventSendOrgGroupInvitesNotDone = $scope.$on("sendOrgGroupInvitesNotD
 //  The following block is used to send invites to org customer
 $scope.handleOrgCustomerInviteResponse = function(data){
 // $scope.addCustomerInvites = true;
-  if (data.success) {  $scope.customerinvites=[{'name': '','email': ''}];
+  if (data.success) {  $scope.customerinvites={'name': '','email': ''};
     $rootScope.ProdoAppMessage(data.success.message,'success');    //ShowAlert
   } else {
     if (data.error.code== 'AU004') {     // enter valid data
@@ -1323,60 +1327,60 @@ var allCustDataValid = 0;
 
 $scope.orgCustomerInvites = function() 
 {
-        $scope.orgCustNameError = '';
-        $scope.orgCustEmailError = '';
-            for(var i=0;i<$scope.customerinvites.length;i++)
-              {
-                if($scope.regexForText.test($scope.customerinvites[i].name) === false )
-                {
-                    if($scope.customerinvites.length===1)
-                    {
-                      $scope.orgCustNameError='Names can have only characters! Please verify from the field';
-                      allCustDataValid = 0;
-                    }
-                    else
-                    {
-                      $scope.orgCustNameError='Names can have only characters! Please verify from the list';
-                       allCustDataValid = 0;
-                    }
+        // $scope.orgCustNameError = '';
+        // $scope.orgCustEmailError = '';
+        //     for(var i=0;i<$scope.customerinvites.length;i++)
+        //       {
+        //         if($scope.regexForText.test($scope.customerinvites[i].name) === false )
+        //         {
+        //             if($scope.customerinvites.length===1)
+        //             {
+        //               $scope.orgCustNameError='Names can have only characters! Please verify from the field';
+        //               allCustDataValid = 0;
+        //             }
+        //             else
+        //             {
+        //               $scope.orgCustNameError='Names can have only characters! Please verify from the list';
+        //                allCustDataValid = 0;
+        //             }
                     
-                }
-                if($scope.regexForEmail.test($scope.customerinvites[i].email) === false )
-                {  
-                     if($scope.customerinvites.length===1)
-                     {
-                            $scope.orgCustEmailError='Please verify your email ids from above field'; 
-                             allCustDataValid = 0; 
-                     }
-                      else
-                      { 
-                             $scope.orgCustEmailError='Please verify your email ids from above list'; 
-                              allCustDataValid = 0; 
-                      }
-                }
-                if($scope.customerinvites[i].name === undefined || $scope.customerinvites[i].name === '' )
-                {
-                    if($scope.customerinvites.length === 1)
-                    {
-                        $scope.orgCustNameError = "Customer name can't be empty!";
-                         allCustDataValid = 0;
-                    }
-                    else
-                    {
-                        $scope.orgCustNameError = "Customer name can't be empty! Please verify from above list";
-                         allCustDataValid = 0;
-                    }
+        //         }
+        //         if($scope.regexForEmail.test($scope.customerinvites[i].email) === false )
+        //         {  
+        //              if($scope.customerinvites.length===1)
+        //              {
+        //                     $scope.orgCustEmailError='Please verify your email ids from above field'; 
+        //                      allCustDataValid = 0; 
+        //              }
+        //               else
+        //               { 
+        //                      $scope.orgCustEmailError='Please verify your email ids from above list'; 
+        //                       allCustDataValid = 0; 
+        //               }
+        //         }
+        //         if($scope.customerinvites[i].name === undefined || $scope.customerinvites[i].name === '' )
+        //         {
+        //             if($scope.customerinvites.length === 1)
+        //             {
+        //                 $scope.orgCustNameError = "Customer name can't be empty!";
+        //                  allCustDataValid = 0;
+        //             }
+        //             else
+        //             {
+        //                 $scope.orgCustNameError = "Customer name can't be empty! Please verify from above list";
+        //                  allCustDataValid = 0;
+        //             }
 
-                }
-                if($scope.orgCustEmailError=== '' &&  $scope.orgCustNameError ==='')
-                {
-                       allCustDataValid = 1;
-                }
-               }
-       if(allCustDataValid === 1)
-       {
+        //         }
+        //         if($scope.orgCustEmailError=== '' &&  $scope.orgCustNameError ==='')
+        //         {
+        //                allCustDataValid = 1;
+        //         }
+        //        }
+       // if(allCustDataValid === 1)
+       // {
              OrgRegistrationService.sendCustomerInvites($scope.jsonOrgCustomerInvitesData());
-       }
+       // }
 };
 
 var cleanupEventSendOrgCustomerInvitesDone = $scope.$on("sendOrgCustomerInvitesDone", function(event, data){
@@ -1565,13 +1569,13 @@ $scope.contacts= [{'customerhelpline': ''},{'customerhelpline': ''},{'customerhe
 
 $scope.addInvitesList='';
 
-    $scope.addMoreInvites = function() { 
-      var noOfInvites=$scope.orginvites.length;
-      if($scope.orginvites[noOfInvites-1].name!=='' && $scope.orginvites[noOfInvites-1].orgname!=='' && $scope.orginvites[noOfInvites-1].email!=='')
-      {
-          $scope.orginvites.push({'name': '', 'orgname': '', 'email': ''});    
-      }  
-    };
+    // $scope.addMoreInvites = function() { 
+    //   var noOfInvites=$scope.orginvites.length;
+    //   if($scope.orginvites[noOfInvites-1].name!=='' && $scope.orginvites[noOfInvites-1].orgname!=='' && $scope.orginvites[noOfInvites-1].email!=='')
+    //   {
+    //       $scope.orginvites.push({'name': '', 'orgname': '', 'email': ''});    
+    //   }  
+    // };
 
 $scope.addCustomerInvites = function() { 
   var noOfInvites=$scope.customerinvites.length;  
