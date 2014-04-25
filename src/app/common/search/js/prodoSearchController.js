@@ -76,7 +76,19 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
       $scope.message = "";
       $scope.result = [];
       $scope.countForEmptyTextbox = 0;
-      $scope.search.productsearchdata = {};$scope.search.productsearchdata.searchtype = "wall";
+      $scope.search.productsearchdata = {};
+      //$scope.search.productsearchdata.searchtype = "wall";
+      // if ($scope.org !== '') 
+      // {
+      //       var temp=$scope.org.replace(/\s/g, "");
+      //       $scope.search.productsearchdata.Organization_Name = temp;
+      //       temp = "";
+      // }
+      // else
+      // {
+      //       $scope.search.productsearchdata.Organization_Name = "";
+      //       $scope.countForEmptyTextbox++;     
+      // }
       if ($scope.product_name !== '') 
       {
              var temp = $scope.product_name.replace(/\s/g, "");     //Declared temporary variable to remove spaces from search query
@@ -98,6 +110,17 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
            $scope.search.productsearchdata.Model_Number = "";
            $scope.countForEmptyTextbox++;
       }
+      if ($scope.feature !== '') 
+      {
+           var temp=$scope.feature.replace(/\s/g, "");
+           $scope.search.productsearchdata.Feature = temp;
+           temp = "";
+      }
+      else
+      {
+           $scope.search.productsearchdata.Feature="";
+           $scope.countForEmptyTextbox++;
+      }
       if ($scope.category !== '') 
       {
            var temp=$scope.category.replace(/\s/g, "");
@@ -109,17 +132,17 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
            $scope.search.productsearchdata.Category = "";
            $scope.countForEmptyTextbox++;
       }
-      if ($scope.feature !== '') {
-           var temp=$scope.feature.replace(/\s/g, "");
-           $scope.search.productsearchdata.Feature = temp;
-           temp = "";
-      }
-      else
-      {
-           $scope.search.productsearchdata.Feature="";
-           $scope.countForEmptyTextbox++;
-      }
-      if ($scope.org !== '') 
+      // if ($scope.feature !== '') {
+      //      var temp=$scope.feature.replace(/\s/g, "");
+      //      $scope.search.productsearchdata.Feature = temp;
+      //      temp = "";
+      // }
+      // else
+      // {
+      //      $scope.search.productsearchdata.Feature="";
+      //      $scope.countForEmptyTextbox++;
+      // }
+    if ($scope.org !== '') 
       {
             var temp=$scope.org.replace(/\s/g, "");
             $scope.search.productsearchdata.Organization_Name = temp;
@@ -130,6 +153,9 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
             $scope.search.productsearchdata.Organization_Name = "";
             $scope.countForEmptyTextbox++;     
       }
+      $scope.search.productsearchdata.searchtype = "wall";
+
+
 
       //Following if statement is to check whether all fields are empty
       //If all are empty then dont call API
@@ -138,7 +164,7 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
         $rootScope.ProdoAppMessage("Please enter atleast one search criteria to proceed" , 'error');
       }
      else
-      {         
+      {         console.log('json from inside '+ JSON.stringify($scope.search));
              prodoSearchService.searchProduct($scope.search);    //Calling searchproduct api for advanced search; Format for input is {productsearchdata:{''}}
       }
   };
@@ -150,6 +176,10 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
       $('#advancedSearchModal').modal('hide');  //code for cloasing modal
       $('.modal-backdrop').remove(); 
       $rootScope.showModal();
+    }
+    else if(data.error)
+    {
+       $rootScope.ProdoAppMessage(data.error.message,'error');
     }
     else
     {

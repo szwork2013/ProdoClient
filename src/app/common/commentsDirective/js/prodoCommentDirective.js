@@ -109,7 +109,45 @@
         $rootScope.ProdoAppMessage('error.message', 'error');
       }
    };
-
+//dont show delete comment icon if not comment owener
+$scope.hideIfNotUser = function (userid) {
+  if (userid) {
+    if (userid !== $scope.userIDFromSession) {
+      // $log.debug("Userid   "+userid);
+      return {
+        display: "none"
+      }
+    }
+  }
+};
+//dont show delete comment icon if not comment owener
+//show orgname if exists
+$scope.hideIfNoOrg = function (orgname) {
+  if ((orgname == "") || (orgname == " ") || (orgname == undefined) || (orgname == null)) {
+    return {
+      display: "none"
+    }
+  }
+};
+//show orgname if exists
+//show group name if exists
+$scope.hideIfNogrp = function (grpname) {
+  if ((grpname == "") || (grpname == " ") || (grpname == undefined) || (grpname == null)) {
+    return {
+      display: "none"
+    }
+  }
+};
+//show group name if exists
+//show comment image if exists
+$scope.hideIfNotImage = function (image) {
+  if ((image == "") || (image == " ") || (image == undefined) || (image == null)) {
+    return {
+      display: "none"
+    }
+  }
+};
+//show comment image if exists 
   $scope.deleteProductComment = function (comment) {
     if (comment.user.userid == $scope.userIDFromSession ) {
       var index = $scope.productComments.indexOf(comment);

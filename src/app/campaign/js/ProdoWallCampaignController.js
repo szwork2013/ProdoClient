@@ -1,23 +1,61 @@
 angular.module('prodo.CampaignApp')
- .controller('ProdoWallCampaignController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$log',  'checkIfSessionExist','campaignWalldata','CampaignWallService' , function($scope, $rootScope, $state, $http, $timeout, $log,  checkIfSessionExist,campaignWalldata,CampaignWallService) {
+ .controller('ProdoWallCampaignController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$log',  'checkIfSessionExist','campaignWalldata','CampaignWallService' ,'ProductFeatureService', function($scope, $rootScope, $state, $http, $timeout, $log,  checkIfSessionExist,campaignWalldata,CampaignWallService,ProductFeatureService) {
    // console.log('campaign controller initializing..');
    $log.debug( campaignWalldata.success);
+     $scope.productComments = {
+    comments: [{}]
+  };
+   $scope.searchComment = {
+    search: ''
+  };
+  $scope.tabForComment={
+    tabComment:'true',
+    tabSearch:'false'
+  };
+  $scope.isCollapsed = true;
+
+  // $scope.searchComment="warranty";
+  $scope.newProductComment = [];
+  $rootScope.productCommentResponsearray = [];
+  $scope.mytags;
+  $scope.myFeaturetags;
+  $scope.count = 0;
+  $scope.commenttextField = {
+    userComment: ''
+  };
+  $scope.pretags = [];
+  $scope.featuretags = [];
+  $scope.productcommentResponseListener;
+  $scope.tagPairs = [];
+
    $scope.campaign={};
    $scope.ErrMsging=0;   
    $scope.pimgs=[];  
-   $scope.productComments=[];
+   // $scope.productComments=[];
    $scope.$watch('$state.$current.locals.globals.campaignWalldata', function (campaignWalldata) {
 	     if(campaignWalldata.error){
-	      $("#prodo-ProductDetails").css("display", "none");
-	      $scope.ErrMsging=1; 
-	      $scope.productname="this product"; 
-	      if(campaignWalldata.productname){
-            $scope.productname=campaignWalldata.productname;
-	      }   
-	      document.getElementById("ErrMsging").innerHTML = "No Campaigns for  "+$scope.productname;
+            $scope.handleGetCampaignResolveError(campaignWalldata);
 	     }
 	     else{
-	   
+	        $scope.handleGetCampaignResolveSuccess(campaignWalldata);
+	      }
+   });
+
+   $scope.preGetProductPrepaireData=function(){
+	    $("#load-more").css("display", "none");
+	    $scope.searchComment.search="";
+	    $scope.commenttextField.userComment="";
+	    $scope.tabForComment.tabComment = true;
+	    $scope.tabForComment.tabSearch=false;
+   };
+    
+   $scope.handleGetCampaignResolveError=function(campaignWalldata){
+	  $("#prodo-ProductDetails").css("display", "none");
+	  $scope.ErrMsging=1; 
+      document.getElementById("ErrMsging").innerHTML = campaignWalldata.error.message;
+   }
+    $scope.handleGetCampaignResolveSuccess=function(campaignWalldata){
+      $scope.preGetProductPrepaireData();
 	      if(campaignWalldata.success){
 	        $log.debug( campaignWalldata.success);
 	        $("#prodo-ProductDetails").css("display", "block");
@@ -74,10 +112,67 @@ angular.module('prodo.CampaignApp')
 		        $scope.$emit('emittingNoCampaignImages',$scope.pimgs);
 		        $log.debug("Product images emitting when null ");
 		      }
+
+		       if ($scope.campaign.campaign_comments!==undefined){   //########check comments source 
+		           $("#prodo-comment-media-list").css("display", "block");
+		       }
+               $("#loadMoreCommentMsg").css("display", "none");
+
+                if ( $scope.campaign.campaign_comments) {   //##### check comment source
+		          if ( $scope.campaign.campaign_comments.length > 4) {
+		            $("#load-more").css("display", "inline");
+		          } 
+		          else{
+		               $("#load-more").css("display", "none");
+		          }
+		        } 
+
+		         $scope.isCollapsed = true;  //added by omkar 
+
 			}
-	      }
-	     
-    });
+    };
+   
+  //get Product features
+  $scope.features = [];
+  $scope.PFeatures = [];
+ $scope.handleGetProductFeaturesError=function(error){
+   if(error.code=='AL001'){
+        $rootScope.showModal();
+      }else{
+    
+      }
+ };
+  $scope.handleGetProductFeaturesSuccess=function(successData){
+       // $log.debug("success    "+JSON.stringify(successData));
+    $scope.features = [];
+    $scope.featuretags = [];
+    for (i = 0; i < successData.success.productfeature.length; i++) {
+      $scope.features.push(successData.success.productfeature[i]);
+      $scope.PFeatures.push(successData.success.productfeature[i]);
+      $scope.featuretags.push(successData.success.productfeature[i].featurename);
+    }
+    // $scope.features= JSON.stringify($scope.features);
+    // $log.debug("pf  "+ $scope.featuretags);
+  };
+
+  $scope.getProductFeatures = function (prodle, orgid) {
+    if (prodle !== "") {
+      ProductFeatureService.getFeature({
+        orgid: orgid,
+        prodle: prodle
+      }, function (successData) {
+        if (successData.success == undefined) {
+         $scope.handleGetProductFeaturesError(successData.error);
+       } else {
+          $scope.handleGetProductFeaturesSuccess(successData);
+        }
+      }, function (error) {
+        $rootScope.ProdoAppMessage("Server Error:" + error.status, 'error');
+      });
+    }
+  };
+
+  //get Product features
 
 	 // $scope.getSelectedCampaign=function(campaignid){
 	 // 	$scope.getCampaign(campaignid);
