@@ -46,7 +46,8 @@
 
   
 <div ng-if="campaignExpired === 0">
-   <a    class="btn btn-primary btn-sm pull-right" style="width:140px;margin-bottom:5px;margin-left:5px" ng-if="currentCampaign.status === 'init'" ng-click="publishCampaign()"><i class="fa fa-cloud-upload fa-1x" ></i>&nbsp;&nbsp;Publish</a>
+   <button  ng-click="publishCampaign()"  class="btn btn-primary btn-sm pull-right"  style="width:140px;margin-bottom:5px;margin-left:5px" ng-if="currentCampaign.status === 'init'" ><i class="fa fa-cloud-upload fa-1x" ></i>&nbsp;&nbsp;Publish</button>
+   
    <a    class="btn btn-primary btn-sm pull-right" style="width:140px;margin-bottom:5px;margin-left:5px" ng-if="currentCampaign.status === 'active'" ng-disabled ><i class="fa fa-cloud-upload fa-1x" ></i>&nbsp;&nbsp;Published</a>
 
    <a   ng-click="enableEditingCampaign()" class="btn btn-primary btn-sm pull-right" style="width:140px;margin-bottom:5px;margin-left:5px"><i class="fa fa-pencil fa-fw" ></i>&nbsp;&nbsp;Edit</a>
