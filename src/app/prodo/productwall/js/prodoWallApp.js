@@ -4,7 +4,7 @@ angular.module('prodo.ProdoWallApp')
     $log.debug('initialising parent..');
     $scope.$state = $state;
 
-    if ($state.$current.name == 'prodo.productwallproductwall.wall-org') {
+    if ($state.$current.name == 'prodo.productwall.wall-org') {
       $rootScope.index = 0;
     }
 
@@ -79,6 +79,17 @@ angular.module('prodo.ProdoWallApp')
       $scope.updateimages(data);
     });
 
+    var cleanEventEmittingCampaignImages = $scope.$on("emittingCampaignImages", function(event, data){
+      $log.debug('listening in Parent controller by Campaign controller');
+      $scope.updateimages(data);
+    });
+
+    var cleanEventEmittingNoCampaignImages = $scope.$on("emittingNoCampaignImages", function(event, data){
+      $log.debug('listening in Parent controller by Campaign controller');
+      $scope.updateimages(data);
+    });
+
+
     var cleanEventEmittingOrgImages = $scope.$on("emittingOrgImages", function(event, data){
       $log.debug('listening in Parent controller by org controller');
       $scope.updateimages(data);
@@ -97,6 +108,8 @@ angular.module('prodo.ProdoWallApp')
       cleanEventOrgProdleEmitByUserProfile();
       cleanEventEmittingProductImages();
       cleanEventEmittingNoProductImages();
+      cleanEventEmittingCampaignImages();
+      cleanEventEmittingNoCampaignImages();
       cleanEventEmittingOrgImages();
       cleanEventEmittingNoOrgImages();
     });

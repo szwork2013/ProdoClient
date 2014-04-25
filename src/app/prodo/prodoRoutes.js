@@ -392,9 +392,16 @@ angular.module('prodo.ProdonusApp')
       }
     }) 
     .state('prodo.productwall.wall-campaign', {
+       resolve: {
+              campaignWalldata: function(CampaignWallService, $rootScope) {
+             console.log("resolving campaign");
+             console.log($rootScope.product_prodle);
+              return CampaignWallService.get_All_ProductCampaigns.getAllProductCampaigns({prodle: $rootScope.product_prodle}).$promise;
+            }
+          },
       views: {
         'prodo-content' : {
-          templateUrl:  'campaign/views/prodo.wall.campaign.tpl.html',
+         templateUrl:  'campaign/views/prodo.wall.campaign.tpl.html',
           controller: 'ProdoWallCampaignController',
         },
         'prodo-advertisment' : {
