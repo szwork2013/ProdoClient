@@ -76,7 +76,7 @@ $scope.socket.on('addcommentResponse', function (error, result) {
     // $log.debug(result.success.message);
     $scope.ifErrorAddingComment = false;
     $scope.commentError=false;
-    $log.debug("addcommentResponse success" + result.success.product_comment);
+    $log.debug("addcommentResponse success" + JSON.stringify( result.success.product_comment));
   }
   //   $scope.socket.removeAllListeners();
 });
@@ -126,7 +126,7 @@ $scope.socket.on($scope.productcommentResponseListener, function (error, result)
 //get tags from comment text
 $scope.commenttextField.userComment = "";
 $scope.getTagsFromCommentText = function () {
-  $log.debug($scope.pretags);
+  // $log.debug($scope.pretags);
   $scope.mytags = $scope.pretags;
   var commenttext = $scope.commenttextField.userComment;
   var new_arr = [];
@@ -239,6 +239,7 @@ function (successData) {
     $log.debug("Pair : " + JSON.stringify($scope.tagPairs));
     $log.debug($rootScope.file_data);
     $log.debug($rootScope.comment_image_l);
+    var uniquecommentid=guid();
     // if($rootScope.file_data==undefined){
     if (($rootScope.file_data == "") || ($rootScope.file_data == " ") || ($rootScope.file_data == undefined) || ($rootScope.file_data == null)) {
       $scope.newProductComment = {
@@ -250,7 +251,7 @@ function (successData) {
             grpname: $scope.grpnameFromSession,
             profilepic: $rootScope.usersession.currentUser.profile_pic.image
           },
-          commentid: guid(),
+          commentid: uniquecommentid,
           type: $scope.type,
           datecreated: Date.now(),
           tags: $scope.mytags,
@@ -269,7 +270,7 @@ function (successData) {
             grpname: $scope.grpnameFromSession,
             profilepic: $rootScope.usersession.currentUser.profile_pic.image
           },
-          commentid: guid(),
+          commentid: uniquecommentid,
           type: $scope.type,
           datecreated: Date.now(),
           tags: $scope.mytags,
@@ -289,7 +290,7 @@ function (successData) {
             grpname: $scope.grpnameFromSession,
             profilepic: $rootScope.usersession.currentUser.profile_pic.image
           },
-          commentid: guid(),
+          commentid: uniquecommentid,
           type: $scope.type,
           datecreated: Date.now(),
           commenttext: $scope.commenttextField.userComment,
@@ -308,7 +309,7 @@ function (successData) {
             grpname: $scope.grpnameFromSession,
             profilepic: $rootScope.usersession.currentUser.profile_pic.image
           },
-          commentid: guid(),
+          commentid: uniquecommentid,
           type: $scope.type,
           datecreated: Date.now(),
           tags: $scope.mytags,
@@ -327,7 +328,7 @@ function (successData) {
       }
     }
     if (follow == true) {
-      $log.debug($scope.newProductComment);
+      $log.debug($scope.newProductComment.product_comment);
       $scope.socket.emit('addComment', $rootScope.product_prodle, $scope.newProductComment.product_comment);
       if ($scope.productComments == undefined) {
         $scope.productComments = [];
@@ -368,6 +369,7 @@ function (successData) {
 
  
     // if($rootScope.file_data==undefined){
+      var uniquecommentid=guid();
     if (($rootScope.file_data == "") || ($rootScope.file_data == " ") || ($rootScope.file_data == undefined) || ($rootScope.file_data == null)) {
       $scope.newProductComment = {
         product_comment: {
@@ -378,7 +380,7 @@ function (successData) {
             grpname: $scope.grpnameFromSession,
             profilepic: $rootScope.usersession.currentUser.profile_pic.image
           },
-          commentid: guid(),
+          commentid: uniquecommentid,
           type: $scope.type,
           datecreated: Date.now(),
           tags: $scope.mytags,
@@ -397,7 +399,7 @@ function (successData) {
             grpname: $scope.grpnameFromSession,
             profilepic: $rootScope.usersession.currentUser.profile_pic.image
           },
-          commentid: guid(),
+          commentid:uniquecommentid,
           type: $scope.type,
           datecreated: Date.now(),
           tags: $scope.mytags,
@@ -417,7 +419,7 @@ function (successData) {
             grpname: $scope.grpnameFromSession,
             profilepic: $rootScope.usersession.currentUser.profile_pic.image
           },
-          commentid: guid(),
+          commentid: uniquecommentid,
           type: $scope.type,
           datecreated: Date.now(),
           commenttext: comment.commenttext,
@@ -436,7 +438,7 @@ function (successData) {
             grpname: $scope.grpnameFromSession,
             profilepic: $rootScope.usersession.currentUser.profile_pic.image
           },
-          commentid: guid(),
+          commentid: uniquecommentid,
           type: $scope.type,
           datecreated: Date.now(),
           tags: $scope.mytags,

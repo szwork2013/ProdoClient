@@ -2689,7 +2689,42 @@ vertical-align: bottom;
     /*//height: 52px;*/
     height : 70px;
 }
+.homeContainerAdvancedsearch
+{
+		width: 100%;
+		padding-right: 20px;
+		padding-left: 20px;
+		padding-top: 20px;
+		padding-bottom: 20px;
+}
 
+.homesContainerPaddingTop
+{
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.homeContainerMargin
+{
+	margin:5px;
+	margin-bottom: 40px;
+}
+.homeContainerMarginLeft
+{
+	margin-left: 20px;
+}
+.homeContainerMarginRight
+{
+	margin-right: 20px;
+}
+.homeContainerWidth
+{
+	width: 41%;
+}
+.width
+{
+	width:100%;
+}
 /*.fa-check:before {
 content: "\f000";
 font-family: FontAwesome;
@@ -2702,6 +2737,22 @@ position: absolute;
 top: -35px;
 left: 173px;
 }*/
+.trendingProductsMain {background-color: #5bc0de;border-color: #5bc0de;}
+.mainSearchBackgroundColor {
+	background-color: #494F53; color: white;
+	display: inline-block;
+	padding: 6px 12px;
+	margin-bottom: 20px;
+	font-size: 14px;
+	font-weight: normal;
+	line-height: 1.428571429;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	cursor: pointer;
+	/*border: 1px solid transparent;*/
+	border-radius: 4px;
+}
 
 .prodo-invoiceImage{ max-width: 500px;max-height: 500px;}
 .prodo-WarrantyAdd{float:right; padding-left:10px; padding-bottom:20px;}

@@ -1,5 +1,5 @@
 angular.module('prodo.OrgApp')
- .controller('OrgAccountController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$log','$modal', 'growl', 'UserSessionService', 'OrgRegistrationService', 'OrgService', 'currentorgdata', 'currentorgaddr', 'currentorgproduct', 'currentorggroup','ENV', function($scope, $rootScope, $state, $http, $timeout, $log, $modal, growl, UserSessionService, OrgRegistrationService, OrgService, currentorgdata, currentorgaddr, currentorgproduct, currentorggroup, ENV) {
+ .controller('OrgAccountController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$log','$modal', 'growl', 'UserSessionService', 'OrgRegistrationService', 'OrgService', 'currentorgdata', 'currentorgaddr', 'currentorgproduct', 'currentorggroup','ENV','industrycategorydata', function($scope, $rootScope, $state, $http, $timeout, $log, $modal, growl, UserSessionService, OrgRegistrationService, OrgService, currentorgdata, currentorgaddr, currentorgproduct, currentorggroup, ENV, industrycategorydata) {
 
 $scope.submitted= false;   
 
@@ -47,6 +47,21 @@ if(currentorgdata.success)
 {
     $rootScope.ProdoAppMessage("There is some issue with the server! Please try after some time");
 }
+$scope.industries = [];
+if (industrycategorydata.success) 
+{
+  
+           $scope.industries =  industrycategorydata.success.industry_category;
+
+          
+}
+
+$scope.returnOrganizationCategory = function()
+{   
+        return $scope.industries;
+};
+
+
 
 var indexOfOrgAddress = 0 ; 
 
@@ -507,15 +522,20 @@ $scope.invalidDesc='';
 
 $scope.invalidPassword='';
 
+$scope.errorCategory = '';
+
 $scope.updateOrgAccount = function() {
 
       $scope.invalidOrgName='';
 
       $scope.invalidDesc='';
 
+     
       $scope.invalidPassword='';
 
-      if ($scope.form.orggeneralsettingform.$valid) {
+      $scope.errorCategory = '';
+
+      if ($scope.form.orggeneralsettingform.$valid && $scope.org.industry_category.length>0) {
         $scope.form.orggeneralsettingform.submitted= true;
         OrgRegistrationService.saveOrgSettings($scope.jsonOrgAccountData());
       } else {
@@ -531,6 +551,10 @@ $scope.updateOrgAccount = function() {
         {
             $scope.invalidPassword = "Please enter valid password";
         }
+        if($scope.org.industry_category.length === 0)
+        {
+            $scope.errorCategory = "Please enter valid industry category";
+        }
         //$scope.form.orggeneralsettingform.submitted= true;
       }             
 };
@@ -543,6 +567,7 @@ $scope.jsonOrgAccountData = function()
           {
           'name' : $scope.org.name,
           'description' : $scope.org.description,
+          'industry_category' : $scope.org.industry_category,
           'password': $scope.user.password
           }
         };
@@ -1406,7 +1431,6 @@ $scope.$watch('$state.$current.locals.globals.currentorggroup', function (curren
 $scope.$watch('$state.$current.locals.globals.currentorgdata', function (currentorgdata) {
   $scope.orgImages = currentorgdata.success.organization.org_images;
   $scope.org = currentorgdata.success.organization; 
-
   $scope.orgKeyClients = currentorgdata.success.organization.keyclients;
 });
 
@@ -1557,7 +1581,7 @@ $scope.addCustomerInvites = function() {
       allCustDataValid = 0;
   }
 };
-  
+ 
 $scope.addNewInvites = function() {
   $scope.addInvitesList='new';
   $scope.showNewInvites = true;

@@ -14,7 +14,7 @@
        </a> 
       
     <div ng-show="campaignDetailsObject.length>0"  ng-repeat="list in campaignDetailsObject  | startFrom:currentPage*pageSize | limitTo:pageSize" >
-    <div class="prodo-productThumbnailView"   ng-class="{activeProduct : list.name==campaignName}" >
+    <div class="prodo-productThumbnailView"   ng-class="{activeProduct : list.name==currentCampaign.name}" >
       <a ng-click="showDetails($index)" class="prodo-cursor"  href="" >
         <p class="prodo-AddProductBtn prodo-productNameList" >{{list.name.substring(0,13)}}</p>
         <img  ng-src="{{list.banner_image.image}}" alt-SRC src="../assets/images/if_no_logo_images_available.gif"  class="prodo-productThumbnailImg img-rounded">
@@ -44,7 +44,11 @@
 		<br>
 	</div>
 
-   <a   ng-click="enableEditingCampaign()" class="btn btn-primary btn-sm pull-right" style="width:80px;margin-bottom:5px;margin-left:5px"><i class="fa fa-pencil fa-fw" ></i>&nbsp;&nbsp;Edit</a>
+  
+
+   <a    class="btn btn-primary btn-sm pull-right" style="width:140px;margin-bottom:5px;margin-left:5px"><i class="fa fa-cloud-upload fa-1x" ></i>&nbsp;&nbsp;Publish</a>
+
+   <a   ng-click="enableEditingCampaign()" class="btn btn-primary btn-sm pull-right" style="width:140px;margin-bottom:5px;margin-left:5px"><i class="fa fa-pencil fa-fw" ></i>&nbsp;&nbsp;Edit</a>
 
    <a  class="btn btn-danger btn-sm pull-right"   style="width:140px;margin-bottom:5px;"data-target="#stopCampaignWarning" data-toggle="modal"><i  class="fa fa-trash-o fa-lg" ></i>&nbsp;&nbsp;Stop Campaign</a>
 
@@ -114,12 +118,13 @@
 			<td  >      
 			    <div class="manage-Campaign-td2 manage-campaign-marginbottom" >
 		            <div    ng-app="prodo.UploadApp" ng-controller="UploadController"  >
-					   <div class="controls" > 
+					   <div class="controls" > <form id="fileInputsUploadcampaign">
 			                  <span class="btn btn-primary fileinput-button controls-upload prodo-uploadBtnWidth" style="padding-left:28px;left:0px;width:230px;">
 			                    <i class="glyphicon glyphicon-upload "></i>
 			                    <input   type="file" name="file" ng-file-select="onFileSelect($files)" multiple ng-click="uploadSrc = 'campaign';">
 			                    <span>Upload Campaign Art Work</span>
 			                  </span>
+			                  </form>
 					   </div>
 					   <div id="FileName" >  </div>
 		           </div>
@@ -129,7 +134,7 @@
     </table>
 </div>
 
-	<div ng-if="enableEditing===1">
+	<div ng-if="enableEditing===1" style="margin-left:17%;margin-right:17%;				">
           <div class="manage-Campaign-tr">
 			 <div class="manage-Campaign-td1">*Product Name:</div> 			
              <div class="manage-Campaign-td2">  
@@ -153,21 +158,24 @@
           <div class="error-message-registration" ng-if="invalidDesc !== '' " ng-bind="invalidDesc"></div> 
           </div>
 				     
-		  <div class="manage-Campaign-tr">
-			  <div class="manage-Campaign-td1">*Start Date: </div>
+		  <div class="manage-Campaign-tr" style="margin-bottom:20%">
+			  <div class="manage-Campaign-td1" style="width:48%;float:left;">*Start Date: </div>
+			  <div class="manage-Campaign-td1" style="width:48%;float:right;">*End Date: </div>
 			  <div class="manage-Campaign-td2"> 
-			     <input type="text" placeholder="Plaese select start date" ng-model="currentCampaign.startdate" class="form-control" name="startDate"  datepicker-popup="{{format}}"  is-open="opened1" min="today"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close">			        
+			     <input type="text" placeholder="Plaese select start date" ng-model="currentCampaign.startdate" class="form-control" name="startDate"  datepicker-popup="{{format}}"  is-open="opened1" min="today"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" style="width:48%;float:left;">			
+			     	      <input type="text" placeholder="Please select end date" ng-model="currentCampaign.enddate" class="form-control" name="endDates" datepicker-popup="{{format}}"  is-open="opened4" min="currentCampaign.startdate"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" style="width:48%;float:right;">        
 			  </div>
 			  <div class="error-message-registration" ng-if="errorForCampaignStart !=='' " ng-bind = "errorForCampaignStart" ></div>
+			  <div class="error-message-registration" ng-if="errorForInvalidEnddate !=='' " ng-bind = "errorForInvalidEnddate" ></div>
 		  </div>
 
-		  <div class="manage-Campaign-tr">
+	<!-- 	  <div class="manage-Campaign-tr">
 			  <div class="manage-Campaign-td1">*End Date: </div>
 			  <div class="manage-Campaign-td2"> 
 			      <input type="text" placeholder="Please select end date" ng-model="currentCampaign.enddate" class="form-control" name="endDates" datepicker-popup="{{format}}"  is-open="opened2" min="currentCampaign.startdate"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close">
 			  </div>
 			  <div class="error-message-registration" ng-if="errorForInvalidEnddate !=='' " ng-bind = "errorForInvalidEnddate" ></div>
-		  </div>				                             							  
+		  </div>	 -->			                             							  
 
    
 
@@ -252,8 +260,10 @@
 	</div>
 </div>
 
+
  <form name="form.campaign" ng-submit='' novalidate> 
-      <div ng-if="addNewCampaign === 1" style="margin-top:0%;">
+      <div ng-if="addNewCampaign === 1" style="margin-top:0%;margin-left:17%;margin-right:17%;">
+
 	      <div class="manage-Campaign-tr">
 			<div class="manage-Campaign-td1">*Product Name:</div> 
             <div class="manage-Campaign-td2">  
@@ -277,21 +287,26 @@
 	              <div class="error-message-registration" ng-if="invalidDesc !== '' "ng-bind="invalidDesc"></div> 
            </div>
      
-		  <div class="manage-Campaign-tr">
-			  <div class="manage-Campaign-td1">*Start Date: </div>
+		  <div class="manage-Campaign-tr" style="margin-bottom:20%;">
+			  <div class="manage-Campaign-td1" style="width:48%;float:left">*Start Date: </div> <div class="manage-Campaign-td1" style="width:48%;float:right">*End Date: </div>
 			  <div class="manage-Campaign-td2"> 
-			     <input type="text" placeholder="Please select start date" ng-model="campaign.startDate" class="form-control" name="startDate"  datepicker-popup="{{format}}"  is-open="opened1" min="today"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />					         					          
+			     <input type="text" placeholder="Please select start date" ng-model="campaign.startDate" class="form-control" name="startDate"  datepicker-popup="{{format}}"  is-open="opened1" min="today"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" style="width:48%;float:left"/>	
+
+			     <input ng-click="restrictEndDates()" type="text" placeholder="Please select end date" ng-model="campaign.endDate" class="form-control" name="endDates" datepicker-popup="{{format}}"  is-open="opened3" min="restrictEndDate"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" style="width:48%;float:right;"/>
+
+
 			  </div>
 			  <div class="error-message-registration" ng-if="errorForCampaignStart !=='' " ng-bind = "errorForCampaignStart" ></div>
+			   <div class="error-message-registration" ng-if="errorForInvalidEnddate !=='' " ng-bind = "errorForInvalidEnddate" ></div>
 		  </div>
 
-		  <div class="manage-Campaign-tr">
+	<!-- 	  <div class="manage-Campaign-tr">
 			  <div class="manage-Campaign-td1">*End Date: </div>
 			  <div class="manage-Campaign-td2"> 
 			      <input ng-click="restrictEndDates()" type="text" placeholder="Please select end date" ng-model="campaign.endDate" class="form-control" name="endDates" datepicker-popup="{{format}}"  is-open="opened2" min="restrictEndDate"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close"/>
 			  </div>
 			  <div class="error-message-registration" ng-if="errorForInvalidEnddate !=='' " ng-bind = "errorForInvalidEnddate" ></div>
-		  </div>
+		  </div> -->
                               				
 		  <div class="manage-Campaign-tr">
                    <div class="manage-Campaign-td1">Targeted Audience:  </div>

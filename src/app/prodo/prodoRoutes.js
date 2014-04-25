@@ -274,6 +274,9 @@ angular.module('prodo.ProdonusApp')
           },
           currentorggroup: function(OrgService, $rootScope) {
             return OrgService.GetOrgGroupMembers.getGroupDetails({orgid: $rootScope.usersession.currentUser.org.orgid}).$promise;
+          },
+          industrycategorydata: function(OrgService, $rootScope) {
+            return  OrgService.GetOrg_Industry_Category.getAllIndustryCategory().$promise;
           }
         }
       }) 

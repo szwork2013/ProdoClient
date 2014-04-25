@@ -124,10 +124,16 @@ angular.module('prodo.CampaignApp')
 //   }
 // ])
 
- .factory('CampaignWallService', ['$resource', function($resource) {
-  return $resource('/api/prodductcampaign/:prodle/:campaign_id', {},
-  {
-    getAllProductCampaigns: {method: 'GET', params: { prodle: 'id' }},
-    getProductCampaign: {method: 'GET', params: { prodle: 'id', campaign_id :'id'}}
-  });
-}])
+
+.factory('CampaignWallService', [
+  '$resource',
+  function ($resource) {
+    var campaign = {
+        get_All_ProductCampaigns: $resource('/api/prodductcampaign/:prodle', {}, { getAllProductCampaigns: { method: 'GET'} }),
+        get_ProductCampaign: $resource('/api/prodductcampaign/:prodle/:campaign_id', {}, { getProductCampaign: { method: 'GET'} }),
+        
+
+    }
+    return campaign;
+  }
+])

@@ -109,7 +109,7 @@
 
         <table class="table child table-hover "  id="prodo-WarrantyTable" >
           <tr>
-            <td class="prodo-width50" colspan="2" >
+            <td class="prodo-width50"  >
 
        
 
@@ -180,14 +180,14 @@
 
 
 
-             ﻿  <input id="prodo_warranty_purchase_date"  type="text" placeholder=""name="warranty_purchase_date" ng-model="productwarranty.purchase_date" class="warranty-textField form-control prodo-validation prodo-display-right"  datepicker-popup="{{format}}"  is-open="opened1" max="maxDatePurchase"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)" required close-text="Close">
+             ﻿  <input id="prodo_warranty_purchase_date"  type="text" placeholder=""name="warranty_purchase_date" ng-model="productwarranty.purchase_date" class="warranty-textField form-control prodo-validation prodo-display-right"  datepicker-popup="{{format}}"  is-open="opened1" max="maxDatePurchase" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" required close-text="Close" >
 
 
 
 
               <div  ng-show="(form.WarrantyForm.warranty_purchase_date.$dirty && editMode.editorEnabledWarranty ==true) ||(form.WarrantyForm.submitted==true && form.WarrantyForm.warranty_purchase_date.$invalid==true)" class="prodo-warranty-Invalid">
 			  <span ng-show="form.WarrantyForm.warranty_purchase_date.$error.required">Please enter purchase date</span>
-			 
+          
 			 </div>
 
 
@@ -233,7 +233,7 @@
 
               </td>
                    <td class="prodo-width50"> Warranty type &nbsp; &nbsp;&nbsp; 
-                   <select ng-init="productwarranty.type = type[1]"  class="warranty-textField form-control prodo-validation prodo-display-right" ng-model="productwarranty.type" ng-options="t for t in type"  required name="warranty_type">
+                   <select ng-init="productwarranty.type = type[0]"  class="warranty-textField form-control prodo-validation prodo-display-right" ng-model="productwarranty.type" ng-options="t for t in type"  required name="warranty_type">
                    </select>
                    
                 
@@ -316,7 +316,7 @@
 
         <table class="table child table-hover "  id="prodo-WarrantyTable" >
           <tr>
-            <td class="prodo-width50" colspan="2" >
+            <td class="prodo-width50"  >
 
        
 
@@ -557,7 +557,7 @@
 
       <br> <br> <br>
 <!-- display mode -->
-  <span class="wall-warranty-expiry-label label label-success">Expires on <span ng-bind="warranty.expirydate |  date:'MMM d, y'" ></span>
+  <span class="wall-warranty-expiry-label label label-success">Expires on <span ng-bind="formatDate(warranty.expirydate) " ></span>
         </span>
   <div class="pull-right prodo-warrantBottomMargine">
     <span class="wall-warranty-expiry-label label label-info"><span ng-bind="warranty.warranty_type" ></span>&nbsp; warranty
@@ -663,12 +663,13 @@
 
 
           <center>
-              <div class="controls" > 
+              <div class="controls" > <form id="fileInputsUploadwarranty">
                 <span class="btn btn-primary fileinput-button controls-upload prodo-uploadBtnWidth" >
                 <i class="glyphicon glyphicon-upload "></i>
                 <input   type="file" name="file" ng-file-select="onFileSelect($files)"  ng-click="uploadSrc = 'warranty';">
                 <span>Change Invoice </span>
                 </span>
+                </form>
               </div>
                 <div id="FileName" > 
           </div>

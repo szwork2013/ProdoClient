@@ -11,7 +11,9 @@
         <p class="user-account-name-text">{{user.username}}</p>
         <div id="uploadWrapper" class="btn btn-success">
           <p><i class="prodo-fa fa fa-upload"></i>Upload Photo</p>
-          <input type="file" name="file" ng-file-select="onFileSelect($files)" ng-click=" uploadSrc='user';"/>
+           <form id="fileInputsUploaduser">
+            <input type="file" name="file" ng-file-select="onFileSelect($files)" ng-click=" uploadSrc='user';"/>
+          </form>
         </div>
          
       </div>

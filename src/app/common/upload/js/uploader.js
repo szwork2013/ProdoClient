@@ -73,6 +73,7 @@ $scope.getFile = function (a) {
             $rootScope.ProdoAppMessage(" Image size must ne less than 500KB", 'error');
             $("#bar").hide();
             setTimeout(function(){ jQuery("#FileName").hide(); },1000);
+            $('#fileInputsUploaduser')[0].reset();
           }
         } else if ($scope.uploadSrc == "product") { // upload product
 
@@ -89,6 +90,7 @@ $scope.getFile = function (a) {
             $rootScope.ProdoAppMessage(" Image size must ne less than 2MB", 'error');
             $("#bar").hide();
             setTimeout(function(){ jQuery("#FileName").hide(); },1000);
+             $('#fileInputsUploadproduct')[0].reset();
           }
           // }
           // else{
@@ -120,12 +122,13 @@ $scope.getFile = function (a) {
             $("#spinner").hide();
             $("#bar").hide();
             setTimeout(function(){ jQuery("#FileName").hide(); },1000);
-            $('#fileInputs')[0].reset();
+            $('#fileInputsUploadorgkeyclient')[0].reset();
           }
           } else {
             $rootScope.ProdoAppMessage("Image size must ne less than 2MB", 'error');
             $("#bar").hide();
             setTimeout(function(){ jQuery("#FileName").hide(); },1000);
+            $('#fileInputsUploadorgkeyclient')[0].reset();
           }
           // }
           // else{
@@ -156,6 +159,7 @@ $scope.getFile = function (a) {
             $rootScope.ProdoAppMessage("Image size must ne less than 2MB", 'error');
             $("#bar").hide();
             setTimeout(function(){ jQuery("#FileName").hide(); },1000);
+            $('#fileInputsUploadcampaign')[0].reset();
           }
       
         }  
@@ -173,6 +177,7 @@ $scope.getFile = function (a) {
             $rootScope.ProdoAppMessage("Image size must ne less than 2MB", 'error');
             $("#bar").hide();
             setTimeout(function(){ jQuery("#FileName").hide(); },1000);
+              $('#fileInputsUploadwarranty')[0].reset();
           }
           // }
           // else{
@@ -199,6 +204,7 @@ $scope.getFile = function (a) {
             $rootScope.ProdoAppMessage("Image size must ne less than 2MB", 'error');
             $("#bar").hide();
             setTimeout(function(){ jQuery("#FileName").hide(); },1000);
+            $('#fileInputsUploadorg')[0].reset();
           }
         // }
          // else{
@@ -222,6 +228,7 @@ $scope.getFile = function (a) {
             $rootScope.ProdoAppMessage("Image size must ne less than 1MB", 'error');
             $("#bar").hide();
             setTimeout(function(){ jQuery("#FileName").hide(); },1000);
+              $('#fileInputsUploadproductlogo')[0].reset();
           }
         } else if ($scope.uploadSrc == "orglogo") { // upload org logo
           if (($scope.file.size / 1024 < 1024)) {
@@ -235,12 +242,13 @@ $scope.getFile = function (a) {
              $rootScope.ProdoAppMessage("Image size must ne less than 1MB", 'error');
             $("#bar").hide();
             setTimeout(function(){ jQuery("#FileName").hide(); },1000);
-          }
+            $('#fileInputsUploadorglogo')[0].reset();
+         }
         }
    
 
       } else { //data 
-        if ($scope.uploadSrc == "product") { // upload product
+        if ($scope.uploadSrc == "productdata") { // upload product
           if (($scope.file.size / 1024 < 10240)) {
             action = {
               product: {
@@ -253,6 +261,7 @@ $scope.getFile = function (a) {
              $rootScope.ProdoAppMessage("Image size must ne less than 10MB", 'error');
             $("#bar").hide();
             setTimeout(function(){ jQuery("#FileName").hide(); },1000);
+             $('#fileInputsUploadproductdata')[0].reset();
           }
         } else if ($scope.uploadSrc == "org") { // upload org
           if (($scope.file.size / 1024 < 10240)) {
@@ -263,23 +272,49 @@ $scope.getFile = function (a) {
               }
             };
           } else {
-             $rootScope.ProdoAppMessage("Image size must ne less than 1MB", 'error');
+            $rootScope.ProdoAppMessage("Image size must ne less than 1MB", 'error');
             $("#bar").hide();
             setTimeout(function(){ jQuery("#FileName").hide(); },1000);
+            $('#fileInputsUploadorg')[0].reset();
           }
         } else {
           $rootScope.ProdoAppMessage("Please upload file of images type...", 'error');
           $("#bar").hide();
           setTimeout(function(){ jQuery("#FileName").hide(); },1000);
+          if($scope.uploadSrc == "org"){
+            $('#fileInputsUploadorg')[0].reset();
+          }
+          if($scope.uploadSrc == "orglogo"){
+            $('#fileInputsUploadorglogo')[0].reset();
+          }
+          if($scope.uploadSrc == "productlogo"){
+            $('#fileInputsUploadproductlogo')[0].reset();
+          }
+          if($scope.uploadSrc == "product"){
+            $('#fileInputsUploadproduct')[0].reset();
+          }
+          if($scope.uploadSrc == "productdata"){
+            $('#fileInputsUploadproductdata')[0].reset();
+          }
+          if($scope.uploadSrc == "warranty"){
+            $('#fileInputsUploadwarranty')[0].reset();
+          }
+          if($scope.uploadSrc == "campaign"){
+            $('#fileInputsUploadcampaign')[0].reset();
+          }
+          if($scope.uploadSrc == "orgkeyclient"){
+            $('#fileInputsUploadorgkeyclient')[0].reset();
+          }
+          if($scope.uploadSrc == "user"){
+            $('#fileInputsUploaduser')[0].reset();
+          }
         }
 
       }
-       // growl.addSuccessMessage("Uploading data");
+    
       $scope.socket.emit('uploadFiles', file_data, action);
       $log.debug("pic emitted");
     });
-    //            fileReader.readAsBinaryString($scope.file[a], $scope);
-
      }
   });  // isLoggedin check end
 };
@@ -321,6 +356,8 @@ $scope.getFile = function (a) {
   });
 
 $scope.productUploadResponseHandler=function(error, imagelocation){
+    $('#fileInputsUploadproductdata')[0].reset();
+    $('#fileInputsUploadproduct')[0].reset();
     $("#spinner").hide();
  if (error) {
       // $("#bar").hide();
@@ -360,7 +397,8 @@ $scope.productUploadResponseHandler=function(error, imagelocation){
 };
 
 $scope.campaignUploadResponseHandler=function(error, imagelocation){
-    $("#spinner").hide();
+ $('#fileInputsUploadcampaign')[0].reset();
+ $("#spinner").hide();
  if (error) {
       // $("#bar").hide();
       
@@ -398,7 +436,8 @@ $scope.campaignUploadResponseHandler=function(error, imagelocation){
 };
 
 $scope.warrantyUploadResponseHandler=function(error, imagelocation){
-    $("#spinner").hide();
+ $('#fileInputsUploadwarranty')[0].reset();
+ $("#spinner").hide();
  if (error) {
       // $("#bar").hide();
       
@@ -436,7 +475,8 @@ $scope.warrantyUploadResponseHandler=function(error, imagelocation){
 };
 
 $scope.orgKeyClientResponseHandler=function(error, imagelocation){
-    $("#spinner").hide();
+ $('#fileInputsUploadorgkeyclient')[0].reset();
+ $("#spinner").hide();
  if (error) {
       // $("#bar").hide();
       
@@ -475,8 +515,8 @@ $scope.orgKeyClientResponseHandler=function(error, imagelocation){
 
 
 $scope.productUploadLogoResponseHandler=function(error, imagelocation){
-         // growl.addSuccessMessage("after uploading");
-           $("#spinner").hide();
+   $('#fileInputsUploadproductlogo')[0].reset();
+   $("#spinner").hide();
     if (error) {
       // $("#bar").hide();
      if (error.error.code == 'AP003') { // user already exist
@@ -513,7 +553,8 @@ $scope.productUploadLogoResponseHandler=function(error, imagelocation){
 };
  
   $scope.orgUploadResponseHandler=function(error, imagelocation){
-      $("#spinner").hide();
+   $('#fileInputsUploadorg')[0].reset();
+   $("#spinner").hide();
    if (error) {
       // $("#bar").hide();
 
@@ -550,6 +591,7 @@ $scope.productUploadLogoResponseHandler=function(error, imagelocation){
   };
 
    $scope.orgUploadLogoResponseHandler=function(error, imagelocation){
+      $('#fileInputsUploadorglogo')[0].reset();
       $("#spinner").hide();
        if (error) {
       // $("#bar").hide();
@@ -589,6 +631,7 @@ $scope.productUploadLogoResponseHandler=function(error, imagelocation){
   };
 
      $scope.userUploadResponseHandler=function(error, imagelocation){
+        $('#fileInputsUploaduser')[0].reset();
         $("#spinner").hide();
      if (error) {
       // $("#bar").hide();

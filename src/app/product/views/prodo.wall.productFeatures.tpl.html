@@ -395,11 +395,13 @@
             <td>Logo</td>
             <td>
               <div class="controls" > 
+              <form id="fileInputsUploadproductlogo">
                 <span class="btn btn-primary fileinput-button controls-upload prodo-uploadBtnWidth" >
                 <i class="glyphicon glyphicon-upload "></i>
                 <input   type="file" name="file" ng-file-select="onFileSelect($files)"  ng-click="uploadSrc = 'productlogo';">
                 <span>Upload Logo</span>
                 </span>
+                </form>
               </div>
             </td>
           </tr>
@@ -407,23 +409,26 @@
             <td>Art Work</td>
             <td>
               <div class="controls" > 
+                <form id="fileInputsUploadproduct">
                 <span class="btn btn-primary fileinput-button controls-upload prodo-uploadBtnWidth" >
                 <i class="glyphicon glyphicon-upload "></i>
                 <input   type="file" name="file" ng-file-select="onFileSelect($files)" multiple ng-click="uploadSrc = 'product';">
                 <span>Upload Art Work</span>
                 </span>
+              </form>
               </div>
             </td>
           </tr>
           <tr>
             <td>Data</td>
             <td>
-              <div class="controls" > 
+              <div class="controls" >  <form id="fileInputsUploadproductdata">
                 <span class="btn btn-primary fileinput-button controls-upload prodo-uploadBtnWidth" >
                 <i class="glyphicon glyphicon-upload "></i>
-                <input   type="file" name="file" ng-file-select="onFileSelect($files)" multiple ng-click="uploadSrc = 'product';">
+                <input   type="file" name="file" ng-file-select="onFileSelect($files)" multiple ng-click="uploadSrc = 'productdata';">
                 <span>Upload Product</span>
                 </span>
+                 </form>
               </div>
             </td>
           </tr>
