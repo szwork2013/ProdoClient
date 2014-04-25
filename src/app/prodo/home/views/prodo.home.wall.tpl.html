@@ -100,9 +100,9 @@
 			<h5 class="prodo-wall-org-heading-text">CURRENT CAMPAIGNS</h5>
 	    <hr size=3 class="prodo-wall-org-hr" noshade>
 	    <br>
-			<div ng-repeat="analytics in allorganalytics | limitTo:10">
+			<div  ng-show="(analytics.campaign && analytics.campaign.length != 0)" ng-repeat="analytics in allorganalytics | limitTo:10">
 				<a href="">
-					<div ng-show="analytics.campaign.length != 0" id="campaign-slider-wrapper">
+					<div id="campaign-slider-wrapper">
 						<p style="font-size: 18px; font-weight: 300; margin: 0px;" class="truncated-product-name" tooltip="{{analytics.name}}" tooltip-placement="top">{{analytics.name}}</p>	
 						<div id="campaignlayerslider" marketing-slider class="ls-wp-container" style="width:100%;height:80px;">
 							<div ng-show="analytics.campaign" class="ls-slide" ng-repeat="slide in analytics.campaign" ng-click='transitionToCampaignWall(slide.orgid, slide.campaign_id, slide.prodle)' data-ls="transition2d:5;">
