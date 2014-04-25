@@ -1,11 +1,12 @@
+
 angular.module('prodo.ProdoHomeApp')
-	.controller('ProdoHomeController', ['$rootScope', '$scope', '$state', '$log', 'UserSessionService', '$stateParams', 'growl', 'allOrgData', 'latestSignupData','prodoSearchService', 'checkIfSessionExist','trendingProductService', function($rootScope, $scope, $state, $log, UserSessionService, $stateParams, growl, allOrgData, latestSignupData, prodoSearchService, checkIfSessionExist, trendingProductService) {
-		
+	.controller('ProdoHomeController', ['$rootScope', '$scope', '$state', '$log', 'UserSessionService', '$stateParams', 'growl', 'allOrgData','prodoSearchService', 'checkIfSessionExist','trendingProductService', function($rootScope, $scope, $state, $log, UserSessionService, $stateParams, growl, allOrgData, prodoSearchService, checkIfSessionExist, trendingProductService) {
+
     $log.debug('initialising home controller..');
     console.log(allOrgData);
-    console.log(latestSignupData);
     $scope.allorganalytics = [];
     $scope.latestsignups = [];
+    $scope.orgsponsers = [];
 
     $scope.isCollapsed = true;
 
@@ -56,11 +57,18 @@ angular.module('prodo.ProdoHomeApp')
     });
 
     if (allOrgData.success) {
-      $scope.allorganalytics = allOrgData.success.organalytics;
-    };
+      if (allOrgData.success.organalyticsall.length !== 0) {
+        $scope.allorganalytics = allOrgData.success.organalyticsall;
+      }
 
-    if (latestSignupData.success) {
-      $scope.latestsignups = latestSignupData.success.OrgNames;
+      if (allOrgData.success.organalyticslatest.length !== 0) {
+        $scope.latestsignups = allOrgData.success.organalyticslatest;
+      }
+
+      if (allOrgData.success.organalyticssponser.length !== 0) {
+        $scope.orgsponsers = allOrgData.success.organalyticssponser;
+      }
+      
     };
    
 
@@ -69,8 +77,10 @@ angular.module('prodo.ProdoHomeApp')
       $state.transitionTo('prodo.productwall.wall-org');
     };
 
-    $scope.transitionToCampaignWall = function(orgid){
+    $scope.transitionToCampaignWall = function(orgid, campaignid, prodle){
       $rootScope.orgid = orgid;
+      $rootScope.product_prodle = prodle;
+      $rootScope.campaign_id = campaignid;
       $state.transitionTo('prodo.productwall.wall-campaign');
     };
 

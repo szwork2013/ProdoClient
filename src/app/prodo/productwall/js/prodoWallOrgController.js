@@ -8,9 +8,6 @@ angular.module('prodo.ProdoWallApp')
     $scope.messages = [];
     $scope.keyclients = [];
     $scope.isFollowing = false;
-    var planExpiryDate = moment.utc(moment($rootScope.usersession.currentUser.subscription.planexpirydate));
-    var todaysDate = moment.utc(moment());
-    $rootScope.daysRemaining = "Trial : "+planExpiryDate.diff(todaysDate, 'days')+" Days Remaining";
 
     $scope.$state = $state;
 

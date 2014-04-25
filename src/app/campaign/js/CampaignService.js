@@ -138,8 +138,8 @@ angular.module('prodo.CampaignApp')
   '$resource',
   function ($resource) {
     var campaign = {
-        get_All_ProductCampaigns: $resource('/api/prodductcampaign/:prodle', {}, { getAllProductCampaigns: { method: 'GET'} }),
-        get_ProductCampaign: $resource('/api/prodductcampaign/:prodle/:campaign_id', {}, { getProductCampaign: { method: 'GET'} }),
+        get_All_ProductCampaigns: $resource('/api/productcampaign/:prodle', {}, { getAllProductCampaigns: { method: 'GET'} }),
+        get_ProductCampaign: $resource('/api/productcampaign/:prodle/:campaign_id', {}, { getProductCampaign: { method: 'GET'} }),
         
 
     }
