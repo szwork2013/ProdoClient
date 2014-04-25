@@ -357,21 +357,21 @@
       <accordion-heading>
             <p style='font-weight:bold; font-size: 13px; margin: 0;'>NEW ORGANIZATION INVITES<i class="fa fa-pencil pull-right"></i></p>
         </accordion-heading>
-        <button class="btn btn-info btn-sm" style="background-color:#47707C; border-color:#3C555C; border-radius: 10px; margin: 15px;" ng-click="addMoreInvites()"><i style="margin-right: 5px;" class="fa fa-plus-square"></i>Add More Invites</button>
+ <!--        <button class="btn btn-info btn-sm" style="background-color:#47707C; border-color:#3C555C; border-radius: 10px; margin: 15px;" ng-click="addMoreInvites()"><i style="margin-right: 5px;" class="fa fa-plus-square"></i>Add More Invites</button> -->
         <table class="table table-condensed">
           <tbody>
             <tr >
-                            <td style="width:30%"><input class="form-control" ng-model="invite.name" type="text" placeholder="Name" > </td>
+            <!--                 <td style="width:30%"><input class="form-control" ng-model="invite.name" type="text" placeholder="Name" > </td>
                             <td style="width:30%"><input class="form-control" ng-model="invite.orgname" type="text" placeholder="Organization Name" ></td>
                             <td style="width:30%">
                           
-                           <input class="form-control" ng-model="invite.email" type="email" placeholder="Email" ></td>
+                           <input class="form-control" ng-model="invite.email" type="email" placeholder="Email" ></td> -->
 
-<!--               <td>
+              <td>
                               <input type="text" class="form-control" placeholder="From" style="margin-bottom:20px;" ng-model="fromOrgDetails" ng-disabled="true">
-                              <input type="text" class="form-control" placeholder="To" style="margin-bottom:20px;">
-                              <input type="text" class="form-control" placeholder="Subject" style="margin-bottom:20px;">
-                              <textarea class="form-control" style="margin-bottom:20px;" rows=28>Dear <name>,
+                              <input type="text" class="form-control" placeholder="To" style="margin-bottom:20px;" ng-model="orginvites.to">
+                              <input type="text" class="form-control" placeholder="Subject" style="margin-bottom:20px;" ng-model="orginvites.subject">
+                              <textarea class="form-control" style="margin-bottom:20px;" ng-model = "orginvites.body" rows=28 >Dear <name>,
 
 We've got great news. Today we're excited to tell you how you can 
 come closer to your customers, get to know their needs,understand their issues, 
@@ -398,7 +398,7 @@ mentioned you might be interested to subscribe to Prodonus. If you have any furt
 please write to business@prodonus.com. We would get in touch with you."    
 
 </textarea>
-              </td> -->
+              </td>
 
 
             </tr>
@@ -469,20 +469,20 @@ please write to business@prodonus.com. We would get in touch with you."
       <accordion-heading>
             <p style='font-weight:bold; font-size: 13px; margin: 0;'>ORGANIZATION CUSTOMER INVITES<i class="fa fa-pencil pull-right"></i></p>
         </accordion-heading>
-           <button class="btn btn-info btn-sm" style="background-color:#47707C; border-color:#3C555C; border-radius: 10px; margin: 15px;" ng-click="addCustomerInvites()"><i style="margin-right: 5px;" class="fa fa-plus-square"></i>Add More Invites</button>
+        <!--    <button class="btn btn-info btn-sm" style="background-color:#47707C; border-color:#3C555C; border-radius: 10px; margin: 15px;" ng-click="addCustomerInvites()"><i style="margin-right: 5px;" class="fa fa-plus-square"></i>Add More Invites</button> -->
         <table class="table table-condensed">
           <tbody>
             <tr >
-              <td style="width:50%"><input class="form-control" ng-model="customer.name" type="text" placeholder="Name" > </td>
+   <!--            <td style="width:50%"><input class="form-control" ng-model="customer.name" type="text" placeholder="Name" > </td>
               <td style="width:50%">  
-                       <input class="form-control" ng-model="customer.email" type="email" placeholder="Email"></td>
+                       <input class="form-control" ng-model="customer.email" type="email" placeholder="Email"></td> -->
 
 
-<!-- 
+
                                <input type="text" class="form-control" placeholder="From" style="margin-bottom:20px;" ng-model="fromOrgCustDetails" ng-disabled="true">
-                              <input type="text" class="form-control" placeholder="To" style="margin-bottom:20px;">
-                              <input type="text" class="form-control" placeholder="Subject" style="margin-bottom:20px;">
-                              <textarea class="form-control" style="margin-bottom:20px;" rows=30> Hi <customername>,
+                              <input type="text" class="form-control" placeholder="To" style="margin-bottom:20px;" ng-model="customerinvites.to">
+                              <input type="text" class="form-control" placeholder="Subject" style="margin-bottom:20px;" ng-model="customerinvites.subject">
+                              <textarea class="form-control" ng-model="customerinvites.body" style="margin-bottom:20px;" rows=30> Hi <customername>,
 
 We have subscribed to Prodonus
 (https://www.prodonus.com) that offers a warranty and social network platform
@@ -505,13 +505,8 @@ number of products you can follow.
 Sincerely,
 <fromusername> from
 <b><orgname></b>
+</textarea>
 
-
-You are receiving this email because your are one of the
-important customers of <b><orgname></b> subscribed to Prodonus. Write to
-support@prodonus.com and for any business enquiries write to
-business@prodonus.com</textarea>
- -->
 
 
 

@@ -45,15 +45,21 @@
 	</div>
 
   
-
-   <a    class="btn btn-primary btn-sm pull-right" style="width:140px;margin-bottom:5px;margin-left:5px"><i class="fa fa-cloud-upload fa-1x" ></i>&nbsp;&nbsp;Publish</a>
+<div ng-if="campaignExpired === 0">
+   <a    class="btn btn-primary btn-sm pull-right" style="width:140px;margin-bottom:5px;margin-left:5px" ng-if="currentCampaign.status === 'init'" ng-click="publishCampaign()"><i class="fa fa-cloud-upload fa-1x" ></i>&nbsp;&nbsp;Publish</a>
+   <a    class="btn btn-primary btn-sm pull-right" style="width:140px;margin-bottom:5px;margin-left:5px" ng-if="currentCampaign.status === 'active'" ng-disabled ><i class="fa fa-cloud-upload fa-1x" ></i>&nbsp;&nbsp;Published</a>
 
    <a   ng-click="enableEditingCampaign()" class="btn btn-primary btn-sm pull-right" style="width:140px;margin-bottom:5px;margin-left:5px"><i class="fa fa-pencil fa-fw" ></i>&nbsp;&nbsp;Edit</a>
 
    <a  class="btn btn-danger btn-sm pull-right"   style="width:140px;margin-bottom:5px;"data-target="#stopCampaignWarning" data-toggle="modal"><i  class="fa fa-trash-o fa-lg" ></i>&nbsp;&nbsp;Stop Campaign</a>
 
+</div>
 
 
+<div ng-if="campaignExpired === 1">
+ <h4 style="color:red;float:right;"> This campaign is expired</h4>
+
+</div>
 
 
 
@@ -261,7 +267,7 @@
 </div>
 
 
- <form name="form.campaign" ng-submit='' novalidate> 
+ <form name="form.campaign" ng-submit='' id="addCampaignForm" novalidate> 
       <div ng-if="addNewCampaign === 1" style="margin-top:0%;margin-left:17%;margin-right:17%;">
 
 	      <div class="manage-Campaign-tr">

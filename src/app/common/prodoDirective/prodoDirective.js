@@ -460,7 +460,11 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
                               {
                                   if(data.error.code==="AD001")                       
                                   {
-                                      scope.errors="Please assign orgid";
+                                      $rootScope.ProdoAppMessage(data.error.message,'error');
+                                   }
+                                   else
+                                   {
+                                        $rootScope.ProdoAppMessage(data.error.message,'error');
                                    }
                               }
                          else if(data.success)
@@ -485,7 +489,7 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
                           scope.enhancement=data.name.doc;
                           scope.productNames=data.success.doc;                
                           }).error(function (data) {
-                                   scope.errors="Server Error";                                 
+                                   $rootScope.ProdoAppMessage("server error",'error');                                
                           });   
                        }
             });

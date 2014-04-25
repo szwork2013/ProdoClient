@@ -98,6 +98,8 @@ angular.module('prodo.CampaignApp')
 
     $scope.noCampaignExists = 1;
     
+    $scope.campaignExpired = 0;
+
     if (currentorgproducts.error) 
     {
           //$scope.ProdoAppMessage("Currently no products exists in the organization",'error');
@@ -110,10 +112,47 @@ angular.module('prodo.CampaignApp')
     	  }
     }
 
+
+
+    var cleanupeventcampaignpublishsuccess = $scope.$on("campaignPublishedSuccessfully", function(event, data){
+     if(data.error !== undefined && data.error.code === 'AL001' )
+        {
+          $rootScope.showModal();
+        }
+        if(data.success)
+        {
+           $rootScope.ProdoAppMessage(data.success.message,'success'); 
+        }
+        else {
+          if (data.error.code== 'AU004') {     // enter valid data
+              $rootScope.ProdoAppMessage(data.error.message,'error');    //ShowAlert
+          } else {
+              $rootScope.ProdoAppMessage(data.error.message,'error');    //ShowError
+          }
+        }
+    });
+
+    var cleanupeventcampaignpublisherror= $scope.$on("campaignNotPublishedSuccessfully", function(event, data){
+           $rootScope.ProdoAppMessage("Some issues with server",'error');
+    });
+
+
+
+
     $scope.$watch('$state.$current.locals.globals.campaigndata', function (campaigndata) { 
       if (campaigndata.success) {
          $scope.campaignDetailsObject = campaigndata.success.Product_Campaigns;
-         $scope.currentCampaign = $scope.campaignDetailsObject[0]; 
+         $scope.currentCampaign = $scope.campaignDetailsObject[0];  
+
+          var campaignExpiryDate = moment.utc(moment($scope.currentCampaign.enddate));
+          var todays = moment.utc(moment());
+          
+          if(campaignExpiryDate.diff(todays,'days')<0)
+          { 
+            $scope.campaignExpired = 1 ;
+          }
+
+
          //$scope.ProdoAppMessage(campaigndata.success.message,'success');
       } else if(campaigndata.error !== undefined && campaigndata.error.code === 'AL001' ) {
           $rootScope.showModal();
@@ -304,6 +343,14 @@ angular.module('prodo.CampaignApp')
         $rootScope.campaign_id = $scope.currentCampaign.campaign_id; 
         $scope.enableEditing = 0;
         $scope.addNewCampaign = 0;
+        $scope.campaignExpired = 0;
+         var campaignExpiryDate = moment.utc(moment($scope.currentCampaign.enddate));
+         var todays = moment.utc(moment());
+      
+         if(campaignExpiryDate.diff(todays,'days')<0)
+         {
+           $scope.campaignExpired = 1 ;
+         }
     };
 
     $scope.add = function()
@@ -417,6 +464,12 @@ angular.module('prodo.CampaignApp')
              $rootScope.ProdoAppMessage("Some issues with server",'error');
      });
 
+
+    $scope.publishCampaign = function()
+    {      console.log("here");
+          CampaignService.publishCampaignNow($scope.currentCampaign.campaign_id);
+    };
+
     // /////////////////////////////////////////////////////
     // upload
 
@@ -524,6 +577,8 @@ angular.module('prodo.CampaignApp')
               cleanupartworkcampaignsuccess();
               cleanupeventcampaignartworkimagesdeletesuccess();
               cleanupeventcampaignartworkimagesdeleteerror();
+              cleanupeventcampaignpublishsuccess();
+              cleanupeventcampaignpublisherror();
     });
 }]);
 
