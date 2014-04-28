@@ -341,7 +341,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
           }, $scope.newProduct, function (success) {
             $scope.newProduct_ResponseProdle=$scope.currentProdle;
             $log.debug("update......"+success);
-            $rootScope.ProdoAppMessage("Product updated successfully...", 'success');
+            // $rootScope.ProdoAppMessage("Product updated successfully...", 'success');
             $scope.handleSaveProductResponse(success); // calling function to handle success and error responses from server side on POST method success.
             $scope.getProduct($scope.currentProdle, $scope.currentOrgid);
             $scope.disableEditor();
