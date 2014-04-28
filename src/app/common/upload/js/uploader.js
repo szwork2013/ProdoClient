@@ -382,9 +382,9 @@ $scope.getFile = function (a) {
   $scope.socket.on('userUploadResponse', function (error, imagelocation) {
     $scope.userUploadResponseHandler(error, imagelocation);
   });
-  $scope.socket.removeAllListeners('campaignBannerUpdateResponse');
-  $scope.socket.on('campaignBannerUpdateResponse', function (error, imagelocation) {
-    $scope.campaignBannerUpdateResponseHandler(error, imagelocation);
+  $scope.socket.removeAllListeners('campaignBannerUploadResponse');
+  $scope.socket.on('campaignBannerUploadResponse', function (error, imagelocation) {
+    $scope.campaignBannerUploadResponseHandler(error, imagelocation);
   });
 
 $scope.productUploadResponseHandler=function(error, imagelocation){
@@ -467,7 +467,7 @@ $scope.campaignUploadResponseHandler=function(error, imagelocation){
   setTimeout(function(){ jQuery("#FileName").hide(); },1000);
 };
 
-$scope.campaignBannerUpdateResponseHandler=function(error, imagelocation){
+$scope.campaignBannerUploadResponseHandler=function(error, imagelocation){
  $('#fileInputsUploadcampaignBannerUpdate')[0].reset();
  $("#spinner").hide();
  if (error) {
@@ -493,7 +493,7 @@ $scope.campaignBannerUpdateResponseHandler=function(error, imagelocation){
       $log.debug("Emit");
       var temp1=imagelocation.success.filename.replace(/ /g,'');
       document.getElementById('check'+temp1).style.color="#01DF74";
-      $rootScope.$broadcast("campaignBannerUpdateResponseSuccess", "success");
+      $rootScope.$broadcast("campaignBannerUploadResponseSuccess", "success");
       $log.debug("getting response for campaign upload  " + $scope.imageSrc);
       $rootScope.ProdoAppMessage(temp1+"  uploaded successfully...", 'success');
       $scope.counter++;
