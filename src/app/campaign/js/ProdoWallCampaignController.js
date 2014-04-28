@@ -13,12 +13,14 @@ angular.module('prodo.CampaignApp')
     tabSearch:'false'
   };
   $scope.isCollapsed = true;
+  $scope.type="campaign";
 
   // $scope.searchComment="warranty";
   $scope.newProductComment = [];
   $rootScope.productCommentResponsearray = [];
   $scope.mytags;
   $scope.myFeaturetags;
+  $rootScope.campaignidWall="";
   $scope.count = 0;
   $scope.commenttextField = {
     userComment: ''
@@ -61,6 +63,7 @@ angular.module('prodo.CampaignApp')
 	        $("#prodo-ProductDetails").css("display", "block");
 	        $scope.allCampaignData=campaignWalldata.success.Product_Campaigns;
 	        $scope.campaign=$scope.allCampaignData[0];
+          $rootScope.campaignidWall=$scope.campaign.campaign_id;
             $scope.productComments=[
                 {
 					commentid: "332b-51f6-1398257909539",
