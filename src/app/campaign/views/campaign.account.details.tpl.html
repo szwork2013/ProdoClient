@@ -127,12 +127,48 @@
 				                  </span>
 				                  </form>
 						   </div>
-						   <div id="FileName" >  </div>
+						  <!--  <div id="FileName" >  </div> -->
 			           </div>
 			         </div>
 			    </td>
-			</tr>			
+			</tr>	
+
+				<tr >
+				<td  >Change Banner Image: </td> 
+				<td  >      
+				     <div class="manage-Campaign-td2 manage-campaign-marginbottom" >
+                         <div  ng-app="prodo.UploadApp" ng-controller="UploadController"  >
+								<div class="controls" > 
+								  <form 
+										id="fileInputsUploadcampaignBannerUpdate">
+										                                   
+										 <span class="btn btn-primary 
+										fileinput-button controls-upload prodo-uploadBtnWidth" 
+										style="padding-left:28px;left:0px;width:230px;">
+										
+										<i class="glyphicon glyphicon-upload "></i>
+										                                     
+										<input   type="file" name="file" 
+										ng-file-select="onFileSelect($files)" multiple ng-click="uploadSrc = 
+										'campaignBannerUpdate';">
+                                     <span>Upload New Banner Image</span>
+                                   </span>
+                                 </form>
+                            </div>
+                           <!--  <div id="FileName" >  </div> -->
+                        </div>
+                    </div>
+			    </td>
+			</tr>
+
+
 	    </table>
+
+
+          <div id="FileName" > 
+          </div>
+          <!-- <span id="spinner" > <i  class=" prodo-loadmoreColor fa fa-spinner fa-spin "> </i></span> -->
+
 	</div>
 
 	<div ng-if="enableEditing===1" style="margin-left:17%;margin-right:17%;">
@@ -289,7 +325,7 @@
           </tr>
 
           <tr>
-            <td>Targeted Audience:  </td>
+            <td>*Targeted Audience:  </td>
           </tr>
 
           <tr>
@@ -298,13 +334,13 @@
                    </tags-input></td>
           </tr>
            
-            <tr>
+    <!--         <tr>
               <td>Campaign Banner Upload: </td>
           </tr>
 
           <tr>
             <td style="padding-bottom:5%;"> <input  type="file" class="form-control"></td>
-          </tr>
+          </tr> -->
 
           <tr>
             <td>Campaign Artwork:</td>
@@ -381,12 +417,13 @@
 		  </div>
                               				
 		  <div class="manage-Campaign-tr">
-                   <div class="manage-Campaign-td1">Targeted Audience:  </div>
+                   <div class="manage-Campaign-td1">*Targeted Audience:  </div>
                    <div class="manage-Campaign-td2 manage-campaign-marginbottom" >
 		                   <tags-input  minTags="1" add-on-blur="true" list="targettedAudience" ng-model="campaign.category" min-length="1" >
                            </tags-input>
 <!--         <input type="text" class="form-control" ng-model="category"></div> -->
 		           </div>
+		            <!-- <div class="error-message-registration" ng-if="errorForInvalidCategory !== '' "ng-bind="errorForInvalidCategory"></div>  -->
           </div>
 
           <div class="manage-Campaign-tr">
