@@ -161,7 +161,6 @@ angular.module('prodo.ProdoHomeApp')
                    $scope.countForEmptyTextbox++;
               }
                $scope.search.productsearchdata.searchtype = "home";
-                  console.log(JSON.stringify($scope.search));
                   prodoSearchService.searchProduct($scope.search);
         }
       };
