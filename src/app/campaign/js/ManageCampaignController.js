@@ -162,6 +162,7 @@ angular.module('prodo.CampaignApp')
             $scope.noCampaignExists = 0;
       }
       $rootScope.campaign_id = $scope.currentCampaign.campaign_id;
+      $rootScope.campaign_prodle = $scope.currentCampaign.prodle;
     });
 
  // function to send and stringify user registration data to Rest APIs
@@ -341,7 +342,7 @@ angular.module('prodo.CampaignApp')
     {     
         // $scope.productName = $scope.campaignDetailsObject[index].productname; 
         $scope.currentCampaign = $scope.campaignDetailsObject[index];  
-        $rootScope.campaign_id = $scope.currentCampaign.campaign_id; 
+        $rootScope.campaign_id = $scope.currentCampaign.campaign_id; $rootScope.campaign_prodle = $scope.currentCampaign.prodle;
         $scope.enableEditing = 0;
         $scope.addNewCampaign = 0;
         $scope.campaignExpired = 0;
