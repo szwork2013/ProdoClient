@@ -122,6 +122,7 @@ angular.module('prodo.CampaignApp')
         if(data.success)
         {
            $rootScope.ProdoAppMessage(data.success.message,'success'); 
+           $state.reload();
         }
         else {
           if (data.error.code== 'AU004') {     // enter valid data
@@ -466,7 +467,7 @@ angular.module('prodo.CampaignApp')
 
 
     $scope.publishCampaign = function()
-    {      console.log("here");
+    {    
           CampaignService.publishCampaignNow($scope.currentCampaign.campaign_id);
     };
 
