@@ -79,7 +79,7 @@
               <dd ng-show="editEmail"><input name="password" class="prodo-account-form-control form-control" type="password" ng-model="user.password" placeholder="Please enter your password" required><small ng-show="((form.usergeneralsettingform.password.$dirty && form.usergeneralsettingform.password.$invalid) || (form.usergeneralsettingform.password.$invalid && form.usergeneralsettingform.submitted))">*Password is required!</small></dd>
             </dl>
               <button ng-show="editEmail" class="prodo-account-btn btn btn-primary btn-sm pull-right" ng-click='updateUserEmail()'><i class="prodo-fa fa fa-save"></i>Save</button>
-              <button ng-show="editEmail" class="prodo-account-btn btn btn-primary btn-sm pull-right" ng-click="emailEditor()"><i class="prodo-fa fa fa-times"></i>Cancel</button>
+              <button ng-show="editEmail" class="prodo-account-btn btn btn-default btn-sm pull-right" ng-click="emailEditor()"><i class="prodo-fa fa fa-times"></i>Cancel</button>
           </form>
           <a ng-hide="editEmail" class="prodo-account-btn btn btn-primary btn-sm pull-right" href="#" ng-click="emailEditor()"><i class="prodo-fa fa fa-pencil-square-o"></i>Edit</a>
         </div>
@@ -103,7 +103,7 @@
             </dl>
             <div>
               <button class="prodo-account-btn btn btn-primary btn-sm pull-right" ng-click='changePassword()'><i class="prodo-fa fa fa-save"></i>Save</button>
-              <button class="prodo-account-btn btn btn-primary btn-sm pull-right" ng-click="clear()"><i class="prodo-fa fa fa-times"></i>Cancel</button>
+              <button class="prodo-account-btn btn btn-default btn-sm pull-right" ng-click="clear()"><i class="prodo-fa fa fa-times"></i>Cancel</button>
             </div>
           </form>
         </div>
@@ -146,7 +146,7 @@
             <a ng-hide="!hasPersonalDetail || editorEnabled" class="prodo-account-btn btn btn-primary btn-sm pull-right" href="#" ng-click="enableEditor()"><i class="prodo-fa fa fa-pencil-square-o"></i>Edit</a>
             <div ng-show="(!hasPersonalDetail && !editorEnabled) || (hasPersonalDetail && editorEnabled)">
               <button class="prodo-account-btn btn btn-primary btn-sm pull-right" ng-click='updateUserAccount()'><i class="prodo-fa fa fa-save"></i>Save</button>
-              <button class="prodo-account-btn btn btn-primary btn-sm pull-right" ng-click="disableEditor()"><i class="prodo-fa fa fa-times"></i>Cancel</button>
+              <button class="prodo-account-btn btn btn-default btn-sm pull-right" ng-click="disableEditor()"><i class="prodo-fa fa fa-times"></i>Cancel</button>
             </div>
           </form>
         </div>
