@@ -217,13 +217,11 @@ color: #fff;
 }
 
 ul.nav-ul a:hover { 
-	color: #000 !important;
+	color: rgb(90, 175, 90) !important;
 }
 
-.navbar-home-link:focus, .navbar-home-link.active{
-	color: #000 !important;
-	font-size: 15px;
-	font-weight: bold;
+.navbar-home-link:focus, .navbar-home-link:active{
+	color: rgb(90, 175, 90) !important;
 }
 
 .logout-img{

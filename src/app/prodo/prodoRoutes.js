@@ -184,6 +184,7 @@ angular.module('prodo.ProdonusApp')
       templateUrl: 'prodo/landing/views/prodo.general.terms.tpl.html' 
     })
     .state('prodo.footer-content.privacy',{ 
+      url: '/prodo-privacy',
       templateUrl: 'prodo/landing/views/prodo.privacy.tpl.html'
     })
     .state('prodo.footer-content.business',{ 
