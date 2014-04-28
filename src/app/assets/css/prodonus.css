@@ -217,13 +217,21 @@ color: #fff;
 }
 
 ul.nav-ul a:hover { 
-	color: #000 !important;
+	/*color: rgb(90, 175, 90) !important;*/
 }
-
-.navbar-home-link:focus, .navbar-home-link.active{
-	color: #000 !important;
-	font-size: 15px;
-	font-weight: bold;
+ul.prodoManageOptions a:hover { 
+	color: black !important;
+}
+/*.pillHomeNavs{color:red;}*/
+.pillHomeNavs {
+	color:#FF9500;
+}
+#prodoActiveListItem:hover{
+	background-color: #CEE3F6;
+	color:black;
+}
+.navbar-home-link:focus, .navbar-home-link:active{
+	color: rgb(90, 175, 90) !important;
 }
 
 .logout-img{
@@ -235,7 +243,7 @@ ul.nav-ul a:hover {
 }
 
 .prodo-fa-navbar{
-	color:#96989B;
+	/*color:#96989B;*/
 	margin-right: 5px;
 }
 
