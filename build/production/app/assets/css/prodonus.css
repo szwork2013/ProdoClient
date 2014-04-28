@@ -41,6 +41,19 @@ div.inner-2:hover {
     opacity: 1;
 }
 
+
+.prodo-fa-navbar:hover{
+	color: rgb(90, 175, 90);
+}
+
+.prodo-fa-navbar:after{
+	color: rgb(90, 175, 90);
+}
+
+/*ul.nav-ul > li > a > i.prodo-fa-navbar:focus, ul.nav-ul > li > a > i.prodo-fa-navbar:active{
+	color: rgb(90, 175, 90);
+}*/
+
 /*div.inner-2, .div-outer:hover>div.inner-1 {
     display: none;
 }
@@ -216,10 +229,21 @@ color: #fff;
   color:#E0E6EE;
 }
 
-ul.nav-ul a:hover { 
-	color: rgb(90, 175, 90) !important;
-}
 
+ul.nav-ul a:hover { 
+	/*color: rgb(90, 175, 90) !important;*/
+}
+ul.prodoManageOptions a:hover { 
+	color: black !important;
+}
+/*.pillHomeNavs{color:red;}*/
+.pillHomeNavs {
+	color:#FF9500;
+}
+#prodoActiveListItem:hover{
+	background-color: #CEE3F6;
+	color:black;
+}
 .navbar-home-link:focus, .navbar-home-link:active{
 	color: rgb(90, 175, 90) !important;
 }
@@ -233,7 +257,7 @@ ul.nav-ul a:hover {
 }
 
 .prodo-fa-navbar{
-	color:#96989B;
+	/*color:#96989B;*/
 	margin-right: 5px;
 }
 
