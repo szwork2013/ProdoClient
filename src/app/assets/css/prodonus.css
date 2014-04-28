@@ -41,6 +41,19 @@ div.inner-2:hover {
     opacity: 1;
 }
 
+
+.prodo-fa-navbar:hover{
+	color: rgb(90, 175, 90);
+}
+
+.prodo-fa-navbar:after{
+	color: rgb(90, 175, 90);
+}
+
+/*ul.nav-ul > li > a > i.prodo-fa-navbar:focus, ul.nav-ul > li > a > i.prodo-fa-navbar:active{
+	color: rgb(90, 175, 90);
+}*/
+
 /*div.inner-2, .div-outer:hover>div.inner-1 {
     display: none;
 }
@@ -215,6 +228,7 @@ color: #fff;
 .navbar-home-link{
   color:#E0E6EE;
 }
+
 
 ul.nav-ul a:hover { 
 	/*color: rgb(90, 175, 90) !important;*/

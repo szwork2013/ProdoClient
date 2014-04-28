@@ -17,8 +17,9 @@
             You have selected to send delete request for your Organization. This would stop you from any further interaction with the organization. Do you want to proceed?
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary manage-org-btn" data-dismiss="modal" ng-click="deleteOrgAccountRequest()" >Send Delete Request</button>
+          
             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-primary manage-org-btn" data-dismiss="modal" ng-click="deleteOrgAccountRequest()" >Confirm Delete Request</button>
           </div>
         </div>
       </div>
@@ -352,74 +353,10 @@
                   </form>
         </accordion-group>
 
-
-    <accordion-group  ng-hide="usersession.currentUser.org.orgtype != 'Manufacturer' " >
-      <accordion-heading>
-            <p style='font-weight:bold; font-size: 13px; margin: 0;'>NEW ORGANIZATION INVITES<i class="fa fa-pencil pull-right"></i></p>
-        </accordion-heading>
- <!--        <button class="btn btn-info btn-sm" style="background-color:#47707C; border-color:#3C555C; border-radius: 10px; margin: 15px;" ng-click="addMoreInvites()"><i style="margin-right: 5px;" class="fa fa-plus-square"></i>Add More Invites</button> -->
-        <table class="table table-condensed">
-          <tbody>
-            <tr >
-            <!--                 <td style="width:30%"><input class="form-control" ng-model="invite.name" type="text" placeholder="Name" > </td>
-                            <td style="width:30%"><input class="form-control" ng-model="invite.orgname" type="text" placeholder="Organization Name" ></td>
-                            <td style="width:30%">
-                          
-                           <input class="form-control" ng-model="invite.email" type="email" placeholder="Email" ></td> -->
-
-              <td>
-                              <input type="text" class="form-control" placeholder="From" style="margin-bottom:20px;" ng-model="fromOrgDetails" ng-disabled="true">
-                              <input type="text" class="form-control" placeholder="To" style="margin-bottom:20px;" ng-model="orginvites.to">
-                              <input type="text" class="form-control" placeholder="Subject" style="margin-bottom:20px;" ng-model="orginvites.subject">
-                              <textarea class="form-control" style="margin-bottom:20px;" ng-model = "orginvites.body" rows=28 >Dear <name>,
-
-We've got great news. Today we're excited to tell you how you can 
-come closer to your customers, get to know their needs,understand their issues, 
-complaints better, and also engage them to create
-innovative ideas, in addition to managing their warranties.
-
-We offer a warranty and social platform for products, for all product manufacturers and
-their customers sharing their insights on products. Prodonus is a social network
-and warranty platform for products, enabling conversations, building
-relationships and gathering real-time market intelligence from customers. We
-bring business closer to customers to engage them more directly. It helps to
-share your concerns, complaints, compliments, innovative ideas, business
-perspectives and product recommendations among the manufacturing business and
-product consumers.
-
-We look forward to meeting you to discuss your
-requirements to signup on our new platform.
-
-All thebest,
-<fromusername> ( <orgname> )
-
-You are receiving this email because your friend <from username> referred you to us and 
-mentioned you might be interested to subscribe to Prodonus. If you have any further questions,
-please write to business@prodonus.com. We would get in touch with you."    
-
-</textarea>
-              </td>
-
-
-            </tr>
-
-<!-- 
-            <tr>
-                <td> </td>
-            </tr> -->
-          </tbody>
-        </table>
-        <div class="error-message-registration" ng-if="orgInvitesNameError!==''" ng-bind="orgInvitesNameError"></div>
-        <div class="error-message-registration" ng-if="orgInvitesOrgnameError!==''" ng-bind="orgInvitesOrgnameError"></div>
-        <div class="error-message-registration" ng-if="orgInvitesEmailError!==''" ng-bind="orgInvitesEmailError"></div>
-
-        <button class="btn btn-primary btn-sm pull-right"  ng-click="sendOrgInvites()"><i style="margin-right: 5px;" class="fa fa-share"></i>Send</button>
-        </accordion-group>
-
-                    <accordion-group ng-click="invokeKeyClients()" ng-if="usersession.currentUser.org.orgtype.toLowerCase() === 'manufacturer'">
-                          <accordion-heading>
-                            <p style='font-weight:bold; font-size: 13px; margin: 0;'>KEY CLIENTS<i class="fa fa-pencil pull-right"></i></p>
-                          </accordion-heading>
+       <accordion-group ng-click="invokeKeyClients()" ng-if="usersession.currentUser.org.orgtype.toLowerCase() === 'manufacturer'">
+                  <accordion-heading>
+                    <p style='font-weight:bold; font-size: 13px; margin: 0;'>KEY CLIENTS<i class="fa fa-pencil pull-right"></i></p>
+                  </accordion-heading>
 
                           <div id="prodo-productFeature-fixed"   ng-app="prodo.UploadApp" ng-controller="UploadController"  >
                               <table   class="table table-hover  prodo-productTableFont">
@@ -453,17 +390,7 @@ please write to business@prodonus.com. We would get in touch with you."
                             <div class="error-message-org " ng-if="orgKeyClients.length===0" style="text-align:left; font-size:20px;  auto;" >  <p style="text-align:left; font-size:20px; margin: 20px auto;" class="text-success"><strong><em>No Key Clients Added</em></strong></p></div>
 
 
-
-         
-
-
-
-
-
-                    </accordion-group> 
-
-
-
+       </accordion-group> 
 
   <accordion-group ng-hide="usersession.currentUser.org.orgtype != 'Manufacturer' " >
       <accordion-heading>
@@ -480,33 +407,24 @@ please write to business@prodonus.com. We would get in touch with you."
 
 
                                <input type="text" class="form-control" placeholder="From" style="margin-bottom:20px;" ng-model="fromOrgCustDetails" ng-disabled="true">
+                              
+
                               <input type="text" class="form-control" placeholder="To" style="margin-bottom:20px;" ng-model="customerinvites.to">
+
+
+
+                               <div class="error-message-registration" ng-if="orgCustToError!==''" ng-bind="orgCustToError" style="margin-top:-2.5%"></div>
+
+                          
+
                               <input type="text" class="form-control" placeholder="Subject" style="margin-bottom:20px;" ng-model="customerinvites.subject">
-                              <textarea class="form-control" ng-model="customerinvites.body" style="margin-bottom:20px;" rows=30> Hi <customername>,
-
-We have subscribed to Prodonus
-(https://www.prodonus.com) that offers a warranty and social network platform
-for products, enabling conversations with product manufacturers or service
-providers. It helps to share our concerns, complaints, compliments, innovative
-ideas, business perspectives and product recommendations with the manufacturing
-business.
+                                   <div class="error-message-registration" ng-if="orgCustSubjectError!==''" ng-bind="orgCustSubjectError" style="margin-top:-2.5%"></div>
 
 
-As a consumer one can follow what's happening on our products.
-Prodonus helps you share your perspective on the products using words, video
-links and picture/images with manufacturer's and other consumers. Conversations
-are purposeful and intended to catch our attention. Share your views and make it
-known to the other users and us immediately. In addition, you can store your
-product warranty data and get instant access to it and also, be notified of
-changing status immediately, especially expiration status.Eager to start? Signup
-with prodonus.com and start following our products, and there’s no limit to the
-number of products you can follow.
+                              <textarea class="form-control" ng-model="custinvitesbody.customerinvites_body" style="margin-bottom:20px;" rows=23 ng-enter="joinbrCstfororginvites()"></textarea>
 
-Sincerely,
-<fromusername> from
-<b><orgname></b>
-</textarea>
 
+                          <div class="error-message-registration" ng-if="orgCustContentError!==''" ng-bind="orgCustContentError" style="margin-top:-2.5%"></div>
 
 
 
@@ -514,12 +432,69 @@ Sincerely,
           </tbody>
         </table>
 
-        <div class="error-message-registration" ng-if="orgCustNameError !== '' " ng-bind="orgCustNameError"></div>
-        <div class="error-message-registration" ng-if="orgCustEmailError !== '' " ng-bind="orgCustEmailError"></div>
 
 
          <button class="btn btn-primary btn-sm pull-right"  ng-click="orgCustomerInvites()" style="width:80px;"><i class="fa fa-share"></i>&nbsp;&nbsp;Send</button>
         </accordion-group>
+
+
+    <accordion-group  ng-hide="usersession.currentUser.org.orgtype != 'Manufacturer' " >
+      <accordion-heading>
+            <p style='font-weight:bold; font-size: 13px; margin: 0;'>NEW ORGANIZATION INVITES<i class="fa fa-pencil pull-right"></i></p>
+        </accordion-heading>
+ <!--        <button class="btn btn-info btn-sm" style="background-color:#47707C; border-color:#3C555C; border-radius: 10px; margin: 15px;" ng-click="addMoreInvites()"><i style="margin-right: 5px;" class="fa fa-plus-square"></i>Add More Invites</button> -->
+        <table class="table table-condensed">
+          <tbody>
+            <tr >
+            <!--                 <td style="width:30%"><input class="form-control" ng-model="invite.name" type="text" placeholder="Name" > </td>
+                            <td style="width:30%"><input class="form-control" ng-model="invite.orgname" type="text" placeholder="Organization Name" ></td>
+                            <td style="width:30%">
+                          
+                           <input class="form-control" ng-model="invite.email" type="email" placeholder="Email" ></td> -->
+
+              <td>
+                              <input type="text" class="form-control" placeholder="From" style="margin-bottom:20px;" ng-model="fromOrgDetails" ng-disabled="true">
+                                 
+                             
+                              <input type="text" class="form-control" placeholder="To" style="margin-bottom:20px;" ng-model="orginvites.to">
+                                <div class="error-message-registration" ng-if="orgInvitesToError!==''" ng-bind="orgInvitesToError" style="margin-top:-2.5%"></div>
+
+
+                              <input type="text" class="form-control" placeholder="Subject" style="margin-bottom:20px;" ng-model="orginvites.subject" >
+
+                              <div class="error-message-registration" ng-if="orgInvitesSubjectError!==''" ng-bind="orgInvitesSubjectError" style="margin-top:-2.5%"></div>
+
+
+                              <textarea class="form-control" style="margin-bottom:20px;" ng-model = "orginvitesbody.orginvites_body" rows=22 ng-enter="joinbrfororginvites()">Dear <name>,
+                              
+
+                              </textarea>
+
+                                <div class="error-message-registration" ng-if="orgInvitesBodyError!==''" ng-bind="orgInvitesBodyError" style="margin-top:-2.5%"></div>
+              </td>
+
+
+            </tr>
+
+<!-- 
+            <tr>
+                <td> </td>
+            </tr> -->
+          </tbody>
+        </table>
+   
+ 
+   
+
+        <button class="btn btn-primary btn-sm pull-right"  ng-click="sendOrgInvites()"><i style="margin-right: 5px;" class="fa fa-share"></i>Send</button>
+        </accordion-group>
+
+             
+
+
+
+
+
 
 
     <accordion-group ng-if="usersession.currentUser.org.orgtype.toLowerCase() === 'manufacturer'">
