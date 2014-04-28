@@ -5,24 +5,24 @@
         <p ng-hide="usersession.isLoggedIn" id="prodo-navbar-text" class="navbar-text navbar-right"><a href="" ng-click='showSignin()' id="prodo-navbar-link1" class="navbar-link">Sign In</a>&nbsp;|&nbsp;<a href="" ng-click='showSignup()' id="prodo-navbar-link2" class="navbar-link">Sign Up</a></p>
       </div>
 
-      <ul ng-cloak ng-show="usersession.isLoggedIn" class="nav-ul nav navbar-nav navbar-right">
+      <ul ng-cloak ng-show="usersession.isLoggedIn" class="nav nav-pills  nav-ul  navbar-nav navbar-right">
 
-        <li><a class="btn defaultPointer" >{{daysRemaining}}</a></li>
+        <li><a class="btn defaultPointer"   >{{daysRemaining}}</a></li>
 
-        <li><a class="navbar-home-link btn" ui-sref="prodo.home.wall"><i class="prodo-fa-navbar fa fa-home"></i>Home</a></li>
+        <li><a class="navbar-home-link btn" ui-sref="prodo.home.wall"  ng-click="home=1; wall=0;"><i  ng-class="{pillHomeNavs : home == 1}"  class="prodo-fa-navbar fa fa-home"></i>Home</a></li>
 
-        <li><a class="navbar-home-link btn" ui-sref="prodo.productwall.wall-org"><i class="prodo-fa-navbar fa fa-stack-exchange"></i>Productwall</a></li>
+        <li><a class="navbar-home-link btn" ui-sref="prodo.productwall.wall-org"  ng-click="home=0; wall=1;" ><i ng-class="{pillHomeNavs : wall == 1} " class="prodo-fa-navbar fa fa-stack-exchange "></i>Productwall</a></li>
 
         <li class="dropdown">
           <a id="navbar-username-link" href="#" class="dropdown-toggle" data-toggle="dropdown"><strong>{{usersession.currentUser.username}}</strong><b class="caret"></b></a>
-            <ul id="navbar-dropdown-ul" class="dropdown-menu">
-              <li><a ui-sref="prodo.account-user.user"><i class="prodo-fa-navbar fa fa-user"></i>User</a></li>
-              <li><a ng-show='usersession.currentUser.org.isAdmin' ui-sref="prodo.account-org.org.detail">
+            <ul id="navbar-dropdown-ul " class="prodoManageOptions dropdown-menu nav nav-pills nav-stacked">
+              <li id="prodoActiveListItem"><a ui-sref="prodo.account-user.user"><i class="prodo-fa-navbar fa fa-user"></i>User</a></li>
+              <li  id="prodoActiveListItem"><a ng-show='usersession.currentUser.org.isAdmin' ui-sref="prodo.account-org.org.detail">
               <i class="prodo-fa-navbar fa fa-bar-chart-o"></i>Org</a></li>
-              <li><a ng-show='((usersession.currentUser.org && usersession.currentUser.org.isAdmin) || !usersession.currentUser.org)' ui-sref="prodo.account-warranty.warranty.detail"><i class="prodo-fa-navbar fa fa-check-square-o"></i>Warranty</a></li>
-              <li><a ng-show="(usersession.currentUser.org && usersession.currentUser.org.isAdmin && usersession.currentUser.org.orgtype.toLowerCase() == 'manufacturer')" ui-sref="prodo.account-campaign.campaign.detail"><i class="prodo-fa-navbar fa fa-bullhorn"></i>Campaign</a></li>
-              <li class="divider"></li>
-              <li><a href="" ng-click="logout()"><i class="prodo-fa-navbar fa fa-sign-out"></i>Logout</a></li>
+              <li  id="prodoActiveListItem"><a ng-show='((usersession.currentUser.org && usersession.currentUser.org.isAdmin) || !usersession.currentUser.org)' ui-sref="prodo.account-warranty.warranty.detail"><i class="prodo-fa-navbar fa fa-check-square-o"></i>Warranty</a></li>
+              <li  id="prodoActiveListItem"><a ng-show="(usersession.currentUser.org && usersession.currentUser.org.isAdmin && usersession.currentUser.org.orgtype.toLowerCase() == 'manufacturer')" ui-sref="prodo.account-campaign.campaign.detail"><i class="prodo-fa-navbar fa fa-bullhorn"></i>Campaign</a></li>
+              <li class="divider " id="prodoActiveListItem"></li>
+              <li  id="prodoActiveListItem"><a href="" ng-click="logout()"><i class="prodo-fa-navbar fa fa-sign-out"></i>Logout</a></li>
             </ul> 
         </li>
       </ul>

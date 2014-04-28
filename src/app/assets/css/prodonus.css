@@ -230,6 +230,24 @@ color: #fff;
 }
 
 
+ul.nav-ul a:hover { 
+	/*color: rgb(90, 175, 90) !important;*/
+}
+ul.prodoManageOptions a:hover { 
+	color: black !important;
+}
+/*.pillHomeNavs{color:red;}*/
+.pillHomeNavs {
+	color:#FF9500;
+}
+#prodoActiveListItem:hover{
+	background-color: #CEE3F6;
+	color:black;
+}
+.navbar-home-link:focus, .navbar-home-link:active{
+	color: rgb(90, 175, 90) !important;
+}
+
 .logout-img{
 	margin-right:10px;
 }
@@ -239,7 +257,7 @@ color: #fff;
 }
 
 .prodo-fa-navbar{
-	color:#96989B;
+	/*color:#96989B;*/
 	margin-right: 5px;
 }
 
