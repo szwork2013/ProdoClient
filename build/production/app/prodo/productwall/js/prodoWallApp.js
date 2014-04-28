@@ -4,8 +4,20 @@ angular.module('prodo.ProdoWallApp')
     $log.debug('initialising parent..');
     $scope.$state = $state;
 
-    if ($state.$current.name == 'prodo.home.wall-org') {
+    if ($state.$current.name == 'prodo.productwall.wall-org') {
       $rootScope.index = 0;
+    } else {
+        if ($state.$current.name == 'prodo.productwall.wall-product') {
+          $rootScope.index = 1;
+      } else if ($state.$current.name == 'prodo.productwall.wall-warranty') {
+          $rootScope.index = 2;
+      } else if ($state.$current.name == 'prodo.productwall.wall-campaign') {
+          $rootScope.index = 3;
+      } else if ($state.$current.name == 'prodo.productwall.wall-blog') {
+          $rootScope.index = 4;
+      } else if ($state.$current.name == 'prodo.productwall.wall-dashboard') {
+          $rootScope.index = 4;
+      } 
     }
 
     $scope.$watch('$state.$current.locals.globals.checkIfSessionExist', function (checkIfSessionExist) {
@@ -32,24 +44,24 @@ angular.module('prodo.ProdoWallApp')
     };
 
     $scope.goToState = function(id) {
-      if (id == 1 && $state.$current.name !== 'prodo.home.wall-org') {
+      if (id == 1 && $state.$current.name !== 'prodo.productwall.wall-org') {
         $rootScope.index = 0;
-        $state.transitionTo('prodo.home.wall-org', null, {'reload':true});
-      } else if (id == 2 && $state.$current.name !== 'prodo.home.wall-product') {
+        $state.transitionTo('prodo.productwall.wall-org', null, {'reload':true});
+      } else if (id == 2 && $state.$current.name !== 'prodo.productwall.wall-product') {
         $rootScope.index = 1;
-        $state.transitionTo('prodo.home.wall-product', null, {'reload':true});
-      } else if (id == 3 && $state.$current.name !== 'prodo.home.wall-warranty') {
+        $state.transitionTo('prodo.productwall.wall-product', null, {'reload':true});
+      } else if (id == 3 && $state.$current.name !== 'prodo.productwall.wall-warranty') {
         $rootScope.index = 2;
-        $state.transitionTo('prodo.home.wall-warranty', null, {'reload':true});
-      } else if (id == 4 && $state.$current.name !== 'prodo.home.wall-campaign') {
+        $state.transitionTo('prodo.productwall.wall-warranty', null, {'reload':true});
+      } else if (id == 4 && $state.$current.name !== 'prodo.productwall.wall-campaign') {
         $rootScope.index = 3;
-        $state.transitionTo('prodo.home.wall-campaign', null, {'reload':true});
-      } else if (id == 5 && $state.$current.name !== 'prodo.home.wall-blog') {
+        $state.transitionTo('prodo.productwall.wall-campaign', null, {'reload':true});
+      } else if (id == 5 && $state.$current.name !== 'prodo.productwall.wall-blog') {
         $rootScope.index = 4;
-        $state.transitionTo('prodo.home.wall-blog', null, {'reload':true});
-      } else if (id == 6 && $state.$current.name !== 'prodo.home.wall-dashboard') {
+        $state.transitionTo('prodo.productwall.wall-blog', null, {'reload':true});
+      } else if (id == 6 && $state.$current.name !== 'prodo.productwall.wall-dashboard') {
         $rootScope.index = 5;
-        $state.transitionTo('prodo.home.wall-dashboard', null, {'reload':true});
+        $state.transitionTo('prodo.productwall.wall-dashboard', null, {'reload':true});
       };
     }
 
@@ -79,6 +91,17 @@ angular.module('prodo.ProdoWallApp')
       $scope.updateimages(data);
     });
 
+    var cleanEventEmittingCampaignImages = $scope.$on("emittingCampaignImages", function(event, data){
+      $log.debug('listening in Parent controller by Campaign controller');
+      $scope.updateimages(data);
+    });
+
+    var cleanEventEmittingNoCampaignImages = $scope.$on("emittingNoCampaignImages", function(event, data){
+      $log.debug('listening in Parent controller by Campaign controller');
+      $scope.updateimages(data);
+    });
+
+
     var cleanEventEmittingOrgImages = $scope.$on("emittingOrgImages", function(event, data){
       $log.debug('listening in Parent controller by org controller');
       $scope.updateimages(data);
@@ -97,6 +120,8 @@ angular.module('prodo.ProdoWallApp')
       cleanEventOrgProdleEmitByUserProfile();
       cleanEventEmittingProductImages();
       cleanEventEmittingNoProductImages();
+      cleanEventEmittingCampaignImages();
+      cleanEventEmittingNoCampaignImages();
       cleanEventEmittingOrgImages();
       cleanEventEmittingNoOrgImages();
     });

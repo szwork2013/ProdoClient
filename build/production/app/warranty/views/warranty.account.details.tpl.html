@@ -47,8 +47,8 @@
               Are you sure you want to change warranty ?
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default " data-dismiss="modal"> Cancel &nbsp;<!-- <i class="glyphicon glyphicon-remove"></i> --></button>
-              <button type="button" class="btn btn-danger " id="ChangeWarrantyOkButton" data-dismiss="modal" >OK &nbsp;<!-- <i class="glyphicon glyphicon-trash"></i> --></button>
+              <button type="button" class="btn btn-default " data-dismiss="modal"> <i class="glyphicon glyphicon-remove"></i> &nbsp;  Cancel</button>
+              <button type="button" class="btn btn-danger " id="ChangeWarrantyOkButton" data-dismiss="modal" ><i class="glyphicon glyphicon-trash"></i> &nbsp; OK</button>
             </div>
           </div>
           <!-- /.modal-content -->
@@ -70,8 +70,9 @@
               Are you sure you want to add new warranty ?
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default " data-dismiss="modal"> Cancel &nbsp;<!-- <i class="glyphicon glyphicon-remove"></i> --></button>
-              <button type="button" class="btn btn-danger " id="addWarrantyOkButton" data-dismiss="modal" >OK &nbsp;<!-- <i class="glyphicon glyphicon-trash"></i> --></button>
+              <button type="button" class="btn btn-default " data-dismiss="modal"> 
+              <i class="glyphicon glyphicon-remove"></i> &nbsp; Cancel</button>
+              <button type="button" class="btn btn-danger " id="addWarrantyOkButton" data-dismiss="modal" > &nbsp; OK<i class="glyphicon glyphicon-trash"></i></button>
             </div>
           </div>
           <!-- /.modal-content -->
@@ -98,17 +99,6 @@
   </div>
   <div class="clearBoth"></div>
 
-
-    
-
-
-
-
-
-
-
-
-
 	
 
       <form  name="form.WarrantyForm"  id="EditWarranty" ng-show="editMode.editorEnabledWarranty " enctype="multipart/form-data"  >
@@ -117,9 +107,9 @@
   <hr class="prodo-wall-org-hr" size=3 noshade>
 <br>
 
-        <table class="table child table-hover table-bordered"  id="prodo-WarrantyTable" >
+        <table class="table child table-hover "  id="prodo-WarrantyTable" >
           <tr>
-            <td class="prodo-width50" >
+            <td class="prodo-width50"  >
 
        
 
@@ -190,14 +180,14 @@
 
 
 
-             ﻿  <input id="prodo_warranty_purchase_date"  type="text" placeholder=""name="warranty_purchase_date" ng-model="productwarranty.purchase_date" class="warranty-textField form-control prodo-validation prodo-display-right"  datepicker-popup="{{format}}"  is-open="opened1" max="maxDatePurchase"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)" required close-text="Close">
+             ﻿  <input id="prodo_warranty_purchase_date"  type="text" placeholder=""name="warranty_purchase_date" ng-model="productwarranty.purchase_date" class="warranty-textField form-control prodo-validation prodo-display-right"  datepicker-popup="{{format}}"  is-open="opened1" max="maxDatePurchase" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" required close-text="Close" >
 
 
 
 
               <div  ng-show="(form.WarrantyForm.warranty_purchase_date.$dirty && editMode.editorEnabledWarranty ==true) ||(form.WarrantyForm.submitted==true && form.WarrantyForm.warranty_purchase_date.$invalid==true)" class="prodo-warranty-Invalid">
 			  <span ng-show="form.WarrantyForm.warranty_purchase_date.$error.required">Please enter purchase date</span>
-			 
+          
 			 </div>
 
 
@@ -243,7 +233,7 @@
 
               </td>
                    <td class="prodo-width50"> Warranty type &nbsp; &nbsp;&nbsp; 
-                   <select ng-init="productwarranty.type = type[1]"  class="warranty-textField form-control prodo-validation prodo-display-right" ng-model="productwarranty.type" ng-options="t for t in type"  required name="warranty_type">
+                   <select ng-init="productwarranty.type = type[0]"  class="warranty-textField form-control prodo-validation prodo-display-right" ng-model="productwarranty.type" ng-options="t for t in type"  required name="warranty_type">
                    </select>
                    
                 
@@ -305,8 +295,8 @@
 
           <tr  class="">
             <td colspan="2">
-              <a    ng-click="addWarranty(editStatus);" class="btn btn-primary   pull-right prodo-margin5" > Save &nbsp;<i class="fa fa-floppy-o"></i></a>
-              <a class="btn btn-default   pull-right prodo-margin5" ng-click="disableEditorFeature() ; "> Cancel&nbsp;<i class="glyphicon glyphicon-remove"></i></a>
+              <a    ng-click="addWarranty(editStatus);" class="btn btn-primary   pull-right prodo-margin5" > <i class="fa fa-floppy-o"></i>&nbsp; Save </a>
+              <a class="btn btn-default   pull-right prodo-margin5" ng-click="disableEditorFeature() ; "> <i class="glyphicon glyphicon-remove"></i>&nbsp; Cancel</a>
             </td>
           </tr>
         </table>
@@ -324,9 +314,9 @@
 <br>
 
 
-        <table class="table child table-hover table-bordered"  id="prodo-WarrantyTable" >
+        <table class="table child table-hover "  id="prodo-WarrantyTable" >
           <tr>
-            <td class="prodo-width50" >
+            <td class="prodo-width50"  >
 
        
 
@@ -519,8 +509,8 @@
 
           <tr  class="">
             <td colspan="2">
-              <a    ng-click="updateWarranty();" class="btn btn-primary   pull-right prodo-margin5" > Update &nbsp;<i class="fa fa-floppy-o"></i></a>
-              <a class="btn btn-default   pull-right prodo-margin5" ng-click="disableEditorFeatureUpdate() ; "> Cancel&nbsp;<i class="glyphicon glyphicon-remove"></i></a>
+              <a    ng-click="updateWarranty();" class="btn btn-primary   pull-right prodo-margin5" ><i class="fa fa-floppy-o"></i>  &nbsp; Update</a>
+              <a class="btn btn-default   pull-right prodo-margin5" ng-click="disableEditorFeatureUpdate() ; "> <i class="glyphicon glyphicon-remove"></i>&nbsp; Cancel</a>
             </td>
           </tr>
         </table>
@@ -537,8 +527,8 @@
 <br>
 
    <div  class="prodo.productAdmin1 pull-right " >
-        <a href="" class="btn btn-primary  btn-bottom-margin" ng-click="enableEditorFeatureUpdate() ;  editStatus='update'; form.WarrantyFormUpdate.$setPristine();"  > Update &nbsp;<i class="fa fa-pencil-square-o "></i></a>
-        <a href="" class="btn btn-danger btn-bottom-margin" data-toggle="modal" data-target="#WarrantyDelete">  Delete &nbsp; <i class="fa fa-trash-o"></i> </a> 
+        <a href="" class="btn btn-primary  btn-bottom-margin" ng-click="enableEditorFeatureUpdate() ;  editStatus='update'; form.WarrantyFormUpdate.$setPristine();"  > <i class="fa fa-pencil-square-o "></i>&nbsp; Update </a>
+        <a href="" class="btn btn-danger btn-bottom-margin" data-toggle="modal" data-target="#WarrantyDelete">   <i class="fa fa-trash-o"></i> &nbsp;  Delete</a> 
         <br>
       </div>
 
@@ -555,8 +545,8 @@
               Are you sure you want to delete ?
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default " data-dismiss="modal"> Cancel &nbsp; <i class=" glyphicon glyphicon-remove"></i></button>
-              <button type="button" class="btn btn-danger  " ng-click="deleteWarranty();" data-dismiss="modal" > Delete  &nbsp; <i class=" glyphicon glyphicon-trash"></i></button>
+              <button type="button" class="btn btn-default " data-dismiss="modal"> <i class=" glyphicon glyphicon-remove"></i> &nbsp; Cancel </button>
+              <button type="button" class="btn btn-danger  " ng-click="deleteWarranty();" data-dismiss="modal" >  <i class=" glyphicon glyphicon-trash"></i> &nbsp; Delete </button>
             </div>
           </div>
           <!-- /.modal-content -->
@@ -567,7 +557,7 @@
 
       <br> <br> <br>
 <!-- display mode -->
-  <span class="wall-warranty-expiry-label label label-success">Expires on <span ng-bind="warranty.expirydate |  date:'MMM d, y'" ></span>
+  <span class="wall-warranty-expiry-label label label-success">Expires on <span ng-bind="formatDate(warranty.expirydate) " ></span>
         </span>
   <div class="pull-right prodo-warrantBottomMargine">
     <span class="wall-warranty-expiry-label label label-info"><span ng-bind="warranty.warranty_type" ></span>&nbsp; warranty
@@ -575,10 +565,10 @@
  &nbsp;  &nbsp; 
 		  	<button ng-click="OpenInvoiceImage = !OpenInvoiceImage" class="prodo-warrantyInvoiceBtn " ><i class=" fa fa-picture-o"></i></button>
 		  </div>
- <table class="  prodo-productTableFont  table child table-bordered table-hover "  id="prodo-WarrantyTable">
+ <table class="  prodo-productTableFont  table child table-hover "  id="prodo-WarrantyTable">
    
           <tr>
-            <td class="prodo-width50" >
+            <td class="prodo-width50" colspan="2">
 
        
 
@@ -673,12 +663,13 @@
 
 
           <center>
-              <div class="controls" > 
+              <div class="controls" > <form id="fileInputsUploadwarranty">
                 <span class="btn btn-primary fileinput-button controls-upload prodo-uploadBtnWidth" >
                 <i class="glyphicon glyphicon-upload "></i>
                 <input   type="file" name="file" ng-file-select="onFileSelect($files)"  ng-click="uploadSrc = 'warranty';">
                 <span>Change Invoice </span>
                 </span>
+                </form>
               </div>
                 <div id="FileName" > 
           </div>

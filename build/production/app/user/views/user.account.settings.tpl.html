@@ -11,7 +11,9 @@
         <p class="user-account-name-text">{{user.username}}</p>
         <div id="uploadWrapper" class="btn btn-success">
           <p><i class="prodo-fa fa fa-upload"></i>Upload Photo</p>
-          <input type="file" name="file" ng-file-select="onFileSelect($files)" ng-click=" uploadSrc='user';"/>
+           <form id="fileInputsUploaduser">
+            <input type="file" name="file" ng-file-select="onFileSelect($files)" ng-click=" uploadSrc='user';"/>
+          </form>
         </div>
          
       </div>
@@ -77,7 +79,7 @@
               <dd ng-show="editEmail"><input name="password" class="prodo-account-form-control form-control" type="password" ng-model="user.password" placeholder="Please enter your password" required><small ng-show="((form.usergeneralsettingform.password.$dirty && form.usergeneralsettingform.password.$invalid) || (form.usergeneralsettingform.password.$invalid && form.usergeneralsettingform.submitted))">*Password is required!</small></dd>
             </dl>
               <button ng-show="editEmail" class="prodo-account-btn btn btn-primary btn-sm pull-right" ng-click='updateUserEmail()'><i class="prodo-fa fa fa-save"></i>Save</button>
-              <button ng-show="editEmail" class="prodo-account-btn btn btn-primary btn-sm pull-right" ng-click="emailEditor()"><i class="prodo-fa fa fa-times"></i>Cancel</button>
+              <button ng-show="editEmail" class="prodo-account-btn btn btn-default btn-sm pull-right" ng-click="emailEditor()"><i class="prodo-fa fa fa-times"></i>Cancel</button>
           </form>
           <a ng-hide="editEmail" class="prodo-account-btn btn btn-primary btn-sm pull-right" href="#" ng-click="emailEditor()"><i class="prodo-fa fa fa-pencil-square-o"></i>Edit</a>
         </div>
@@ -101,7 +103,7 @@
             </dl>
             <div>
               <button class="prodo-account-btn btn btn-primary btn-sm pull-right" ng-click='changePassword()'><i class="prodo-fa fa fa-save"></i>Save</button>
-              <button class="prodo-account-btn btn btn-primary btn-sm pull-right" ng-click="clear()"><i class="prodo-fa fa fa-times"></i>Cancel</button>
+              <button class="prodo-account-btn btn btn-default btn-sm pull-right" ng-click="clear()"><i class="prodo-fa fa fa-times"></i>Cancel</button>
             </div>
           </form>
         </div>
@@ -144,7 +146,7 @@
             <a ng-hide="!hasPersonalDetail || editorEnabled" class="prodo-account-btn btn btn-primary btn-sm pull-right" href="#" ng-click="enableEditor()"><i class="prodo-fa fa fa-pencil-square-o"></i>Edit</a>
             <div ng-show="(!hasPersonalDetail && !editorEnabled) || (hasPersonalDetail && editorEnabled)">
               <button class="prodo-account-btn btn btn-primary btn-sm pull-right" ng-click='updateUserAccount()'><i class="prodo-fa fa fa-save"></i>Save</button>
-              <button class="prodo-account-btn btn btn-primary btn-sm pull-right" ng-click="disableEditor()"><i class="prodo-fa fa fa-times"></i>Cancel</button>
+              <button class="prodo-account-btn btn btn-default btn-sm pull-right" ng-click="disableEditor()"><i class="prodo-fa fa fa-times"></i>Cancel</button>
             </div>
           </form>
         </div>
@@ -264,7 +266,7 @@
            <p class="prodo-accordion-heading">SUBSCRIPTION<i class="fa fa-pencil pull-right"></i></p>
         </accordion-heading>
         <div ng-show="usersession.currentUser.isSubscribed">
-          <p class="prodo-account-text-success text-success"><strong><em>You are currently subscribed for 90-days Free Trial Plan.<br>
+          <p class="prodo-account-text-success text-success"><strong><em>You are currently subscribed for 30-days Free Trial Plan.<br>
           No payment has been taken during trial plan.</em></strong></p>
         </div>
     </accordion-group>
@@ -274,7 +276,7 @@
             <p class="prodo-accordion-heading">PAYMENT<i class="fa fa-pencil pull-right"></i></p>
         </accordion-heading>
         <div ng-show="usersession.currentUser.hasDonePayment">
-          <p class="prodo-account-text-success text-success"><strong><em>You are currently subscribed for 90-days Free Trial Plan.<br>
+          <p class="prodo-account-text-success text-success"><strong><em>You are currently subscribed for 30-days Free Trial Plan.<br>
           No payment has been taken during trial plan.</em></strong></p>
         </div>
     </accordion-group>
@@ -284,7 +286,7 @@
             <p class="prodo-accordion-heading">PAYMENT HISTORY<i class="fa fa-pencil pull-right"></i></p>
         </accordion-heading>
         <div ng-show="usersession.currentUser.hasDonePayment">
-          <p class="prodo-account-text-success text-success"><strong><em>You are currently subscribed for 90-days Free Trial Plan.<br>
+          <p class="prodo-account-text-success text-success"><strong><em>You are currently subscribed for 30-days Free Trial Plan.<br>
           No payment has been taken during trial plan.</em></strong></p>
         </div>
     </accordion-group>
