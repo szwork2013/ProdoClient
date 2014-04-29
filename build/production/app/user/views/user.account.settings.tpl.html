@@ -7,7 +7,7 @@
       <div id="prodo-account-col-md-3" class="col-md-3">
 
         <img class="account-profile-img" ng-show="user.profile_pic" ng-src="{{user.profile_pic.image}}">
-        <img class="account-profile-img" ng-hide="user.profile_pic" src="../../assets/images/if_no_logo_images_available.gif">
+        <img class="account-profile-img" ng-hide="user.profile_pic" src="../../assets/images/if_no_org_images_available.jpg">
         <p class="user-account-name-text">{{user.username}}</p>
         <div id="uploadWrapper" class="btn btn-success">
           <p><i class="prodo-fa fa fa-upload"></i>Upload Photo</p>
@@ -254,7 +254,7 @@
             
             <p class="truncated-product-name prodo-wall-org-product-name" tooltip="{{productf.name}}" tooltip-placement="right">{{productf.name}}</p>
             <img ng-show="productf.product_logo" src="{{productf.product_logo.image}}" alt=" No Image" class="prodo-wall-org-productimg img-rounded">
-            <img ng-hide="productf.product_logo" src="../../../assets/images/if_no_logo_images_available.gif" alt=" No Image" class="prodo-wall-org-productimg img-rounded">
+            <img ng-hide="productf.product_logo" src="../../../assets/images/if_no_org_images_available.jpg" alt=" No Image" class="prodo-wall-org-productimg img-rounded">
             <button class="prodo-follow-btn btn btn-primary btn-sm" ng-click='unfollow(productf)'>Talkout</button>
           </div>
         </div>
@@ -266,7 +266,7 @@
            <p class="prodo-accordion-heading">SUBSCRIPTION<i class="fa fa-pencil pull-right"></i></p>
         </accordion-heading>
         <div ng-show="usersession.currentUser.isSubscribed">
-          <p class="prodo-account-text-success text-success"><strong><em>You are currently subscribed for 30-days Free Trial Plan.<br>
+          <p class="prodo-account-text-success text-success"><strong><em>You are currently subscribed for {{daysRemaining}}-days Free Trial Plan.<br>
           No payment has been taken during trial plan.</em></strong></p>
         </div>
     </accordion-group>
@@ -276,7 +276,7 @@
             <p class="prodo-accordion-heading">PAYMENT<i class="fa fa-pencil pull-right"></i></p>
         </accordion-heading>
         <div ng-show="usersession.currentUser.hasDonePayment">
-          <p class="prodo-account-text-success text-success"><strong><em>You are currently subscribed for 30-days Free Trial Plan.<br>
+          <p class="prodo-account-text-success text-success"><strong><em>You are currently subscribed for {{daysRemaining}}-days Free Trial Plan.<br>
           No payment has been taken during trial plan.</em></strong></p>
         </div>
     </accordion-group>
@@ -286,7 +286,7 @@
             <p class="prodo-accordion-heading">PAYMENT HISTORY<i class="fa fa-pencil pull-right"></i></p>
         </accordion-heading>
         <div ng-show="usersession.currentUser.hasDonePayment">
-          <p class="prodo-account-text-success text-success"><strong><em>You are currently subscribed for 30-days Free Trial Plan.<br>
+          <p class="prodo-account-text-success text-success"><strong><em>You are currently subscribed for {{daysRemaining}}-days Free Trial Plan.<br>
           No payment has been taken during trial plan.</em></strong></p>
         </div>
     </accordion-group>

@@ -20,7 +20,7 @@
     <div class="prodo-productThumbnailView"   ng-class="{activeProduct : campaign1.campaign_id==campaign.campaign_id}" >
       <a ng-click="getSelectedCampaign(campaign1.campaign_id);" class="prodo-cursor"  href="" >
         <p class="prodo-AddProductBtn prodo-productNameList" >{{campaign1.name.substring(0,13)}}</p>
-        <img  ng-src="{{campaign1.banner_image.image}}" alt-SRC src="../assets/images/if_no_logo_images_available.gif"  class="prodo-productThumbnailImg img-rounded">
+        <img  ng-src="{{campaign1.banner_image.image}}" alt-SRC src="../assets/images/if_no_org_images_available.jpg"  class="prodo-productThumbnailImg img-rounded">
       </a>
     </div>
     </div> -->
@@ -29,7 +29,7 @@
 
 <div id="prodo-ProductDetails">
            <p class="prodo-CampaignName" >{{campaign.name}}</p>
-        <img  ng-src="{{campaign.banner_image.image}}" alt-SRC src="../assets/images/if_no_logo_images_available.gif"  class="prodo-campaignBanner img-rounded">
+        <img  ng-src="{{campaign.banner_image.image}}" alt-SRC src="../assets/images/if_no_org_images_available.jpg"  class="prodo-campaignBanner img-rounded">
 
 
 <!-- campaign data icons -->
@@ -74,7 +74,7 @@
               <div ng-controller="DragImageController">
                 <div id="prodo-comment-textBox-container">
                   <div id="holder">
-                    <textarea ng-init="commenttextField.userComment=''" id="prodo-comment-Textbox" col="40" type="text" class="form-control prodo-validation" name="txtComment" placeholder="Product Conversation [max 300 characters]. You can drag image here to add image with comment..."   ng-model="commenttextField.userComment" comment-limit="300" ng-enter="addProductComment();hideFeature()" required  items="featuretags"  ng-click="showFeature()"></textarea>  
+                    <textarea ng-init="commenttextField.userComment=''" id="prodo-comment-Textbox" col="40" type="text" class="form-control prodo-validation" name="txtComment" placeholder="Campaign Conversation [max 300 characters]. You can drag image here to add image with comment..."   ng-model="commenttextField.userComment" comment-limit="300" ng-enter="addProductComment();hideFeature()" required  items="featuretags"  ng-click="showFeature()"></textarea>  
                 
                     <div id="prodo-productTags" >
                       <form  role="form">

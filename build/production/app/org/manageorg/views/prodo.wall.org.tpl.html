@@ -1,6 +1,6 @@
 <div class="prodo-wall-org-container container">
 	<div id="prodo-view-orlogodisplay" class="container">
-		<img class="prodo-wall-org-logo" ng-src="{{orgdata.org_logo.image}}" src="../assets/images/if_no_logo_images_available.gif">
+		<img class="prodo-wall-org-logo" ng-src="{{orgdata.org_logo.image}}" src="../assets/images/if_no_org_images_available.jpg">
 		<strong class="prodo-wall-org-name-text">{{orgdata.name}}</strong>
 	</div>
 
@@ -105,7 +105,7 @@
         
         <p class="truncated-product-name prodo-wall-org-product-name" tooltip="{{product.name}}" tooltip-placement="right">{{product.name}}</p>
         <img ng-show="product.product_logo" src="{{product.product_logo.image}}" alt=" No Image" class="prodo-wall-org-productimg img-rounded">
-        <img ng-hide="product.product_logo" src="../../../assets/images/if_no_logo_images_available.gif" alt=" No Image" class="prodo-wall-org-productimg img-rounded">
+        <img ng-hide="product.product_logo" src="../../../assets/images/if_no_org_images_available.jpg" alt=" No Image" class="prodo-wall-org-productimg img-rounded">
         <button ng-show="product_prodles.indexOf(product.prodle)>=0" class="prodo-following-btn btn btn-primary btn-sm" tooltip="product in conversation" tooltip-placement="right"><i class="fa fa-comments fa-lg"></i></button>
 
         <button ng-show="product_prodles.indexOf(product.prodle)<0" id="{{product.prodle + '_fbtn'}}" class="prodo-follow-btn btn btn-primary btn-sm" ng-click='follow(product)'>Talkin</button>
