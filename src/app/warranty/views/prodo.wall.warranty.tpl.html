@@ -52,8 +52,8 @@
  			</tbody>
 	 	</table>	</div>
 		<div id="#invoice-img-div" ng-show="OpenInvoiceImage" class="row">
-			<img ng-src="{{warranty.invoice_image.image}}" alt="..." class="wall-warranty-invoice-img img-rounded">
-		</div>
+			<img ng-show="warranty.invoice_image" ng-src="{{warranty.invoice_image.image}}" alt="..." class="wall-warranty-invoice-img img-rounded">
+			<img ng-hide="warranty.invoice_image" src="../../assets/images/if_no_org_images_available.jpg" alt="..." class="wall-warranty-invoice-img img-rounded">
 	</div>
 	</div>
 	<div ng-show="warranties.length > 4" class="wall-warranty-btn">

@@ -25,7 +25,7 @@
 						<div style="height: 140px;" class="div-outer">
 		  				<div class="inner-1" style="margin: 2px;">
 			  				<img ng-show="analytics.org_logo" ng-src="{{analytics.org_logo.image}}" style="width:180px; height:140px;" class="img-rounded">
-		    				<img ng-hide="analytics.org_logo" src="../../../assets/images/if_no_logo_images_available.gif" style=" width:180px; height:140px;" class="img-rounded">
+		    				<img ng-hide="analytics.org_logo" src="../../../assets/images/if_no_org_images_available.jpg" style=" width:180px; height:140px;" class="img-rounded">
 		  				</div>
 			  			<div class="inner-2" style="margin: 2px; height:140px;">
 			  				<h5><strong><em>{{analytics.name}}</em></strong></h5>
@@ -43,7 +43,7 @@
 			</div>
 			<div style="margin: 10px;" ng-show='latestsignups.length != 0'>
 		    <br>
-		    <h5 class="prodo-wall-org-heading-text">NEW SIGNUP</h5>
+		    <h5 class="prodo-wall-org-heading-text">NEW ORGANIZATION SIGNUP</h5>
 		    <hr size=3 class="prodo-wall-org-hr" noshade>
 		    <br>
 		    <div style="margin: 10px;" class="row">
@@ -52,7 +52,7 @@
 		      		<div style="height: 140px;" class="div-outer">
 		      			<div class="inner-1" style="margin: 2px;">
 					        <img style="width:180px; height:140px;" ng-show="signup.org_logo" ng-src="{{signup.org_logo.image}}" alt="{{signup.name}}" class="img-rounded">
-					        <img style="width:180px; height:140px;" ng-hide="signup.org_logo" src="../../../assets/images/if_no_logo_images_available.gif" alt="{{signup.name}}" class="img-rounded">
+					        <img style="width:180px; height:140px;" ng-hide="signup.org_logo" src="../../../assets/images/if_no_org_images_available.jpg" alt="{{signup.name}}" class="img-rounded">
 		      			</div>
 		      			<div class="inner-2" style="margin: 2px;">
 		      				<h5><strong><em>{{signup.name}}</em></strong></h5>
@@ -70,7 +70,7 @@
 		  </div>
 		  <div style="margin: 10px;" ng-show='orgsponsers.length != 0'>
 		    <br>
-		    <h5 class="prodo-wall-org-heading-text">SPONSERED</h5>
+		    <h5 class="prodo-wall-org-heading-text">SPONSORED</h5>
 		    <hr size=3 class="prodo-wall-org-hr" noshade>
 		    <br>
 		    <div style="margin: 10px;" class="row">
@@ -79,7 +79,7 @@
 		      		<div style="height: 140px;" class="div-outer">
 		      			<div class="inner-1" style="margin: 2px;">
 					        <img style="width:180px; height:140px;" ng-show="sponser.org_logo" ng-src="{{sponser.org_logo.image}}" alt="{{sponser.name}}" class="img-rounded">
-					        <img style="width:180px; height:140px;" ng-hide="sponser.org_logo" src="../../../assets/images/if_no_logo_images_available.gif" alt="{{sponser.name}}" class="img-rounded">
+					        <img style="width:180px; height:140px;" ng-hide="sponser.org_logo" src="../../../assets/images/if_no_org_images_available.jpg" alt="{{sponser.name}}" class="img-rounded">
 		      			</div>
 		      			<div class="inner-2" style="margin: 2px;">
 		      				<h5><strong><em>{{sponser.name}}</em></strong></h5>
@@ -107,7 +107,7 @@
 						<div id="campaignlayerslider" marketing-slider class="ls-wp-container" style="width:100%;height:80px;">
 							<div ng-show="analytics.campaign" class="ls-slide" ng-repeat="slide in analytics.campaign" ng-click='transitionToCampaignWall(slide.orgid, slide.campaign_id, slide.prodle)' data-ls="transition2d:5;">
 								<img ng-show="slide.banner_image" style="" class="ls-bg" ng-src="{{slide.banner_image.image}}">
-								<img ng-hide="slide.banner_image" style="" class="ls-bg" src="../../../assets/images/banner.jpg">
+								<img ng-hide="slide.banner_image" style="" class="ls-bg" src="../../../assets/images/if_no_org_images_available.jpg">
 							</div>
 						</div>
 					</div>
