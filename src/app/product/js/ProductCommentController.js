@@ -12,6 +12,53 @@
 */
 angular.module('prodo.ProductApp')
 .controller('ProductCommentController', ['$scope', '$log', '$rootScope', 'ProductService', 'UserSessionService', '$http', 'CommentLoadMoreService', 'ENV', 'TagReffDictionaryService', 'ProductFeatureService', 'isLoggedin',  function ($scope, $log, $rootScope, ProductService, UserSessionService, $http, CommentLoadMoreService, ENV, TagReffDictionaryService, ProductFeatureService ,isLoggedin) {
+    $(document).ready(function () {
+      var txtheight;
+      var txtwidth;
+
+      $("#prodo-comment-Textbox").on('blur mouseleave', function() {
+       $(this).height(30);
+       txtheight=$( "#prodo-comment-Textbox" ).height();
+       txtwidth=$( "#prodo-comment-Textbox" ).width();
+      });   
+
+      $("#prodo-comment-Textbox").on('focus change keyup paste keypress click', function() {
+       $(this).height(85);
+       txtheight=$( "#prodo-comment-Textbox" ).height();
+       txtwidth=$( "#prodo-comment-Textbox" ).width();
+      });    
+
+      $('#holder').hover(
+        function() {
+        txtheight=$( "#prodo-comment-Textbox" ).height();
+        txtwidth=$( "#prodo-comment-Textbox" ).width();
+         document.getElementById("holder").style.height=txtheight;
+         document.getElementById("holder").style.width=txtwidth;
+         txtwidth="";
+         txtheight="";
+
+
+
+       }, 
+       function() {
+
+         $log.debug( 'hovering out' , $(this).attr('id') );
+          txtheight=$( "#prodo-comment-Textbox" ).height();
+          txtwidth=$( "#prodo-comment-Textbox" ).width();
+
+         document.getElementById("holder").style.height=txtheight;
+         document.getElementById("holder").style.width=txtwidth;
+         txtwidth="";
+         txtheight="";
+
+       }
+       );
+
+       txtwidth="";
+        txtheight="";
+
+
+    });
 
  $scope.count;
 
