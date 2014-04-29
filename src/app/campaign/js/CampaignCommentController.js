@@ -13,7 +13,7 @@
 angular.module('prodo.CampaignApp')
 .controller('CampaignCommentController', ['$scope', '$log', '$rootScope', 'ProductService', 'UserSessionService', '$http', 'CommentLoadMoreService', 'ENV', 'TagReffDictionaryService', 'ProductFeatureService', 'isLoggedin','CampaignWallService',  function ($scope, $log, $rootScope, ProductService, UserSessionService, $http, CommentLoadMoreService, ENV, TagReffDictionaryService, ProductFeatureService ,isLoggedin,CampaignWallService) {
 
- $scope.count;
+$scope.count;
 $scope.handleGetAllTagsSuccess=function(successData){
      for (var i = 0; i < successData.success.tags.length; i++) {
       $scope.pretags.push(successData.success.tags[i].tagname);
@@ -61,69 +61,7 @@ if ((localStorage.sid !== "") || (localStorage.sid !== " ") || (localStorage.sid
   });
 }
 //socket connect
-//socket response when for add comment
-$scope.commentError="";
-$scope.socket.removeAllListeners('addCampaignCommentResponse');
-$scope.socket.on('addCampaignCommentResponse', function (error, result) {
-  if (error) {
-    $scope.commentError=error.error.message;
-    $log.debug(error.error.message);
-     $rootScope.ProdoAppMessage(error.error.message, 'error');
-    $scope.showErrorIfCommentNotAdded(); //If error retry add comment 
-    $scope.showRetryIconIfCommentNotAdded();
-    // if(retry) retry.textContent("Error posting comment.. Please try again");
-  } else if (result) {
-    // $log.debug(result.success.message);
-    $scope.ifErrorAddingComment = false;
-    $scope.commentError=false;
-    $log.debug("addCampaignCommentResponse success" + JSON.stringify( result.success.campaign_comment));
-  }
-  //   $scope.socket.removeAllListeners();
-});
-//socket response when for add comment
-//productComment response -on the fly comment listener creation
-$scope.campaigncommentResponseListener = "campaigncommentResponse" + $rootScope.campaignidWall;
-console.log($scope.campaigncommentResponseListener );
-$scope.socket.removeAllListeners($scope.campaigncommentResponseListener);
-$scope.socket.on($scope.campaigncommentResponseListener, function (error, result) {
-  if (error) {
-    $log.debug(error.error.message);
-    $rootScope.ProdoAppMessage(error.error.message, 'error');
-  } else if (result) {
-    $log.debug("campaigncommentResponse  Response success" + JSON.stringify(result.success.campaign_comment));
-    //  $scope.productCommentResponsearray.push( JSON.stringify(result.success.product_comment));
-    //comment info from server response
-    $scope.newProductComment = {
-      campaign_comment: {
-        user: {
-          userid: result.success.campaign_comment.user.userid,
-          username: result.success.campaign_comment.user.username,
-          orgname: result.success.campaign_comment.user.orgname,
-          grpname: result.success.campaign_comment.user.grpname,
-          profilepic: result.success.campaign_comment.user.profilepic
-        },
-        commentid: result.success.campaign_comment.commentid,
-        type: result.success.campaign_comment.type,
-        datecreated: result.success.campaign_comment.datecreated,
-        commenttext: result.success.campaign_comment.commenttext,
-        analytics: $scope.tagPairs
 
-      }
-    };
-
-    // $scope.productCommentResponsearray.push($scope.newProductComment.campaign_comment);
-    $rootScope.productCommentResponsearray.push($scope.newProductComment.campaign_comment);
-    $log.debug($rootScope.productCommentResponsearray);
-    $scope.count = $rootScope.productCommentResponsearray.length;
-    $log.debug($scope.count);
-    var a = document.getElementById("responseComment");
-    a.style.display = 'inline';
-    a.innerHTML = $scope.count + ' new comments'; //show new added comments to other users
-    // a.textContent(JSON.stringify(result.success.campaign_comment).length + " new comments")
-  }
-  // $scope.socket.removeAllListeners();
-});
-//productComment response -on the fly comment listener creation
 //get tags from comment text
 $scope.commenttextField.userComment = "";
 $scope.getTagsFromCommentText = function () {
@@ -603,6 +541,72 @@ if($scope.commenttextField.userComment.length >300 || $scope.commenttextField.us
 )
 };
   
+
+
+
+  //socket response when for add comment
+$scope.commentError="";
+$scope.socket.removeAllListeners('addCampaignCommentResponse');
+$scope.socket.on('addCampaignCommentResponse', function (error, result) {
+  if (error) {
+    $scope.commentError=error.error.message;
+    $log.debug(error.error.message);
+     $rootScope.ProdoAppMessage(error.error.message, 'error');
+    $scope.showErrorIfCommentNotAdded(); //If error retry add comment 
+    $scope.showRetryIconIfCommentNotAdded();
+    // if(retry) retry.textContent("Error posting comment.. Please try again");
+  } else if (result) {
+    // $log.debug(result.success.message);
+    $scope.ifErrorAddingComment = false;
+    $scope.commentError=false;
+    $log.debug("addCampaignCommentResponse success" + JSON.stringify( result.success.campaign_comment));
+  }
+  //   $scope.socket.removeAllListeners();
+});
+//socket response when for add comment
+//productComment response -on the fly comment listener creation
+$scope.campaigncommentResponseListener = "campaigncommentResponse" + $rootScope.campaignidWall;
+$log.debug("campaign id   "+$rootScope.campaignidWall );
+$scope.socket.removeAllListeners($scope.campaigncommentResponseListener);
+$scope.socket.on($scope.campaigncommentResponseListener, function (error, result) {
+  if (error) {
+    $log.debug(error.error.message);
+    $rootScope.ProdoAppMessage(error.error.message, 'error');
+  } else if (result) {
+    $log.debug("campaigncommentResponse  Response success" + JSON.stringify(result.success.campaign_comment));
+    //  $scope.productCommentResponsearray.push( JSON.stringify(result.success.product_comment));
+    //comment info from server response
+    $scope.newProductComment = {
+      campaign_comment: {
+        user: {
+          userid: result.success.campaign_comment.user.userid,
+          username: result.success.campaign_comment.user.username,
+          orgname: result.success.campaign_comment.user.orgname,
+          grpname: result.success.campaign_comment.user.grpname,
+          profilepic: result.success.campaign_comment.user.profilepic
+        },
+        commentid: result.success.campaign_comment.commentid,
+        type: result.success.campaign_comment.type,
+        datecreated: result.success.campaign_comment.datecreated,
+        commenttext: result.success.campaign_comment.commenttext,
+        analytics: $scope.tagPairs
+
+      }
+    };
+
+    // $scope.productCommentResponsearray.push($scope.newProductComment.campaign_comment);
+    $rootScope.productCommentResponsearray.push($scope.newProductComment.campaign_comment);
+    $log.debug($rootScope.productCommentResponsearray);
+    $scope.count = $rootScope.productCommentResponsearray.length;
+    $log.debug($scope.count);
+    var a = document.getElementById("responseComment");
+    a.style.display = 'inline';
+    a.innerHTML = $scope.count + ' new comments'; //show new added comments to other users
+    // a.textContent(JSON.stringify(result.success.campaign_comment).length + " new comments")
+  }
+  // $scope.socket.removeAllListeners();
+});
+//productComment response -on the fly comment listener creation
 
 
 }])

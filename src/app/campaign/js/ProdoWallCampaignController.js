@@ -20,7 +20,7 @@ angular.module('prodo.CampaignApp')
   $rootScope.productCommentResponsearray = [];
   $scope.mytags;
   $scope.myFeaturetags;
-  $rootScope.campaignidWall="";
+
   $scope.count = 0;
   $scope.commenttextField = {
     userComment: ''
@@ -63,7 +63,8 @@ angular.module('prodo.CampaignApp')
 	        $("#prodo-ProductDetails").css("display", "block");
 	        $scope.allCampaignData=campaignWalldata.success.Product_Campaigns;
 	        $scope.campaign=$scope.allCampaignData[0];
-          $rootScope.campaignidWall=$scope.campaign.campaign_id;
+          // $rootScope.campaignidWall=$scope.campaign.campaign_id;
+          $log.debug("assigned campaignid"+$rootScope.campaignidWall);
             $scope.productComments=[
                 {
 					commentid: "332b-51f6-1398257909539",
@@ -247,5 +248,7 @@ angular.module('prodo.CampaignApp')
 // 	    $log.debug("Product images emitting when null ");
 // 	  }
 // };
+
+
 
 }]);
