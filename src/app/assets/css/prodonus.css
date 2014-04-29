@@ -164,7 +164,7 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
 /*change the navbar brand style*/
 #prodo-navbar-brand {
 	color: #ffffff;
-	font:italic bold 20px/30px Georgia,serif;
+	font:italic 12px/20px Georgia,serif;
 	padding: 5px 10px;
   }
 
@@ -187,7 +187,7 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
 } 
 
 .navbar-brand-img{
-	width:100px; height:40px;
+	width:100px; height:40px; margin-right:10px;
 }
 
 .navbar-inverse .navbar-nav>li>a {
