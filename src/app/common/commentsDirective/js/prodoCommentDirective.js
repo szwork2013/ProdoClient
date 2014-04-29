@@ -1,78 +1,185 @@
-  /*
-   * Overview: comment Directive
-   * It is comments block , where it has user avatar, user name, company name, date and time difference from the time of posting that comment, tags and many more
-   * Dated: 28/10/2013.
-   * Author: Bhagyashri Jangam
-   * Copyright: Prodonus Software Private Limited and GiantLeap Systems Private Limited 2013
-   * Change History:
-   * ----------------------------------------------------------------------
-   * date | author | description 
-   * ----------------------------------------------------------------------
-   * 27-3/2013 | xyx | Add a new property
-   * 
-   */
+/*
+* Overview: comment Directive
+* It is comments block , where it has user avatar, user name, company name, date and time difference from the time of posting that comment, tags and many more
+* Dated: 28/10/2013.
+* Author: Bhagyashri Jangam
+* Copyright: Prodonus Software Private Limited and GiantLeap Systems Private Limited 2013
+* Change History:
+* ----------------------------------------------------------------------
+* date | author | description 
+* ----------------------------------------------------------------------
+* 27-3/2013 | xyx | Add a new property
+* 
+*/
 
-   angular.module('prodo.CommonApp').directive('prodoComments', function () {
-    return {
-      restrict: 'A',
-      
-      templateUrl: 'common/commentsDirective/views/prodo.comment.tpl.html',
-      controller: [
-      '$scope',
-      '$log',
-      'ProductService',
-      '$rootScope',
-      'UserSessionService',
-      'CommentService',
-      'growl',
-      function ($scope, $log, ProductService, $rootScope, UserSessionService, CommentService,growl) {
-        $(document).ready(function () {
-          var txtheight;
-          var txtwidth;
+angular.module('prodo.CommonApp').directive('prodoComments', function () {
+return {
+  restrict: 'A',
+  
+  templateUrl: 'common/commentsDirective/views/prodo.comment.tpl.html',
+  controller: [
+  '$scope',
+  '$log',
+  'ProductService',
+  '$rootScope',
+  'UserSessionService',
+  'CommentService',
+  'growl',
+  'CommentLoadMoreService',
+  'TagReffDictionaryService',
+  function ($scope, $log, ProductService, $rootScope, UserSessionService, CommentService,growl,CommentLoadMoreService,TagReffDictionaryService) {
+    $(document).ready(function () {
+      var txtheight;
+      var txtwidth;
 
-          $("#prodo-comment-Textbox").on('blur mouseleave', function() {
-           $(this).height(30);
-           txtheight=$( "#prodo-comment-Textbox" ).height();
-           txtwidth=$( "#prodo-comment-Textbox" ).width();
-          });   
+      $("#prodo-comment-Textbox").on('blur mouseleave', function() {
+       $(this).height(30);
+       txtheight=$( "#prodo-comment-Textbox" ).height();
+       txtwidth=$( "#prodo-comment-Textbox" ).width();
+      });   
 
-          $("#prodo-comment-Textbox").on('focus change keyup paste keypress click', function() {
-           $(this).height(85);
-           txtheight=$( "#prodo-comment-Textbox" ).height();
-           txtwidth=$( "#prodo-comment-Textbox" ).width();
-          });    
+      $("#prodo-comment-Textbox").on('focus change keyup paste keypress click', function() {
+       $(this).height(85);
+       txtheight=$( "#prodo-comment-Textbox" ).height();
+       txtwidth=$( "#prodo-comment-Textbox" ).width();
+      });    
 
-          $('#holder').hover(
-            function() {
-            txtheight=$( "#prodo-comment-Textbox" ).height();
-            txtwidth=$( "#prodo-comment-Textbox" ).width();
-             document.getElementById("holder").style.height=txtheight;
-             document.getElementById("holder").style.width=txtwidth;
-             txtwidth="";
-             txtheight="";
-
-
-
-           }, 
-           function() {
-
-             $log.debug( 'hovering out' , $(this).attr('id') );
-              txtheight=$( "#prodo-comment-Textbox" ).height();
-              txtwidth=$( "#prodo-comment-Textbox" ).width();
-
-             document.getElementById("holder").style.height=txtheight;
-             document.getElementById("holder").style.width=txtwidth;
-             txtwidth="";
-             txtheight="";
-
-           }
-           );
-
-           txtwidth="";
-            txtheight="";
+      $('#holder').hover(
+        function() {
+        txtheight=$( "#prodo-comment-Textbox" ).height();
+        txtwidth=$( "#prodo-comment-Textbox" ).width();
+         document.getElementById("holder").style.height=txtheight;
+         document.getElementById("holder").style.width=txtwidth;
+         txtwidth="";
+         txtheight="";
 
 
-        });
+
+       }, 
+       function() {
+
+         $log.debug( 'hovering out' , $(this).attr('id') );
+          txtheight=$( "#prodo-comment-Textbox" ).height();
+          txtwidth=$( "#prodo-comment-Textbox" ).width();
+
+         document.getElementById("holder").style.height=txtheight;
+         document.getElementById("holder").style.width=txtwidth;
+         txtwidth="";
+         txtheight="";
+
+       }
+       );
+
+       txtwidth="";
+        txtheight="";
+
+
+    });
+
+
+$scope.handleGetAllTagsSuccess=function(successData){
+     for (var i = 0; i < successData.success.tags.length; i++) {
+      $scope.pretags.push(successData.success.tags[i].tagname);
+    }
+};
+
+$scope.handleGetAllTagsError=function(error){
+   if(error.code=='AL001'){
+        $rootScope.showModal();
+      }else{
+       $log.debug(error);
+     }
+};
+
+//get predefined tags
+TagReffDictionaryService.getAllTags(
+function (successData) {
+    if (successData.success == undefined) {
+     $scope.handleGetAllTagsError(successData.error);
+    } 
+    else {
+     $scope.handleGetAllTagsSuccess(successData);
+   }
+});
+//get predefined tags
+
+  //Load more comments handler
+$scope.handleLoadMoreCommentResponse = function (result) {
+  console.log(result);
+  if (result.success != undefined) {
+    $log.debug(result.success.comment);
+    for (var i = 0; i < result.success.comment.length; i++) {
+      $scope.productComments.push(result.success.comment[i]);
+    };
+  } else {
+    $("#loadMoreCommentMsg").css("display", "block");
+    $("#load-more").css("display", "none");
+     if (result.error.code == 'AL001') {
+      $rootScope.showModal();
+    }
+    else if (result.error.code == 'AC002') {
+      $("#loadMoreCommentMsg").html(result.error.message);
+      $("#load-more").hide();
+      $log.debug(result.error.message);
+      } else if (result.error.code == 'AC001') {
+      $log.debug(result.error.message);
+      $("#loadMoreCommentMsg").html(result.error.message);
+    } else {
+      $log.debug(result.error.message);
+      $("#loadMoreCommentMsg").html(result.error.message);
+    }
+  }
+};
+//Load more comments handler
+//find last comment id
+$("#load-more").show();
+$scope.getLastCommentId = function () {
+  $log.debug($scope.productComments);
+  $scope.productComments;
+  if($scope.productComments){
+  if ($scope.productComments.length !== 0) {
+    var lengthComments = $scope.productComments.length;
+    $log.debug(lengthComments)
+    var lastComment = $scope.productComments[lengthComments - 1];
+    $log.debug(lastComment.commentid);
+    return lastComment.commentid;
+  }
+}
+};
+//find last comment id
+$scope.loadMoreComments = function () {
+  $("#img-spinner").show();
+  var lastCommentId = $scope.getLastCommentId();
+  if ((lastCommentId !== "") || (lastCommentId !== " ") || (lastCommentId !== undefined) || (lastCommentId !== null)) {
+    CommentLoadMoreService.loadMoreComments({
+      commentid: lastCommentId
+    }, function (result) {
+      $scope.handleLoadMoreCommentResponse(result)
+      $("#img-spinner").hide();
+    }, function (error) {
+      $log.debug(error);
+      $("#loadMoreCommentMsg").html(error);
+    });
+  }
+};
+$("#img-spinner").hide();
+
+//if error adding comment retry function
+$scope.showErrorIfCommentNotAdded = function () {
+  var retry = document.getElementById("responseCommentErr");
+  retry.style.display = 'inline';
+
+  retry.innerHTML = 'Error adding comment please try again..';
+};
+//if error adding comment retry function
+//if error adding comment  show retry icon
+$scope.showRetryIconIfCommentNotAdded = function () {
+  var retryIcon = document.getElementById("retryIcon");
+  retryIcon.style.display = 'inline';
+};
+//if error adding comment  show retry icon
+
+
   $scope.commentsLimit = function () {
     return $scope.pagesSize * $scope.pagesShown;
   };
@@ -106,9 +213,40 @@
       }
       else{
         $log.debug(error.message);
-        $rootScope.ProdoAppMessage('error.message', 'error');
+        $rootScope.ProdoAppMessage(error.message, 'error');
       }
    };
+
+     $scope.showFeature=function()
+  {
+    $scope.isCollapsed = false;
+  };
+   $scope.hideFeature=function()
+  {
+    $scope.isCollapsed = true;
+  };
+
+$scope.addFeatureToComment=function(data){
+  if($scope.commenttextField.userComment == undefined){
+   $scope.commenttextField.userComment = "" ;
+  } 
+  if($scope.commenttextField.userComment.length !== 300 ){
+   $scope.commenttextField.userComment = $scope.commenttextField.userComment + " "+data+" ";
+  }
+
+  $scope.$watch('commenttextField.userComment', function () {
+
+  if($scope.commenttextField.userComment){
+  if($scope.commenttextField.userComment.length >300 || $scope.commenttextField.userComment.length < 0 ){
+    document.getElementById('prodo-comment-Textbox').style.border ="1px solid #ff8080";
+    $scope.commenttextField.userComment=$scope.commenttextField.userComment.substring(0,300);
+   }
+   else if($scope.commenttextField.userComment.length <=300) {
+    document.getElementById('prodo-comment-Textbox').style.border ="solid 1px #5bc0de";
+   }
+  }
+  })
+};
 //dont show delete comment icon if not comment owener
 $scope.hideIfNotUser = function (userid) {
   if (userid) {
