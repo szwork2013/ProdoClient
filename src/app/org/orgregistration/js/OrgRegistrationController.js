@@ -345,15 +345,25 @@ $scope.errorOrgName ='';
 $scope.errOrgDesc ='';
 $scope.submitted = false;   
 $scope.optionErrorMessage = '';
+$scope.errMessageNote = '';
+$scope.errorMessageForInvalidcategory = '';
  
     $scope.goToAddress = function() { 
         
         $scope.errorOrgName ='';
         $scope.errOrgDesc =''; 
-        $scope.optionErrorMessage = '';
-        if ($scope.OrgCompanyForm.$valid){     
-                $scope.errmessage = '';$('#reg-companyDetails').css('color','#2EB373');
-                $state.transitionTo('prodo.orgregistration.address');
+        $scope.optionErrorMessage = '';$scope.errMessageNote = '';
+        $scope.errorMessageForInvalidcategory = '';
+        if ($scope.OrgCompanyForm.$valid){   
+                if($scope.org.industry === undefined || $scope.org.industry.length === 0)
+                {
+                        $scope.errorMessageForInvalidcategory = 'Please enter valid industry category.';
+                }
+                else
+                {
+                        $scope.errmessage = '';$('#reg-companyDetails').css('color','#2EB373');
+                        $state.transitionTo('prodo.orgregistration.address');
+                }
         } else {
                 $scope.submitted = true;
                 if($scope.OrgCompanyForm.companyname.$valid===false || $scope.org.name==='')
@@ -362,11 +372,16 @@ $scope.optionErrorMessage = '';
                 }
                 if($scope.OrgCompanyForm.description.$valid===false || $scope.org.description==='')
                 {
-                    $scope.errOrgDesc = 'Please enter valid description';
+                    $scope.errOrgDesc = "Please enter valid description";
+                    $scope.errMessageNote = " [ Number of characters should be more than 0 and less than 500 ]";
                 }
                 if($scope.OrgCompanyForm.orgtype.$valid===false)
                 {
                      $scope.optionErrorMessage = 'Please select option from above list';
+                }
+                   if($scope.org.industry === undefined || $scope.org.industry.length === 0)
+                {
+                        $scope.errorMessageForInvalidcategory = 'Please enter valid industry category.';
                 }
 
         }
@@ -489,7 +504,7 @@ $scope.invalidContact3 = '';
             if($scope.newInvitesValidate !=='')
             {
                 // $scope.emailErrorMessage = "Please check imails from above field for "
-                $scope.emailErrorMessage = "Please varify email ids from above field for its format";
+                $scope.emailErrorMessage = "Please verify email ids from above field for its format";
                  valid = 0;
             }
       
