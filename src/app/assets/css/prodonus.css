@@ -896,7 +896,7 @@ text-align: left;
 	padding-top: 10px;
 	text-align: left;
 	color: rgb(211, 41, 41);
-	margin-left:28%;
+	/*margin-left:28%;*/
 }
 
 .error-message-registration{
@@ -2750,6 +2750,14 @@ left: 173px;
 	cursor: pointer;
 	/*border: 1px solid transparent;*/
 	border-radius: 4px;
+}
+
+.productNameWidth
+{
+	overflow: hidden;
+	max-width: 150px;
+	color: #9797F3;
+	text-overflow: ellipsis;
 }
 
 .prodo-invoiceImage{ max-width: 500px;max-height: 500px;}

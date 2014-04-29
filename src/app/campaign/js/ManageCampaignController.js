@@ -144,7 +144,7 @@ angular.module('prodo.CampaignApp')
       if (campaigndata.success) {
          $scope.campaignDetailsObject = campaigndata.success.Product_Campaigns;
          $scope.currentCampaign = $scope.campaignDetailsObject[0];  
-
+          
           var campaignExpiryDate = moment.utc(moment($scope.currentCampaign.enddate));
           var todays = moment.utc(moment());
           
@@ -344,10 +344,23 @@ angular.module('prodo.CampaignApp')
     	     $rootScope.ProdoAppMessage("Some issues with server",'error');
     });
 
-    $scope.showDetails = function(index)
+    $scope.showDetails = function(campaignName)
     {     
         // $scope.productName = $scope.campaignDetailsObject[index].productname; 
-        $scope.currentCampaign = $scope.campaignDetailsObject[index];  
+        for(var i=0;i<$scope.campaignDetailsObject.length;i++)
+        {
+
+          if(campaignName === $scope.campaignDetailsObject[i].name)
+          {
+                $scope.currentCampaign = $scope.campaignDetailsObject[i]; 
+          }
+          else
+          { 
+                // $scope.currentCampaign = $scope.campaignDetailsObject[0];
+          }
+             
+        }
+        //$scope.currentCampaign = $scope.campaignDetailsObject[index];  
         $rootScope.campaign_id = $scope.currentCampaign.campaign_id; $rootScope.campaign_prodle = $scope.currentCampaign.prodle;
         $scope.enableEditing = 0;
         $scope.addNewCampaign = 0;
@@ -554,8 +567,9 @@ angular.module('prodo.CampaignApp')
               $log.debug('response from server');
               //notify({ message:error.error.message, template:'campaign/js/abc.html'} );
             } else {
-              $log.debug(error.error.message);
-              $rootScope.ProdoAppMessage(error.error.message, 'error');            
+              $log.debug(error.error.message); 
+              $rootScope.ProdoAppMessage(error.error.message, 'error');  
+              $scope.campaign = {productName: '',Name:'',Description:'',startDate:'',endDate:'',category:[]};          
             }
           } else{
             $scope.imageSrc = JSON.stringify(imagelocation.success.invoiceimage);

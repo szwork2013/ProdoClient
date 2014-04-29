@@ -446,10 +446,10 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
 
           $('#searchText').on('keyup', function (e) { 
                       scope.errors="";
-                      var value = $(this).val().trim();
+                      var value = $(this).val().trim(); 
                       var req = { 'name': value , 'orgid' : $rootScope.orgid};
-                      if(value !=="")
-                      {
+                      if(value !=="" && e.shiftKey === false)
+                      { 
                          $http({
                          method: 'POST',
                          url: '/api/allproduct/',
@@ -486,7 +486,8 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
                                         scope.enhancement={};
                                         scope.productNames=[];
                                         scope.enhancement=data.name.doc;
-                                        scope.productNames=data.success.doc;                                                                
+                                        scope.productNames=data.success.doc;
+                                        //console.log(scope.enhancement);                                                                
                                   }
                                     
                           }).error(function (data) {

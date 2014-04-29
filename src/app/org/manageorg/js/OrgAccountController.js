@@ -73,7 +73,7 @@ $scope.returnOrganizationCategory = function()
         return $scope.industries;
 };
 
-
+$scope.org = [{'description':''}];
 
 var indexOfOrgAddress = 0 ; 
 
@@ -540,7 +540,7 @@ $scope.updateOrgAccount = function() {
         }
         if($scope.form.orggeneralsettingform.description.$valid===false)
         {
-            $scope.invalidDesc = "Please enter valid description";
+                  $scope.invalidDesc = "Please enter valid description\n [ Number of characters should be more than 0 and less than 500 ]";
         }
         if($scope.form.orggeneralsettingform.password.$valid===false)
         {

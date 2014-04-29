@@ -47,15 +47,26 @@ angular.module('prodo.ProdoWallApp')
   '$resource',
   '$log',
     function ($rootScope, $resource, $log) {
-    var trendingProducts = { Product: $resource('/api/trendingproducts', {}, { searchProductByKey: { method: 'GET' } }) };
+    var trendingProducts = { Product: $resource('/api/trendingproducts', {}, { searchTrendingProducts: { method: 'GET' } }) };
+    var trendingProductsIndustry = { Product: $resource('/api/domaintrending', {}, { getIndustryTrending: { method: 'GET' } }) };
     var products = {};
     products.getTrendingProducts = function () {
-      trendingProducts.Product.searchProductByKey(function (success) {
+      trendingProducts.Product.searchTrendingProducts(function (success) {
         $log.debug(success);
         $rootScope.$broadcast('gotTrendingProducts', success);
       }), function (error) {
         $log.debug(error);
         $rootScope.$broadcast('notGotTrendingProducts', error);
+      };
+    };
+
+    products.getTrendingProductsIndustrySpecific = function () {
+      trendingProductsIndustry.Product.getIndustryTrending(function (success) {
+        $log.debug(success);
+        $rootScope.$broadcast('gotIndustrySpecificTrendingProducts', success);
+      }), function (error) {
+        $log.debug(error);
+        $rootScope.$broadcast('notGotIndustrySpecificTrendingProducts', error);
       };
     };
     return products;

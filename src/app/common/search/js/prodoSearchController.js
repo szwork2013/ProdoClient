@@ -166,7 +166,7 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
         $rootScope.ProdoAppMessage("Please enter atleast one search criteria to proceed" , 'error');
       }
      else
-      {         console.log('json from inside '+ JSON.stringify($scope.search));
+      {        
              prodoSearchService.searchProduct($scope.search);    //Calling searchproduct api for advanced search; Format for input is {productsearchdata:{''}}
       }
   };
@@ -237,7 +237,7 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
       $rootScope.$broadcast('emittingOrgidBySearch', 'success');
 
       $scope.title = "Trending Products";
-      $scope.productSearch.product = "";
+      $scope.productSearch.product = "";    
   };
 
   $scope.toggleTitleForDiv = function()
