@@ -482,12 +482,13 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
                                            scope.toggleTitleForDiv();
                                            }, 1000);
                                         }
-                                    }                                                                  
+                                    }    
+                                        scope.enhancement={};
+                                        scope.productNames=[];
+                                        scope.enhancement=data.name.doc;
+                                        scope.productNames=data.success.doc;                                                                
                                   }
-                          scope.enhancement={};
-                          scope.productNames=[];
-                          scope.enhancement=data.name.doc;
-                          scope.productNames=data.success.doc;                
+                                    
                           }).error(function (data) {
                                    $rootScope.ProdoAppMessage("server error",'error');                                
                           });   

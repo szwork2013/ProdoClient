@@ -13,15 +13,23 @@ $scope.user = { password: '' };
 
 $scope.$state=$state;
 
+$scope.orginvitesbody = {'orginvites_body':''};
+
 $scope.contacts= [{'customerhelpline': ''},{'customerhelpline': ''},{'customerhelpline': ''}];
 
 $scope.orginvites={'to': '','subject': '','body': ''};
 
-$scope.orginvites.body ="Dear 'name',\n\nWe have got great news. \nToday we are excited to tell you how you can come closer to your customers, get to know their needs,understand their issues, complaints better, and also engage them to createinnovative ideas, in addition to managing their warranties.\nWe offer a warranty and social platform for products, for all product manufacturers andtheir customers sharing their insights on products. \nProdonus is a social networkand warranty platform for products, enabling conversations, building relationships and gathering real-time market intelligence from customers. \nWebring business closer to customers to engage them more directly. \nIt helps toshare your concerns, complaints, compliments, innovative ideas, business perspectives and product recommendations among the manufacturing business andproduct consumers.\nWe look forward to meeting you to discuss your requirements to signup on our new platform.\n\nAll thebest,\n'orgname'";
+$scope.custinvitesbody = {'customerinvites_body':''};
+
+//$scope.orginvites.body ="Dear 'name',\n\nWe have got great news. \nToday we are excited to tell you how you can come closer to your customers, get to know their needs,understand their issues, complaints better, and also engage them to create innovative ideas, in addition to managing their warranties.\nWe offer a warranty and social platform for products, for all product manufacturers and their customers sharing their insights on products. \nProdonus is a social network and warranty platform for products, enabling conversations, building relationships and gathering real-time market intelligence from customers. \nWebring business closer to customers to engage them more directly. \nIt helps toshare your concerns, complaints, compliments, innovative ideas, business perspectives and product recommendations among the manufacturing business andproduct consumers.\nWe look forward to meeting you to discuss your requirements to signup on our new platform.\n\nAll thebest,\n'orgname'";
+
+$scope.orginvitesbody.orginvites_body ="Dear 'name',\n\nWe have got great news. \nToday we are excited to tell you how you can come closer to your customers, get to know their needs,understand their issues, complaints better, and also engage them to create innovative ideas, in addition to managing their warranties.\nWe offer a warranty and social platform for products, for all product manufacturers and their customers sharing their insights on products. \nProdonus is a social network and warranty platform for products, enabling conversations, building relationships and gathering real-time market intelligence from customers. \nWebring business closer to customers to engage them more directly. \nIt helps toshare your concerns, complaints, compliments, innovative ideas, business perspectives and product recommendations among the manufacturing business andproduct consumers.\nWe look forward to meeting you to discuss your requirements to signup on our new platform.\n\nAll thebest,\n'orgname'";
 
 $scope.customerinvites={'to': '','subject': '','body': ''};
 
-$scope.customerinvites.body = " Hi <customername>,\n\nWe have subscribed to Prodonus(https://www.prodonus.com) that offers a warranty and social network platformfor products, enabling conversations with product manufacturers or serviceproviders. \nIt helps to share our concerns, complaints, compliments, innovativeideas, business perspectives and product recommendations with the manufacturing business.\nAs a consumer one can follow what's happening on our products.\nProdonus helps you share your perspective on the products using words, videolinks and picture/images with manufacturer's and other consumers. \nConversationsare purposeful and intended to catch our attention. Share your views and make itknown to the other users and us immediately. \nIn addition, you can store yourproduct warranty data and get instant access to it and also, be notified of changing status immediately, especially expiration status.\nEager to start? \nSignup with prodonus.com and start following our products, and there’s no limit to thenumber of products you can follow.\nSincerely,fromusername from orgname";
+//$scope.customerinvites.body = " Hi <customername>,\n\nWe have subscribed to Prodonus(https://www.prodonus.com) that offers a warranty and social network platform for products, enabling conversations with product manufacturers or service providers. \nIt helps to share our concerns, complaints, compliments, innovative ideas, business perspectives and product recommendations with the manufacturing business.\nAs a consumer one can follow what's happening on our products.\nProdonus helps you share your perspective on the products using words, video links and picture/images with manufacturer's and other consumers. \nConversations are purposeful and intended to catch our attention. Share your views and make it known to the other users and us immediately. \nIn addition, you can store your product warranty data and get instant access to it and also, be notified of changing status immediately, especially expiration status.\nEager to start? \nSignup with prodonus.com and start following our products, and there’s no limit to the number of products you can follow.\nSincerely,from username from orgname";
+
+$scope.custinvitesbody.customerinvites_body = " Hi <customername>,\n\nWe have subscribed to Prodonus(https://www.prodonus.com) that offers a warranty and social network platform for products, enabling conversations with product manufacturers or service providers. \nIt helps to share our concerns, complaints, compliments, innovative ideas, business perspectives and product recommendations with the manufacturing business.\nAs a consumer one can follow what's happening on our products.\nProdonus helps you share your perspective on the products using words, video links and picture/images with manufacturer's and other consumers. \nConversations are purposeful and intended to catch our attention. Share your views and make it known to the other users and us immediately. \nIn addition, you can store your product warranty data and get instant access to it and also, be notified of changing status immediately, especially expiration status.\nEager to start? \nSignup with prodonus.com and start following our products, and there’s no limit to the number of products you can follow.\nSincerely,from username from orgname";
 
 $scope.group = { 'newgroupname': '','grouppname': '','invites': '','newinvites': ''};
 
@@ -91,23 +99,6 @@ $scope.fromOrgDetails = "From: business@prodonus.com";
 
 $scope.fromOrgCustDetails = "From: business@prodonus.com";
 
-$scope.calcNumberOfOrgAddresses = function()
-{
-  if($scope.orgaddr[1] === undefined && $scope.orgaddr[0] !== undefined)
-  {
-    return $scope.orgaddr[0].location.length;
-  }
-  else if($scope.orgaddr[1] !== undefined && $scope.orgaddr[0] === undefined)
-  {
-    return $scope.orgaddr[1].location.length;
-  }
-  else
-  {
-   return $scope.orgaddr[1].location.length + $scope.orgaddr[0].location.length; 
-  }
-};
-
-var NumberOfOrgAddresses = $scope.calcNumberOfOrgAddresses();
 //OrgRegistrationService.updateOrgData(currentorgdata.success.organization);
 $scope.editorEnabled = false;
 
@@ -855,20 +846,7 @@ $scope.handleDeleteOrgAddressResponse = function(data){
 
 $scope.deleteOrgAddress = function(addr,addressId) { 
       $scope.changedOrgLocation = true; 
-      NumberOfOrgAddresses = $scope.calcNumberOfOrgAddresses(); 
-      NumberOfOrgAddresses--; 
-      if(NumberOfOrgAddresses>0)
-      {
-                OrgRegistrationService.removeOrgAddress(addr.locid);              
-      }
-      else
-      {
-        //$rootScope.ProdoAppMessage("You cannot delete this address!",'error');
-
-
-        $rootScope.ProdoAppMessage("You cannot delete all company addresses!",'error');
-      }
-
+       OrgRegistrationService.removeOrgAddress(addr.locid);              
 };
 
 var cleanupEventDeleteOrgAddressDone = $scope.$on("deleteOrgAddressDone", function(event, message){
@@ -892,7 +870,8 @@ var cleanupEventDeleteOrgAddressNotDone = $scope.$on("deleteOrgAddressNotDone", 
 $scope.handleDeleteOrgGroupMemberResponse = function(data){
       $scope.manageOrgGroup = true;
       if (data.success) {
-         $state.reload();
+         //$state.reload();
+         $scope.orginvites = {'to':'','subject':''}
         $rootScope.ProdoAppMessage(data.success.message,'success');  //ShowAlert
       } else {
         if (data.error.code== 'AU004') {     // enter valid data
@@ -964,7 +943,7 @@ $scope.jsonOrgInvitesData = function(){
 
 $scope.handleOrgInviteResponse = function(data){
     $scope.addOrgInvites = true;
-  if (data.success) { $scope.orginvites={'name': '','orgname': '','email': ''};
+  if (data.success) { //////
     $rootScope.ProdoAppMessage(data.success.message,'success');    //ShowAlert
   } else {
     if (data.error.code== 'AU004') {     // enter valid data
@@ -990,18 +969,41 @@ $scope.handleOrgInviteResponse = function(data){
 //     $scope.customerinvites[0].name = '';
 //     $scope.customerinvites[0].email = '';
 // }; 
- $scope.orgInvitesNameError='';
+ $scope.orgInvitesToError='';
 
- $scope.orgInvitesOrgnameError=''; 
+ $scope.orgInvitesSubjectError=''; 
 
- $scope.orgInvitesEmailError=''; 
+ $scope.orgInvitesBodyError=''; 
 
- var allInviteDataValid = 0;
+
 
 $scope.sendOrgInvites = function() { 
-  // $scope.orgInvitesNameError='';
-  // $scope.orgInvitesOrgnameError=''; 
-  // $scope.orgInvitesEmailError='';   
+
+     var allInviteDataValid = 0;
+
+ $scope.orgInvitesToError='';
+
+ $scope.orgInvitesSubjectError=''; 
+
+ $scope.orgInvitesBodyError='';  
+
+ if($scope.orginvites.to === undefined || $scope.orginvites.to === '' || $scope.regexForEmail.test($scope.orginvites.to) === false )
+ {
+    $scope.orgInvitesToError='Please enter valid email address';
+    allInviteDataValid = 1 ;
+ }
+
+ if($scope.orginvites.subject === undefined || $scope.orginvites.subject === '')
+ {
+    $scope.orgInvitesSubjectError = "Please enter valid subject";
+    allInviteDataValid = 1;
+ }
+
+ if($scope.orginvitesbody.orginvites_body === undefined || $scope.orginvitesbody.orginvites_body === '')
+ {
+    $scope.orgInvitesBodyError = "Please enter valid content in body section";
+    allInviteDataValid = 1;
+ }
 
   // for(var i=0;i<$scope.orginvites.length;i++)
   // {
@@ -1080,10 +1082,12 @@ $scope.sendOrgInvites = function() {
   //          allInviteDataValid=1;
   //   }
   //  }
-   // if(allInviteDataValid===1)
-   // {
+   if(allInviteDataValid === 0)
+   {
+
+     $scope.orginvites.body = $scope.orginvitesbody.orginvites_body.replace(/\n/g, '<br>');
      OrgRegistrationService.sendInvites($scope.jsonOrgInvitesData());
-   // }
+   }
   };
      
 
@@ -1296,7 +1300,7 @@ var cleanupEventSendOrgGroupInvitesNotDone = $scope.$on("sendOrgGroupInvitesNotD
 //  The following block is used to send invites to org customer
 $scope.handleOrgCustomerInviteResponse = function(data){
 // $scope.addCustomerInvites = true;
-  if (data.success) {  $scope.customerinvites={'name': '','email': ''};
+  if (data.success) {  //////
     $rootScope.ProdoAppMessage(data.success.message,'success');    //ShowAlert
   } else {
     if (data.error.code== 'AU004') {     // enter valid data
@@ -1319,14 +1323,42 @@ $scope.jsonOrgCustomerInvitesData = function()
 };
 
 
-$scope.orgCustNameError = '';
+$scope.orgCustToError = '';
 
-$scope.orgCustEmailError = '';
+$scope.orgCustSubjectError = '';
+
+$scope.orgCustContentError = '';
 
 var allCustDataValid = 0;
 
 $scope.orgCustomerInvites = function() 
 {
+
+    $scope.orgCustToError = '';
+
+    $scope.orgCustSubjectError = '';
+
+    $scope.orgCustContentError = '';
+
+    var allCustDataValid = 0;
+
+     if($scope.customerinvites.to === undefined || $scope.customerinvites.to === '' || $scope.regexForEmail.test($scope.customerinvites.to) === false )
+     {
+        $scope.orgCustToError='Please enter valid email address';
+        allCustDataValid = 1 ;
+     }
+
+     if($scope.customerinvites.subject === undefined || $scope.customerinvites.subject === '')
+     {
+        $scope.orgCustSubjectError = "Please enter valid subject";
+        allCustDataValid = 1;
+     }
+
+     if($scope.custinvitesbody.customerinvites_body=== undefined || $scope.custinvitesbody.customerinvites_body === '')
+     {
+        $scope.orgCustContentError = "Please enter valid content in body section";
+        allCustDataValid = 1;
+     }
         // $scope.orgCustNameError = '';
         // $scope.orgCustEmailError = '';
         //     for(var i=0;i<$scope.customerinvites.length;i++)
@@ -1377,10 +1409,11 @@ $scope.orgCustomerInvites = function()
         //                allCustDataValid = 1;
         //         }
         //        }
-       // if(allCustDataValid === 1)
-       // {
-             OrgRegistrationService.sendCustomerInvites($scope.jsonOrgCustomerInvitesData());
-       // }
+       if(allCustDataValid === 0)
+       {
+         $scope.customerinvites.body = $scope.custinvitesbody.customerinvites_body.replace(/\n/g, '<br>');
+                 OrgRegistrationService.sendCustomerInvites($scope.jsonOrgCustomerInvitesData());
+       }
 };
 
 var cleanupEventSendOrgCustomerInvitesDone = $scope.$on("sendOrgCustomerInvitesDone", function(event, data){
@@ -1600,6 +1633,18 @@ $scope.disableEditor = function() {
 $scope.enableEditor = function(addr) {
     $scope.reset();
   $scope.editorEnabled = true;
+};
+
+
+
+$scope.joinbrfororginvites = function()
+{   
+        $scope.orginvitesbody.orginvites_body = $scope.orginvitesbody.orginvites_body+ '\n';
+};
+
+$scope.joinbrCstfororginvites = function()
+{
+    $scope.custinvitesbody.customerinvites_body = $scope.custinvitesbody.customerinvites_body + '\n';
 };
 
 $scope.$on('$destroy', function(event, message) {

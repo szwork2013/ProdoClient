@@ -70,6 +70,8 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
       $rootScope.ProdoAppMessage("There is some issue with the server! Please try after some time",'error');
   });
 
+  //$scope.noProductsFoundError = '';
+
   //The following function is called when search button is clicked from advanced search modal
   $scope.searchProductData = function () 
   {   
@@ -240,7 +242,7 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
 
   $scope.toggleTitleForDiv = function()
   {
-      $scope.title = "Search";
+      $scope.title = "Product Search";
       $scope.errors = "";
   };
    

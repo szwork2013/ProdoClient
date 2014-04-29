@@ -1,5 +1,5 @@
 angular.module('prodo.CampaignApp')
- .controller('ProdoWallCampaignController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$log',  'checkIfSessionExist','campaignWalldata','CampaignWallService' ,'ProductFeatureService', function($scope, $rootScope, $state, $http, $timeout, $log,  checkIfSessionExist,campaignWalldata,CampaignWallService,ProductFeatureService) {
+ .controller('ProdoWallCampaignController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$log',  'checkIfSessionExist','campaignWalldata','CampaignWallService' ,'ProductFeatureService','UserSessionService', function($scope, $rootScope, $state, $http, $timeout, $log,  checkIfSessionExist,campaignWalldata,CampaignWallService,ProductFeatureService,UserSessionService) {
    // console.log('campaign controller initializing..');
    $log.debug( campaignWalldata.success);
      $scope.productComments = {
@@ -13,12 +13,14 @@ angular.module('prodo.CampaignApp')
     tabSearch:'false'
   };
   $scope.isCollapsed = true;
-
+  $scope.type="campaign";
+  $rootScope.campaignidWall;
   // $scope.searchComment="warranty";
   $scope.newProductComment = [];
   $rootScope.productCommentResponsearray = [];
   $scope.mytags;
   $scope.myFeaturetags;
+
   $scope.count = 0;
   $scope.commenttextField = {
     userComment: ''
@@ -61,6 +63,8 @@ angular.module('prodo.CampaignApp')
 	        $("#prodo-ProductDetails").css("display", "block");
 	        $scope.allCampaignData=campaignWalldata.success.Product_Campaigns;
 	        $scope.campaign=$scope.allCampaignData[0];
+          // $rootScope.campaignidWall=$scope.campaign.campaign_id;
+          $log.debug("assigned campaignid"+$rootScope.campaignidWall);
             $scope.productComments=[
                 {
 					commentid: "332b-51f6-1398257909539",
@@ -171,7 +175,25 @@ angular.module('prodo.CampaignApp')
       });
     }
   };
-
+  //get login details
+  $scope.getUserDetails = function () {
+    $scope.userIDFromSession = $rootScope.usersession.currentUser.userid;
+    $scope.usernameFromSession = $rootScope.usersession.currentUser.username;
+    // $scope.ProductsFollowedFromSession = $rootScope.usersession.currentUser.products_followed;
+    $scope.ProductsFollowedFromSession = UserSessionService.productfollowlist
+    // $log.debug("Products  f.. "+JSON.stringify( $scope.ProductsFollowedFromSession));
+    if ($rootScope.usersession.currentUser.org) {
+      $scope.grpnameFromSession = $rootScope.usersession.currentUser.org.grpname;
+      $scope.orgidFromSession = $rootScope.usersession.currentUser.org.orgid;
+      $scope.orgnameFromSession = $rootScope.usersession.currentUser.org.orgname;
+    } else {
+      $scope.grpnameFromSession = "";
+      $scope.orgnameFromSession = "";
+      $scope.orgidFromSession = "";
+    }
+  }
+  $scope.getUserDetails();
+  //get login details
   //get Product features
 
 	 // $scope.getSelectedCampaign=function(campaignid){
@@ -226,5 +248,7 @@ angular.module('prodo.CampaignApp')
 // 	    $log.debug("Product images emitting when null ");
 // 	  }
 // };
+
+
 
 }]);
