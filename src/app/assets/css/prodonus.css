@@ -41,32 +41,6 @@ div.inner-2:hover {
     opacity: 1;
 }
 
-
-.prodo-fa-navbar:hover{
-	color: rgb(90, 175, 90);
-}
-
-.prodo-fa-navbar:after{
-	color: rgb(90, 175, 90);
-}
-
-/*ul.nav-ul > li > a > i.prodo-fa-navbar:focus, ul.nav-ul > li > a > i.prodo-fa-navbar:active{
-	color: rgb(90, 175, 90);
-}*/
-
-/*div.inner-2, .div-outer:hover>div.inner-1 {
-    display: none;
-}
-
-.div-outer:hover>div.inner-2 {
-    display: block;
-	  background-color: #ffffff;
-	  border: 1px solid #b3b3b3;
-	  border-radius: 6px;
-	  opacity:0.6;
-	  filter:alpha(opacity=60); /* For IE8 and earlier */
-  /*visibility: visible;*/
-/*}*/
 @-webkit-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
 @-moz-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
 @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
@@ -229,10 +203,6 @@ color: #fff;
   color:#E0E6EE;
 }
 
-
-ul.nav-ul a:hover { 
-	/*color: rgb(90, 175, 90) !important;*/
-}
 ul.prodoManageOptions a:hover { 
 	color: black !important;
 }
@@ -244,9 +214,7 @@ ul.prodoManageOptions a:hover {
 	background-color: #CEE3F6;
 	color:black;
 }
-.navbar-home-link:focus, .navbar-home-link:active{
-	color: rgb(90, 175, 90) !important;
-}
+
 
 .logout-img{
 	margin-right:10px;
@@ -1145,16 +1113,24 @@ border-bottom-left-radius: 0px;
   padding: 5px 2px;
 }
 
+
 #prodo-slider-nav-pills > li > a:hover {
     background-color:  transparent;
     border-radius: 30px;
     color: rgb(194, 214, 206);
 }
 
+li#nav6 > a {
+    background-color:  transparent;
+    border-radius: 30px;
+    color: #2DA3D1;
+}
+
 #prodo-slider-nav-pills > li.active > a {
-background-color: transparent;
-color: rgb(199, 163, 18);
-border-radius: 30px;
+	border-radius: 30px;
+ font-weight: bold;
+ color: white;
+ background-color: #CF891D;
 }
 
 /* Prodo Main View: navtabs*/

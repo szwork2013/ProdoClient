@@ -62,9 +62,23 @@ angular.module('prodo.ProdonusApp', [
     $rootScope.usersession = UserSessionService;
     $rootScope.organizationData = OrgRegistrationService;
     $rootScope.$log = $log;
-     $rootScope.$on('$stateChangeSuccess', function(event, to, toParams, from, fromParams) {
+    $rootScope.$on('$stateChangeSuccess', function(event, to, toParams, from, fromParams) {
       $rootScope.previousState = from.name;
-     });
+      $rootScope.currentState = to.name;
+      var pattern = new RegExp("prodo.productwall");
+      var stateresult = pattern.test($rootScope.currentState);
+      if ($rootScope.currentState == 'prodo.home.wall') {
+        $rootScope.home = 1;
+        $rootScope.wall = 0;
+      } else if (stateresult) {
+        $rootScope.wall = 1;
+        $rootScope.home = 0;
+      } else {
+        $rootScope.wall = 0;
+        $rootScope.home = 0;
+      }
+
+    });
   }
 ]).controller('ProdoMainController', [
   '$scope',
@@ -80,8 +94,7 @@ angular.module('prodo.ProdonusApp', [
   function ($scope, $rootScope, $state, $log, $location, growl, $timeout, UserSessionService, OrgRegistrationService, notify, marketingData) {
     $state.transitionTo('prodo.landing.signup');
     $scope.prodlesfollowed = [{}];
-
-
+    
     $scope.showSignin = function () {
       $state.transitionTo('prodo.landing.signin');
     };
@@ -123,7 +136,8 @@ angular.module('prodo.ProdonusApp', [
       if ($rootScope.usersession.isLoggedIn) {
         var planExpiryDate = moment.utc(moment(data.subscription.planexpirydate));
         var todaysDate = moment.utc(moment());
-        $rootScope.daysRemaining = "Trial : "+planExpiryDate.diff(todaysDate, 'days')+" Days Remaining";
+        $rootScope.daysRemaining = planExpiryDate.diff(todaysDate, 'days');
+        // $rootScope.daysRemaining = "Trial : "+trialperiod+" Days Remaining";
         if (data.prodousertype == 'business' && data.org == undefined) {
           $state.transitionTo('prodo.orgregistration.company');
         } else if ((data.prodousertype == 'business' || data.prodousertype == 'individual')  && data.hasDonePayment) {
