@@ -590,8 +590,9 @@ $scope.invalidContact3 = '';
             $log.debug(data.error);
             $rootScope.ProdoAppMessage(data.error.message, 'error');
        }
+        $scope.hideSpinner();
       }
-      $scope.hideSpinner();
+     
     };
 
     var cleanupEventSessionDone = $rootScope.$on('session', function (event, data) {
@@ -617,6 +618,7 @@ $scope.invalidContact3 = '';
                   $state.transitionTo('prodo.productwall.wall-org');
             } 
           } 
+           $scope.hideSpinner();
       });
 $scope.org.orgaddresstype="Company Address";
     // function to send user data n stringify in json format

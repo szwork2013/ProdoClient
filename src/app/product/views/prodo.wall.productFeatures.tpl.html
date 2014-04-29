@@ -56,7 +56,7 @@
     <div class="prodo-productThumbnailView"   ng-class="{activeProduct : product1.prodle==product.prodle}" >
       <a ng-click="getSelectedProduct(product1);" class="prodo-cursor"  href="" >
         <p class="prodo-AddProductBtn prodo-productNameList" >{{product1.name.substring(0,13)}}</p>
-        <img  ng-src="{{product1.product_logo.image}}" alt-SRC src="../assets/images/if_no_logo_images_available.gif"  class="prodo-productThumbnailImg img-rounded">
+        <img  ng-src="{{product1.product_logo.image}}" alt-SRC src="../assets/images/if_no_org_images_available.jpg"  class="prodo-productThumbnailImg img-rounded">
       </a>
     </div>
     </div>
@@ -191,7 +191,7 @@
               ng-maxlength="50"  id="prodo-product-features_textfield" class="form-control prodo-display-right prodo-validation"  type="text"    name="name" required />  </td>
             <td  >Model No  <input id="prodo-product-features_textfield" type="text"  ng-maxlength="50"class="form-control prodo-display-right prodo-validation" ng-model="product.model_no"   name="model_no"  /></td>
           </tr>
-             <tr  tooltip="To add categories press enter" tooltip-placement="right">
+             <tr  tooltip="To add categories press enter. Special symbols (eg. @,-,# etc ) are not allowed." tooltip-placement="right">
             <td  colspan="2">Category   
 
                         <!-- <div  class="" >

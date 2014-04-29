@@ -55,7 +55,7 @@ angular.module('tags-input', []).directive('tagsInput', function($interpolate) {
         replace: false,
         template: '<div class="ngTagsInput {{ options.cssClass }}">' +
                   '  <ul class="ngTagsInputList">' +
-                  '    <li ng-repeat="tag in tags" ng-class="getCssClass($index)">' +
+                  '    <li ng-repeat="tag in tags track by $index" ng-class="getCssClass($index)">' +
                   '      <span>{{ tag }}</span>' +
                   '      <button type="button" ng-click="remove($index)">{{ options.removeTagSymbol }}</button>' +
                   '    </li>' +

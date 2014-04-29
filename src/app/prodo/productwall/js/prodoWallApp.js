@@ -4,17 +4,18 @@ angular.module('prodo.ProdoWallApp')
     $log.debug('initialising parent..');
     $scope.$state = $state;
 
+
     if ($state.$current.name == 'prodo.productwall.wall-org') {
       $rootScope.index = 0;
     } else {
         if ($state.$current.name == 'prodo.productwall.wall-product') {
           $rootScope.index = 1;
       } else if ($state.$current.name == 'prodo.productwall.wall-warranty') {
-          $rootScope.index = 2;
+          $rootScope.index = 5;
       } else if ($state.$current.name == 'prodo.productwall.wall-campaign') {
-          $rootScope.index = 3;
+          $rootScope.index = 2;
       } else if ($state.$current.name == 'prodo.productwall.wall-blog') {
-          $rootScope.index = 4;
+          $rootScope.index = 3;
       } else if ($state.$current.name == 'prodo.productwall.wall-dashboard') {
           $rootScope.index = 4;
       } 
@@ -26,7 +27,7 @@ angular.module('prodo.ProdoWallApp')
       } 
     });
 
-    $scope.navs = [{name: 'Organization', id: '1'},{name: 'Product', id: '2'},{name: 'MyWarranty', id: '3'},{name: 'Campaign', id: '4'},{name: 'Blog', id: '5'},{name: 'Dashboard', id: '6'}]
+    $scope.navs = [{name: 'Organization', id: 'nav1'},{name: 'Product', id: 'nav2'},{name: 'Campaign', id: 'nav3'},{name: 'Blog', id: 'nav4'},{name: 'Dashboard', id: 'nav5'},{name: 'MyWarranty', id: 'nav6'}]
     
      $scope.updateimages = function(data) {
       $rootScope.manageSlider="";   // Added this variable to check conditions in tpl
@@ -44,24 +45,24 @@ angular.module('prodo.ProdoWallApp')
     };
 
     $scope.goToState = function(id) {
-      if (id == 1 && $state.$current.name !== 'prodo.productwall.wall-org') {
+      if (id == 'nav1' && $state.$current.name !== 'prodo.productwall.wall-org') {
         $rootScope.index = 0;
         $state.transitionTo('prodo.productwall.wall-org', null, {'reload':true});
-      } else if (id == 2 && $state.$current.name !== 'prodo.productwall.wall-product') {
+      } else if (id == 'nav2' && $state.$current.name !== 'prodo.productwall.wall-product') {
         $rootScope.index = 1;
         $state.transitionTo('prodo.productwall.wall-product', null, {'reload':true});
-      } else if (id == 3 && $state.$current.name !== 'prodo.productwall.wall-warranty') {
+      } else if (id == 'nav3' && $state.$current.name !== 'prodo.productwall.wall-campaign') {
         $rootScope.index = 2;
-        $state.transitionTo('prodo.productwall.wall-warranty', null, {'reload':true});
-      } else if (id == 4 && $state.$current.name !== 'prodo.productwall.wall-campaign') {
-        $rootScope.index = 3;
         $state.transitionTo('prodo.productwall.wall-campaign', null, {'reload':true});
-      } else if (id == 5 && $state.$current.name !== 'prodo.productwall.wall-blog') {
-        $rootScope.index = 4;
+      } else if (id == 'nav4' && $state.$current.name !== 'prodo.productwall.wall-blog') {
+        $rootScope.index = 3;
         $state.transitionTo('prodo.productwall.wall-blog', null, {'reload':true});
-      } else if (id == 6 && $state.$current.name !== 'prodo.productwall.wall-dashboard') {
-        $rootScope.index = 5;
+      } else if (id == 'nav5' && $state.$current.name !== 'prodo.productwall.wall-dashboard') {
+        $rootScope.index = 4;
         $state.transitionTo('prodo.productwall.wall-dashboard', null, {'reload':true});
+      } else if (id == 'nav6' && $state.$current.name !== 'prodo.productwall.wall-warranty') {
+        $rootScope.index = 5;
+        $state.transitionTo('prodo.productwall.wall-warranty', null, {'reload':true});
       };
     }
 

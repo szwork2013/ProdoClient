@@ -394,10 +394,17 @@ angular.module('prodo.ProdonusApp')
     }) 
     .state('prodo.productwall.wall-campaign', {
        resolve: {
-              campaignWalldata: function(CampaignWallService, $rootScope) {
-             console.log("resolving campaign");
-             console.log($rootScope.product_prodle);
+            campaignWalldata: function(CampaignWallService, $rootScope) {
               return CampaignWallService.get_All_ProductCampaigns.getAllProductCampaigns({prodle: $rootScope.product_prodle}).$promise;
+            },
+            assignCampaignId: function(campaignWalldata, $rootScope){
+              console.log(campaignWalldata);
+               if(campaignWalldata.success){
+                if(campaignWalldata.success.Product_Campaigns.length > 0){
+                    $rootScope.campaignidWall=campaignWalldata.success.Product_Campaigns[0].campaign_id;
+                    console.log('in resolve'+$rootScope.campaignidWall)
+                }
+               }
             }
           },
       views: {
