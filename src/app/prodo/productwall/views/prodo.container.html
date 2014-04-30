@@ -192,9 +192,9 @@
 
 <div id="prodo-container">
 
-	<div id="wall-navbar" class="">
+	<div id="wall-navbar">
 
-		<div id="prodo-view-navbar" class="">
+		<div id="prodo-view-navbar" class="prodo-product-wall-navbar-theme">
       <ul id="prodo-slider-nav-pills" class="nav nav-pills nav-justified">
 	   		<li id="{{nav.id}}" ng-class="{active: navs.indexOf(nav) == index}" ng-repeat="nav in navs"><a showtab="" href="" ng-click='goToState(nav.id)'>{{nav.name}}</a></li>
 			</ul>
@@ -308,7 +308,7 @@
 					<div id="prodo-sidebar-followedproductlist-container">
 					 <div id="prodo-sidebar-list-group" class="list-group">
 					   <div id="prodo-sidebar-list" class="list">
-					      <a class="prodo-wall-sidebar-list-heading list-group-item active" >Products In Conversation</a>
+					      <a class="prodo-search-list-heading-theme list-group-item active" >Products In Conversation</a>
 					      <div ng-repeat="fp in usersession.productfollowlist | limitTo:followedProductsCount track by $index" href="#" id="prodo-sidebar-list-group-item" class="list-group-item " ng-if="regularExpressionForProdonus.test(fp.name) !== true">          
 					          <table class="sidebarTableStyling">  
 					            <tr>
@@ -316,7 +316,7 @@
 					                    <div ng-click="orgProdleEmitter(fp.prodle,fp.orgid)" class="hyperlinkPointer productNameWidth" ng-bind="fp.name" CLASS=""></div>   
 					                </td>
 					                <td>                    
-					                    <button class="btn btn-default btn-xs floatRight unfollowButton" ng-click="unfollowProduct(fp)" >Talkout</button>   
+					                    <button class="prodo-button-theme btn btn-default btn-xs floatRight" ng-click="unfollowProduct(fp)" >Talkout</button>   
 					                </td>
 					            </tr>        
 					          </table>               
@@ -330,12 +330,20 @@
 					<div id="prodo-sidebar-search-container">
 					  <div id="prodo-sidebar-list-group" class="list-group">
 					    <div id="prodo-sidebar-list" class="list" >
+
 					      <a id="prodo-sidebar-list-group-item" class="prodo-wall-sidebar-list-heading list-group-item active" ng-bind="title"></a>
+					      <div  id="prodo-sidebar-list-group-main" class="list-group-item" > 
+
+
+					        <input general-search type="text" class="form-control prodoNormalSearchTextbox"  name="product" typeahead="name for name in enhancement | limitTo:10" id="searchText" ng-model="productSearch.product"  style="width:100%" placeholder="Current Org. Product Search"  typeahead-on-select="quickSearchEmit()" ng-click="toggleTitleForDiv()" typeahead-loading="name" typeahead-wait-ms="720">
+<!-- 
+					      <a id="prodo-sidebar-list-group-item" class="prodo-search-list-heading-theme list-group-item active" ng-bind="title"></a>
 					      <div  id="prodo-sidebar-list-group-main" class="list-group-item">         
-					        <input general-search type="text" class="form-control prodoNormalSearchTextbox"  name="product" typeahead="name for name in enhancement | limitTo:10" id="searchText" ng-model="productSearch.product"  style="width:100%" placeholder="Current Org. Product Search"  typeahead-on-select="quickSearchEmit()" ng-click="toggleTitleForDiv()" typeahead-loading="name" typeahead-wait-ms="720" >
+					        <input general-search type="text" class="form-control prodoNormalSearchTextbox"  name="product" typeahead="name for name in enhancement | limitTo:10" id="searchText" ng-model="productSearch.product"  style="width:100%" placeholder="Current Org. Product Search"  typeahead-on-select="quickSearchEmit()" ng-click="toggleTitleForDiv()" typeahead-loading="name" typeahead-wait-ms="720" > -->
+
 <!--                   <i ng-show="name" class="glyphicon glyphicon-refresh" id="refreshIcon"></i>  --> 
    <!--  <p ng-click="a()">test</p> -->
-					        <a data-toggle="modal"  data-target="#advancedSearchModal" ng-click="modalReset()" class="hyperlinkPointer" >Advanced Search</a>
+					        <a ng-click="openSearchModal(); modalReset()" class="hyperlinkPointer" >Advanced Search</a>
 					         <div ng-bind="errors" class="errorClassMessage cursorResize" id="sidebarErrors" ng-click="toggleTitleForDiv()"></div>
 					   <!-- start of advanced search -->
 					            <div id = "advancedSearchModal" class="modal fade" style="">      <!-- Modal Code Starts for Advansed-Search -->

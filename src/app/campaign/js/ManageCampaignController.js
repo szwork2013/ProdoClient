@@ -63,7 +63,8 @@ angular.module('prodo.CampaignApp')
     $scope.numberOfPages = function () {
       return Math.ceil($scope.campaignDetailsObject.length / $scope.pageSize);
     };
-
+  
+    $scope.errorForEmptyCategoryModify = '';
     // pagination
     // $scope.errorForInvalidCategory  = '';
     $scope.fileLength;
@@ -99,6 +100,8 @@ angular.module('prodo.CampaignApp')
     $scope.noCampaignExists = 1;
     
     $scope.campaignExpired = 0;
+
+    $scope.errorForEmptyCategory = '';
 
     if (currentorgproducts.error) 
     {
@@ -190,6 +193,7 @@ angular.module('prodo.CampaignApp')
     	$scope.errorForInvalidProduct = '';
     	$scope.allValid = 0;
     	$scope.errorForInvalidProduct = '';
+      $scope.errorForEmptyCategory = '';
       //$scope.errorForInvalidCategory = '';
     	$scope.getProdle();
         if($scope.campaign.Name === undefined || $scope.regexForText.test($scope.campaign.Name) === false || $scope.campaign.Name ==='')
@@ -218,6 +222,11 @@ angular.module('prodo.CampaignApp')
         	$scope.errorForInvalidProduct = "Please select valid product name !";
             $scope.allValid = 1;
         }
+        if($scope.campaign.category ===undefined || $scope.campaign.category.length === 0)
+        {
+            $scope.errorForEmptyCategory = 'Please enter atleast one targeted audience category';
+            $scope.allValid = 1;
+        }
         // if($scope.campaign.category ===undefined || $scope.campaign.category === '')
         // {
         //       $scope.errorForInvalidCategory = "Please enter valid targetted audience";
@@ -229,8 +238,9 @@ angular.module('prodo.CampaignApp')
              // alert($scope.prodleContent);
 
              if($scope.isValidImage==true){
-
+                 // $scope.showSpinner();
                   $scope.socket.emit('addProductCampaign', $rootScope.usersession.currentUser.userid, $rootScope.usersession.currentUser.org.orgid,$scope.prodleContent, $scope.jsonOrgCampaignData(),$scope.file_data);               
+              
               }
               else{
                 $rootScope.ProdoAppMessage("Please select banner image to upload", 'error');
@@ -265,6 +275,7 @@ angular.module('prodo.CampaignApp')
     	$scope.errorForInvalidProduct = '';
     	$scope.allValidContent = 0;
     	$scope.errorForInvalidProduct = '';
+      $scope.errorForEmptyCategoryModify = '';
     	$scope.getProdle();
 
       if($scope.currentCampaign.productname === undefined || $scope.currentCampaign.productname ==='')
@@ -281,6 +292,12 @@ angular.module('prodo.CampaignApp')
       if($scope.currentCampaign.name ===undefined || $scope.currentCampaign.name ==='' )
       {    	
            $scope.errorForWrongCampaignname = 'Please enter valid campaign name!';
+           $scope.allValidContent = 1;
+      }
+
+      if($scope.currentCampaign.category === undefined || $scope.currentCampaign.category.length === 0)
+      {
+           $scope.errorForEmptyCategoryModify = 'Please enter atleast one targeted audience category';
            $scope.allValidContent = 1;
       }
       
@@ -305,14 +322,26 @@ angular.module('prodo.CampaignApp')
            $rootScope.ProdoAppMessage(data.success.message,'success'); 
           
            $scope.enableEditing=0;
-           $state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
+           //$state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
+           //var currentCampaignId = $scope.currentCampaign.campaign_id;
+           // for(i=0;i<$scope.campaignDetailsObject.length;i++)
+           // {
+           //  if(campaignId === $scope.campaignDetailsObject[i].campaign_id)
+           //  {
+           //    $scope.currentCampaign = $scope.campaignDetailsObject[i];
+           //  }
+           // }
 
+          //$state.reload();
+        
         }
         else {
           if (data.error.code== 'AU004') {     // enter valid data
               $rootScope.ProdoAppMessage(data.error.message,'error');    //ShowAlert
+              $state.reload();
           } else {
               $rootScope.ProdoAppMessage(data.error.message,'error');    //ShowError
+              $state.reload();
           }
         }
     });
@@ -557,7 +586,7 @@ angular.module('prodo.CampaignApp')
 
       $scope.addProductCampaignResponseHandler=function(error, imagelocation){
        $('#addCampaignForm')[0].reset();      
-       if (error) {         
+       if (error) {      
             if (error.error.code == 'AP003') { // user already exist
               $log.debug(error.error.code + " " + error.error.message);
               $rootScope.ProdoAppMessage(error.error.message, 'error');
@@ -574,7 +603,7 @@ angular.module('prodo.CampaignApp')
           } else{
             $scope.imageSrc = JSON.stringify(imagelocation.success.invoiceimage);
             $rootScope.$broadcast("campaignUploadResponseSuccess", "success");
-            $rootScope.ProdoAppMessage("Campaign added successfully", 'success');
+            $rootScope.ProdoAppMessage("Campaign added successfully", 'success'); 
             $state.enableEditing = 0;
             $state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
             $scope.counter++;

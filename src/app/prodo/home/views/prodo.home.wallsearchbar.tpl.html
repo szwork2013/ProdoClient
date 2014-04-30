@@ -1,6 +1,6 @@
 <div class="prodo-wall-advertisment-container" id="prodo-advertisment-container">
 
-	<center><button class="mainSearchBackgroundColor homesContainerPaddingTop width " ng-click="isCollapsed = !isCollapsed;clearTextboxContent()"><b><i class="fa fa-search"></i>&nbsp;&nbsp;Organization Search&nbsp;&nbsp;<i class="fa fa-arrow-down" ng-if="isCollapsed===true"></i><i class="fa fa-arrow-up" ng-if="isCollapsed===false"></i></b></button></center>
+	<center><button class="prodo-search-list-heading-theme mainSearchBackgroundColor" ng-click="isCollapsed = !isCollapsed;clearTextboxContent()"><i class="fa fa-search"></i>&nbsp;&nbsp;Organization Search&nbsp;&nbsp;<i class="fa fa-arrow-down" ng-if="isCollapsed===true"></i><i class="fa fa-arrow-up" ng-if="isCollapsed===false"></i></button></center>
 
 	<div collapse="isCollapsed">
 		<div>
@@ -26,12 +26,12 @@
 	</div>
 
 	 <div id="prodo-sidebar-list" class="list" ng-if="trendingProducts.length >0 ">
-	     <div class="list-group-item active prodo-wall-sidebar-list-heading" ><center>Trending Products</center></div>
+	     <div class="prodo-search-list-heading-theme list-group-item active" ><center>Trending Products</center></div>
           <div ng-click="trendingProductEmit(product.prodle,product.orgid)" class="list-group-item hyperlinkPointer" ng-if="regularExpressionForProdonus.test(product.name) !== true" ng-repeat="product in trendingProducts | limitTo:6"   > 
              <table style=" width: 100%; color: black;text-align: center">
                 <tr style="">
                   <td colspan ="2" style="">
-                      <div style="font-size: 16px; text-align: center ; " ng-bind="product.name"></div>
+                      <div style="font-size: 16px; color:#242D36; text-align: center ; " ng-bind="product.name"></div>
                   </td>
                 </tr> 
                 <tr>
