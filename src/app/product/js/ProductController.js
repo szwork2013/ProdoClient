@@ -14,24 +14,25 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
  
       $scope.pimgs = [];
 
-    $scope.$watch('$state.$current.locals.globals.productData', function (productData) {
-     if(productData.error){
-         $("#prodo-ProductDetails").css("display", "none");
-      $("#ErrMsging").css("display", "block");
-      document.getElementById("ErrMsging").innerHTML = "Product not available";
-     }
-     else{
-        $scope.features = [];
-    $("#productLogo").attr('src', '');
-    var temp = document.getElementById('prodo-comment-container');
-      if(productData.success){
-        // $log.debug("data ... "+ productData.success.product.prodle+" "+productData.success.product.orgid)
-          $scope.tabComment=true;
-         $scope.getProduct(productData.success.product.prodle,productData.success.product.orgid);
-      }
-     }
+    // $scope.$watch('$state.$current.locals.globals.productData', function (productData) {
+    //  if(productData.error){
+    //      $("#prodo-ProductDetails").css("display", "none");
+    //   $("#ErrMsging").css("display", "block");
+    //   document.getElementById("ErrMsging").innerHTML = "Product not available";
+    //  }
+    //  else{
+    //     $scope.features = [];
+    // $("#productLogo").attr('src', '');
+    // var temp = document.getElementById('prodo-comment-container');
+    //   if(productData.success){
+    //     // $log.debug("data ... "+ productData.success.product.prodle+" "+productData.success.product.orgid)
+    //       $scope.tabComment=true;
+    //      $scope.getProduct(productData.success.product.prodle,productData.success.product.orgid);
+    //   }
+    //  }
     
-     });
+    //  });
+    
    $rootScope.comment_image_l=[];
   $rootScope.file_data ="";
   $rootScope.count=0;

@@ -371,6 +371,7 @@ angular.module('prodo.UserApp')
       
         if (userdata.success) {
           $scope.user = userdata.success.user;
+          $rootScope.usersession.currentUser = userdata.success.user;
           if (userdata.success.user.firstname != null) {
             $scope.hasPersonalDetail = true;
           }

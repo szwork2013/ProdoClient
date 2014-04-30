@@ -408,7 +408,7 @@ text-align: center;
 }
 
 .account-profile-img{
-	width:100px; height:130px; margin: 10px;border-radius: 5px;border:1px solid gray;
+	width:120px; padding: 5px; height:130px; margin: 10px;border-radius: 5px;border:1px solid gray;
 
 }
 
@@ -1172,33 +1172,38 @@ li#nav6 > a {
 }
 
 .prodo-following-btn{
-	margin:5px auto; font-size: 14px; padding: 2px; display:block; height:25px; width: 95%; background-color:#4F555E;
+	margin:5px auto; font-size: 14px; padding: 2px; display:block; height:25px; width: 95%; 
+	/*background-color:#4F555E;*/
 }
 
+/**/
 .prodo-following-btn:hover{
-	margin:5px auto; font-size: 14px; padding: 2px; display:block; height:25px; width: 95%; background-color:#4F555E;
+	margin:5px auto; font-size: 14px; padding: 2px; display:block; height:25px; width: 95%; 
+	/*background-color:#4F555E;*/
 }
 
 .prodo-following-btn:focus, .prodo-following-btn:active{
-	margin:5px auto; font-size: 14px; padding: 2px; display:block; height:25px; width: 95%; background-color:#4F555E;
+	margin:5px auto; font-size: 14px; padding: 2px; display:block; height:25px; width: 95%; 
+	/*background-color:#4F555E;*/
 }
 
 .prodo-follow-btn{
-	margin:5px auto; font-size: 14px; padding: 2px; display:block; height:25px; width: 95%; background-color:#304A61;
+	margin:5px auto; font-size: 14px; padding: 2px; display:block; height:25px; width: 95%; 
+	/*background-color:#304A61;*/
 }
 
 .prodo-follow-btn:hover{
 color: #fff;
 font-weight: bold;
 background-color: #4A5F72;
-border-color: #285e8e;
+/*border-color: #285e8e;*/
 }
 
 .prodo-follow-btn:focus, .prodo-follow-btn:active {
 color: #fff;
 font-weight: bold;
 background-color: #4A5F72;
-border-color: #285e8e;
+/*border-color: #285e8e;*/
 }
 /*Barchart*/
 

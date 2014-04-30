@@ -369,7 +369,7 @@ function (successData) {
       $("#prodo-uploadedCommentImage").css("display", "none");
       $scope.mytags = "";
     } else {
-      $rootScope.ProdoAppMessage("Please talkin this product to start commenting...", 'info');
+      $rootScope.ProdoAppMessage("Please talkin this product to start commenting...", 'error');
     }
   
 }
