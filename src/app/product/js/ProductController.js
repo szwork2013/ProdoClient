@@ -32,7 +32,9 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
      }
     
      });
- 
+   $rootScope.comment_image_l=[];
+  $rootScope.file_data ="";
+  $rootScope.count=0;
   $scope.productComments = {
     comments: [{}]
   };
@@ -343,13 +345,6 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
   };
   //date format
 
-  $scope.showFeature=function()
-  {
-    $scope.isCollapsed = false;
-  };
-   $scope.hideFeature=function()
-  {
-    $scope.isCollapsed = true;
-  };
+
 
 }])

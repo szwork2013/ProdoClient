@@ -33,6 +33,11 @@ angular.module('prodo.CampaignApp')
    $scope.campaign={};
    $scope.ErrMsging=0;   
    $scope.pimgs=[];  
+
+  $rootScope.comment_image_l=[];
+  $rootScope.file_data ="";
+  $rootScope.count=0;
+
    // $scope.productComments=[];
    $scope.$watch('$state.$current.locals.globals.campaignWalldata', function (campaignWalldata) {
 	     if(campaignWalldata.error){
@@ -61,53 +66,12 @@ angular.module('prodo.CampaignApp')
 	      if(campaignWalldata.success){
 	        $log.debug( campaignWalldata.success);
 	        $("#prodo-ProductDetails").css("display", "block");
+          $scope.getProductFeatures($rootScope.product_prodle,$rootScope.orgid);
 	        $scope.allCampaignData=campaignWalldata.success.Product_Campaigns;
 	        $scope.campaign=$scope.allCampaignData[0];
           // $rootScope.campaignidWall=$scope.campaign.campaign_id;
           $log.debug("assigned campaignid"+$rootScope.campaignidWall);
-            $scope.productComments=[
-                {
-					commentid: "332b-51f6-1398257909539",
-					commenttext: "test",
-					datecreated: "2014-04-23T13:02:28.796Z",
-					status: "active",
-					user: {
-						grpname: "admin",
-						orgname: "Shree Softwares and services",
-						profilepic: "https://s3-ap-southeast-1.amazonaws.com/prodonus/dev/user/ue1R0Wwc3j/ue1R0Wwc3j615.jpg?AWSAccessKeyId=AKIAJOGXRBMWHVXPSC7Q&Expires=1429344419&Signature=HbF8kHbwF10r4JGJrffCeuyUxzs%3D",
-						userid: "ue1R0Wwc3j",
-						username: "shree"	
-				    }
-				},
-				       {
-					commentid: "332b-51f6-1398257909539",
-					commenttext: "test",
-					datecreated: "2014-04-23T13:02:28.796Z",
-					status: "active",
-					user: {
-						grpname: "admin",
-						orgname: "Shree Softwares and services",
-						profilepic: "https://s3-ap-southeast-1.amazonaws.com/prodonus/dev/user/ue1R0Wwc3j/ue1R0Wwc3j615.jpg?AWSAccessKeyId=AKIAJOGXRBMWHVXPSC7Q&Expires=1429344419&Signature=HbF8kHbwF10r4JGJrffCeuyUxzs%3D",
-						userid: "ue1R0Wwc3j",
-						username: "shree"	
-				    }
-				},
-				       {
-					commentid: "332b-51f6-1398257909539",
-					commenttext: "test",
-					datecreated: "2014-04-23T13:02:28.796Z",
-					status: "active",
-					user: {
-						grpname: "admin",
-						orgname: "Shree Softwares and services",
-						profilepic: "https://s3-ap-southeast-1.amazonaws.com/prodonus/dev/user/ue1R0Wwc3j/ue1R0Wwc3j615.jpg?AWSAccessKeyId=AKIAJOGXRBMWHVXPSC7Q&Expires=1429344419&Signature=HbF8kHbwF10r4JGJrffCeuyUxzs%3D",
-						userid: "ue1R0Wwc3j",
-						username: "shree"	
-				    }
-				}
-
-				];
-
+            $scope.productComments=$scope.campaign.campaign_comments;
 	         if ( $scope.campaign.artwork.length!==0) {
 		        $scope.pimgs =  $scope.campaign.artwork;
 		        $log.debug("Product images emitting when not null ");
@@ -193,6 +157,9 @@ angular.module('prodo.CampaignApp')
     }
   }
   $scope.getUserDetails();
+
+
+
   //get login details
   //get Product features
 

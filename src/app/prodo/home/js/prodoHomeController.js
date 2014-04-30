@@ -3,7 +3,7 @@ angular.module('prodo.ProdoHomeApp')
 	.controller('ProdoHomeController', ['$rootScope', '$scope', '$state', '$log', 'UserSessionService', '$stateParams', 'growl', 'allOrgData','prodoSearchService', 'checkIfSessionExist','trendingProductService', function($rootScope, $scope, $state, $log, UserSessionService, $stateParams, growl, allOrgData, prodoSearchService, checkIfSessionExist, trendingProductService) {
 
     $log.debug('initialising home controller..');
-    console.log(allOrgData);
+
     $scope.allorganalytics = [];
     $scope.latestsignups = [];
     $scope.orgsponsers = [];
