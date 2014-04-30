@@ -56,22 +56,31 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
 
   $scope.regularExpressionForProdonus = /^prodonus/i;
   //This regular expression is used to hide products starting with Prodonus
+
   $("#searchText").popover({
     content: 'Enter * for all products',
     trigger: 'hover' 
   });
 
+
+  $scope.openSearchModal = function() {
+    $('#advancedSearchModal').modal({ 
+      keyboard: false,
+      backdrop: 'static',
+      show: true
+    });
+  };
+
+
   var cleanEventGotTrendingProducts = $scope.$on('gotIndustrySpecificTrendingProducts', function (event, data) 
   {   
-  
-
       if (data.success !== undefined) {
          $scope.trendingProducts = data.success.ProductTrends;
          if($scope.trendingProducts.length === 0)
          {
           $scope.title = "Product Search";
          }
-    };
+    }
   });
    
   var cleanEventNotGotTrendingProducts = $scope.$on('notGotIndustrySpecificTrendingProducts', function (event, data) //Error handling needed for 
@@ -185,8 +194,8 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
   {
     if(data.error!==undefined && data.error.code==='AL001')
     {
-      $('#advancedSearchModal').modal('hide');  
-      $('.modal-backdrop').remove(); 
+
+      $('#advancedSearchModal').modal('hide');  //code for cloasing modal
       $rootScope.showModal();
     }
     else if(data.error)
@@ -210,7 +219,6 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
      $rootScope.product_prodle = dataProdle;
      $rootScope.orgid = dataOrgid;    
      $('#advancedSearchModal').modal('hide');  //code for cloasing modal
-     $('.modal-backdrop').remove(); 
      $rootScope.$broadcast('emittingOrgid', 'success');
   };
 

@@ -157,7 +157,7 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
 #prodo-navbar {
 	height: 40px;
 	margin-bottom: 0px;
-	background-color: #005387;
+	/*background-color: #005387;*/
   }
 
 
@@ -346,7 +346,7 @@ ul.prodoManageOptions a:hover {
 	font-size: 12px;
 margin-left: 10px;
 text-align: center;
-color: #595365;
+/*color: #595365;*/
 }
 
 .radio-btn-signup{
@@ -357,7 +357,7 @@ color: #595365;
 #prodo-form-button-signup{
 	width:250px;
 	border-radius: 2px;
-	background-color: #3a92c6;
+	/*background-color: #3a92c6;*/
 	font-size: 20px;
 	font: bold;
 	position: relative;
@@ -372,7 +372,7 @@ color: #595365;
 	font-size: 25px;
 	line-height: 20px;
 	padding: 10px;
-	color: #585E61;
+	/*color: #585E61;*/
 }
 
 /*change signup terms style*/  
@@ -381,7 +381,7 @@ color: #595365;
 	font-size: 10px;
 	padding-top: 10px;
 	margin-left: 10px;
-	color: #595365;
+	/*color: #595365;*/
 	width: 370px;
 }
 
@@ -508,7 +508,7 @@ small {
 	font-size: 25px;
 	line-height: 20px;
 	padding: 5px;
-	color: #585E61;
+	/*color: #585E61;*/
 	text-align: left;
 	margin: 10px;
 }
@@ -554,7 +554,7 @@ small {
 	margin-left: 50px; 
 	font-weight:normal; 
 	font-size:12px;
-	color: #428bca;
+	/*color: #428bca;*/
   vertical-align: bottom;
   position: relative;
 }
@@ -585,7 +585,7 @@ small {
 #prodo-button-signin{
 	width:250px;
 	border-radius: 2px;
-	background-color: #3a92c6;
+	/*background-color: #3a92c6;*/
 	font-size: 20px;
 	position: relative;
 	display: block;
@@ -596,7 +596,7 @@ small {
 #prodo-button-activateaccount{
 	width:250px;
 	border-radius: 2px;
-	background-color: #3a92c6;
+	/*background-color: #3a92c6;*/
 	font-size: 15px;
   margin: 10px auto;
   position: relative;
@@ -612,7 +612,7 @@ small {
 	font-size: 25px;
 	line-height: 20px;
 	padding: 5px;
-	color: #585E61;
+	/*color: #585E61;*/
 	text-align: left;
 	margin: 10px;
 }
@@ -645,7 +645,7 @@ small {
 #prodo-button-forgotPassword{
 	width:250px;
 	border-radius: 2px;
-	background-color: #3a92c6;
+	/*background-color: #3a92c6;*/
 	font-size: 20px;
 	position: relative;
 	display: block;
@@ -664,7 +664,7 @@ small {
 	font-size: 25px;
 	line-height: 20px;
 	padding: 5px;
-	color: #585E61;
+	/*color: #585E61;*/
 	text-align: left;
 	margin: 10px;
 }
@@ -701,7 +701,7 @@ small {
 #prodo-button-resetpassword{
 	width:250px;
 	border-radius: 2px;
-	background-color: #3a92c6;
+	/*background-color: #3a92c6;*/
 	font-size: 20px;
 	position: relative;
 	display: block;
@@ -727,7 +727,7 @@ small {
 #prodo-button-regeneratetoken{
 	width:250px;
 	border-radius: 2px;
-	background-color: #3a92c6;
+	/*background-color: #3a92c6;*/
 	font-size: 15px;
 	position: relative;
 	display: block;
@@ -765,6 +765,11 @@ small {
 
 .otpnotification-alert{
 	margin-bottom: 0px;
+}
+
+#prodo-regeneratetoken-panel{
+	margin-top: 50px;
+	 
 }
 
 /**
@@ -1081,8 +1086,6 @@ border-bottom-left-radius: 0px;
 }
 #prodo-view-navbar{
   margin-top: 0px;
-  border: 1px solid #0A3151;
-  background-color:#0A3151;
   padding: 5px;
   /*margin-bottom: 10px;*/
 }
@@ -1372,8 +1375,8 @@ text {
 
 /*change the footer div style*/
 #footer{
-	background-color: #000000;
-	background: -webkit-linear-gradient(circle,#333333,#000000);
+	/*background-color: #000000;
+	background: -webkit-linear-gradient(circle,#333333,#000000);*/
 	padding: 1px;
 }
 
@@ -2737,19 +2740,19 @@ left: 173px;
 }*/
 .trendingProductsMain {background-color: #5bc0de;border-color: #5bc0de;}
 .mainSearchBackgroundColor {
-	background-color: #494F53; color: white;
+	/*background-color: #494F53; */
+	color: white;
+	width: 100%;
 	display: inline-block;
-	padding: 6px 12px;
 	margin-bottom: 20px;
-	font-size: 14px;
-	font-weight: normal;
 	line-height: 1.428571429;
 	text-align: center;
 	white-space: nowrap;
 	vertical-align: middle;
 	cursor: pointer;
 	/*border: 1px solid transparent;*/
-	border-radius: 4px;
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
 }
 
 .productNameWidth

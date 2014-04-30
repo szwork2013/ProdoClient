@@ -72,7 +72,11 @@ angular.module('prodo.CommonApp').controller('prodoUserProfileDataController', [
         {
           $scope.ProductsRecommendedMessage = "RECOMMENDED PRODUCTS";
         }
-        $('#profileInfoModal').modal('show');
+        $('#profileInfoModal').modal({ 
+              keyboard: false,
+              backdrop: 'static',
+              show: true
+            });
       }
     });
     
@@ -82,7 +86,6 @@ angular.module('prodo.CommonApp').controller('prodoUserProfileDataController', [
         $rootScope.product_prodle = prodle;
         $rootScope.orgid = orgid;
         $('#profileInfoModal').modal('hide');
-        $('.modal-backdrop').remove(); 
         $rootScope.$broadcast('emittingOrgidByUserProfile', 'success');
     };
   

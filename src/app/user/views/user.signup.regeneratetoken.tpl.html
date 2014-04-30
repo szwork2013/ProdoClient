@@ -1,14 +1,19 @@
-  <div id="prodo-view-regeneratetoken">
+<div id="prodo-view-regeneratetoken">
   <div id="prodo-regeneratetoken-panel" class="panel panel-default">
-    <div style="font-weight:bold;" id="prodo-regeneratetoken-panel-heading" class="panel-heading">Regenerate Verification Token</div>
-     <div class="panel-body">
-      <div ng-show="showmessage('alert-info', ' Your token is expired or error sending verification email. Please enter your email below to regenerate verification token.')" >
-        <prodo-alert-message></prodo-alert-message>
-        
-        <input id="prodo-input-regeneratetoken" name="email" class="form-control" type="email" placeholder="enter email address" required ng-model="user.email" /> 
-        <button id="prodo-button-regeneratetoken" class="btn btn-sm btn-primary" ng-click="regeneratetoken()">Submit</button>
-        <div prodo-spinner></div>
+    <div class="panel-body">
+      <div class="activateaccount-alert alert alert-info alert-block">
+        <h5 class="alert-heading"><strong><em>Regenerate Token!</em></strong></h5>
+        Your token is expired or there is an error sending verification email. Please enter your email below to regenerate verification token.
+        <br>
+        <br>
+          <form id="prodo-form-signin" name="activateaccountForm" class="css-form" ng-submit="regeneratetoken()" novalidate>
+
+            <div class="control-group">
+              <input name="email" class="prodo-input-activateaccount form-control" type="email" placeholder="please enter your email" required ng-model="user.email" />
+              <button id="prodo-button-regeneratetoken" class="prodo-button-theme btn btn-sm btn-primary">Submit&nbsp;&nbsp;<div prodo-spinner></div></button> 
+            </div>
+          </form>
       </div>
-     </div>
+    </div>
   </div>
 </div>

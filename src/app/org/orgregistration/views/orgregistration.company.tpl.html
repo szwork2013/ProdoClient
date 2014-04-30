@@ -26,7 +26,7 @@
         <!-- implement tags typeahead for industry lookup here -->
         <div class="prodo-regTagsWidth">
          <!--  <input type="text" class="prodo-wizard-form-control form-control" name="industry" ng-model="org.industry" placeholder="Industry Domain" /> -->
-           <tags-input minTags="1" add-on-blur="true" ng-model="org.industry" list="industrycategory()"  min-length="1" popover-placement="right" popover="Please enter industry category. Press enter after entering text" popover-trigger="mouseenter"></tags-input>  
+           <tags-input minTags="1" add-on-blur="true" ng-model="org.industry" list="industrycategory()"  min-length="1"  placeholder="Please enter industry category. Press enter after entering text" ></tags-input>  
 
         </div>   
        <div class="error-message-wizard" ng-if="errorMessageForInvalidcategory !== ''" ng-bind="errorMessageForInvalidcategory"></div>
