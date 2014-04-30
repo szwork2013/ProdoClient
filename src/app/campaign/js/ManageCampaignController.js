@@ -141,12 +141,26 @@ angular.module('prodo.CampaignApp')
     });
 
 
-
-
+   
+    
     $scope.$watch('$state.$current.locals.globals.campaigndata', function (campaigndata) { 
       if (campaigndata.success) {
          $scope.campaignDetailsObject = campaigndata.success.Product_Campaigns;
-         $scope.currentCampaign = $scope.campaignDetailsObject[0];  
+         if($scope.currentCampaignContentId !== undefined && $scope.currentCampaignContentId !== '')
+         {
+              for(var i=0;i<$scope.campaignDetailsObject.length;i++)
+              {
+                if($scope.campaignDetailsObject[i].campaign_id === $scope.currentCampaignContentId)
+                {
+                  $scope.currentCampaign = $scope.campaignDetailsObject[i]; 
+                }
+              }
+         }
+         else
+         {
+          $scope.currentCampaign = $scope.campaignDetailsObject[0];
+         }
+         //$scope.currentCampaignContentId = $scope.currentCampaign.campaign_id;  
           
           var campaignExpiryDate = moment.utc(moment($scope.currentCampaign.enddate));
           var todays = moment.utc(moment());
@@ -167,6 +181,7 @@ angular.module('prodo.CampaignApp')
       $rootScope.campaign_id = $scope.currentCampaign.campaign_id;
       $rootScope.campaign_prodle = $scope.currentCampaign.prodle;
     });
+   $scope.currentCampaignContentId = "";
 
  // function to send and stringify user registration data to Rest APIs
     $scope.jsonOrgCampaignData = function(){
@@ -382,6 +397,7 @@ angular.module('prodo.CampaignApp')
           if(campaignName === $scope.campaignDetailsObject[i].name)
           {
                 $scope.currentCampaign = $scope.campaignDetailsObject[i]; 
+                $scope.currentCampaignContentId = $scope.currentCampaign.campaign_id;
           }
           else
           { 
@@ -497,7 +513,8 @@ angular.module('prodo.CampaignApp')
         {
            $rootScope.ProdoAppMessage(data.success.message,'success');
             // $state.reload();
-           $state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
+           //$state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
+           $state.reload();
            $scope.enableEditing = 1;
 
         }
@@ -515,7 +532,7 @@ angular.module('prodo.CampaignApp')
      });
 
     var cleanupeventcampaignbannerupdate = $scope.$on("campaignBannerUploadResponseSuccess", function(event, data){
-              $state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
+              $state.reload();
      });
 
 
@@ -607,7 +624,7 @@ angular.module('prodo.CampaignApp')
             $state.enableEditing = 0;
             $state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
             $scope.counter++;
-            $log.debug($scope.counter);
+            //$log.debug($scope.counter);
             if ($scope.counter < $scope.fileLength) {
             } else
             { 

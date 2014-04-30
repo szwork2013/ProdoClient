@@ -51,6 +51,32 @@ angular.module('prodo.AdminApp')
     
     .state('admin.landingpageslider', {
       url: '/admin-landingpageslider',
-      templateUrl: 'common/admin/views/prodo.landingpageslider.tpl.html'
+      templateUrl: 'common/admin/views/prodo.landingpageslider.tpl.html',
+      resolve: {
+        checkIfSessionExist: function(UserService, $rootScope) {
+            return UserService.Is_user_loggedin.checkUserSession().$promise;
+        }
+      }, 
+      onEnter : function(checkIfSessionExist, $rootScope,$state)
+      { 
+        if (checkIfSessionExist.error) {
+          $state.go('prodo.landing.signin');
+        } else if (checkIfSessionExist.success && checkIfSessionExist.success.user.isAdmin === false)
+        {
+          $state.transitionTo($state.$current);
+        }
+      },
+
+       controller: "LandingPageController"
+
     })  
+
+
+
+
+
+
+
+
+
   }]);
