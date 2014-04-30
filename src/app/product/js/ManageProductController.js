@@ -118,7 +118,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
            }
            else if(allproductCategories.success){
              $scope.listProductCategories.categoriesList= allproductCategories.success.categorytags;
-              $log.debug("sucesss  "+ $scope.listProductCategories.categoriesList);
+              // $log.debug("sucesss  "+ $scope.listProductCategories.categoriesList);
            }
 
   $scope.$watch('$state.$current.locals.globals.allproductdata', function (allproductdata) {
@@ -144,7 +144,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
 
             // setTimeout(function(){ $scope.$apply(function() {
                   $scope.listProductCategories.categoriesList= allproductCategories.success.categorytags;
-                   $log.debug("suce  "+ $scope.listProductCategories.categoriesList);
+                   // $log.debug("suce  "+ $scope.listProductCategories.categoriesList);
 
                // }); });
                

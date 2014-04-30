@@ -255,7 +255,7 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
       $rootScope.$broadcast('emittingOrgidBySearch', 'success');
 
       $scope.title = "Trending Products";
-      $scope.productSearch.product = "";    console.log('----'+$rootScope.product_prodle);
+      $scope.productSearch.product = "";   
   };
 
   $scope.toggleTitleForDiv = function()
