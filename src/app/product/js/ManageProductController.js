@@ -26,6 +26,9 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   $scope.newProduct = {
     product: [{}]
   };
+  $scope.listProductCategories={
+    categoriesList:[]
+  };
   $scope.listCategory={
               productCategories:[]
             };
@@ -67,12 +70,12 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   };
 
   $scope.handleAllProductDataSuccess=function(allproductdata){
-    if(allproductCategories.error){
-       $scope.listCategory.productCategories=['product','software'];
-      }
-      else if(allproductCategories.success){
-       $scope.listCategory.productCategories=allproductCategories.success.categorytags;
-     }
+    // if(allproductCategories.error){
+    //    $scope.listCategory.productCategories=['product','software'];
+    //   }
+    //   else if(allproductCategories.success){
+    //    $scope.listCategory.productCategories=allproductCategories.success.categorytags;
+    //  }
       $scope.productlist = allproductdata.success.product;
       // console.log( allproductdata.success.product);
       if ($scope.productlist.length == 0) { //after deleting product, check for next product from product followed,if no product - display msg
@@ -97,6 +100,26 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
           $scope.getProduct($scope.currentProdle, $scope.currentOrgid);
       }
   };
+    //get Categories
+ //  $scope.listProductCategories=function(){
+ //     if(allproductCategories.error){
+ //     // $log.debug("err");
+ //      return ['product','software'];
+ //     }
+ //     else if(allproductCategories.success){
+ //           $log.debug("new tags "+ allproductCategories.success.categorytags );
+ //      return allproductCategories.success.categorytags;
+ //     }
+ // };
+
+          if(allproductCategories.error){
+           // $log.debug("err");
+            $scope.listProductCategories.categoriesList= ['product','software'];
+           }
+           else if(allproductCategories.success){
+             $scope.listProductCategories.categoriesList= allproductCategories.success.categorytags;
+              $log.debug("sucesss  "+ $scope.listProductCategories.categoriesList);
+           }
 
   $scope.$watch('$state.$current.locals.globals.allproductdata', function (allproductdata) {
     if (allproductdata.error) {
@@ -107,18 +130,30 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
     }
   });
 
+  $scope.$watch('$state.$current.locals.globals.allproductCategories', function (allproductCategories) {
+  
 
-  //get Categories
-  $scope.listProductCategories=function(){
-     if(allproductCategories.error){
-     // $log.debug("err");
-      return ['product','software'];
-     }
-     else if(allproductCategories.success){
-      // $log.debug("suc");
-      return allproductCategories.success.categorytags;
-     }
- };
+
+
+           if(allproductCategories.error){
+           // $log.debug("err");
+            $scope.listProductCategories.categoriesList= ['product','software'];
+           }
+           else if(allproductCategories.success){
+          
+
+            // setTimeout(function(){ $scope.$apply(function() {
+                  $scope.listProductCategories.categoriesList= allproductCategories.success.categorytags;
+                   $log.debug("suce  "+ $scope.listProductCategories.categoriesList);
+
+               // }); });
+               
+           }
+
+  });
+
+
+
 
   //get login details
   $scope.getUserDetails = function () {
@@ -156,6 +191,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
         $scope.productComments = successData.success.product.product_comments;
         $scope.pImages_l = successData.success.product.product_images;
         $("#prodo-addingProduct").text($scope.product.status);
+        // $scope.listProductCategories();
         //check owner of product
         if ($rootScope.usersession.currentUser.org) {
           if ($rootScope.usersession.currentUser.org.isAdmin == true) {
