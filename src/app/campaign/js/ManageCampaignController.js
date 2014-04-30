@@ -115,8 +115,6 @@ angular.module('prodo.CampaignApp')
     	  }
     }
 
-
-
     var cleanupeventcampaignpublishsuccess = $scope.$on("campaignPublishedSuccessfully", function(event, data){
      if(data.error !== undefined && data.error.code === 'AL001' )
         {
@@ -139,14 +137,25 @@ angular.module('prodo.CampaignApp')
     var cleanupeventcampaignpublisherror= $scope.$on("campaignNotPublishedSuccessfully", function(event, data){
            $rootScope.ProdoAppMessage("Some issues with server",'error');
     });
-
-
-
-
+    
     $scope.$watch('$state.$current.locals.globals.campaigndata', function (campaigndata) { 
       if (campaigndata.success) {
          $scope.campaignDetailsObject = campaigndata.success.Product_Campaigns;
-         $scope.currentCampaign = $scope.campaignDetailsObject[0];  
+         if($scope.currentCampaignContentId !== undefined && $scope.currentCampaignContentId !== '')
+         {
+              for(var i=0;i<$scope.campaignDetailsObject.length;i++)
+              {
+                if($scope.campaignDetailsObject[i].campaign_id === $scope.currentCampaignContentId)
+                {
+                  $scope.currentCampaign = $scope.campaignDetailsObject[i]; 
+                }
+              }
+         }
+         else
+         {
+          $scope.currentCampaign = $scope.campaignDetailsObject[0];
+         }
+         //$scope.currentCampaignContentId = $scope.currentCampaign.campaign_id;  
           
           var campaignExpiryDate = moment.utc(moment($scope.currentCampaign.enddate));
           var todays = moment.utc(moment());
@@ -167,6 +176,8 @@ angular.module('prodo.CampaignApp')
       $rootScope.campaign_id = $scope.currentCampaign.campaign_id;
       $rootScope.campaign_prodle = $scope.currentCampaign.prodle;
     });
+
+   $scope.currentCampaignContentId = "";
 
  // function to send and stringify user registration data to Rest APIs
     $scope.jsonOrgCampaignData = function(){
@@ -227,20 +238,10 @@ angular.module('prodo.CampaignApp')
             $scope.errorForEmptyCategory = 'Please enter atleast one targeted audience category';
             $scope.allValid = 1;
         }
-        // if($scope.campaign.category ===undefined || $scope.campaign.category === '')
-        // {
-        //       $scope.errorForInvalidCategory = "Please enter valid targetted audience";
-        //       $scope.allValid = 1;
-        // }
         if($scope.allValid === 0 )
         {       
-             // CampaignService.createCampaign($scope.jsonOrgCampaignData() ,$scope.prodleContent);  
-             // alert($scope.prodleContent);
-
              if($scope.isValidImage==true){
-                 // $scope.showSpinner();
                   $scope.socket.emit('addProductCampaign', $rootScope.usersession.currentUser.userid, $rootScope.usersession.currentUser.org.orgid,$scope.prodleContent, $scope.jsonOrgCampaignData(),$scope.file_data);               
-              
               }
               else{
                 $rootScope.ProdoAppMessage("Please select banner image to upload", 'error');
@@ -322,18 +323,6 @@ angular.module('prodo.CampaignApp')
            $rootScope.ProdoAppMessage(data.success.message,'success'); 
           
            $scope.enableEditing=0;
-           //$state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
-           //var currentCampaignId = $scope.currentCampaign.campaign_id;
-           // for(i=0;i<$scope.campaignDetailsObject.length;i++)
-           // {
-           //  if(campaignId === $scope.campaignDetailsObject[i].campaign_id)
-           //  {
-           //    $scope.currentCampaign = $scope.campaignDetailsObject[i];
-           //  }
-           // }
-
-          //$state.reload();
-        
         }
         else {
           if (data.error.code== 'AU004') {     // enter valid data
@@ -382,6 +371,7 @@ angular.module('prodo.CampaignApp')
           if(campaignName === $scope.campaignDetailsObject[i].name)
           {
                 $scope.currentCampaign = $scope.campaignDetailsObject[i]; 
+                $scope.currentCampaignContentId = $scope.currentCampaign.campaign_id;
           }
           else
           { 
@@ -452,7 +442,6 @@ angular.module('prodo.CampaignApp')
            $rootScope.ProdoAppMessage(data.success.message,'success');
            $scope.enableEditing = 0; 
            $state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
-          // $scope.currentCampaign = $scope.campaignDetailsObject[$scope.campaignDetailsObject.length-1]; 
         }
         else {
           if (data.error.code== 'AU004') {     // enter valid data
@@ -496,8 +485,7 @@ angular.module('prodo.CampaignApp')
         if(data.success)
         {
            $rootScope.ProdoAppMessage(data.success.message,'success');
-            // $state.reload();
-           $state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
+           $state.reload();
            $scope.enableEditing = 1;
 
         }
@@ -515,7 +503,7 @@ angular.module('prodo.CampaignApp')
      });
 
     var cleanupeventcampaignbannerupdate = $scope.$on("campaignBannerUploadResponseSuccess", function(event, data){
-              $state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
+              $state.reload();
      });
 
 
@@ -523,9 +511,6 @@ angular.module('prodo.CampaignApp')
     {    
           CampaignService.publishCampaignNow($scope.currentCampaign.campaign_id);
     };
-
-    // /////////////////////////////////////////////////////
-    // upload
 
      $scope.socket = io.connect(ENV.apiEndpoint + ENV.port + '/api/prodoupload', {
         query: 'session_id=' + $rootScope.usersession.currentUser.sessionid
@@ -607,7 +592,7 @@ angular.module('prodo.CampaignApp')
             $state.enableEditing = 0;
             $state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
             $scope.counter++;
-            $log.debug($scope.counter);
+            //$log.debug($scope.counter);
             if ($scope.counter < $scope.fileLength) {
             } else
             { 

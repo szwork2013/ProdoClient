@@ -5,23 +5,23 @@ angular.module('prodo.ProdoWallApp').controller('ProdoDashboardController', [
     $scope.data = [
       {
         key: 'Awesome',
-        y: 500
+        count: 500
       },
       {
         key: 'Good',
-        y: 200
+        count: 200
       },
       {
         key: 'Average',
-        y: 900
+        count: 900
       },
       {
         key: 'Bad',
-        y: 700
+        count: 700
       },
       {
         key: 'Worst',
-        y: 400
+        count: 400
       }
     ];
   }
