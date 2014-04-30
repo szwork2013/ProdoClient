@@ -1,0 +1,103 @@
+.prodo-navbar-theme {
+	background-color: #223B58;
+	border-color: #0C2F43;
+}
+
+.prodo-footer-theme{
+	background-color: #090D0C;
+}
+
+.prodo-button-theme{
+	background-color: #BF8618;
+	border-color: #BF8618;
+	color: white;
+}
+
+.prodo-button-theme:hover, .prodo-button-theme:focus, .prodo-button-theme:active {
+background-color: #BF9B20;
+border-color: #BF9B20;
+}
+
+.prodo-heading-theme {
+	color: #0A3A52;
+}
+
+.prodo-signup-text-theme {
+	color:#103A57;
+}
+
+.prodo-terms-text-theme{
+	color: #0F325F;
+}
+
+.prodo-signin-text-theme{
+	color: #163A58;
+}
+
+.prodo-session-modal-body-theme{
+	background-color: #193C50;
+	text-align: left;
+  font-style: italic;
+  font-size: 18px;
+  color: white;
+}
+
+.prodo-session-modal-text-theme{
+	color: #2F3B41;
+}
+
+.prodo-home-wall-heading-text-theme{
+	color: #3D3F41;
+}
+
+.prodo-home-wall-hr-theme{
+	color: #585B61;
+	height: 1px;
+	margin-top: 1px;
+	margin-bottom: 10px;
+	width: 100%;
+}
+
+.prodo-search-list-heading-theme{
+	background-color:#103752;
+	border: 0px;
+	font-size: 14px;
+	font-weight: bold;
+	padding: 6px 12px;
+
+}
+
+.prodo-search-list-heading-theme.active:hover{
+	background-color: #103752;
+	font-size: 14px;
+	font-weight: bold;
+	padding: 6px 12px;
+	text-align: center;
+}
+.prodo-search-list-heading-theme.active{
+	background-color: #103752;
+	font-size: 14px;
+	padding: 6px 12px;
+	font-weight: bold;
+	text-align: center;
+}
+
+.prodo-product-wall-navbar-theme{
+	background-color: #0c2f43;
+	border: 1px solid #0c2f43;
+}
+
+.prodo-following-button-theme{
+	background-color: #BF9D4B;
+	border-color: #BF9D4B;
+}
+
+.prodo-following-button-theme:hover{
+	background-color: #BF9D4B;
+	border-color: #BF9D4B;
+}
+
+.prodo-following-button-theme:focus, .prodo-following-button-theme:active{
+	background-color: #BF9D4B;
+	border-color: #BF9D4B;
+}
