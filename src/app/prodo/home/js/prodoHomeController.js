@@ -51,9 +51,11 @@ angular.module('prodo.ProdoHomeApp')
     });
 
     $scope.$watch('$state.$current.locals.globals.checkIfSessionExist', function (checkIfSessionExist) {
-      if (checkIfSessionExist.error) {
+      if (checkIfSessionExist!== null && checkIfSessionExist !==undefined){
+        if(checkIfSessionExist.error) {
         $rootScope.showModal();
       } 
+    }
     });
 
     if (allOrgData.success) {

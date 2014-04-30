@@ -29,7 +29,7 @@ angular.module('prodo.AdminApp')
           $state.go('prodo.landing.signin');
         } else if (checkIfSessionExist.success && checkIfSessionExist.success.user.isAdmin === false)
         {
-          $state.transitionTo($state.$current);
+          $state.go($state.$current);
         }
       },
 
@@ -61,10 +61,11 @@ angular.module('prodo.AdminApp')
       { 
         if (checkIfSessionExist.error) {
           $state.go('prodo.landing.signin');
-        } else if (checkIfSessionExist.success && checkIfSessionExist.success.user.isAdmin === false)
-        {
-          $state.transitionTo($state.$current);
-        }
+        } 
+        // else if (checkIfSessionExist.success && checkIfSessionExist.success.user.isAdmin === false)
+        // {
+          //$state.go('prodo.home');
+        // }
       },
 
        controller: "LandingPageController"

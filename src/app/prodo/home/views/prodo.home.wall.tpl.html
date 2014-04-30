@@ -41,7 +41,36 @@
 		    	</div>
 		    </div>
 		  </div>
-		
+				
+				<div style="margin: 10px;" ng-show='latestsignups.length != 0'>
+		  <br>
+			<h5 class="prodo-home-wall-heading-text-theme">LIST OF ORGANIZATIONS</h5>
+	    <hr size=3 class="prodo-home-wall-hr-theme" noshade>
+	    <br>
+				<div style="margin: 10px;" class="row">
+					<div style="margin: 5px auto;"  class="col-md-4" ng-repeat="analytics in allorganalytics | limitTo:10">
+						<a href="" ng-click='transitionToOrgWall(analytics.orgid)'>
+							<div style="height: 140px;" class="div-outer">
+			  				<div class="inner-1" style="margin: 2px;">
+				  				<img ng-show="analytics.org_logo" ng-src="{{analytics.org_logo.image}}" style="width:180px; height:140px;" class="img-rounded">
+			    				<img ng-hide="analytics.org_logo" src="../../../assets/images/if_no_org_images_available.jpg" style=" width:180px; height:140px;" class="img-rounded">
+			  				</div>
+				  			<div class="inner-2" style="margin: 2px; height:140px;">
+				  				<h5><strong><em>{{analytics.name}}</em></strong></h5>
+				  				<p ng-show="analytics.productcount != 0" style="font-size: 14px; font-weight: bold;">{{analytics.productcount}} Products</p> 
+
+				    			<p ng-show="analytics.productcount != 0" style="margin-left: 7px; font-size: 12px; font-weight: 100;"> {{analytics.followedcount}} Talkins</p>
+
+					    		<p ng-show="analytics.productcount != 0" style="margin-left: 7px; font-size: 12px; font-weight: 100;"> {{analytics.commentcount}} Comments </p>
+
+				    			<p ng-show="analytics.productcount == 0" style="font-size: 13px; font-weight: 300;">This organization has not added any products.</p>
+				  			</div>
+			    		</div>
+			    	</a>	
+					</div>
+				</div>
+			</div>
+
 			<div style="margin: 10px;" ng-show='latestsignups.length != 0'>
 		    <br>
 		    <h5 class="prodo-home-wall-heading-text-theme">NEW ORGANIZATION SIGNUP</h5>
@@ -70,34 +99,7 @@
 		    </div>
 		  </div>
 			
-			<div style="margin: 10px;" ng-show='latestsignups.length != 0'>
-		  <br>
-			<h5 class="prodo-home-wall-heading-text-theme">LIST OF ORGANIZATIONS</h5>
-	    <hr size=3 class="prodo-home-wall-hr-theme" noshade>
-	    <br>
-				<div style="margin: 10px;" class="row">
-					<div style="margin: 5px auto;"  class="col-md-4" ng-repeat="analytics in allorganalytics | limitTo:10">
-						<a href="" ng-click='transitionToOrgWall(analytics.orgid)'>
-							<div style="height: 140px;" class="div-outer">
-			  				<div class="inner-1" style="margin: 2px;">
-				  				<img ng-show="analytics.org_logo" ng-src="{{analytics.org_logo.image}}" style="width:180px; height:140px;" class="img-rounded">
-			    				<img ng-hide="analytics.org_logo" src="../../../assets/images/if_no_org_images_available.jpg" style=" width:180px; height:140px;" class="img-rounded">
-			  				</div>
-				  			<div class="inner-2" style="margin: 2px; height:140px;">
-				  				<h5><strong><em>{{analytics.name}}</em></strong></h5>
-				  				<p ng-show="analytics.productcount != 0" style="font-size: 14px; font-weight: bold;">{{analytics.productcount}} Products</p> 
-
-				    			<p ng-show="analytics.productcount != 0" style="margin-left: 7px; font-size: 12px; font-weight: 100;"> {{analytics.followedcount}} Talkins</p>
-
-					    		<p ng-show="analytics.productcount != 0" style="margin-left: 7px; font-size: 12px; font-weight: 100;"> {{analytics.commentcount}} Comments </p>
-
-				    			<p ng-show="analytics.productcount == 0" style="font-size: 13px; font-weight: 300;">This organization has not added any products.</p>
-				  			</div>
-			    		</div>
-			    	</a>	
-					</div>
-				</div>
-			</div>
+	
 		</div>
 
 		<div style="padding-right: 3px; padding-left: 10px; margin-bottom:10px;" class="col-md-3">

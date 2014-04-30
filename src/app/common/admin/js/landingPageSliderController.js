@@ -26,8 +26,9 @@ angular.module('prodo.AdminApp').controller('LandingPageController', [
 
 
 	$scope.socket = io.connect(ENV.apiEndpoint + ENV.port + '/api/prodoupload', 
-	{
+	{      
       	     query: 'session_id=' + $rootScope.usersession.currentUser.sessionid
+            
     });
     
     $scope.handleUploadError=function(error){

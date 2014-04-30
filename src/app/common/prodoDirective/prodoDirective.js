@@ -271,7 +271,7 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
                 },
                 {
                   'label': 'Complaints',
-                  'value': 20
+                  'value': 20,
                 }
               ]
             }];
@@ -288,7 +288,7 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
           var chart = nv.models.pieChart().x(function (d) {
               return d.key;
             }).y(function (d) {
-              return d.y;
+              return d.count;
             }).color(d3.scale.category10().range()).width(width).height(height);
           d3.select('#test1').datum(scope.data).transition().duration(1200).attr('width', width).attr('height', height).call(chart);
           chart.dispatch.on('stateChange', function (e) {
