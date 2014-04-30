@@ -330,9 +330,17 @@
 					<div id="prodo-sidebar-search-container">
 					  <div id="prodo-sidebar-list-group" class="list-group">
 					    <div id="prodo-sidebar-list" class="list" >
+
+					      <a id="prodo-sidebar-list-group-item" class="prodo-wall-sidebar-list-heading list-group-item active" ng-bind="title"></a>
+					      <div  id="prodo-sidebar-list-group-main" class="list-group-item" > 
+
+
+					        <input general-search type="text" class="form-control prodoNormalSearchTextbox"  name="product" typeahead="name for name in enhancement | limitTo:10" id="searchText" ng-model="productSearch.product"  style="width:100%" placeholder="Current Org. Product Search"  typeahead-on-select="quickSearchEmit()" ng-click="toggleTitleForDiv()" typeahead-loading="name" typeahead-wait-ms="720">
+<!-- 
 					      <a id="prodo-sidebar-list-group-item" class="prodo-search-list-heading-theme list-group-item active" ng-bind="title"></a>
 					      <div  id="prodo-sidebar-list-group-main" class="list-group-item">         
-					        <input general-search type="text" class="form-control prodoNormalSearchTextbox"  name="product" typeahead="name for name in enhancement | limitTo:10" id="searchText" ng-model="productSearch.product"  style="width:100%" placeholder="Current Org. Product Search"  typeahead-on-select="quickSearchEmit()" ng-click="toggleTitleForDiv()" typeahead-loading="name" typeahead-wait-ms="720" >
+					        <input general-search type="text" class="form-control prodoNormalSearchTextbox"  name="product" typeahead="name for name in enhancement | limitTo:10" id="searchText" ng-model="productSearch.product"  style="width:100%" placeholder="Current Org. Product Search"  typeahead-on-select="quickSearchEmit()" ng-click="toggleTitleForDiv()" typeahead-loading="name" typeahead-wait-ms="720" > -->
+
 <!--                   <i ng-show="name" class="glyphicon glyphicon-refresh" id="refreshIcon"></i>  --> 
    <!--  <p ng-click="a()">test</p> -->
 					        <a ng-click="openSearchModal(); modalReset()" class="hyperlinkPointer" >Advanced Search</a>

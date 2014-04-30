@@ -39,7 +39,7 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
   $scope.message = "";
   //This variable stores the message received from server 
 
-  trendingProductService.getTrendingProducts();  
+  trendingProductService.getTrendingProductsIndustrySpecific();  
   //Calling service to get //Trending Products
 
   $scope.trendingProducts = {};  
@@ -56,23 +56,34 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
 
   $scope.regularExpressionForProdonus = /^prodonus/i;
   //This regular expression is used to hide products starting with Prodonus
- 
+
+  $("#searchText").popover({
+    content: 'Enter * for all products',
+    trigger: 'hover' 
+  });
+
+
   $scope.openSearchModal = function() {
     $('#advancedSearchModal').modal({ 
       keyboard: false,
       backdrop: 'static',
       show: true
     });
-  }
+  };
 
-  var cleanEventGotTrendingProducts = $scope.$on('gotTrendingProducts', function (event, data) 
+
+  var cleanEventGotTrendingProducts = $scope.$on('gotIndustrySpecificTrendingProducts', function (event, data) 
   {   
       if (data.success !== undefined) {
          $scope.trendingProducts = data.success.ProductTrends;
-    };
+         if($scope.trendingProducts.length === 0)
+         {
+          $scope.title = "Product Search";
+         }
+    }
   });
-    
-  var cleanEventNotGotTrendingProducts = $scope.$on('notGotTrendingProducts', function (event, data) //Error handling needed for 
+   
+  var cleanEventNotGotTrendingProducts = $scope.$on('notGotIndustrySpecificTrendingProducts', function (event, data) //Error handling needed for 
   {
       $scope.errors = "Server Error";
       $rootScope.ProdoAppMessage("There is some issue with the server! Please try after some time",'error');
@@ -183,6 +194,7 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
   {
     if(data.error!==undefined && data.error.code==='AL001')
     {
+
       $('#advancedSearchModal').modal('hide');  //code for cloasing modal
       $rootScope.showModal();
     }
@@ -243,7 +255,7 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
       $rootScope.$broadcast('emittingOrgidBySearch', 'success');
 
       $scope.title = "Trending Products";
-      $scope.productSearch.product = "";    
+      $scope.productSearch.product = "";    console.log('----'+$rootScope.product_prodle);
   };
 
   $scope.toggleTitleForDiv = function()
@@ -267,11 +279,6 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
       $rootScope.$broadcast('unfollowProductFromSidelist', 'success');
     }
   });
-
-  // $rootScope.$watch('orgid', function () 
-  // {
-  //     document.getElementById('searchText').placeholder="Search products in "+ $rootScope.orgdata.name;
-  // });
 
   $scope.loadMoreFollowedProduct=function() {
       if($scope.followedProductsCount === 100)
@@ -299,3 +306,4 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
 //End of controller         
   }
 ]);
+

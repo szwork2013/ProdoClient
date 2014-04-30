@@ -65,8 +65,13 @@ $scope.handleLoadMoreCommentResponse = function (result) {
     for (var i = 0; i < result.success.comment.length; i++) {
       $scope.productComments.push(result.success.comment[i]);
     };
+    if(result.success.comment.length<6){
+     $("#load-more").css("display", "none");
+    }
   } else {
     $("#loadMoreCommentMsg").css("display", "block");
+     setTimeout(function(){ $("#loadMoreCommentMsg").hide();},60000);
+   
     $("#load-more").css("display", "none");
      if (result.error.code == 'AL001') {
       $rootScope.showModal();
@@ -112,6 +117,7 @@ $scope.loadMoreComments = function () {
       $("#img-spinner").hide();
     }, function (error) {
       $log.debug(error);
+      $("#loadMoreCommentMsg").css("display", "block");
       $("#loadMoreCommentMsg").html(error);
     });
   }
@@ -242,12 +248,13 @@ $scope.hideIfNotImage = function (image) {
 //show comment image if exists 
   $scope.deleteProductComment = function (comment) {
     if (comment.user.userid == $scope.userIDFromSession ) {
-      var index = $scope.productComments.indexOf(comment);
-      if (index != -1)
-        $scope.productComments.splice(index, 1);
       CommentService.deleteComment({ commentid: comment.commentid },
        function (success) {
           if(success.success){
+            var index = $scope.productComments.indexOf(comment);
+            if (index != -1){
+               $scope.productComments.splice(index, 1);
+            }
            $scope.handleDeleteProductCommentSuccess(success);   
           }else if(success.error){
             $scope.handleDeleteProductCommentError(success.error);
@@ -255,8 +262,6 @@ $scope.hideIfNotImage = function (image) {
         }, function (error) {
           $log.debug(JSON.stringify(error));
         });
-
-
       $log.debug(comment.commentid);
     }
   };
