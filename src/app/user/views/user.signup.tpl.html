@@ -4,7 +4,7 @@
 
     <div class="control-group">
 
-      <h4 id="prodo-signup-heading">Talk About Your Products</h4>
+      <h4 id="prodo-signup-heading" class="prodo-heading-theme">Talk About Your Products</h4>
 
         <div class="radio-btn-signup">
           <input type="radio" ng-model="user.type" value="business">&nbsp;Business
@@ -30,7 +30,7 @@
           </div><!-- /input-group -->
         </div>
         
-        <p id="prodo-general-terms">By clicking Sign Up, you agree to our<a href="" ui-sref="prodo.footer-content.privacy" class="link prodo-general-terms-link"> Terms</a>&nbsp;and &nbsp;<a href="" ui-sref="prodo.footer-content.terms" class="link prodo-general-terms-link">Privacy Policy</a>.</p>
+        <p id="prodo-general-terms" class="prodo-terms-text-theme">By clicking Sign Up, you agree to our<a href="" ui-sref="prodo.footer-content.privacy" class="link prodo-general-terms-link"> Terms</a>&nbsp;and &nbsp;<a href="" ui-sref="prodo.footer-content.terms" class="link prodo-general-terms-link">Privacy Policy</a>.</p>
 
     </div>  
     <div ng-show="(signupForm.username.$dirty && signupForm.username.$invalid) || (signupForm.email.$dirty && signupForm.email.$invalid) || (signupForm.password.$dirty && signupForm.password.$invalid) || (signupForm.$invalid && signupForm.submitted)" class="prodo-alert-error-container alert alert-danger">
@@ -45,11 +45,11 @@
       </ul>
     </div>
  
-    <button id="prodo-form-button-signup" class="btn btn-sm btn-primary">Sign Up &nbsp; &nbsp; <div prodo-spinner></div></button>
+    <button id="prodo-form-button-signup" class="prodo-button-theme btn btn-sm btn-primary">Sign Up &nbsp; &nbsp; <div prodo-spinner></div></button>
     
 
   </form>
-  <p id="prodo-signup-secure-text"><i class="prodo-fa fa fa-lock"></i>Your information is <strong>safe</strong> and <strong>secure</strong> with us.</p>
+  <p id="prodo-signup-secure-text" class="prodo-signup-text-theme"><i class="prodo-fa fa fa-lock"></i>Your information is <strong>safe</strong> and <strong>secure</strong> with us.</p>
 
 </div>
 

@@ -57,6 +57,14 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
   $scope.regularExpressionForProdonus = /^prodonus/i;
   //This regular expression is used to hide products starting with Prodonus
  
+  $scope.openSearchModal = function() {
+    $('#advancedSearchModal').modal({ 
+      keyboard: false,
+      backdrop: 'static',
+      show: true
+    });
+  }
+
   var cleanEventGotTrendingProducts = $scope.$on('gotTrendingProducts', function (event, data) 
   {   
       if (data.success !== undefined) {
@@ -176,7 +184,6 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
     if(data.error!==undefined && data.error.code==='AL001')
     {
       $('#advancedSearchModal').modal('hide');  //code for cloasing modal
-      $('.modal-backdrop').remove(); 
       $rootScope.showModal();
     }
     else if(data.error)
@@ -200,7 +207,6 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
      $rootScope.product_prodle = dataProdle;
      $rootScope.orgid = dataOrgid;    
      $('#advancedSearchModal').modal('hide');  //code for cloasing modal
-     $('.modal-backdrop').remove(); 
      $rootScope.$broadcast('emittingOrgid', 'success');
   };
 

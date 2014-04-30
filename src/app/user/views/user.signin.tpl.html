@@ -5,7 +5,7 @@
 
     <div class="control-group">
 
-      <h4 id="prodo-signin-heading">Sign In</h4>
+      <h4 id="prodo-signin-heading" class="prodo-heading-theme">Sign In</h4>
 
       <hr class="prodo-wizard-hr" size=3 noshade>
 
@@ -14,11 +14,11 @@
     
       <input type="password" class="prodo-input-signin form-control" id="password1" name="password" placeholder="Password" ng-model="user.password" required>
 
-      <label class="prodo-signin-remember-label label-control">
+      <label class="prodo-signin-remember-label prodo-signin-text-theme label-control">
         <input id="prodo-input-remember-signin" type="checkbox" ng-model="user.remember">&nbsp;Remember me
       </label>
 
-      <a href="" id="prodo-signin-forgot-link" ui-sref="prodo.landing.forgotpassword">Forgot password?</a>
+      <a href="" id="prodo-signin-forgot-link" class="prodo-signin-text-theme" ui-sref="prodo.landing.forgotpassword">Forgot password?</a>
 
     </div> 
     <div ng-show="(signinForm.username.$dirty && signinForm.username.$invalid) || (signinForm.password.$dirty && signinForm.password.$invalid) || (signinForm.$invalid && signinForm.submitted)" class="prodo-alert-error-container alert alert-danger">
@@ -28,7 +28,7 @@
       </ul>
     </div> 
 
-    <button id="prodo-button-signin" class="btn btn-sm btn-primary">Sign In&nbsp;&nbsp;<div prodo-spinner></div></button>
+    <button id="prodo-button-signin" class="prodo-button-theme btn btn-sm btn-primary">Sign In&nbsp;&nbsp;<div prodo-spinner></div></button>
 
     
 
