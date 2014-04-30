@@ -86,3 +86,18 @@ border-color: #BF9B20;
 	background-color: #0c2f43;
 	border: 1px solid #0c2f43;
 }
+
+.prodo-following-button-theme{
+	background-color: #BF9D4B;
+	border-color: #BF9D4B;
+}
+
+.prodo-following-button-theme:hover{
+	background-color: #BF9D4B;
+	border-color: #BF9D4B;
+}
+
+.prodo-following-button-theme:focus, .prodo-following-button-theme:active{
+	background-color: #BF9D4B;
+	border-color: #BF9D4B;
+}
