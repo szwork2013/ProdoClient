@@ -64,12 +64,11 @@ angular.module('tags-input', []).directive('tagsInput', function($interpolate) {
                   '</div>',
         controller: function($scope, $attrs) {
             loadOptions($scope, $attrs);
-
+        
             $scope.list = $scope.options.list;
-
             $scope.newTag = '';
             $scope.tags = $scope.tags || [];
-
+ 
             $scope.tryAdd = function() {
                 var changed = false;
                 var tag = $scope.newTag;
@@ -152,13 +151,26 @@ angular.module('tags-input', []).directive('tagsInput', function($interpolate) {
                 })
                 .on('focus', function(e) {
                     if (scope.tryAdd()) {
-                        scope.$apply();
+                        scope.safeApply();
                     }
                 });
 
             element.find('div').bind('click', function() {
                 element.find('input')[0].focus();
             });
+
+
+           scope.safeApply = function(fn) {
+              var phase = this.$root.$$phase;
+              if(phase == '$apply' || phase == '$digest') {
+                if(fn && (typeof(fn) === 'function')) {
+                  fn();
+                }
+              } else {
+                this.$apply(fn);
+              }
+           };
+
         }
     };
 });
