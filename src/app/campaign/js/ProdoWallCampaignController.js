@@ -38,15 +38,26 @@ angular.module('prodo.CampaignApp')
   $rootScope.file_data ="";
   $rootScope.count=0;
 
-   // $scope.productComments=[];
-   $scope.$watch('$state.$current.locals.globals.campaignWalldata', function (campaignWalldata) {
-	     if(campaignWalldata.error){
+
+   if($rootScope.campaign_idwall !== "" || $rootScope.campaign_idwall !== undefined){
+       $scope.$watch('$state.$current.locals.globals.campaignWalldata', function (campaignWalldata) {
+       if(campaignWalldata.error){
             $scope.handleGetCampaignResolveError(campaignWalldata);
-	     }
-	     else{
-	        $scope.handleGetCampaignResolveSuccess(campaignWalldata);
-	      }
+       }
+       else{
+          $scope.handleGetCampaignResolveSuccess(campaignWalldata);
+        }
    });
+   }
+
+  if($rootScope.campaign_idwall ){
+   $rootScope.$watch('campaign_idwall', function (campaign_idwall) {
+      $scope.getCampaign(campaign_idwall);
+      $rootScope.campaign_idwall="";
+
+   });
+ }
+
 
    $scope.preGetProductPrepaireData=function(){
 	    $("#load-more").css("display", "none");
@@ -64,14 +75,17 @@ angular.module('prodo.CampaignApp')
     $scope.handleGetCampaignResolveSuccess=function(campaignWalldata){
       $scope.preGetProductPrepaireData();
 	      if(campaignWalldata.success){
-	        $log.debug( campaignWalldata.success);
+	        // $log.debug( campaignWalldata.success);
 	        $("#prodo-ProductDetails").css("display", "block");
           $scope.getProductFeatures($rootScope.product_prodle,$rootScope.orgid);
 	        $scope.allCampaignData=campaignWalldata.success.Product_Campaigns;
 	        $scope.campaign=$scope.allCampaignData[0];
-          // $rootScope.campaignidWall=$scope.campaign.campaign_id;
+          $rootScope.campaignidWall=$scope.campaign.campaign_id;
           $log.debug("assigned campaignid"+$rootScope.campaignidWall);
-            $scope.productComments=$scope.campaign.campaign_comments;
+          if($scope.campaign.campaign_comments){
+             $scope.productComments=$scope.campaign.campaign_comments;
+          }
+           
 	         if ( $scope.campaign.artwork.length!==0) {
 		        $scope.pimgs =  $scope.campaign.artwork;
 		        $log.debug("Product images emitting when not null ");
@@ -167,54 +181,77 @@ angular.module('prodo.CampaignApp')
 	 // 	$scope.getCampaign(campaignid);
 	 // };
 
-   // $scope.getCampaign=function(campaignid){
-   //   CampaignWallService.get_ProductCampaign.getProductCampaign( {
-	  //    	 prodle: $rootScope.product_prodle,
-	  //        campaign_id: campaignid
-   //    }, function (successData) {
-   //    if (successData.success == undefined) { //if not product
-   //     	  $scope.handleGetCampaignError(successData.error);
-   //    } else {
-   //      	$scope.handleGetCampaignSuccess(successData); 
-   //    }
-   //    }, function (error) { //if error geting product
-	  //     $log.debug(error);
-	  //     $("#prodo-ProductDetails").css("display", "none");
-	  //     // $("#ErrMsging").css("display", "inline");
-	  //     $scope.ErrMsging=1;
-	  //     document.getElementById("ErrMsging").innerHTML = "Server Error:" + error.status;
+   $scope.getCampaign=function(campaignid){
+     CampaignWallService.get_ProductCampaign.getProductCampaign( {
+	     	 prodle: $rootScope.product_prodle,
+	         campaign_id: campaignid
+      }, function (successData) {
+      if (successData.success == undefined) { //if not product
+       	  $scope.handleGetCampaignError(successData.error);
+      } else {
+        	$scope.handleGetCampaignSuccess(successData); 
+      }
+      }, function (error) { //if error geting product
+	      $log.debug(error);
+	      $("#prodo-ProductDetails").css("display", "none");
+	      // $("#ErrMsging").css("display", "inline");
+	      $scope.ErrMsging=1;
+	      document.getElementById("ErrMsging").innerHTML = "Server Error:" + error.status;
      
-   //  });
-   // }
+    });
+   }
 
-//  $scope.handleGetCampaignError=function(error){
-// //error code check here
-//     if(error.code=='AL001'){
-//       $rootScope.showModal();
-//     }
-//     else{
-//      $log.debug(error.message);
-//      $("#prodo-ProductDetails").css("display", "none");
-//      // $("#ErrMsging").css("display", "block");
-//      $scope.ErrMsging=1;
-//      if (document.getElementById("ErrMsging") !== null){
-//       document.getElementById("ErrMsging").innerHTML = "No comments for this campaign...";	
-//      } 
-   
-//     }     
-//  };
+ $scope.handleGetCampaignError=function(error){
+  //error code check here
+    if(error.code=='AL001'){
+      $rootScope.showModal();
+    }
+    else{
+     $log.debug("Get Campaign- "+error.message);
+     $("#prodo-ProductDetails").css("display", "none");
+     // $("#ErrMsging").css("display", "block");
+     $scope.ErrMsging=1;
+     document.getElementById("ErrMsging").innerHTML = error.message;
+   }     
+ };
 
-// $scope.handleGetCampaignSuccess=function(successData){
-//  $scope.campaign=successData.success.Product_Campaign;
-// 	if (successData.success.Product_Campaign.artwork.length!==0) {
-// 	    $scope.pimgs = successData.success.Product_Campaign.artwork;
-// 	    $log.debug("Product images emitting when not null ");
-// 	    $scope.$emit('emittingCampaignImages',$scope.pimgs);
-// 	  } else {
-// 	    $scope.$emit('emittingNoCampaignImages',$scope.pimgs);
-// 	    $log.debug("Product images emitting when null ");
-// 	  }
-// };
+$scope.handleGetCampaignSuccess=function(successData){
+     if(successData.success.Product_Campaign){
+   $scope.preGetProductPrepaireData();
+   $scope.campaign=successData.success.Product_Campaign;
+  console.log( $scope.campaign);
+   $rootScope.campaignidWall=$scope.campaign.campaign_id;
+
+     $log.debug( $scope.campaign);
+     $("#prodo-ProductDetails").css("display", "block");
+     $scope.getProductFeatures($rootScope.product_prodle,$rootScope.orgid);
+     if($scope.campaign.campaign_comments){
+        $scope.productComments=$scope.campaign.campaign_comments;
+     }
+     if ( $scope.campaign.artwork.length!==0) {
+        $scope.pimgs =  $scope.campaign.artwork;
+        $log.debug("Product images emitting when not null ");
+        $scope.$emit('emittingCampaignImages',$scope.pimgs);
+    } else {
+        $scope.$emit('emittingNoCampaignImages',$scope.pimgs);
+        $log.debug("Product images emitting when null ");
+    }
+     if ($scope.campaign.campaign_comments!==undefined){   
+         $("#prodo-comment-media-list").css("display", "block");
+     }
+        $("#loadMoreCommentMsg").css("display", "none");
+        if ( $scope.campaign.campaign_comments) {  
+          if ( $scope.campaign.campaign_comments.length > 4) {
+            $("#load-more").css("display", "inline");
+          } 
+          else{
+               $("#load-more").css("display", "none");
+          }
+      } 
+       $scope.isCollapsed = true;  //added by omkar 
+      }
+
+};
 
 
 

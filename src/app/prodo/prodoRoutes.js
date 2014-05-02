@@ -401,8 +401,12 @@ angular.module('prodo.ProdonusApp')
               console.log(campaignWalldata);
                if(campaignWalldata.success){
                 if(campaignWalldata.success.Product_Campaigns.length > 0){
-                    $rootScope.campaignidWall=campaignWalldata.success.Product_Campaigns[0].campaign_id;
-                    console.log('in resolve'+$rootScope.campaignidWall)
+                   if($rootScope.campaign_idwall ){ }
+                    else{
+                     $rootScope.campaignidWall=campaignWalldata.success.Product_Campaigns[0].campaign_id;
+                    }
+                  
+                   
                 }
                }
             }

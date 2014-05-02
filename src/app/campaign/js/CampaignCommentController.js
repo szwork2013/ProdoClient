@@ -174,8 +174,7 @@ $scope.makeTagsPair = function (noun, adj) {
 
 //add comment
 $scope.addProductComment = function () {
-  
-console.log($scope.campaigncommentResponseListener );
+
 isLoggedin.checkUserSession(
 function (successData) {
     if (successData.success == undefined) {

@@ -64,12 +64,11 @@ angular.module('tags-input', []).directive('tagsInput', function($interpolate) {
                   '</div>',
         controller: function($scope, $attrs) {
             loadOptions($scope, $attrs);
-
+        
             $scope.list = $scope.options.list;
-
             $scope.newTag = '';
             $scope.tags = $scope.tags || [];
-
+ 
             $scope.tryAdd = function() {
                 var changed = false;
                 var tag = $scope.newTag;
