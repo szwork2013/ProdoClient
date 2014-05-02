@@ -1005,97 +1005,18 @@ $scope.sendOrgInvites = function() {
     allInviteDataValid = 1;
  }
 
-  // for(var i=0;i<$scope.orginvites.length;i++)
-  // {
-  //   if($scope.regexForText.test($scope.orginvites[i].name) === false )
-  //   {
-  //       if($scope.orginvites.length===1)
-  //       {
-  //         $scope.orgInvitesNameError='Names can have only characters! Please verify from above field';
+if(allInviteDataValid === 0)
+{
 
-  //         allInviteDataValid = 0;
-  //       }
-  //       else
-  //       {
-  //         $scope.orgInvitesNameError='Names can have only characters! Please verify from the list';
-  //         allInviteDataValid = 0;
-  //       }
-        
-  //   }
-  //   if($scope.regexForText.test($scope.orginvites[i].orgname) === false )
-  //   {
-  //       if($scope.orginvites.length===1)
-  //       {
-  //           $scope.orgInvitesOrgnameError='Organization Name can have only characters! Please verify from above field';
-  //           allInviteDataValid = 0;
-  //       }
-  //       else
-  //       {
-  //         $scope.orgInvitesOrgnameError='Organization Name can have only characters! Please verify from the list';
-  //         allInviteDataValid = 0;
-  //       }
-        
-  //   }
-  //   if($scope.regexForEmail.test($scope.orginvites[i].email) === false )
-  //   {  
-  //       if($scope.orginvites.length===1)
-  //       {
-  //            $scope.orgInvitesEmailError='Please verify your email id from above field';
-  //            allInviteDataValid = 0;
-  //       }
-  //       else
-  //       {
-  //            $scope.orgInvitesEmailError='Please verify your email id from above list';
-  //            allInviteDataValid = 0;
-  //       }  
-  //   }
-  //   if($scope.orginvites[i].name=== '' )
-  //   {
-  //       if($scope.orginvites.length===1)
-  //       {
-  //         $scope.orgInvitesNameError='Name cant be empty! Please verify from above field';
-  //         allInviteDataValid = 0;
-  //       }
-  //       else
-  //       {
-  //         $scope.orgInvitesNameError='Names cant be empty! Please verify from the list';
-  //         allInviteDataValid = 0;
-  //       }
-        
-  //   }
-  //   if($scope.orginvites[i].orgname=== '' )
-  //   {
-  //       if($scope.orginvites.length===1)
-  //       {
-  //          $scope.orgInvitesOrgnameError='Organization names cant be empty! Please verify from above field';
-  //          allInviteDataValid = 0;
-  //       }
-  //       else
-  //       {
-  //          $scope.orgInvitesOrgnameError='Organization name cant be empty! Please verify from the list';
-  //          allInviteDataValid = 0;
-  //       }
-        
-  //   }
-  //   if($scope.orgInvitesEmailError==='' && $scope.orgInvitesOrgnameError==='' && $scope.orgInvitesNameError ==='')
-  //   {
-  //          allInviteDataValid=1;
-  //   }
-  //  }
-   if(allInviteDataValid === 0)
-   {
-
-     $scope.orginvites.body = $scope.orginvitesbody.orginvites_body.replace(/\n/g, '<br>');
-     OrgRegistrationService.sendInvites($scope.jsonOrgInvitesData());
-   }
-  };
+$scope.orginvites.body = $scope.orginvitesbody.orginvites_body.replace(/\n/g, '<br>');
+OrgRegistrationService.sendInvites($scope.jsonOrgInvitesData());
+}
+};
      
 
 var cleanupEventSendOrgInvitesDone = $scope.$on("sendOrgInvitesDone", function(event, data){
   if(data.error !== undefined && data.error.code === 'AL001' )
   {
-     // UserSessionService.resetSession();
-     // $state.go('prodo.landing.signin');
      $rootScope.showModal();
   }
   else
@@ -1109,8 +1030,6 @@ var cleanupEventSendOrgInvitesNotDone = $scope.$on("sendOrgInvitesNotDone", func
   $rootScope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + data,'error');    //ShowAlert
 });
 
-//End of block
-//Block managing org group invites
 $scope.handleOrgGroupInviteResponse = function(data){
     $scope.manageOrgGroup = true;
   if (data.success) {
@@ -1359,68 +1278,16 @@ $scope.orgCustomerInvites = function()
         $scope.orgCustContentError = "Please enter valid content in body section";
         allCustDataValid = 1;
      }
-        // $scope.orgCustNameError = '';
-        // $scope.orgCustEmailError = '';
-        //     for(var i=0;i<$scope.customerinvites.length;i++)
-        //       {
-        //         if($scope.regexForText.test($scope.customerinvites[i].name) === false )
-        //         {
-        //             if($scope.customerinvites.length===1)
-        //             {
-        //               $scope.orgCustNameError='Names can have only characters! Please verify from the field';
-        //               allCustDataValid = 0;
-        //             }
-        //             else
-        //             {
-        //               $scope.orgCustNameError='Names can have only characters! Please verify from the list';
-        //                allCustDataValid = 0;
-        //             }
-                    
-        //         }
-        //         if($scope.regexForEmail.test($scope.customerinvites[i].email) === false )
-        //         {  
-        //              if($scope.customerinvites.length===1)
-        //              {
-        //                     $scope.orgCustEmailError='Please verify your email ids from above field'; 
-        //                      allCustDataValid = 0; 
-        //              }
-        //               else
-        //               { 
-        //                      $scope.orgCustEmailError='Please verify your email ids from above list'; 
-        //                       allCustDataValid = 0; 
-        //               }
-        //         }
-        //         if($scope.customerinvites[i].name === undefined || $scope.customerinvites[i].name === '' )
-        //         {
-        //             if($scope.customerinvites.length === 1)
-        //             {
-        //                 $scope.orgCustNameError = "Customer name can't be empty!";
-        //                  allCustDataValid = 0;
-        //             }
-        //             else
-        //             {
-        //                 $scope.orgCustNameError = "Customer name can't be empty! Please verify from above list";
-        //                  allCustDataValid = 0;
-        //             }
-
-        //         }
-        //         if($scope.orgCustEmailError=== '' &&  $scope.orgCustNameError ==='')
-        //         {
-        //                allCustDataValid = 1;
-        //         }
-        //        }
-       if(allCustDataValid === 0)
-       {
-         $scope.customerinvites.body = $scope.custinvitesbody.customerinvites_body.replace(/\n/g, '<br>');
-                 OrgRegistrationService.sendCustomerInvites($scope.jsonOrgCustomerInvitesData());
-       }
+     if(allCustDataValid === 0)
+     {
+              $scope.customerinvites.body = $scope.custinvitesbody.customerinvites_body.replace(/\n/g, '<br>');
+              OrgRegistrationService.sendCustomerInvites($scope.jsonOrgCustomerInvitesData());
+     }
 };
 
 var cleanupEventSendOrgCustomerInvitesDone = $scope.$on("sendOrgCustomerInvitesDone", function(event, data){
   if(data.error !== undefined && data.error.code === 'AL001' )
   {
-    // UserSessionService.resetSession();
-    // $state.go('prodo.landing.signin');
     $rootScope.showModal();
   }
   else
@@ -1430,15 +1297,12 @@ var cleanupEventSendOrgCustomerInvitesDone = $scope.$on("sendOrgCustomerInvitesD
 });
 
 var cleanupEventSendOrgCustomerInvitesNotDone = $scope.$on("sendOrgCustomerInvitesNotDone", function(event, data){
-   //  $scope.addCustomerInvites = true;
   $rootScope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." ,'error');    //ShowAlert
 }); 
    
 var cleanupEventremoveOrgImageDone = $scope.$on("orgImageDeleted",function(event,data){
   if(data.error !== undefined && data.error.code === 'AL001' )
   {
-    // UserSessionService.resetSession();
-    // $state.go('prodo.landing.signin');
     $rootScope.showModal();
   }
   if(data.success)
@@ -1484,8 +1348,7 @@ else {
 }
 
 $scope.removeKeyClientsPermenantly = function()
-{
-     
+{  
        $scope.clientids=[];
         for(var i=0;i<$scope.orgKeyClients.length;i++)
         { 
@@ -1500,21 +1363,17 @@ $scope.removeKeyClientsPermenantly = function()
         }
 };
 
- var cleanupEventOrgUploadLogoResponseSuccess = $scope.$on("orgUploadLogoResponseSuccess",function(event,message){
-  //$rootScope.ProdoAppMessage("Organization logo uploaded successfully!",'success');  
+ var cleanupEventOrgUploadLogoResponseSuccess = $scope.$on("orgUploadLogoResponseSuccess",function(event,message){  
   $state.reload();
  });
 
  var cleanupEventOrgUploadResponseSuccess = $scope.$on("orgUploadResponseSuccess",function(event,message){
-    //$rootScope.ProdoAppMessage("Organization artwork images uploaded successfully",'success');
   $state.reload();
  });
 
  var cleanupeventKeyClientDelete = $scope.$on("clientsDeletesSuccessfully",function(event,data){
     if(data.error !== undefined && data.error.code === 'AL001' )
   {
-    // UserSessionService.resetSession();
-    // $state.go('prodo.landing.signin');
     $rootScope.showModal();
   }
   if(data.success)
@@ -1533,13 +1392,11 @@ $scope.removeKeyClientsPermenantly = function()
 
  var cleanupeventKeyClientDeleteFails = $scope.$on("clientsNotDeletedSuccessfully",function(event,message){
            $rootScope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + data,'error');    //ShowAlert
-
  });
  
 var cleanupeventKeyClientSuccess = $scope.$on("orgKeyClientResponseSuccess",function(event,message){
     // $rootScope.ProdoAppMessage('Key Client Added Successfully!','success');
     $rootScope.currentclient.name = '';
-
     $state.reload();
 });
 
@@ -1602,14 +1459,6 @@ $scope.contacts= [{'customerhelpline': ''},{'customerhelpline': ''},{'customerhe
 
 $scope.addInvitesList='';
 
-    // $scope.addMoreInvites = function() { 
-    //   var noOfInvites=$scope.orginvites.length;
-    //   if($scope.orginvites[noOfInvites-1].name!=='' && $scope.orginvites[noOfInvites-1].orgname!=='' && $scope.orginvites[noOfInvites-1].email!=='')
-    //   {
-    //       $scope.orginvites.push({'name': '', 'orgname': '', 'email': ''});    
-    //   }  
-    // };
-
 $scope.addCustomerInvites = function() { 
   var noOfInvites=$scope.customerinvites.length;  
   if($scope.customerinvites[noOfInvites-1].name!=='' && $scope.customerinvites[noOfInvites-1].email!=='')
@@ -1634,8 +1483,6 @@ $scope.enableEditor = function(addr) {
     $scope.reset();
   $scope.editorEnabled = true;
 };
-
-
 
 $scope.joinbrfororginvites = function()
 {   
