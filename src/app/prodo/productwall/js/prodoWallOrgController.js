@@ -13,6 +13,7 @@ angular.module('prodo.ProdoWallApp')
 
     if (checkIfSessionExist.success && orgdata.success) {
       $scope.$watch('$state.$current.locals.globals.orgdata', function (orgdata) {
+        
         $rootScope.orgdata = orgdata.success.organization;
         
         if (orgdata.success.organization.keyclients && orgdata.success.organization.keyclients.length !== 0) {

@@ -362,7 +362,7 @@ angular.module('prodo.ProdonusApp')
     })    
     .state('prodo.productwall.wall-product', {
       resolve: {
-        productData: function(ProductService, $rootScope) {
+        productData: function(ProductService, $rootScope) { 
           return ProductService.getProduct({orgid: $rootScope.orgid, prodle: $rootScope.product_prodle}).$promise;
         }
       },
@@ -394,7 +394,7 @@ angular.module('prodo.ProdonusApp')
     }) 
     .state('prodo.productwall.wall-campaign', {
        resolve: {
-            campaignWalldata: function(CampaignWallService, $rootScope) {
+            campaignWalldata: function(CampaignWallService, $rootScope) {    
               return CampaignWallService.get_All_ProductCampaigns.getAllProductCampaigns({prodle: $rootScope.product_prodle}).$promise;
             },
             assignCampaignId: function(campaignWalldata, $rootScope){
@@ -431,7 +431,18 @@ angular.module('prodo.ProdonusApp')
       views: {
         'prodo-content' : {
           templateUrl:  'dashboard/views/prodo.wall.dashboard.tpl.html',
-          controller: 'ProdoDashboardController'
+          resolve : {
+                          prodoDashboardService: 'prodoDashboardService',
+                          pieChartProdle : function(prodoDashboardService, $rootScope) 
+                          {
+                              return  prodoDashboardService.Product.prodlePieChart({prodle : $rootScope.product_prodle}).$promise;
+                          },
+                          barChartProdle : function(prodoDashboardService, $rootScope) 
+                          {
+                              return  prodoDashboardService.Bar.getBarDetails({prodle : $rootScope.product_prodle}).$promise;
+                          },
+          },
+          controller: 'ProdoDashboardController',
         },
         'prodo-advertisment' : {
           templateUrl:  'prodo/productwall/views/prodo.wall.advertisment.tpl.html'

@@ -237,45 +237,14 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
       link: function (scope, element, a) {
         nv.addGraph(function () {
           var chart = nv.models.discreteBarChart().x(function (d) {
-              return d.label;
+              return d.tagname;
             }).y(function (d) {
-              return d.value;
+              return d.tagcount;
             }).staggerLabels(true).tooltips(true).showValues(true);
-          d3.select('#chart').datum(example()).transition().duration(50).call(chart);
+          d3.select('#chart').datum(scope.barChart()).transition().duration(50).call(chart);
           nv.utils.windowResize(chart.update);
           return chart;
         });
-        function example() {
-          return [{
-              key: 'Product Ratings',
-              values: [
-                {
-                  'label': 'Awsome ',
-                  'value': 300
-                },
-                {
-                  'label': 'Average',
-                  'value': 600
-                },
-                {
-                  'label': 'Good',
-                  'value': 200
-                },
-                {
-                  'label': 'Bad',
-                  'value': 400
-                },
-                {
-                  'label': 'Worst',
-                  'value': 10
-                },
-                {
-                  'label': 'Complaints',
-                  'value': 20,
-                }
-              ]
-            }];
-        }
       }
     };
   return barchart;
@@ -286,9 +255,9 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
         nv.addGraph(function () {
           var width = 500, height = 500;
           var chart = nv.models.pieChart().x(function (d) {
-              return d.key;
+              return d.emotionname;
             }).y(function (d) {
-              return d.count;
+              return d.tagcount;
             }).color(d3.scale.category10().range()).width(width).height(height);
           d3.select('#test1').datum(scope.data).transition().duration(1200).attr('width', width).attr('height', height).call(chart);
           chart.dispatch.on('stateChange', function (e) {

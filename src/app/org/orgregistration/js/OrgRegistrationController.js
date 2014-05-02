@@ -620,7 +620,7 @@ angular.module('prodo.OrgApp')
                 var n = data.products_followed.length - 1;
                 console.log(n);
                 $rootScope.orgid= data.products_followed[n].orgid;
-                $rootScope.product_prodle= data.products_followed[n].prodle;
+                $rootScope.product_prodle= data.products_followed[n].prodle;console.log("in org registration controller");
                 for (var i=0;i<data.products_followed.length;i++){
                   if(data.products_followed[i] && data.products_followed[i].prodle){
                     var prodle = data.products_followed[i].prodle;

@@ -25,7 +25,6 @@ angular.module('prodo.ProdoHomeApp')
     $scope.trendingProductEmit = function(prodle,orgid)
     {     
             $rootScope.product_prodle = prodle;
-            $rootScope.orgid = orgid; 
             $state.transitionTo("prodo.productwall.wall-product");
     };
 
