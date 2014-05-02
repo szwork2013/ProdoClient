@@ -45,45 +45,44 @@
 
   <body ng-controller='ProdoMainController'>
 
-            <div id="prodo-main-container-view">   
-             <div growl></div>    
-             <div ui-view ></div> 
-            </div>
-                <div id="footer" >   
-                
-          <div id="prodo-row-footer" class="row"> 
-            <div id="footer-col-md-2" class="col-md-2 col-md-offset-2"> 
-              <nav><h5 id="footer-nav-heading" class="">About</h5> 
-                <ul id="footer-nav-list"> 
-                  <li><a href=""  class="" ui-sref="prodo.footer-content.aboutus">About Us</a></li> 
-                  <li><a href="" class="" ui-sref="prodo.footer-content.privacy">Privacy</a></li> 
-                  <li><a href="" class="" ui-sref="prodo.footer-content.terms">Terms</a></li></ul> 
-              </nav> 
+    <div id="prodo-main-container-view">   
+     <div growl></div>    
+     <div ui-view ></div> 
+    </div>
+    <div id="footer" class="prodo-footer-theme" >   
+      <div id="prodo-row-footer" class="row"> 
+        <div id="footer-col-md-2" class="col-md-2 col-md-offset-2"> 
+          <nav><h5 id="footer-nav-heading" class="">About</h5> 
+            <ul id="footer-nav-list"> 
+              <li><a href=""  class="" ui-sref="prodo.footer-content.aboutus">About Us</a></li> 
+              <li><a href="" class="" ui-sref="prodo.footer-content.privacy">Privacy</a></li> 
+              <li><a href="" class="" ui-sref="prodo.footer-content.terms">Terms</a></li></ul> 
+          </nav> 
+        </div> 
+            <div class="col-md-2"> 
+                <nav><h5 id="footer-nav-heading" class="">Connect With Us</h5> 
+                    <ul id="footer-nav-list"> 
+                        <li><a href="" class="" ui-sref="prodo.footer-content.business">Business</a></li> 
+                        <li><a href="" class="" ui-sref="prodo.footer-content.advertising">Advertising</a></li> 
+                        <!-- <li><a href="" class="" ui-sref="prodo.footer-content.application">Author-Application</a></li>  -->
+                    </ul> 
+                </nav> 
             </div> 
-                <div class="col-md-2"> 
-                    <nav><h5 id="footer-nav-heading" class="">Connect With Us</h5> 
-                        <ul id="footer-nav-list"> 
-                            <li><a href="" class="" ui-sref="prodo.footer-content.business">Business</a></li> 
-                            <li><a href="" class="" ui-sref="prodo.footer-content.advertising">Advertising</a></li> 
-                            <!-- <li><a href="" class="" ui-sref="prodo.footer-content.application">Author-Application</a></li>  -->
-                        </ul> 
-                    </nav> 
-                </div> 
 
-                <div class="col-md-2"> 
-                    <nav><h5 id="footer-nav-heading" class="">Help</h5> 
-                        <ul id="footer-nav-list"> 
-                            <li><a href="" class="" ui-sref="prodo.footer-content.support">Support</a></li> 
-                            <li><a href="" class="" ui-sref="prodo.footer-content.contactus">Contact Us</a></li> 
-                        </ul> 
-                    </nav> 
-                </div> 
-
-              </div> 
-
-                <p id="prodo-copyright" >&copy; Prodonus Software Private Limited, 2014. All rights reserved | made in pune, India.</p> 
-
+            <div class="col-md-2"> 
+                <nav><h5 id="footer-nav-heading" class="">Help</h5> 
+                    <ul id="footer-nav-list"> 
+                        <li><a href="" class="" ui-sref="prodo.footer-content.support">Support</a></li> 
+                        <li><a href="" class="" ui-sref="prodo.footer-content.contactus">Contact Us</a></li> 
+                    </ul> 
+                </nav> 
             </div> 
+
+          </div> 
+
+            <p id="prodo-copyright" >&copy; Prodonus Software Private Limited, 2014. All rights reserved | made in pune, India.</p> 
+
+        </div> 
 
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script> 
         <script src="http://code.angularjs.org/1.2.1/angular-animate.min.js"></script> 
