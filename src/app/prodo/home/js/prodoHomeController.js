@@ -72,7 +72,7 @@ angular.module('prodo.ProdoHomeApp')
     $scope.transitionToCampaignWall = function(orgid, campaignid, prodle){
       $rootScope.orgid = orgid;
       $rootScope.product_prodle = prodle;
-      $rootScope.campaign_id = campaignid;
+      $rootScope.campaign_idwall = campaignid;
       $state.transitionTo('prodo.productwall.wall-campaign');
     };
 
