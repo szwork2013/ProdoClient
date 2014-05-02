@@ -6,45 +6,44 @@
 		<div>
 
 				 <div class="homeContainerAdvancedsearch" >                                                  
-				                      <input type="text" class="prodoAdvancedSearchTextbox form-control" placeholder="Organization Name" id="textBoxOrgName"  ng-model="org.orgName" ng-enter="homeSearchInit()"/>       
+				                    
+                            <input type="text" class="prodoAdvancedSearchTextbox form-control" placeholder="Organization Name" id="textBoxOrgName"  ng-model="org.orgName" ng-enter="homeSearchInit()"/>       
 
-				                      <input type="text" class="prodoAdvancedSearchTextbox form-control" placeholder="Product Name" id="textBoxProductName" ng-model="org.nameOfProduct" ng-enter="homeSearchInit()"> 
+				                    <input type="text" class="prodoAdvancedSearchTextbox form-control" placeholder="Product Name" id="textBoxProductName" ng-model="org.nameOfProduct" ng-enter="homeSearchInit()"> 
 
-				                      <input type="text" class="prodoAdvancedSearchTextbox form-control"  placeholder="Feature" id="textBoxFeatureName" ng-model="org.feature" ng-enter="homeSearchInit()">   
+				                    <input type="text" class="prodoAdvancedSearchTextbox form-control"  placeholder="Feature" id="textBoxFeatureName" ng-model="org.feature" ng-enter="homeSearchInit()">   
 
-				                     <input type="text" class="prodoAdvancedSearchTextbox form-control" placeholder="Category" id="textBoxCategoryName" ng-model="org.category" ng-enter="homeSearchInit()">           
+				                    <input type="text" class="prodoAdvancedSearchTextbox form-control" placeholder="Category" id="textBoxCategoryName" ng-model="org.category" ng-enter="homeSearchInit()">           
 
-				                       <input type="text" placeholder="Model Number"   id="textBoxModelNumber" class="prodoAdvancedSearchTextbox form-control" ng-model="org.model_number" ng-enter="homeSearchInit()">       
+				                    <input type="text" placeholder="Model Number"   id="textBoxModelNumber" class="prodoAdvancedSearchTextbox form-control" ng-model="org.model_number" ng-enter="homeSearchInit()">       
 
-				                        <button class="btn btn-info prodoAdvancedSearchTextbox" ng-click="homeSearchInit()">Search</button>       
-				 </div>    
+				                    <button class="btn btn-info prodoAdvancedSearchTextbox" ng-click="homeSearchInit()">Search</button>       
+				 
+         </div>    
 		</div> 
 
-<!-- 		<div>
-		   
-		</div> -->
 	</div>
 
-	 <div id="prodo-sidebar-list" class="list" ng-if="trendingProducts.length >0 ">
-	     <div class="prodo-search-list-heading-theme list-group-item active" ><center>Trending Products</center></div>
-          <div ng-click="trendingProductEmit(product.prodle,product.orgid)" class="list-group-item hyperlinkPointer" ng-if="regularExpressionForProdonus.test(product.name) !== true" ng-repeat="product in trendingProducts | limitTo:6"   > 
-             <table style=" width: 100%; color: black;text-align: center">
-                <tr style="">
-                  <td colspan ="2" style="">
-                      <div style="font-size: 16px; color:#242D36; text-align: center ; " ng-bind="product.name"></div>
-                  </td>
-                </tr> 
-                <tr>
-                  <td style="border-right:1px solid #dbdbdb;" class="thinnerFonts" style=" width: 50%;">
-                    <div style="font-size: 18px;"  ng-bind="product.followedcount"></div><div style="font-size: 10px;"> Talkins</div> 
-                  </td>
-                  <td class="thinnerFonts" style=" width: 50%;">
-                      <div style="font-size: 18px;" ng-bind="product.commentcount"></div><div style="font-size: 10px;"> Comments</div> 
-                  </td>
-                </tr>
-             </table>
-          </div>
-        </div>
+	<div id="prodo-sidebar-list" class="list" ng-if="trendingProducts.length >0 ">
+	   <div class="prodo-search-list-heading-theme list-group-item active" ><center>Trending Products</center></div>
+     <div ng-click="trendingProductEmit(product.prodle,product.orgid)" class="list-group-item hyperlinkPointer" ng-if="regularExpressionForProdonus.test(product.name) !== true" ng-repeat="product in trendingProducts | limitTo:6"   > 
+       <table style=" width: 100%; color: black;text-align: center">
+          <tr style="">
+            <td colspan ="2" style="">
+                <div style="font-size: 16px; color:#242D36; text-align: center ; " ng-bind="product.name"></div>
+            </td>
+          </tr> 
+          <tr>
+            <td style="border-right:1px solid #dbdbdb;" class="thinnerFonts" style=" width: 50%;">
+              <div style="font-size: 18px;"  ng-bind="product.followedcount"></div><div style="font-size: 10px;"> Talkins</div> 
+            </td>
+            <td class="thinnerFonts" style=" width: 50%;">
+                <div style="font-size: 18px;" ng-bind="product.commentcount"></div><div style="font-size: 10px;"> Comments</div> 
+            </td>
+          </tr>
+       </table>
+     </div>
+   </div>
 
 
 </div> 

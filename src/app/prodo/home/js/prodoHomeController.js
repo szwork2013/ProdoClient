@@ -2,14 +2,15 @@
 angular.module('prodo.ProdoHomeApp')
 	.controller('ProdoHomeController', ['$rootScope', '$scope', '$state', '$log', 'UserSessionService', '$stateParams', 'growl', 'allOrgData','prodoSearchService', 'checkIfSessionExist','trendingProductService', function($rootScope, $scope, $state, $log, UserSessionService, $stateParams, growl, allOrgData, prodoSearchService, checkIfSessionExist, trendingProductService) {
 
-    $log.debug('initialising home controller..');
+
 
     $scope.allorganalytics = [];
+
     $scope.latestsignups = [];
+
     $scope.orgsponsers = [];
 
     $scope.isCollapsed = true;
-
 
     $scope.regularExpressionForProdonus = /^prodonus/i;
 
@@ -20,16 +21,6 @@ angular.module('prodo.ProdoHomeApp')
     trendingProductService.getTrendingProducts();
 
     $scope.org = {orgName:'',nameOfProduct:'',feature:'',category:'',model_number:''};
-
-    // $scope.orgName = '';
-
-    // $scope.nameOfProduct = '';
-
-    // $scope.feature = '';
-
-    // $scope.category = '';
-
-    // $scope.model_number = '';
 
     $scope.trendingProductEmit = function(prodle,orgid)
     {     
@@ -73,7 +64,6 @@ angular.module('prodo.ProdoHomeApp')
       
     };
    
-
     $scope.transitionToOrgWall = function(orgid){
       $rootScope.orgid = orgid;
       $state.transitionTo('prodo.productwall.wall-org');
@@ -86,19 +76,10 @@ angular.module('prodo.ProdoHomeApp')
       $state.transitionTo('prodo.productwall.wall-campaign');
     };
 
-      // $scope.showAdvanceSearch=function()
-      // {
-      //   $scope.isCollapsed = false;
-      // };
+    $scope.search = {productsearchdata:{}};  
 
-      //  $scope.hideAdvanceSearch=function()
-      // {
-      //   $scope.isCollapsed = !$scope.isCollapsed;alert('hello');
-
-      // };
-      $scope.search = {productsearchdata:{}};  
-      $scope.homeSearchInit = function()
-      {
+    $scope.homeSearchInit = function()
+    {
         if(($scope.org.orgName === undefined || $scope.org.orgName === '') && ($scope.org.nameOfProduct === undefined || $scope.org.nameOfProduct === '') && ($scope.org.category === undefined || $scope.org.category === '') && ($scope.org.feature === undefined || $scope.org.feature === '') && ($scope.org.model_number === undefined || $scope.org.model_number === ''))
         {
           $rootScope.ProdoAppMessage("Please enter atleast one search criteria to proceed with search", 'error' );
@@ -165,40 +146,47 @@ angular.module('prodo.ProdoHomeApp')
                $scope.search.productsearchdata.searchtype = "home";
                   prodoSearchService.searchProduct($scope.search);
         }
-      };
-       $scope.clearTextboxContent = function()
-       {
-          $scope.org = {orgName:'',nameOfProduct:'',feature:'',category:'',model_number:''};
-       }
+    };
 
-        var cleanEventGetSearchProductDone = $scope.$on('getSearchProductDone', function (event, data) 
-          {
-            if(data.error!==undefined && data.error.code==='AL001')
-            {
-              $rootScope.showModal();
-            }
-            else if(data.error)
-            {
-              $rootScope.ProdoAppMessage(data.error.message,'error');
-            }
-            else
-            {
-              if(data.success.organalytics  !== undefined)
-                  {
-                        $scope.allorganalytics = data.success.organalytics;
-                  }
-           
-                     if(data.success.organalytics === undefined)
-                     {
-                          $rootScope.ProdoAppMessage("No organizations found for specified search criteria",'success');
-                     }
-             }
-             });
+   $scope.clearTextboxContent = function()
+   {
+      $scope.org = {orgName:'',nameOfProduct:'',feature:'',category:'',model_number:''};
+   }
 
-             var cleanEventGetSearchProductNotDone = $scope.$on('getSearchProductNotDone', function (event, data) {
-                  $rootScope.ProdoAppMessage("There is some issue with the server! Please try after some time",'error');
-             });
+    var cleanEventGetSearchProductDone = $scope.$on('getSearchProductDone', function (event, data) 
+      {
+        if(data.error!==undefined && data.error.code==='AL001')
+        {
+          $rootScope.showModal();
+        }
+        else if(data.error)
+        {
+          $rootScope.ProdoAppMessage(data.error.message,'error');
+        }
+        else
+        {
+          if(data.success.organalytics  !== undefined)
+              {
+                    if(data.success.organalytics.length > 0)
+                    {
+                           $scope.allorganalytics = data.success.organalytics;
+                    }
+                    else if(data.success.organalytics.length === 0)
+                    {
+                           $rootScope.ProdoAppMessage("No organizations found for specified search criteria",'success');
+                    }
+              }
+       
+                 if(data.success.organalytics === undefined)
+                 {
+                      $rootScope.ProdoAppMessage("No organizations found for specified search criteria",'success');
+                 }
+         }
+         });
 
+     var cleanEventGetSearchProductNotDone = $scope.$on('getSearchProductNotDone', function (event, data) {
+          $rootScope.ProdoAppMessage("There is some issue with the server! Please try after some time",'error');
+     });
 
     $scope.$on('$destroy', function(event, message) {
       cleanEventGotTrendingProducts();

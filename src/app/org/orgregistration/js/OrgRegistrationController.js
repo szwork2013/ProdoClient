@@ -5,39 +5,47 @@ angular.module('prodo.OrgApp')
 	.controller('OrgRegistrationController', ['$scope', '$rootScope', 'OrgModel', '$state', '$stateParams', '$log', 'OrgRegistrationService', 'UserSessionService', 'industrycategorydata', function($scope, $rootScope, OrgModel, $state, $stateParams, $log, OrgRegistrationService, UserSessionService, industrycategorydata) {
 
     $scope.errmessage = '';
+
     $scope.mobileRegex = "/^\(?[+]([0-9]{2,5})\)?[-]?([0-9]{10,15})$/";
+
     $scope.org = OrgModel;   // assining OrgModel service to org to update org model data
+
     $scope.regexForEmail = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
 
     $scope.$state=$state;
+
     if (industrycategorydata.success) {
+
       $scope.$watch('$state.$current.locals.globals.industrycategorydata', function (industrycategorydata) {
         if (industrycategorydata.success.industry_category.length !== 0) {
            $scope.org.industries = industrycategorydata.success.industry_category;
         }
       });
     }
-  $scope.industrycategory=function(){
-     if (industrycategorydata.success.industry_category.length !== 0) {
-           $scope.org.industries = industrycategorydata.success.industry_category;
-           return $scope.org.industries;
-        }
- };
+    
+    $scope.industrycategory=function(){
+         if (industrycategorydata.success.industry_category.length !== 0) {
+               $scope.org.industries = industrycategorydata.success.industry_category;
+               return $scope.org.industries;
+            }
+     };
 
-    $scope.back = function()
-    {
-        $('#reg-companyDetails').css('color','#C9C9C9');
-    };
-    $scope.goToAddresss = function()
-    {
-        $('#reg-address').css('color','#C9C9C9');
-       // $('#reg-address').css('color','#2EB373')  
-    };
-    $scope.goBackToInvites = function()
-    {
-         $('#reg-groupUsers').css('color','#C9C9C9');
-    };
-    $scope.countries=[ 'Afghanistan', 
+     $scope.back = function()
+     {
+            $('#reg-companyDetails').css('color','#C9C9C9');
+     };
+
+     $scope.goToAddresss = function()
+     {
+         $('#reg-address').css('color','#C9C9C9');
+     };
+
+     $scope.goBackToInvites = function()
+     {
+          $('#reg-groupUsers').css('color','#C9C9C9');
+     };
+
+     $scope.countries=[ 'Afghanistan', 
                         'Albania', 
                         'Algeria', 
                         'American Samoa', 
@@ -274,8 +282,9 @@ angular.module('prodo.OrgApp')
     //$scope.countries holds array of list of countries
     //$scope.states is an array of objects where each object will represent states of selected country
     //For time being only india is considered                    
-$scope.states={};                    
-$scope.states.india=     [
+    $scope.states={};   
+
+    $scope.states.india=     [
                       'Andhra Pradesh', 
                       'Arunachal Pradesh', 
                       'Assam', 
@@ -309,7 +318,9 @@ $scope.states.india=     [
     //So when india is selected from the country list
     //All cities in Indial will be displayed irrespective of states
     //This needs to be modified later.                     
+    
     $scope.india={};
+
     $scope.india.major_cities= [        'Port Blair', 
                             'Hyderabad', 
                             'Itanagar', 
@@ -340,13 +351,19 @@ $scope.states.india=     [
                             'Panaji', 
                             'Pune'] ;                       
 //Validation
-$scope.selected_country="";
-$scope.errorOrgName ='';
-$scope.errOrgDesc ='';
-$scope.submitted = false;   
-$scope.optionErrorMessage = '';
-$scope.errMessageNote = '';
-$scope.errorMessageForInvalidcategory = '';
+    $scope.selected_country="";
+
+    $scope.errorOrgName ='';
+
+    $scope.errOrgDesc ='';
+
+    $scope.submitted = false;  
+
+    $scope.optionErrorMessage = '';
+
+    $scope.errMessageNote = '';
+
+    $scope.errorMessageForInvalidcategory = '';
  
     $scope.goToAddress = function() { 
         
@@ -389,19 +406,23 @@ $scope.errorMessageForInvalidcategory = '';
 
 //End of block
 //Validation error messages variable declaration 
-$scope.addressErrorMessage = '';
-$scope.invalidCountryError = '';
+    $scope.addressErrorMessage = '';
 
-$scope.invalidStateError = '';
-$scope.invalidCityError = '';
-$scope.invalidZipcodeError = '';
-$scope.invalidContact1 = '';
-$scope.invalidContact2 = '';
-$scope.invalidContact3 = '';
-//$scope.org.contact={customerhelpline1:'',customerhelpline2:'',customerhelpline3:''};
-    $scope.goToGroupuser = function() {  
+    $scope.invalidCountryError = '';
 
-        
+    $scope.invalidStateError = '';
+
+    $scope.invalidCityError = '';
+
+    $scope.invalidZipcodeError = '';
+
+    $scope.invalidContact1 = '';
+
+    $scope.invalidContact2 = '';
+
+    $scope.invalidContact3 = '';
+
+    $scope.goToGroupuser = function() {        
         $scope.addressErrorMessage = '';
         $scope.invalidCountryError = '';
         $scope.invalidStateError = '';
@@ -410,6 +431,7 @@ $scope.invalidContact3 = '';
         $scope.invalidContact1 = '';
         $scope.invalidContact2 = '';
         $scope.invalidContact3 = '';
+
         if ($scope.OrgAddressForm.$valid){
                     $scope.errmessage = ''; $('#reg-address').css('color','#2EB373')   
                     $state.transitionTo('prodo.orgregistration.groupuser'); 
@@ -453,33 +475,22 @@ $scope.invalidContact3 = '';
     
 
     $scope.emailErrorMessage = '' ;
+
     $scope.nameErrorMessage= '';
 
     $scope.goToState = function() {
         $scope.emailErrorMessage = '';
-          $scope.nameErrorMessage= '';
-
+        $scope.nameErrorMessage= '';
         var valid = 1;
-
-
-
-
-      if($scope.org.grpname !== '' || $scope.org.invites !=='')
-      {
-        // if($scope.org.in $s!cope.org.grpname === '' )
-        // if($scope.org.invites )
-
-    //aaa
-        if($scope.org.invites !== '' && $scope.org.grpname === '')
+        if($scope.org.grpname !== '' || $scope.org.invites !=='')
         {
-                $scope.nameErrorMessage = 'Groupname cant be empty';
+            if($scope.org.invites !== '' && $scope.org.grpname === '')
+            {
+                 $scope.nameErrorMessage = 'Groupname cant be empty';
                  valid = 0;
-        }
-        // if($scope.OrgGroupuserForm.invites.$dirty === true && $scope.OrgGroupuserForm.invites.$valid  === false)
-        // {    
-        //         $scope.emailErrorMessage = 'Please enter valid email addresses' ;
-        // }
-        $scope.newInvitesValidate = '';
+            }
+  
+            $scope.newInvitesValidate = '';
             var multipleEmails = $scope.org.invites;
             if(multipleEmails!==undefined && multipleEmails !== '' )
             {
@@ -496,11 +507,13 @@ $scope.invalidContact3 = '';
                     }
                 }
             }
+
             if($scope.org.grpname !== '' && $scope.org.invites === '')
             {
                    $scope.emailErrorMessage = "Please enter emails separated by comma (,) in above field ";
                    valid = 0 ;
             }
+
             if($scope.newInvitesValidate !=='')
             {
                 // $scope.emailErrorMessage = "Please check imails from above field for "
@@ -508,11 +521,12 @@ $scope.invalidContact3 = '';
                  valid = 0;
             }
       
-      }
-     if (($scope.org.grpname === "" && $scope.org.invites === "") || valid===1 ) { 
-          $scope.errmessage = '';$('#reg-groupUsers').css('color','#2EB373');
-          $state.transitionTo('prodo.orgregistration.terms');
-      } 
+       }
+
+       if (($scope.org.grpname === "" && $scope.org.invites === "") || valid===1 ) { 
+              $scope.errmessage = '';$('#reg-groupUsers').css('color','#2EB373');
+              $state.transitionTo('prodo.orgregistration.terms');
+       } 
 
     };
 
@@ -532,7 +546,8 @@ $scope.invalidContact3 = '';
       {
           return "";
       }
-    }; //This function is called whenever users enters data in state textbox
+    }; 
+    //This function is called whenever users enters data in state textbox
     //This is for fetching states within selected country
     //Currentyl only india is considered
     //If any other country is selected; the list will not show any states 
@@ -547,7 +562,8 @@ $scope.invalidContact3 = '';
       {
           return "";
       }
-    };//This function is actually to fetch cities in states
+    };
+    //This function is actually to fetch cities in states
     //Currently due to unavailability of data
     //List of all cities from india will be displayed irrespective to state selected
     //This needs to be modified when data is available
@@ -573,8 +589,7 @@ $scope.invalidContact3 = '';
       $scope.org.contact.customerhelpline4= '';
       $scope.org.grpname= '';
       $scope.org.invites= '';  
-    }
-
+    };
     // function to handle server side responses on org resgistration submit
 	$scope.handleOrgResponse = function(data){
       if (data.success) {
@@ -619,8 +634,9 @@ $scope.invalidContact3 = '';
             } 
           } 
            $scope.hideSpinner();
-      });
-$scope.org.orgaddresstype="Company Address";
+    });
+
+    $scope.org.orgaddresstype="Company Address";
     // function to send user data n stringify in json format
     $scope.jsonOrgData = function() {
       var orgData = 
@@ -661,7 +677,7 @@ $scope.org.orgaddresstype="Company Address";
             }
         }
       return JSON.stringify(orgData); 
-    }   
+    };   
    
     $scope.resetCheckBox = function()
     {
@@ -676,7 +692,7 @@ $scope.org.orgaddresstype="Company Address";
       $('#reg-finish').css('color','#2EB373');
       $scope.showSpinner();
       OrgRegistrationService.RegisterOrg($scope.jsonOrgData()); // calling POST method REST APIs to save org data through OrgResgistrationService 
-    }
+    };
 
     var cleanupEventOrgRegistrationDone = $scope.$on("orgRegistrationDone", function(event, message){
         $scope.handleOrgResponse(message);

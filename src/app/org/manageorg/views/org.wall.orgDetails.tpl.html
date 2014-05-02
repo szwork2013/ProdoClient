@@ -5,7 +5,6 @@
       <a class="manage-org-btn btn btn-danger btn-sm pull-right  " href="" data-toggle="modal" data-target="#myModal"><i style="margin-right: 5px;" class="fa fa-trash-o fa-lg"></i>Delete Request</a>
   </div>
 
-
    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -354,184 +353,147 @@
         </accordion-group>
 
        <accordion-group ng-click="invokeKeyClients()" ng-if="usersession.currentUser.org.orgtype.toLowerCase() === 'manufacturer'">
-                  <accordion-heading>
-                    <p style='font-weight:bold; font-size: 13px; margin: 0;'>KEY CLIENTS<i class="fa fa-pencil pull-right"></i></p>
-                  </accordion-heading>
+          <accordion-heading>
+            <p style='font-weight:bold; font-size: 13px; margin: 0;'>KEY CLIENTS<i class="fa fa-pencil pull-right"></i></p>
+          </accordion-heading>
 
-                          <div id="prodo-productFeature-fixed"   ng-app="prodo.UploadApp" ng-controller="UploadController"  >
-                              <table   class="table table-hover  prodo-productTableFont">
-                                  <tr>
-                                     <td style="border-color:white;width:50%"><input class="form-control" ng-model="currentclient.name" type="text" placeholder="Name" style="width:100%"></td>
-                                  <td style="border-color:white;width:50%">
-                                    <div class="controls" > <form id="fileInputsUploadorgkeyclient">
-                                      <span class="btn btn-primary fileinput-button controls-upload prodo-uploadBtnWidth" style="width:100%;">
-                                        <i class="glyphicon glyphicon-upload " style="padding-left: 17%;"></i>
-                                        <input   type="file" name="file" ng-file-select="onFileSelect($files)" ng-click="uploadSrc = 'orgkeyclient';" > </form>
-                                        <span>Upload Logo & Save</span>
-                                      </span>
-                                    </div>
-                                  </td>
-                                </tr>
-                              </table>
-                              
-                              <center>
-                                <div id="FileName" ng-if="showKeyClient ===1 "></div>
-                              </center>
-                            </div>
-                             <div style="height:40px;" ng-if="orgKeyClients.length>0"> <button ng-click="removeKeyClientsPermenantly()" class="btn btn-danger btn-sm " style="margin-left:87%"><i  class="fa fa-trash-o fa-lg" ></i>&nbsp;&nbsp;Delete</button></div>
+            <div id="prodo-productFeature-fixed"   ng-app="prodo.UploadApp" ng-controller="UploadController"  >
+                <table   class="table table-hover  prodo-productTableFont">
+                    <tr>
+                       <td style="border-color:white;width:50%"><input class="form-control" ng-model="currentclient.name" type="text" placeholder="Name" style="width:100%"></td>
+                    <td style="border-color:white;width:50%">
+                      <div class="controls" > <form id="fileInputsUploadorgkeyclient">
+                        <span class="btn btn-primary fileinput-button controls-upload prodo-uploadBtnWidth" style="width:100%;">
+                          <i class="glyphicon glyphicon-upload " style="padding-left: 17%;"></i>
+                          <input   type="file" name="file" ng-file-select="onFileSelect($files)" ng-click="uploadSrc = 'orgkeyclient';" > </form>
+                          <span>Upload Logo & Save</span>
+                        </span>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+                
+                <center>
+                  <div id="FileName" ng-if="showKeyClient ===1 "></div>
+                </center>
+            </div>
+                           
+               <div style="height:40px;" ng-if="orgKeyClients.length>0"> 
+                       <button ng-click="removeKeyClientsPermenantly()" class="btn btn-danger btn-sm " style="margin-left:87%">
+                       <i  class="fa fa-trash-o fa-lg" ></i>&nbsp;&nbsp;Delete
+                       </button>
+               </div>
                              
 
-                             <div class="imagesOrg" ng-repeat="clients in orgKeyClients" style="margin: 3px;border: #090808 solid;min-width: 110px;
-                                      padding: 4px;border-width: thin;">
-                                    <p ng-bind="clients.clientname" style="margin-bottom:0px;width:100px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap; margin-bottom:0px;"></p>
-                                    <img class="img prodo-OrgImgThumbnail"  ng-src="{{clients.image}}" />
-                                    <input type="checkbox" id="{{'keyClient'+$index}}">
-                             </div>
-                            <div class="error-message-org " ng-if="orgKeyClients.length===0" style="text-align:left; font-size:20px;  auto;" >  <p style="text-align:left; font-size:20px; margin: 20px auto;" class="text-success"><strong><em>No Key Clients Added</em></strong></p></div>
-
+               <div class="imagesOrg" ng-repeat="clients in orgKeyClients" style="margin: 3px;border: #090808 solid;min-width: 110px;
+                        padding: 4px;border-width: thin;">
+                      <p ng-bind="clients.clientname" style="margin-bottom:0px;width:100px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap; margin-bottom:0px;"></p>
+                      <img class="img prodo-OrgImgThumbnail"  ng-src="{{clients.image}}" />
+                      <input type="checkbox" id="{{'keyClient'+$index}}">
+               </div>
+                           
+              <div class="error-message-org " ng-if="orgKeyClients.length===0" style="text-align:left; font-size:20px;  auto;" >  <p style="text-align:left; font-size:20px; margin: 20px auto;" class="text-success"><strong><em>No Key Clients Added</em></strong></p></div>
 
        </accordion-group> 
 
-  <accordion-group ng-hide="usersession.currentUser.org.orgtype != 'Manufacturer' " >
-      <accordion-heading>
+       <accordion-group ng-hide="usersession.currentUser.org.orgtype != 'Manufacturer' " >
+          <accordion-heading>
             <p style='font-weight:bold; font-size: 13px; margin: 0;'>ORGANIZATION CUSTOMER INVITES<i class="fa fa-pencil pull-right"></i></p>
-        </accordion-heading>
-        <!--    <button class="btn btn-info btn-sm" style="background-color:#47707C; border-color:#3C555C; border-radius: 10px; margin: 15px;" ng-click="addCustomerInvites()"><i style="margin-right: 5px;" class="fa fa-plus-square"></i>Add More Invites</button> -->
-        <table class="table table-condensed">
-          <tbody>
-            <tr >
-   <!--            <td style="width:50%"><input class="form-control" ng-model="customer.name" type="text" placeholder="Name" > </td>
-              <td style="width:50%">  
-                       <input class="form-control" ng-model="customer.email" type="email" placeholder="Email"></td> -->
+          </accordion-heading>
+        
+          <table class="table table-condensed">
+            <tbody>
+              <tr >
+
+                 <input type="text" class="form-control" placeholder="From" style="margin-bottom:20px;" ng-model="fromOrgCustDetails" ng-disabled="true">
+                
+
+                <input type="text" class="form-control" placeholder="To" style="margin-bottom:20px;" ng-model="customerinvites.to">
 
 
 
-                               <input type="text" class="form-control" placeholder="From" style="margin-bottom:20px;" ng-model="fromOrgCustDetails" ng-disabled="true">
-                              
+                 <div class="error-message-registration" ng-if="orgCustToError!==''" ng-bind="orgCustToError" style="margin-top:-2.5%"></div>
 
-                              <input type="text" class="form-control" placeholder="To" style="margin-bottom:20px;" ng-model="customerinvites.to">
+            
 
-
-
-                               <div class="error-message-registration" ng-if="orgCustToError!==''" ng-bind="orgCustToError" style="margin-top:-2.5%"></div>
-
-                          
-
-                              <input type="text" class="form-control" placeholder="Subject" style="margin-bottom:20px;" ng-model="customerinvites.subject">
-                                   <div class="error-message-registration" ng-if="orgCustSubjectError!==''" ng-bind="orgCustSubjectError" style="margin-top:-2.5%"></div>
+                <input type="text" class="form-control" placeholder="Subject" style="margin-bottom:20px;" ng-model="customerinvites.subject">
+                     <div class="error-message-registration" ng-if="orgCustSubjectError!==''" ng-bind="orgCustSubjectError" style="margin-top:-2.5%"></div>
 
 
-                              <textarea class="form-control" ng-model="custinvitesbody.customerinvites_body" style="margin-bottom:20px;" rows=23 ng-enter="joinbrCstfororginvites()"></textarea>
+                <textarea class="form-control" ng-model="custinvitesbody.customerinvites_body" style="margin-bottom:20px;" rows=23 ng-enter="joinbrCstfororginvites()"></textarea>
 
 
-                          <div class="error-message-registration" ng-if="orgCustContentError!==''" ng-bind="orgCustContentError" style="margin-top:-2.5%"></div>
-
-
+               <div class="error-message-registration" ng-if="orgCustContentError!==''" ng-bind="orgCustContentError" style="margin-top:-2.5%"></div>
 
             </tr>
+
           </tbody>
+
         </table>
 
-
-
-         <button class="btn btn-primary btn-sm pull-right"  ng-click="orgCustomerInvites()" style="width:80px;"><i class="fa fa-share"></i>&nbsp;&nbsp;Send</button>
+        <button class="btn btn-primary btn-sm pull-right"  ng-click="orgCustomerInvites()" style="width:80px;">
+            <i class="fa fa-share"></i>&nbsp;&nbsp;Send
+            </button>
         </accordion-group>
-
 
     <accordion-group  ng-hide="usersession.currentUser.org.orgtype != 'Manufacturer' " >
       <accordion-heading>
             <p style='font-weight:bold; font-size: 13px; margin: 0;'>NEW ORGANIZATION INVITES<i class="fa fa-pencil pull-right"></i></p>
         </accordion-heading>
- <!--        <button class="btn btn-info btn-sm" style="background-color:#47707C; border-color:#3C555C; border-radius: 10px; margin: 15px;" ng-click="addMoreInvites()"><i style="margin-right: 5px;" class="fa fa-plus-square"></i>Add More Invites</button> -->
-        <table class="table table-condensed">
-          <tbody>
-            <tr >
-            <!--                 <td style="width:30%"><input class="form-control" ng-model="invite.name" type="text" placeholder="Name" > </td>
-                            <td style="width:30%"><input class="form-control" ng-model="invite.orgname" type="text" placeholder="Organization Name" ></td>
-                            <td style="width:30%">
-                          
-                           <input class="form-control" ng-model="invite.email" type="email" placeholder="Email" ></td> -->
+          <table class="table table-condensed">
+             <tbody>
+                <tr >
+                   <td>
+                        <input type="text" class="form-control" placeholder="From" style="margin-bottom:20px;" ng-model="fromOrgDetails" ng-disabled="true">
+                                                       
+                        <input type="text" class="form-control" placeholder="To" style="margin-bottom:20px;" ng-model="orginvites.to">
+                        
+                        <div class="error-message-registration" ng-if="orgInvitesToError!==''" ng-bind="orgInvitesToError" style="margin-top:-2.5%"></div>
 
-              <td>
-                              <input type="text" class="form-control" placeholder="From" style="margin-bottom:20px;" ng-model="fromOrgDetails" ng-disabled="true">
-                                 
-                             
-                              <input type="text" class="form-control" placeholder="To" style="margin-bottom:20px;" ng-model="orginvites.to">
-                                <div class="error-message-registration" ng-if="orgInvitesToError!==''" ng-bind="orgInvitesToError" style="margin-top:-2.5%"></div>
+                        <input type="text" class="form-control" placeholder="Subject" style="margin-bottom:20px;" ng-model="orginvites.subject" >
 
+                        <div class="error-message-registration" ng-if="orgInvitesSubjectError!==''" ng-bind="orgInvitesSubjectError" style="margin-top:-2.5%"></div>
 
-                              <input type="text" class="form-control" placeholder="Subject" style="margin-bottom:20px;" ng-model="orginvites.subject" >
+                        <textarea class="form-control" style="margin-bottom:20px;" ng-model = "orginvitesbody.orginvites_body" rows=22 ng-enter="joinbrfororginvites()">
+                        </textarea>
 
-                              <div class="error-message-registration" ng-if="orgInvitesSubjectError!==''" ng-bind="orgInvitesSubjectError" style="margin-top:-2.5%"></div>
-
-
-                              <textarea class="form-control" style="margin-bottom:20px;" ng-model = "orginvitesbody.orginvites_body" rows=22 ng-enter="joinbrfororginvites()">Dear <name>,
-                              
-
-                              </textarea>
-
-                                <div class="error-message-registration" ng-if="orgInvitesBodyError!==''" ng-bind="orgInvitesBodyError" style="margin-top:-2.5%"></div>
-              </td>
-
-
-            </tr>
-
-<!-- 
-            <tr>
-                <td> </td>
-            </tr> -->
-          </tbody>
-        </table>
-   
- 
-   
-
-        <button class="btn btn-primary btn-sm pull-right"  ng-click="sendOrgInvites()"><i style="margin-right: 5px;" class="fa fa-share"></i>Send</button>
-        </accordion-group>
-
+                        <div class="error-message-registration" ng-if="orgInvitesBodyError!==''" ng-bind="orgInvitesBodyError" style="margin-top:-2.5%"></div>
              
-
-
-
-
-
-
+                  </td>
+              </tr>
+            </tbody>
+          </table>
+   
+           <button class="btn btn-primary btn-sm pull-right"  ng-click="sendOrgInvites()"><i style="margin-right: 5px;" class="fa fa-share"></i>Send</button>
+    </accordion-group>
 
     <accordion-group ng-if="usersession.currentUser.org.orgtype.toLowerCase() === 'manufacturer'">
         <accordion-heading>
             <p style='font-weight:bold; font-size: 13px; margin: 0;'>ORGANIZATION IMAGES<i class="fa fa-pencil pull-right"></i></p>
         </accordion-heading>
 
+         <div style="height:40px;" ng-if="orgImages.length>0"> <button ng-click="deleteOrgArtworImages()" class="btn btn-danger btn-sm pull-right"><i  class="fa fa-trash-o fa-lg" ></i>&nbsp;&nbsp;Delete</button></div>
 
 
-<div style="height:40px;" ng-if="orgImages.length>0"> <button ng-click="deleteOrgArtworImages()" class="btn btn-danger btn-sm pull-right"><i  class="fa fa-trash-o fa-lg" ></i>&nbsp;&nbsp;Delete</button></div>
+         <div class="error-message-org " ng-if="orgImages.length===0" style="text-align:left; font-size:20px;  auto;" >  <p style="text-align:left; font-size:20px; margin: 20px auto;" class="text-success"><strong><em>No Images Exists</em></strong></p></div>
 
-
-        <div class="error-message-org " ng-if="orgImages.length===0" style="text-align:left; font-size:20px;  auto;" >  <p style="text-align:left; font-size:20px; margin: 20px auto;" class="text-success"><strong><em>No Images Exists</em></strong></p></div>
-
-
-
-
-              <div class="imagesOrg" ng-repeat="img in orgImages" style="margin: 3px;border: #090808 solid;min-width: 110px;
-                  padding: 4px;border-width: thin;">
-                <input type="checkbox" id='{{$index}}'>
-
-                <img class="img prodo-OrgImgThumbnail"  ng-src="{{img.image}}" />
-              
-              </div>
+        <div class="imagesOrg" ng-repeat="img in orgImages" style="margin: 3px;border: #090808 solid;min-width: 110px;
+            padding: 4px;border-width: thin;">
+          <input type="checkbox" id='{{$index}}'>
+          <img class="img prodo-OrgImgThumbnail"  ng-src="{{img.image}}" />      
+        </div>
              
-
-
     </accordion-group>
 
     <accordion-group ng-hide="usersession.currentUser.org.orgtype != 'Manufacturer' ">
-      <accordion-heading>
+        <accordion-heading>
             <p style='font-weight:bold; font-size: 13px; margin: 0;'>PRODUCT<i class="fa fa-pencil pull-right"></i></p>
         </accordion-heading>
 
         <div ng-show="(productlist.length == 0)">
           <p style="text-align:left; font-size:20px; margin: 20px auto;" class="text-success"><strong><em>You have not added products.</em></strong></p>
         </div>
+
         <div class="row">
           <div class="prodo-wall-org-product-container col-xs-2" ng-repeat="product in productlist">
             <p ng-show="product.display_name" class="prodo-wall-org-product-name">{{product.display_name}}</p>
@@ -540,6 +502,7 @@
             <img ng-hide="product.product_logo" src="../../../assets/images/if_no_logo_images_available.gif" alt=" No Image" class="prodo-wall-org-productimg img-rounded">
         </div>
       </div>
+
     </accordion-group>
 
 
@@ -617,10 +580,6 @@
 
 
   </accordion>
-
-
-
-
 
 </div>
 
