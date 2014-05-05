@@ -37,7 +37,15 @@ angular.module('prodo.CampaignApp')
   $rootScope.comment_image_l=[];
   $rootScope.file_data ="";
   $rootScope.count=0;
- 
+
+  $scope.campaignFeatures=[
+      {
+        "featureid": "11111",
+        "featurename": "campaign123",
+        "featuredescription": "campaign tag"
+      }
+    ];
+  $scope.campaignFeaturestags=['campaign123','campaign222'];
 
    if($rootScope.campaign_idwall !== "" || $rootScope.campaign_idwall !== undefined){
        $scope.$watch('$state.$current.locals.globals.campaignWalldata', function (campaignWalldata) {

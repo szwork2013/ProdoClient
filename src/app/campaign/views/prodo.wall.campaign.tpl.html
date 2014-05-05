@@ -67,6 +67,9 @@
                         <li ng-repeat="feature in features track by $index"  class="hyperlinkPointer featureTabs" style=""> 
                         <span ng-bind="feature.featurename" ng-click="addFeatureToComment(feature.featurename)" style="font-size:12px;"> </span>
                         </li>
+                         <li ng-repeat="feature in campaignFeatures track by $index"  class="hyperlinkPointer campaignFeatureTabs" style=""> 
+                        <span ng-bind="feature.featurename" ng-click="addFeatureToComment(feature.featurename)" style="font-size:12px;"> </span>
+                        </li>
                      </ul>
         </div>
         <div class="tab-content">
