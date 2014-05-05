@@ -1728,7 +1728,7 @@ margin-bottom: 10px;
 .prodo-delImgs{margin-bottom: 10px;}
 .prodo-checkbox{height: 17px;width: 17px;}
 .prodo-product-Invalid{color:red;}
-.prodo-productwallCenterProduct{padding-right: 100px;}
+.prodo-productwallCenterProduct{padding-right: 70px;}
 #prodo-font{font-size: 13px;}
 #img2{text-align: center;}
 .prodo-categoryTags{
@@ -2786,4 +2786,80 @@ left: 173px;
 /*Campaign wall*/
 .prodo-campaignBanner{	max-width: 610px;max-height: 100px;width: 80%;margin-left: 50px;}
 .prodo-CampaignName{font-weight: bolder;font-size: 20px; margin-left: 50px;}
+
+
+.prodo-bannerTextBg{
+max-height: 100px;
+ 	max-width: 610px;
+   margin: 10px;
+ 	width: 75%;
+  padding: 10px;
+   margin-left: 70px;
+   background: #3987A5;
+   color: #fff;
+     font-size: 18px;
+   font-weight: bold;
+   /*line-height: 1.3em;*/
+   border: 2px dashed #fff;
+   border-radius: 10px;
+   box-shadow: 0 0 0 4px #3987A5, 2px 1px 6px 4px rgba(10, 10, 0, 0.5);
+   text-shadow: -1px -1px #3987A5;
+   font-weight: normal;
+}
+.area{
+  text-align:center;
+  font-size:1em;
+  color:#fff;
+  font-weight:400;
+  animation:blur 1.5s ease-out infinite;
+  text-shadow:0px 0px 3px #fff,
+      0px 0px 4px #fff;
+}
+
+@-webkit-keyframes blur{
+  from{
+      text-shadow:0px 0px 10px #fff,
+      0px 0px 10px #fff, 
+      0px 0px 25px #fff,
+      0px 0px 25px #fff,
+      0px 0px 25px #fff,
+      0px 0px 25px #fff,
+      0px 0px 25px #fff,
+      0px 0px 25px #fff,
+      0px 0px 50px #fff,
+      0px 0px 50px #fff,
+      0px 0px 50px #7B96B8,
+      0px 0px 150px #7B96B8,
+      0px 10px 100px #7B96B8,
+      0px 10px 100px #7B96B8,
+      0px 10px 100px #7B96B8,
+      0px 10px 100px #7B96B8,
+      0px -10px 100px #7B96B8,
+      0px -10px 100px #7B96B8;}
+}
+@keyframes blur{
+  from{
+      text-shadow:0px 0px 10px #fff,
+      0px 0px 10px #fff, 
+      0px 0px 25px #fff,
+      0px 0px 25px #fff,
+      0px 0px 25px #fff,
+      0px 0px 25px #fff,
+      0px 0px 25px #fff,
+      0px 0px 25px #fff,
+      0px 0px 50px #fff,
+      0px 0px 50px #fff,
+      0px 0px 50px #7B96B8,
+      0px 0px 150px #7B96B8,
+      0px 10px 100px #7B96B8,
+      0px 10px 100px #7B96B8,
+      0px 10px 100px #7B96B8,
+      0px 10px 100px #7B96B8,
+      0px -10px 100px #7B96B8,
+      0px -10px 100px #7B96B8;}
+}
+
+/*/////////////////////////////////*/
+
+
 /*Campaign wall*/
