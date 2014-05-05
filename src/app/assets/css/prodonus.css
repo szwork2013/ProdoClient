@@ -1862,6 +1862,7 @@ padding: 5px;
 
  
 /*warranty*/
+.prodo-pdf{height:700px; width:100%;}
 .list-animate-item-warranty {-webkit-transition: color 0.6s, background-color 0.3s;-moz-transition: color 0.6s, background-color 0.3s;-ms-transition: color 0.6s, background-color 0.3s; transition: color 0.6s, background-color 0.3s; }
 list-animate-item-warranty.new-item {-webkit-animation: fadeIn 1s;-moz-animation: fadeIn 1s;-ms-animation: fadeIn 1s;animation: fadeIn 1s;} 
 list-animate-item-warranty.removed-item {-webkit-animation: fadeOut 1s;-moz-animation: fadeOut 1s;-ms-animation: fadeOut 1s;animation: fadeOut 1s;}

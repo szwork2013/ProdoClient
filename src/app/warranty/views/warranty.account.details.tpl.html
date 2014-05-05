@@ -652,10 +652,16 @@
         </table>
        
         <div id="#invoice-img-div" ng-show="OpenInvoiceImage" class="row" >
-           
+
+
+
+   
           
     <center>
-			<img ng-src="{{warranty.invoice_image.image}}" alt="..."  class="wall-warranty-invoice-img prodo-invoiceImage img-rounded">
+
+      <object class="prodo-pdf" type="application/pdf" data='{{doc_details.file_url}}'></object>
+
+			<!-- <img ng-src="{{warranty.invoice_image.image}}" alt="..."  class="wall-warranty-invoice-img prodo-invoiceImage img-rounded"> -->
 		</center>
 <br><br>
      <div    ng-app="prodo.UploadApp" ng-controller="UploadController"  >

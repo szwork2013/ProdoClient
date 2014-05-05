@@ -302,7 +302,23 @@ $scope.getFile = function (a) {
             setTimeout(function(){ jQuery("#FileName").hide(); },1000);
             $('#fileInputsUploadorg')[0].reset();
           }
-        } else {
+        } 
+        else if ($scope.uploadSrc == "warranty") { // upload org
+          if (($scope.file.type =='application/pdf')) {
+            action = {
+              warranty: {
+                userid: $rootScope.usersession.currentUser.userid,
+                warranty_id: $rootScope.Upload_warranty_id
+              }
+            };
+          } else {
+            $rootScope.ProdoAppMessage("Invoive can be image or pdf only", 'error');
+            $("#bar").hide();
+            setTimeout(function(){ jQuery("#FileName").hide(); },1000);
+            $('#fileInputsUploadorg')[0].reset();
+          }
+        }
+        else {
           $rootScope.ProdoAppMessage("Please upload file of images type...", 'error');
           $("#bar").hide();
           setTimeout(function(){ jQuery("#FileName").hide(); },1000);
