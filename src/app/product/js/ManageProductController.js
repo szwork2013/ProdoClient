@@ -189,7 +189,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
         $("productExtraInfo").css("display", "block");
         // $("#ErrMsging").css("display", "none");
         $scope.ErrMsging=0;
-        $log.debug(successData.success.product);
+        // $log.debug(successData.success.product);
         $scope.getProductFeatures(l_prodle, l_orgid);
         $("#prodo-ProductFeatureTable").css("display", "table");
         $scope.currentProdle=successData.success.product.prodle;

@@ -142,25 +142,25 @@ $scope.$watch('mytags', function () {
 $scope.makeTagsPair = function (noun, adj) {
   for (var i = 0; i < adj.length; i++) {
     if (noun[i] == undefined) $scope.tagPairs.push({
-      featureid: "1",
+      // featureid: "1",
       featurename: $scope.features[0].featurename,
       tag: adj[i]
     });
     else $scope.tagPairs.push({
-      featureid: "1",
+      // featureid: "1",
       featurename: noun[i],
       tag: adj[i]
     });
   }
- $scope.features=$scope.features.concat($scope.campaignFeatures);
-  for (var i = 0; i < $scope.features.length; i++) {
-    for (j = 0; j < $scope.tagPairs.length; j++) {
-      if ($scope.features[i].featurename == $scope.tagPairs[j].featurename) {
-        $scope.tagPairs[j].featureid = $scope.features[i].featureid;
-        $log.debug("fn2" + $scope.tagPairs[j].featurename + " " + $scope.tagPairs[j].tag + " " + $scope.tagPairs[j].featureid);
-      }
-    }
-  }
+ // $scope.features=$scope.features.concat($scope.campaignFeatures);
+ //  for (var i = 0; i < $scope.features.length; i++) {
+ //    for (j = 0; j < $scope.tagPairs.length; j++) {
+ //      if ($scope.features[i].featurename == $scope.tagPairs[j].featurename) {
+ //        $scope.tagPairs[j].featureid = $scope.features[i].featureid;
+ //        $log.debug("fn2" + $scope.tagPairs[j].featurename + " " + $scope.tagPairs[j].tag + " " + $scope.tagPairs[j].featureid);
+ //      }
+ //    }
+ //  }
 };
 
  $scope.handleAddProductComment=function(error){
