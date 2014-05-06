@@ -19,6 +19,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   $scope.editStatus;
   $scope.edit;
   $scope.category=[];
+  $scope.commenttags=[];
   $scope.product = {
     product: [{}]
   };
@@ -40,7 +41,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   $scope.newProduct_ResponseProdle="";
   $rootScope.orgid;
   $scope.chckedIndexs = [];
-  $scope.category;
+  // $scope.category;
   $scope.pImages_l = {
     product_images: [{}]
   };
@@ -322,6 +323,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
       $rootScope.ProdoAppMessage("Please add category", 'error');
   } else{
       // $scope.productCategoryInvalid=false;
+
       $scope.newProduct = {
         product: {
           model_no: $scope.product.model_no,
@@ -332,6 +334,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
           commenttags:$scope.commenttags
         }
       };
+       $log.debug($scope.newProduct);
       if ($rootScope.usersession.currentUser.org.isAdmin == true) {
         ProductService.saveProduct({
           orgid: $scope.orgidFromSession
@@ -339,6 +342,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
           if(success.success){
            $scope.newProduct_ResponseProdle=success.success.prodle;
            $scope.category=[];
+           $scope.commenttags=[];
            $scope.disableEditor();
            $('#productExtraInfo').css('display','block'); 
           }
@@ -819,8 +823,10 @@ $scope.handledeleteProductImagesError=function(error){
   };
   $scope.disableEditor = function () {
     $scope.editMode.editorEnabled = false;
-      $scope.productForm.submitted=false;
+    $scope.productForm.submitted=false;
     $scope.feature = "";
+    $scope.commenttags=[];
+    $scope.category=[];
     if ($scope.currentProdle == undefined || $scope.currentProdle == null || $scope.currentProdle == "") {
       $("#prodo-ProductDetails").css("display", "none");
         // $("#ErrMsging").css("display", "block");
