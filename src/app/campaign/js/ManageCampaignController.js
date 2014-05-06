@@ -270,6 +270,7 @@ angular.module('prodo.CampaignApp')
              $scope.errorForImproperBanner = 'Please enter valid banner text';
              $scope.allValid = 1;
         }
+        $scope.assignProdleForCampaign($scope.campaign.productName);
         if($scope.allValid === 0 )
         {       
              if($scope.isValidImage==true && $scope.showBanner === 1){
@@ -373,11 +374,12 @@ angular.module('prodo.CampaignApp')
         $scope.allValidContent = 1;
       }
 
-      if($scope.currentCampaign.bannertext === undefined || $scope.currentCampaign.bannertext === '')
-      {
-        $scope.errorForEmptyBannerText = 'Please enter valid banner text';
-        $scope.allValidContent = 1;
-      }
+
+      // if($scope.currentCampaign.bannertext === undefined || $scope.currentCampaign.bannertext === '')
+      // {
+      //   $scope.errorForEmptyBannerText = 'Please enter valid banner text';
+      //   $scope.allValidContent = 1;
+      // }
       
       if($scope.allValidContent === 0 )
       {    
@@ -689,9 +691,26 @@ angular.module('prodo.CampaignApp')
                     if(name === currentorgproducts.success.product[i].name)
                     {
                       $scope.campaign.prodle = currentorgproducts.success.product[i].prodle;
+                      break;
+                    }
+                    else
+                    {
+                          $scope.campaign.prodle = 'NONE';
                     }
                }
       };
+
+      // $scope.assignProdle = function(names)
+      // {
+      //          for(var i = 0 ; i<currentorgproducts.success.product.length;i++)
+      //          {
+      //               if(name === currentorgproducts.success.product[i].name)
+      //               {
+      //                 $scope.campaign.prodle = currentorgproducts.success.product[i].prodle;
+      //               }
+      //          }
+      // };
+
 
       $scope.showBannerImageUpload = function()
       {
