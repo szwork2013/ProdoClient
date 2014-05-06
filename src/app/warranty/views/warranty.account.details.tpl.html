@@ -659,9 +659,9 @@
           
     <center>
 
-      <object class="prodo-pdf" type="application/pdf" data='{{doc_details.file_url}}'></object>
+      <object ng-if="warranty.invoice_image.filetype=='application/pdf' " class="prodo-pdf" type="application/pdf" data='{{warranty.invoice_image.image}}'></object>
 
-			<!-- <img ng-src="{{warranty.invoice_image.image}}" alt="..."  class="wall-warranty-invoice-img prodo-invoiceImage img-rounded"> -->
+			<img ng-if="warranty.invoice_image.filetype !=='application/pdf' " ng-src="{{warranty.invoice_image.image}}" alt="..."  class="wall-warranty-invoice-img prodo-invoiceImage img-rounded">
 		</center>
 <br><br>
      <div    ng-app="prodo.UploadApp" ng-controller="UploadController"  >

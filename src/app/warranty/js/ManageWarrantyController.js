@@ -79,9 +79,7 @@ $scope.newWarranty_Responsewarranty_id="";
   warrantydata:{}
 }
 $scope.warranties=[];
- $scope.doc_details = {
-        file_url: ''
-    };
+
 
 //
   $scope.fileLength;
@@ -293,7 +291,6 @@ $scope.handleGetWarrantySuccess=function(successData,l_warrantyid){
     $log.debug(successData.success);
    $("#prodo-ProductDetails").css("display", "block");
         $scope.warranty=successData.success.Warranty;
-        $scope.doc_details.file_url=successData.success.Warranty.invoice_image.image;
         $rootScope.Upload_warranty_id=$scope.warranty.warranty_id;
         // $scope.OpenInvoiceImage=false;
         
