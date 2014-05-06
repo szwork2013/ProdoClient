@@ -321,7 +321,11 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
 
     if($scope.category.length==0 ){
       $rootScope.ProdoAppMessage("Please add category", 'error');
-  } else{
+  } 
+   else if($scope.commenttags.length==0 ){
+      $rootScope.ProdoAppMessage("Please add comment tags", 'error');
+  } 
+  else{
       // $scope.productCategoryInvalid=false;
 
       $scope.newProduct = {
@@ -365,7 +369,13 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
 
         $rootScope.ProdoAppMessage("Please add category", 'error');
 
-    } else{
+    }
+     else if($scope.product.commenttags.length==0 ){
+
+        $rootScope.ProdoAppMessage("Please add comment tags", 'error');
+
+    }
+    else{
         // $scope.productCategoryInvalid=false;
         $scope.newProduct = {
           product: {
