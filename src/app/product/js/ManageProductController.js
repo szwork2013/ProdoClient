@@ -10,7 +10,7 @@
  * 27-3/2013 | xyx | Add a new property
  * 
  */
-angular.module('prodo.ProductApp').controller('ManageProductController', ['$scope', '$log', '$rootScope', 'ProductService', 'UserSessionService', '$http', 'CommentLoadMoreService', 'ENV', 'TagReffDictionaryService', 'ProductFeatureService',  'allproductdata','allproductCategories', '$state','CategoryTags', function ($scope, $log, $rootScope, ProductService, UserSessionService, $http, CommentLoadMoreService, ENV, TagReffDictionaryService, ProductFeatureService, allproductdata,allproductCategories, $state,CategoryTags) {
+angular.module('prodo.ProductApp').controller('ManageProductController', ['$scope', '$log', '$rootScope', 'ProductService', 'UserSessionService', '$http', 'CommentLoadMoreService', 'ENV', 'TagReffDictionaryService', 'ProductFeatureService',  'allproductdata','allproductCategories', '$state','CategoryTags','allCommentTags', function ($scope, $log, $rootScope, ProductService, UserSessionService, $http, CommentLoadMoreService, ENV, TagReffDictionaryService, ProductFeatureService, allproductdata,allproductCategories, $state,CategoryTags,allCommentTags) {
 
   $scope.$state = $state;
 
@@ -27,7 +27,8 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
     product: [{}]
   };
   $scope.listProductCategories={
-    categoriesList:[]
+    categoriesList:[],
+    commenttagsList:[]
   };
   $scope.listCategory={
               productCategories:[]
@@ -112,14 +113,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
  //     }
  // };
 
-          if(allproductCategories.error){
-           // $log.debug("err");
-            $scope.listProductCategories.categoriesList= ['product','software'];
-           }
-           else if(allproductCategories.success){
-             $scope.listProductCategories.categoriesList= allproductCategories.success.categorytags;
-              // $log.debug("sucesss  "+ $scope.listProductCategories.categoriesList);
-           }
+      
 
   $scope.$watch('$state.$current.locals.globals.allproductdata', function (allproductdata) {
     if (allproductdata.error) {
@@ -130,27 +124,39 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
     }
   });
 
-  $scope.$watch('$state.$current.locals.globals.allproductCategories', function (allproductCategories) {
-  
+    if(allCommentTags.error){
+           
+            $scope.listProductCategories.commenttagsList= ['product','warranty'];
+            $log.debug( $scope.listProductCategories.commenttagsList);
+           }
+           else if(allCommentTags.success){
+             $scope.listProductCategories.commenttagsList= allCommentTags.success.commenttags;
+              $log.debug( $scope.listProductCategories.commenttagsList);
+           }
 
 
-
-           if(allproductCategories.error){
+    if(allproductCategories.error){
            // $log.debug("err");
             $scope.listProductCategories.categoriesList= ['product','software'];
            }
            else if(allproductCategories.success){
-          
+             $scope.listProductCategories.categoriesList= allproductCategories.success.categorytags;
+              // $log.debug("sucesss  "+ $scope.listProductCategories.categoriesList);
+           }
 
+
+  $scope.$watch('$state.$current.locals.globals.allproductCategories', function (allproductCategories) {
+             if(allproductCategories.error){
+           // $log.debug("err");
+            $scope.listProductCategories.categoriesList= ['product','software'];
+           }
+           else if(allproductCategories.success){
             // setTimeout(function(){ $scope.$apply(function() {
                   $scope.listProductCategories.categoriesList= allproductCategories.success.categorytags;
                    // $log.debug("suce  "+ $scope.listProductCategories.categoriesList);
-
                // }); });
-               
-           }
-
-  });
+            }
+   });
 
 
 
@@ -322,7 +328,8 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
           name: $scope.product.name,
           display_name: $scope.product.display_name,
           description: $scope.product.description,
-          category:$scope.category
+          category:$scope.category,
+          commenttags:$scope.commenttags
         }
       };
       if ($rootScope.usersession.currentUser.org.isAdmin == true) {
@@ -365,7 +372,8 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
           sale_discontinuation_date: $scope.product.sale_discontinuation_date,
           banneddate: $scope.product.banneddate,
           display_name: $scope.product.display_name,
-          category:$scope.product.category
+          category:$scope.product.category,
+          commenttags:$scope.product.commenttags
         
         }
       };

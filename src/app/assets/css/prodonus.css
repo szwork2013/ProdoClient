@@ -1587,7 +1587,7 @@ ul {list-style-type: none; }
 .prodo-featureDescription{word-wrap: break-word;width: 20%; word-break: break-word;}
 .prodo-descriptionDisplay{word-wrap: break-word;width: 98%; word-break: break-word;}
 .prodo-CategoryUl{margin-bottom: -20px;word-wrap: break-word;
-width: 95%;overflow-x: hidden;overflow-y: auto;left: 40px;position: relative;top: -20px;}
+width: 90%;overflow-x: hidden;overflow-y: auto;left: 55px;position: relative;top: -20px;}
 .prodo-userAvatar{height:50px; width:50px}
 .prodo-modal-user{ left:200px}
 .prodo-userImg{height:90px;width:90px;}
