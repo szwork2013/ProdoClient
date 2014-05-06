@@ -19,6 +19,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   $scope.editStatus;
   $scope.edit;
   $scope.category=[];
+  $scope.commenttags=[];
   $scope.product = {
     product: [{}]
   };
@@ -40,7 +41,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   $scope.newProduct_ResponseProdle="";
   $rootScope.orgid;
   $scope.chckedIndexs = [];
-  $scope.category;
+  // $scope.category;
   $scope.pImages_l = {
     product_images: [{}]
   };
@@ -188,7 +189,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
         $("productExtraInfo").css("display", "block");
         // $("#ErrMsging").css("display", "none");
         $scope.ErrMsging=0;
-        $log.debug(successData.success.product);
+        // $log.debug(successData.success.product);
         $scope.getProductFeatures(l_prodle, l_orgid);
         $("#prodo-ProductFeatureTable").css("display", "table");
         $scope.currentProdle=successData.success.product.prodle;
@@ -320,8 +321,13 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
 
     if($scope.category.length==0 ){
       $rootScope.ProdoAppMessage("Please add category", 'error');
-  } else{
+  } 
+   else if($scope.commenttags.length==0 ){
+      $rootScope.ProdoAppMessage("Please add comment tags", 'error');
+  } 
+  else{
       // $scope.productCategoryInvalid=false;
+
       $scope.newProduct = {
         product: {
           model_no: $scope.product.model_no,
@@ -332,6 +338,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
           commenttags:$scope.commenttags
         }
       };
+
       if ($rootScope.usersession.currentUser.org.isAdmin == true) {
         ProductService.saveProduct({
           orgid: $scope.orgidFromSession
@@ -339,6 +346,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
           if(success.success){
            $scope.newProduct_ResponseProdle=success.success.prodle;
            $scope.category=[];
+           $scope.commenttags=[];
            $scope.disableEditor();
            $('#productExtraInfo').css('display','block'); 
           }
@@ -361,7 +369,13 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
 
         $rootScope.ProdoAppMessage("Please add category", 'error');
 
-    } else{
+    }
+     else if($scope.product.commenttags.length==0 ){
+
+        $rootScope.ProdoAppMessage("Please add comment tags", 'error');
+
+    }
+    else{
         // $scope.productCategoryInvalid=false;
         $scope.newProduct = {
           product: {
@@ -776,7 +790,7 @@ $scope.handledeleteProductImagesError=function(error){
       }
     else{
 
-    console.log(data);
+
     if (data !== undefined || data !== null || data !== "") {
       if ($rootScope.isAdminCheck == true) {
         ProductFeatureService.updateFeature({
@@ -819,8 +833,10 @@ $scope.handledeleteProductImagesError=function(error){
   };
   $scope.disableEditor = function () {
     $scope.editMode.editorEnabled = false;
-      $scope.productForm.submitted=false;
+    $scope.productForm.submitted=false;
     $scope.feature = "";
+    $scope.commenttags=[];
+    $scope.category=[];
     if ($scope.currentProdle == undefined || $scope.currentProdle == null || $scope.currentProdle == "") {
       $("#prodo-ProductDetails").css("display", "none");
         // $("#ErrMsging").css("display", "block");

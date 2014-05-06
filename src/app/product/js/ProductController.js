@@ -13,7 +13,7 @@
 angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$log', '$rootScope', 'ProductService', 'UserSessionService', '$http', 'CommentLoadMoreService', 'ENV', 'TagReffDictionaryService', 'ProductFeatureService', '$state','productData', function ($scope, $log, $rootScope, ProductService, UserSessionService, $http, CommentLoadMoreService, ENV, TagReffDictionaryService, ProductFeatureService, $state,productData) {
  
       $scope.pimgs = [];
-
+    
     // $scope.$watch('$state.$current.locals.globals.productData', function (productData) {
     //  if(productData.error){
     //      $("#prodo-ProductDetails").css("display", "none");
@@ -33,6 +33,9 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
     
     //  });
     
+    $scope.commenttagSelected={
+      tag:''
+    };
    $rootScope.comment_image_l=[];
   $rootScope.file_data ="";
   $rootScope.count=0;

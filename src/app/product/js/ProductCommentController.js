@@ -128,7 +128,8 @@ $scope.socket.on($scope.productcommentResponseListener, function (error, result)
         type: result.success.product_comment.type,
         datecreated: result.success.product_comment.datecreated,
         commenttext: result.success.product_comment.commenttext,
-        analytics: $scope.tagPairs
+        analytics: result.success.product_comment.analytics,
+        commenttags:result.success.product_comment.commenttags
 
       }
     };
@@ -279,7 +280,8 @@ function (successData) {
           datecreated: Date.now(),
           tags: $scope.mytags,
           commenttext: $scope.commenttextField.userComment,
-          analytics: $scope.tagPairs
+          analytics: $scope.tagPairs,
+          commenttags:$scope.commenttagSelected.tag
 
         }
       };
@@ -298,7 +300,8 @@ function (successData) {
           datecreated: Date.now(),
           tags: $scope.mytags,
           commenttext: $scope.commenttextField.userComment,
-          analytics: $scope.tagPairs
+          analytics: $scope.tagPairs,
+          commenttags:$scope.commenttagSelected.tag
 
         }
       };
@@ -319,7 +322,8 @@ function (successData) {
           commenttext: $scope.commenttextField.userComment,
           tags: $scope.mytags,
           comment_image: $rootScope.file_data,
-          analytics: $scope.tagPairs
+          analytics: $scope.tagPairs,
+          commenttags:$scope.commenttagSelected.tag
         }
       };
 
@@ -338,7 +342,8 @@ function (successData) {
           tags: $scope.mytags,
           commenttext: $scope.commenttextField.userComment,
           comment_image: $rootScope.comment_image_l,
-          analytics: $scope.tagPairs
+          analytics: $scope.tagPairs,
+          commenttags:$scope.commenttagSelected.tag
         }
       };
       $rootScope.file_data = "";
@@ -362,6 +367,7 @@ function (successData) {
       }
 
       $scope.commenttextField.userComment = "";
+      $scope.commenttagSelected.tag="";
       $scope.tagPairs = [];
       $rootScope.count = 0;
       document.getElementById('prodo-comment-commentContainer').style.marginTop = '0px';
@@ -409,7 +415,8 @@ function (successData) {
           datecreated: Date.now(),
           tags: $scope.mytags,
           commenttext: comment.commenttext,
-          analytics: $scope.tagPairs
+          analytics: $scope.tagPairs,
+          commenttags:comment.commenttags
 
         }
       };
@@ -427,8 +434,9 @@ function (successData) {
           type: $scope.type,
           datecreated: Date.now(),
           tags: $scope.mytags,
-           commenttext: comment.commenttext,
-          analytics: $scope.tagPairs
+          commenttext: comment.commenttext,
+          analytics: $scope.tagPairs,
+          commenttags:comment.commenttags
 
         }
       };
@@ -449,7 +457,8 @@ function (successData) {
           commenttext: comment.commenttext,
           tags: $scope.mytags,
           comment_image: $rootScope.file_data,
-          analytics: $scope.tagPairs
+          analytics: $scope.tagPairs,
+          commenttags:comment.commenttags
         }
       };
 
@@ -468,7 +477,8 @@ function (successData) {
           tags: $scope.mytags,
           commenttext: comment.commenttext,
           comment_image: $rootScope.comment_image_l,
-          analytics: $scope.tagPairs
+          analytics: $scope.tagPairs,
+          commenttags:comment.commenttags
         }
       };
       $rootScope.file_data = "";
@@ -486,6 +496,8 @@ function (successData) {
       }
 
       $scope.commenttextField.userComment = "";
+      $scope.commenttagSelected.tag="";
+
       $scope.tagPairs = [];
       $rootScope.count = 0;
       document.getElementById('prodo-comment-commentContainer').style.marginTop = '0px';
