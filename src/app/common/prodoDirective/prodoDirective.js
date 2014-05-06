@@ -414,7 +414,7 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
         link: function (scope, ele, attrs, ngModel , growl) {
 
           $('#searchText').on('keyup', function (e) { 
-                      scope.errors="";
+                      scope.errors="";scope.enhancement={};
                       var value = $(this).val().trim(); 
                       var req = { 'name': value , 'orgid' : $rootScope.orgid};
                       if(value !=="" && e.shiftKey === false)
@@ -429,11 +429,13 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
                               {
                                   if(data.error.code==="AD001")                       
                                   {
-                                      $rootScope.ProdoAppMessage(data.error.message,'error');
+                                      //$rootScope.ProdoAppMessage(data.error.message,'error');
+                                      scope.errors="No products found for \n '" + $rootScope.orgdata.name+"'";
                                    }
                                    else
                                    {
-                                        $rootScope.ProdoAppMessage(data.error.message,'error');
+                                        //$rootScope.ProdoAppMessage(data.error.message,'error');
+                                        scope.errors="No products found for \n '" + $rootScope.orgdata.name+"'";
                                    }
                               }
                          else if(data.success)

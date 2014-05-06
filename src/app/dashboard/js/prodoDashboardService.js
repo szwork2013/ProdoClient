@@ -7,7 +7,7 @@ angular.module('prodo.ProdoWallApp')
   '$state',
   function ($rootScope, $resource, $log, $state) {
 
-			    var prodoChartService = { Product: $resource('/api/featureanalytics/piechart/:prodle', {}, { prodlePieChart: { method: 'GET' ,  params: { prodle: '@prodle'} } }),
+			    var prodoChartService = { Product: $resource('/api/featureanalytics/:prodle', {}, { prodlePieChart: { method: 'GET' ,  params: { prodle: '@prodle'} } }),
 			                              Bar: $resource('/api/featureanalytics/barchart/:prodle', {}, { getBarDetails: { method: 'GET' ,  params: { prodle: '@prodle'} } }), };
 			    // var returnProdleAnalyticsDetails = {};
 			    // returnProdleAnalyticsDetails.getChartData = function () {

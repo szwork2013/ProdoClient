@@ -2,8 +2,8 @@ angular.module('prodo.ProdoWallApp').controller('ProdoDashboardController', [
   '$scope',
   '$rootScope',
   '$state',
-  'prodoDashboardService','pieChartProdle','barChartProdle',
-  function ($scope, $rootScope, $state, prodoDashboardService,pieChartProdle, barChartProdle) {
+  'prodoDashboardService','pieChartProdle',
+  function ($scope, $rootScope, $state, prodoDashboardService,pieChartProdle) {
    // prodoDashboardService.getChartData();
     $scope.data = [];
 
@@ -95,37 +95,48 @@ angular.module('prodo.ProdoWallApp').controller('ProdoDashboardController', [
         }
         else if(pieChartProdle.error)
         {
-           $rootScope.ProdoAppMessage(pieChartProdle.error.message,'error');
+           // $rootScope.ProdoAppMessage(pieChartProdle.error.message,'error');
+           $rootScope.ProdoAppMessage('Dashboard chart data not available','error');
         }
         else
         {
-            $scope.data = pieChartProdle.success.taganalytics;
+            $scope.data = pieChartProdle.success.piechart_analytics;
             $scope.showPieChart = 1;
-       }
-    };
-
-    if(barChartProdle !== undefined)
-    {
-        if(barChartProdle.error!==undefined && barChartProdle.error.code==='AL001')
-        {
-          $rootScope.showModal();
-        }
-        else if(barChartProdle.error)
-        {
-           $rootScope.ProdoAppMessage("Bar chart data not available",'error');$scope.showBarChart = 0;
-        }
-        else
-        {
-            $scope.datas = barChartProdle.success.taganalytics;
+            $scope.dataForBarChart = pieChartProdle.success.barchart_analytics;
             $scope.barChart = function() {
             return [{
               key: 'Product Ratings',
-              values: $scope.datas,
+              values: $scope.dataForBarChart,
             }];
-        };
-            $scope.showBarChart = 1;
+            };
+             $scope.showBarChart = 1;
        }
     };
+
+    // if(barChartProdle !== undefined)
+    // {
+    //     if(barChartProdle.error!==undefined && barChartProdle.error.code==='AL001')
+    //     {
+    //       $rootScope.showModal();
+    //     }
+    //     else if(barChartProdle.error)
+    //     {
+    //        $rootScope.ProdoAppMessage("Bar chart data not available",'error');$scope.showBarChart = 0;
+    //     }
+    //     else
+    //     {
+    //         // $scope.datas = barChartProdle.success.taganalytics;
+    //         // $scope.datas = barChartProdle.success.taganalytics;
+    //         $scope.datas = barChartProdle.success.barchart_analytics;
+    //         $scope.barChart = function() {
+    //         return [{
+    //           key: 'Product Ratings',
+    //           values: $scope.datas,
+    //         }];
+    //     };
+    //         $scope.showBarChart = 1;
+    //    }
+    // };
 
      // var cleanEventGetSearchProductNotDone = $scope.$on('notGotDataCharts', function (event, data) {
      //      $rootScope.ProdoAppMessage("There is some issue with the server! Please try after some time",'error');
