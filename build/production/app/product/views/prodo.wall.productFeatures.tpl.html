@@ -156,12 +156,22 @@
           <td  class="prodo-productTableFont" >Product Name :&nbsp; <span ng-bind="product.name" > </span></td>
           <td  class="prodo-productTableFont" >Model No :&nbsp; <span ng-bind="product.model_no"></span></td>
         </tr>
-        <td colspan="2" ng-show="product.category" >Category :  
+        <tr>
+        <td colspan="2" ng-show="product.category" >Category :  &nbsp;
          <ul class="prodo-CategoryUl" >
             <li ng-repeat="category in product.category track by $index" class=" prodo-categoryTags" >  <span ng-bind="category" > </span>
             </li>
          </ul>
         </td>
+        </tr>
+        <tr>
+            <td colspan="2" ng-show="product.commenttags" >Comment tags:  &nbsp;
+             <ul class="prodo-CategoryUl" >
+              <li ng-repeat="commenttags in product.commenttags track by $index" class=" prodo-categoryTags" >  <span ng-bind="commenttags" > </span>
+              </li>
+            </ul>
+           </td>
+        </tr>
         <tr  class="prodo-productTableFont" >
           <td    colspan="2" class="prodo-productTableFont">Description : &nbsp;<span ng-bind="product.description" class="prodo-descriptionDisplay"> </span></td>
         </tr>
@@ -204,6 +214,19 @@
               <tags-input ng-show="(editStatus=='update')" minTags="1" add-on-blur="true" ng-model="product.category" list="listProductCategories.categoriesList"  min-length="1" placeholder="Special symbols (eg. @,-,# etc ) are not allowed." ></tags-input>               
             </td>
           </tr>
+
+           <tr  tooltip="To add comment categories press enter. " tooltip-placement="right">
+            <td  colspan="2">Comment tags   
+
+
+            <tags-input ng-show="(editStatus=='add')" list="listProductCategories.commenttagsList" minTags="1" add-on-blur="true"  ng-model="commenttags" min-length="1" placeholder="Special symbols (eg. @,-,# etc ) are not allowed.">
+            </tags-input>
+
+              <tags-input ng-show="(editStatus=='update')" list="listProductCategories.commenttagsList" minTags="1" add-on-blur="true" ng-model="product.commenttags"   min-length="1" placeholder="Special symbols (eg. @,-,# etc ) are not allowed." ></tags-input>               
+            </td>
+          </tr>
+
+
           <tr>
             <td  colspan="2">Description   <textarea  type="text" 
               ng-maxlength="1000" id="prodo-product-featuresDescription_textfield" class="form-control prodo-validation"  ng-model="product.description" required name="description" col="40"  ></textarea>
@@ -213,7 +236,7 @@
             <td colspan="2">
               <!--   <button type="submit" class="btn btn-info" style="width: 550px;"  ng-click=" $parent.isEditing = false" >Save</button>
                 -->
-              <a   ng-click="addProduct(editStatus); category=[];" class="btn btn-primary   pull-right prodo-margin5"   ><i class="fa fa-floppy-o"></i>  &nbsp; Save</a>
+              <a   ng-click="addProduct(editStatus); " class="btn btn-primary   pull-right prodo-margin5"   ><i class="fa fa-floppy-o"></i>  &nbsp; Save</a>
               <a onclick="$('#productExtraInfo').css('display','block');" class="btn btn-default   pull-right prodo-margin5"  ng-click="disableEditor();category=[];  " > <i class="glyphicon glyphicon-remove"></i> &nbsp; Cancel </a>
             </td>
           </tr>

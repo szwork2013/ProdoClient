@@ -13,8 +13,8 @@
         </div>
        </a> 
       
-    <div ng-show="campaignDetailsObject.length>0"  ng-repeat="list in campaignDetailsObject  | startFrom:currentPage*pageSize | limitTo:pageSize" >
-    <div class="prodo-productThumbnailView"   ng-class="{activeProduct : list.name==currentCampaign.name}" >
+    <div ng-show="campaignDetailsObject.length>0  "  ng-repeat="list in campaignDetailsObject  | startFrom:currentPage*pageSize | limitTo:pageSize" >
+    <div class="prodo-productThumbnailView"   ng-class="{activeProduct : list.name==currentCampaign.name}">
       <a ng-click="showDetails(list.name)" class="prodo-cursor"  href="" >
         <p class="prodo-AddProductBtn prodo-productNameList" >{{list.name.substring(0,13)}}</p>
         <img  ng-src="{{list.banner_image.image}}" alt-SRC src="../assets/images/if_no_logo_images_available.gif"  class="prodo-productThumbnailImg img-rounded">
@@ -74,11 +74,14 @@
 		</tr>
 
 		<tr>
-				<td  >Start Date: </td> <td  ><span ng-bind = "currentCampaign.startdate | date: 'fullDate' "></span></td>
-		</tr>
-
-		<tr >
-				<td  >End Date: </td> <td  ><span ng-bind="currentCampaign.enddate | date: 'fullDate'"></span></td>
+	       <td  > Campaign Tags: </td> 
+		   <td  >
+		   <ul style = "margin-left:0%;padding-left:0%">
+			  <li ng-repeat = "list in currentCampaign.campaign_tags"   class="prodo-categoryTags">
+				    <span ng-bind="list"></span>
+			   </li>
+		    </ul>
+		    </td>
 		</tr>
 
 		<tr>
@@ -93,6 +96,32 @@
 		</tr>
 
 		<tr>
+				<td  >Start Date: </td> <td  ><span ng-bind = "currentCampaign.startdate | date: 'fullDate' "></span></td>
+		</tr>
+
+		<tr >
+				<td  >End Date: </td> <td  ><span ng-bind="currentCampaign.enddate | date: 'fullDate'"></span></td>
+		</tr>
+
+
+         
+
+       <tr ng-if="currentCampaign.banner_image !== undefined"> 
+		    <td>Campaign Banner Image:</td>
+		    <td>
+		    	<img ng-src="{{currentCampaign.banner_image.image}}" class="img campaign-banner-image" />  
+		    </td>
+		</tr>
+
+		<tr ng-if="currentCampaign.banner_image === undefined"> 
+		    <td>Campaign Banner Text:</td>
+		    <td>
+		    	<span ng-bind="currentCampaign.bannertext"></span>
+		    </td>
+		</tr>
+
+
+		<tr>
 		    <td>Campaign Artwork:</td>
 		    <td>
 		    	   <div class="imagesOrg" ng-repeat="img in currentCampaign.artwork" style="margin: 3px;border: #090808 solid;min-width: 110px;padding: 4px;border-width: thin;">
@@ -104,12 +133,7 @@
 		    </td>
 		</tr>
         
-        <tr>
-		    <td>Campaign Banner:</td>
-		    <td>
-		    	<img ng-src="{{currentCampaign.banner_image.image}}" class="img campaign-banner-image" />  
-		    </td>
-		</tr>
+  
 
 		<tr >
 			<td  >Artwork: </td> 
@@ -132,19 +156,19 @@
 
 		<tr >
 			<td  >Change Banner Image: </td> 
-			<td  >      
+			<td  popover-placement="right" popover="Uploading banner image will automically remove banner text" popover-trigger="mouseenter">      
 			     <div class="manage-Campaign-td2 manage-campaign-marginbottom" >
-                     <div  ng-app="prodo.UploadApp" ng-controller="UploadController"  >
+                   <div  ng-app="prodo.UploadApp" ng-controller="UploadController"  >
 							<div class="controls" > 
 							  <form 
 									id="fileInputsUploadcampaignBannerUpdate">
-									                                   
+
 									 <span class="btn btn-primary 
 									fileinput-button controls-upload prodo-uploadBtnWidth" 
 									style="padding-left:28px;left:0px;width:230px;">
-									
+
 									<i class="glyphicon glyphicon-upload "></i>
-									                                     
+
 									<input   type="file" name="file" 
 									ng-file-select="onFileSelect($files)" multiple ng-click="uploadSrc = 
 									'campaignBannerUpdate';">
@@ -202,7 +226,45 @@
          	    <div class="error-message-registration" ng-if="invalidDesc !== '' " ng-bind="invalidDesc"></div> 
          	</td>
           </tr>
+
+          <tr>
+            <td>*Campaign Tags:</td>
+          </tr>
+           
+          <tr>
+            <td style="padding-bottom:5%;">
+            	   <tags-input  minTags="1" add-on-blur="true" list="targettedAudience" ng-model="currentCampaign.campaign_tags" min-length="1" >
+                   </tags-input>
+                   
+                   <div class="error-message-registration" ng-if="errorForEmptyCategoryCampaignTags !== '' " ng-bind="errorForEmptyCategoryCampaignTags">
+		    </td>
+          </tr>
+
+          <tr         ng-if="currentCampaign.bannertext !== ''">
+            <td>*Banner Text</td>
+          </tr>
+   
+          <tr         ng-if="currentCampaign.bannertext !== ''">
+            <td style="padding-bottom:5%;">
+            	<input type="text" ng-model="currentCampaign.bannertext" class="form-control">   
+                   <div class="error-message-registration" ng-if="errorForEmptyBannerText !== '' " ng-bind="errorForEmptyBannerText">
+		    </td>
+          </tr>
           
+         <!--  <tr>
+            <td>*Campaign Tags:  </td>
+          </tr>
+
+          <tr>
+            <td style="padding-bottom:5%;">
+                   <tags-input  minTags="1" add-on-blur="true" list="targettedAudience" ng-model="currentCampaign.category" min-length="1" >
+                   </tags-input>
+                   
+                      <div class="error-message-registration" ng-if="errorForEmptyCategoryModify !== '' " ng-bind="errorForEmptyCategoryModify"></div>
+             </td>
+                  
+          </tr> -->
+
           <tr>
             <td>
 	 			  <div  style="width:48%;float:left;">*Start Date: </div>
@@ -268,7 +330,7 @@
       <div class="manage-Campaign-tr">
 		<div class="manage-Campaign-td1">*Product Name:</div> 
         <div class="manage-Campaign-td2">  
-             <input type="text" ng-model="campaign.productName" typeahead="name for name in productlist" popover-placement="right" popover="Please select product name from typeahead" popover-trigger="mouseenter" class="form-control" typeahead-on-select="">    
+             <input type="text" ng-model="campaign.productName" typeahead="name for name in productlist" popover-placement="right" popover="Please select product name from typeahead" popover-trigger="mouseenter" class="form-control" typeahead-on-select="assignProdleForCampaign(campaign.productName)">    
 			 <div class="error-message-registration" ng-if="errorForInvalidProduct !== '' "ng-bind="errorForInvalidProduct"></div> 
 		</div>
 	  </div>
@@ -287,6 +349,15 @@
 			  </div>
               <div class="error-message-registration" ng-if="invalidDesc !== '' "ng-bind="invalidDesc"></div> 
        </div>
+
+      <div class="manage-Campaign-tr">
+           <div class="manage-Campaign-td1">*Campaign Tags:  </div>
+           <div class="manage-Campaign-td2 manage-campaign-marginbottom" >
+                   <tags-input  minTags="1" add-on-blur="true" list="targettedAudience" ng-model="campaign.campaignTags" min-length="1" >
+                   </tags-input>
+					<div class="error-message-registration" ng-if="errorForEmptyCampaigntags !== '' "ng-bind="errorForEmptyCampaigntags"></div>
+           </div>	          
+     </div>
  
 	  <div class="manage-Campaign-tr" style="margin-bottom:20%;">
 		  <div class="manage-Campaign-td1" style="width:48%;float:left">*Start Date: </div> <div class="manage-Campaign-td1" style="width:48%;float:right">*End Date: </div>
@@ -314,13 +385,40 @@
            </div>	          
      </div>
 
-     <div class="manage-Campaign-tr">
-       <div class="manage-Campaign-td1">*Campaign Banner Upload:  </div>
+
+     <div class="manage-Campaign-tr" style="margin-bottom:15%;">
+
+		<div style="width:50%;float:left"><label class="btn btn-success" ng-model="showBanner" ng-click="showBannerImageUpload()" uncheckable>Campaign Banner Image</label></div>
+         <div style="width: 6%;float: left;padding-top: 7px;"> OR  </div>
+		<div style="float:right"><label class="btn btn-success" ng-model="showBanner" ng-click = "showBannerText()"uncheckable>Campaign Banner Text</label> </div>
+
+     </div>
+
+     <div class="manage-Campaign-tr"  ng-if="showBanner===1">
+       <div class="manage-Campaign-td1" style="width:59%">*Campaign Banner Image Upload:  </div>
        <div class="manage-Campaign-td2 manage-campaign-marginbottom" >
            <input id="prodo-CampaignUploadBtn" class=" form-control prodo-validation " type="file" name="file" ng-file-selectdata="onFileSelect($files)" ng-model="file1" >
        </div>
-         *  Mandatory Fields
-    </div>
+     </div>
+
+
+      <div class="manage-Campaign-tr"  ng-if="showBanner===2">
+       <div class="manage-Campaign-td1">*Campaign Banner Text:  </div>
+       <div class="manage-Campaign-td2 manage-campaign-marginbottom" >
+           <input id="prodo-CampaignUploadBtn" class=" form-control prodo-validation " type="text" name="text" ng-model="campaign.campaignBannerText" >
+
+       </div>
+     </div>
+
+      <div class="error-message-registration manage-Campaign-tr" ng-if="errorForImproperBanner !== '' "ng-bind="errorForImproperBanner"></div>
+
+
+
+
+
+     <div class="manage-Campaign-tr">
+         *  Mandatory Fields 
+      </div>
 
     <div class="manage-Campaign-tr">
 			<div class="manage-Campaign-td2" > 
@@ -349,4 +447,53 @@
       </div>
     </div>
   </div>
+
+
+
+
+<!-- 
+ <div class="modal fade" id="showBannerTextWarning" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="myModalLabel">Confirm Action</h4>
+        </div>
+        <div class="modal-body">
+          This action will remove banner text if exists. Do you want to perform this action?
+        </div>
+        <div class="modal-footer">
+          <button data-dismiss="modal">
+            <div  ng-app="prodo.UploadApp" ng-controller="UploadController">
+							<div class="controls" > 
+							  <form 
+									id="fileInputsUploadcampaignBannerUpdate" >
+									                                   
+									 <span class="btn btn-primary 
+									fileinput-button controls-upload prodo-uploadBtnWidth" 
+									style="padding-left:28px;left:0px;width:14%;">
+									
+									<i class="glyphicon glyphicon-upload "></i>
+									                                     
+									<input   type="file" name="file" 
+									ng-file-select="onFileSelect($files)" multiple ng-click="uploadSrc = 
+									'campaignBannerUpdate';" >
+                                 <span>ok</span>
+                               </span>
+                             </form>
+                        </div>
+                                        
+                    </div> 
+              </button>      
+              <button type="button" class="btn btn-default " data-dismiss="modal" style="width:14%;float:right"> Cancel </button>       
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+     
+
+
+
+
 </div>
