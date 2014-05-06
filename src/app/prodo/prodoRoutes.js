@@ -441,10 +441,10 @@ angular.module('prodo.ProdonusApp')
                           {
                               return  prodoDashboardService.Product.prodlePieChart({prodle : $rootScope.product_prodle}).$promise;
                           },
-                          barChartProdle : function(prodoDashboardService, $rootScope) 
-                          {
-                              return  prodoDashboardService.Bar.getBarDetails({prodle : $rootScope.product_prodle}).$promise;
-                          },
+                          // barChartProdle : function(prodoDashboardService, $rootScope) 
+                          // {
+                          //     return  prodoDashboardService.Bar.getBarDetails({prodle : $rootScope.product_prodle}).$promise;
+                          // },
           },
           controller: 'ProdoDashboardController',
         },

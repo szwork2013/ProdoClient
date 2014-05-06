@@ -29,7 +29,7 @@ angular.module('prodo.CampaignApp')
 
     $scope.addNewCampaign = 0; 
 
-    $scope.campaign = {productName: '',Name:'',Description:'',startDate:'',endDate:'',category:[]};
+    $scope.campaign = {productName: '',Name:'',Description:'',startDate:'',endDate:'',category:[], campaignBannerText:'', campaignTags : [],prodle:''};
 
     $scope.errorForInvalidProduct = '';
  
@@ -39,7 +39,7 @@ angular.module('prodo.CampaignApp')
 
     $scope.startDate = '';
 
-    $scope.category = [];
+    $scope.category = [];    $scope.radiovalue = 0;
 
     $scope.endDate= '';// $scope.endDates = '';
 
@@ -55,6 +55,7 @@ angular.module('prodo.CampaignApp')
 
     $scope.today = moment().format('YYYY-MM-DD');
 
+    $scope.errorForEmptyCampaigntags = '';
      // pagination
     $scope.currentPage = 0;
 
@@ -87,7 +88,7 @@ angular.module('prodo.CampaignApp')
 
     $scope.invoiceimage;
     
-    $scope.newCampaignAdd = 0;
+    $scope.newCampaignAdd = 0;  
 
     $scope.open = function($event,opened) {
         $event.preventDefault();
@@ -103,6 +104,12 @@ angular.module('prodo.CampaignApp')
 
     $scope.errorForEmptyCategory = '';
 
+    $scope.showBanner = 4;
+
+    $scope.prodlesOfOrg = [];
+
+    $scope.errorForImproperBanner = '';
+
     if (currentorgproducts.error) 
     {
           //$scope.ProdoAppMessage("Currently no products exists in the organization",'error');
@@ -112,6 +119,7 @@ angular.module('prodo.CampaignApp')
     	  for(var i=0;i<currentorgproducts.success.product.length ; i++)
     	  {
     	  	$scope.productlist.push(currentorgproducts.success.product[i].name);
+          $scope.prodlesOfOrg.push(currentorgproducts.success.product[i].prodle);
     	  }
     }
 
@@ -140,7 +148,7 @@ angular.module('prodo.CampaignApp')
     
     $scope.$watch('$state.$current.locals.globals.campaigndata', function (campaigndata) { 
       if (campaigndata.success) {
-         $scope.campaignDetailsObject = campaigndata.success.Product_Campaigns;
+         $scope.campaignDetailsObject = campaigndata.success.Product_Campaigns; 
          if($scope.currentCampaignContentId !== undefined && $scope.currentCampaignContentId !== '')
          {
               for(var i=0;i<$scope.campaignDetailsObject.length;i++)
@@ -153,7 +161,7 @@ angular.module('prodo.CampaignApp')
          }
          else
          {
-          $scope.currentCampaign = $scope.campaignDetailsObject[0];
+          $scope.currentCampaign = $scope.campaignDetailsObject[0]; 
          }
          //$scope.currentCampaignContentId = $scope.currentCampaign.campaign_id;  
           
@@ -181,6 +189,10 @@ angular.module('prodo.CampaignApp')
 
  // function to send and stringify user registration data to Rest APIs
     $scope.jsonOrgCampaignData = function(){
+      // if($scope.showBanner === 1)
+      // {
+      //   $scope.campaign.campaignBannerText = '';
+      // }
       var Data = 
       {
         
@@ -189,7 +201,10 @@ angular.module('prodo.CampaignApp')
             'enddate': $scope.campaign.endDate,
             'startdate': $scope.campaign.startDate,
             'description': $scope.campaign.Description,
-            'category': $scope.campaign.category
+            'category': $scope.campaign.category,
+            'bannertext' : $scope.campaign.campaignBannerText,
+            'campaign_tags' : $scope.campaign.campaignTags,
+            
            
       };
       return Data; 
@@ -205,12 +220,14 @@ angular.module('prodo.CampaignApp')
     	$scope.allValid = 0;
     	$scope.errorForInvalidProduct = '';
       $scope.errorForEmptyCategory = '';
+      $scope.errorForEmptyCampaigntags = '';
+      $scope.errorForImproperBanner = '';
       //$scope.errorForInvalidCategory = '';
     	$scope.getProdle();
         if($scope.campaign.Name === undefined || $scope.regexForText.test($scope.campaign.Name) === false || $scope.campaign.Name ==='')
         {
                   $scope.errorForWrongCampaignname = 'Please enter valid campaign name!';
-                  $scope.valid = 1;
+                  $scope.allValid = 1;
         }   
         if($scope.form.campaign.startDate.$dirty === false)
         {
@@ -238,16 +255,61 @@ angular.module('prodo.CampaignApp')
             $scope.errorForEmptyCategory = 'Please enter atleast one targeted audience category';
             $scope.allValid = 1;
         }
+        if($scope.campaign.campaignTags === undefined || $scope.campaign.campaignTags.length === 0 )
+        {
+             $scope.errorForEmptyCampaigntags = "Please enter valid campaign tags";
+             $scope.allValid = 1;
+        }
+        if($scope.showBanner !== 1 && $scope.showBanner !== 2)
+        {
+             $scope.errorForImproperBanner = 'Please select atleast one option from above selection';
+             $scope.allValid = 1;
+        }
+        if($scope.showBanner===2 && ($scope.campaign.campaignBannerText === undefined || $scope.campaign.campaignBannerText === '') )
+        {
+             $scope.errorForImproperBanner = 'Please enter valid banner text';
+             $scope.allValid = 1;
+        }
         if($scope.allValid === 0 )
         {       
-             if($scope.isValidImage==true){
+             if($scope.isValidImage==true && $scope.showBanner === 1){
                   $scope.socket.emit('addProductCampaign', $rootScope.usersession.currentUser.userid, $rootScope.usersession.currentUser.org.orgid,$scope.prodleContent, $scope.jsonOrgCampaignData(),$scope.file_data);               
               }
-              else{
-                $rootScope.ProdoAppMessage("Please select banner image to upload", 'error');
-               }
+              else if ($scope.showBanner === 2)
+              {    
+                    CampaignService.createCampaign($scope.jsonOrgCampaignData(),$scope.campaign.prodle);
+              }
+              else if($scope.isValidImage === false && $scope.showBanner === 1)
+              {
+                    $rootScope.ProdoAppMessage("Please select banner image to upload", 'error');
+              }
         }
     };
+
+    // var cleanupeventaddedcampaignsuccessfully = $scope.$on("campaignAddedSuccessfully", function(event, data){
+    //  if(data.error !== undefined && data.error.code === 'AL001' )
+    //     {
+    //       $rootScope.showModal();
+    //     }
+    //     if(data.success)
+    //     {
+    //        $rootScope.ProdoAppMessage(data.success.message,'success'); 
+    //        $state.reload();
+    //     }
+    //     else {
+    //       if (data.error.code== 'AU004') {     // enter valid data
+    //           $rootScope.ProdoAppMessage(data.error.message,'error');    //ShowAlert
+    //           $state.reload();
+    //       } else {
+    //           $rootScope.ProdoAppMessage(data.error.message,'error');    //ShowError
+    //           $state.reload();
+    //       }
+    //     }
+    // });
+
+    // var cleanupeventnotaddedcampaignerror = $scope.$on("campaignNotAddedSuccessfully", function(event, data){
+    //        $rootScope.ProdoAppMessage("Some issues with server",'error');
+    // });
 
     $scope.restrictEndDates = function()    { $scope.restrictEndDate = $scope.campaign.startDate;  };
 
@@ -265,8 +327,8 @@ angular.module('prodo.CampaignApp')
         }  
     };
     return JSON.stringify(Data); 
-    };
-
+    };$scope.errorForEmptyCategoryCampaignTags = '';
+    $scope.errorForEmptyBannerText = '';
     $scope.updateCampaign = function()
     {
     	$scope.errorForWrongCampaignname = '';  
@@ -277,7 +339,10 @@ angular.module('prodo.CampaignApp')
     	$scope.allValidContent = 0;
     	$scope.errorForInvalidProduct = '';
       $scope.errorForEmptyCategoryModify = '';
+      $scope.errorForEmptyBannerText = '';
+      $scope.errorForEmptyCategoryCampaignTags = '';
     	$scope.getProdle();
+
 
       if($scope.currentCampaign.productname === undefined || $scope.currentCampaign.productname ==='')
       {
@@ -300,6 +365,18 @@ angular.module('prodo.CampaignApp')
       {
            $scope.errorForEmptyCategoryModify = 'Please enter atleast one targeted audience category';
            $scope.allValidContent = 1;
+      }
+
+      if($scope.currentCampaign.campaign_tags.length === 0)
+      {
+        $scope.errorForEmptyCategoryCampaignTags = 'Please enter valid campaign tags';
+        $scope.allValidContent = 1;
+      }
+
+      if($scope.currentCampaign.bannertext === undefined || $scope.currentCampaign.bannertext === '')
+      {
+        $scope.errorForEmptyBannerText = 'Please enter valid banner text';
+        $scope.allValidContent = 1;
       }
       
       if($scope.allValidContent === 0 )
@@ -403,7 +480,8 @@ angular.module('prodo.CampaignApp')
         $scope.addNewCampaign = 0;
         $scope.addNewCampaign = 0;
         $state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
-        $scope.campaign = {productName: '',Name:'',Description:'',startDate:'',endDate:'',category:[]};
+        $scope.campaign = {productName: '',Name:'',Description:'',startDate:'',endDate:'',category:[], campaignBannerText:'', campaignTags : [],prodle:''};
+
     };
 
     $scope.getProdle = function()
@@ -535,7 +613,7 @@ angular.module('prodo.CampaignApp')
                          $scope.handleUploadError(successData.error);
                       } 
                  }
-                 else { //add comment
+                 else { 
                           fileReader.readAsBinaryString(a, $scope).then(function (result) {
                           var action;
                           $scope.imageBfr = result;
@@ -555,6 +633,8 @@ angular.module('prodo.CampaignApp')
                          } 
                          else{
                            $rootScope.ProdoAppMessage("Please upload image only", 'error'); 
+                            $scope.campaign = {productName: '',Name:'',Description:'',startDate:'',endDate:'',category:[], campaignBannerText:'', campaignTags : [],prodle:''};
+
                             $('#addCampaignForm')[0].reset();      
                            }
                         
@@ -583,7 +663,8 @@ angular.module('prodo.CampaignApp')
             } else {
               $log.debug(error.error.message); 
               $rootScope.ProdoAppMessage(error.error.message, 'error');  
-              $scope.campaign = {productName: '',Name:'',Description:'',startDate:'',endDate:'',category:[]};          
+              $scope.campaign = {productName: '',Name:'',Description:'',startDate:'',endDate:'',category:[], campaignBannerText:'', campaignTags : [],prodle:''};
+          
             }
           } else{
             $scope.imageSrc = JSON.stringify(imagelocation.success.invoiceimage);
@@ -600,6 +681,36 @@ angular.module('prodo.CampaignApp')
             }
           }
       };
+
+      $scope.assignProdleForCampaign = function(name)
+      {
+               for(var i = 0 ; i<currentorgproducts.success.product.length;i++)
+               {
+                    if(name === currentorgproducts.success.product[i].name)
+                    {
+                      $scope.campaign.prodle = currentorgproducts.success.product[i].prodle;
+                    }
+               }
+      };
+
+      $scope.showBannerImageUpload = function()
+      {
+                    $scope.showBanner = 1;
+                    $scope.errorForImproperBanner = '';
+      };
+
+      $scope.showBannerText = function()
+      { 
+                    $scope.showBanner = 2;
+                    $scope.errorForImproperBanner = '';
+      };
+
+      $scope.showCampaignExpired = 0;
+      $scope.showExpiredCampaigns = function()
+      {
+               $scope.showCampaignExpired = 1;
+      };
+
        var cleanupEventcampaignUploadResponseSuccess = $scope.$on("campaignUploadResponseSuccess",function(event,message){
 
        });
@@ -620,6 +731,7 @@ angular.module('prodo.CampaignApp')
               cleanupeventcampaignpublishsuccess();
               cleanupeventcampaignpublisherror();
               cleanupeventcampaignbannerupdate();
+
     });
 }]);
 

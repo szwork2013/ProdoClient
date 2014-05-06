@@ -42,8 +42,8 @@ angular.module('prodo.CampaignApp')
     var campaignArtworkDelete = { Product: $resource('/api/productcampaign/image/:orgid/:campaign_id?camimageids=:data', {}, {deleteCampaignImage: { method: 'DELETE', params: {orgid:'@orgid', campaign_id:'@campaign_id', data: '@data' }}})};// var deleteSelectedCampaign = { Product: $resource('/api/productcampaign/:orgid/:campaign_id', {}, { deleteCampaign: { method: 'DELETE' , params : {orgid : '@orgid' , campaign_id:'@campaign_id'}} }) };
     var publishCampaignStart = { Product: $resource('/api/campaignpublish/:orgid/:campaign_id', {}, { publishCampaignContent: { method: 'POST', params : {orgid : '@orgid' , campaign_id:'@campaign_id'} } }) };
     var products = {};
-    products.createCampaign = function (campaignContent,prodle) {
-      addCampaign.Product.addCampaignContent({ orgid:$rootScope.usersession.currentUser.org.orgid, prodle:prodle}, campaignContent, function (success) {
+    products.createCampaign = function (campaignContent,prodle) {    
+      addCampaign.Product.addCampaignContent({ orgid:$rootScope.usersession.currentUser.org.orgid, prodle:prodle}, {'campaigndata':campaignContent} , function (success) {
         $log.debug(success);
         $rootScope.$broadcast('campaignAddedSuccessfully', success);
       }), function (error) {
