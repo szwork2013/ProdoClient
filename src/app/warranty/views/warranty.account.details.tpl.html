@@ -653,22 +653,13 @@
        
         <div id="#invoice-img-div" ng-show="OpenInvoiceImage" class="row" >
 
-
-
-   
-          
-    <center>
-
+   <center>
       <object ng-if="warranty.invoice_image.filetype=='application/pdf' " class="prodo-pdf" type="application/pdf" data='{{warranty.invoice_image.image}}'></object>
-
 			<img ng-if="warranty.invoice_image.filetype !=='application/pdf' " ng-src="{{warranty.invoice_image.image}}" alt="..."  class="wall-warranty-invoice-img prodo-invoiceImage img-rounded">
-		</center>
-<br><br>
+	</center>
+    <br><br>
      <div    ng-app="prodo.UploadApp" ng-controller="UploadController"  >
-    
-
-
-          <center>
+              <center>
               <div class="controls" > <form id="fileInputsUploadwarranty">
                 <span class="btn btn-primary fileinput-button controls-upload prodo-uploadBtnWidth" >
                 <i class="glyphicon glyphicon-upload "></i>

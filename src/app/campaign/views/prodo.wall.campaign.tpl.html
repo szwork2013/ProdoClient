@@ -32,9 +32,9 @@
            <p class="prodo-CampaignName" >{{campaign.name}}</p>
         <img  ng-if="campaign.banner_image.image" ng-src="{{campaign.banner_image.image}}" alt-SRC src="../assets/images/if_no_org_images_available.jpg"  class="prodo-campaignBanner img-rounded" />
       
-       <div  class="prodo-bannerTextBg" >
+       <div  class="prodo-bannerTextBg" ng-if="campaign.bannertext">
         <div class="area" >
-       Who will be prime minister of India?
+             {{campaign.bannertext}}
        </div>     
       </div>    
 <!-- campaign data icons -->
