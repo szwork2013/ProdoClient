@@ -61,6 +61,14 @@
   });
 }])
 
+.factory('CommentTags', ['$resource', function($resource) {
+  return $resource('/api/commenttags', {},
+  {
+    getCommentTags: {method: 'GET'}
+  });
+}])
+
+
 .factory('isLoggedin', ['$resource', function($resource) {
   return $resource('/api/isloggedin', {},
   {

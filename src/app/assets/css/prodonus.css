@@ -1084,6 +1084,21 @@ border-bottom-left-radius: 0px;
 .featureTabs:hover{
 	background-color:#85838B;
 }
+
+.campaignFeatureTabs{
+	display:inline-block;
+	background-color:palevioletred;
+	color:white;
+	margin-right:2px;
+	margin-bottom:4px;
+	border-radius:5px;
+	padding:2px;
+	margin-top:2px;
+}
+.campaignFeatureTabs:hover{
+	background-color:lightpink;
+}
+
 #prodo-view-navbar{
   margin-top: 0px;
   padding: 5px;
@@ -1572,7 +1587,7 @@ ul {list-style-type: none; }
 .prodo-featureDescription{word-wrap: break-word;width: 20%; word-break: break-word;}
 .prodo-descriptionDisplay{word-wrap: break-word;width: 98%; word-break: break-word;}
 .prodo-CategoryUl{margin-bottom: -20px;word-wrap: break-word;
-width: 95%;overflow-x: hidden;overflow-y: auto;left: 40px;position: relative;top: -20px;}
+width: 90%;overflow-x: hidden;overflow-y: auto;left: 55px;position: relative;top: -20px;}
 .prodo-userAvatar{height:50px; width:50px}
 .prodo-modal-user{ left:200px}
 .prodo-userImg{height:90px;width:90px;}
@@ -1728,7 +1743,7 @@ margin-bottom: 10px;
 .prodo-delImgs{margin-bottom: 10px;}
 .prodo-checkbox{height: 17px;width: 17px;}
 .prodo-product-Invalid{color:red;}
-.prodo-productwallCenterProduct{padding-right: 100px;}
+.prodo-productwallCenterProduct{padding-right: 70px;}
 #prodo-font{font-size: 13px;}
 #img2{text-align: center;}
 .prodo-categoryTags{
@@ -1847,6 +1862,7 @@ padding: 5px;
 
  
 /*warranty*/
+.prodo-pdf{height:700px; width:100%;}
 .list-animate-item-warranty {-webkit-transition: color 0.6s, background-color 0.3s;-moz-transition: color 0.6s, background-color 0.3s;-ms-transition: color 0.6s, background-color 0.3s; transition: color 0.6s, background-color 0.3s; }
 list-animate-item-warranty.new-item {-webkit-animation: fadeIn 1s;-moz-animation: fadeIn 1s;-ms-animation: fadeIn 1s;animation: fadeIn 1s;} 
 list-animate-item-warranty.removed-item {-webkit-animation: fadeOut 1s;-moz-animation: fadeOut 1s;-ms-animation: fadeOut 1s;animation: fadeOut 1s;}
@@ -2786,4 +2802,80 @@ left: 173px;
 /*Campaign wall*/
 .prodo-campaignBanner{	max-width: 610px;max-height: 100px;width: 80%;margin-left: 50px;}
 .prodo-CampaignName{font-weight: bolder;font-size: 20px; margin-left: 50px;}
+
+
+.prodo-bannerTextBg{
+max-height: 100px;
+ 	max-width: 610px;
+   margin: 10px;
+ 	width: 75%;
+  padding: 10px;
+   margin-left: 70px;
+   background: #3987A5;
+   color: #fff;
+     font-size: 18px;
+   font-weight: bold;
+   /*line-height: 1.3em;*/
+   border: 2px dashed #fff;
+   border-radius: 10px;
+   box-shadow: 0 0 0 4px #3987A5, 2px 1px 6px 4px rgba(10, 10, 0, 0.5);
+   text-shadow: -1px -1px #3987A5;
+   font-weight: normal;
+}
+.area{
+  text-align:center;
+  font-size:1em;
+  color:#fff;
+  font-weight:400;
+  animation:blur 1.5s ease-out infinite;
+  text-shadow:0px 0px 3px #fff,
+      0px 0px 4px #fff;
+}
+
+@-webkit-keyframes blur{
+  from{
+      text-shadow:0px 0px 10px #fff,
+      0px 0px 10px #fff, 
+      0px 0px 25px #fff,
+      0px 0px 25px #fff,
+      0px 0px 25px #fff,
+      0px 0px 25px #fff,
+      0px 0px 25px #fff,
+      0px 0px 25px #fff,
+      0px 0px 50px #fff,
+      0px 0px 50px #fff,
+      0px 0px 50px #7B96B8,
+      0px 0px 150px #7B96B8,
+      0px 10px 100px #7B96B8,
+      0px 10px 100px #7B96B8,
+      0px 10px 100px #7B96B8,
+      0px 10px 100px #7B96B8,
+      0px -10px 100px #7B96B8,
+      0px -10px 100px #7B96B8;}
+}
+@keyframes blur{
+  from{
+      text-shadow:0px 0px 10px #fff,
+      0px 0px 10px #fff, 
+      0px 0px 25px #fff,
+      0px 0px 25px #fff,
+      0px 0px 25px #fff,
+      0px 0px 25px #fff,
+      0px 0px 25px #fff,
+      0px 0px 25px #fff,
+      0px 0px 50px #fff,
+      0px 0px 50px #fff,
+      0px 0px 50px #7B96B8,
+      0px 0px 150px #7B96B8,
+      0px 10px 100px #7B96B8,
+      0px 10px 100px #7B96B8,
+      0px 10px 100px #7B96B8,
+      0px 10px 100px #7B96B8,
+      0px -10px 100px #7B96B8,
+      0px -10px 100px #7B96B8;}
+}
+
+/*/////////////////////////////////*/
+
+
 /*Campaign wall*/

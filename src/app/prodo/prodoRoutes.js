@@ -302,6 +302,9 @@ angular.module('prodo.ProdonusApp')
           },
            allproductCategories: function(CategoryTags, $rootScope) {
            return CategoryTags.getCategoryTags().$promise;
+        },
+        allCommentTags: function(CommentTags, $rootScope) {
+           return CommentTags.getCommentTags().$promise;
         }
       }
       })

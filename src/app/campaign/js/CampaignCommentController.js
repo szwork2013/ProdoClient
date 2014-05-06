@@ -103,7 +103,7 @@ $scope.getTagsFromCommentText = function () {
   }
   $scope.mytags = new_arr; //tags from comment text
   //feature tags
-  $scope.myFeaturetags = $scope.featuretags;
+  $scope.myFeaturetags = $scope.featuretags.concat($scope.campaignFeaturestags);
   var new_arr = [];
   if ($scope.commenttextField.userComment) {
     var commenttextTags = commenttext.split(' ');
@@ -152,7 +152,7 @@ $scope.makeTagsPair = function (noun, adj) {
       tag: adj[i]
     });
   }
-
+ $scope.features=$scope.features.concat($scope.campaignFeatures);
   for (var i = 0; i < $scope.features.length; i++) {
     for (j = 0; j < $scope.tagPairs.length; j++) {
       if ($scope.features[i].featurename == $scope.tagPairs[j].featurename) {
