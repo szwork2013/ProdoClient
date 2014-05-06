@@ -334,7 +334,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
           commenttags:$scope.commenttags
         }
       };
-       $log.debug($scope.newProduct);
+
       if ($rootScope.usersession.currentUser.org.isAdmin == true) {
         ProductService.saveProduct({
           orgid: $scope.orgidFromSession
@@ -780,7 +780,7 @@ $scope.handledeleteProductImagesError=function(error){
       }
     else{
 
-    console.log(data);
+
     if (data !== undefined || data !== null || data !== "") {
       if ($rootScope.isAdminCheck == true) {
         ProductFeatureService.updateFeature({
