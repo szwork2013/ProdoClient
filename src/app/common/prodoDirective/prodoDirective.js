@@ -429,11 +429,13 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
                               {
                                   if(data.error.code==="AD001")                       
                                   {
-                                      $rootScope.ProdoAppMessage(data.error.message,'error');
+                                      //$rootScope.ProdoAppMessage(data.error.message,'error');
+                                      scope.errors="No products found for \n '" + $rootScope.orgdata.name+"'";
                                    }
                                    else
                                    {
-                                        $rootScope.ProdoAppMessage(data.error.message,'error');
+                                        //$rootScope.ProdoAppMessage(data.error.message,'error');
+                                        scope.errors="No products found for \n '" + $rootScope.orgdata.name+"'";
                                    }
                               }
                          else if(data.success)
