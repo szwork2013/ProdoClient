@@ -96,7 +96,7 @@ angular.module('prodo.ProdoWallApp').controller('ProdoDashboardController', [
         else if(pieChartProdle.error)
         {
            // $rootScope.ProdoAppMessage(pieChartProdle.error.message,'error');
-           $rootScope.ProdoAppMessage('Dashboard chart data not available','error');
+           //$rootScope.ProdoAppMessage('Dashboard chart data not available','error');
         }
         else
         {
@@ -112,6 +112,11 @@ angular.module('prodo.ProdoWallApp').controller('ProdoDashboardController', [
              $scope.showBarChart = 1;
        }
     };
+
+    if(pieChartProdle === undefined)
+    {
+        $rootScope.ProdoAppMessage("There is some issue with the server! Please try again after some time",'error');
+    }
 
     // if(barChartProdle !== undefined)
     // {
