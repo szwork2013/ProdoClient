@@ -2803,6 +2803,10 @@ left: 173px;
 .prodo-campaignBanner{	max-width: 610px;max-height: 100px;width: 80%;margin-left: 50px;}
 .prodo-CampaignName{font-weight: bolder;font-size: 20px; margin-left: 50px;}
 
+.disableEditingMode[readonly]{
+cursor: context-menu;
+background-color: #fff;
+}
 
 .prodo-bannerTextBg{
 max-height: 100px;
