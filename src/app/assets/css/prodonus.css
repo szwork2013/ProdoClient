@@ -1112,6 +1112,17 @@ border-bottom-left-radius: 0px;
 .commentCategoryTabs:hover{
 	background-color:darkblue;
 }
+
+.commentCategoryTabsSelected{
+display:inline-block;
+	background-color:darkblue;
+	color:white;
+	margin-right:2px;
+	margin-bottom:4px;
+	border-radius:5px;
+	padding:2px;
+	margin-top:2px;
+}
 #prodo-view-navbar{
   margin-top: 0px;
   padding: 5px;

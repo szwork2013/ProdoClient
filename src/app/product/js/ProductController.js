@@ -33,9 +33,18 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
     
     //  });
     
+    $scope.searchBy={
+      type:['general','category']
+    }
+
+ $scope.searchBySelected={
+      type:'general'
+    }
+
     $scope.commenttagSelected={
       tag:'general'
     };
+    $scope.isCollapsedSearch=1;
    $rootScope.comment_image_l=[];
   $rootScope.file_data ="";
   $rootScope.count=0;
@@ -349,6 +358,12 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
   };
   //date format
 
+$scope.showSearchCategories=function(){
+$scope.isCollapsedSearch=0;
+};
 
+$scope.hideSearchCategories=function(){
+$scope.isCollapsedSearch=1;
+};
 
 }])
