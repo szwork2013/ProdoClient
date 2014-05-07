@@ -263,7 +263,12 @@ $scope.handleGetCampaignSuccess=function(successData){
 
 $scope.CheckIfAlreadyFollowingCampaign=function(){
   var follow;
-if($rootScope.usersession.currentUser){
+  $log.debug("...........");
+  $log.debug($rootScope.usersession.currentUser.campaign_followed);
+  if($rootScope.usersession.currentUser){
+  if($rootScope.usersession.currentUser.campaign_followed){
+  
+   
       for (i = 0; i < $rootScope.usersession.currentUser.campaign_followed.length; i++) {
       if ($rootScope.usersession.currentUser.campaign_followed[i].campaign_id == $rootScope.campaignidWall) {
         follow = true;
@@ -273,12 +278,24 @@ if($rootScope.usersession.currentUser){
       return {
         display: "none"
       }
-
-    } else return {
+    } else {
+       return {
       display: "inline"
+     }
     }
-}
-else display:"none"
+   }
+     else {
+       return {
+      display: "inline"
+     }
+    }
+
+  }
+  else {
+       return {
+      display: "inline"
+     }
+    }
 
 };
 

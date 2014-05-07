@@ -283,9 +283,14 @@ function (successData) {
     }
 
     var follow;
-     for (i = 0; i < $rootScope.usersession.currentUser.campaign_followed.length; i++) {
-      if ($rootScope.usersession.currentUser.campaign_followed[i].campaign_id == $rootScope.campaignidWall) {
-        follow = true;
+
+    if($rootScope.usersession.currentUser){
+     if($rootScope.usersession.currentUser.campaign_followed){
+       for (i = 0; i < $rootScope.usersession.currentUser.campaign_followed.length; i++) {
+          if ($rootScope.usersession.currentUser.campaign_followed[i].campaign_id == $rootScope.campaignidWall) {
+            follow = true;
+          }
+        }
       }
     }
     if (follow == true) {

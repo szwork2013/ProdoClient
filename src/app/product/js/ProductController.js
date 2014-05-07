@@ -34,7 +34,7 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
     //  });
     
     $scope.commenttagSelected={
-      tag:''
+      tag:'general'
     };
    $rootScope.comment_image_l=[];
   $rootScope.file_data ="";
