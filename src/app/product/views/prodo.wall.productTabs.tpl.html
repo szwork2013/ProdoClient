@@ -92,7 +92,7 @@
         <ul id="commentTab" class=" commentTab nav nav-pills" ng-init="tabForComment.tabSearch = false;
           tabForComment.tabComment = true" >
           <li class="Pcomment" ng-class="{active2 : tabForComment.tabComment == 1}" >
-            <a  class="prodo-cursor" id="prodoCommentTab" ng-click="tabForComment.tabComment = true; tabForComment.tabSearch=false; searchComment.search='' "  >
+            <a  class="prodo-cursor" id="prodoCommentTab" ng-click="tabForComment.tabComment = true; tabForComment.tabSearch=false; searchComment.search=''; hideSearchCategories();"  >
               <div   id="fa-removeComment" name="rm" class=" fa fa-comments-o fa-lg  " ></div>
             </a>
           </li>
