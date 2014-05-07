@@ -189,10 +189,10 @@ angular.module('prodo.CampaignApp')
 
  // function to send and stringify user registration data to Rest APIs
     $scope.jsonOrgCampaignData = function(){
-      // if($scope.showBanner === 1)
-      // {
-      //   $scope.campaign.campaignBannerText = '';
-      // }
+      if($scope.showBanner === 1)
+      {
+        $scope.campaign.campaignBannerText = undefined;
+      }
       var Data = 
       {
         
