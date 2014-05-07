@@ -135,7 +135,7 @@
         
   
 
-		<tr >
+		<tr ng-if="campaignExpired === 0">
 			<td  >Artwork: </td> 
 			<td  >      
 			    <div class="manage-Campaign-td2 manage-campaign-marginbottom" >
@@ -154,7 +154,7 @@
 		    </td>
 		</tr>	
 
-		<tr >
+		<tr ng-if="campaignExpired === 0">
 			<td  >Change Banner Image: </td> 
 			<td  popover-placement="right" popover="Uploading banner image will automically remove banner text" popover-trigger="mouseenter">      
 			     <div class="manage-Campaign-td2 manage-campaign-marginbottom" >
@@ -200,7 +200,7 @@
 
           <tr>
             <td style="padding-bottom:5%;">
-            	<input type="text" ng-model="currentCampaign.productname" typeahead="name for name in productlist" popover-placement="right" popover="Please select product name from typeahead" popover-trigger="mouseenter" class="form-control" typeahead-on-select="">       
+            	<input type="text" ng-model="currentCampaign.productname" typeahead="name for name in productlist | filter:$viewValue" popover-placement="right" popover="Please select product name from typeahead" popover-trigger="mouseenter" class="form-control" typeahead-on-select="">       
 			  	<div class="error-message-registration" ng-if="errorForInvalidProduct !== '' "ng-bind="errorForInvalidProduct"></div>
 			</td>
           </tr>
@@ -330,7 +330,7 @@
       <div class="manage-Campaign-tr">
 		<div class="manage-Campaign-td1">*Product Name:</div> 
         <div class="manage-Campaign-td2">  
-             <input type="text" ng-model="campaign.productName" typeahead="name for name in productlist" popover-placement="right" popover="Please select product name from typeahead" popover-trigger="mouseenter" class="form-control" typeahead-on-select="assignProdleForCampaign(campaign.productName)">    
+             <input type="text" ng-model="campaign.productName" typeahead="name for name in productlist | filter:$viewValue" popover-placement="right" popover="Please select product name from typeahead" popover-trigger="mouseenter" class="form-control" typeahead-on-select="assignProdleForCampaign(campaign.productName)">    
 			 <div class="error-message-registration" ng-if="errorForInvalidProduct !== '' "ng-bind="errorForInvalidProduct"></div> 
 		</div>
 	  </div>
