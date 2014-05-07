@@ -261,6 +261,69 @@ $scope.handleGetCampaignSuccess=function(successData){
 
 };
 
+$scope.CheckIfAlreadyFollowingCampaign=function(){
+  var follow;
+if($rootScope.usersession.currentUser){
+      for (i = 0; i < $rootScope.usersession.currentUser.campaign_followed.length; i++) {
+      if ($rootScope.usersession.currentUser.campaign_followed[i].campaign_id == $rootScope.campaignidWall) {
+        follow = true;
+      }
+    }
+    if (follow == true) {
+      return {
+        display: "none"
+      }
 
+    } else return {
+      display: "inline"
+    }
+}
+else display:"none"
+
+};
+
+$scope.followCurrentCampaign=function(campaignid){
+$log.debug(campaignid);
+CampaignWallService.follow.followCampaign( {
+        campaign_id: campaignid
+      }, function (successData) {
+      if (successData.success == undefined) { //if not product
+          $scope.handleFollowCampaignError(successData.error);
+      } else {
+          $scope.handleFollowCampaignSuccess(successData); 
+      }
+      }, function (error) { //if error geting product
+        $log.debug(error);
+       $rootScope.ProdoAppMessage("Server Error:" + error.status, 'error');
+     
+    });
+
+
+
+};
+
+ $scope.handleFollowCampaignError=function(error){
+  //error code check here
+  $log.debug(error);
+    if(error.code=='AL001'){
+      $rootScope.showModal();
+    }
+    else{
+      $rootScope.ProdoAppMessage(error.message, 'error');
+   }     
+ };
+
+  $scope.handleFollowCampaignSuccess=function(successData){
+    $log.debug(successData);
+   if(successData.success){
+    $rootScope.ProdoAppMessage("You are following this campaign, Start commenting to win exciting prices :)", 'success');
+     $rootScope.usersession.currentUser.campaign_followed.unshift({
+      orgid:$scope.campaign.orgid,
+      prodle:$scope.campaign.prodle,
+      campaign_id:$rootScope.campaignidWall
+      });
+        $("#prodo-followBtncampaign").css("display", "none");
+  }
+};
 
 }]);
