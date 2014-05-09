@@ -278,8 +278,6 @@ $scope.handleGetCampaignSuccess=function(successData){
 
 $scope.CheckIfAlreadyFollowingCampaign=function(){
   var follow;
-  $log.debug("...........");
-  $log.debug($rootScope.usersession.currentUser.campaign_followed);
   if($rootScope.usersession.currentUser){
   if($rootScope.usersession.currentUser.campaign_followed){
   
