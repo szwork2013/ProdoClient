@@ -52,14 +52,8 @@ angular.module('prodo.CampaignApp')
   $rootScope.file_data ="";
   $rootScope.count=0;
 
-  $scope.campaignFeatures=[
-      {
-        "featureid": "11111",
-        "featurename": "campaign123",
-        "featuredescription": "campaign tag"
-      }
-    ];
-  $scope.campaignFeaturestags=['campaign123','campaign222'];
+  $scope.campaignFeatures=[];
+  $scope.campaignFeaturestags=[];
 
    if($rootScope.campaign_idwall !== "" || $rootScope.campaign_idwall !== undefined){
        $scope.$watch('$state.$current.locals.globals.campaignWalldata', function (campaignWalldata) {
@@ -103,6 +97,13 @@ angular.module('prodo.CampaignApp')
 	        $scope.allCampaignData=campaignWalldata.success.Product_Campaigns;
 	        $scope.campaign=$scope.allCampaignData[0];
           $rootScope.campaignidWall=$scope.campaign.campaign_id;
+          if($scope.campaign.campaign_tags){
+            for (i = 0; i < $scope.campaign.campaign_tags.length; i++) {
+              $scope.campaignFeatures.push($scope.campaign.campaign_tags[i]);
+               $scope.campaignFeaturestags.push($scope.campaign.campaign_tags[i].featurename);
+            }
+         }
+        
           $log.debug("assigned campaignid"+$rootScope.campaignidWall);
           if($scope.campaign.campaign_comments){
              $scope.productComments=$scope.campaign.campaign_comments;
