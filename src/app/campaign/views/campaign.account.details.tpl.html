@@ -368,14 +368,26 @@
 
 		     <input ng-click="restrictEndDates()" type="text" placeholder="Please select end date" ng-model="campaign.endDate" class="form-control disableEditingMode" name="endDates" datepicker-popup="{{format}}"  is-open="opened3" min="restrictEndDate"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" style="width:48%;float:right;" readonly="true"/>
 
-				
+		
 	      <div class="error-message-registration" ng-if="errorForCampaignStart !=='' " ng-bind = "errorForCampaignStart" style="width:48%;float:left"></div>
 		  <div class="error-message-registration" ng-if="errorForInvalidEnddate !=='' " ng-bind = "errorForInvalidEnddate" style="width:48%;float:right"></div>
 
 
 	     </div>
 	  </div>
-                              				
+
+<!--  	 <div class="manage-Campaign-tr" style="margin-bottom:20%;">
+		  <div class="manage-Campaign-td1" style="width:48%;float:left">*Start Time: </div> <div class="manage-Campaign-td1" style="width:48%;float:right">*End Time: </div>
+		  <div class="manage-Campaign-td2"> 
+
+	          <timepicker ng-model="mytime" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" style="width:48%;float:left;"></timepicker>
+
+	          <timepicker ng-model="mytime" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" style="width:48%;float:right;"></timepicker>
+           {{mytime}}
+	      </div>
+	  </div> -->
+
+                     				
 	  <div class="manage-Campaign-tr">
            <div class="manage-Campaign-td1">*Targeted Audience:  </div>
            <div class="manage-Campaign-td2 manage-campaign-marginbottom" popover-placement="right" popover="Press enter after entering text" popover-trigger="mouseenter">

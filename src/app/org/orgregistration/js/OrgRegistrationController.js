@@ -10,7 +10,7 @@ angular.module('prodo.OrgApp')
 
     $scope.org = OrgModel;   // assining OrgModel service to org to update org model data
 
-    $scope.regexForEmail = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+    $scope.regexForEmail = /^[a-z][a-z0-9_\.\-]*@[a-z0-9\.\-]+\.[a-z]{2,4}$/i;
 
     $scope.$state=$state;
 
