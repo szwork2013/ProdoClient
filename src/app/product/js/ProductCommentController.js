@@ -129,7 +129,7 @@ $scope.socket.on($scope.productcommentResponseListener, function (error, result)
         datecreated: result.success.product_comment.datecreated,
         commenttext: result.success.product_comment.commenttext,
         analytics: result.success.product_comment.analytics,
-        commenttag:result.success.product_comment.commenttags
+        commentcategory:result.success.product_comment.commentcategory
 
       }
     };
@@ -281,7 +281,7 @@ function (successData) {
           tags: $scope.mytags,
           commenttext: $scope.commenttextField.userComment,
           analytics: $scope.tagPairs,
-          commenttag:$scope.commenttagSelected.tag
+          commentcategory:$scope.commenttagSelected.tag
 
         }
       };
@@ -301,7 +301,7 @@ function (successData) {
           tags: $scope.mytags,
           commenttext: $scope.commenttextField.userComment,
           analytics: $scope.tagPairs,
-          commenttag:$scope.commenttagSelected.tag
+          commentcategory:$scope.commenttagSelected.tag
 
         }
       };
@@ -323,7 +323,7 @@ function (successData) {
           tags: $scope.mytags,
           comment_image: $rootScope.file_data,
           analytics: $scope.tagPairs,
-          commenttag:$scope.commenttagSelected.tag
+          commentcategory:$scope.commenttagSelected.tag
         }
       };
 
@@ -343,7 +343,7 @@ function (successData) {
           commenttext: $scope.commenttextField.userComment,
           comment_image: $rootScope.comment_image_l,
           analytics: $scope.tagPairs,
-          commenttag:$scope.commenttagSelected.tag
+          commentcategory:$scope.commenttagSelected.tag
         }
       };
       $rootScope.file_data = "";
@@ -416,7 +416,7 @@ function (successData) {
           tags: $scope.mytags,
           commenttext: comment.commenttext,
           analytics: $scope.tagPairs,
-          commenttag:comment.commenttags
+          commentcategory:comment.commentcategory
 
         }
       };
@@ -436,7 +436,7 @@ function (successData) {
           tags: $scope.mytags,
           commenttext: comment.commenttext,
           analytics: $scope.tagPairs,
-          commenttag:comment.commenttags
+          commentcategory:comment.commentcategory
 
         }
       };
@@ -458,7 +458,7 @@ function (successData) {
           tags: $scope.mytags,
           comment_image: $rootScope.file_data,
           analytics: $scope.tagPairs,
-          commenttag:comment.commenttags
+          commentcategory:comment.commentcategory
         }
       };
 
@@ -478,7 +478,7 @@ function (successData) {
           commenttext: comment.commenttext,
           comment_image: $rootScope.comment_image_l,
           analytics: $scope.tagPairs,
-          commenttag:comment.commenttags
+          commentcategory:comment.commentcategory
         }
       };
       $rootScope.file_data = "";

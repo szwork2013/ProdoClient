@@ -19,7 +19,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
   $scope.editStatus;
   $scope.edit;
   $scope.category=[];
-  $scope.commenttags=[];
+  $scope.commentcategory=[];
   $scope.product = {
     product: [{}]
   };
@@ -322,7 +322,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
     if($scope.category.length==0 ){
       $rootScope.ProdoAppMessage("Please add category", 'error');
   } 
-   else if($scope.commenttags.length==0 ){
+   else if($scope.commentcategory.length==0 ){
       $rootScope.ProdoAppMessage("Please add comment tags", 'error');
   } 
   else{
@@ -335,7 +335,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
           display_name: $scope.product.display_name,
           description: $scope.product.description,
           category:$scope.category,
-          commenttags:$scope.commenttags
+          commentcategorycommentcategory:$scope.commentcategorycommentcategory
         }
       };
 
@@ -346,7 +346,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
           if(success.success){
            $scope.newProduct_ResponseProdle=success.success.prodle;
            $scope.category=[];
-           $scope.commenttags=[];
+           $scope.commentcategorycommentcategory=[];
            $scope.disableEditor();
            $('#productExtraInfo').css('display','block'); 
           }
@@ -370,7 +370,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
         $rootScope.ProdoAppMessage("Please add category", 'error');
 
     }
-     else if($scope.product.commenttags.length==0 ){
+     else if($scope.product.commentcategory.length==0 ){
 
         $rootScope.ProdoAppMessage("Please add comment tags", 'error');
 
@@ -387,7 +387,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
           banneddate: $scope.product.banneddate,
           display_name: $scope.product.display_name,
           category:$scope.product.category,
-          commenttags:$scope.product.commenttags
+          commentcategory:$scope.product.commentcategory
         
         }
       };
@@ -835,7 +835,7 @@ $scope.handledeleteProductImagesError=function(error){
     $scope.editMode.editorEnabled = false;
     $scope.productForm.submitted=false;
     $scope.feature = "";
-    $scope.commenttags=[];
+    $scope.commentcategory=[];
     $scope.category=[];
     if ($scope.currentProdle == undefined || $scope.currentProdle == null || $scope.currentProdle == "") {
       $("#prodo-ProductDetails").css("display", "none");

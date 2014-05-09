@@ -47,8 +47,8 @@ $scope.searchCommentBy;
       value: 'commenttext'
     },
     {
-      name: 'category',
-      value: 'commenttag'
+      name: 'commentcategory',
+      value: 'commentcategory'
     }
   ];
 
