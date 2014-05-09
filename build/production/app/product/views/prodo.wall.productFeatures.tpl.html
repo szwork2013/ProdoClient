@@ -165,9 +165,9 @@
         </td>
         </tr>
         <tr>
-            <td colspan="2" ng-show="product.commenttags" >Comment tags:  &nbsp;
+            <td colspan="2" ng-show="product.commentcategory" >Comment tags:  &nbsp;
              <ul class="prodo-CategoryUl" >
-              <li ng-repeat="commenttags in product.commenttags track by $index" class=" prodo-categoryTags" >  <span ng-bind="commenttags" > </span>
+              <li ng-repeat="commentcategory in product.commentcategory track by $index" class=" prodo-categoryTags" >  <span ng-bind="commentcategory" > </span>
               </li>
             </ul>
            </td>
@@ -219,10 +219,10 @@
             <td  colspan="2">Comment tags   
 
 
-            <tags-input ng-show="(editStatus=='add')" list="listProductCategories.commenttagsList" minTags="1" add-on-blur="true"  ng-model="commenttags" min-length="1" placeholder="Special symbols (eg. @,-,# etc ) are not allowed.">
+            <tags-input ng-show="(editStatus=='add')" list="listProductCategories.commenttagsList" minTags="1" add-on-blur="true"  ng-model="commentcategory" min-length="1" placeholder="Special symbols (eg. @,-,# etc ) are not allowed.">
             </tags-input>
 
-              <tags-input ng-show="(editStatus=='update')" list="listProductCategories.commenttagsList" minTags="1" add-on-blur="true" ng-model="product.commenttags"   min-length="1" placeholder="Special symbols (eg. @,-,# etc ) are not allowed." ></tags-input>               
+              <tags-input ng-show="(editStatus=='update')" list="listProductCategories.commenttagsList" minTags="1" add-on-blur="true" ng-model="product.commentcategory"   min-length="1" placeholder="Special symbols (eg. @,-,# etc ) are not allowed." ></tags-input>               
             </td>
           </tr>
 
