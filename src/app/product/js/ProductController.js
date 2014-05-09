@@ -237,7 +237,7 @@ $scope.searchCommentBy;
       $log.debug(error);
       $("#prodo-ProductDetails").css("display", "none");
       $("#ErrMsging").css("display", "inline");
-      document.getElementById("ErrMsging").innerHTML = "Product not available " + error.message;
+      document.getElementById("ErrMsging").innerHTML =  error.message;
     }
      }
    }
