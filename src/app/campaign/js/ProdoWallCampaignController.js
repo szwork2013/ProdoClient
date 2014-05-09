@@ -2,12 +2,27 @@ angular.module('prodo.CampaignApp')
  .controller('ProdoWallCampaignController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$log',  'checkIfSessionExist','campaignWalldata','CampaignWallService' ,'ProductFeatureService','UserSessionService', function($scope, $rootScope, $state, $http, $timeout, $log,  checkIfSessionExist,campaignWalldata,CampaignWallService,ProductFeatureService,UserSessionService) {
    // console.log('campaign controller initializing..');
    $log.debug( campaignWalldata.success);
-     $scope.productComments = {
+  
+  $scope.searchCommentBy;
+ $scope.searchBySelected={
+      type:'general'
+    }
+  $scope.searchfields = {};
+  $scope.searchfields = [
+    {
+      name: 'general',
+      value: 'commenttext'
+    }
+  ];
+
+    $scope.commenttagSelected={
+      tag:'general'
+    };
+
+  $scope.productComments = {
     comments: [{}]
   };
-   $scope.searchComment = {
-    search: ''
-  };
+
   $scope.tabForComment={
     tabComment:'true',
     tabSearch:'false'
@@ -15,7 +30,6 @@ angular.module('prodo.CampaignApp')
   $scope.isCollapsed = true;
   $scope.type="campaign";
   $rootScope.campaignidWall;
-  // $scope.searchComment="warranty";
   $scope.newProductComment = [];
   $rootScope.productCommentResponsearray = [];
   $scope.mytags;
@@ -38,14 +52,8 @@ angular.module('prodo.CampaignApp')
   $rootScope.file_data ="";
   $rootScope.count=0;
 
-  $scope.campaignFeatures=[
-      {
-        "featureid": "11111",
-        "featurename": "campaign123",
-        "featuredescription": "campaign tag"
-      }
-    ];
-  $scope.campaignFeaturestags=['campaign123','campaign222'];
+  $scope.campaignFeatures=[];
+  $scope.campaignFeaturestags=[];
 
    if($rootScope.campaign_idwall !== "" || $rootScope.campaign_idwall !== undefined){
        $scope.$watch('$state.$current.locals.globals.campaignWalldata', function (campaignWalldata) {
@@ -69,7 +77,7 @@ angular.module('prodo.CampaignApp')
 
    $scope.preGetProductPrepaireData=function(){
 	    $("#load-more").css("display", "none");
-	    $scope.searchComment.search="";
+	    $scope.searchfields.general='';
 	    $scope.commenttextField.userComment="";
 	    $scope.tabForComment.tabComment = true;
 	    $scope.tabForComment.tabSearch=false;
@@ -89,6 +97,13 @@ angular.module('prodo.CampaignApp')
 	        $scope.allCampaignData=campaignWalldata.success.Product_Campaigns;
 	        $scope.campaign=$scope.allCampaignData[0];
           $rootScope.campaignidWall=$scope.campaign.campaign_id;
+          if($scope.campaign.campaign_tags){
+            for (i = 0; i < $scope.campaign.campaign_tags.length; i++) {
+              $scope.campaignFeatures.push($scope.campaign.campaign_tags[i]);
+               $scope.campaignFeaturestags.push($scope.campaign.campaign_tags[i].featurename);
+            }
+         }
+        
           $log.debug("assigned campaignid"+$rootScope.campaignidWall);
           if($scope.campaign.campaign_comments){
              $scope.productComments=$scope.campaign.campaign_comments;

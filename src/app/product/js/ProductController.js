@@ -33,13 +33,24 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
     
     //  });
     
-    $scope.searchBy={
-      type:['general','category']
-    }
-
+    // $scope.searchBy={
+    //   type:['general','category']
+    // }
+$scope.searchCommentBy;
  $scope.searchBySelected={
       type:'general'
     }
+  $scope.searchfields = {};
+  $scope.searchfields = [
+    {
+      name: 'general',
+      value: 'commenttext'
+    },
+    {
+      name: 'category',
+      value: 'commenttag'
+    }
+  ];
 
     $scope.commenttagSelected={
       tag:'general'
@@ -51,9 +62,8 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
   $scope.productComments = {
     comments: [{}]
   };
-   $scope.searchComment = {
-    search: ''
-  };
+   $scope.searchComment = {};
+    $scope.search = {};
   $scope.tabForComment={
     tabComment:'true',
     tabSearch:'false'
@@ -101,6 +111,18 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
 
   $scope.$state = $state;
 
+
+  // $scope.$watch('searchBySelected.type', function () {
+  //   $scope.searchfields[$scope.searchBySelected.type]='';
+  //   if($scope.searchBySelected.type=='category'){
+  //     $scope.searchCommentBy="commenttag";
+  //   }
+  //   else{
+  //      $scope.searchCommentBy="commenttext";
+  //   }
+  // });
+
+
   //watch prodle if changed by user by product search or any other source
   $rootScope.$watch('product_prodle', function () {
     // $log.debug("Listening" + $rootScope.product_prodle);
@@ -145,7 +167,7 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
      $("#load-more").css("display", "none");
           
     // document.getElementById("prodo-comment-search-Textbox").value="";
-    $scope.searchComment.search="";
+    // $scope.searchComment.search="";
     $scope.commenttextField.userComment="";
     $scope.tabForComment.tabComment = true;
     $scope.tabForComment.tabSearch=false;
