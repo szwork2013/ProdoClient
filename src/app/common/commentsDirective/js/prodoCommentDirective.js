@@ -65,9 +65,10 @@ $scope.handleLoadMoreCommentResponse = function (result) {
     for (var i = 0; i < result.success.comment.length; i++) {
       $scope.productComments.push(result.success.comment[i]);
     };
-    if(result.success.comment.length<6){
-     $("#load-more").css("display", "none");
-    }
+    if((result.success.comment.length)%5 == 0 ){}
+     else{
+      $("#load-more").css("display", "none");
+      }
   } else {
     $("#loadMoreCommentMsg").css("display", "block");
      setTimeout(function(){ $("#loadMoreCommentMsg").hide();},60000);
