@@ -48,7 +48,7 @@
         <ul id="commentTab" class=" commentTab nav nav-pills" ng-init="tabForComment.tabSearch = false;
           tabForComment.tabComment = true" >
           <li class="Pcomment" ng-class="{active2 : tabForComment.tabComment == 1}" >
-            <a  class="prodo-cursor" id="prodoCommentTab" ng-click="tabForComment.tabComment = true; tabForComment.tabSearch=false; searchComment.search='' "  >
+            <a  class="prodo-cursor" id="prodoCommentTab" ng-click="tabForComment.tabComment = true; tabForComment.tabSearch=false; searchfields.general=''; "  >
               <div   id="fa-removeComment" name="rm" class=" fa fa-comments-o fa-lg  " ></div>
             </a>
           </li>
@@ -112,7 +112,7 @@
           </div>
           <div id="Remove" ng-show="tabForComment.tabSearch == true" class="prodo-padding-bottom"  >
             <br>
-            <input ng-model="searchComment.search" class="commentSearchTextbox form-control " id="prodo-comment-search-Textbox"  type="text"   placeholder="Search comments ...">
+            <input  ng-model="searchfields[searchBySelected.type]" class="commentSearchTextbox form-control " id="prodo-comment-search-Textbox"  type="text"   placeholder="Search comments ...">
           </div>
     
         </div>

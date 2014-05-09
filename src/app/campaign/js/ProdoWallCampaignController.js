@@ -2,12 +2,27 @@ angular.module('prodo.CampaignApp')
  .controller('ProdoWallCampaignController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$log',  'checkIfSessionExist','campaignWalldata','CampaignWallService' ,'ProductFeatureService','UserSessionService', function($scope, $rootScope, $state, $http, $timeout, $log,  checkIfSessionExist,campaignWalldata,CampaignWallService,ProductFeatureService,UserSessionService) {
    // console.log('campaign controller initializing..');
    $log.debug( campaignWalldata.success);
-     $scope.productComments = {
+  
+  $scope.searchCommentBy;
+ $scope.searchBySelected={
+      type:'general'
+    }
+  $scope.searchfields = {};
+  $scope.searchfields = [
+    {
+      name: 'general',
+      value: 'commenttext'
+    }
+  ];
+
+    $scope.commenttagSelected={
+      tag:'general'
+    };
+
+  $scope.productComments = {
     comments: [{}]
   };
-   $scope.searchComment = {
-    search: ''
-  };
+
   $scope.tabForComment={
     tabComment:'true',
     tabSearch:'false'
@@ -15,7 +30,6 @@ angular.module('prodo.CampaignApp')
   $scope.isCollapsed = true;
   $scope.type="campaign";
   $rootScope.campaignidWall;
-  // $scope.searchComment="warranty";
   $scope.newProductComment = [];
   $rootScope.productCommentResponsearray = [];
   $scope.mytags;
@@ -69,7 +83,7 @@ angular.module('prodo.CampaignApp')
 
    $scope.preGetProductPrepaireData=function(){
 	    $("#load-more").css("display", "none");
-	    $scope.searchComment.search="";
+	    $scope.searchfields.general='';
 	    $scope.commenttextField.userComment="";
 	    $scope.tabForComment.tabComment = true;
 	    $scope.tabForComment.tabSearch=false;
