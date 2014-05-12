@@ -315,6 +315,11 @@ angular.module('prodo.CampaignApp')
     $scope.restrictEndDates = function()    { $scope.restrictEndDate = $scope.campaign.startDate;  };
 
     $scope.jsonOrgCampaignDataModify = function(){
+
+      if($scope.currentCampaign.bannertext === undefined || $scope.currentCampaign.bannertext ==='')
+      {
+        $scope.currentCampaign.bannertext = '';
+      }
     var Data = 
     {
       "campaigndata":
@@ -324,7 +329,8 @@ angular.module('prodo.CampaignApp')
           'enddate': $scope.currentCampaign.enddate,
           'startdate': $scope.currentCampaign.startdate,
           'description': $scope.currentCampaign.description,
-          'category': $scope.currentCampaign.category
+          'category': $scope.currentCampaign.category,
+          'bannertext' : $scope.currentCampaign.bannertext,
         }  
     };
     return JSON.stringify(Data); 

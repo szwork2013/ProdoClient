@@ -353,26 +353,43 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
     };
   return prodoChart;
 
-}).directive('prodoTrendingchart', function () {
-  var chart = {
-      restrict: 'EA',
-      link: function (scope, elem, attrs) {
-        nv.addGraph(function () {
-          var width = 500, height = 500;
-          var chart = nv.models.pieChart().x(function (d) {
-              return d.emotionname;
-            }).y(function (d) {
-              return d.tagcount;
-            }).color(d3.scale.category10().range()).width(width).height(height);
-          d3.select('#trending').datum(scope.trending).transition().duration(1200).attr('width', width).attr('height', height).call(chart);
-          chart.dispatch.on('stateChange', function (e) {
-            nv.log('New State:', JSON.stringify(e));
-          });
+}).directive('prodoTrendingchart', function () { 
+  var y= 
+  {
+    restrict : 'EA',  
+    link : function(scope,elem,attrs)
+    {
+                 
+         nv.addGraph(function() {
+          var chart = nv.models.multiBarChart()
+            .transitionDuration(350)
+            .reduceXTicks(true)   //If 'false', every single x-axis tick label will be rendered.
+            .rotateLabels(0)      //Angle to rotate x-axis labels.
+            .showControls(true)   //Allow user to switch between 'Grouped' and 'Stacked' mode.
+            .groupSpacing(0.1)    //Distance between each group of bars.
+          ;
+      
+          chart.xAxis
+              .tickFormat(d3.format(',f'));
+      
+          chart.yAxis
+              .tickFormat(d3.format(',.1f'));
+      
+          d3.select('#TrendingChart')
+              .datum(scope.trending())
+              .call(chart);
+      
+          nv.utils.windowResize(chart.update);
+      
           return chart;
-        });
-      }
-    };
-  return chart;
+      });
+
+
+   
+    }
+  };
+
+  return y;
 }).directive('prodoIndia', function () {
   var indiaData = {
       restrict: 'EA',
