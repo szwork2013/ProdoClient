@@ -42,7 +42,7 @@
 		    </div>
 		  </div>
 				
-				<div style="margin: 10px;" ng-show='latestsignups.length != 0'>
+			<div style="margin: 10px;" ng-show='latestsignups.length != 0'>
 		  <br>
 			<h5 class="prodo-home-wall-heading-text-theme">LIST OF ORGANIZATIONS</h5>
 	    <hr size=3 class="prodo-home-wall-hr-theme" noshade>
@@ -106,16 +106,14 @@
 			<h5 class="prodo-home-wall-heading-text-theme">CURRENT CAMPAIGNS</h5>
 	    <hr size=3 class="prodo-home-wall-hr-theme" noshade>
 	    <br>
-			<div  ng-show="(analytics.campaign && analytics.campaign.length != 0)" ng-repeat="analytics in allorganalytics | limitTo:10">
+			<div ng-show="(campaigns.length != 0)" ng-repeat="campaign in campaigns | limitTo:10">
 				<a href="">
-					<div id="campaign-slider-wrapper">
-						<p style="font-size: 18px; font-weight: 300; margin: 0px;" class="truncated-product-name" tooltip="{{analytics.name}}" tooltip-placement="top">{{analytics.name}}</p>	
-						<div id="campaignlayerslider" marketing-slider class="ls-wp-container" style="width:100%;height:80px;">
-							<div ng-show="analytics.campaign" class="ls-slide" ng-repeat="slide in analytics.campaign" ng-click='transitionToCampaignWall(slide.orgid, slide.campaign_id, slide.prodle)' data-ls="transition2d:5;">
-								<img ng-show="slide.banner_image" style="" class="ls-bg" ng-src="{{slide.banner_image.image}}">
-								<img ng-hide="slide.banner_image" style="" class="ls-bg" src="../../../assets/images/if_no_org_images_available.jpg">
-							</div>
-						</div>
+					<p>{{campaign.orgname}}</p>
+					<div style="width:100%;min-height:80px; margin: 2px auto;" ng-click='transitionToCampaignWall(campaign.orgid, campaign.campaign_id, campaign.prodle)'>
+						<img style="width:100%;height:80px;" ng-show= "campaign.banner_image" class="ls-bg" ng-src="{{campaign.banner_image.image}}">
+						<h5 style="padding: 5px;word-wrap:break-word;" ng-show= "campaign.bannertext">
+								{{campaign.bannertext}}
+						</h5>
 					</div>
 				</a>
 			</div>

@@ -1,8 +1,11 @@
 
 angular.module('prodo.ProdoHomeApp')
-	.controller('ProdoHomeController', ['$rootScope', '$scope', '$state', '$log', 'UserSessionService', '$stateParams', 'growl', 'allOrgData','prodoSearchService', 'checkIfSessionExist','trendingProductService', function($rootScope, $scope, $state, $log, UserSessionService, $stateParams, growl, allOrgData, prodoSearchService, checkIfSessionExist, trendingProductService) {
+	.controller('ProdoHomeController', ['$rootScope', '$scope', '$state', '$log', 'UserSessionService', '$stateParams', 'growl', 'allOrgData', 'allCampaignData', 'prodoSearchService', 'checkIfSessionExist','trendingProductService', function($rootScope, $scope, $state, $log, UserSessionService, $stateParams, growl, allOrgData, allCampaignData, prodoSearchService, checkIfSessionExist, trendingProductService) {
 
 
+    console.log(allOrgData);
+    console.log(allCampaignData);
+    $scope.campaigns = [];
 
     $scope.allorganalytics = [];
 
@@ -50,6 +53,7 @@ angular.module('prodo.ProdoHomeApp')
 
     if (allOrgData.success) {
       if (allOrgData.success.organalyticsall.length !== 0) {
+
         $scope.allorganalytics = allOrgData.success.organalyticsall;
       }
 
@@ -61,6 +65,15 @@ angular.module('prodo.ProdoHomeApp')
         $scope.orgsponsers = allOrgData.success.organalyticssponser;
       }
       
+    };
+
+    if (allCampaignData.success) {
+
+      if (allCampaignData.success.campaigns.length !== 0) {
+
+        $scope.campaigns = allCampaignData.success.campaigns;
+      }
+
     };
    
     $scope.transitionToOrgWall = function(orgid){
