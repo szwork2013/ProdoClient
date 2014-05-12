@@ -212,7 +212,7 @@ angular.module('prodo.ProdonusApp')
       abstract: true,
       resolve : {
         OrgService: 'OrgService',
-        industrycategorydata: function(OrgService, $rootScope) {
+        industrycategorydataarray: function(OrgService, $rootScope) {
           return  OrgService.GetOrg_Industry_Category.getAllIndustryCategory().$promise;
         }
       }
