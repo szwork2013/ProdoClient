@@ -77,6 +77,9 @@ angular.module('prodo.ProdonusApp')
         allOrgData: function(OrgService, $rootScope) {
           return OrgService.all_org_data.getAllOrgAnalytics().$promise;
         },
+        allCampaignData: function(HomeService, $rootScope) {
+          return HomeService.all_campaign_data.getAllCampaigns().$promise;
+        },
         checkIfSessionExist: function(UserService, $rootScope) {
             return UserService.Is_user_loggedin.checkUserSession().$promise;
         } 
@@ -209,7 +212,7 @@ angular.module('prodo.ProdonusApp')
       abstract: true,
       resolve : {
         OrgService: 'OrgService',
-        industrycategorydata: function(OrgService, $rootScope) {
+        industrycategorydataarray: function(OrgService, $rootScope) {
           return  OrgService.GetOrg_Industry_Category.getAllIndustryCategory().$promise;
         }
       }
@@ -354,6 +357,9 @@ angular.module('prodo.ProdonusApp')
     })    
     .state('prodo.productwall.wall-org', {
       views: {
+        'prodo-productwall-slider' : {
+          templateUrl:  'prodo/productwall/views/prodo.wall.slider.tpl.html'
+        },
         'prodo-content' : {
           templateUrl:  'org/manageorg/views/prodo.wall.org.tpl.html',
           controller: 'ProdoWallOrgController',
@@ -370,6 +376,9 @@ angular.module('prodo.ProdonusApp')
         }
       },
       views: {
+        'prodo-productwall-slider' : {
+          templateUrl:  'prodo/productwall/views/prodo.wall.slider.tpl.html'
+        },
         'prodo-content' : {
           templateUrl:  'product/views/prodo.wall.productTabs.tpl.html',
           controller: 'ProductController'
@@ -386,6 +395,9 @@ angular.module('prodo.ProdonusApp')
         }
       },
       views: {
+        'prodo-productwall-slider' : {
+          templateUrl:  'prodo/productwall/views/prodo.wall.slider.tpl.html'
+        },
         'prodo-content' : {
           templateUrl:  'warranty/views/prodo.wall.warranty.tpl.html',
           controller: 'ProdoWallWarrantyController',
@@ -415,6 +427,9 @@ angular.module('prodo.ProdonusApp')
             }
           },
       views: {
+        'prodo-productwall-slider' : {
+          templateUrl:  'prodo/productwall/views/prodo.wall.slider.tpl.html'
+        },
         'prodo-content' : {
          templateUrl:  'campaign/views/prodo.wall.campaign.tpl.html',
           controller: 'ProdoWallCampaignController',
@@ -426,8 +441,12 @@ angular.module('prodo.ProdonusApp')
     }) 
     .state('prodo.productwall.wall-blog', {
       views: {
+        'prodo-productwall-slider' : {
+          templateUrl:  'prodo/productwall/views/prodo.wall.slider.tpl.html'
+        },
         'prodo-content' : {
-          templateUrl:  'blog/views/prodo.wall.blog.tpl.html'
+          templateUrl:  'blog/views/prodo.wall.blog.tpl.html',
+          controller: 'ProdoWallBlogController',
         },
         'prodo-advertisment' : {
           templateUrl:  'prodo/productwall/views/prodo.wall.advertisment.tpl.html'
@@ -436,6 +455,9 @@ angular.module('prodo.ProdonusApp')
     }) 
     .state('prodo.productwall.wall-dashboard', {   
       views: {
+        'prodo-productwall-slider' : {
+          templateUrl:  'prodo/productwall/views/prodo.wall.slider.dashboard.tpl.html'
+        },
         'prodo-content' : {
           templateUrl:  'dashboard/views/prodo.wall.dashboard.tpl.html',
           resolve : {
@@ -539,5 +561,29 @@ angular.module('prodo.ProdonusApp')
     .state('prodo.account-campaign.campaign.analytics', {
        templateUrl:  'campaign/views/campaign.account.analytics.tpl.html'
       })
+
+    /* ----Blog Routes---- */
+    .state('prodo.account-blog', {
+      abstract: true,
+      templateUrl: 'blog/views/blog.account.settings.container.html',
+      resolve : {
+        checkIfSessionExist: function(UserService, $rootScope) {
+            return UserService.Is_user_loggedin.checkUserSession().$promise;
+        } 
+      },
+      onEnter: function(UserSessionService, checkIfSessionExist, $state){
+        if (checkIfSessionExist.success) {
+          if (checkIfSessionExist.success.user.prodousertype == 'business' && checkIfSessionExist.success.user.org == undefined) {
+            $state.transitionTo('prodo.orgregistration.company');
+          } else if (checkIfSessionExist.success.user.isOtpPassword) {
+            $state.transitionTo('prodo.landing.resetpassword');
+          } 
+        }
+      }
+    })    
+    .state('prodo.account-blog.blog', {
+      templateUrl:  'blog/views/blog.account.settings.tpl.html',
+      controller: 'ManageBlogController'
+    })
  
   }]);

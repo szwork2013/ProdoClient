@@ -286,7 +286,7 @@ ul.prodoManageOptions a:hover {
 
 /*change the View: marketing div style*/
 #prodo-view-marketing{
-	margin-top: 110px;
+	margin-top: 60px;
 	margin-left: 60px;
 }
 
@@ -299,9 +299,18 @@ ul.prodoManageOptions a:hover {
 /*change the View: marketing text style*/
 #prodo-view-marketing-text{
 	font-weight: normal;
-	margin-left: 20px;
-	font-size: 30px;
+	margin-left: 25px;
+	font-size: 20px;
+	line-height: 25px;
+	text-align: justify;
+}
+
+#prodo-view-marketing-tagline{
+	font-weight: normal;
+	margin-left: 17px;
+	font-size: 25px;
 	line-height: 30px;
+	text-align: justify;
 }
 
 /*change the View: marketing button style*/
@@ -2675,7 +2684,7 @@ vertical-align: bottom;
 }
 
 .wall-broadcast-carousel{
- background-color:  rgb(250, 248, 239);	border: 1px solid #9FBACC; font-size:20px; font-weight: 100; font-family:monospace; padding: 10px; border-radius: 6px; min-height: 40px;
+ background-color:  rgb(250, 248, 239);	border: 1px solid #9FBACC; font-size:14px; font-weight: 100; font-family:monospace; padding: 10px; border-radius: 6px; min-height: 30px;
 }
 
 .wall-broadcast-carousel-normal-item{
