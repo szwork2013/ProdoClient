@@ -294,6 +294,19 @@ function (successData) {
       }
     }
     if (follow == true) {
+      var a;
+      var ennddate=new Date($scope.campaign.enddate);
+      var today= new Date();
+      console.log(ennddate);
+      console.log(today);
+      if( ennddate < today){
+        a=true;
+      }
+      else{
+        a=false;
+      }
+      if(a==false){
+      console.log(a);
       $log.debug($scope.newProductComment.campaign_comment);
       $scope.socket.emit('addCampaignComment', $rootScope.product_prodle, $rootScope.campaignidWall, $scope.newProductComment.campaign_comment);
       if ($scope.productComments == undefined) {
@@ -310,7 +323,12 @@ function (successData) {
       document.getElementById("crossButton").style.display = "none";
       $("#prodo-uploadedCommentImage").css("display", "none");
       $scope.mytags = "";
-    } else {
+     }
+     else{
+       $rootScope.ProdoAppMessage("This campaign has been stopped. You can not comment now", 'error');
+     }
+    } 
+    else {
       $rootScope.ProdoAppMessage("Please follow this campaign to start commenting...", 'error');
     }
   
