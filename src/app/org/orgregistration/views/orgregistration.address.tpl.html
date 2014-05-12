@@ -7,7 +7,7 @@
 
    	<hr class="prodo-wizard-hr" size=3 noshade>
 
-  	<form id="prodo-form-address" name="OrgAddressForm" class="prodo-wizard-css-form css-form" ng-submit="" novalidate>
+  	<form id="prodo-form-address" name="OrgAddressForm" class="prodo-wizard-css-form css-form" ng-submit="goToGroupuser()" novalidate>
   		<p class="error-message"><small>{{errmessage}}</small></p>
       <label class="prodo-wizard-address-label">Company Address</label>
 
@@ -70,8 +70,8 @@
 
 			<p id="prodo-address-text">To add more addresses, please use 'Manage Org' settings from menu after registration.</p>
    
-    	<button class="prodo-wizard-btn btn btn-md btn-primary" type="submit" ui-sref="prodo.orgregistration.company" ng-click="back()">Previous</button>
-    	<button class="prodo-wizard-btn btn btn-md btn-primary" onclick=""  type="submit" ng-click="goToGroupuser()">Next</button>
+    	<button class="prodo-wizard-btn btn btn-md btn-primary" ui-sref="prodo.orgregistration.company" ng-click="back()">Previous</button>
+    	<button class="prodo-wizard-btn btn btn-md btn-primary">Next</button>
     
   </form>		<!-- prodo-address-form -->
 

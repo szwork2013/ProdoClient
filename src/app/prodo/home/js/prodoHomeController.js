@@ -3,11 +3,15 @@ angular.module('prodo.ProdoHomeApp')
 	.controller('ProdoHomeController', ['$rootScope', '$scope', '$state', '$log', 'UserSessionService', '$stateParams', 'growl', 'allOrgData', 'allCampaignData', 'prodoSearchService', 'checkIfSessionExist','trendingProductService', function($rootScope, $scope, $state, $log, UserSessionService, $stateParams, growl, allOrgData, allCampaignData, prodoSearchService, checkIfSessionExist, trendingProductService) {
 
 
-    console.log(allOrgData);
-    console.log(allCampaignData);
+    $log.debug(allOrgData);
+    $log.debug(allCampaignData);
     $scope.campaigns = [];
 
     $scope.allorganalytics = [];
+
+    $scope.searchorganalytics = [];
+
+    $scope.searchForOrg = false;
 
     $scope.latestsignups = [];
 
@@ -90,6 +94,10 @@ angular.module('prodo.ProdoHomeApp')
     };
 
     $scope.search = {productsearchdata:{}};  
+
+    $scope.back = function() {
+      $scope.searchForOrg = false;
+    }
 
     $scope.homeSearchInit = function()
     {
@@ -182,7 +190,8 @@ angular.module('prodo.ProdoHomeApp')
               {
                     if(data.success.organalytics.length > 0)
                     {
-                           $scope.allorganalytics = data.success.organalytics;
+                      $scope.searchorganalytics = data.success.organalytics;
+                      $scope.searchForOrg = true;
                     }
                     else if(data.success.organalytics.length === 0)
                     {
