@@ -282,13 +282,18 @@ function (successData) {
 
     }
 
-    // var follow;
-    // for (i = 0; i < $scope.ProductsFollowedFromSession.length; i++) {
-    //   if ($scope.ProductsFollowedFromSession[i].prodle == $rootScope.product_prodle) {
-    //     follow = true;
-    //   }
-    // }
-    // if (follow == true) {
+    var follow;
+
+    if($rootScope.usersession.currentUser){
+     if($rootScope.usersession.currentUser.campaign_followed){
+       for (i = 0; i < $rootScope.usersession.currentUser.campaign_followed.length; i++) {
+          if ($rootScope.usersession.currentUser.campaign_followed[i].campaign_id == $rootScope.campaignidWall) {
+            follow = true;
+          }
+        }
+      }
+    }
+    if (follow == true) {
       $log.debug($scope.newProductComment.campaign_comment);
       $scope.socket.emit('addCampaignComment', $rootScope.product_prodle, $rootScope.campaignidWall, $scope.newProductComment.campaign_comment);
       if ($scope.productComments == undefined) {
@@ -305,9 +310,9 @@ function (successData) {
       document.getElementById("crossButton").style.display = "none";
       $("#prodo-uploadedCommentImage").css("display", "none");
       $scope.mytags = "";
-    // } else {
-      // $rootScope.ProdoAppMessage("Please talkin this product to start commenting...", 'info');
-    // }
+    } else {
+      $rootScope.ProdoAppMessage("Please follow this campaign to start commenting...", 'error');
+    }
   
 }
 

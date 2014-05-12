@@ -33,18 +33,37 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
     
     //  });
     
+    // $scope.searchBy={
+    //   type:['general','category']
+    // }
+$scope.searchCommentBy;
+ $scope.searchBySelected={
+      type:'general'
+    }
+  $scope.searchfields = {};
+  $scope.searchfields = [
+    {
+      name: 'general',
+      value: 'commenttext'
+    },
+    {
+      name: 'commentcategory',
+      value: 'commentcategory'
+    }
+  ];
+
     $scope.commenttagSelected={
-      tag:''
+      tag:'general'
     };
+    $scope.isCollapsedSearch=1;
    $rootScope.comment_image_l=[];
   $rootScope.file_data ="";
   $rootScope.count=0;
   $scope.productComments = {
     comments: [{}]
   };
-   $scope.searchComment = {
-    search: ''
-  };
+   $scope.searchComment = {};
+    $scope.search = {};
   $scope.tabForComment={
     tabComment:'true',
     tabSearch:'false'
@@ -92,6 +111,18 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
 
   $scope.$state = $state;
 
+
+  // $scope.$watch('searchBySelected.type', function () {
+  //   $scope.searchfields[$scope.searchBySelected.type]='';
+  //   if($scope.searchBySelected.type=='category'){
+  //     $scope.searchCommentBy="commenttag";
+  //   }
+  //   else{
+  //      $scope.searchCommentBy="commenttext";
+  //   }
+  // });
+
+
   //watch prodle if changed by user by product search or any other source
   $rootScope.$watch('product_prodle', function () {
     // $log.debug("Listening" + $rootScope.product_prodle);
@@ -136,7 +167,7 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
      $("#load-more").css("display", "none");
           
     // document.getElementById("prodo-comment-search-Textbox").value="";
-    $scope.searchComment.search="";
+    // $scope.searchComment.search="";
     $scope.commenttextField.userComment="";
     $scope.tabForComment.tabComment = true;
     $scope.tabForComment.tabSearch=false;
@@ -206,7 +237,7 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
       $log.debug(error);
       $("#prodo-ProductDetails").css("display", "none");
       $("#ErrMsging").css("display", "inline");
-      document.getElementById("ErrMsging").innerHTML = "Product not available " + error.message;
+      document.getElementById("ErrMsging").innerHTML =  error.message;
     }
      }
    }
@@ -349,6 +380,12 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
   };
   //date format
 
+$scope.showSearchCategories=function(){
+$scope.isCollapsedSearch=0;
+};
 
+$scope.hideSearchCategories=function(){
+$scope.isCollapsedSearch=1;
+};
 
 }])

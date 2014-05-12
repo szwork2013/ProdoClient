@@ -140,7 +140,7 @@ angular.module('prodo.CampaignApp')
     var campaign = {
         get_All_ProductCampaigns: $resource('/api/productcampaign/:prodle', {}, { getAllProductCampaigns: { method: 'GET'} }),
         get_ProductCampaign: $resource('/api/productcampaign/:prodle/:campaign_id', {}, { getProductCampaign: { method: 'GET'} }),
-        
+        follow: $resource('/api/campaign/follow/:campaign_id', {}, { followCampaign: { method: 'POST', params : {campaign_id:'@campaign_id'} } }) 
 
     }
     return campaign;

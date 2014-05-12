@@ -352,6 +352,27 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
       }
     };
   return prodoChart;
+
+}).directive('prodoTrendingchart', function () {
+  var chart = {
+      restrict: 'EA',
+      link: function (scope, elem, attrs) {
+        nv.addGraph(function () {
+          var width = 500, height = 500;
+          var chart = nv.models.pieChart().x(function (d) {
+              return d.emotionname;
+            }).y(function (d) {
+              return d.tagcount;
+            }).color(d3.scale.category10().range()).width(width).height(height);
+          d3.select('#trending').datum(scope.trending).transition().duration(1200).attr('width', width).attr('height', height).call(chart);
+          chart.dispatch.on('stateChange', function (e) {
+            nv.log('New State:', JSON.stringify(e));
+          });
+          return chart;
+        });
+      }
+    };
+  return chart;
 }).directive('prodoIndia', function () {
   var indiaData = {
       restrict: 'EA',

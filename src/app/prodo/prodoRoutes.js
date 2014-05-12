@@ -465,10 +465,11 @@ angular.module('prodo.ProdonusApp')
                           {
                               return  prodoDashboardService.Product.prodlePieChart({prodle : $rootScope.product_prodle}).$promise;
                           },
+                          trendingChartContent : function(prodoDashboardService , $rootScope)
                           // barChartProdle : function(prodoDashboardService, $rootScope) 
-                          // {
-                          //     return  prodoDashboardService.Bar.getBarDetails({prodle : $rootScope.product_prodle}).$promise;
-                          // },
+                          {
+                              return  prodoDashboardService.Trending.getTrendingChart({prodle : $rootScope.product_prodle}).$promise;
+                          },
           },
           controller: 'ProdoDashboardController',
         },
