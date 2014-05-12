@@ -445,7 +445,8 @@ angular.module('prodo.ProdonusApp')
           templateUrl:  'prodo/productwall/views/prodo.wall.slider.tpl.html'
         },
         'prodo-content' : {
-          templateUrl:  'blog/views/prodo.wall.blog.tpl.html'
+          templateUrl:  'blog/views/prodo.wall.blog.tpl.html',
+          controller: 'ProdoWallBlogController',
         },
         'prodo-advertisment' : {
           templateUrl:  'prodo/productwall/views/prodo.wall.advertisment.tpl.html'
@@ -560,5 +561,29 @@ angular.module('prodo.ProdonusApp')
     .state('prodo.account-campaign.campaign.analytics', {
        templateUrl:  'campaign/views/campaign.account.analytics.tpl.html'
       })
+
+    /* ----Blog Routes---- */
+    .state('prodo.account-blog', {
+      abstract: true,
+      templateUrl: 'blog/views/blog.account.settings.container.html',
+      resolve : {
+        checkIfSessionExist: function(UserService, $rootScope) {
+            return UserService.Is_user_loggedin.checkUserSession().$promise;
+        } 
+      },
+      onEnter: function(UserSessionService, checkIfSessionExist, $state){
+        if (checkIfSessionExist.success) {
+          if (checkIfSessionExist.success.user.prodousertype == 'business' && checkIfSessionExist.success.user.org == undefined) {
+            $state.transitionTo('prodo.orgregistration.company');
+          } else if (checkIfSessionExist.success.user.isOtpPassword) {
+            $state.transitionTo('prodo.landing.resetpassword');
+          } 
+        }
+      }
+    })    
+    .state('prodo.account-blog.blog', {
+      templateUrl:  'blog/views/blog.account.settings.tpl.html',
+      controller: 'ManageBlogController'
+    })
  
   }]);
