@@ -2,7 +2,7 @@
 *	Org Registration Controller
 **/
 angular.module('prodo.OrgApp')
-	.controller('OrgRegistrationController', ['$scope', '$rootScope', 'OrgModel', '$state', '$stateParams', '$log', 'OrgRegistrationService', 'UserSessionService', 'industrycategorydata', function($scope, $rootScope, OrgModel, $state, $stateParams, $log, OrgRegistrationService, UserSessionService, industrycategorydata) {
+	.controller('OrgRegistrationController', ['$scope', '$rootScope', 'OrgModel', '$state', '$stateParams', '$log', 'OrgRegistrationService', 'UserSessionService', 'industrycategorydataarray', function($scope, $rootScope, OrgModel, $state, $stateParams, $log, OrgRegistrationService, UserSessionService, industrycategorydataarray) {
 
     $scope.errmessage = '';
 
@@ -14,20 +14,48 @@ angular.module('prodo.OrgApp')
 
     $scope.$state=$state;
 
-    if (industrycategorydata.success) {
+    $scope.org = {industries:[]}; 
 
-      $scope.$watch('$state.$current.locals.globals.industrycategorydata', function (industrycategorydata) {
-        if (industrycategorydata.success.industry_category.length !== 0) {
-           $scope.org.industries = industrycategorydata.success.industry_category;
+
+
+        
+        if(industrycategorydataarray.error)
+        {
+            $scope.org.industries = ['software'];
+
         }
+        else if(industrycategorydataarray.success)
+        {
+                if(industrycategorydataarray.success.industry_category.length !== 0) {
+                   $scope.org.industries = industrycategorydataarray.success.industry_category; 
+                }
+                else
+                {
+                    $scope.org.industries = ['software'];
+                }
+        } 
+
+      $scope.$watch('$state.$current.locals.globals.industrycategorydataarray', function (industrycategorydataarray) {
+        if(industrycategorydataarray.error)
+        {
+            $scope.org.industries = ['software'];
+
+        }
+        else if(industrycategorydataarray.success)
+        {
+                if(industrycategorydataarray.success.industry_category.length !== 0) {
+                   $scope.org.industries = industrycategorydataarray.success.industry_category; 
+                }
+                else
+                {
+                    $scope.org.industries = ['software'];
+                }
+        } 
       });
-    }
-    
-    $scope.industrycategory=function(){
-         if (industrycategorydata.success.industry_category.length !== 0) {
-               $scope.org.industries = industrycategorydata.success.industry_category;
+   
+    $scope.industrycategories = function(){
+
                return $scope.org.industries;
-            }
      };
 
      $scope.back = function()

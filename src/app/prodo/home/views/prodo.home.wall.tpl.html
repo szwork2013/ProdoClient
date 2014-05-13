@@ -15,7 +15,37 @@
 <div class="prodo-wall-advertisment-container" id="prodo-advertisment-container">
 	<div prodo-signin-modal></div>
 	<div style="margin: 10px;" class="row">
-		<div style="padding-right: 10px; padding-left: 3px; margin-bottom:10px; border-right:1px solid #b3b3b9;" class="col-md-9">
+		<div ng-show='searchForOrg' style="padding-right: 10px; padding-left: 3px; margin-bottom:10px; border-right:1px solid #b3b3b9;" class="col-md-9">
+			<div style="margin: 10px;">
+				<button class="prodo-button-theme btn btn-sm btn-primary pull-right" ng-click="back()"><i class="prodo-fa fa fa-undo"></i>Back</button>
+		    <h5 class="prodo-home-wall-heading-text-theme">SEARCH RESULTS</h5>
+		    <hr size=3 class="prodo-home-wall-hr-theme" noshade>
+		    <br>
+		 		<div style="margin: 10px;" class="row">
+					<div style="margin: 5px auto;"  class="col-md-4" ng-repeat="analytics in searchorganalytics | limitTo:10">
+						<a href="" ng-click='transitionToOrgWall(analytics.orgid)'>
+							<div style="height: 140px;" class="div-outer">
+			  				<div class="inner-1" style="margin: 2px;">
+				  				<img ng-show="analytics.org_logo" ng-src="{{analytics.org_logo.image}}" style="width:180px; height:140px;" class="img-rounded">
+			    				<img ng-hide="analytics.org_logo" src="../../../assets/images/if_no_org_images_available.jpg" style=" width:180px; height:140px;" class="img-rounded">
+			  				</div>
+				  			<div class="inner-2" style="margin: 2px; height:140px;">
+				  				<h5><strong><em>{{analytics.name}}</em></strong></h5>
+				  				<p ng-show="analytics.productcount != 0" style="font-size: 14px; font-weight: bold;">{{analytics.productcount}} Products</p> 
+
+				    			<p ng-show="analytics.productcount != 0" style="margin-left: 7px; font-size: 12px; font-weight: 100;"> {{analytics.followedcount}} Talkins</p>
+
+					    		<p ng-show="analytics.productcount != 0" style="margin-left: 7px; font-size: 12px; font-weight: 100;"> {{analytics.commentcount}} Comments </p>
+
+				    			<p ng-show="analytics.productcount == 0" style="font-size: 13px; font-weight: 300;">This organization has not added any products.</p>
+				  			</div>
+			    		</div>
+			    	</a>	
+					</div>
+				</div>
+		  </div>
+		</div>  
+		<div ng-hide='searchForOrg' style="padding-right: 10px; padding-left: 3px; margin-bottom:10px; border-right:1px solid #b3b3b9;" class="col-md-9">
 			<div style="margin: 10px;" ng-show='orgsponsers.length != 0'>
 		    <h5 class="prodo-home-wall-heading-text-theme">SPONSORED</h5>
 		    <hr size=3 class="prodo-home-wall-hr-theme" noshade>
@@ -42,7 +72,7 @@
 		    </div>
 		  </div>
 				
-			<div style="margin: 10px;" ng-show='latestsignups.length != 0'>
+			<div style="margin: 10px;" ng-show='allorganalytics.length != 0'>
 		  <br>
 			<h5 class="prodo-home-wall-heading-text-theme">LIST OF ORGANIZATIONS</h5>
 	    <hr size=3 class="prodo-home-wall-hr-theme" noshade>
@@ -106,16 +136,23 @@
 			<h5 class="prodo-home-wall-heading-text-theme">CURRENT CAMPAIGNS</h5>
 	    <hr size=3 class="prodo-home-wall-hr-theme" noshade>
 	    <br>
+	    <div ng-show="(campaigns.length == 0)">
+	    	<p class="prodo-account-text-success text-success"><strong><em>There are no active campaigns.</em></strong></p>
+	    </div>
 			<div ng-show="(campaigns.length != 0)" ng-repeat="campaign in campaigns | limitTo:10">
+				
+				<p style="font-size: 16px; font-weight: 300px;color: rgb(99, 108, 112);"><em>{{campaign.orgname}}</em></p>
 				<a href="">
-					<p>{{campaign.orgname}}</p>
-					<div style="width:100%;min-height:80px; margin: 2px auto;" ng-click='transitionToCampaignWall(campaign.orgid, campaign.campaign_id, campaign.prodle)'>
-						<img style="width:100%;height:80px;" ng-show= "campaign.banner_image" class="ls-bg" ng-src="{{campaign.banner_image.image}}">
-						<h5 style="padding: 5px;word-wrap:break-word;" ng-show= "campaign.bannertext">
-								{{campaign.bannertext}}
-						</h5>
+					<div ng-show= "c.banner_image" style="width:100%;min-height:80px; margin: 5px auto;border-radius: 5px; border:1px solid #b3b3b3;" ng-click='transitionToCampaignWall(c.orgid, c.campaign_id, c.prodle)' ng-repeat="c in campaign.campaigns">
+						<img style="border-radius: 5px; width:100%;height:80px;" class="ls-bg" ng-src="{{c.banner_image.image}}">
 					</div>
 				</a>
+				<div style="width:100%;min-height:80px; margin: 5px auto;cursor:pointer; padding: 5px; border-radius: 5px; border:1px solid #b3b3b3;" ng-click='transitionToCampaignWall(c.orgid, c.campaign_id, c.prodle)' ng-show= "c.bannertext" ng-repeat="c in campaign.campaigns">
+					<p class="text-info text-center" style="font-size:17px; padding: 5px;word-wrap:break-word;" >
+						{{c.bannertext}}
+					</p>
+				</div>
+				
 			</div>
 		</div>
 	</div>
