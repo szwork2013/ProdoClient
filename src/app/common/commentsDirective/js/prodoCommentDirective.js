@@ -107,22 +107,7 @@ $scope.getLastCommentId = function () {
 }
 };
 //find last comment id
-$scope.loadMoreComments = function () {
-  $("#img-spinner").show();
-  var lastCommentId = $scope.getLastCommentId();
-  if ((lastCommentId !== "") || (lastCommentId !== " ") || (lastCommentId !== undefined) || (lastCommentId !== null)) {
-    CommentLoadMoreService.loadMoreComments({
-      commentid: lastCommentId
-    }, function (result) {
-      $scope.handleLoadMoreCommentResponse(result)
-      $("#img-spinner").hide();
-    }, function (error) {
-      $log.debug(error);
-      $("#loadMoreCommentMsg").css("display", "block");
-      $("#loadMoreCommentMsg").html(error);
-    });
-  }
-};
+
 $("#img-spinner").hide();
 
 //if error adding comment retry function

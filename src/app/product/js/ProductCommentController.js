@@ -34,6 +34,23 @@ angular.module('prodo.ProductApp')
     }
   };
 
+  $scope.loadMoreComments = function () {
+  $("#img-spinner").show();
+  var lastCommentId = $scope.getLastCommentId();
+  if ((lastCommentId !== "") || (lastCommentId !== " ") || (lastCommentId !== undefined) || (lastCommentId !== null)) {
+    CommentLoadMoreService.loadMoreComments({
+      commentid: lastCommentId
+    }, function (result) {
+      $scope.handleLoadMoreCommentResponse(result)
+      $("#img-spinner").hide();
+    }, function (error) {
+      $log.debug(error);
+      $("#loadMoreCommentMsg").css("display", "block");
+      $("#loadMoreCommentMsg").html(error);
+    });
+  }
+};
+
     $(document).ready(function () {
       var txtheight;
       var txtwidth;

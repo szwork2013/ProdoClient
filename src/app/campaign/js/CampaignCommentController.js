@@ -11,7 +11,7 @@
 * 
 */
 angular.module('prodo.CampaignApp')
-.controller('CampaignCommentController', ['$scope', '$log', '$rootScope', 'ProductService', 'UserSessionService', '$http', 'CommentLoadMoreService', 'ENV', 'TagReffDictionaryService', 'ProductFeatureService', 'isLoggedin','CampaignWallService','CampaignCommentService',  function ($scope, $log, $rootScope, ProductService, UserSessionService, $http, CommentLoadMoreService, ENV, TagReffDictionaryService, ProductFeatureService ,isLoggedin,CampaignWallService,CampaignCommentService) {
+.controller('CampaignCommentController', ['$scope', '$log', '$rootScope', 'ProductService', 'UserSessionService', '$http', 'CommentLoadMoreService', 'ENV', 'TagReffDictionaryService', 'ProductFeatureService', 'isLoggedin','CampaignWallService','CampaignCommentService','CampaignCommentLoadMoreService',  function ($scope, $log, $rootScope, ProductService, UserSessionService, $http, CommentLoadMoreService, ENV, TagReffDictionaryService, ProductFeatureService ,isLoggedin,CampaignWallService,CampaignCommentService,CampaignCommentLoadMoreService) {
 
 
   $scope.deleteProductComment = function (comment) {
@@ -34,6 +34,22 @@ angular.module('prodo.CampaignApp')
     }
   };
 
+$scope.loadMoreComments = function () {
+  $("#img-spinner").show();
+  var lastCommentId = $scope.getLastCommentId();
+  if ((lastCommentId !== "") || (lastCommentId !== " ") || (lastCommentId !== undefined) || (lastCommentId !== null)) {
+    CampaignCommentLoadMoreService.loadMoreComments({
+      commentid: lastCommentId
+    }, function (result) {
+      $scope.handleLoadMoreCommentResponse(result)
+      $("#img-spinner").hide();
+    }, function (error) {
+      $log.debug(error);
+      $("#loadMoreCommentMsg").css("display", "block");
+      $("#loadMoreCommentMsg").html(error);
+    });
+  }
+};
 
     $(document).ready(function () {
       var txtheight;

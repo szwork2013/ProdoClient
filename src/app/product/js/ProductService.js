@@ -40,12 +40,6 @@
   });
 }])
 
- .factory('CampaignCommentService', ['$resource', function($resource) {
-  return $resource('/api/campaigncomment/:commentid', {},
-  {
-    deleteComment: {method: 'DELETE', params: {commentid: "id"}}
-  });
-}])
 
 
  .factory('CommentLoadMoreService', ['$resource', function($resource) {
