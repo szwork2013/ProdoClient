@@ -2,7 +2,15 @@
       <div id="prodo-navbar-container" class="prodo-navbar-container">
         <a href="" id="prodo-navbar-brand" class="navbar-brand" ui-sref="prodo.home.wall"><img class="navbar-brand-img" src="assets/images/prodonus.png"> Reach. Share. Know.</a>
       
-        <p ng-hide="usersession.isLoggedIn" id="prodo-navbar-text" class="navbar-text navbar-right"><a href="" ng-click='showSignin()' id="prodo-navbar-link1" class="navbar-link">Sign In</a>&nbsp;|&nbsp;<a href="" ng-click='showSignup()' id="prodo-navbar-link2" class="navbar-link">Sign Up</a></p>
+        <p ng-hide="usersession.isLoggedIn" id="prodo-navbar-text" class="navbar-text navbar-right">
+          <a href="" ng-click='showSignin()' class="prodo-navlink navbar-link">
+            <span id="prodo-navbar-link1" class="label">Sign In</span>
+          </a>
+            &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+          <a href="" ng-click='showSignup()' id="prodo-navbar-link2" class="prodo-navlink navbar-link">
+            <span id="prodo-navbar-link2" class="label">Sign Up</span>
+          </a>
+        </p>
       </div>
 
       <ul ng-cloak ng-show="usersession.isLoggedIn" class="nav nav-pills  nav-ul  navbar-nav navbar-right">

@@ -16,12 +16,12 @@
 	<div prodo-signin-modal></div>
 	<div style="margin: 10px;" class="row">
 		<div ng-show='searchForOrg' style="padding-right: 10px; padding-left: 3px; margin-bottom:10px; border-right:1px solid #b3b3b9;" class="col-md-9">
-			<div style="margin: 10px;" ng-show='orgsponsers.length != 0'>
+			<div style="margin: 10px;">
 				<button class="prodo-button-theme btn btn-sm btn-primary pull-right" ng-click="back()"><i class="prodo-fa fa fa-undo"></i>Back</button>
 		    <h5 class="prodo-home-wall-heading-text-theme">SEARCH RESULTS</h5>
 		    <hr size=3 class="prodo-home-wall-hr-theme" noshade>
 		    <br>
-		 <div style="margin: 10px;" class="row">
+		 		<div style="margin: 10px;" class="row">
 					<div style="margin: 5px auto;"  class="col-md-4" ng-repeat="analytics in searchorganalytics | limitTo:10">
 						<a href="" ng-click='transitionToOrgWall(analytics.orgid)'>
 							<div style="height: 140px;" class="div-outer">
@@ -72,7 +72,7 @@
 		    </div>
 		  </div>
 				
-			<div style="margin: 10px;" ng-show='latestsignups.length != 0'>
+			<div style="margin: 10px;" ng-show='allorganalytics.length != 0'>
 		  <br>
 			<h5 class="prodo-home-wall-heading-text-theme">LIST OF ORGANIZATIONS</h5>
 	    <hr size=3 class="prodo-home-wall-hr-theme" noshade>
