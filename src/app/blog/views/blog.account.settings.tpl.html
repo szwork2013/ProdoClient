@@ -2,4 +2,73 @@
   <div prodo-signin-modal></div>
   <h4 id="user-account-heading">BLOG</h4>
   <br>
+
+  <!-- carousel code to go -->
+  <!-- <div class="prodo-productListCorousel" >
+    <button class="arrowBtn prodo-arrowbtnLeft" ng-show="blogs.length > 3 " ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1" >
+      <
+    </button>
+   
+        <a href="" class="prodo-cursor" ng-click="addBlog() " class=""> 
+        <div class="prodo-productThumbnailView prodo-padding-left" >
+        <p class="prodo-AddProductBtn " >Add Blog</p>
+        <div class="prodo-productThumbnailImg fa fa-plus fa-4x img-rounded"  align="center" ></div>
+        </div>
+       </a> 
+      
+    <div ng-show="blogs.length>0  "  ng-repeat="list in blogs  | startFrom:currentPage*pageSize | limitTo:pageSize" >
+    <div class="prodo-productThumbnailView"   ng-class="{activeProduct : list.name==currentCampaign.name}">
+      <a ng-click="showDetails(list.name)" class="prodo-cursor"  href="" >
+        <p class="prodo-AddProductBtn prodo-productNameList" >{{list.name.substring(0,13)}}</p>
+        <img  ng-src="{{list.banner_image.image}}" alt-SRC src="../assets/images/if_no_logo_images_available.gif"  class="prodo-productThumbnailImg img-rounded">
+      </a>
+    </div>
+    </div>
+    <button class="arrowBtn prodo-arrowbtnRight"  ng-show="blogs.length > 3 " ng-disabled="currentPage >= blogs.length/pageSize - 1" ng-click="currentPage=currentPage+1" >
+      >
+      </button>
+
+        </div>
+
+        
+       <div ng-if="noBlogExists === 0"><i><h3>Currently no blogs exists!</h3></i></div>
+
+  </div> -->
+
+  <!-- carousel code to end -->
+  <!-- <br>
+  <div ng-show="addNewBlog">
+  	<dl class="dl-horizontal">
+		  <dt>Title:</dt>
+		  <dd style="width:60%;">
+		  	<input name="title" type="text" ng-model="blog.title" class="form-control" placeholder="title">
+		  </dd>
+		</dl>
+		<dl class="dl-horizontal">
+		  <dt>Category:</dt>
+		  <dd class="prodo-regTagsWidth">
+		  	<tags-input minTags="1" add-on-blur="true" ng-model="blog.category"  min-length="1"  placeholder="enter blog category." popover-placement="right" popover="Press 'Enter' key after entering category" popover-trigger="mouseenter"></tags-input>  
+		  </dd>
+		</dl>
+		<dl class="dl-horizontal">
+		  <dt>Content:</dt>
+		  <dd style="width:60%;">
+		  	<textarea type="textarea" rows=15 class="form-control" name="content" ng-model="blog.content" placeholder="blog content" required ng-maxlength="1000"></textarea>
+		  </dd>
+		</dl>
+		<dl class="dl-horizontal">
+		  <dt>Image Upload:</dt>
+		  <dd style="width:60%;">
+		  	<input class=" form-control" type="file" name="file" ng-file-selectdata="onFileSelect($files)" ng-model="file1" >
+		  </dd>
+		</dl>
+		<dl class="dl-horizontal">
+		  <dt></dt>
+		  <dd style="width:60%;">
+		  	<button class="prodo-button theme btn btn-sm btn-primary">Cancel</button>
+		  	<button class="prodo-button theme btn btn-sm btn-primary">Publish</button>
+		  	<button class="prodo-button theme btn btn-sm btn-primary">Post</button>
+		  </dd>
+		</dl>
+  </div> -->
 </div>
