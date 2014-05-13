@@ -247,25 +247,7 @@ $scope.hideIfNotImage = function (image) {
   }
 };
 //show comment image if exists 
-  $scope.deleteProductComment = function (comment) {
-    if (comment.user.userid == $scope.userIDFromSession ) {
-      CommentService.deleteComment({ commentid: comment.commentid },
-       function (success) {
-          if(success.success){
-            var index = $scope.productComments.indexOf(comment);
-            if (index != -1){
-               $scope.productComments.splice(index, 1);
-            }
-           $scope.handleDeleteProductCommentSuccess(success);   
-          }else if(success.error){
-            $scope.handleDeleteProductCommentError(success.error);
-          }  
-        }, function (error) {
-          $log.debug(JSON.stringify(error));
-        });
-      $log.debug(comment.commentid);
-    }
-  };
+
 }
 ]
 };

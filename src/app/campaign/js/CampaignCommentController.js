@@ -11,7 +11,29 @@
 * 
 */
 angular.module('prodo.CampaignApp')
-.controller('CampaignCommentController', ['$scope', '$log', '$rootScope', 'ProductService', 'UserSessionService', '$http', 'CommentLoadMoreService', 'ENV', 'TagReffDictionaryService', 'ProductFeatureService', 'isLoggedin','CampaignWallService',  function ($scope, $log, $rootScope, ProductService, UserSessionService, $http, CommentLoadMoreService, ENV, TagReffDictionaryService, ProductFeatureService ,isLoggedin,CampaignWallService) {
+.controller('CampaignCommentController', ['$scope', '$log', '$rootScope', 'ProductService', 'UserSessionService', '$http', 'CommentLoadMoreService', 'ENV', 'TagReffDictionaryService', 'ProductFeatureService', 'isLoggedin','CampaignWallService','CampaignCommentService',  function ($scope, $log, $rootScope, ProductService, UserSessionService, $http, CommentLoadMoreService, ENV, TagReffDictionaryService, ProductFeatureService ,isLoggedin,CampaignWallService,CampaignCommentService) {
+
+
+  $scope.deleteProductComment = function (comment) {
+    if (comment.user.userid == $scope.userIDFromSession ) {
+      CampaignCommentService.deleteComment({ commentid: comment.commentid },
+       function (success) {
+          if(success.success){
+            var index = $scope.productComments.indexOf(comment);
+            if (index != -1){
+               $scope.productComments.splice(index, 1);
+            }
+           $scope.handleDeleteProductCommentSuccess(success);   
+          }else if(success.error){
+            $scope.handleDeleteProductCommentError(success.error);
+          }  
+        }, function (error) {
+          $log.debug(JSON.stringify(error));
+        });
+      $log.debug(comment.commentid);
+    }
+  };
+
 
     $(document).ready(function () {
       var txtheight;
