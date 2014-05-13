@@ -3,52 +3,58 @@
 		<svg id="chart" class="mybarchart" height="500" width="500"></svg>
     <prodo-barchart> </prodo-barchart>
   </div>
-  <span class="divider"></span> --> <div ng-if = "showPieChart === 1">
-     <div id="prodo-piechart-dashboard">
-		    <svg id="test1" class="mypiechart"></svg>
-		    <prodo-piechart></prodo-piechart>
-	</div>
-
-</div>
-
-  <span class="divider"></span>
-    <div ng-if="showBarChart === 1">
-
-       <div id="prodo-barchart-dashboard"><svg id="chart" class="mybarchart" height="500" width="500"></svg> <prodo-barchart> </prodo-barchart> </div>
-
-    </div>
-
-<!--   <span class="divider"></span>
-    <div >
-
-       <div id="prodo-barchart-dashboard"><svg id="TrendingChart" class="mybarchart" height="500" width="500"></svg> <prodo-trendingchart> </prodo-trendingchart> </div>
-
-    </div>
- -->
+  <span class="divider"></span> --> 
 
 
 
+		  <div ng-if = "showPieChart === 1" style="margin-left:10%">
+		  <div style="margin-left:26%"><b><h4>Overall Product Sentiment</h4></b></div>
+		     <div id="prodo-piechart-dashboard">
+				    <svg id="test1" class="mypiechart"></svg>
+				    <prodo-piechart></prodo-piechart>
+			</div> 
+		  </div>
+
+  <!-- Chart code for pie -->
+         <hr ng-if = "showPieChart === 1">
+   		 <span class="divider"></span>
+
+	     <div ng-if="showBarChart === 1" style="margin-left:10%" >   <div style="margin-left:26%"><b><h4>Detailed Comment Response</h4></b></div>
+	        <div id="prodo-barchart-dashboard"><svg id="chart" class="mybarchart" height="500" width="500"></svg> <prodo-barchart> </prodo-barchart> </div>
+	     <!--    <div style="margin-left:26%"><b>Chart 2. Detailed Comment Response</b></div> -->
+	     </div>
+        <!-- Code for bar chart -->
+         <hr ng-if="showBarChart === 1">
+         
+		 <span class="divider"></span>
+
+		 <div style="margin-left:10%"> <div style="margin-left:23%">  <div  ng-if="showSampleDataFordualstack === 1"><b><h4>Product Social Engagement</h4></b></div></div>
+		       <div id="prodo-barchart-dashboard"><svg id="allTrendingChart" class="mybarchart" height="500" width="500"></svg> <prodo-trendingchart> </prodo-trendingchart> </div>
+		 </div>
+		    
+		     <div ng-if="showSampleDataFordualstack === 1">Note: This chart is generated using sample data due to unavailability of real data. Chart will be updated once sufficient real data is available</div>
+
+        <div ng-if="(showPieChart === 0 && showBarChart === 0) && showSampleDataFordualstack === 0"> Currently no dashboard charts are available</div>
 
 
-
-
-<div ng-if="showPieChart === 0 && showBarChart === 0"> Currently no dashboard charts are available</div>
 <!-- 	<span class="divider"></span> 
 
+	    <div id="prodo-productchart-dashboard">
+		    <div id="a"></div>
+            <prodo-product-chart></prodo-product-chart>
+	    </div> -->
 
+	   <!-- <span class="divider"></span>
 
-	<div id="prodo-productchart-dashboard">
-		<div id="a"></div>
-        <prodo-product-chart></prodo-product-chart>
-	</div> -->
-	<!-- <span class="divider"></span>
-	<div id="prodo-indiachart-dashboard" prodo-india>
-	
+	   <div id="prodo-indiachart-dashboard" prodo-india>
 		<table class="left">
 			<tr>
 				<td><div id="map"></div></td>
 				<td><div id="subtitle"></div></td> 
 				<td><div id="subblurb"></div></td>
 			</tr>
-	</div> -->
+	   </div> -->
+
+
+	   
 </div>

@@ -29,9 +29,38 @@
 
 <div id="prodo-ProductDetails" >
 
-      <a href="" ng-style="CheckIfAlreadyFollowingCampaign()" id="prodo-followBtncampaign"  ng-click="followCurrentCampaign(campaign.campaign_id)"   class="prodo-button-theme prodo-followBtn pull-right btn btn-primary btn-sm ">Follow </a>
+   <a href="" ng-style="CheckIfAlreadyFollowingCampaign()" id="prodo-followBtncampaign"  ng-click="followCurrentCampaign(campaign.campaign_id)"   class="prodo-button-theme prodo-followBtn pull-right btn btn-primary btn-sm ">Follow </a>
 
-           <p class="prodo-CampaignName" >{{campaign.name}}</p>
+<center>
+      <table class="prodo-MainDetailsTable"  >
+        <tr class="prodo-followesInfotr" >
+           <td class="prodo-followesInfotd prodo-producttrendingInfo" >
+           <center>
+             <div class="prodo-producttrendingInfoDiv" ng-bind="campaign.trending.followedcount"></div><div class="prodo-producttrendingInfoLable" > Followers</div> 
+             </center>
+            </td>
+            <td class="prodo-producttrendingInfo prodo-productCommentInfo">
+            <center>
+              <div class="prodo-productCommentInfoDiv" ng-bind="campaign.trending.commentcount"></div><div class="prodo-productCommentsInfoLable"> Comments</div> 
+            </center>
+            </td>
+          </tr>
+        </table>
+</center>
+
+
+
+   <br><br>
+
+
+    <p class="prodo-CampaignName" >{{campaign.name}}</p>
+
+
+    
+
+
+
+       
         <img  ng-if="campaign.banner_image.image" ng-src="{{campaign.banner_image.image}}" alt-SRC src="../assets/images/if_no_org_images_available.jpg"  class="prodo-campaignBanner img-rounded" />
       
        <div  class="prodo-bannerTextBg" ng-if="campaign.bannertext">

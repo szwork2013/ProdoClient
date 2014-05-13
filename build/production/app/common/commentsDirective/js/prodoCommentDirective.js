@@ -107,22 +107,7 @@ $scope.getLastCommentId = function () {
 }
 };
 //find last comment id
-$scope.loadMoreComments = function () {
-  $("#img-spinner").show();
-  var lastCommentId = $scope.getLastCommentId();
-  if ((lastCommentId !== "") || (lastCommentId !== " ") || (lastCommentId !== undefined) || (lastCommentId !== null)) {
-    CommentLoadMoreService.loadMoreComments({
-      commentid: lastCommentId
-    }, function (result) {
-      $scope.handleLoadMoreCommentResponse(result)
-      $("#img-spinner").hide();
-    }, function (error) {
-      $log.debug(error);
-      $("#loadMoreCommentMsg").css("display", "block");
-      $("#loadMoreCommentMsg").html(error);
-    });
-  }
-};
+
 $("#img-spinner").hide();
 
 //if error adding comment retry function
@@ -247,25 +232,7 @@ $scope.hideIfNotImage = function (image) {
   }
 };
 //show comment image if exists 
-  $scope.deleteProductComment = function (comment) {
-    if (comment.user.userid == $scope.userIDFromSession ) {
-      CommentService.deleteComment({ commentid: comment.commentid },
-       function (success) {
-          if(success.success){
-            var index = $scope.productComments.indexOf(comment);
-            if (index != -1){
-               $scope.productComments.splice(index, 1);
-            }
-           $scope.handleDeleteProductCommentSuccess(success);   
-          }else if(success.error){
-            $scope.handleDeleteProductCommentError(success.error);
-          }  
-        }, function (error) {
-          $log.debug(JSON.stringify(error));
-        });
-      $log.debug(comment.commentid);
-    }
-  };
+
 }
 ]
 };
