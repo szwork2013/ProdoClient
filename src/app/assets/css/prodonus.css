@@ -1767,10 +1767,10 @@ margin-bottom: 10px;
 .prodo-MainDetailsTable{  color: black;}
 .prodo-followesInfotr{width: 50%}
 .prodo-followesInfotd{width: 50%;border-right:1px solid #dbdbdb;padding-right:5px;}
-.prodo-producttrendingInfoDiv{font-size: 18px;text-align: right;padding-right: 15px;}
+.prodo-producttrendingInfoDiv{font-size: 18px;text-align: right;padding-right: 5px;}
 .prodo-producttrendingInfoLable{font-size: 10px;text-align: right;}
 .prodo-productCommentInfo{ width: 50%; padding-left: 5px;}
-.prodo-productCommentInfoDiv{font-size: 18px;text-align: left;width: 50px;padding-left: 15px;}
+.prodo-productCommentInfoDiv{font-size: 18px;text-align: left;width: 50px;padding-left: 5px;}
 .prodo-productCommentsInfoLable{font-size: 10px;text-align: left;}
 .prodo-delImgs{margin-bottom: 10px;}
 .prodo-checkbox{height: 17px;width: 17px;}
@@ -2833,7 +2833,7 @@ left: 173px;
 
 /*Campaign wall*/
 .prodo-campaignBanner{	max-width: 610px;max-height: 100px;width: 80%;margin-left: 50px;}
-.prodo-CampaignName{font-weight: bolder;font-size: 20px; margin-left: 50px;}
+.prodo-CampaignName{font-weight: bolder;font-size: 20px; margin-left: 65px;}
 
 .disableEditingMode[readonly]{
 cursor: context-menu;
@@ -2860,6 +2860,7 @@ max-height: 100px;
 }
 .area{
   text-align:center;
+  word-wrap: break-word;
   font-size:1em;
   color:#fff;
   font-weight:400;

@@ -346,7 +346,7 @@ CampaignWallService.follow.followCampaign( {
   $scope.handleFollowCampaignSuccess=function(successData){
     $log.debug(successData);
    if(successData.success){
-    $rootScope.ProdoAppMessage("You are following this campaign, Start commenting to win exciting prices :)", 'success');
+    $rootScope.ProdoAppMessage("You are following this campaign", 'success');
      $rootScope.usersession.currentUser.campaign_followed.push({
       orgid:$scope.campaign.orgid,
       prodle:$scope.campaign.prodle,
