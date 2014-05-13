@@ -177,13 +177,35 @@ background: -webkit-radial-gradient(circle,#94d2f8,#3a92c8);
 #prodo-navbar-link1 {
 	color: white;
 	font-weight: bold;
-	font-size: 14px;
+	font-size: 13px;
+	background-color: #1b6880;
+}
+
+a.prodo-navlink:hover{
+	text-decoration: none;
+}
+
+ a span#prodo-navbar-link1:hover{
+  background-color: #207B97;;
+}
+
+ a span#prodo-navbar-link2:hover{
+  background-color: #207B97;;
+}
+
+a span#prodo-navbar-link1:hover, a span#prodo-navbar-link1:active {
+  background-color: #207B97;;
+}
+
+ a span#prodo-navbar-link2:hover, {
+  background-color: #207B97;;
 }
 
 #prodo-navbar-link2 {
 	color: white;
 	font-weight: bold;
-	font-size: 14px;
+	font-size: 13px;
+	background-color: #1b6880;
 } 
 
 .navbar-brand-img{
