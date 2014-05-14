@@ -1622,6 +1622,12 @@ margin: 2px auto; position:absolute; }
 ul {list-style-type: none; }
 /*li:nth-child(odd) {background-color:#F2F2F2;}*/
 .prodo-paddingLeft{padding-left: 50px;}
+/*.prodo-comment-statusContainer{height:70px;width: 20px;}*/
+.prodo-commentStatusLable{font-size: 12px;}
+.prodo-commentStatusCount{width:20px; text-align: center; font-family:Helvetica; font-size: 9px;color: rgb(109, 0, 0);margin-bottom: 2px; }
+.prodo-commentStatusImg{height: 22px;}
+.prodo-comment-agreeDis.{margin-top: -5px;
+margin-right: 5px;}
 .prodoCommentDeleteUp{font-size: 20px;color: rgb(185, 106, 141);margin-right: 5px;}
 #prodo-comment-textBox-container {padding-bottom: 10px;}
 #prodo-comment-media-list{border:3px;font-family: Helvetica ;font-size:14px;}
