@@ -1616,6 +1616,10 @@ margin: 2px auto; position:absolute; }
 /*#fa-tagsComment:hover{zoom:1.2;-webkit-transform: scale( 1.2); -moz-transform: scale( 1.2);}*/
 .fa-picture-o:hover{color:rgb(139, 9, 241)}
 .fa-trash-o:hover{/*color:red;*/}
+
+.fa-thumbs-o-up:hover{color:green}
+.fa-thumbs-o-down:hover{color:red}
+
 /*#fa-removeComment:hover{zoom:1.2;-webkit-transform: scale( 1.2); -moz-transform: scale( 1.2);}*/
 /*#fa-removeComment:hover{color:gray;}*/
 
@@ -1624,7 +1628,7 @@ ul {list-style-type: none; }
 .prodo-paddingLeft{padding-left: 50px;}
 /*.prodo-comment-statusContainer{height:70px;width: 20px;}*/
 .prodo-commentStatusLable{font-size: 12px;}
-.prodo-commentStatusCount{width:20px; text-align: center; font-family:Helvetica; font-size: 9px;color: rgb(109, 0, 0);margin-bottom: 2px; }
+.prodo-commentStatusCount{width:20px;font-family:Helvetica; font-size: 7px;color: rgb(109, 0, 0); }
 .prodo-commentStatusImg{height: 22px;}
 .prodo-comment-agreeDis.{margin-top: -5px;
 margin-right: 5px;}
@@ -1698,6 +1702,33 @@ width: 87%;
 margin-bottom: 10px;
  }  
 /*#load-more:hover            { color:#666; }   */
+
+
+
+#panel {
+
+	height: 200px;
+	display: none;
+}
+.slide {
+	margin: 0;
+	padding: 0;
+
+
+}
+.btn-slide {
+
+
+	/*width: 144px;
+	height: 31px;
+	padding: 10px 10px 0 0;
+	margin: 0 auto;
+	display: block;
+	
+
+	text-decoration: none;*/
+}
+
 
 
 

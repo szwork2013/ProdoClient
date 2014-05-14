@@ -123,6 +123,18 @@ $scope.searchCommentBy;
   // });
 
 
+$(document).ready(function(){
+
+  $(".btn-slide").click(function(){
+    $("#panel").slideToggle("slow");
+    $(this).toggleClass("active"); return false;
+  });
+  
+   
+});
+
+
+
   //watch prodle if changed by user by product search or any other source
   $rootScope.$watch('product_prodle', function () {
     // $log.debug("Listening" + $rootScope.product_prodle);
