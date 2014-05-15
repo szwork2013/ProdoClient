@@ -52,8 +52,8 @@ angular.module('prodo.CampaignApp')
   $rootScope.file_data ="";
   $rootScope.count=0;
 
-  $scope.campaignFeatures=[];
-  $scope.campaignFeaturestags=[];
+  $scope.features=[];
+  $scope.featuretags=[];
 
    if($rootScope.campaign_idwall !== "" || $rootScope.campaign_idwall !== undefined){
        $scope.$watch('$state.$current.locals.globals.campaignWalldata', function (campaignWalldata) {
@@ -99,8 +99,8 @@ angular.module('prodo.CampaignApp')
           $rootScope.campaignidWall=$scope.campaign.campaign_id;
           if($scope.campaign.campaign_tags){
             for (i = 0; i < $scope.campaign.campaign_tags.length; i++) {
-              $scope.campaignFeatures.push($scope.campaign.campaign_tags[i]);
-               $scope.campaignFeaturestags.push($scope.campaign.campaign_tags[i].featurename);
+              $scope.features.push($scope.campaign.campaign_tags[i]);
+               $scope.featuretags.push($scope.campaign.campaign_tags[i].featurename);
             }
          }
         
