@@ -10,7 +10,7 @@
  * 27-3/2013 | xyx | Add a new property
  *
  */
-angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$log', '$rootScope', 'ProductService', 'UserSessionService', '$http', 'CommentLoadMoreService', 'ENV', 'TagReffDictionaryService', 'ProductFeatureService', '$state','productData', function ($scope, $log, $rootScope, ProductService, UserSessionService, $http, CommentLoadMoreService, ENV, TagReffDictionaryService, ProductFeatureService, $state,productData) {
+angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$log', '$rootScope', 'ProductService', 'UserSessionService', '$http', 'CommentLoadMoreService', 'ENV', 'TagReffDictionaryService', 'ProductFeatureService', '$state','productData','ProductEnquiry', function ($scope, $log, $rootScope, ProductService, UserSessionService, $http, CommentLoadMoreService, ENV, TagReffDictionaryService, ProductFeatureService, $state,productData,ProductEnquiry) {
  
       $scope.pimgs = [];
     
@@ -36,7 +36,9 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
     // $scope.searchBy={
     //   type:['general','category']
     // }
-$scope.searchCommentBy;
+
+ $scope.inquiry="know";
+ $scope.searchCommentBy;
  $scope.searchBySelected={
       type:'general'
     }
@@ -133,7 +135,65 @@ $(document).ready(function(){
    
 });
 
+$scope.sendEnquiry=function(orgid,prodle,inquiry){
+ $scope.EnquiryData={
+  subject:'',
+  body:''
+ } ;
+$scope.subjectbody="";
 
+if(inquiry=='know'){
+  $scope.EnquiryData.subject="know";
+  $scope.EnquiryData.body="I want to know more about product";
+}
+else if(inquiry=='buy'){
+  $scope.EnquiryData.subject="buy";
+  $scope.EnquiryData.body="I want to buy this product";
+}
+else if(inquiry=='custom'){
+  $scope.EnquiryData.subject="custom";
+  $scope.EnquiryData.body=$scope.productreqMsg;
+
+}
+$log.debug($scope.EnquiryData);
+$scope.AllData={
+  productenquirydata:$scope.EnquiryData
+}
+
+      ProductEnquiry.sendEnquiry({
+            orgid: orgid,
+            prodle: prodle
+          }, $scope.AllData, function (success) {
+           if(success.success){
+            $scope.handleEnquirySuccess(success);
+           }
+           else{
+             $scope.handleEnquiryError(success.error);
+           }
+          }, function (error) {
+            $log.debug(error);
+           $rootScope.ProdoAppMessage("Server Error:" + error.status, 'error');
+          });
+
+
+};
+
+ $scope.handleEnquirySuccess=function(success){
+  $log.debug(success.success);
+  $rootScope.ProdoAppMessage("Your enquiry request sent successfully", 'success');
+ };
+
+$scope.handleEnquiryError=function(error){
+  if(error){ 
+    if(error.code=='AL001'){
+    $rootScope.showModal();
+  }
+   else{
+     $log.debug(error);
+    $rootScope.ProdoAppMessage(error.message, 'error');
+   }
+ }
+};
 
   //watch prodle if changed by user by product search or any other source
   $rootScope.$watch('product_prodle', function () {
