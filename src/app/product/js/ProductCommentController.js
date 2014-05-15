@@ -168,7 +168,9 @@ $scope.socket.on($scope.productcommentResponseListener, function (error, result)
         datecreated: result.success.product_comment.datecreated,
         commenttext: result.success.product_comment.commenttext,
         analytics: result.success.product_comment.analytics,
-        commentcategory:result.success.product_comment.commentcategory
+        commentcategory:result.success.product_comment.commentcategory,
+        agreecount:result.success.product_comment.agreecount,
+        disagreecount:result.success.product_comment.disagreecount
 
       }
     };
@@ -320,7 +322,9 @@ function (successData) {
           tags: $scope.mytags,
           commenttext: $scope.commenttextField.userComment,
           analytics: $scope.tagPairs,
-          commentcategory:$scope.commenttagSelected.tag
+          commentcategory:$scope.commenttagSelected.tag,
+          agreecount:0,
+          disagreecount:0
 
         }
       };
@@ -340,7 +344,9 @@ function (successData) {
           tags: $scope.mytags,
           commenttext: $scope.commenttextField.userComment,
           analytics: $scope.tagPairs,
-          commentcategory:$scope.commenttagSelected.tag
+          commentcategory:$scope.commenttagSelected.tag,
+          agreecount:0,
+          disagreecount:0
 
         }
       };
@@ -362,7 +368,9 @@ function (successData) {
           tags: $scope.mytags,
           comment_image: $rootScope.file_data,
           analytics: $scope.tagPairs,
-          commentcategory:$scope.commenttagSelected.tag
+          commentcategory:$scope.commenttagSelected.tag,
+          agreecount:0,
+          disagreecount:0
         }
       };
 
@@ -382,7 +390,9 @@ function (successData) {
           commenttext: $scope.commenttextField.userComment,
           comment_image: $rootScope.comment_image_l,
           analytics: $scope.tagPairs,
-          commentcategory:$scope.commenttagSelected.tag
+          commentcategory:$scope.commenttagSelected.tag,
+          agreecount:0,
+          disagreecount:0
         }
       };
       $rootScope.file_data = "";
@@ -455,7 +465,9 @@ function (successData) {
           tags: $scope.mytags,
           commenttext: comment.commenttext,
           analytics: $scope.tagPairs,
-          commentcategory:comment.commentcategory
+          commentcategory:comment.commentcategory,
+          agreecount:0,
+          disagreecount:0
 
         }
       };
@@ -475,7 +487,9 @@ function (successData) {
           tags: $scope.mytags,
           commenttext: comment.commenttext,
           analytics: $scope.tagPairs,
-          commentcategory:comment.commentcategory
+          commentcategory:comment.commentcategory,
+          agreecount:0,
+          disagreecount:0
 
         }
       };
@@ -497,7 +511,9 @@ function (successData) {
           tags: $scope.mytags,
           comment_image: $rootScope.file_data,
           analytics: $scope.tagPairs,
-          commentcategory:comment.commentcategory
+          commentcategory:comment.commentcategory,
+          agreecount:0,
+          disagreecount:0
         }
       };
 
@@ -517,7 +533,9 @@ function (successData) {
           commenttext: comment.commenttext,
           comment_image: $rootScope.comment_image_l,
           analytics: $scope.tagPairs,
-          commentcategory:comment.commentcategory
+          commentcategory:comment.commentcategory,
+          agreecount:0,
+          disagreecount:0
         }
       };
       $rootScope.file_data = "";

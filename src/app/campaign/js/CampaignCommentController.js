@@ -254,7 +254,9 @@ function (successData) {
           datecreated: Date.now(),
           tags: $scope.mytags,
           commenttext: $scope.commenttextField.userComment,
-          analytics: $scope.tagPairs
+          analytics: $scope.tagPairs,
+          agreecount:0,
+          disagreecount:0
 
         }
       };
@@ -273,7 +275,9 @@ function (successData) {
           datecreated: Date.now(),
           tags: $scope.mytags,
           commenttext: $scope.commenttextField.userComment,
-          analytics: $scope.tagPairs
+          analytics: $scope.tagPairs,
+          agreecount:0,
+          disagreecount:0
 
         }
       };
@@ -294,7 +298,9 @@ function (successData) {
           commenttext: $scope.commenttextField.userComment,
           tags: $scope.mytags,
           comment_image: $rootScope.file_data,
-          analytics: $scope.tagPairs
+          analytics: $scope.tagPairs,
+          agreecount:0,
+          disagreecount:0
         }
       };
 
@@ -313,7 +319,9 @@ function (successData) {
           tags: $scope.mytags,
           commenttext: $scope.commenttextField.userComment,
           comment_image: $rootScope.comment_image_l,
-          analytics: $scope.tagPairs
+          analytics: $scope.tagPairs,
+          agreecount:0,
+          disagreecount:0
         }
       };
       $rootScope.file_data = "";
@@ -407,7 +415,9 @@ function (successData) {
           datecreated: Date.now(),
           tags: $scope.mytags,
           commenttext: comment.commenttext,
-          analytics: $scope.tagPairs
+          analytics: $scope.tagPairs,
+          agreecount:0,
+          disagreecount:0
 
         }
       };
@@ -426,7 +436,9 @@ function (successData) {
           datecreated: Date.now(),
           tags: $scope.mytags,
            commenttext: comment.commenttext,
-          analytics: $scope.tagPairs
+          analytics: $scope.tagPairs,
+          agreecount:0,
+          disagreecount:0
 
         }
       };
@@ -447,7 +459,9 @@ function (successData) {
           commenttext: comment.commenttext,
           tags: $scope.mytags,
           comment_image: $rootScope.file_data,
-          analytics: $scope.tagPairs
+          analytics: $scope.tagPairs,
+          agreecount:0,
+          disagreecount:0
         }
       };
 
@@ -466,7 +480,9 @@ function (successData) {
           tags: $scope.mytags,
           commenttext: comment.commenttext,
           comment_image: $rootScope.comment_image_l,
-          analytics: $scope.tagPairs
+          analytics: $scope.tagPairs,
+          agreecount:0,
+          disagreecount:0
         }
       };
       $rootScope.file_data = "";
@@ -563,7 +579,9 @@ $scope.socket.on($scope.campaigncommentResponseListener, function (error, result
         type: result.success.campaign_comment.type,
         datecreated: result.success.campaign_comment.datecreated,
         commenttext: result.success.campaign_comment.commenttext,
-        analytics: $scope.tagPairs
+        analytics: $scope.tagPairs,
+        agreecount:result.success.campaign_comment.agreecount,
+        disagreecount:result.success.campaign_comment.disagreecount
 
       }
     };
