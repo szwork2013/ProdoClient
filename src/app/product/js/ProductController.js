@@ -400,4 +400,10 @@ $scope.hideSearchCategories=function(){
 $scope.isCollapsedSearch=1;
 };
 
+
+
+
+
+
+
 }])

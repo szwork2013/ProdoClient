@@ -140,19 +140,19 @@
           <tr>
           <td>
 
-          <a  class=" prodo-cursor "  >
+          <a  class=" prodo-cursor "  ng-click="likeaction='agree' ; likedislike(likeaction,comment);">
           <!-- <img class="prodo-commentStatusImg" src="../assets/images/agree.png"> -->
           <i class="fa fa-thumbs-o-up"></i>
           </a>
-          <p class="prodo-commentStatusCount"></p>
+          <p class="prodo-commentStatusCount" ng-bind="comment.agreecount"></p>
 
           </td>
           <td>
-          <a class=" prodo-cursor "  >
+          <a class=" prodo-cursor "  ng-click="likeaction='disagree' ; likedislike(likeaction,comment);" >
           <i class="fa fa-thumbs-o-down"></i>
           <!-- <img class="prodo-commentStatusImg" src="../assets/images/disagree.png"> -->
           </a>
-          <p class="prodo-commentStatusCount"></p>
+          <p class="prodo-commentStatusCount" ng-bind="comment.disagreecount"></p>
           </td>
           </tr>
 
