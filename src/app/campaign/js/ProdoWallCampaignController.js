@@ -76,7 +76,7 @@ angular.module('prodo.CampaignApp')
 
 
    $scope.preGetProductPrepaireData=function(){
-	    $("#load-more").css("display", "none");
+     $("#load-more").css("display", "none");
 	    $scope.searchfields.general='';
 	    $scope.commenttextField.userComment="";
 	    $scope.tabForComment.tabComment = true;
@@ -123,12 +123,12 @@ angular.module('prodo.CampaignApp')
 		       }
                $("#loadMoreCommentMsg").css("display", "none");
 
-                if ( $scope.campaign.campaign_comments) {   //##### check comment source
+           if ( $scope.campaign.campaign_comments) {   //##### check comment source
 		          if ( $scope.campaign.campaign_comments.length > 4) {
 		            $("#load-more").css("display", "inline");
 		          } 
 		          else{
-		               $("#load-more").css("display", "none");
+		            $("#load-more").css("display", "none");
 		          }
 		        } 
 
@@ -205,6 +205,7 @@ angular.module('prodo.CampaignApp')
 	 // };
 
    $scope.getCampaign=function(campaignid){
+   $scope.preGetProductPrepaireData();
      CampaignWallService.get_ProductCampaign.getProductCampaign( {
 	     	 prodle: $rootScope.product_prodle,
 	         campaign_id: campaignid

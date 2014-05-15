@@ -153,6 +153,29 @@ $scope.showRetryIconIfCommentNotAdded = function () {
   
   $scope.handleDeleteProductCommentSuccess=function(success){
     $rootScope.ProdoAppMessage("Comment deleted successfully", 'success');
+
+      if($scope.type=='product'){
+         if ($scope.product.product_comments) {
+                if ($scope.product.product_comments==0) {
+                  $("#load-more").css("display", "none");
+                } 
+                else{
+                     $("#load-more").css("display", "inline");
+                }
+              }
+      }
+      else  if($scope.type=='campaign'){
+         if ($scope.campaign.campaign_comments) {
+                if ($scope.campaign.campaign_comments==0) {
+                  $("#load-more").css("display", "none");
+                } 
+                else{
+                     $("#load-more").css("display", "inline");
+                }
+              }
+      }
+    
+
   };
 
    $scope.handleDeleteProductCommentError=function(error){
