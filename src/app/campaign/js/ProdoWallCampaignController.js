@@ -101,7 +101,15 @@ angular.module('prodo.CampaignApp')
           else{
              $scope.getCampaign($scope.allCampaignData[0].campaign_id);
           }
-       
+        
+          if ( $scope.allCampaignData[0].artwork.length!==0) {
+            $scope.pimgs =  $scope.allCampaignData[0].artwork;
+            $log.debug("Product images emitting when not null ");
+            $scope.$emit('emittingCampaignImages',$scope.pimgs);
+          } else {
+            $scope.$emit('emittingNoCampaignImages',$scope.pimgs);
+            $log.debug("Product images emitting when null ");
+          }
 
 	       //  $scope.campaign=$scope.allCampaignData[0];
         //   $rootScope.campaignidWall=$scope.campaign.campaign_id;
