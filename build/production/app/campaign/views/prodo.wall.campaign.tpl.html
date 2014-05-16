@@ -15,19 +15,14 @@
 <div class="prodo-wall-campaign-container container">
 
 
-<!-- 
-    <div ng-show="allCampaignData.length>0"  ng-repeat="campaign1 in allCampaignData  " >
-    <div class="prodo-productThumbnailView"   ng-class="{activeProduct : campaign1.campaign_id==campaign.campaign_id}" >
-      <a ng-click="getSelectedCampaign(campaign1.campaign_id);" class="prodo-cursor"  href="" >
-        <p class="prodo-AddProductBtn prodo-productNameList" >{{campaign1.name.substring(0,13)}}</p>
-        <img  ng-src="{{campaign1.banner_image.image}}" alt-SRC src="../assets/images/if_no_org_images_available.jpg"  class="prodo-productThumbnailImg img-rounded">
-      </a>
-    </div>
-    </div> -->
 
 <p>    <div id="ErrMsging" ng-show="ErrMsging" class="prodo-ErrMsging"></div></p>
 
 <div id="prodo-ProductDetails" >
+
+
+
+
 
    <a href="" ng-style="CheckIfAlreadyFollowingCampaign()" id="prodo-followBtncampaign"  ng-click="followCurrentCampaign(campaign.campaign_id)"   class="prodo-button-theme prodo-followBtn pull-right btn btn-primary btn-sm ">Follow </a>
 
@@ -48,12 +43,41 @@
         </table>
 </center>
 
+<br/><br/>
+  <!-- <div class="prodo-productListCorousel" > -->
+    <button class="arrowBtn prodo-arrowbtnLeft" ng-show="allCampaignData.length > 4 " ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1" >
+      <
+      <!--  <i style="color:gray; font-weight:weight:lighter" class="fa fa-chevron-left fa-3x"></i>  -->
+    </button>
+
+
+
+
+    <div ng-show="allCampaignData.length>0"  ng-repeat="campaign1 in allCampaignData  | startFrom:currentPage*pageSize | limitTo:pageSize"  >
+    <div class="prodo-productThumbnailView"   ng-class="{activeProduct : campaign1.campaign_id==campaign.campaign_id}" >
+      <a ng-click="getSelectedCampaign(campaign1.campaign_id);" class="prodo-cursor"  href="" >
+        <p class="prodo-AddProductBtn prodo-productNameList" >{{campaign1.name.substring(0,13)}}</p>
+        <img  ng-src="{{campaign1.banner_image.image}}" alt-SRC src="../assets/images/if_no_org_images_available.jpg"  class="prodo-productThumbnailImg img-rounded">
+      </a>
+    </div>
+    </div>
+
+
+
+ <button class="arrowBtn prodo-arrowbtnRight"  ng-show="allCampaignData.length > 4 " ng-disabled="currentPage >= productlist.length/pageSize - 1" ng-click="currentPage=currentPage+1" >
+      >
+      <!-- <i style="color:gray; font-weight:weight:lighter" class=" fa fa-chevron-right fa-3x"></i>  -->
+ </button>
+  <!-- </div> -->
+
+
 
 
    <br><br>
+ <br><br> <br><br> <br><br> 
 
 
-    <p class="prodo-CampaignName" >{{campaign.name}}</p>
+    <p class="prodo-CampaignName" >{{campaign.name.substring(0,13)}}</p>
 
 
     
@@ -61,9 +85,9 @@
 
 
        
-        <img  ng-if="campaign.banner_image.image" ng-src="{{campaign.banner_image.image}}" alt-SRC src="../assets/images/if_no_org_images_available.jpg"  class="prodo-campaignBanner img-rounded" />
+        <img  ng-show="campaign.banner_image.image" ng-src="{{campaign.banner_image.image}}" alt-SRC src="../assets/images/if_no_org_images_available.jpg"  class="prodo-campaignBanner img-rounded" />
       
-       <div  class="prodo-bannerTextBg" ng-if="campaign.bannertext">
+       <div  class="prodo-bannerTextBg" ng-show="campaign.bannertext">
         <div class="area" >
              {{campaign.bannertext}}
        </div>     
