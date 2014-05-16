@@ -26,4 +26,57 @@ angular.module('prodo.AdminApp').factory('tagAddService', [
     }
     return TagS;
   }
+]).factory('prodoAdminService', [
+'$resource','$rootScope','$state',
+        function ($resource, $rootScope, $state)
+        {
+                 var queryMappingFunction = {query : $resource('/api/dashboard/addquery', {}, {insertQuery : {method : 'POST'}})};
+                 var getQueryFunction = {queryContent : $resource('/api/dashboard/queries', {}, {getQueryContent : {method : 'GET'}})};
+                 // var getChartsList = {chartsContenList}
+                 var assignCodeToChart = {codeToChart : $resource('/api/dashboard/RBONDS_Mapping', {}, {submitChart : {method: 'POST'}})};
+                 var query = {};
+                 query.addQueryContent = function(queryContent)
+                 {
+                  queryMappingFunction.query.insertQuery(queryContent, function(success)
+                  {
+                    $rootScope.$broadcast('queryAddedSuccessfully', success);
+                  }),
+                  function(error)
+                  {
+                    $rootScope.$broadcast('queryNotAddesSuccessfully' , error);
+                  };
+                 }
+                 query.getAllQueries = function()
+                 {
+                  getQueryFunction.queryContent.getQueryContent(function(success)
+                  {
+                    $rootScope.$broadcast('gotAllQueriesList',success);
+                  }),
+                  function(error)
+                  {
+                    $rootScope.$broadcast('notGotAllQueries', error);
+                  };
+                 }
+                 query.insertChartsToCode = function(content)
+                 {
+                  assignCodeToChart.codeToChart.submitChart(content, function(success)
+                  {
+                    $rootScope.$broadcast('chartsSubmittedSuccessfully', success);
+                  }),
+                  function(error)
+                  {
+                        $rootScope.$broadcast('chartsNotSubmittedSuccessfully', success);
+                  }
+                 }
+                return query;
+        }
 ])
+.factory('charts', [
+  '$resource',
+  function ($resource) {
+       var getAllCharts = {
+            dashboardCharts : $resource('/api/dashboard/chartdata', {}, {getList : {method: 'GET'}})
+          };  
+       return getAllCharts;
+  }
+]);

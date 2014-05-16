@@ -259,10 +259,10 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
             }).y(function (d) {
               return d.tagcount;    
             }).color(function (d)
-            {
+            {  
               return d.data.color;
             }).width(width).height(height);
-          d3.select('#test1').datum(scope.data).transition().duration(1200).attr('width', width).attr('height', height).call(chart);
+          d3.select('#productPieChart').datum(scope.data).transition().duration(1200).attr('width', width).attr('height', height).call(chart);
           chart.dispatch.on('stateChange', function (e) {
             nv.log('New State:', JSON.stringify(e));
           });
