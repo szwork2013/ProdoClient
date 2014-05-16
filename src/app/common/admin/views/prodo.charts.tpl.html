@@ -1,0 +1,46 @@
+<div><center>Chart Content</center></div>
+
+
+<form id="marketingData">
+
+		<div> 
+				Name: <input type="text" id="name" ng-model="charts.name">  
+	    </div> 
+
+	    <br> 
+
+	    <div>
+	    		Description:<textarea ng-model="charts.description"></textarea>
+	    </div>
+         
+	 <br>   <div>
+                Category: 
+                <select ng-model="charts.category">
+                    <option>Product</option>
+                    <option>Organization</option>
+                    <option>Campaign</option>	
+                </select>
+	    </div>
+
+
+<br>	    <div>
+                Type: 
+                <input type="text" ng-model="charts.type">
+	    </div>
+		
+<br>		<div>
+				Logo
+		      
+                <div> 
+                    <input type="file" name="file" ng-file-selectdata="onFileSelect($files)" ng-model="file1" >
+                </div>
+<br>
+			<div>
+			Query:
+			<input type="text"  typeahead="queryname for queryname in queryList " ng-model="charts.queryname" typeahead-on-select="assignQueryIdToChart()">
+<br>				
+		        <button ng-click="submitDashboardChartContent()">Submit</button>
+		             
+		</div>
+
+</form>

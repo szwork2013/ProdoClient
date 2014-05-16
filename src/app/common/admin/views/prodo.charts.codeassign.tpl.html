@@ -1,0 +1,34 @@
+<div>
+
+
+
+		<div>
+				<b>Code:</b>
+				<input type="text" ng-model="chart.code">
+		</div>
+
+		<br>
+
+<!-- 		<div>
+				<b>Chart List</b>
+				 <input type="text" ng-model="list" typeahead="queryname for queryname in showCharts() " typeahead-on-select="pushToList()"/>
+		</div> -->
+
+		<br>
+        
+ <!--        <div>
+
+           Charts added:
+           <textarea ng-model="chart.chartname"></textarea>
+        </div>
+ -->
+
+       <div ng-repeat = "list in chartName track by $index">
+           <input type="checkbox" value="{{list}}" name="{{list}}" id="{{$index}}">&nbsp;&nbsp;<span ng-bind="list"></span>
+       </div>
+		
+
+
+        <button ng-click="assignCodeToChart()">Submit</button> 
+
+</div>

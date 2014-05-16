@@ -10,13 +10,19 @@
 
 				<h3><center> Admin Screen</center></h3>
      			<ul prodo-nav id="prodo-admin-nav-pills" class="nav nav-pills">
-        		<li class="active"><a ui-sref="admin.tags">Tags</a></li>
-       			<li><a ui-sref="admin.product">Product</a></li>
-        		<li><a ui-sref="admin.payment">Payment</a></li>
-            <li><a ui-sref="admin.organisation">Organisation</a></li>
+        		<li class="active"><a ui-sref="admin.tags">Tag Input Screen</a></li>
+       			<!-- <li><a ui-sref="admin.product">Product</a></li> -->
+        	<!-- 	<li><a ui-sref="admin.payment">Payment</a></li> -->
+          <!--   <li><a ui-sref="admin.organisation">Organisation</a></li> -->
             <li><a ui-sref="admin.landingpageslider">Landing Page Slider</a></li>
+
+            <li><a ui-sref = "admin.chartAssign" > Assign Charts To Code </a></li>
+            <li><a ui-sref = "admin.chart" > Charts Upload </a></li>
+            <li><a ui-sref = "admin.queryMapping" > Query Mapping</a></li>
+       <!--      <li><a ui-sref = "admin.chart" > Charts Upload </a></li> -->
+        <!--     <li><a ui-sref = "admin.authorAcceptance" > Author Acceptance</a></li> -->
 					</ul>
-    			
+    		
     			<div class="prodo-admin-tab-content tab-content">
         		<div ui-view></div>
     			</div>
