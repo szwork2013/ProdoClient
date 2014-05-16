@@ -198,7 +198,7 @@ if($scope.EnquiryData.body){
 
  }
  else{
-   $rootScope.ProdoAppMessage("Please pass enquiry message", 'error');
+   $rootScope.ProdoAppMessage("Please enter enquiry message", 'error');
  }
 
 };
