@@ -95,44 +95,46 @@ angular.module('prodo.CampaignApp')
 	        $("#prodo-ProductDetails").css("display", "block");
           $scope.getProductFeatures($rootScope.product_prodle,$rootScope.orgid);
 	        $scope.allCampaignData=campaignWalldata.success.Product_Campaigns;
-	        $scope.campaign=$scope.allCampaignData[0];
-          $rootScope.campaignidWall=$scope.campaign.campaign_id;
-          if($scope.campaign.campaign_tags){
-            for (i = 0; i < $scope.campaign.campaign_tags.length; i++) {
-              $scope.features.push($scope.campaign.campaign_tags[i]);
-               $scope.featuretags.push($scope.campaign.campaign_tags[i].featurename);
-            }
-         }
+          $scope.getCampaign($scope.allCampaignData[0].campaign_id);
+
+	       //  $scope.campaign=$scope.allCampaignData[0];
+        //   $rootScope.campaignidWall=$scope.campaign.campaign_id;
+        //   if($scope.campaign.campaign_tags){
+        //     for (i = 0; i < $scope.campaign.campaign_tags.length; i++) {
+        //       $scope.features.push($scope.campaign.campaign_tags[i]);
+        //        $scope.featuretags.push($scope.campaign.campaign_tags[i].featurename);
+        //     }
+        //  }
         
-          $log.debug("assigned campaignid"+$rootScope.campaignidWall);
-          if($scope.campaign.campaign_comments){
-             $scope.productComments=$scope.campaign.campaign_comments;
-          }
+        //   $log.debug("assigned campaignid"+$rootScope.campaignidWall);
+        //   if($scope.campaign.campaign_comments){
+        //      $scope.productComments=$scope.campaign.campaign_comments;
+        //   }
            
-	         if ( $scope.campaign.artwork.length!==0) {
-		        $scope.pimgs =  $scope.campaign.artwork;
-		        $log.debug("Product images emitting when not null ");
-		        $scope.$emit('emittingCampaignImages',$scope.pimgs);
-		      } else {
-		        $scope.$emit('emittingNoCampaignImages',$scope.pimgs);
-		        $log.debug("Product images emitting when null ");
-		      }
+	       //   if ( $scope.campaign.artwork.length!==0) {
+		      //   $scope.pimgs =  $scope.campaign.artwork;
+		      //   $log.debug("Product images emitting when not null ");
+		      //   $scope.$emit('emittingCampaignImages',$scope.pimgs);
+		      // } else {
+		      //   $scope.$emit('emittingNoCampaignImages',$scope.pimgs);
+		      //   $log.debug("Product images emitting when null ");
+		      // }
 
-		       if ($scope.campaign.campaign_comments!==undefined){   //########check comments source 
-		           $("#prodo-comment-media-list").css("display", "block");
-		       }
-               $("#loadMoreCommentMsg").css("display", "none");
+		      //  if ($scope.campaign.campaign_comments!==undefined){   //########check comments source 
+		      //      $("#prodo-comment-media-list").css("display", "block");
+		      //  }
+        //        $("#loadMoreCommentMsg").css("display", "none");
 
-           if ( $scope.campaign.campaign_comments) {   //##### check comment source
-		          if ( $scope.campaign.campaign_comments.length > 4) {
-		            $("#load-more").css("display", "inline");
-		          } 
-		          else{
-		            $("#load-more").css("display", "none");
-		          }
-		        } 
+        //    if ( $scope.campaign.campaign_comments) {   //##### check comment source
+		      //     if ( $scope.campaign.campaign_comments.length > 4) {
+		      //       $("#load-more").css("display", "inline");
+		      //     } 
+		      //     else{
+		      //       $("#load-more").css("display", "none");
+		      //     }
+		      //   } 
 
-		         $scope.isCollapsed = true;  //added by omkar 
+		      //    $scope.isCollapsed = true;  //added by omkar 
 
 			}
     };
@@ -200,9 +202,9 @@ angular.module('prodo.CampaignApp')
   //get login details
   //get Product features
 
-	 // $scope.getSelectedCampaign=function(campaignid){
-	 // 	$scope.getCampaign(campaignid);
-	 // };
+	 $scope.getSelectedCampaign=function(campaignid){
+	 	$scope.getCampaign(campaignid);
+	 };
 
    $scope.getCampaign=function(campaignid){
    $scope.preGetProductPrepaireData();
@@ -357,4 +359,24 @@ CampaignWallService.follow.followCampaign( {
   }
 };
 
-}]);
+
+
+  //Product List pagination
+  $scope.currentPage = 0;
+  $scope.pageSize = 4;
+  $scope.numberOfPages = function () {
+    return Math.ceil($scope.allCampaignData.length / $scope.pageSize);
+  };
+  //Product List pagination
+
+
+
+}])
+ angular.module('prodo.CampaignApp').filter('startFrom', function () {
+  return function (input, start) {
+    if (input !== undefined || start !== undefined) {
+      start = +start;
+      return input.slice(start);
+    }
+  }
+})
