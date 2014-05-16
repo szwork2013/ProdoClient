@@ -11,7 +11,45 @@
 * 
 */
 angular.module('prodo.CampaignApp')
-.controller('CampaignCommentController', ['$scope', '$log', '$rootScope', 'ProductService', 'UserSessionService', '$http', 'CommentLoadMoreService', 'ENV', 'TagReffDictionaryService', 'ProductFeatureService', 'isLoggedin','CampaignWallService',  function ($scope, $log, $rootScope, ProductService, UserSessionService, $http, CommentLoadMoreService, ENV, TagReffDictionaryService, ProductFeatureService ,isLoggedin,CampaignWallService) {
+.controller('CampaignCommentController', ['$scope', '$log', '$rootScope', 'ProductService', 'UserSessionService', '$http', 'CommentLoadMoreService', 'ENV', 'TagReffDictionaryService', 'ProductFeatureService', 'isLoggedin','CampaignWallService','CampaignCommentService','CampaignCommentLoadMoreService',  function ($scope, $log, $rootScope, ProductService, UserSessionService, $http, CommentLoadMoreService, ENV, TagReffDictionaryService, ProductFeatureService ,isLoggedin,CampaignWallService,CampaignCommentService,CampaignCommentLoadMoreService) {
+
+
+  $scope.deleteProductComment = function (comment) {
+    if (comment.user.userid == $scope.userIDFromSession ) {
+      CampaignCommentService.deleteComment({ commentid: comment.commentid },
+       function (success) {
+          if(success.success){
+            var index = $scope.productComments.indexOf(comment);
+            if (index != -1){
+               $scope.productComments.splice(index, 1);
+            }
+           $scope.handleDeleteProductCommentSuccess(success);   
+          }else if(success.error){
+            $scope.handleDeleteProductCommentError(success.error);
+          }  
+        }, function (error) {
+          $log.debug(JSON.stringify(error));
+        });
+      $log.debug(comment.commentid);
+    }
+  };
+
+$scope.loadMoreComments = function () {
+  $("#img-spinner").show();
+  var lastCommentId = $scope.getLastCommentId();
+  if ((lastCommentId !== "") || (lastCommentId !== " ") || (lastCommentId !== undefined) || (lastCommentId !== null)) {
+    CampaignCommentLoadMoreService.loadMoreComments({
+      commentid: lastCommentId
+    }, function (result) {
+      $scope.handleLoadMoreCommentResponse(result)
+      $("#img-spinner").hide();
+    }, function (error) {
+      $log.debug(error);
+      $("#loadMoreCommentMsg").css("display", "block");
+      $("#loadMoreCommentMsg").html(error);
+    });
+  }
+};
 
     $(document).ready(function () {
       var txtheight;
@@ -103,7 +141,7 @@ $scope.getTagsFromCommentText = function () {
   }
   $scope.mytags = new_arr; //tags from comment text
   //feature tags
-  $scope.myFeaturetags = $scope.featuretags.concat($scope.campaignFeaturestags);
+  $scope.myFeaturetags = $scope.featuretags;
   var new_arr = [];
   if ($scope.commenttextField.userComment) {
     var commenttextTags = commenttext.split(' ');
@@ -152,7 +190,7 @@ $scope.makeTagsPair = function (noun, adj) {
       tag: adj[i]
     });
   }
- // $scope.features=$scope.features.concat($scope.campaignFeatures);
+ // $scope.features=$scope.features;
  //  for (var i = 0; i < $scope.features.length; i++) {
  //    for (j = 0; j < $scope.tagPairs.length; j++) {
  //      if ($scope.features[i].featurename == $scope.tagPairs[j].featurename) {
@@ -216,7 +254,9 @@ function (successData) {
           datecreated: Date.now(),
           tags: $scope.mytags,
           commenttext: $scope.commenttextField.userComment,
-          analytics: $scope.tagPairs
+          analytics: $scope.tagPairs,
+          agreecount:0,
+          disagreecount:0
 
         }
       };
@@ -235,7 +275,9 @@ function (successData) {
           datecreated: Date.now(),
           tags: $scope.mytags,
           commenttext: $scope.commenttextField.userComment,
-          analytics: $scope.tagPairs
+          analytics: $scope.tagPairs,
+          agreecount:0,
+          disagreecount:0
 
         }
       };
@@ -256,7 +298,9 @@ function (successData) {
           commenttext: $scope.commenttextField.userComment,
           tags: $scope.mytags,
           comment_image: $rootScope.file_data,
-          analytics: $scope.tagPairs
+          analytics: $scope.tagPairs,
+          agreecount:0,
+          disagreecount:0
         }
       };
 
@@ -275,7 +319,9 @@ function (successData) {
           tags: $scope.mytags,
           commenttext: $scope.commenttextField.userComment,
           comment_image: $rootScope.comment_image_l,
-          analytics: $scope.tagPairs
+          analytics: $scope.tagPairs,
+          agreecount:0,
+          disagreecount:0
         }
       };
       $rootScope.file_data = "";
@@ -369,7 +415,9 @@ function (successData) {
           datecreated: Date.now(),
           tags: $scope.mytags,
           commenttext: comment.commenttext,
-          analytics: $scope.tagPairs
+          analytics: $scope.tagPairs,
+          agreecount:0,
+          disagreecount:0
 
         }
       };
@@ -388,7 +436,9 @@ function (successData) {
           datecreated: Date.now(),
           tags: $scope.mytags,
            commenttext: comment.commenttext,
-          analytics: $scope.tagPairs
+          analytics: $scope.tagPairs,
+          agreecount:0,
+          disagreecount:0
 
         }
       };
@@ -409,7 +459,9 @@ function (successData) {
           commenttext: comment.commenttext,
           tags: $scope.mytags,
           comment_image: $rootScope.file_data,
-          analytics: $scope.tagPairs
+          analytics: $scope.tagPairs,
+          agreecount:0,
+          disagreecount:0
         }
       };
 
@@ -428,7 +480,9 @@ function (successData) {
           tags: $scope.mytags,
           commenttext: comment.commenttext,
           comment_image: $rootScope.comment_image_l,
-          analytics: $scope.tagPairs
+          analytics: $scope.tagPairs,
+          agreecount:0,
+          disagreecount:0
         }
       };
       $rootScope.file_data = "";
@@ -525,7 +579,9 @@ $scope.socket.on($scope.campaigncommentResponseListener, function (error, result
         type: result.success.campaign_comment.type,
         datecreated: result.success.campaign_comment.datecreated,
         commenttext: result.success.campaign_comment.commenttext,
-        analytics: $scope.tagPairs
+        analytics: $scope.tagPairs,
+        agreecount:result.success.campaign_comment.agreecount,
+        disagreecount:result.success.campaign_comment.disagreecount
 
       }
     };
