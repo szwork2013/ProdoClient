@@ -128,10 +128,27 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
 $(document).ready(function(){
 
   $(".btn-slide").click(function(){
+        var hidden = $("#panel").is(":hidden");
+
     $("#panel").slideToggle("slow");
-    $(this).toggleClass("active"); return false;
+    $(this).toggleClass("active"); 
+
+
+    $log.debug(hidden);
+    if(hidden){
+      $log.debug("showing");
+       $('#prodoBtnEnquiry').addClass( "btn-warning" );
+      // $('#prodoBtnEnquiry').css('backgroundColor', '#BF9B20');
+     
+    }
+    else{
+      $log.debug("hidden");
+       // $('#prodoBtnEnquiry').css('backgroundColor', '#3276b1');
+         $('#prodoBtnEnquiry').removeClass( "btn-warning" );
+    }
+    return false;
   });
-  
+
    
 });
 
@@ -156,25 +173,31 @@ else if(inquiry=='custom'){
 
 }
 $log.debug($scope.EnquiryData);
-$scope.AllData={
-  productenquirydata:$scope.EnquiryData
-}
 
-      ProductEnquiry.sendEnquiry({
-            orgid: orgid,
-            prodle: prodle
-          }, $scope.AllData, function (success) {
-           if(success.success){
-            $scope.handleEnquirySuccess(success);
-           }
-           else{
-             $scope.handleEnquiryError(success.error);
-           }
-          }, function (error) {
-            $log.debug(error);
-           $rootScope.ProdoAppMessage("Server Error:" + error.status, 'error');
-          });
+if($scope.EnquiryData.body){
+    $scope.AllData={
+      productenquirydata:$scope.EnquiryData
+    }
 
+          ProductEnquiry.sendEnquiry({
+                orgid: orgid,
+                prodle: prodle
+              }, $scope.AllData, function (success) {
+               if(success.success){
+                $scope.handleEnquirySuccess(success);
+               }
+               else{
+                 $scope.handleEnquiryError(success.error);
+               }
+              }, function (error) {
+                $log.debug(error);
+               $rootScope.ProdoAppMessage("Server Error:" + error.status, 'error');
+              });
+
+ }
+ else{
+   $rootScope.ProdoAppMessage("Please pass enquiry message", 'error');
+ }
 
 };
 

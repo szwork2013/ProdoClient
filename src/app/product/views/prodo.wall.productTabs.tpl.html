@@ -23,7 +23,7 @@
 
 
 
-      <p class="slide pull-right"><a href="#" class="btn-slide btn btn-primary  btn-sm">Product Enquiry</a></p>
+      <p class="slide pull-right"><a href="#" id="prodoBtnEnquiry" class="btn-slide btn btn-primary  btn-sm">Product Enquiry</a></p>
 
 
 
@@ -54,16 +54,16 @@
 
   <!--   <img class="img prodo-productLogoDisplay" id="productLogo" ng-src="{{product.product_logo.image}}" /> -->
    <!--  <strong class="prodo-productNameStrong" >&nbsp;<span ng-bind="product.name.substring(0,20)"> </span></strong> -->
- <div id="panel">
+ <div id="panel" >
  <center><b> Product enquiry form  </b></center>
- <br/>
+
 <div class="prodo-paddingLeft">
 <table>
 <tr> 
-<td><input type="radio" ng-model="inquiry" value="know"> I want to know more about product  </td>
+<td><input type="radio" ng-model="inquiry" value="know"> I want to know more about {{product.name}}   </td>
 </tr>
 <tr> 
-<td><input type="radio" ng-model="inquiry" value="buy"> I want to buy this product  </td>
+<td><input type="radio" ng-model="inquiry" value="buy"> I want to buy {{product.name}}  </td>
 </tr>
 <tr> 
 <td><input type="radio" ng-model="inquiry" value="custom" > Custom  </td>
