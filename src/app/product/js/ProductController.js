@@ -137,14 +137,16 @@ $(document).ready(function(){
     $log.debug(hidden);
     if(hidden){
       $log.debug("showing");
-       $('#prodoBtnEnquiry').addClass( "btn-warning" );
-      // $('#prodoBtnEnquiry').css('backgroundColor', '#BF9B20');
+       // $('#prodoBtnEnquiry').addClass( "btn-warning" );
+      $('#prodoBtnEnquiry').css('backgroundColor', '#BF8618');
+      $('#prodoBtnEnquiry').css('borderColor', '#BF8618');
      
     }
     else{
       $log.debug("hidden");
-       // $('#prodoBtnEnquiry').css('backgroundColor', '#3276b1');
-         $('#prodoBtnEnquiry').removeClass( "btn-warning" );
+       $('#prodoBtnEnquiry').css('backgroundColor', '#3276b1');
+          $('#prodoBtnEnquiry').css('borderColor', '#3276b1');
+         // $('#prodoBtnEnquiry').removeClass( "btn-warning" );
     }
     return false;
   });

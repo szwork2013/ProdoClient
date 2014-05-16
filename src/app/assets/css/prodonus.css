@@ -1402,6 +1402,15 @@ text {
 
   
 */
+
+.btn-warning{
+	background-color: #BF8618;
+	border-color: #BF8618;
+	color: white;
+}
+
+
+
 .abctooltip {
   position: absolute;
   background: rgba(200,200,200,0.75);
@@ -1702,7 +1711,6 @@ width: 87%;
 margin-bottom: 10px;
  }  
 /*#load-more:hover            { color:#666; }   */
-
 
 
 #panel {
