@@ -95,7 +95,13 @@ angular.module('prodo.CampaignApp')
 	        $("#prodo-ProductDetails").css("display", "block");
           $scope.getProductFeatures($rootScope.product_prodle,$rootScope.orgid);
 	        $scope.allCampaignData=campaignWalldata.success.Product_Campaigns;
-          $scope.getCampaign($scope.allCampaignData[0].campaign_id);
+          if($rootScope.campaignidWall){
+             $scope.getCampaign($rootScope.campaignidWall);
+          }
+          else{
+             $scope.getCampaign($scope.allCampaignData[0].campaign_id);
+          }
+       
 
 	       //  $scope.campaign=$scope.allCampaignData[0];
         //   $rootScope.campaignidWall=$scope.campaign.campaign_id;
@@ -276,6 +282,8 @@ $scope.handleGetCampaignSuccess=function(successData){
       } 
        $scope.isCollapsed = true;  //added by omkar 
       }
+
+      // $rootScope.campaignidWall='';
 
 };
 
