@@ -94,11 +94,13 @@ angular.module('prodo.ProdoWallApp')
 
     var cleanEventEmittingCampaignImages = $scope.$on("emittingCampaignImages", function(event, data){
       $log.debug('listening in Parent controller by Campaign controller');
+      console.log(data);
       $scope.updateimages(data);
     });
 
     var cleanEventEmittingNoCampaignImages = $scope.$on("emittingNoCampaignImages", function(event, data){
       $log.debug('listening in Parent controller by Campaign controller');
+      console.log(data);
       $scope.updateimages(data);
     });
 
