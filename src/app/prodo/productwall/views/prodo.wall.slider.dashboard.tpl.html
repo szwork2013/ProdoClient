@@ -8,39 +8,48 @@
 	</div>
 	<div class="row" ng-repeat="chart in productcharts">
 		<div ng-show="Org">
-			<paging  ng-if="chart.category == 'Organization' " data="chart.charticons" current-page="dataCurrentPage" page-size="dataPageSize">
-			<div class="col-md-3"  ng-repeat="c in chart.charticons| pagingFilter:dataPageSize:dataCurrentPage">
-				<a href="" ng-click="viewChart(c.chartname, c.query.queryid, c.type)">
-					<div style="margin: 5px auto;" class="thumbnail">
-						<div style="padding: 5px;background-color:rgb(56, 107, 141); color:white;border-radius:3px;"><p class="text-center" style="min-height:10px; font-size: 12px; font-weight:bold;">{{c.chartname}}</p></div>
-		      	<img style="height:180px;" ng-src="{{c.charts.image}}" alt="...">
-		    	</div>	
-		    </a>		
+			<div ng-if="chart.category == 'Organization' && chart.charticons.length == 0">
+				<p class="prodo-dashboard-text-success text-success"><strong><em>There are no charts for this organizaion.</em></strong></p>
 			</div>
+				<paging  ng-if="chart.category == 'Organization' " data="chart.charticons" current-page="dataCurrentPage" page-size="dataPageSize">
+				<div class="col-md-3"  ng-repeat="c in chart.charticons| pagingFilter:dataPageSize:dataCurrentPage">
+					<a href="" ng-click="viewChart(c.chartname, c.query.queryid, c.type)">
+						<div style="margin: 5px auto;" class="thumbnail">
+							<div style="padding: 5px;background-color:rgb(56, 107, 141); color:white;border-radius:3px;"><p class="text-center" style="min-height:10px; font-size: 12px; font-weight:bold;">{{c.chartname}}</p></div>
+		      		<img style="height:180px;" ng-src="{{c.charts.image}}" alt="...">
+		    		</div>	
+		    	</a>		
+				</div>
  			</paging>
 		</div>
 		<div ng-show="Product">
-				<paging ng-if="chart.category == 'Product' " data="chart.charticons" current-page="dataCurrentPage" page-size="dataPageSize">
-			<div class="col-md-3"  ng-repeat="c in chart.charticons| pagingFilter:dataPageSize:dataCurrentPage">
-				<a href="" ng-click="viewChart(c.chartname, c.query.queryid, c.type)">
-					<div style="margin: 5px auto;" class="thumbnail">
-						<div style="padding: 5px;background-color:rgb(56, 107, 141); color:white;border-radius:3px;"><p class="text-center" style="min-height:10px; font-size: 12px; font-weight:bold;">{{c.chartname}}</p></div>
-		      	<img style="height:180px;" ng-src="{{c.charts.image}}" alt="...">
-		    	</div>	
-		    </a>		
+			<div ng-if="chart.category == 'Product' && chart.charticons.length == 0">
+				<p class="prodo-dashboard-text-success text-success"><strong><em>There are no charts for products.</em></strong></p>
 			</div>
+			<paging ng-if="chart.category == 'Product' " data="chart.charticons" current-page="dataCurrentPage" page-size="dataPageSize">
+				<div class="col-md-3"  ng-repeat="c in chart.charticons| pagingFilter:dataPageSize:dataCurrentPage">
+					<a href="" ng-click="viewChart(c.chartname, c.query.queryid, c.type)">
+						<div style="margin: 5px auto;" class="thumbnail">
+							<div style="padding: 5px;background-color:rgb(56, 107, 141); color:white;border-radius:3px;"><p class="text-center" style="min-height:10px; font-size: 12px; font-weight:bold;">{{c.chartname}}</p></div>
+		      		<img style="height:180px;" ng-src="{{c.charts.image}}" alt="...">
+		    		</div>	
+		    	</a>		
+				</div>
  			</paging>
 		</div>
 		<div ng-show="Campaign">
-		<paging  ng-if="chart.category == 'Campaign' " data="chart.charticons" current-page="dataCurrentPage" page-size="dataPageSize">
-			<div class="col-md-3"  ng-repeat="c in chart.charticons| pagingFilter:dataPageSize:dataCurrentPage">
-				<a href="" ng-click="viewChart(c.chartname, c.query.queryid, c.type)">
-					<div style="margin: 5px auto;" class="thumbnail">
-						<div style="padding: 5px;background-color:rgb(56, 107, 141); color:white;border-radius:3px;"><p class="text-center" style="min-height:10px; font-size: 12px; font-weight:bold;">{{c.chartname}}</p></div>
-		      	<img style="height:180px;" ng-src="{{c.charts.image}}" alt="...">
-		    	</div>	
-		    </a>		
+			<div ng-if="chart.category == 'Campaign' && chart.charticons.length == 0">
+				<p class="prodo-dashboard-text-success text-success"><strong><em>There are no charts for campaigns.</em></strong></p>
 			</div>
+			<paging  ng-if="chart.category == 'Campaign' " data="chart.charticons" current-page="dataCurrentPage" page-size="dataPageSize">
+				<div class="col-md-3"  ng-repeat="c in chart.charticons| pagingFilter:dataPageSize:dataCurrentPage">
+					<a href="" ng-click="viewChart(c.chartname, c.query.queryid, c.type)">
+						<div style="margin: 5px auto;" class="thumbnail">
+							<div style="padding: 5px;background-color:rgb(56, 107, 141); color:white;border-radius:3px;"><p class="text-center" style="min-height:10px; font-size: 12px; font-weight:bold;">{{c.chartname}}</p></div>
+		      		<img style="height:180px;" ng-src="{{c.charts.image}}" alt="...">
+		    		</div>	
+		    	</a>		
+				</div>
  			</paging>
 		</div>
 	</div>

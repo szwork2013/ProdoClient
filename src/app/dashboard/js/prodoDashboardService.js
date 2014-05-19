@@ -11,6 +11,8 @@ angular.module('prodo.ProdoWallApp')
 			                              Trending: $resource('/api/trendingchart/:prodle', {}, { getTrendingChart: { method: 'GET' ,  params: { prodle: '@prodle'} } }), 
 			                              get_ProductCharts: $resource('/api/dashboard/icons', {}, { getProductCharts: { method: 'GET'} })
 			                            };
+			
+
 			    // var returnProdleAnalyticsDetails = {};
 			    // returnProdleAnalyticsDetails.getChartData = function () {
 			    //   prodoChartService.Product.prodlePieChart({prodle:$rootScope.product_prodle},function (success) {
@@ -24,4 +26,27 @@ angular.module('prodo.ProdoWallApp')
 			    // return returnProdleAnalyticsDetails;
 			    return prodoChartService;
   	  }
+])
+.factory('allChartsData', [
+  '$rootScope',
+  '$resource',
+  '$log',
+  '$state',
+  function ($rootScope, $resource, $log, $state) {
+
+  	var getChartContent = {chart: $resource('/api/chart/:prodle/:queryid', {}, {getContent : {method : 'GET', params : {prodle : '@prodle', queryid : '@queryid'}}}) };
+    var query = {};
+    query.getContent = function(queryid)
+    {
+    	getChartContent.chart.getContent({prodle: $rootScope.product_prodle , queryid : queryid}, function(success){
+    		$rootScope.$broadcast('gotChartDataSuccessfully', success);
+    	}),
+    	function(error)
+    	{
+    		$rootScope.$broadcast('notGotChartData', error);
+    	}
+    };
+
+    return query;
+  }
 ]);
