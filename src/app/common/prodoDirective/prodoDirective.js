@@ -234,7 +234,7 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
 ]).directive("paging", function(){
  
         return {
-            template:'<div><button class="glyphicon glyphicon-chevron-left pull-left" ng-disabled="!hasPrevious()" ng-click="onPrev()"></button><button class="glyphicon glyphicon-chevron-right pull-right" ng-disabled="!hasNext()" ng-click="onNext()"></button><br><div ng-transclude=""></div> </div>',
+            template:'<div><button ng-show="hasPrevious()" class="glyphicon glyphicon-chevron-left pull-left" ng-disabled="!hasPrevious()" ng-click="onPrev()"></button><button ng-show="data.length >= pageSize" class="glyphicon glyphicon-chevron-right pull-right" ng-disabled="!hasNext()" ng-click="onNext()"></button><br><div ng-transclude=""></div> </div>',
             restrict:'AEC',
             transclude:true,
             scope:{

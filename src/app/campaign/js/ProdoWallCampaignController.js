@@ -1,8 +1,8 @@
 angular.module('prodo.CampaignApp')
  .controller('ProdoWallCampaignController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$log',  'checkIfSessionExist','campaignWalldata','CampaignWallService' ,'ProductFeatureService','UserSessionService', function($scope, $rootScope, $state, $http, $timeout, $log,  checkIfSessionExist,campaignWalldata,CampaignWallService,ProductFeatureService,UserSessionService) {
    // console.log('campaign controller initializing..');
-   $log.debug( campaignWalldata.success);
-  
+   // $log.debug( campaignWalldata.success);
+    $scope.$state = $state;
   $scope.searchCommentBy;
  $scope.searchBySelected={
       type:'general'
@@ -66,13 +66,7 @@ angular.module('prodo.CampaignApp')
    });
    }
 
-  if($rootScope.campaign_idwall ){
-   $rootScope.$watch('campaign_idwall', function (campaign_idwall) {
-      $scope.getCampaign(campaign_idwall);
-      $rootScope.campaign_idwall="";
 
-   });
- }
 
 
    $scope.preGetProductPrepaireData=function(){
@@ -99,9 +93,18 @@ angular.module('prodo.CampaignApp')
              $scope.getCampaign($rootScope.campaignidWall);
           }
           else{
+              console.log('watch' + $rootScope.campaign_idwall);
              $scope.getCampaign($scope.allCampaignData[0].campaign_id);
           }
-       
+        
+          // if ( $scope.allCampaignData[0].artwork.length!==0) {
+          //   $scope.pimgs =  $scope.allCampaignData[0].artwork;
+          //   $log.debug("Product images emitting when not null ");
+          //   $scope.$emit('emitting1CampaignImages',$scope.pimgs);
+          // } else {
+          //   $scope.$emit('emitting1NoCampaignImages',$scope.pimgs);
+          //   $log.debug("Product images emitting when null ");
+          // }
 
 	       //  $scope.campaign=$scope.allCampaignData[0];
         //   $rootScope.campaignidWall=$scope.campaign.campaign_id;
@@ -145,6 +148,17 @@ angular.module('prodo.CampaignApp')
 			}
     };
    
+
+if($rootScope.campaign_idwall ){
+   $rootScope.$watch('campaign_idwall', function (campaign_idwall) {
+      console.log('firstwatch' + campaign_idwall);
+      $scope.getCampaign(campaign_idwall);
+      $rootScope.campaign_idwall="";
+
+   });
+ }
+
+
   //get Product features
   $scope.features = [];
   $scope.PFeatures = [];
@@ -248,12 +262,15 @@ angular.module('prodo.CampaignApp')
  };
 
 $scope.handleGetCampaignSuccess=function(successData){
+
+  // $state.reload();
+
      if(successData.success.Product_Campaign){
    $scope.preGetProductPrepaireData();
    $scope.campaign=successData.success.Product_Campaign;
-  console.log( $scope.campaign);
+  // console.log( $scope.campaign);
    $rootScope.campaignidWall=$scope.campaign.campaign_id;
-
+ $scope.ErrMsging=0;
      $log.debug( $scope.campaign);
      $("#prodo-ProductDetails").css("display", "block");
      $scope.getProductFeatures($rootScope.product_prodle,$rootScope.orgid);
@@ -261,12 +278,15 @@ $scope.handleGetCampaignSuccess=function(successData){
         $scope.productComments=$scope.campaign.campaign_comments;
      }
      if ( $scope.campaign.artwork.length!==0) {
-        $scope.pimgs =  $scope.campaign.artwork;
-        $log.debug("Product images emitting when not null ");
-        $scope.$emit('emittingCampaignImages',$scope.pimgs);
+        // $scope.pimgs =  $scope.campaign.artwork;
+        $rootScope.images=$scope.campaign.artwork;
+        // $log.debug("Product images emitting when not null ");
+        // $scope.$emit('emittingCampaignImages',$scope.pimgs);
     } else {
-        $scope.$emit('emittingNoCampaignImages',$scope.pimgs);
-        $log.debug("Product images emitting when null ");
+        // $scope.$emit('emittingNoCampaignImages',$scope.pimgs);
+        // $log.debug("Product images emitting when null ");
+        $rootScope.images="";
+
     }
      if ($scope.campaign.campaign_comments!==undefined){   
          $("#prodo-comment-media-list").css("display", "block");
