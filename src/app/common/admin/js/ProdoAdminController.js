@@ -6,17 +6,22 @@ angular.module('prodo.AdminApp').controller('ProdoAdminController', [
   'isLoggedin',
   'prodoAdminService',
   'chartContent',
-  function ($scope, $rootScope, UserSessionService, $state, isLoggedin, prodoAdminService, chartContent) {
+  '$stateParams',
+  function ($scope, $rootScope, UserSessionService, $state, isLoggedin, prodoAdminService, chartContent, $stateParams) {
 	$scope.chart = {'code':'','charts':[]};
   $scope.query = {'queryname': '', 'description' : ''};
   
   $scope.assignCodeToCharts = {'code':'', 'chartids':[]};
+
   $scope.chartsList = [];
 
   $scope.chartName = [];
+
   $scope.chart = {'chartname':[]};
 
   $scope.list = '';
+
+  prodoAdminService.getAllRequest();
   
   $scope.saveQueryContent = function()
   {
@@ -141,12 +146,63 @@ angular.module('prodo.AdminApp').controller('ProdoAdminController', [
   $scope.chart.chartname.push($scope.list);
   console.log($scope.chart.chartname);
  };
+ $scope.authorDetails = {};
+ $scope.acceptAuthorRequest = function(id)
+ {
+     prodoAdminService.acceptAuthorRequest(id);
+ };
+
+  var cleanUpEventGotAllAuthors = $scope.$on('gotAllRequests', function (event, data) 
+  {
+    if(data.error!==undefined && data.error.code==='AL001')
+    {
+      $rootScope.showModal();
+    }
+    else if(data.error)
+    {
+       $rootScope.ProdoAppMessage(data.error.message,'error');
+    }
+    else
+    {
+         $scope.authorDetails = data.success.author;
+    }
+
+  });
+
+  var cleanUpEventNotGotAllAuthors = $scope.$on('notGotAllRequests', function (event, data) {
+          $rootScope.ProdoAppMessage("There is some issue with the server! Please try after some time",'error');
+  });
+
+  var cleanUpEventAuthorRequestAcceptedSuccessfully = $scope.$on('authorRequestAcceptedSuccessfully', function (event, data) 
+  {
+    if(data.error!==undefined && data.error.code==='AL001')
+    {
+      $rootScope.showModal();
+    }
+    else if(data.error)
+    {
+       $rootScope.ProdoAppMessage(data.error.message,'error');
+    }
+    else
+    {
+       $rootScope.ProdoAppMessage(data.success.message,'success');
+       $state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
+    }
+
+  });
+
+  var cleanUpEventAuthorRequestNotAccepted = $scope.$on('authorRequestNotAcceptedSuccessfully', function (event, data) {
+          $rootScope.ProdoAppMessage("There is some issue with the server! Please try after some time",'error');
+  });
 
   	$scope.$on('$destroy', function(event, message) 
   	{
-
           cleanUpEventQueryAddedSuccessfully();
           cleanUpEventQueryAddError();
+          cleanUpEventGotAllAuthors();
+          cleanUpEventNotGotAllAuthors();
+          cleanUpEventAuthorRequestAcceptedSuccessfully();
+          cleanUpEventAuthorRequestNotAccepted();
 				
    	});
 

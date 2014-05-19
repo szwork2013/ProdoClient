@@ -11,6 +11,10 @@ angular.module('prodo.BlogApp')
  		$scope.addNewBlog = true;
  	}
 
+ 	$scope.cancelAddBlog =function() {
+ 		$scope.addNewBlog = false;
+ 	}
+
  	$scope.socket = io.connect(ENV.apiEndpoint + ENV.port + '/api/prodoupload', {
         query: 'session_id=' + $rootScope.usersession.currentUser.sessionid
       });

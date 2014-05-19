@@ -34,6 +34,8 @@ angular.module('prodo.AdminApp').factory('tagAddService', [
                  var getQueryFunction = {queryContent : $resource('/api/dashboard/queries', {}, {getQueryContent : {method : 'GET'}})};
                  // var getChartsList = {chartsContenList}
                  var assignCodeToChart = {codeToChart : $resource('/api/dashboard/RBONDS_Mapping', {}, {submitChart : {method: 'POST'}})};
+                 var authorAcceptanceForm = {getListofRequest : $resource('/api/author', {}, { getAllRequest : { method : 'GET'}})};
+                 var acceptAuthorRequest = { accept : $resource('/api/author/:authorid' , {} , {acceptRequest : {method : 'PUT', params : { authorid : '@authorid'} }})};
                  var query = {};
                  query.addQueryContent = function(queryContent)
                  {
@@ -41,7 +43,7 @@ angular.module('prodo.AdminApp').factory('tagAddService', [
                   {
                     $rootScope.$broadcast('queryAddedSuccessfully', success);
                   }),
-                  function(error)
+                  function(error) 
                   {
                     $rootScope.$broadcast('queryNotAddesSuccessfully' , error);
                   };
@@ -67,6 +69,28 @@ angular.module('prodo.AdminApp').factory('tagAddService', [
                   {
                         $rootScope.$broadcast('chartsNotSubmittedSuccessfully', success);
                   }
+                 }
+                 query.getAllRequest = function()
+                 {
+                  authorAcceptanceForm.getListofRequest.getAllRequest(function(success)
+                  {
+                    $rootScope.$broadcast("gotAllRequests", success);
+                  }),
+                  function(error)
+                  {
+                    $rootScope.$broadcast('notGotAllRequests', error);
+                  };
+                 }
+                 query.acceptAuthorRequest = function(data)
+                 {
+                  acceptAuthorRequest.accept.acceptRequest( { authorid : data } ,function(success)
+                  {
+                    $rootScope.$broadcast("authorRequestAcceptedSuccessfully", success);
+                  }),   function(error)
+                  {
+                    $rootScope.$broadcast('authorRequestNotAcceptedSuccessfully', error);
+                  };
+                  
                  }
                 return query;
         }

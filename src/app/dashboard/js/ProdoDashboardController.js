@@ -2,9 +2,10 @@ angular.module('prodo.ProdoWallApp').controller('ProdoDashboardController', [
   '$scope',
   '$rootScope',
   '$state',
-  'prodoDashboardService','pieChartProdle','trendingChartContent',
-  function ($scope, $rootScope, $state, prodoDashboardService,pieChartProdle, trendingChartContent) {
+  'prodoDashboardService','pieChartProdle','trendingChartContent','dashboardSliderData',
+  function ($scope, $rootScope, $state, prodoDashboardService,pieChartProdle, trendingChartContent,dashboardSliderData) {
    // prodoDashboardService.getChartData();
+
     $scope.data = [];
 
     

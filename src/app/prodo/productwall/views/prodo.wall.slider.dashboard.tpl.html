@@ -1,3 +1,47 @@
-<div style="width:100%; height: 400px; margin: 2px auto; border: 1px solid #E7EDF1;">
-	<h4 style="padding-top: 190px; "><center>Dashboard icons</center></h4>
+<div style="width:100%; min-height: 400px; margin: 5px auto; " class="container">
+	<div style="margin: 10px auto;" class="row">
+		<div class="col-md-3"></div>
+		<div style="padding: 5px;" class="col-md-2" ng-repeat="chart in productcharts">
+			<button style="border-radius:20px; width: 150px; height: 30px;" class="prodo-button-theme btn btn-sm btn-primary" ng-click="showChart(chart.category)">{{chart.category}}</button>
+		</div>
+    <div class="col-md-3"></div>
+	</div>
+	<div class="row" ng-repeat="chart in productcharts">
+		<div ng-show="Org">
+			<paging  ng-if="chart.category == 'Organization' " data="chart.charticons" current-page="dataCurrentPage" page-size="dataPageSize">
+			<div class="col-md-3"  ng-repeat="c in chart.charticons| pagingFilter:dataPageSize:dataCurrentPage">
+				<a href="" ng-click="viewChart(c.chartname, c.query.queryid, c.type)">
+					<div style="margin: 5px auto;" class="thumbnail">
+						<div style="padding: 5px;background-color:rgb(56, 107, 141); color:white;border-radius:3px;"><p class="text-center" style="min-height:10px; font-size: 12px; font-weight:bold;">{{c.chartname}}</p></div>
+		      	<img style="height:180px;" ng-src="{{c.charts.image}}" alt="...">
+		    	</div>	
+		    </a>		
+			</div>
+ 			</paging>
+		</div>
+		<div ng-show="Product">
+				<paging ng-if="chart.category == 'Product' " data="chart.charticons" current-page="dataCurrentPage" page-size="dataPageSize">
+			<div class="col-md-3"  ng-repeat="c in chart.charticons| pagingFilter:dataPageSize:dataCurrentPage">
+				<a href="" ng-click="viewChart(c.chartname, c.query.queryid, c.type)">
+					<div style="margin: 5px auto;" class="thumbnail">
+						<div style="padding: 5px;background-color:rgb(56, 107, 141); color:white;border-radius:3px;"><p class="text-center" style="min-height:10px; font-size: 12px; font-weight:bold;">{{c.chartname}}</p></div>
+		      	<img style="height:180px;" ng-src="{{c.charts.image}}" alt="...">
+		    	</div>	
+		    </a>		
+			</div>
+ 			</paging>
+		</div>
+		<div ng-show="Campaign">
+		<paging  ng-if="chart.category == 'Campaign' " data="chart.charticons" current-page="dataCurrentPage" page-size="dataPageSize">
+			<div class="col-md-3"  ng-repeat="c in chart.charticons| pagingFilter:dataPageSize:dataCurrentPage">
+				<a href="" ng-click="viewChart(c.chartname, c.query.queryid, c.type)">
+					<div style="margin: 5px auto;" class="thumbnail">
+						<div style="padding: 5px;background-color:rgb(56, 107, 141); color:white;border-radius:3px;"><p class="text-center" style="min-height:10px; font-size: 12px; font-weight:bold;">{{c.chartname}}</p></div>
+		      	<img style="height:180px;" ng-src="{{c.charts.image}}" alt="...">
+		    	</div>	
+		    </a>		
+			</div>
+ 			</paging>
+		</div>
+	</div>
 </div>
