@@ -1,9 +1,45 @@
 angular.module('prodo.ProdoWallApp')
-	.controller('ProdoWallController', ['$rootScope', '$scope', '$state', '$log', 'UserSessionService', 'orgdata', 'orgaddr', 'orgproduct', 'productData', '$stateParams', 'growl', 'checkIfSessionExist', function($rootScope, $scope, $state, $log, UserSessionService, orgdata, orgaddr, orgproduct, productData, $stateParams, growl, checkIfSessionExist) {
+	.controller('ProdoWallController', ['$rootScope', '$scope', '$state', '$log', 'UserSessionService', 'orgdata', 'orgaddr', 'orgproduct', 'productData', '$stateParams', 'growl', 'checkIfSessionExist', 'dashboardSliderData', function($rootScope, $scope, $state, $log, UserSessionService, orgdata, orgaddr, orgproduct, productData, $stateParams, growl, checkIfSessionExist, dashboardSliderData) {
 		
     $log.debug('initialising parent..');
     $scope.$state = $state;
 
+    console.log(dashboardSliderData);
+
+    $scope.productcharts = [];
+
+    $scope.dataPageSize = 8;
+
+    if (dashboardSliderData.success) {
+      $scope.productcharts = dashboardSliderData.success.doc;
+    };
+
+
+    $scope.viewChart = function(name, query, type){
+      $rootScope.$broadcast('showUniqueChart', name, query, type);
+    }
+
+
+    $scope.Org = true;
+    $scope.Product = false;
+    $scope.Campaign = false;
+
+
+    $scope.showChart = function(category) {
+      if (category == 'Organization') {
+        $scope.Org = true;
+        $scope.Product = false;
+        $scope.Campaign = false;
+      } else if (category == 'Product') {
+        $scope.Org = false;
+        $scope.Product = true;
+        $scope.Campaign = false;
+      } else if (category == 'Campaign') {
+        $scope.Org = false;
+        $scope.Product = false;
+        $scope.Campaign = true;
+      }
+    }
 
     if ($state.$current.name == 'prodo.productwall.wall-org') {
       $rootScope.index = 0;
@@ -127,5 +163,11 @@ angular.module('prodo.ProdoWallApp')
       cleanEventEmittingNoOrgImages();
     });
 
+	}])
 
-	}]);
+.filter("pagingFilter", function(){
+        return function(input, currentPage, pageSize ){
+          return input ?  input.slice(currentPage * pageSize, currentPage * ( pageSize + 1 )) : [];
+        }
+ 
+      });

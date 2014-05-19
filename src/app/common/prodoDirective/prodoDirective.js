@@ -231,7 +231,68 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
       };
     return username;
   }
-]).directive('prodoBarchart', function () {
+]).directive("paging", function(){
+ 
+        return {
+            template:'<div><button class="glyphicon glyphicon-chevron-left pull-left" ng-disabled="!hasPrevious()" ng-click="onPrev()"></button><button class="glyphicon glyphicon-chevron-right pull-right" ng-disabled="!hasNext()" ng-click="onNext()"></button><br><div ng-transclude=""></div> </div>',
+            restrict:'AEC',
+            transclude:true,
+            scope:{
+                'currentPage':'=',
+                'pageSize':'=',
+                'data':'&'
+ 
+            },
+            link:function($scope, element, attrs){
+ 
+                $scope.size = function(){
+                    return angular.isDefined($scope.data()) ? $scope.data().length : 0;
+                };
+ 
+                $scope.end = function(){
+                    return $scope.start() + $scope.pageSize;
+                };
+ 
+                $scope.start = function(){
+                    return $scope.currentPage * $scope.pageSize;
+                };
+ 
+                $scope.page = function(){
+                    return !!$scope.size() ? ( $scope.currentPage + 1 ) : 0;
+                };
+ 
+                $scope.hasNext = function(){
+                    return $scope.page() < ( $scope.size() /  $scope.pageSize )  ;
+                };
+ 
+                $scope.onNext = function(){
+                    $scope.currentPage = parseInt($scope.currentPage) + 1;
+                };
+ 
+                $scope.hasPrevious = function(){
+                    return !!$scope.currentPage;
+                } ;
+ 
+                $scope.onPrev = function(){
+                    $scope.currentPage=$scope.currentPage-1;
+                };
+ 
+                try{
+                    if ( typeof($scope.data) == "undefined"){
+                        $scope.data = [];
+                    }
+                    if ( typeof($scope.currentPage) == "undefined" ){
+                        $scope.currentPage = 0;
+                    }
+                    if ( typeof($scope.pageSize) == "undefined"){
+                        $scope.pageSize = 10;
+                    }
+                }catch(e){ console.log(e);}
+            }
+ 
+        }
+ 
+}).directive('prodoBarchart', function () {
   var barchart = {
       restrict: 'EA',
       link: function (scope, element, a) {

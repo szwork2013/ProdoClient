@@ -4,7 +4,7 @@
   <br>
 
   <!-- carousel code to go -->
-  <!-- <div class="prodo-productListCorousel" >
+  <div class="prodo-productListCorousel" >
     <button class="arrowBtn prodo-arrowbtnLeft" ng-show="blogs.length > 3 " ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1" >
       <
     </button>
@@ -33,15 +33,21 @@
         
        <div ng-if="noBlogExists === 0"><i><h3>Currently no blogs exists!</h3></i></div>
 
-  </div> -->
+  </div>
 
   <!-- carousel code to end -->
-  <!-- <br>
+  <br>
   <div ng-show="addNewBlog">
+    <dl class="dl-horizontal">
+      <dt>Product Name:</dt>
+      <dd style="width:60%;">
+        <input name="title" type="text" ng-model="blog.productname" class="form-control" placeholder="title" autofocus required>
+      </dd>
+    </dl>
   	<dl class="dl-horizontal">
 		  <dt>Title:</dt>
 		  <dd style="width:60%;">
-		  	<input name="title" type="text" ng-model="blog.title" class="form-control" placeholder="title">
+		  	<input name="title" type="text" ng-model="blog.title" class="form-control" placeholder="title" required>
 		  </dd>
 		</dl>
 		<dl class="dl-horizontal">
@@ -57,7 +63,7 @@
 		  </dd>
 		</dl>
 		<dl class="dl-horizontal">
-		  <dt>Image Upload:</dt>
+		  <dt>Artwork Upload:</dt>
 		  <dd style="width:60%;">
 		  	<input class=" form-control" type="file" name="file" ng-file-selectdata="onFileSelect($files)" ng-model="file1" >
 		  </dd>
@@ -65,10 +71,12 @@
 		<dl class="dl-horizontal">
 		  <dt></dt>
 		  <dd style="width:60%;">
-		  	<button class="prodo-button theme btn btn-sm btn-primary">Cancel</button>
-		  	<button class="prodo-button theme btn btn-sm btn-primary">Publish</button>
-		  	<button class="prodo-button theme btn btn-sm btn-primary">Post</button>
+		  	<button style="width:32.5%; background-color:transparent; color:black;" class="btn btn-sm btn-default" ng-click="cancelAddBlog()"><i class="prodo-fa fa fa-times"></i>Cancel</button>
+		  	
+		  	<button style="width:32.5%;" class="prodo-button-theme btn btn-sm btn-primary" ng-click="postBlog()"><i class="prodo-fa fa fa-location-arrow"></i>Post</button>
+
+		  	<button style="width:32.5%; background-color:#24677C; border-color:#24677C;" class=" btn btn-sm btn-primary" ng-click="publishBlog()"><i class="prodo-fa fa fa-cloud-upload"></i>Publish</button>
 		  </dd>
 		</dl>
-  </div> -->
+  </div>
 </div>
