@@ -89,22 +89,6 @@ angular.module('prodo.ProdoWallApp')
             else{
                 $rootScope.images = images;
             }           
-
-      // });
-
- 
-      // if ($rootScope.images.length !== 0) 
-      // {
-       
-      //   $rootScope.images = images;
-      // }
-      // else 
-      // {
-     
-      //   $rootScope.images= [{image: '../../../assets/images/if_no_org_images_available.gif' }];    // This will be shown when org images are not there  
-      // }
-
-
    });
 
     $scope.goToState = function(id) {
