@@ -70,12 +70,19 @@ angular.module('prodo.ProdonusApp', [
       if ($rootScope.currentState == 'prodo.home.wall') {
         $rootScope.home = 1;
         $rootScope.wall = 0;
+        $rootScope.inbox = 0;
       } else if (stateresult) {
         $rootScope.wall = 1;
         $rootScope.home = 0;
+        $rootScope.inbox = 0;
+      } else if ($rootScope.currentState == 'prodo.inbox.i_wall') {
+        $rootScope.wall = 0;
+        $rootScope.home = 0;
+        $rootScope.inbox = 1;
       } else {
         $rootScope.wall = 0;
         $rootScope.home = 0;
+        $rootScope.inbox = 0;
       }
 
     });

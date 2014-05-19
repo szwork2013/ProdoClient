@@ -5,7 +5,8 @@ angular.module('prodo.UserApp')
     var UserS = {
         user_data: $resource('/api/user/:userid', {}, { getUserSettings: { method: 'GET'} }),
         Is_user_loggedin: $resource('/api/isloggedin', {}, { checkUserSession: { method: 'GET' } }),
-        marketing: $resource('/api/marketing', {}, { getMarketingData: { method: 'GET' } })
+        marketing: $resource('/api/marketing', {}, { getMarketingData: { method: 'GET' } }),
+        author: $resource('/api/categorytags', {}, { getAuthorCategoryData: { method: 'GET' } })
     }
     return UserS;
   }
@@ -19,6 +20,7 @@ angular.module('prodo.UserApp')
     var UserService = {
         Signup: $resource('/api/user/signup', {}, { saveUser: { method: 'POST' } }),
         Signin: $resource('/api/user/signin', {}, { signinUser: { method: 'POST' } }),
+        Author: $resource('/api/author', {}, { sendAuthorApplication: { method: 'POST' } }),
         ManageUser: $resource('/api/user/:userid', {}, {
           getAllUsers: {
             method: 'GET',
@@ -128,6 +130,16 @@ angular.module('prodo.UserApp')
       }, function (error) {
         $log.debug(error);
         $rootScope.$broadcast('activateAccountTokenNotDone', error.status);
+      });
+    };
+
+    session.sendAuthorAppRequest = function (authordata) {
+      UserService.Author.sendAuthorApplication(authordata, function (success) {
+        $log.debug(success);
+        $rootScope.$broadcast('sendAuthorRequestDone', success);
+      }, function (error) {
+        $log.debug(error);
+        $rootScope.$broadcast('activateAuthorRequestNotDone', error.status);
       });
     };
 

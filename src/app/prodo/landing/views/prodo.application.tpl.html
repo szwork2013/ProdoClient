@@ -1,3 +1,90 @@
 <div class="prodo-footer-content-container">
-	<h4><center>Application Coming Soon....</center> </h4>
+
+	<label id="prodo-term-label-control" class="label-control">Author Application Form</label>
+	<hr class="prodo-hr" size=3 noshade>
+
+	<br>
+
+	<div class="container">
+
+		<div class="author-form">
+			<div class="row">
+				<div class="col-md-1"></div>
+
+				<div class="col-md-10">
+
+					<div class="author-start-text">
+						<h4><em>
+							Interested in becoming Prodonus Blog contributor ?
+						</em></h4>
+						<br>
+					</div>
+
+					<form name="form.authorForm" class="css-form" ng-submit="">
+				
+						<dl>
+						  <dt>Firstname</dt>
+						  <dd><input name="fname" class="form-control" type="text" placeholder="firstname" required ng-model="author.fname" /></dd>
+						</dl>
+
+						<dl>
+						  <dt>Lastname</dt>
+						  <dd><input name="lname" class=" form-control" type="text" placeholder="lastname" required ng-model="author.lname" /></dd>
+						</dl>
+						
+						<dl>
+						  <dt>Email address</dt>
+						  <dd><input name="email" class="form-control" type="email" placeholder="email" required ng-model="author.email" /></dd>
+						</dl>
+
+						<dl>
+						  <dt>Country</dt>
+						  <dd><input name="country" class="form-control" type="text" placeholder="country" required ng-model="author.country" typeahead="country for country in countries | filter:$viewValue | limitTo:6" /></dd>
+						</dl>
+
+						<dl>
+						  <dt>Category</dt>
+						  <dd style="color:#b3b3b3; font-size:12px;">Please enter the blog category for which you are interested in writing blogs. </dd>
+						  <dd class="prodo-authorTags"><tags-input minTags="1" add-on-blur="true" ng-model="author.category" min-length="1" list="categoriesList"  placeholder="blog category" popover-placement="right" popover="Press 'Enter' key after entering category" popover-trigger="mouseenter"></tags-input></dd>
+						</dl>
+
+						<dl>
+						  <dt>My Portfolio</dt>
+						  <dd style="color:#b3b3b3; font-size:12px;">Please let us know your blog/s, website/s, Twitter handle, Facebook profile and other activity online. <a class="pull-right" href="" ng-click="addMoreHandles()"><i class="prodo-fa fa fa-plus-square"></i>More</a></dd>
+						  <dd style="margin: 2px auto;" ng-repeat="handle in handles">
+
+						  	<select style="width: 48%; display: inline;" type="text" name="handletype" class="form-control" ng-model="handle.type" ng-options="option.name for option in options" required>
+        				</select>
+
+						  	<input style="width: 48%; display: inline;" class="form-control" ng-model="handle.url" type="text" name="handlename" placeholder="handle" required> 				
+        				
+						  </dd>
+						</dl>
+
+						<dl>
+						  <dt>Tell us about you</dt>
+						  <dd style="color:#b3b3b3; font-size:12px;">What are you doing right now? What experiences do you have in the activities you're interested in blogging towards industries and products?</dd>
+						  <dd><textarea rows="5" name="aboutu" class=" form-control" type="text" placeholder="tell us about u" required ng-model="author.aboutu"></textarea></dd>
+						</dl>
+
+						<dl>
+						  <dt></dt>
+						  <dd>
+						  	<center><button style=" min-width: 32.5%; margin 0px auto; font-size: 12px; font-weight:bold; background-color:transparent; color:black;" class="btn btn-sm btn-default" ng-click="clearAuthorApp()"><i class="prodo-fa fa fa-times"></i>Cancel</button>
+
+						  	<button style=" min-width: 32.5%; margin 0px auto; font-size: 12px; font-weight:bold;" class="prodo-button-theme btn btn-sm btn-primary" ng-click="goState()"><i class="prodo-fa fa fa-chevron-circle-left"></i>Back</button>
+
+						  	<button style=" min-width: 32.5%; margin 0px auto; font-size: 12px; font-weight:bold; background-color:#24677C; border-color:#24677C;" class=" btn btn-sm btn-primary" ng-click="sendAuthorRequest()"><i class="prodo-fa fa fa-save"></i>Save</button></center>
+
+						  </dd>
+						</dl>
+					</form>
+				</div>
+
+				<div class="col-md-1"></div>
+			</div>
+			
+		</div>
+	</div>
+
 </div>

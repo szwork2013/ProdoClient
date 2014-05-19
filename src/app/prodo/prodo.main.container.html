@@ -17,6 +17,8 @@
 
         <li><a ng-show="((usersession.currentUser.org) || (usersession.currentUser.prodousertype == 'individual'))" class="btn defaultPointer"   >Trial : {{ daysRemaining }} Days Remaining</a></li>
 
+        <li><a class="navbar-home-link btn" ui-sref="prodo.inbox.i_wall"><i  ng-class="{pillHomeNavs : inbox == 1}" class="prodo-fa-navbar fa fa-inbox"></i>Inbox</a></li>
+
         <li><a class="navbar-home-link btn" ui-sref="prodo.home.wall"><i  ng-class="{pillHomeNavs : home == 1}"  class="prodo-fa-navbar fa fa-home"></i>Home</a></li>
 
         <li><a class="navbar-home-link btn" ui-sref="prodo.productwall.wall-org"  ><i ng-class="{pillHomeNavs : wall == 1} " class="prodo-fa-navbar fa fa-stack-exchange "></i>Productwall</a></li>

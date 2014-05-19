@@ -66,7 +66,7 @@
                     <ul id="footer-nav-list"> 
                         <li><a href="" class="" ui-sref="prodo.footer-content.business">Business</a></li> 
                         <li><a href="" class="" ui-sref="prodo.footer-content.advertising">Advertising</a></li> 
-                        <!-- <li><a href="" class="" ui-sref="prodo.footer-content.application">Author-Application</a></li>  -->
+                        <li ng-show="usersession.isLoggedIn"><a href="" class="" ui-sref="prodo.footer-content.application">Author-Application</a></li> 
                     </ul> 
                 </nav> 
             </div> 
@@ -113,6 +113,7 @@
     <script src="prodo/productwall/js/prodoWallApp.js"></script>
     <script src="prodo/productwall/js/prodoWallOrgController.js"></script>
     <script src="prodo/landing/js/prodoMarketingController.js"></script>
+    <script src="prodo/landing/js/prodoFooterController.js"></script>
     <script src="user/js/UserRegistrationController.js"></script> 
     <script src="user/js/UserSigninController.js"></script> 
     <script src="user/js/UserAccountController.js"></script> 
