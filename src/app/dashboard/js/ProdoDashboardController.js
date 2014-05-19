@@ -2,8 +2,8 @@ angular.module('prodo.ProdoWallApp').controller('ProdoDashboardController', [
   '$scope',
   '$rootScope',
   '$state',
-  'prodoDashboardService','pieChartProdle','trendingChartContent','dashboardSliderData',
-  function ($scope, $rootScope, $state, prodoDashboardService,pieChartProdle, trendingChartContent,dashboardSliderData) {
+  'prodoDashboardService','pieChartProdle','trendingChartContent','dashboardSliderData','allChartsData',
+  function ($scope, $rootScope, $state, prodoDashboardService,pieChartProdle, trendingChartContent,dashboardSliderData, allChartsData) {
    // prodoDashboardService.getChartData();
 
     $scope.data = [];
@@ -58,38 +58,88 @@ angular.module('prodo.ProdoWallApp').controller('ProdoDashboardController', [
      
     $scope.trending = [];
 
-    if(pieChartProdle !== undefined)
-    {
-      // console.log(pieChartProdle);
-        if(pieChartProdle.error!==undefined && pieChartProdle.error.code==='AL001')
+    // if(pieChartProdle !== undefined)
+    // {
+    //   // console.log(pieChartProdle);
+    //     if(pieChartProdle.error!==undefined && pieChartProdle.error.code==='AL001')
+    //     {
+    //       $rootScope.showModal();
+    //     }
+    //     else if(pieChartProdle.error)
+    //     {
+    //        // $rootScope.ProdoAppMessage(pieChartProdle.error.message,'error');
+    //        //$rootScope.ProdoAppMessage('Dashboard chart data not available','error');
+    //     }
+    //     else
+    //     {
+    //         $scope.data = pieChartProdle.success.piechart_analytics;
+    //         $scope.showPieChart = 1;
+    //         $scope.dataForBarChart = pieChartProdle.success.barchart_analytics; 
+    //         $scope.barChart = function() {
+    //         return [{
+    //           key: 'Product Ratings',
+    //           values: $scope.dataForBarChart,
+    //         }];
+    //         };
+    //          $scope.showBarChart = 1;
+    //    }
+    // };
+
+    // if(pieChartProdle === undefined)
+    // {
+    //     $rootScope.ProdoAppMessage("There is some issue with the server! Please try again after some time",'error');
+    // }
+    $scope.chartType = '';
+
+    $scope.$on('showUniqueChart', function (event, name, query, type) {
+          allChartsData.getContent(query); $scope.chartType = type;
+    });
+
+    var cleanupeventGotChartContent = $scope.$on("gotChartDataSuccessfully", function(event, data){
+     if(data.error !== undefined && data.error.code === 'AL001' )
         {
           $rootScope.showModal();
         }
-        else if(pieChartProdle.error)
+        if(data.success)
         {
-           // $rootScope.ProdoAppMessage(pieChartProdle.error.message,'error');
-           //$rootScope.ProdoAppMessage('Dashboard chart data not available','error');
-        }
-        else
-        {
-            $scope.data = pieChartProdle.success.piechart_analytics;
-            $scope.showPieChart = 1;
-            $scope.dataForBarChart = pieChartProdle.success.barchart_analytics; 
-            $scope.barChart = function() {
-            return [{
-              key: 'Product Ratings',
-              values: $scope.dataForBarChart,
-            }];
-            };
+            $scope.showPieChart = 0;
+            $scope.showBarChart = 0;
+           // $scope.showSampleDataFordualstack = 0;
+
+            if($scope.chartType === 'Pie Chart')
+            {
+              $scope.data = pieChartProdle.success.piechart_analytics;
+              $scope.showPieChart = 1;
+            }
+            else if($scope.chartType === 'Bar Chart')
+            {
+              $scope.dataForBarChart = pieChartProdle.success.barchart_analytics; 
+              $scope.barChart = function() {
+              return [{
+                key: 'Product Ratings',
+                values: $scope.dataForBarChart,
+              }];
+              };
              $scope.showBarChart = 1;
-       }
-    };
 
-    if(pieChartProdle === undefined)
-    {
-        $rootScope.ProdoAppMessage("There is some issue with the server! Please try again after some time",'error');
-    }
+            }
+            // else if($scope.chartType === 'Dual Stack')
+            // {
+            //          $scope.showSampleDataFordualstack = 1;
+            // }
+        }
+        else {
+          if (data.error.code== 'AU004') {     // enter valid data
+              $rootScope.ProdoAppMessage(data.error.message,'error');    //ShowAlert
+          } else {
+              $rootScope.ProdoAppMessage(data.error.message,'error');    //ShowError
+          }
+        }
+    });
 
+    var cleanupeventNotGotChartContent = $scope.$on("notGotChartData", function(event, data){
+           $rootScope.ProdoAppMessage("Some issues with server",'error');
+    });
 
     // if(trendingChartContent !== undefined)
     // {
