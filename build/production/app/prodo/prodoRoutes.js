@@ -68,6 +68,46 @@ angular.module('prodo.ProdonusApp')
       }
     })
 
+    /* ----Prodo Inbox Routes---- */
+    // .state('prodo.inbox', {
+    //   abstract: true,
+    //   templateUrl: 'inbox/views/prodo.inbox.container.html',
+    //   controller:'ProdoInboxController',
+    //   // resolve: {
+    //   //   allOrgData: function(OrgService, $rootScope) {
+    //   //     return OrgService.all_org_data.getAllOrgAnalytics().$promise;
+    //   //   },
+    //   //   allCampaignData: function(HomeService, $rootScope) {
+    //   //     return HomeService.all_campaign_data.getAllCampaigns().$promise;
+    //   //   },
+    //   //   checkIfSessionExist: function(UserService, $rootScope) {
+    //   //       return UserService.Is_user_loggedin.checkUserSession().$promise;
+    //   //   } 
+    //   // },
+    //   onEnter: function(UserSessionService, checkIfSessionExist, $state){
+    //     if (checkIfSessionExist.success) {
+    //       if (checkIfSessionExist.success.user.prodousertype == 'business' && checkIfSessionExist.success.user.org == undefined) {
+    //         $state.transitionTo('prodo.orgregistration.company');
+    //       } else if (checkIfSessionExist.success.user.isOtpPassword) {
+    //         $state.transitionTo('prodo.landing.resetpassword');
+    //       } 
+    //     }
+    //   }
+    // })
+    // .state('prodo.inbox.i_wall', {
+    //   views: {
+    //     'prodo-home-walladvertising': {
+    //       templateUrl: 'prodo/home/views/prodo.home.walladvertising.tpl.html'
+    //     },
+    //     'prodo-home-wallsearch' : {
+    //       templateUrl:  'prodo/home/views/prodo.home.wallsearchbar.tpl.html'
+    //     },
+    //     'prodo-home-wall' : {
+    //       templateUrl:  'prodo/home/views/prodo.home.wall.tpl.html'
+    //     }
+    //   }
+    // }) 
+
     /* ----Prodo Home Routes---- */
     .state('prodo.home', {
       abstract: true,
@@ -178,7 +218,21 @@ angular.module('prodo.ProdonusApp')
     /* ----Footer Content Routes---- */
     .state('prodo.footer-content', {
       abstract: true,
-      templateUrl: 'prodo/landing/views/prodo.footer.content.container.html'
+      templateUrl: 'prodo/landing/views/prodo.footer.content.container.html',
+      resolve : {
+        checkIfSessionExist: function(UserService, $rootScope) {
+            return UserService.Is_user_loggedin.checkUserSession().$promise;
+        } 
+      },
+      onEnter: function(UserSessionService, checkIfSessionExist, $state){
+        if (checkIfSessionExist.success) {
+          if (checkIfSessionExist.success.user.prodousertype == 'business' && checkIfSessionExist.success.user.org == undefined) {
+            $state.transitionTo('prodo.orgregistration.company');
+          } else if (checkIfSessionExist.success.user.isOtpPassword) {
+            $state.transitionTo('prodo.landing.resetpassword');
+          } 
+        }
+      }
     })    
     .state('prodo.footer-content.aboutus',{ 
       templateUrl: 'prodo/landing/views/prodo.aboutus.tpl.html' 
@@ -197,7 +251,14 @@ angular.module('prodo.ProdonusApp')
       templateUrl: 'prodo/landing/views/prodo.advertising.tpl.html'
     })
     .state('prodo.footer-content.application', {
-      templateUrl: 'prodo/landing/views/prodo.application.tpl.html' 
+      templateUrl: 'prodo/landing/views/prodo.application.tpl.html',
+      resolve: {
+        UserService: 'UserService',
+          authorcategorydata: function(UserService, $rootScope) {
+            return UserService.author.getAuthorCategoryData().$promise;
+        }
+      },
+      controller: 'ProdoFooterController'
     })
     .state('prodo.footer-content.support', {
       templateUrl: 'prodo/landing/views/prodo.support.tpl.html'
@@ -337,6 +398,9 @@ angular.module('prodo.ProdonusApp')
         broadcastData: function(OrgService, $rootScope) {
             return OrgService.GetOrg_Broadcast_Messages.getOrgBroadcastMessage({orgid: $rootScope.orgid}).$promise;
         },
+        dashboardSliderData: function(prodoDashboardService, $rootScope) {    
+          return prodoDashboardService.get_ProductCharts.getProductCharts().$promise;
+        },
         checkIfSessionExist: function(UserService, $rootScope) {
             return UserService.Is_user_loggedin.checkUserSession().$promise;
         } 
@@ -416,9 +480,11 @@ angular.module('prodo.ProdonusApp')
               console.log(campaignWalldata);
                if(campaignWalldata.success){
                 if(campaignWalldata.success.Product_Campaigns.length > 0){
-                   if($rootScope.campaign_idwall ){ }
+                   if($rootScope.campaign_idwall ){console.log('idfirst' +$rootScope.campaign_idwall ) }
                     else{
+
                      $rootScope.campaignidWall=campaignWalldata.success.Product_Campaigns[0].campaign_id;
+                     console.log('idsecond' +$rootScope.campaignidWall)
                     }
                   
                    
@@ -461,16 +527,16 @@ angular.module('prodo.ProdonusApp')
         'prodo-content' : {
           templateUrl:  'dashboard/views/prodo.wall.dashboard.tpl.html',
           resolve : {
-                          prodoDashboardService: 'prodoDashboardService',
-                          pieChartProdle : function(prodoDashboardService, $rootScope) 
-                          {
-                              return  prodoDashboardService.Product.prodlePieChart({prodle : $rootScope.product_prodle}).$promise;
-                          },
-                          trendingChartContent : function(prodoDashboardService , $rootScope)
-                          // barChartProdle : function(prodoDashboardService, $rootScope) 
-                          {
-                              return  prodoDashboardService.Trending.getTrendingChart({prodle : $rootScope.product_prodle}).$promise;
-                          },
+            prodoDashboardService: 'prodoDashboardService',
+            pieChartProdle : function(prodoDashboardService, $rootScope) 
+            {
+              return  prodoDashboardService.Product.prodlePieChart({prodle : $rootScope.product_prodle}).$promise;
+            },
+            trendingChartContent : function(prodoDashboardService , $rootScope)
+            // barChartProdle : function(prodoDashboardService, $rootScope) 
+            {
+              return  prodoDashboardService.Trending.getTrendingChart({prodle : $rootScope.product_prodle}).$promise;
+            }
           },
           controller: 'ProdoDashboardController',
         },

@@ -112,6 +112,13 @@ font-weight: bold;
 	width: 60%;
 	margin: 10px auto;
 }
+
+.prodo-authorTags{
+width: 100%;
+height: 34px;
+border-radius: 4px;
+
+}
 #prodo-org-nav-pills>li>a{
 font-size: 14px;
 margin: 2px;
@@ -328,7 +335,7 @@ ul.prodoManageOptions a:hover {
 }
 
 #prodo-view-marketing-tagline{
-	font-weight: normal;
+	font-weight: bold;
 	margin-left: 17px;
 	font-size: 25px;
 	line-height: 30px;
@@ -477,6 +484,10 @@ margin:5px auto; display:block; height:25px; width: 95%; background-color:#304A6
 
 .prodo-account-form-control{
 	width:55%; height:30px; display:block
+}
+
+.prodo-dashboard-text-success{
+	text-align:center; font-size:30px; margin: 120px auto;
 }
 
 .prodo-account-text-success{

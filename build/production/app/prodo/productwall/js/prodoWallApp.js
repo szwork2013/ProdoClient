@@ -1,9 +1,45 @@
 angular.module('prodo.ProdoWallApp')
-	.controller('ProdoWallController', ['$rootScope', '$scope', '$state', '$log', 'UserSessionService', 'orgdata', 'orgaddr', 'orgproduct', 'productData', '$stateParams', 'growl', 'checkIfSessionExist', function($rootScope, $scope, $state, $log, UserSessionService, orgdata, orgaddr, orgproduct, productData, $stateParams, growl, checkIfSessionExist) {
+	.controller('ProdoWallController', ['$rootScope', '$scope', '$state', '$log', 'UserSessionService', 'orgdata', 'orgaddr', 'orgproduct', 'productData', '$stateParams', 'growl', 'checkIfSessionExist', 'dashboardSliderData', function($rootScope, $scope, $state, $log, UserSessionService, orgdata, orgaddr, orgproduct, productData, $stateParams, growl, checkIfSessionExist, dashboardSliderData) {
 		
     $log.debug('initialising parent..');
     $scope.$state = $state;
 
+    console.log(dashboardSliderData);
+
+    $scope.productcharts = [];
+
+    $scope.dataPageSize = 8;
+
+    if (dashboardSliderData.success) {
+      $scope.productcharts = dashboardSliderData.success.doc;
+    };
+
+
+    $scope.viewChart = function(name, query, type){
+      $rootScope.$broadcast('showUniqueChart', name, query, type);
+    }
+
+
+    $scope.Org = true;
+    $scope.Product = false;
+    $scope.Campaign = false;
+
+
+    $scope.showChart = function(category) {
+      if (category == 'Organization') {
+        $scope.Org = true;
+        $scope.Product = false;
+        $scope.Campaign = false;
+      } else if (category == 'Product') {
+        $scope.Org = false;
+        $scope.Product = true;
+        $scope.Campaign = false;
+      } else if (category == 'Campaign') {
+        $scope.Org = false;
+        $scope.Product = false;
+        $scope.Campaign = true;
+      }
+    }
 
     if ($state.$current.name == 'prodo.productwall.wall-org') {
       $rootScope.index = 0;
@@ -34,15 +70,26 @@ angular.module('prodo.ProdoWallApp')
       $rootScope.manageSlider= data.length;  // Added this variable to check conditions in tpl
       if (data.length !== 0) 
       {
-        $rootScope.images = "";     // Omkar: To clear previous images
+        // $rootScope.images = "";     // Omkar: To clear previous images
         $rootScope.images = data;
       }
       else if (data.length===0)
       {
-        $rootScope.images = "";    // Omkar: To clear previous images
+        // $rootScope.images = "";    // Omkar: To clear previous images
         $rootScope.images= [{image: '../../../assets/images/if_no_org_images_available.gif' }];    // This will be shown when org images are not there  
       }
     };
+
+  $rootScope.$watch('images', function (images) {
+      // $rootScope.$apply(function() {
+           if($rootScope.images=="" ){
+            $rootScope.images =[{image: '../../../assets/images/if_no_org_images_available.gif' }];
+           }
+
+            else{
+                $rootScope.images = images;
+            }           
+   });
 
     $scope.goToState = function(id) {
       if (id == 'nav1' && $state.$current.name !== 'prodo.productwall.wall-org') {
@@ -94,11 +141,13 @@ angular.module('prodo.ProdoWallApp')
 
     var cleanEventEmittingCampaignImages = $scope.$on("emittingCampaignImages", function(event, data){
       $log.debug('listening in Parent controller by Campaign controller');
+      console.log(data);
       $scope.updateimages(data);
     });
 
     var cleanEventEmittingNoCampaignImages = $scope.$on("emittingNoCampaignImages", function(event, data){
       $log.debug('listening in Parent controller by Campaign controller');
+      console.log(data);
       $scope.updateimages(data);
     });
 
@@ -127,5 +176,11 @@ angular.module('prodo.ProdoWallApp')
       cleanEventEmittingNoOrgImages();
     });
 
+	}])
 
-	}]);
+.filter("pagingFilter", function(){
+        return function(input, currentPage, pageSize ){
+          return input ?  input.slice(currentPage * pageSize, currentPage * ( pageSize + 1 )) : [];
+        }
+ 
+      });
