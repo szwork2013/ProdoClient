@@ -1,1 +1,45 @@
-accep
+<div>
+
+<center><b>Author Acceptance</b></center>
+
+</div>
+<br>
+<br>
+<br>
+<br>
+
+
+<table style="width:100%" border="1">
+		<tr>
+				<td style="width:20%"><b>Author Name</b></td>
+				<td style="width:20%"><b>Email</b></td>
+		<!-- 		<td style="width:20%"><b>Category</b></td> -->
+				<td style="width:20%"><b>Date</b></td>
+				<td style="width:20%"><b>Country</b></td>
+				<td style="width:20%"><b>Status</b></td>
+				<td style="width:20%"><b>Action</b></td>
+		</tr>
+		
+		<tr ng-repeat= "list in authorDetails">
+						<td>{{list.firstname}}&nbsp;{{list.lastname}}</td>
+						<td ng-bind = "list.email"></td>
+					<!-- 	<td ng-repeat = "category in list.category">
+							<span ng-bind = "category"></span>&nbsp;
+						</td> -->
+						<td ng-bind = "list.posted_date"></td>
+						<td ng-bind = "list.country"></td>
+						<td ng-bind="list.status"></td>
+						<td>
+				               <button ng-if="list.status === 'accepted' ">Reject</button>
+				               <button ng-click="acceptAuthorRequest(list.authorid)" ng-if="list.status === 'requested'" > Accept </button>
+						</td>
+		</tr>
+
+
+</table>
+
+
+
+
+
+<!-- </div> -->
