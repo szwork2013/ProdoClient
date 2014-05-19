@@ -131,10 +131,10 @@ angular.module('prodo.ProdoWallApp').controller('ProdoDashboardController', [
         else {
           if (data.error.code== 'AU004') {     // enter valid data
               //$rootScope.ProdoAppMessage(data.error.message,'error');    //ShowAlert
-              $rootScope.ProdoAppMessage('No data exist for '+$scope.chartName, 'error');
+              $rootScope.ProdoAppMessage('No data exists for '+$scope.chartName, 'error');
           } else {
              // $rootScope.ProdoAppMessage(data.error.message,'error');    //ShowError
-             $rootScope.ProdoAppMessage('No data exist for '+$scope.chartName, 'error');
+             $rootScope.ProdoAppMessage('No data exists for '+$scope.chartName, 'error');
           }
         }
     });
