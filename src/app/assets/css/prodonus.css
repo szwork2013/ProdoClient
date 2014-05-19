@@ -1409,6 +1409,15 @@ text {
 
   
 */
+
+.btn-warning{
+	background-color: #BF8618;
+	border-color: #BF8618;
+	color: white;
+}
+
+
+
 .abctooltip {
   position: absolute;
   background: rgba(200,200,200,0.75);
@@ -1623,12 +1632,22 @@ margin: 2px auto; position:absolute; }
 /*#fa-tagsComment:hover{zoom:1.2;-webkit-transform: scale( 1.2); -moz-transform: scale( 1.2);}*/
 .fa-picture-o:hover{color:rgb(139, 9, 241)}
 .fa-trash-o:hover{/*color:red;*/}
+
+.fa-thumbs-o-up:hover{color:green}
+.fa-thumbs-o-down:hover{color:red}
+
 /*#fa-removeComment:hover{zoom:1.2;-webkit-transform: scale( 1.2); -moz-transform: scale( 1.2);}*/
 /*#fa-removeComment:hover{color:gray;}*/
 
 ul {list-style-type: none; }
 /*li:nth-child(odd) {background-color:#F2F2F2;}*/
 .prodo-paddingLeft{padding-left: 50px;}
+/*.prodo-comment-statusContainer{height:70px;width: 20px;}*/
+.prodo-commentStatusLable{font-size: 12px;}
+.prodo-commentStatusCount{width:20px;font-family:Helvetica; font-size: 7px;color: rgb(109, 0, 0); }
+.prodo-commentStatusImg{height: 22px;}
+.prodo-comment-agreeDis.{margin-top: -5px;
+margin-right: 5px;}
 .prodoCommentDeleteUp{font-size: 20px;color: rgb(185, 106, 141);margin-right: 5px;}
 #prodo-comment-textBox-container {padding-bottom: 10px;}
 #prodo-comment-media-list{border:3px;font-family: Helvetica ;font-size:14px;}
@@ -1701,6 +1720,33 @@ margin-bottom: 10px;
 /*#load-more:hover            { color:#666; }   */
 
 
+#panel {
+
+	height: 200px;
+	display: none;
+	font-family: Helvetica ;
+}
+.slide {
+	margin: 0;
+	padding: 0;
+
+
+}
+.btn-slide {
+
+margin-right: 5px;
+	/*width: 144px;
+	height: 31px;
+	padding: 10px 10px 0 0;
+	margin: 0 auto;
+	display: block;
+	
+
+	text-decoration: none;*/
+}
+
+
+
 
 /*User  modal - omkar*/
 .productFollowedImage
@@ -1742,7 +1788,10 @@ margin-bottom: 10px;
 
  /* Prodo-Comment-CSS*/
 
- /* Prodo-ProductFeature-CSS*/ 
+ /* Prodo-ProductFeature-CSS*/
+.padding-right30{margin-left: 30px;}
+  .prodo-inquirySubmittr{width: 473px;}
+ .prodo-productwalltextWidth{width: 473px}
  .prodo-prodowalltable{width: 87%;margin-left: 15px;font-size: 13px;}
  .prodo-font13{font-size: 13px;background-color: #FFBABA;}
  .prodo-categorypaddingLeft{padding-left: 15px;}
@@ -1805,10 +1854,10 @@ margin-bottom: 10px;
 .prodo-MainDetailsTable{  color: black;}
 .prodo-followesInfotr{width: 50%}
 .prodo-followesInfotd{width: 50%;border-right:1px solid #dbdbdb;padding-right:5px;}
-.prodo-producttrendingInfoDiv{font-size: 18px;text-align: right;padding-right: 15px;}
+.prodo-producttrendingInfoDiv{font-size: 18px;text-align: right;padding-right: 5px;}
 .prodo-producttrendingInfoLable{font-size: 10px;text-align: right;}
 .prodo-productCommentInfo{ width: 50%; padding-left: 5px;}
-.prodo-productCommentInfoDiv{font-size: 18px;text-align: left;width: 50px;padding-left: 15px;}
+.prodo-productCommentInfoDiv{font-size: 18px;text-align: left;width: 50px;padding-left: 5px;}
 .prodo-productCommentsInfoLable{font-size: 10px;text-align: left;}
 .prodo-delImgs{margin-bottom: 10px;}
 .prodo-checkbox{height: 17px;width: 17px;}
@@ -2871,7 +2920,7 @@ left: 173px;
 
 /*Campaign wall*/
 .prodo-campaignBanner{	max-width: 610px;max-height: 100px;width: 80%;margin-left: 50px;}
-.prodo-CampaignName{font-weight: bolder;font-size: 20px; margin-left: 50px;}
+.prodo-CampaignName{font-weight: bolder;font-size: 20px; margin-left: 65px;}
 
 .disableEditingMode[readonly]{
 cursor: context-menu;
@@ -2898,6 +2947,7 @@ max-height: 100px;
 }
 .area{
   text-align:center;
+  word-wrap: break-word;
   font-size:1em;
   color:#fff;
   font-weight:400;

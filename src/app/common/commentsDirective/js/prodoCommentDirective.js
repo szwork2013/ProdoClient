@@ -27,10 +27,12 @@ return {
   'growl',
   'CommentLoadMoreService',
   'TagReffDictionaryService',
-  function ($scope, $log, ProductService, $rootScope, UserSessionService, CommentService,growl,CommentLoadMoreService,TagReffDictionaryService) {
+  '$http',
+  'ENV',
+  function ($scope, $log, ProductService, $rootScope, UserSessionService, CommentService,growl,CommentLoadMoreService,TagReffDictionaryService,$http,ENV) {
 
 
-
+$scope.likeaction="";
 $scope.handleGetAllTagsSuccess=function(successData){
      for (var i = 0; i < successData.success.tags.length; i++) {
       $scope.pretags.push(successData.success.tags[i].tagname);
@@ -107,22 +109,7 @@ $scope.getLastCommentId = function () {
 }
 };
 //find last comment id
-$scope.loadMoreComments = function () {
-  $("#img-spinner").show();
-  var lastCommentId = $scope.getLastCommentId();
-  if ((lastCommentId !== "") || (lastCommentId !== " ") || (lastCommentId !== undefined) || (lastCommentId !== null)) {
-    CommentLoadMoreService.loadMoreComments({
-      commentid: lastCommentId
-    }, function (result) {
-      $scope.handleLoadMoreCommentResponse(result)
-      $("#img-spinner").hide();
-    }, function (error) {
-      $log.debug(error);
-      $("#loadMoreCommentMsg").css("display", "block");
-      $("#loadMoreCommentMsg").html(error);
-    });
-  }
-};
+
 $("#img-spinner").hide();
 
 //if error adding comment retry function
@@ -166,6 +153,29 @@ $scope.showRetryIconIfCommentNotAdded = function () {
   
   $scope.handleDeleteProductCommentSuccess=function(success){
     $rootScope.ProdoAppMessage("Comment deleted successfully", 'success');
+
+      if($scope.type=='product'){
+         if ($scope.product.product_comments) {
+                if ($scope.product.product_comments==0) {
+                  $("#load-more").css("display", "none");
+                } 
+                else{
+                     $("#load-more").css("display", "inline");
+                }
+              }
+      }
+      else  if($scope.type=='campaign'){
+         if ($scope.campaign.campaign_comments) {
+                if ($scope.campaign.campaign_comments==0) {
+                  $("#load-more").css("display", "none");
+                } 
+                else{
+                     $("#load-more").css("display", "inline");
+                }
+              }
+      }
+    
+
   };
 
    $scope.handleDeleteProductCommentError=function(error){
@@ -247,25 +257,62 @@ $scope.hideIfNotImage = function (image) {
   }
 };
 //show comment image if exists 
-  $scope.deleteProductComment = function (comment) {
-    if (comment.user.userid == $scope.userIDFromSession ) {
-      CommentService.deleteComment({ commentid: comment.commentid },
-       function (success) {
-          if(success.success){
-            var index = $scope.productComments.indexOf(comment);
-            if (index != -1){
-               $scope.productComments.splice(index, 1);
-            }
-           $scope.handleDeleteProductCommentSuccess(success);   
-          }else if(success.error){
-            $scope.handleDeleteProductCommentError(success.error);
-          }  
-        }, function (error) {
-          $log.debug(JSON.stringify(error));
-        });
-      $log.debug(comment.commentid);
+
+$scope.likedislike=function(likeaction,comment){
+
+$http({
+  method: 'POST',
+  url: ENV.apiEndpoint_notSocket + '/api/agreedisagreecomment/' + comment.commentid + '?action=' + likeaction,
+}).success(function (data, status, headers, cfg) {
+ if(data.success)  {
+  $scope.handleLikeDislikeSuccess(data.success);
+  $scope.EditCommentLikeDislike(comment,likeaction);
+}
+else  if(data.error)  {
+  $scope.handleLikeDislikeError(data.error);
+}
+}).error(function (data, status, headers, cfg) {
+  // $log.debug(status);
+ $rootScope.ProdoAppMessage(status, 'error'); 
+});
+ $scope.likeaction='';
+
+
+
+};
+
+$scope.EditCommentLikeDislike=function(comment,likeaction){
+  for(var i=0;i< $scope.productComments.length-1 ; i++){
+   if($scope.productComments[i].commentid==comment.commentid){
+
+    if(likeaction=='agree'){
+    $scope.productComments[i].agreecount=comment.agreecount+1;
     }
-  };
+    else if(likeaction=='disagree'){
+       $scope.productComments[i].disagreecount=comment.disagreecount+1;
+    }
+   }
+  }
+};
+
+
+ $scope.handleLikeDislikeSuccess=function(success){
+  $log.debug(success);
+       $rootScope.ProdoAppMessage(success.message, 'success'); 
+};
+
+$scope.handleLikeDislikeError=function(error){
+  if(error.code=='AL001'){
+        $rootScope.showModal();
+      }
+      else{
+         $log.debug(error);
+         $rootScope.ProdoAppMessage(error.message, 'error'); 
+        };
+ };
+
+
+
 }
 ]
 };

@@ -40,6 +40,8 @@
   });
 }])
 
+
+
  .factory('CommentLoadMoreService', ['$resource', function($resource) {
   return $resource('/api/nextcomments/:commentid', {},
   {
@@ -75,6 +77,15 @@
     checkUserSession: { method: 'GET' }
   });
 }])
+
+ .factory('ProductEnquiry', ['$resource', function($resource) {
+  return $resource('/api/productenquiry/:orgid/:prodle', {},
+  {
+    sendEnquiry: {method: 'POST', params: {orgid: 'id', prodle: 'id'}}
+  });
+}])
+
+
 
 
 

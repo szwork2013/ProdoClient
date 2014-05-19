@@ -304,7 +304,7 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
             }).staggerLabels(true).tooltips(true).showValues(true);
           d3.select('#chart').datum(scope.barChart()).transition().duration(50).call(chart);
           nv.utils.windowResize(chart.update);
-          return chart;
+          return chart;s
         });
       }
     };
@@ -318,9 +318,12 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
           var chart = nv.models.pieChart().x(function (d) {
               return d.emotionname;
             }).y(function (d) {
-              return d.tagcount;
-            }).color(d3.scale.category10().range()).width(width).height(height);
-          d3.select('#test1').datum(scope.data).transition().duration(1200).attr('width', width).attr('height', height).call(chart);
+              return d.tagcount;    
+            }).color(function (d)
+            {  
+              return d.data.color;
+            }).width(width).height(height);
+          d3.select('#productPieChart').datum(scope.data).transition().duration(1200).attr('width', width).attr('height', height).call(chart);
           chart.dispatch.on('stateChange', function (e) {
             nv.log('New State:', JSON.stringify(e));
           });
@@ -419,34 +422,37 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
   {
     restrict : 'EA',  
     link : function(scope,elem,attrs)
-    {
-                 
-         nv.addGraph(function() {
-          var chart = nv.models.multiBarChart()
-            .transitionDuration(350)
-            .reduceXTicks(true)   //If 'false', every single x-axis tick label will be rendered.
-            .rotateLabels(0)      //Angle to rotate x-axis labels.
-            .showControls(true)   //Allow user to switch between 'Grouped' and 'Stacked' mode.
-            .groupSpacing(0.1)    //Distance between each group of bars.
-          ;
-      
-          chart.xAxis
-              .tickFormat(d3.format(',f'));
-      
-          chart.yAxis
-              .tickFormat(d3.format(',.1f'));
-      
-          d3.select('#TrendingChart')
-              .datum(scope.trending())
-              .call(chart);
-      
-          nv.utils.windowResize(chart.update);
-      
-          return chart;
-      });
+    {              
+           nv.addGraph(function() {
+              var chart = nv.models.linePlusBarChart()
+                    .margin({top: 30, right: 60, bottom: 50, left: 70})
+                    .x(function(d,i) { return i })
+                    .y(function(d,i) {return d[1] })
+                    ;
 
+              chart.xAxis.tickFormat(function(d) {
+                var dx = scope.sampleData[0].values[d] && scope.sampleData[0].values[d][0] || 0;
+                return d3.time.format('%x')(new Date(dx))
+              });
 
-   
+              chart.y1Axis
+                  .tickFormat(d3.format(',f'));
+
+              chart.y2Axis
+                  .tickFormat(function(d) { return '' + d3.format(',f')(d) });
+
+              chart.bars.forceY([0]);
+
+              d3.select('#allTrendingChart')
+                .datum(scope.sampleData)
+                .transition()
+                .duration(0)
+                .call(chart);
+
+              nv.utils.windowResize(chart.update);
+
+              return chart;
+          });
     }
   };
 

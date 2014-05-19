@@ -146,3 +146,17 @@ angular.module('prodo.CampaignApp')
     return campaign;
   }
 ])
+
+ .factory('CampaignCommentService', ['$resource', function($resource) {
+  return $resource('/api/campaigncomment/:commentid', {},
+  {
+    deleteComment: {method: 'DELETE', params: {commentid: "id"}}
+  });
+}])
+
+ .factory('CampaignCommentLoadMoreService', ['$resource', function($resource) {
+  return $resource('/api/campaign/nextcomments/:commentid', {},
+  {
+    loadMoreComments: {method: 'GET', params: {commentid: "id"}}
+  });
+}])

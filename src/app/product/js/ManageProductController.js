@@ -335,9 +335,10 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
           display_name: $scope.product.display_name,
           description: $scope.product.description,
           category:$scope.category,
-          commentcategorycommentcategory:$scope.commentcategorycommentcategory
+          commentcategory:$scope.commentcategory
         }
       };
+      $log.debug($scope.newProduct);
 
       if ($rootScope.usersession.currentUser.org.isAdmin == true) {
         ProductService.saveProduct({
@@ -346,7 +347,7 @@ angular.module('prodo.ProductApp').controller('ManageProductController', ['$scop
           if(success.success){
            $scope.newProduct_ResponseProdle=success.success.prodle;
            $scope.category=[];
-           $scope.commentcategorycommentcategory=[];
+           $scope.commentcategory=[];
            $scope.disableEditor();
            $('#productExtraInfo').css('display','block'); 
           }

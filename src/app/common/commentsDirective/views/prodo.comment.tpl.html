@@ -12,10 +12,61 @@
   * 
   */-->
 <li  id="prodo-comment-media"  class="media list-animate-item" ng-repeat="comment in productComments | filter:{commenttext: searchfields.general}|filter:{ commentcategory: searchfields.commentcategory} " >
+<!-- <div class="prodo-comment-statusContainer pull-left">
+<table>
+<tr>
+<td>
 
-  <!--  <a class="pull-left" href="#">
+<a >
+<img class="prodo-commentStatusImg" src="../assets/images/agree.png">
+</a>
+<p class="prodo-commentStatusCount">1234</p>
+
+</td>
+</tr>
+
+<tr>
+<td>
+<a>
+<img class="prodo-commentStatusImg" src="../assets/images/disagree.png">
+</a>
+<p class="prodo-commentStatusCount">1234</p>
+
+</td>
+</tr>
+</table>
+</div>  --> 
+
+
+<!--   <div class="prodo-comment-statusContainer pull-right">
+<table>
+<tr>
+<td>
+
+<a >
+<img class="prodo-commentStatusImg" src="../assets/images/agree.png">
+</a>
+<p class="prodo-commentStatusCount">1234</p>
+
+</td>
+<td>
+<a>
+<img class="prodo-commentStatusImg" src="../assets/images/disagree.png">
+</a>
+<p class="prodo-commentStatusCount">1234</p>
+</td>
+</tr>
+
+</table>
+</div>  -->
+
+
+
+<!--  <a class="pull-left" href="#">
     <img class="media-object" id="img-user" style="height:60px; width:50px" ng-src="{{comment.user.profilepic}}" alt="User"/> 
     </a> -->
+
+
   <a class="pull-left" href="#"  ng-click="userProfileModal(comment.user.userid,comment.user.profilepic,comment.user.username)" ng-controller="prodoUserProfileDataController"  id="triggerModal">
   <img class="media-object prodo-userAvatar" id="img-user" ng-src="{{comment.user.profilepic}}"  alt-SRC src="../assets/images/avatar.jpg" id="triggerModals" data-toggle="modal"/> 
   </a>
@@ -75,12 +126,42 @@
       tabCommentRemove = false" >
       <!--    <li><a    ng-click="tabCommentTags = tabCommentTags === false ? true : false;
         tabCommentRemove = false;"><div id="fa-tagsComment" class="fa fa-tags"  ></div></a></li> -->
-     <li>
+       <li>
         <a id="padding0img" class=" prodo-cursor "  ng-style="hideIfNotImage(comment.comment_image[0].image)"  ng-click="tabCommentImg = tabCommentImg === true ? false : true;
           tabCommentRemove = false;">
           <div id="fa-tagsComment" class="fa fa-picture-o"  ></div>
         </a>
       </li>
+
+     <li>
+
+     <div class="prodo-comment-statusContainer pull-right">
+          <table>
+          <tr>
+          <td>
+
+          <a  class=" prodo-cursor "  ng-click="likeaction='agree' ; likedislike(likeaction,comment);">
+          <!-- <img class="prodo-commentStatusImg" src="../assets/images/agree.png"> -->
+          <i class="fa fa-thumbs-o-up"></i>
+          </a>
+          <p class="prodo-commentStatusCount" ng-bind="comment.agreecount"></p>
+
+          </td>
+          <td>
+          <a class=" prodo-cursor "  ng-click="likeaction='disagree' ; likedislike(likeaction,comment);" >
+          <i class="fa fa-thumbs-o-down"></i>
+          <!-- <img class="prodo-commentStatusImg" src="../assets/images/disagree.png"> -->
+          </a>
+          <p class="prodo-commentStatusCount" ng-bind="comment.disagreecount"></p>
+          </td>
+          </tr>
+
+          </table>
+      </div> 
+
+
+     </li>
+
       <li ng-style="hideIfNotUser(comment.user.userid)" >
       <!-- <li ng-if="comment.user.userid === userIDFromSession" > -->
         <a id="padding0del" class=" prodo-cursor " ng-click="tabCommentRemove = true ;
@@ -106,6 +187,31 @@
   <div class=" responseComment label label-warning"   id="responseCommentErr"  >  </div>
   <a   id="retryIcon" ng-click="addProductCommentretry(comment);" class="prodo-commentRetry"  > <span class="glyphicon glyphicon-refresh "></span> </a>
     <div class="pull-right" id="prodo-comment-timePosted" ><span ng-bind="fromNow(comment.datecreated)"></span></div>
+
+
+ <!-- <div class=" prodo-comment-agreeDis pull-left" style="margin-top:-5px ; margin-right:5px;">
+<table>
+<tr>
+<td>
+
+<a class="prodo-commentStatusLable">
+Agree
+</a>
+<p class="prodo-commentStatusCount">1234</p>
+
+</td>
+<td>
+<a class="prodo-commentStatusLable">
+Disagree
+</a>
+<p class="prodo-commentStatusCount">1234</p>
+</td>
+</tr>
+
+</table>
+</div>  -->
+
+
   <div class="prodo-comment-tabs " id="tabs"  >
    <!--  <ul id="commentNavTab" class="nav nav-pills" ng-init="tabCommentTags = false;
       tabCommentRemove = false" > -->
