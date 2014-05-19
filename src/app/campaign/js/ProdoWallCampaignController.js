@@ -278,12 +278,15 @@ $scope.handleGetCampaignSuccess=function(successData){
         $scope.productComments=$scope.campaign.campaign_comments;
      }
      if ( $scope.campaign.artwork.length!==0) {
-        $scope.pimgs =  $scope.campaign.artwork;
-        $log.debug("Product images emitting when not null ");
-        $scope.$emit('emittingCampaignImages',$scope.pimgs);
+        // $scope.pimgs =  $scope.campaign.artwork;
+        $rootScope.images=$scope.campaign.artwork;
+        // $log.debug("Product images emitting when not null ");
+        // $scope.$emit('emittingCampaignImages',$scope.pimgs);
     } else {
-        $scope.$emit('emittingNoCampaignImages',$scope.pimgs);
-        $log.debug("Product images emitting when null ");
+        // $scope.$emit('emittingNoCampaignImages',$scope.pimgs);
+        // $log.debug("Product images emitting when null ");
+        $rootScope.images="";
+
     }
      if ($scope.campaign.campaign_comments!==undefined){   
          $("#prodo-comment-media-list").css("display", "block");

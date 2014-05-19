@@ -70,15 +70,42 @@ angular.module('prodo.ProdoWallApp')
       $rootScope.manageSlider= data.length;  // Added this variable to check conditions in tpl
       if (data.length !== 0) 
       {
-        $rootScope.images = "";     // Omkar: To clear previous images
+        // $rootScope.images = "";     // Omkar: To clear previous images
         $rootScope.images = data;
       }
       else if (data.length===0)
       {
-        $rootScope.images = "";    // Omkar: To clear previous images
+        // $rootScope.images = "";    // Omkar: To clear previous images
         $rootScope.images= [{image: '../../../assets/images/if_no_org_images_available.gif' }];    // This will be shown when org images are not there  
       }
     };
+
+  $rootScope.$watch('images', function (images) {
+      // $rootScope.$apply(function() {
+           if($rootScope.images=="" ){
+            $rootScope.images =[{image: '../../../assets/images/if_no_org_images_available.gif' }];
+           }
+
+            else{
+                $rootScope.images = images;
+            }           
+
+      // });
+
+ 
+      // if ($rootScope.images.length !== 0) 
+      // {
+       
+      //   $rootScope.images = images;
+      // }
+      // else 
+      // {
+     
+      //   $rootScope.images= [{image: '../../../assets/images/if_no_org_images_available.gif' }];    // This will be shown when org images are not there  
+      // }
+
+
+   });
 
     $scope.goToState = function(id) {
       if (id == 'nav1' && $state.$current.name !== 'prodo.productwall.wall-org') {
