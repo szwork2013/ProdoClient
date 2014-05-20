@@ -1732,6 +1732,12 @@ margin-bottom: 10px;
 	display: none;
 	font-family: Helvetica ;
 }
+#panelRating {
+
+	height: 200px;
+	display: none;
+	font-family: Helvetica ;
+}
 .slide {
 	margin: 0;
 	padding: 0;
@@ -1741,14 +1747,12 @@ margin-bottom: 10px;
 .btn-slide {
 
 margin-right: 5px;
-	/*width: 144px;
-	height: 31px;
-	padding: 10px 10px 0 0;
-	margin: 0 auto;
-	display: block;
-	
 
-	text-decoration: none;*/
+}
+.btn-slideRating {
+
+margin-right: 5px;
+
 }
 
 
@@ -3009,3 +3013,63 @@ max-height: 100px;
 
 
 /*Campaign wall*/
+
+/*rating*/
+.rating-a .br-widget {
+    height: 52px;
+}
+
+.rating-a .br-widget a {
+    display: block;
+    width: 10px;
+    padding: 5px 0 5px 0;
+    height: 20px;
+    float: left;
+    background-color: #e3e3e3;
+    margin: 1px;
+    text-align: center;
+}
+
+.rating-a .br-widget a.br-active,
+.rating-a .br-widget a.br-selected {
+    background-color: #59a6d6;
+}
+
+.rating-a .br-widget .br-current-rating {
+/*    font-size: 20px;
+    line-height: 2;*/
+    float: left;
+    padding: 0 20px 0 20px;
+    color: #646464;
+}
+/*rating*/
+
+
+/******* EXAMPLE C *******/
+
+.rating-c .br-widget {
+    height: 52px;
+}
+
+.rating-c .br-widget a {
+    display: block;
+    width: 35px;
+    height: 35px;
+    float: left;
+    background-color: #e3e3e3;
+    margin: 2px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 2.2;
+    text-align: center;
+    color: #b6b6b6;
+}
+
+.rating-c .br-widget a.br-active,
+.rating-c .br-widget a.br-selected {
+    background-color: #59a6d6;
+    color: white;
+}
+
+
