@@ -15,12 +15,12 @@
         <div class="prodo-productThumbnailImg fa fa-plus fa-4x img-rounded"  align="center" ></div>
         </div>
        </a> 
-      
+  
     <div ng-show="blogs.length>0  "  ng-repeat="list in blogs  | startFrom:currentPage*pageSize | limitTo:pageSize" >
-    <div class="prodo-productThumbnailView"   ng-class="{activeProduct : list.name==currentCampaign.name}">
-      <a ng-click="showDetails(list.name)" class="prodo-cursor"  href="" >
-        <p class="prodo-AddProductBtn prodo-productNameList" >{{list.name.substring(0,13)}}</p>
-        <img  ng-src="{{list.banner_image.image}}" alt-SRC src="../assets/images/if_no_logo_images_available.gif"  class="prodo-productThumbnailImg img-rounded">
+    <div class="prodo-productThumbnailView">
+      <a ng-click="showDetails(list.title)" class="prodo-cursor"  href="" >
+        <p class="prodo-AddProductBtn prodo-productNameList" >{{list.title.substring(0,13)}}</p>
+        <img  ng-src="{{list.blog_images[0].image}}" alt-SRC src="../assets/images/if_no_logo_images_available.gif"  class="prodo-productThumbnailImg img-rounded">
       </a>
     </div>
     </div>
@@ -38,45 +38,47 @@
   <!-- carousel code to end -->
   <br>
   <div ng-show="addNewBlog">
-    <dl class="dl-horizontal">
-      <dt>Product Name:</dt>
-      <dd style="width:60%;">
-        <input name="title" type="text" ng-model="blog.productname" class="form-control" placeholder="title" autofocus required>
-      </dd>
-    </dl>
-  	<dl class="dl-horizontal">
-		  <dt>Title:</dt>
-		  <dd style="width:60%;">
-		  	<input name="title" type="text" ng-model="blog.title" class="form-control" placeholder="title" required>
-		  </dd>
-		</dl>
-		<dl class="dl-horizontal">
-		  <dt>Category:</dt>
-		  <dd class="prodo-regTagsWidth">
-		  	<tags-input minTags="1" add-on-blur="true" ng-model="blog.category"  min-length="1"  placeholder="enter blog category." popover-placement="right" popover="Press 'Enter' key after entering category" popover-trigger="mouseenter"></tags-input>  
-		  </dd>
-		</dl>
-		<dl class="dl-horizontal">
-		  <dt>Content:</dt>
-		  <dd style="width:60%;">
-		  	<textarea type="textarea" rows=15 class="form-control" name="content" ng-model="blog.content" placeholder="blog content" required ng-maxlength="1000"></textarea>
-		  </dd>
-		</dl>
-		<dl class="dl-horizontal">
-		  <dt>Artwork Upload:</dt>
-		  <dd style="width:60%;">
-		  	<input class=" form-control" type="file" name="file" ng-file-selectdata="onFileSelect($files)" ng-model="file1" >
-		  </dd>
-		</dl>
-		<dl class="dl-horizontal">
-		  <dt></dt>
-		  <dd style="width:60%;">
-		  	<button style="width:32.5%; background-color:transparent; color:black;" class="btn btn-sm btn-default" ng-click="cancelAddBlog()"><i class="prodo-fa fa fa-times"></i>Cancel</button>
-		  	
-		  	<button style="width:32.5%;" class="prodo-button-theme btn btn-sm btn-primary" ng-click="postBlog()"><i class="prodo-fa fa fa-location-arrow"></i>Post</button>
+    <form name="form.addBlogForm" class="css-form" ng-submit="">
+      <dl class="dl-horizontal">
+        <dt>Product Name:</dt>
+        <dd style="width:60%;">
+          <input name="title" type="text" ng-model="blog.productname" class="form-control" placeholder="productname" typeahead="productname for productname in productnames | filter:$viewValue"  autofocus required>
+        </dd>
+      </dl>
+    	<dl class="dl-horizontal">
+  		  <dt>Title:</dt>
+  		  <dd style="width:60%;">
+  		  	<input name="title" type="text" ng-model="blog.title" class="form-control" placeholder="title" required>
+  		  </dd>
+  		</dl>
+  		<dl class="dl-horizontal">
+  		  <dt>Category:</dt>
+  		  <dd class="prodo-regTagsWidth">
+  		  	<tags-input minTags="1" add-on-blur="true" ng-model="blog.category"  min-length="1"  placeholder="blog category" list="blogcategoryList" popover-placement="right" popover="Press 'Enter' key after entering category" popover-trigger="mouseenter"></tags-input>  
+  		  </dd>
+  		</dl>
+  		<dl class="dl-horizontal">
+  		  <dt>Content:</dt>
+  		  <dd style="width:60%;">
+  		  	<textarea type="textarea" rows=15 class="form-control" name="content" ng-model="blog.content" placeholder="blog content" required ng-maxlength="1000"></textarea>
+  		  </dd>
+  		</dl>
+  		<!-- <dl class="dl-horizontal">
+  		  <dt>Artwork Upload:</dt>
+  		  <dd style="width:60%;">
+  		  	<input class=" form-control" type="file" name="file" ng-file-selectdata="onFileSelect($files)" ng-model="file1" >
+  		  </dd>
+  		</dl> -->
+  		<dl class="dl-horizontal">
+  		  <dt></dt>
+  		  <dd style="width:60%;">
+  		  	<button style="width:32.5%; background-color:transparent; color:black;" class="btn btn-sm btn-default" ng-click="cancelAddBlog()"><i class="prodo-fa fa fa-times"></i>Cancel</button>
+  		  	
+  		  	<button style="width:32.5%;" class="prodo-button-theme btn btn-sm btn-primary" ng-click="postBlog()"><i class="prodo-fa fa fa-location-arrow"></i>Post</button>
 
-		  	<button style="width:32.5%; background-color:#24677C; border-color:#24677C;" class=" btn btn-sm btn-primary" ng-click="publishBlog()"><i class="prodo-fa fa fa-cloud-upload"></i>Publish</button>
-		  </dd>
-		</dl>
+  		  	<button style="width:32.5%; background-color:#24677C; border-color:#24677C;" class=" btn btn-sm btn-primary" ng-click="publishBlog()"><i class="prodo-fa fa fa-cloud-upload"></i>Publish</button>
+  		  </dd>
+  		</dl>
+    </form>  
   </div>
 </div>

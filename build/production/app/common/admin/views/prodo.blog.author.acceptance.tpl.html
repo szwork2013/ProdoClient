@@ -30,8 +30,8 @@
 						<td ng-bind = "list.country"></td>
 						<td ng-bind="list.status"></td>
 						<td>
-				               <button ng-if="list.status === 'accepted' ">Reject</button>
-				               <button ng-click="acceptAuthorRequest(list.authorid)" ng-if="list.status === 'requested'" > Accept </button>
+				               <button ng-if="list.status === 'accepted' " ng-click="rejectAuthor(list.authorid)">Reject</button>
+				               <button ng-click="acceptAuthorRequest(list.authorid)" ng-if="list.status === 'requested' || list.status === 'rejected'" > Accept </button>
 						</td>
 		</tr>
 
