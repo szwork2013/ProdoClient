@@ -89,10 +89,10 @@ angular.module('prodo.ProdoWallApp').controller('ProdoDashboardController', [
     // {
     //     $rootScope.ProdoAppMessage("There is some issue with the server! Please try again after some time",'error');
     // }
-    $scope.chartType = '';
+    $scope.chartType = ''; $scope.chartName = '';
 
     $scope.$on('showUniqueChart', function (event, name, query, type) {
-          allChartsData.getContent(query); $scope.chartType = type;
+          allChartsData.getContent(query); $scope.chartType = type; $scope.chartName = name;
     });
 
     var cleanupeventGotChartContent = $scope.$on("gotChartDataSuccessfully", function(event, data){
@@ -130,9 +130,11 @@ angular.module('prodo.ProdoWallApp').controller('ProdoDashboardController', [
         }
         else {
           if (data.error.code== 'AU004') {     // enter valid data
-              $rootScope.ProdoAppMessage(data.error.message,'error');    //ShowAlert
+              //$rootScope.ProdoAppMessage(data.error.message,'error');    //ShowAlert
+              $rootScope.ProdoAppMessage('No data exists for '+$scope.chartName, 'error');
           } else {
-              $rootScope.ProdoAppMessage(data.error.message,'error');    //ShowError
+             // $rootScope.ProdoAppMessage(data.error.message,'error');    //ShowError
+             $rootScope.ProdoAppMessage('No data exists for '+$scope.chartName, 'error');
           }
         }
     });

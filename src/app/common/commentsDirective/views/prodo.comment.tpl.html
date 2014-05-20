@@ -12,54 +12,6 @@
   * 
   */-->
 <li  id="prodo-comment-media"  class="media list-animate-item" ng-repeat="comment in productComments | filter:{commenttext: searchfields.general}|filter:{ commentcategory: searchfields.commentcategory} " >
-<!-- <div class="prodo-comment-statusContainer pull-left">
-<table>
-<tr>
-<td>
-
-<a >
-<img class="prodo-commentStatusImg" src="../assets/images/agree.png">
-</a>
-<p class="prodo-commentStatusCount">1234</p>
-
-</td>
-</tr>
-
-<tr>
-<td>
-<a>
-<img class="prodo-commentStatusImg" src="../assets/images/disagree.png">
-</a>
-<p class="prodo-commentStatusCount">1234</p>
-
-</td>
-</tr>
-</table>
-</div>  --> 
-
-
-<!--   <div class="prodo-comment-statusContainer pull-right">
-<table>
-<tr>
-<td>
-
-<a >
-<img class="prodo-commentStatusImg" src="../assets/images/agree.png">
-</a>
-<p class="prodo-commentStatusCount">1234</p>
-
-</td>
-<td>
-<a>
-<img class="prodo-commentStatusImg" src="../assets/images/disagree.png">
-</a>
-<p class="prodo-commentStatusCount">1234</p>
-</td>
-</tr>
-
-</table>
-</div>  -->
-
 
 
 <!--  <a class="pull-left" href="#">
@@ -128,44 +80,46 @@
         tabCommentRemove = false;"><div id="fa-tagsComment" class="fa fa-tags"  ></div></a></li> -->
        <li>
         <a id="padding0img" class=" prodo-cursor "  ng-style="hideIfNotImage(comment.comment_image[0].image)"  ng-click="tabCommentImg = tabCommentImg === true ? false : true;
-          tabCommentRemove = false;">
+          tabCommentRemove = false; tabCommentLike=false;">
           <div id="fa-tagsComment" class="fa fa-picture-o"  ></div>
         </a>
       </li>
 
      <li>
-
-     <div class="prodo-comment-statusContainer pull-right">
+     <a id="padding0del" class=" prodo-cursor " ng-click="tabCommentRemove = false ;
+          tabCommentImg = false; tabCommentLike=true;">
+     <div class="prodo-comment-statusContainer ">
           <table>
           <tr>
           <td>
 
-          <a  class=" prodo-cursor "  ng-click="likeaction='agree' ; likedislike(likeaction,comment);">
+          <a  class=" prodo-cursor "  ng-click="likeaction='agree';  likedislike(likeaction,comment);">
           <!-- <img class="prodo-commentStatusImg" src="../assets/images/agree.png"> -->
-          <i class="fa fa-thumbs-o-up"></i>
+          <i class="fa fa-thumbs-o-up "></i>
           </a>
-          <p class="prodo-commentStatusCount" ng-bind="comment.agreecount"></p>
+        <!--   <p class="prodo-commentStatusCount" ng-bind="comment.agreecount"></p> -->
 
           </td>
-          <td>
+          <td style="padding-left:4px;">
           <a class=" prodo-cursor "  ng-click="likeaction='disagree' ; likedislike(likeaction,comment);" >
           <i class="fa fa-thumbs-o-down"></i>
           <!-- <img class="prodo-commentStatusImg" src="../assets/images/disagree.png"> -->
           </a>
-          <p class="prodo-commentStatusCount" ng-bind="comment.disagreecount"></p>
+       <!--    <p class="prodo-commentStatusCount" ng-bind="comment.disagreecount"></p> -->
           </td>
           </tr>
 
           </table>
-      </div> 
 
+        </div> 
+       </a>
 
      </li>
 
       <li ng-style="hideIfNotUser(comment.user.userid)" >
       <!-- <li ng-if="comment.user.userid === userIDFromSession" > -->
         <a id="padding0del" class=" prodo-cursor " ng-click="tabCommentRemove = true ;
-          tabCommentImg = false;">
+          tabCommentImg = false; tabCommentLike=false;">
           <div  id="fa-removeComment" name="rm" class=" fa fa-trash-o  "  ></div>
         </a>
       </li>
@@ -189,27 +143,7 @@
     <div class="pull-right" id="prodo-comment-timePosted" ><span ng-bind="fromNow(comment.datecreated)"></span></div>
 
 
- <!-- <div class=" prodo-comment-agreeDis pull-left" style="margin-top:-5px ; margin-right:5px;">
-<table>
-<tr>
-<td>
 
-<a class="prodo-commentStatusLable">
-Agree
-</a>
-<p class="prodo-commentStatusCount">1234</p>
-
-</td>
-<td>
-<a class="prodo-commentStatusLable">
-Disagree
-</a>
-<p class="prodo-commentStatusCount">1234</p>
-</td>
-</tr>
-
-</table>
-</div>  -->
 
 
   <div class="prodo-comment-tabs " id="tabs"  >
@@ -251,6 +185,21 @@ Disagree
           <img  class="prodo-comment-img" id="img-user" ng-src="{{comment.comment_image[0].image}}"     /> 
         </div>
       </div>
+
+      <div id="Remove" ng-show="tabCommentLike == 1"  class="prodo-font" >
+      <br/>
+       <i ng-click="tabCommentLike=0;" class="prodo-cursor prodoCommentDeleteUp glyphicon glyphicon-circle-arrow-up pull-right" ></i>
+      
+        <span > Total agree's   <em class="prodo-commentStatusCount" ng-bind="comment.agreecount"></em> 
+        and      <em class="prodo-commentStatusCount" ng-bind="comment.disagreecount"></em> disagree's for this comment
+        </span>
+
+        
+      
+       <br/>
+      </div>
+
+
     </div>
   </div>
 </li>

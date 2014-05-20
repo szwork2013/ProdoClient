@@ -402,9 +402,14 @@ CampaignWallService.follow.followCampaign( {
 }])
  angular.module('prodo.CampaignApp').filter('startFrom', function () {
   return function (input, start) {
-    if (input !== undefined || start !== undefined) {
-      start = +start;
-      return input.slice(start);
-    }
+    // if(campaignWalldata.success.Product_Campaigns){
+        if ((input !== undefined) || (start !== undefined)) {
+          if(input){
+             start = +start;
+            return input.slice(start);
+          }
+      }
+    // }
+  
   }
 })
