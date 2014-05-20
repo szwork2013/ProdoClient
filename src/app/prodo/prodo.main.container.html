@@ -31,7 +31,7 @@
               <i class="prodo-fa-navbar fa fa-bar-chart-o"></i>Org</a></li>
               <li  id="prodoActiveListItem"><a ng-show="((usersession.currentUser.org && usersession.currentUser.org.isAdmin) || (usersession.currentUser.prodousertype == 'individual'))" ui-sref="prodo.account-warranty.warranty.detail"><i class="prodo-fa-navbar fa fa-check-square-o"></i>Warranty</a></li>
               <li  id="prodoActiveListItem"><a ng-show="(usersession.currentUser.org && usersession.currentUser.org.isAdmin && usersession.currentUser.org.orgtype.toLowerCase() == 'manufacturer')" ui-sref="prodo.account-campaign.campaign.detail"><i class="prodo-fa-navbar fa fa-bullhorn"></i>Campaign</a></li>
-              <li  id="prodoActiveListItem"><a ui-sref="prodo.account-blog.blog"><i class="prodo-fa-navbar fa fa-book"></i>Blog</a></li>
+              <li id="prodoActiveListItem"><a ng-show="(usersession.currentUser.author && usersession.currentUser.author.isAuthor)" ui-sref="prodo.account-blog.blog"><i class="prodo-fa-navbar fa fa-book"></i>Blog</a></li>
               <li class="divider " id="prodoActiveListItem"></li>
               <li  id="prodoActiveListItem"><a href="" ng-click="logout()"><i class="prodo-fa-navbar fa fa-sign-out"></i>Logout</a></li>
             </ul> 

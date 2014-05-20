@@ -360,8 +360,8 @@ angular.module('prodo.ProdonusApp')
 
     $scope.$on('$destroy', function(event, message) {
 
-      cleanupEventSendAuthorRequestDone 
-      cleanupEventSendAuthorRequestNotDone
+      cleanupEventSendAuthorRequestDone();
+      cleanupEventSendAuthorRequestNotDone();
     });
 
 }]);

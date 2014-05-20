@@ -1,11 +1,20 @@
 angular.module('prodo.BlogApp')
- .controller('ManageBlogController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$stateParams', '$log', 'growl', 'checkIfSessionExist', 'fileReader','ENV','isLoggedin', function($scope, $rootScope, $state, $http, $timeout, $stateParams, $log, growl, checkIfSessionExist, fileReader, ENV, isLoggedin) {
+ .controller('ManageBlogController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$stateParams', '$log', 'growl', 'checkIfSessionExist', 'fileReader','ENV','isLoggedin', 'blogproductdata', 'BlogService', 'getAllblogdata', function($scope, $rootScope, $state, $http, $timeout, $stateParams, $log, growl, checkIfSessionExist, fileReader, ENV, isLoggedin, blogproductdata, BlogService, getAllblogdata) {
  	$log.debug('initialising manage blog controller...');
 
  	$scope.addNewBlog = false;
 
  	$scope.blogs = [];
 
+  $scope.form = {};
+  $scope.submitted = false;
+  $scope.$state = $state;
+
+  console.log(blogproductdata);
+  // console.log(getblogdata);
+  console.log(getAllblogdata);
+
+  $scope.blogcategoryList = [];
 
  	$scope.addBlog = function() {
  		$scope.addNewBlog = true;
@@ -13,9 +22,115 @@ angular.module('prodo.BlogApp')
 
  	$scope.cancelAddBlog =function() {
  		$scope.addNewBlog = false;
- 	}
+    $scope.form.addBlogForm.$setPristine();
+    $scope.blog = {
+      productname :  '',
+      title :  '',
+      content: '',
+      category: []
+    }
+ 	};
 
- 	$scope.socket = io.connect(ENV.apiEndpoint + ENV.port + '/api/prodoupload', {
+
+  $scope.blog = {
+    'productname' :  '',
+    'title' :  '',
+    'content': '',
+    'category': []
+  };
+
+  if (checkIfSessionExist.success && getAllblogdata.success) { 
+    $scope.$watch('$state.$current.locals.globals.getAllblogdata', function (getAllblogdata) {
+    
+      if (getAllblogdata.success) {
+        $scope.blogs = getAllblogdata.success.blog; 
+        console.log($scope.blogs);
+      } else {
+          if (getAllblogdata.error && getAllblogdata.error.code == 'AL001') {
+            $rootScope.showModal();
+          } else {
+            $log.debug(getAllblogdata.error.message);
+          } 
+      }
+    });
+  }
+
+    if (blogproductdata.success) {
+      $scope.productnames = blogproductdata.success.productname;
+    }
+ 
+    $scope.currentPage = 0;
+    $scope.pageSize = 3;
+    $scope.numberOfPages = function () {
+      return Math.ceil($scope.blogs.length / $scope.pageSize);
+    };
+  
+  $scope.jsonAddBlogData = function()
+      {
+        var blogdata = 
+          {
+            blog:
+            {
+              'productname' : $scope.blog.productname,
+              'title' : $scope.blog.title,
+              'content' : $scope.blog.content,
+              'category' : $scope.blog.category
+            }            
+          }
+        return JSON.stringify(blogdata); 
+      }
+
+    // function to handle server side responses
+    $scope.handleAddBlogResponse = function(data){
+      if (data.success) {
+        $scope.cancelAddBlog();
+        $rootScope.ProdoAppMessage(data.success.message, 'success');
+      } else {
+        if (data.error.code== 'AL001') {     // enter valid data
+            $log.debug(data.error.code + " " + data.error.message);
+            $rootScope.showModal();
+        } else {
+            $log.debug(data.error.message);
+            $rootScope.ProdoAppMessage(data.error.message, 'error');
+        }
+      }
+    };  
+
+
+    $scope.postBlog = function() {
+      console.log($scope.jsonAddBlogData());
+      if ($scope.form.addBlogForm.$valid) {
+        BlogService.addUserBlog($scope.jsonAddBlogData());
+      } else {
+        $scope.form.addBlogForm.submitted = true;
+      }
+    };
+
+    var cleanupEventAddBlogDone = $scope.$on("addBlogDone", function(event, data){
+      $scope.handleAddBlogResponse(data);  
+    });
+
+    var cleanupEventAddBlogNotDone = $scope.$on("addBlogNotDone", function(event, data){
+      $rootScope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + data, 'error');    
+    });
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  $scope.socket = io.connect(ENV.apiEndpoint + ENV.port + '/api/prodoupload', {
         query: 'session_id=' + $rootScope.usersession.currentUser.sessionid
       });
     
@@ -111,6 +226,14 @@ angular.module('prodo.BlogApp')
             }
           }
       };
+
+    $scope.$on('$destroy', function(event, message) {
+
+      cleanupEventAddBlogDone(); 
+      cleanupEventAddBlogNotDone();
+    });
+
+
 
 }]);
 
