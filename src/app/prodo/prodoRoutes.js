@@ -624,9 +624,6 @@ angular.module('prodo.ProdonusApp')
     .state('prodo.account-campaign.campaign.detail', {
        templateUrl:  'campaign/views/campaign.account.details.tpl.html'
       }) 
-    .state('prodo.account-campaign.campaign.analytics', {
-       templateUrl:  'campaign/views/campaign.account.analytics.tpl.html'
-      })
 
     /* ----Blog Routes---- */
     .state('prodo.account-blog', {
@@ -635,7 +632,7 @@ angular.module('prodo.ProdonusApp')
       resolve : {
         checkIfSessionExist: function(UserService, $rootScope) {
             return UserService.Is_user_loggedin.checkUserSession().$promise;
-        } 
+        }
       },
       onEnter: function(UserSessionService, checkIfSessionExist, $state){
         if (checkIfSessionExist.success) {
@@ -649,6 +646,17 @@ angular.module('prodo.ProdonusApp')
     })    
     .state('prodo.account-blog.blog', {
       templateUrl:  'blog/views/blog.account.settings.tpl.html',
+      resolve: {
+        blogproductdata: function(BlogGetService, $rootScope) {
+          return BlogGetService.Get_Product_For_Blog.getBlogProduct({authorid: $rootScope.usersession.currentUser.author.authorid}).$promise;
+        },
+        // getblogdata: function(BlogGetService, $rootScope) {
+        //   return BlogGetService.Unique_Blog_Data.getUniqueBlog({authorid: $rootScope.usersession.currentUser.author.authorid, blogid: $rootscope.blogid}).$promise;
+        // },
+        getAllblogdata: function(BlogGetService, $rootScope) {
+          return BlogGetService.All_Blog_Data.getAllBlogs({authorid: $rootScope.usersession.currentUser.author.authorid}).$promise;
+        } 
+      },
       controller: 'ManageBlogController'
     })
  

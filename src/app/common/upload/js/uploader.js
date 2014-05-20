@@ -103,7 +103,25 @@ $scope.getFile = function (a) {
      
 
 
-        }else if ($scope.uploadSrc == "orgkeyclient") { // upload product
+        }else if ($scope.uploadSrc == "blog") { // upload product
+
+          // if($scope.file.type !== 'image/png' ){
+           if (($scope.file.size / 1024 < 2048)) {
+            action = {
+              blog: {
+                userid: $rootScope.usersession.currentUser.userid,
+                authorid: $rootScope.usersession.currentUser.author.authorid,
+                blogid: $rootScope.blogid
+              }
+            };
+          } else {
+            $rootScope.ProdoAppMessage(" Image size must ne less than 2MB", 'error');
+            $("#bar").hide();
+            setTimeout(function(){ jQuery("#FileName").hide(); },1000);
+             $('#fileInputsUploadblog')[0].reset();
+          }
+        }
+        else if ($scope.uploadSrc == "orgkeyclient") { // upload product
 
           // if($scope.file.type !== 'image/png' ){
 
@@ -334,6 +352,9 @@ $scope.getFile = function (a) {
           if($scope.uploadSrc == "product"){
             $('#fileInputsUploadproduct')[0].reset();
           }
+          if($scope.uploadSrc == "blog"){
+            $('#fileInputsUploadblog')[0].reset();
+          }
           if($scope.uploadSrc == "productdata"){
             $('#fileInputsUploadproductdata')[0].reset();
           }
@@ -401,6 +422,10 @@ $scope.getFile = function (a) {
   $scope.socket.removeAllListeners('campaignBannerUploadResponse');
   $scope.socket.on('campaignBannerUploadResponse', function (error, imagelocation) {
     $scope.campaignBannerUploadResponseHandler(error, imagelocation);
+  });
+  $scope.socket.removeAllListeners('blogUploadResponse');
+  $scope.socket.on('blogUploadResponse', function (error, imagelocation) {
+   $scope.blogUploadResponseHandler(error, imagelocation);
   });
 
 $scope.productUploadResponseHandler=function(error, imagelocation){
@@ -755,6 +780,50 @@ $scope.productUploadLogoResponseHandler=function(error, imagelocation){
     }
      setTimeout(function(){ jQuery("#FileName").hide(); },1000);
   };
+
+  $scope.blogUploadResponseHandler=function(error, imagelocation){
+    // $('#fileInputsUploadproductdata')[0].reset();
+    $('#fileInputsUploadblog')[0].reset();
+    $("#spinner").hide();
+ if (error) {
+      // $("#bar").hide();
+      
+      if (error.error.code == 'AP003') { // user already exist
+        $log.debug(error.error.code + " " + error.error.message);
+        $rootScope.ProdoAppMessage("Error while uploading " + $scope.file.name + " " + error.error.message, 'error');
+        
+     
+      } else if (error.error.code == 'AV001') { // user data invalid
+        $log.debug(error.error.code + " " + error.error.message);
+        $rootScope.ProdoAppMessage("Error while uploading " + $scope.file.name + " " + error.error.message, 'error');
+       
+      } else {
+        $log.debug(error.error.message);
+        $rootScope.ProdoAppMessage("Error while uploading " + $scope.file.name + " " + error.error.message, 'error');
+       
+      }
+
+    } else {
+      $scope.imageSrc = JSON.stringify(imagelocation);
+      $log.debug(JSON.stringify(imagelocation.success.filename));
+      $log.debug("Emit");
+      var temp1=imagelocation.success.filename.replace(/ /g,'');
+      document.getElementById('check'+temp1).style.color="#01DF74";
+      $rootScope.$broadcast("blogUploadResponseSuccess", "success");
+      $log.debug("getting response for blog upload  " + $scope.imageSrc);
+      $rootScope.ProdoAppMessage(temp1+"  uploaded successfully...", 'success');
+      $scope.counter++;
+      $log.debug($scope.counter);
+      if ($scope.counter < $scope.fileLength) {
+        $log.debug("emitting image " + $scope.counter);
+        //    $scope.getFile($scope.counter);
+      } else $scope.counter = 0;
+    }
+  setTimeout(function(){ jQuery("#FileName").hide(); },1000);
+};
+
+
+
 $scope.filess=[];
 }]);
 
