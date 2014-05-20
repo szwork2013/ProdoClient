@@ -297,14 +297,14 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
       restrict: 'EA',
       link: function (scope, element, a) {
         nv.addGraph(function () {
-          var chart = nv.models.discreteBarChart().x(function (d) {
+          var chart = nv.models.discreteBarChart().x(function (d) {    
               return d.tagname;
             }).y(function (d) {
               return d.tagcount;
             }).staggerLabels(true).tooltips(true).showValues(true);
           d3.select('#chart').datum(scope.barChart()).transition().duration(50).call(chart);
           nv.utils.windowResize(chart.update);
-          return chart;s
+          return chart;
         });
       }
     };
