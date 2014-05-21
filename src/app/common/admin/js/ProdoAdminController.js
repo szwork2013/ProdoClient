@@ -173,6 +173,33 @@ angular.module('prodo.AdminApp').controller('ProdoAdminController', [
           $rootScope.ProdoAppMessage("There is some issue with the server! Please try after some time",'error');
   });
 
+
+  $scope.rejectAuthor = function(content)
+  {
+    prodoAdminService.rejectAuthorRequest(content);
+  }
+  var cleanUpEventRejectAuthorReq = $scope.$on('authorRequestRejected', function (event, data) 
+  {
+    if(data.error!==undefined && data.error.code==='AL001')
+    {
+      $rootScope.showModal();
+    }
+    else if(data.error)
+    {
+       $rootScope.ProdoAppMessage(data.error.message,'error');
+    }
+    else
+    {
+        $rootScope.ProdoAppMessage(data.success.message,'success');
+        $state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
+    }
+
+  });
+
+  var cleanUpEventRejectAuthorError = $scope.$on('authorRequestNotRejected', function (event, data) {
+          $rootScope.ProdoAppMessage("There is some issue with the server! Please try after some time",'error');
+  });
+
   var cleanUpEventAuthorRequestAcceptedSuccessfully = $scope.$on('authorRequestAcceptedSuccessfully', function (event, data) 
   {
     if(data.error!==undefined && data.error.code==='AL001')
@@ -203,6 +230,8 @@ angular.module('prodo.AdminApp').controller('ProdoAdminController', [
           cleanUpEventNotGotAllAuthors();
           cleanUpEventAuthorRequestAcceptedSuccessfully();
           cleanUpEventAuthorRequestNotAccepted();
+          cleanUpEventRejectAuthorReq();
+          cleanUpEventRejectAuthorError();
 				
    	});
 

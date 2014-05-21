@@ -35,7 +35,8 @@ angular.module('prodo.AdminApp').factory('tagAddService', [
                  // var getChartsList = {chartsContenList}
                  var assignCodeToChart = {codeToChart : $resource('/api/dashboard/RBONDS_Mapping', {}, {submitChart : {method: 'POST'}})};
                  var authorAcceptanceForm = {getListofRequest : $resource('/api/author', {}, { getAllRequest : { method : 'GET'}})};
-                 var acceptAuthorRequest = { accept : $resource('/api/author/:authorid' , {} , {acceptRequest : {method : 'PUT', params : { authorid : '@authorid'} }})};
+                 var acceptAuthorRequest = { accept : $resource('/api/author/acceptance/:authorid' , {} , {acceptRequest : {method : 'PUT', params : { authorid : '@authorid'} }})};
+                 var rejectAuthor = { reject : $resource('/api/author/rejection/:authorid' , {} , {rejectRequest : {method : 'PUT', params : { authorid : '@authorid'} }})};
                  var query = {};
                  query.addQueryContent = function(queryContent)
                  {
@@ -89,6 +90,17 @@ angular.module('prodo.AdminApp').factory('tagAddService', [
                   }),   function(error)
                   {
                     $rootScope.$broadcast('authorRequestNotAcceptedSuccessfully', error);
+                  };
+                  
+                 }
+                 query.rejectAuthorRequest = function(data)
+                 {
+                  rejectAuthor.reject.rejectRequest( { authorid : data } ,function(success)
+                  {
+                    $rootScope.$broadcast("authorRequestRejected", success);
+                  }),   function(error)
+                  {
+                    $rootScope.$broadcast('authorRequestNotRejected', error);
                   };
                   
                  }
