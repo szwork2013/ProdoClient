@@ -112,6 +112,7 @@ angular.module('prodo.ProdoWallApp').controller('ProdoDashboardController', [
         if(data.success)
         {
             $scope.showPieChart = 0;
+            
             $scope.showBarChart = 0;
             // $scope.showSampleDataFordualstack = 0;
            // $scope.showSampleDataFordualstack = 0;
