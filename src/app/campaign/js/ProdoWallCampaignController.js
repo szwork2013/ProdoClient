@@ -307,6 +307,19 @@ $scope.handleGetCampaignSuccess=function(successData){
 
 };
 
+
+   $scope.LoadMoreInit=function(){
+      if ( $scope.campaign.campaign_comments) {  
+          if ( $scope.campaign.campaign_comments.length > 4) {
+            $("#load-more").css("display", "inline");
+          } 
+          else{
+               $("#load-more").css("display", "none");
+          }
+      }
+   };
+
+
 $scope.CheckIfAlreadyFollowingCampaign=function(){
   var follow;
   if($rootScope.usersession.currentUser){

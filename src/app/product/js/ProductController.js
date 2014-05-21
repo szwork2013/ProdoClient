@@ -373,7 +373,19 @@ $log.debug(featuresRates);
     }
      }
    }
-  $scope.getProduct = function (l_prodle, l_orgid) {
+
+   $scope.LoadMoreInit=function(){
+        if (productData.success.product.product_comments) {
+          if (productData.success.product.product_comments.length > 4) {
+            $("#load-more").css("display", "inline");
+          } 
+          else{
+               $("#load-more").css("display", "none");
+          }
+        }
+   };
+
+   $scope.getProduct = function (l_prodle, l_orgid) {
     $log.debug("Prodle n orgid "+ l_prodle + " "+l_orgid);
     $scope.preGetProductPrepaireData();
  
