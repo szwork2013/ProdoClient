@@ -101,7 +101,7 @@ angular.module('prodo.ProdonusApp', [
   function ($scope, $rootScope, $state, $log, $location, growl, $timeout, UserSessionService, OrgRegistrationService, notify, marketingData) {
     $state.transitionTo('prodo.landing.signup');
     $scope.prodlesfollowed = [{}];
-    
+    $rootScope.blogid = "";
     $scope.showSignin = function () {
       $state.transitionTo('prodo.landing.signin');
     };

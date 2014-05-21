@@ -282,7 +282,7 @@ else  if(data.error)  {
 };
 
 $scope.EditCommentLikeDislike=function(comment,likeaction){
-  for(var i=0;i< $scope.productComments.length-1 ; i++){
+  for(var i=0;i< $scope.productComments.length ; i++){
    if($scope.productComments[i].commentid==comment.commentid){
 
     if(likeaction=='agree'){

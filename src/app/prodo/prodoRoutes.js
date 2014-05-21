@@ -650,14 +650,23 @@ angular.module('prodo.ProdonusApp')
         blogproductdata: function(BlogGetService, $rootScope) {
           return BlogGetService.Get_Product_For_Blog.getBlogProduct({authorid: $rootScope.usersession.currentUser.author.authorid}).$promise;
         },
-        // getblogdata: function(BlogGetService, $rootScope) {
-        //   return BlogGetService.Unique_Blog_Data.getUniqueBlog({authorid: $rootScope.usersession.currentUser.author.authorid, blogid: $rootscope.blogid}).$promise;
-        // },
         getAllblogdata: function(BlogGetService, $rootScope) {
           return BlogGetService.All_Blog_Data.getAllBlogs({authorid: $rootScope.usersession.currentUser.author.authorid}).$promise;
+        },
+        getblogdata: function(BlogGetService, getAllblogdata, $rootScope) {
+          if (getAllblogdata.success && getAllblogdata.success.blog)  {
+            if (getAllblogdata.success.blog.length !== 0) {
+              
+                $rootScope.blogid = getAllblogdata.success.blog[0].blogid;
+             
+              return BlogGetService.Unique_Blog_Data.getUniqueBlog({authorid: $rootScope.usersession.currentUser.author.authorid, blogid: $rootScope.blogid}).$promise;
+            } 
+          } else {
+            console.log(getAllblogdata.error.message);
+          }
         } 
       },
-      controller: 'ManageBlogController'
+      controller: 'ManageBlogController as manageblog'
     })
  
   }]);

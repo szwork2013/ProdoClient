@@ -13,7 +13,20 @@
 angular.module('prodo.ProductApp')
 .controller('ProductCommentController', ['$scope', '$log', '$rootScope', 'ProductService', 'UserSessionService', '$http', 'CommentLoadMoreService', 'ENV', 'TagReffDictionaryService', 'ProductFeatureService', 'isLoggedin','CommentService',  function ($scope, $log, $rootScope, ProductService, UserSessionService, $http, CommentLoadMoreService, ENV, TagReffDictionaryService, ProductFeatureService ,isLoggedin,CommentService) {
     
-
+$scope.prelikedislike=function(likeaction,comment){
+    var follow;
+    for (i = 0; i < $scope.ProductsFollowedFromSession.length; i++) {
+      if ($scope.ProductsFollowedFromSession[i].prodle == $rootScope.product_prodle) {
+        follow = true;
+      }
+    }
+    if(follow==true){
+     $scope.likedislike(likeaction,comment);
+    }
+    else{
+     $rootScope.ProdoAppMessage("Please talkin this product to start agree or disagree ...", 'error');
+    }
+};
   $scope.deleteProductComment = function (comment) {
     if (comment.user.userid == $scope.userIDFromSession ) {
       CommentService.deleteComment({ commentid: comment.commentid },
