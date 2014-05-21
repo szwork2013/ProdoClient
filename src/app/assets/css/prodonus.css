@@ -2505,6 +2505,17 @@ text-align: right;
   border: 1px solid #E7EDF1;
 }
 
+.prodo-blogListCorousel{ height:130px;}
+
+.blogcontrols-upload
+{
+	text-align: center;
+}
+
+.bloguploadBtnWidth{
+	width: 100%;
+}
+
 .dropdown-menu>li>a 
 {
 display: block;

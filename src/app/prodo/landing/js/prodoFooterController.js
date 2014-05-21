@@ -10,7 +10,6 @@ angular.module('prodo.ProdonusApp')
     {
       'fname' :  '',
       'lname' :  '',
-      'email': '',
       'country': '',
       'category': [],
       'aboutu': ''
@@ -295,7 +294,6 @@ angular.module('prodo.ProdonusApp')
       $scope.author = {
         fname: '',
         lname: '',
-        email: '',
         country: '',
         category: [],
         aboutu: ''
@@ -314,7 +312,6 @@ angular.module('prodo.ProdonusApp')
             {
               'firstname' : $scope.author.fname,
               'lastname' : $scope.author.lname,
-              'email' : $scope.author.email,
               'category' : $scope.author.category,
               'aboutu' : $scope.author.aboutu,
               'country' : $scope.author.country,
