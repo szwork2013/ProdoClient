@@ -16,15 +16,21 @@
 <div id="ErrMsging" class="prodo-ErrMsging"></div>
 <br>
 <div id="prodo-ProductDetails">
-  <div >
-   <img class="img prodo-productLogoDisplay pull-left" id="productLogo" ng-src="{{product.product_logo.image}}" alt-SRC src="../assets/images/if_no_org_images_available.jpg"/>
-      <a href="" ng-style="CheckIfAlreadyFollowingProduct()" id="prodo-followBtn"  ng-click="followCurrentProduct()"   class="prodo-button-theme prodo-followBtn pull-right btn btn-primary btn-sm ">  Talkin </a>
+
+  <a href="" ng-style="CheckIfAlreadyFollowingProduct()" id="prodo-followBtn"  ng-click="followCurrentProduct()"   class="prodo-button-theme prodo-followBtn pull-right btn btn-primary btn-sm ">  Talkin </a>
 
 
 
 
       <p class="slide pull-right"><a href="#" id="prodoBtnEnquiry" class="btn-slide btn btn-primary  btn-sm">Product Enquiry</a></p>
 
+        <p class="slide pull-right"><a href="#" id="prodoBtnRating" class="btn-slideRating btn btn-primary  btn-sm">Product Rating</a></p>
+
+
+        <br/> <br/> <br/>
+  <div >
+   <img class="img prodo-productLogoDisplay pull-left" id="productLogo" ng-src="{{product.product_logo.image}}" alt-SRC src="../assets/images/if_no_org_images_available.jpg"/>
+    
 
 
 
@@ -80,14 +86,34 @@
 </td>
 </tr>
 </table>
-
 </div>   
-
-
-
-
-   
 </div>
+
+
+<div id="panelRating" >
+   <center><b> Product Rating   </b>
+   <br/>
+    <table class="prodo-prodowalltable table " >
+     <tr ng-repeat="value in featuresRates">
+       <td>
+         <span >{{value.featurename}}</span>
+      </td>
+      <td>
+       <slider floor='1' ceiling='10' step='1' precision='2' stickiness='2'
+                ng-model='value.featurerates' style="width:200px; margin:5px"></slider>
+      </td>
+    </tr>
+   </table>
+
+    <i  class="btn-slideRating padding-right30 prodo-cursor prodoCommentDeleteUp glyphicon glyphicon-circle-arrow-up pull-right" ></i>
+
+    <button class="pull-right btn btn-primary btn-sm " ng-click="sendRating(product.orgid,product.prodle,featuresRates)">Submit</button>
+
+
+    </center>
+</div>
+
+
 
     <br>
     <div class="prodo-paddingLeft">

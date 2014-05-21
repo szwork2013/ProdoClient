@@ -1732,6 +1732,12 @@ margin-bottom: 10px;
 	display: none;
 	font-family: Helvetica ;
 }
+#panelRating {
+
+	height: 200px;
+	display: none;
+	font-family: Helvetica ;
+}
 .slide {
 	margin: 0;
 	padding: 0;
@@ -1741,14 +1747,12 @@ margin-bottom: 10px;
 .btn-slide {
 
 margin-right: 5px;
-	/*width: 144px;
-	height: 31px;
-	padding: 10px 10px 0 0;
-	margin: 0 auto;
-	display: block;
-	
 
-	text-decoration: none;*/
+}
+.btn-slideRating {
+
+margin-right: 5px;
+
 }
 
 
@@ -3020,3 +3024,87 @@ max-height: 100px;
 
 
 /*Campaign wall*/
+
+/*rating*/
+slider {
+		display:     block;
+		position:    relative;
+		height:      20px;
+		width:       500px;
+	}
+
+	slider span.bar {
+		height:     50%;
+		z-index:    0;
+		background: #eee;
+		left:       0;
+		top:        25%;
+		cursor:     pointer;
+	}
+
+	slider span.bar.selection, slider span.bar.unselected {
+	}
+
+	slider span.bar.selection {
+		background: #0a0;
+		opacity:    0.5;
+	}
+
+	slider span.bar.unselected {
+		width:      auto;
+		background: #a00;
+		opacity:    0.5;
+	}
+
+	slider span.pointer {
+		cursor:           pointer;
+		width:            10px;
+		top:              0;
+		bottom:           0;
+		background-color: #00AA96;
+	}
+
+	slider span.pointer:hover {
+	}
+
+	slider span.pointer.active {
+	}
+
+	slider span.bubble {
+		font-size:   0.7em;
+		line-height: 1.4em;
+		font-family: sans-serif;
+		text-align:  center;
+		text-shadow: none;
+		top:         -1.3em;
+		cursor:      pointer;
+	}
+
+	slider span.bubble.selection, slider span.bubble.limit {
+		top: 25%;
+	}
+
+	slider span.bubble.selection {
+	}
+
+	slider span.bubble.limit {
+	}
+
+	slider span.bubble.low, slider span.bubble.high {
+	}
+	
+	::-ms-tooltip {
+		display: none;
+	}
+
+	#slider-container {
+		-webkit-touch-callout: none;
+		-webkit-user-select:   none;
+		-khtml-user-select:    none;
+		-moz-user-select:      -moz-none;
+		-ms-user-select:       none;
+		user-select:           none;
+	}
+
+/*rating*/
+

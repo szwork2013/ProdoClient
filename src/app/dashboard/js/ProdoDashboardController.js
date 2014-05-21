@@ -92,7 +92,16 @@ angular.module('prodo.ProdoWallApp').controller('ProdoDashboardController', [
     $scope.chartType = ''; $scope.chartName = '';
 
     $scope.$on('showUniqueChart', function (event, name, query, type) {
-          allChartsData.getContent(query); $scope.chartType = type; $scope.chartName = name;
+          allChartsData.getContent(query); 
+          $scope.chartType = type; 
+          $scope.chartName = name; 
+
+          if($scope.chartType === 'Dual Stack')
+          {
+            $scope.chartType = '';
+            $scope.showBarChart = 0;
+            $scope.showPieChart = 0;
+          }
     });
 
     var cleanupeventGotChartContent = $scope.$on("gotChartDataSuccessfully", function(event, data){
@@ -104,6 +113,7 @@ angular.module('prodo.ProdoWallApp').controller('ProdoDashboardController', [
         {
             $scope.showPieChart = 0;
             $scope.showBarChart = 0;
+            // $scope.showSampleDataFordualstack = 0;
            // $scope.showSampleDataFordualstack = 0;
 
             if($scope.chartType === 'Pie Chart')
@@ -119,10 +129,14 @@ angular.module('prodo.ProdoWallApp').controller('ProdoDashboardController', [
                 key: 'Product Ratings',
                 values: $scope.dataForBarChart,
               }];
-              };
+              }; 
              $scope.showBarChart = 1;
 
             }
+            // else if($scope.chartType === 'Dual Stack')
+            // {
+            //   $scope.showSampleDataFordualstack = 1;
+            // }
             // else if($scope.chartType === 'Dual Stack')
             // {
             //          $scope.showSampleDataFordualstack = 1;

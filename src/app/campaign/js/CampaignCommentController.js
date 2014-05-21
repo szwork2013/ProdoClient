@@ -13,6 +13,24 @@
 angular.module('prodo.CampaignApp')
 .controller('CampaignCommentController', ['$scope', '$log', '$rootScope', 'ProductService', 'UserSessionService', '$http', 'CommentLoadMoreService', 'ENV', 'TagReffDictionaryService', 'ProductFeatureService', 'isLoggedin','CampaignWallService','CampaignCommentService','CampaignCommentLoadMoreService',  function ($scope, $log, $rootScope, ProductService, UserSessionService, $http, CommentLoadMoreService, ENV, TagReffDictionaryService, ProductFeatureService ,isLoggedin,CampaignWallService,CampaignCommentService,CampaignCommentLoadMoreService) {
 
+$scope.prelikedislike=function(likeaction,comment){
+    var follow;
+    if($rootScope.usersession.currentUser){
+     if($rootScope.usersession.currentUser.campaign_followed){
+       for (i = 0; i < $rootScope.usersession.currentUser.campaign_followed.length; i++) {
+          if ($rootScope.usersession.currentUser.campaign_followed[i].campaign_id == $rootScope.campaignidWall) {
+            follow = true;
+          }
+        }
+      }
+    }
+    if(follow==true){
+     $scope.likedislike(likeaction,comment);
+    }
+    else{
+     $rootScope.ProdoAppMessage("Please follow this campaign to start agree or disagree ...", 'error');
+    }
+};
 
   $scope.deleteProductComment = function (comment) {
     if (comment.user.userid == $scope.userIDFromSession ) {

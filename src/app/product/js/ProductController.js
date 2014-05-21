@@ -10,8 +10,8 @@
  * 27-3/2013 | xyx | Add a new property
  *
  */
-angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$log', '$rootScope', 'ProductService', 'UserSessionService', '$http', 'CommentLoadMoreService', 'ENV', 'TagReffDictionaryService', 'ProductFeatureService', '$state','productData','ProductEnquiry', function ($scope, $log, $rootScope, ProductService, UserSessionService, $http, CommentLoadMoreService, ENV, TagReffDictionaryService, ProductFeatureService, $state,productData,ProductEnquiry) {
- 
+angular.module('prodo.ProductApp', ['vrdirectivesslider']).controller('ProductController', ['$scope', '$log', '$rootScope', 'ProductService', 'UserSessionService', '$http', 'CommentLoadMoreService', 'ENV', 'TagReffDictionaryService', 'ProductFeatureService', '$state','productData','ProductEnquiry', function ($scope, $log, $rootScope, ProductService, UserSessionService, $http, CommentLoadMoreService, ENV, TagReffDictionaryService, ProductFeatureService, $state,productData,ProductEnquiry) {
+
       $scope.pimgs = [];
     
     // $scope.$watch('$state.$current.locals.globals.productData', function (productData) {
@@ -36,6 +36,9 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
     // $scope.searchBy={
     //   type:['general','category']
     // }
+
+
+
 
  $scope.inquiry="know";
  $scope.searchCommentBy;
@@ -113,6 +116,10 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
 
   $scope.$state = $state;
 
+$scope.featuresRates=[];
+
+
+
 
   // $scope.$watch('searchBySelected.type', function () {
   //   $scope.searchfields[$scope.searchBySelected.type]='';
@@ -125,34 +132,7 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
   // });
 
 
-$(document).ready(function(){
 
-  $(".btn-slide").click(function(){
-        var hidden = $("#panel").is(":hidden");
-
-    $("#panel").slideToggle("slow");
-    $(this).toggleClass("active"); 
-
-
-    $log.debug(hidden);
-    if(hidden){
-      $log.debug("showing");
-       // $('#prodoBtnEnquiry').addClass( "btn-warning" );
-      $('#prodoBtnEnquiry').css('backgroundColor', '#BF8618');
-      $('#prodoBtnEnquiry').css('borderColor', '#BF8618');
-     
-    }
-    else{
-      $log.debug("hidden");
-       $('#prodoBtnEnquiry').css('backgroundColor', '#3276b1');
-          $('#prodoBtnEnquiry').css('borderColor', '#3276b1');
-         // $('#prodoBtnEnquiry').removeClass( "btn-warning" );
-    }
-    return false;
-  });
-
-   
-});
 
 $scope.sendEnquiry=function(orgid,prodle,inquiry){
  $scope.EnquiryData={
@@ -219,6 +199,54 @@ $scope.handleEnquiryError=function(error){
    }
  }
 };
+
+
+
+$scope.sendRating=function(orgid,prodle,featuresRates){
+
+$log.debug(featuresRates);
+
+ $rootScope.ProdoAppMessage("Thank you for rating our product features...", 'success');
+    $scope.AllRatings={
+      ratings:featuresRates
+    }
+
+          // ProductEnquiry.sendRating({
+          //       orgid: orgid,
+          //       prodle: prodle,
+          //     }, $scope.AllRatings, function (success) {
+          //      if(success.success){
+          //       $scope.handleRatingSuccess(success);
+          //      }
+          //      else{
+          //        $scope.handleRatingError(success.error);
+          //      }
+          //     }, function (error) {
+          //       $log.debug(error);
+          //      $rootScope.ProdoAppMessage("Server Error:" + error.status, 'error');
+          //     });
+
+
+
+};
+
+//  $scope.handleRatingSuccess=function(success){
+//   $log.debug(success.success);
+//   $rootScope.ProdoAppMessage("Your Rating request sent successfully", 'success');
+//  };
+
+// $scope.handleRatingError=function(error){
+//   if(error){ 
+//     if(error.code=='AL001'){
+//     $rootScope.showModal();
+//   }
+//    else{
+//      $log.debug(error);
+//     $rootScope.ProdoAppMessage(error.message, 'error');
+//    }
+//  }
+// };
+
 
   //watch prodle if changed by user by product search or any other source
   $rootScope.$watch('product_prodle', function () {
@@ -378,9 +406,10 @@ $scope.handleEnquiryError=function(error){
       $scope.features.push(successData.success.productfeature[i]);
       $scope.PFeatures.push(successData.success.productfeature[i]);
       $scope.featuretags.push(successData.success.productfeature[i].featurename);
+      $scope.featuresRates.push({featurename:successData.success.productfeature[i].featurename,
+                                 featurerates:0});
     }
-    // $scope.features= JSON.stringify($scope.features);
-    // $log.debug("pf  "+ $scope.featuretags);
+console.log($scope.featuresRates);
   };
 
   $scope.getProductFeatures = function (prodle, orgid) {
@@ -485,6 +514,43 @@ $scope.hideSearchCategories=function(){
 $scope.isCollapsedSearch=1;
 };
 
+$(document).ready(function(){
+
+ // $(".example-a").barrating();
+
+ $(".btn-slide").click(function(){
+    var hidden = $("#panel").is(":hidden");
+    $("#panel").slideToggle("slow");
+    $(this).toggleClass("active"); 
+   if(hidden){
+      $('#prodoBtnEnquiry').css('backgroundColor', '#BF8618');
+      $('#prodoBtnEnquiry').css('borderColor', '#BF8618');
+     }
+    else{
+       $('#prodoBtnEnquiry').css('backgroundColor', '#3276b1');
+       $('#prodoBtnEnquiry').css('borderColor', '#3276b1');
+    }
+    return false;
+  });
+
+  $(".btn-slideRating").click(function(){
+    var hidden = $("#panelRating").is(":hidden");
+    $("#panelRating").slideToggle("slow");
+    $(this).toggleClass("active"); 
+   if(hidden){
+      $('#prodoBtnRating').css('backgroundColor', '#BF8618');
+      $('#prodoBtnRating').css('borderColor', '#BF8618');
+     }
+    else{
+       $('#prodoBtnRating').css('backgroundColor', '#3276b1');
+       $('#prodoBtnRating').css('borderColor', '#3276b1');
+    }
+    return false;
+  });
+
+
+   
+});
 
 
 

@@ -16,7 +16,7 @@
 			</div> 
 		  </div>
 
-  <!-- Chart code for pie -->
+ 		 <!-- Chart code for pie -->
          <hr ng-if = "showPieChart === 1">
 
    			 <span class="divider"></span>
@@ -28,18 +28,34 @@
 	        </div>
 
 
-        <!-- Code for bar chart -->
-         <hr ng-if="showBarChart === 1">
+      	  <!-- Code for bar chart -->
+      	   <hr ng-if="showBarChart === 1">
          
-		 <span class="divider"></span>
+			 <span class="divider"></span>
 
-		 <div style="margin-left:10%"> <div style="margin-left:23%">  <div  ng-if="showSampleDataFordualstack === 1"><b><h4>Product Social Engagement</h4></b>		</div></div>
-		       <div id="prodo-barchart-dashboard"><svg id="allTrendingChart" class="mybarchart" height="500" width="500"></svg> <prodo-trendingchart> </prodo-trendingchart> </div>
-		 </div>
-		    
-		 <div ng-if="showSampleDataFordualstack === 1">Note: This chart is generated using sample data due to unavailability of real data. Chart will be updated once sufficient real data is available</div>
+			 <div ng-if="chartType !== undefined && chartType === ''">
 
-        <div ng-if="(showPieChart === 0 && showBarChart === 0) && showSampleDataFordualstack === 0"> Currently no dashboard charts are available</div>
+							 <div style="margin-left:10%"> 
+									 <div style="margin-left:23%">  
+											 <div  ng-if="showSampleDataFordualstack === 1">
+													 <b><h4>Product Social Engagement</h4></b>		
+											 </div>
+									 </div>
+						   		    <div id="prodo-barchart-dashboard">
+								   		    <svg id="allTrendingChart" class="mybarchart" height="500" width="500"></svg> 
+								   		    <prodo-trendingchart> </prodo-trendingchart> 
+						   		    </div>
+							 </div>
+						    
+							 <div ng-if="showSampleDataFordualstack === 1">
+							 		Note: This chart is generated using sample data due to unavailability of real data. Chart will be updated once sufficient real data is available
+							 </div>
+
+			 </div>
+
+	        <div ng-if="(showPieChart === 0 && showBarChart === 0) && showSampleDataFordualstack === 0"> 
+	       			Currently no dashboard charts are available
+	        </div>
 
 
 <!-- 	<span class="divider"></span> 
