@@ -73,6 +73,13 @@ angular.module('prodo.ProductApp', ['vrdirectivesslider']).controller('ProductCo
     tabComment:'true',
     tabSearch:'false'
   }
+
+    $scope.tabForRating={
+    tabOverallRating:'true',
+    tabCaptureRating:'false'
+  }
+
+
   // $scope.searchComment="warranty";
   $scope.newProductComment = [];
   $rootScope.productCommentResponsearray = [];

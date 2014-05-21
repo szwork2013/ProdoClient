@@ -1693,6 +1693,7 @@ width: 90%;overflow-x: hidden;overflow-y: auto;left: 55px;position: relative;top
 #padding0del{padding: 0px;}
 #padding0img{padding: 0px; padding-right: 5px;}
 #commentTab>li.active2 a{ border-bottom :solid 3px #1A8A04;border-radius: 0px;}
+#ratingTab>li.active3 a{ border-bottom :solid 2px #1A8A04;border-radius: 0px;}
 .Pcomment:hover{ color : gray;}
 .PSearch:hover{ color : gray;}
 .commentSearchTextbox{
@@ -1734,7 +1735,7 @@ margin-bottom: 10px;
 }
 #panelRating {
 
-	height: 200px;
+
 	display: none;
 	font-family: Helvetica ;
 }
