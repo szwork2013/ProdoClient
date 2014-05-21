@@ -206,7 +206,7 @@ $scope.sendRating=function(orgid,prodle,featuresRates){
 
 $log.debug(featuresRates);
 
-
+ $rootScope.ProdoAppMessage("Thank you for rating our product features...", 'success');
     $scope.AllRatings={
       ratings:featuresRates
     }
