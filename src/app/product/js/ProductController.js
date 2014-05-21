@@ -10,8 +10,8 @@
  * 27-3/2013 | xyx | Add a new property
  *
  */
-angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$log', '$rootScope', 'ProductService', 'UserSessionService', '$http', 'CommentLoadMoreService', 'ENV', 'TagReffDictionaryService', 'ProductFeatureService', '$state','productData','ProductEnquiry', function ($scope, $log, $rootScope, ProductService, UserSessionService, $http, CommentLoadMoreService, ENV, TagReffDictionaryService, ProductFeatureService, $state,productData,ProductEnquiry) {
- 
+angular.module('prodo.ProductApp', ['vrdirectivesslider']).controller('ProductController', ['$scope', '$log', '$rootScope', 'ProductService', 'UserSessionService', '$http', 'CommentLoadMoreService', 'ENV', 'TagReffDictionaryService', 'ProductFeatureService', '$state','productData','ProductEnquiry', function ($scope, $log, $rootScope, ProductService, UserSessionService, $http, CommentLoadMoreService, ENV, TagReffDictionaryService, ProductFeatureService, $state,productData,ProductEnquiry) {
+
       $scope.pimgs = [];
     
     // $scope.$watch('$state.$current.locals.globals.productData', function (productData) {
@@ -36,6 +36,9 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
     // $scope.searchBy={
     //   type:['general','category']
     // }
+
+
+
 
  $scope.inquiry="know";
  $scope.searchCommentBy;
@@ -115,51 +118,7 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
 
 $scope.featuresRates=[];
 
-$(document).ready(function(){
 
- $(".example-a").barrating();
-
-
- $('#example-c').barrating('show', {
-                    showValues:true,
-                    showSelectedRating:false
-                });
-
-
-
- $(".btn-slide").click(function(){
-    var hidden = $("#panel").is(":hidden");
-    $("#panel").slideToggle("slow");
-    $(this).toggleClass("active"); 
-   if(hidden){
-      $('#prodoBtnEnquiry').css('backgroundColor', '#BF8618');
-      $('#prodoBtnEnquiry').css('borderColor', '#BF8618');
-     }
-    else{
-       $('#prodoBtnEnquiry').css('backgroundColor', '#3276b1');
-       $('#prodoBtnEnquiry').css('borderColor', '#3276b1');
-    }
-    return false;
-  });
-
-  $(".btn-slideRating").click(function(){
-    var hidden = $("#panelRating").is(":hidden");
-    $("#panelRating").slideToggle("slow");
-    $(this).toggleClass("active"); 
-   if(hidden){
-      $('#prodoBtnRating').css('backgroundColor', '#BF8618');
-      $('#prodoBtnRating').css('borderColor', '#BF8618');
-     }
-    else{
-       $('#prodoBtnRating').css('backgroundColor', '#3276b1');
-       $('#prodoBtnRating').css('borderColor', '#3276b1');
-    }
-    return false;
-  });
-
-
-   
-});
 
 
   // $scope.$watch('searchBySelected.type', function () {
@@ -555,7 +514,43 @@ $scope.hideSearchCategories=function(){
 $scope.isCollapsedSearch=1;
 };
 
+$(document).ready(function(){
 
+ // $(".example-a").barrating();
+
+ $(".btn-slide").click(function(){
+    var hidden = $("#panel").is(":hidden");
+    $("#panel").slideToggle("slow");
+    $(this).toggleClass("active"); 
+   if(hidden){
+      $('#prodoBtnEnquiry').css('backgroundColor', '#BF8618');
+      $('#prodoBtnEnquiry').css('borderColor', '#BF8618');
+     }
+    else{
+       $('#prodoBtnEnquiry').css('backgroundColor', '#3276b1');
+       $('#prodoBtnEnquiry').css('borderColor', '#3276b1');
+    }
+    return false;
+  });
+
+  $(".btn-slideRating").click(function(){
+    var hidden = $("#panelRating").is(":hidden");
+    $("#panelRating").slideToggle("slow");
+    $(this).toggleClass("active"); 
+   if(hidden){
+      $('#prodoBtnRating').css('backgroundColor', '#BF8618');
+      $('#prodoBtnRating').css('borderColor', '#BF8618');
+     }
+    else{
+       $('#prodoBtnRating').css('backgroundColor', '#3276b1');
+       $('#prodoBtnRating').css('borderColor', '#3276b1');
+    }
+    return false;
+  });
+
+
+   
+});
 
 
 

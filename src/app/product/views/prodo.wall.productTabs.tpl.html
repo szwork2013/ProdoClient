@@ -86,91 +86,31 @@
 </td>
 </tr>
 </table>
-
 </div>   
-
-   
 </div>
 
 
 <div id="panelRating" >
- <center><b> Product Rating   </b>
- <br/>
-<!-- <ul>
-<li ng-repeat="feature in features track by $index">
+   <center><b> Product Rating   </b>
+   <br/>
+    <table class="prodo-prodowalltable table " >
+     <tr ng-repeat="value in featuresRates">
+       <td>
+         <span >{{value.featurename}}</span>
+      </td>
+      <td>
+       <slider floor='1' ceiling='10' step='1' precision='2' stickiness='2'
+                ng-model='value.featurerates' style="width:200px;"></slider>
+      </td>
+    </tr>
+   </table>
 
-<span ng-bind="feature.featurename"></span>
-</li>
-</ul> -->
+    <i  class="btn-slideRating padding-right30 prodo-cursor prodoCommentDeleteUp glyphicon glyphicon-circle-arrow-up pull-right" ></i>
 
-
-  <table class="prodo-prodowalltable table " >
-  <tr ng-repeat="value in featuresRates">
-  <td>
-   <span >{{value.featurename}}</span>
- </td>
- <td>
-
-
-
- <div class="input select rating-a"    >
-       <select class="example-a"  ng-model="value.featurerates"  >
-          <option value="1" >1</option>
-          <option value="2" >2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-          <option value="7" >7</option>
-          <option value="8">8</option> 
-          <option value="9">9</option>
-          <option value="10">10</option>  
-      </select>{{value.featurerates}}
- 
-</div>
-
-</td>
-</tr>
-</table>
-
-<i  class="btn-slideRating padding-right30 prodo-cursor prodoCommentDeleteUp glyphicon glyphicon-circle-arrow-up pull-right" ></i>
-
-<button class="pull-right btn btn-primary btn-sm " ng-click="sendRating(product.orgid,product.prodle,featuresRates)">Submit</button>
-
-<!-- 
-<div class="input select rating-a">
-       <select class="example-a" name="rating">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-          <option value="7" selected="selected">7</option>
-          <option value="8">8</option>
-          <option value="9">9</option>
-          <option value="10">10</option>
-      </select>
-  </div>
-
-  <div class="input select rating-a">
-       <select class="example-a" name="rating">
-          <option value="1">1</option>
-          <option value="2" selected="selected">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-          <option value="7" >7</option>
-          <option value="8">8</option>
-          <option value="9">9</option>
-          <option value="10">10</option>
-      </select>
-  </div> -->
+    <button class="pull-right btn btn-primary btn-sm " ng-click="sendRating(product.orgid,product.prodle,featuresRates)">Submit</button>
 
 
-
-   </center>
+    </center>
 </div>
 
 

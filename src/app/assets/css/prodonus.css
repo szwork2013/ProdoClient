@@ -3015,61 +3015,85 @@ max-height: 100px;
 /*Campaign wall*/
 
 /*rating*/
-.rating-a .br-widget {
-    height: 52px;
-}
+slider {
+		display:     block;
+		position:    relative;
+		height:      20px;
+		width:       500px;
+	}
 
-.rating-a .br-widget a {
-    display: block;
-    width: 10px;
-    padding: 5px 0 5px 0;
-    height: 20px;
-    float: left;
-    background-color: #e3e3e3;
-    margin: 1px;
-    text-align: center;
-}
+	slider span.bar {
+		height:     50%;
+		z-index:    0;
+		background: #eee;
+		left:       0;
+		top:        25%;
+		cursor:     pointer;
+	}
 
-.rating-a .br-widget a.br-active,
-.rating-a .br-widget a.br-selected {
-    background-color: #59a6d6;
-}
+	slider span.bar.selection, slider span.bar.unselected {
+	}
 
-.rating-a .br-widget .br-current-rating {
-/*    font-size: 20px;
-    line-height: 2;*/
-    float: left;
-    padding: 0 20px 0 20px;
-    color: #646464;
-}
+	slider span.bar.selection {
+		background: #0a0;
+		opacity:    0.5;
+	}
+
+	slider span.bar.unselected {
+		width:      auto;
+		background: #a00;
+		opacity:    0.5;
+	}
+
+	slider span.pointer {
+		cursor:           pointer;
+		width:            10px;
+		top:              0;
+		bottom:           0;
+		background-color: #00AA96;
+	}
+
+	slider span.pointer:hover {
+	}
+
+	slider span.pointer.active {
+	}
+
+	slider span.bubble {
+		font-size:   0.7em;
+		line-height: 1.4em;
+		font-family: sans-serif;
+		text-align:  center;
+		text-shadow: none;
+		top:         -1.3em;
+		cursor:      pointer;
+	}
+
+	slider span.bubble.selection, slider span.bubble.limit {
+		top: 25%;
+	}
+
+	slider span.bubble.selection {
+	}
+
+	slider span.bubble.limit {
+	}
+
+	slider span.bubble.low, slider span.bubble.high {
+	}
+	
+	::-ms-tooltip {
+		display: none;
+	}
+
+	#slider-container {
+		-webkit-touch-callout: none;
+		-webkit-user-select:   none;
+		-khtml-user-select:    none;
+		-moz-user-select:      -moz-none;
+		-ms-user-select:       none;
+		user-select:           none;
+	}
+
 /*rating*/
-
-
-/******* EXAMPLE C *******/
-
-.rating-c .br-widget {
-    height: 52px;
-}
-
-.rating-c .br-widget a {
-    display: block;
-    width: 35px;
-    height: 35px;
-    float: left;
-    background-color: #e3e3e3;
-    margin: 2px;
-    text-decoration: none;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 2.2;
-    text-align: center;
-    color: #b6b6b6;
-}
-
-.rating-c .br-widget a.br-active,
-.rating-c .br-widget a.br-selected {
-    background-color: #59a6d6;
-    color: white;
-}
-
 
