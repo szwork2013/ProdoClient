@@ -2,12 +2,12 @@ angular.module('prodo.ProdoWallApp').controller('ProdoDashboardController', [
   '$scope',
   '$rootScope',
   '$state',
-  'prodoDashboardService','pieChartProdle','trendingChartContent','dashboardSliderData','allChartsData',
-  function ($scope, $rootScope, $state, prodoDashboardService,pieChartProdle, trendingChartContent,dashboardSliderData, allChartsData) {
+  'prodoDashboardService','pieChartProdle','trendingChartContent','dashboardSliderData','allChartsData','dashboardSliderData',
+  function ($scope, $rootScope, $state, prodoDashboardService,pieChartProdle, trendingChartContent,dashboardSliderData, allChartsData, dashboardSliderData) {
    // prodoDashboardService.getChartData();
 
+    //console.log(JSON.stringify(dashboardSliderData.success.doc));
     $scope.data = [];
-
     
     $scope.showPieChart = 0;
 
@@ -217,3 +217,13 @@ angular.module('prodo.ProdoWallApp').controller('ProdoDashboardController', [
 
   }
 ]);
+
+
+
+angular.module('prodo.ProdoWallApp').filter('capitalize', function() {
+     return function(input, scope) {
+         if (input!=null)
+         input = input.toLowerCase();
+         return input.substring(0,1).toUpperCase()+input.substring(1);
+     }
+});
