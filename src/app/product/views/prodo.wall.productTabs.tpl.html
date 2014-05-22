@@ -88,6 +88,7 @@
 
 <button class="pull-right btn btn-primary btn-sm btn-slide" ng-click="sendEnquiry(product.orgid,product.prodle,inquiry)">Submit</button>
 </div>   
+<br/><br/>
 </div>
 
 
@@ -118,7 +119,58 @@
         </div>
         <div class="tab-content">
           <div id="Remove" ng-show="tabForRating.tabOverallRating == true" >
-                 overall
+            <br/>
+                 <table class="table" style="font-size:12px; width:84%">
+                  <tr style="background-color:rgba(222, 184, 135, 0.45); font-weight:bold">
+                    <td style="padding: 4px;">
+                     Feature Name
+                     </td>
+                  
+                        <td style="padding: 4px;">Users Rated</td>
+                        <td style="padding: 4px;">Average Rating</td>
+                
+               
+                  <td style="padding: 4px;">
+                 My Rating
+                 </td>
+                 </tr>
+                  <tr >
+                 <td style="padding: 4px;">
+                 acebrophylline
+                 </td>
+                 <td style="padding: 4px;">
+                2
+                 </td>
+                 <td style="padding: 4px;">
+                8
+                 </td>
+                  <td style="padding: 4px;">
+                9
+                 </td>
+                 </tr>
+
+                  <tr >
+                 <td style="padding: 4px;">
+                 acebrophylline
+                 </td>
+                 <td style="padding: 4px;">
+                2
+                 </td>
+                 <td style="padding: 4px;">
+                8
+                 </td>
+                  <td style="padding: 4px;">
+                9
+                 </td>
+                 </tr>
+
+
+               </table>
+
+
+
+
+
                   <i  class="btn-slideRating padding-right30 prodo-cursor prodoCommentDeleteUp glyphicon glyphicon-circle-arrow-up pull-right" ></i>
           </div>
           <div id="Remove" ng-show="tabForRating.tabCaptureRating == true" class="prodo-padding-bottom"  >
