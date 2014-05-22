@@ -192,6 +192,7 @@ if($scope.EnquiryData.body){
 
  $scope.handleEnquirySuccess=function(success){
   $log.debug(success.success);
+
   $rootScope.ProdoAppMessage("Your enquiry request sent successfully", 'success');
  };
 
@@ -211,9 +212,8 @@ $scope.handleEnquiryError=function(error){
 
 $scope.sendRating=function(orgid,prodle,featuresRates){
 
-$log.debug(featuresRates);
-
- $rootScope.ProdoAppMessage("Thank you for rating our product features...", 'success');
+  $log.debug(featuresRates);
+  $rootScope.ProdoAppMessage("Thank you for rating our product features...", 'success');
     $scope.AllRatings={
       ratings:featuresRates
     }
@@ -238,6 +238,11 @@ $log.debug(featuresRates);
 };
 
 //  $scope.handleRatingSuccess=function(success){
+
+  // $scope.tabForRating.tabOverallRating = true; 
+  // $scope.tabForRating.tabCaptureRating=false; 
+
+
 //   $log.debug(success.success);
 //   $rootScope.ProdoAppMessage("Your Rating request sent successfully", 'success');
 //  };
