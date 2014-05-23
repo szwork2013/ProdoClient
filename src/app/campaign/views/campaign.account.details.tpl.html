@@ -233,7 +233,7 @@
            
           <tr>
             <td style="padding-bottom:5%;"  popover-placement="right" popover="Press enter after entering text" popover-trigger="mouseenter">
-            	   <tags-input  minTags="1" add-on-blur="true" list="targettedAudience" ng-model="currentCampaign.campaign_tags" min-length="1" >
+            	   <tags-input  minTags="1" add-on-blur="true" list="targettedAudience" ng-model="currentCampaign.campaign_tags" min-length="1" replace-spaces-with-dashes = "false">
                    </tags-input>
                    
                    <div class="error-message-registration" ng-if="errorForEmptyCategoryCampaignTags !== '' " ng-bind="errorForEmptyCategoryCampaignTags">
@@ -287,7 +287,7 @@
 
           <tr>
             <td style="padding-bottom:5%;"  popover-placement="right" popover="Press enter after entering text" popover-trigger="mouseenter">
-                   <tags-input  minTags="1" add-on-blur="true" list="targettedAudience" ng-model="currentCampaign.category" min-length="1" >
+                   <tags-input  minTags="1" add-on-blur="true" list="targettedAudience" ng-model="currentCampaign.category" min-length="1" replace-spaces-with-dashes = "false">
                    </tags-input>
                    
                       <div class="error-message-registration" ng-if="errorForEmptyCategoryModify !== '' " ng-bind="errorForEmptyCategoryModify">
@@ -353,7 +353,7 @@
       <div class="manage-Campaign-tr">
            <div class="manage-Campaign-td1">*Campaign Tags:  </div>
            <div class="manage-Campaign-td2 manage-campaign-marginbottom"  popover-placement="right" popover="Press enter after entering text" popover-trigger="mouseenter">
-                   <tags-input  minTags="1" add-on-blur="true" list="targettedAudience" ng-model="campaign.campaignTags" min-length="1" >
+                   <tags-input  minTags="1" add-on-blur="true" list="targettedAudience" ng-model="campaign.campaignTags" min-length="1" replace-spaces-with-dashes = "false">
                    </tags-input>
 					<div class="error-message-registration" ng-if="errorForEmptyCampaigntags !== '' "ng-bind="errorForEmptyCampaigntags"></div>
            </div>	          
@@ -391,7 +391,7 @@
 	  <div class="manage-Campaign-tr">
            <div class="manage-Campaign-td1">*Targeted Audience:  </div>
            <div class="manage-Campaign-td2 manage-campaign-marginbottom" popover-placement="right" popover="Press enter after entering text" popover-trigger="mouseenter">
-                   <tags-input  minTags="1" add-on-blur="true" list="targettedAudience" ng-model="campaign.category" min-length="1" >
+                   <tags-input  minTags="1" add-on-blur="true" list="targettedAudience" ng-model="campaign.category" min-length="1" replace-spaces-with-dashes = "false">
                    </tags-input>
 					<div class="error-message-registration" ng-if="errorForEmptyCategory !== '' "ng-bind="errorForEmptyCategory"></div>
            </div>	          
