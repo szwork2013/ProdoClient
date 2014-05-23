@@ -184,7 +184,7 @@
                        <span >{{value.featurename}}</span>
                     </td>
                     <td>
-                     <slider floor='0' ceiling='10' step='0' precision='0' stickiness='2'
+                     <slider ng-change="getSelectedRates(value)" floor='0' ceiling='10' step='0' precision='0' stickiness='2'
                               ng-model='value.featurerates' style="width:200px; margin:5px"></slider>
                     </td>
                   </tr>

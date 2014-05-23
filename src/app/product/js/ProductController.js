@@ -125,6 +125,7 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
   $scope.$state = $state;
 
 $scope.featuresRates=[];
+$scope.newRates=[];
 
 
 
@@ -210,10 +211,24 @@ $scope.handleEnquiryError=function(error){
 };
 
 
+$scope.getSelectedRates=function(value){
+for(i=0;i<$scope.featuresRates.length;i++){
+  if($scope.featuresRates[i].featurename==value.featurename){
+   $scope.featuresRates[i].rated=true;
+  }
+}
+
+};
 
 $scope.sendRating=function(orgid,prodle,featuresRates){
-
-  $log.debug(featuresRates);
+ 
+  $scope.newRates_l=[];
+  for(i=0;i<$scope.featuresRates.length;i++){
+    if($scope.featuresRates[i].rated==true){
+       $scope.newRates_l.push({featurename: featuresRates[i].featurename , featurerates: featuresRates[i].featurerates});
+      }
+    }
+ $log.debug($scope.newRates_l);
   $rootScope.ProdoAppMessage("Thank you for rating our product features...", 'success');
     $scope.AllRatings={
       ratings:featuresRates
@@ -445,7 +460,7 @@ $scope.sendRating=function(orgid,prodle,featuresRates){
       $scope.PFeatures.push(successData.success.productfeature[i]);
       $scope.featuretags.push(successData.success.productfeature[i].featurename);
       $scope.featuresRates.push({featurename:successData.success.productfeature[i].featurename,
-                                 featurerates:0});
+                                 featurerates:0 ,rated:false});
     }
 console.log($scope.featuresRates);
   };
