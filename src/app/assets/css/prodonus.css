@@ -3123,3 +3123,10 @@ slider {
 font-size: 18px;
 color: saddlebrown;
 }
+.prodoTestiMonialsUserDetails{
+	border-top: solid 1px gainsboro;
+    padding-top: 4px;
+}
+.prodo-TestimonialText{
+	padding-bottom: 5px;
+}
