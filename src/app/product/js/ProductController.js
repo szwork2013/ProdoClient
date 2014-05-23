@@ -71,7 +71,8 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
     $scope.search = {};
   $scope.tabForComment={
     tabComment:'true',
-    tabSearch:'false'
+    tabSearch:'false',
+    tabTesto:'false'
   }
 
     $scope.tabForRating={
@@ -279,6 +280,19 @@ $scope.sendRating=function(orgid,prodle,featuresRates){
     }
 
   });
+
+ $scope.$watch('tabForComment.tabTesto', function () {
+   if($scope.tabForComment.tabTesto==true){
+      $("#prodo-CommentLoadMoreContainer").css("display", "none");
+   }
+   else{
+      $("#prodo-CommentLoadMoreContainer").css("display", "block");
+   }
+  });
+
+
+
+
 
   //get login details
   $scope.getUserDetails = function () {

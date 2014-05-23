@@ -260,16 +260,24 @@
         <ul id="commentTab" class=" commentTab nav nav-pills" ng-init="tabForComment.tabSearch = false;
           tabForComment.tabComment = true" >
           <li class="Pcomment" ng-class="{active2 : tabForComment.tabComment == 1}" >
-            <a  class="prodo-cursor" id="prodoCommentTab" ng-click="tabForComment.tabComment = true; tabForComment.tabSearch=false;  hideSearchCategories(); searchfields.commentcategory='';searchfields.general='';"  >
+            <a  class="prodo-cursor" id="prodoCommentTab" ng-click="tabForComment.tabComment = true; tabForComment.tabSearch=false;tabForComment.tabTesto=false;  hideSearchCategories(); searchfields.commentcategory='';searchfields.general='';"  >
               <div   id="fa-removeComment" name="rm" class=" fa fa-comments-o fa-lg  " ></div>
             </a>
           </li>
 
           <li class="PSearch" ng-class="{active2 : tabForComment.tabSearch == 1}"  >
             <a id="prodoCommentSearchTab" class="prodo-cursor" ng-click="tabForComment.tabSearch =  true ;
-              tabForComment.tabComment = false; hideFeature();" >
+              tabForComment.tabComment = false;tabForComment.tabTesto=false; hideFeature();" >
 
               <div id="fa-tagsComment" class="fa fa-search fa-lg"  ></div>
+            </a>
+          </li>
+
+           <li class="PSearch" ng-class="{active2 : tabForComment.tabTesto == 1}"  >
+            <a id="prodoCommentTestoTab" class="prodo-cursor" ng-click="tabForComment.tabTesto=true; tabForComment.tabSearch =  false ;
+              tabForComment.tabComment = false; hideFeature();" >
+
+              <div id="fa-tagsComment" class="fa fa-users fa-lg"  ></div>
             </a>
           </li>
          
@@ -354,6 +362,33 @@
    
 
           </div>
+
+         <div id="Remove" ng-show="tabForComment.tabTesto == true" class="prodo-padding-bottom"  >
+          <br>
+          <b class="prodo-testimonialsTitle">Testimonials</b>
+          <div class="prodo-testomonials">
+             <em>This medicine is realy awesome. I used it, its realy nice. Guys please try this medicine </em>
+            <br/>
+              <span class= "pull-right">
+                <span> <b>Bhagyashri Jangam </b></span> from
+                <span><b> Giant Leap Systems </b></span>
+              </span>
+
+          </div>
+
+          <div class=" prodo-testomonials">
+             <em> This medicine is very effective and does not have any side effects.. </em>
+            <br/>
+              <span class= "pull-right">
+                <span> <b>Omkar Kanekar</b></span> from
+                <span><b> MIT </b></span>
+              </span>
+
+          </div>
+
+ 
+
+        </div>
     
         </div>
       </div>
@@ -364,6 +399,7 @@
         <strong><div id="UploadCommentIMGErrMsg"></div></strong>
       </div>
     </div>
+    <div id="prodo-CommentLoadMoreContainer">
       <ul class="media-list "  id="prodo-comment-media-list" style="display">
         <div prodo-comments    id="prodo-comment-commentContainer"  >
         </div>
@@ -373,6 +409,9 @@
       Load more...
       </button>
       <div id="loadMoreCommentMsg" class="prodo-loadmoreMsg" ></div>
+    </div>
+
+
     </div>
   </div>
 </div>
