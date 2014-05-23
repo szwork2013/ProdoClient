@@ -35,8 +35,8 @@ angular.module('prodo.AdminApp').factory('tagAddService', [
                  // var getChartsList = {chartsContenList}
                  var assignCodeToChart = {codeToChart : $resource('/api/dashboard/RBONDS_Mapping', {}, {submitChart : {method: 'POST'}})};
                  var authorAcceptanceForm = {getListofRequest : $resource('/api/author', {}, { getAllRequest : { method : 'GET'}})};
-                 var acceptAuthorRequest = { accept : $resource('/api/author/acceptance/:authorid' , {} , {acceptRequest : {method : 'PUT', params : { authorid : '@authorid'} }})};
-                 var rejectAuthor = { reject : $resource('/api/author/rejection/:authorid' , {} , {rejectRequest : {method : 'PUT', params : { authorid : '@authorid'} }})};
+                 var acceptAuthorRequest = { accept : $resource('/api/author/acceptance/:authorid/:userid' , {} , {acceptRequest : {method : 'PUT', params : { authorid : '@authorid' , userid:'@userid'} }})};
+                 var rejectAuthor = { reject : $resource('/api/author/rejection/:authorid/:userid' , {} , {rejectRequest : {method : 'PUT', params : { authorid : '@authorid' , userid : '@userid'} }})};
                  var query = {};
                  query.addQueryContent = function(queryContent)
                  {
@@ -82,9 +82,9 @@ angular.module('prodo.AdminApp').factory('tagAddService', [
                     $rootScope.$broadcast('notGotAllRequests', error);
                   };
                  }
-                 query.acceptAuthorRequest = function(data)
+                 query.acceptAuthorRequest = function(data, id)
                  {
-                  acceptAuthorRequest.accept.acceptRequest( { authorid : data } ,function(success)
+                  acceptAuthorRequest.accept.acceptRequest( { authorid : data , userid : id} ,function(success)
                   {
                     $rootScope.$broadcast("authorRequestAcceptedSuccessfully", success);
                   }),   function(error)
@@ -93,9 +93,9 @@ angular.module('prodo.AdminApp').factory('tagAddService', [
                   };
                   
                  }
-                 query.rejectAuthorRequest = function(data)
+                 query.rejectAuthorRequest = function(data, id)
                  {
-                  rejectAuthor.reject.rejectRequest( { authorid : data } ,function(success)
+                  rejectAuthor.reject.rejectRequest( { authorid : data , userid : id} ,function(success)
                   {
                     $rootScope.$broadcast("authorRequestRejected", success);
                   }),   function(error)

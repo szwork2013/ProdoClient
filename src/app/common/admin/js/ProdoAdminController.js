@@ -21,7 +21,7 @@ angular.module('prodo.AdminApp').controller('ProdoAdminController', [
 
   $scope.list = '';
 
-  prodoAdminService.getAllRequest();
+  prodoAdminService.getAllRequest();     
   
   $scope.saveQueryContent = function()
   {
@@ -147,9 +147,9 @@ angular.module('prodo.AdminApp').controller('ProdoAdminController', [
   console.log($scope.chart.chartname);
  };
  $scope.authorDetails = {};
- $scope.acceptAuthorRequest = function(id)
- {
-     prodoAdminService.acceptAuthorRequest(id);
+ $scope.acceptAuthorRequest = function(id, uid)
+ { //console.log('userid'+uid);
+     prodoAdminService.acceptAuthorRequest(id, uid);
  };
 
   var cleanUpEventGotAllAuthors = $scope.$on('gotAllRequests', function (event, data) 
@@ -164,7 +164,7 @@ angular.module('prodo.AdminApp').controller('ProdoAdminController', [
     }
     else
     {
-         $scope.authorDetails = data.success.author;
+         $scope.authorDetails = data.success.author; 
     }
 
   });
@@ -174,9 +174,9 @@ angular.module('prodo.AdminApp').controller('ProdoAdminController', [
   });
 
 
-  $scope.rejectAuthor = function(content)
+  $scope.rejectAuthor = function(content, id)
   {
-    prodoAdminService.rejectAuthorRequest(content);
+    prodoAdminService.rejectAuthorRequest(content, id);
   }
   var cleanUpEventRejectAuthorReq = $scope.$on('authorRequestRejected', function (event, data) 
   {

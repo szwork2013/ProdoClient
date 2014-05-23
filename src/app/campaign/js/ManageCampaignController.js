@@ -224,7 +224,7 @@ angular.module('prodo.CampaignApp')
       $scope.errorForImproperBanner = '';
       //$scope.errorForInvalidCategory = '';
     	$scope.getProdle();
-        if($scope.campaign.Name === undefined || $scope.regexForText.test($scope.campaign.Name) === false || $scope.campaign.Name ==='')
+        if($scope.campaign.Name === undefined || $scope.campaign.Name ==='')
         {
                   $scope.errorForWrongCampaignname = 'Please enter valid campaign name!';
                   $scope.allValid = 1;
@@ -286,31 +286,6 @@ angular.module('prodo.CampaignApp')
               }
         }
     };
-
-    // var cleanupeventaddedcampaignsuccessfully = $scope.$on("campaignAddedSuccessfully", function(event, data){
-    //  if(data.error !== undefined && data.error.code === 'AL001' )
-    //     {
-    //       $rootScope.showModal();
-    //     }
-    //     if(data.success)
-    //     {
-    //        $rootScope.ProdoAppMessage(data.success.message,'success'); 
-    //        $state.reload();
-    //     }
-    //     else {
-    //       if (data.error.code== 'AU004') {     // enter valid data
-    //           $rootScope.ProdoAppMessage(data.error.message,'error');    //ShowAlert
-    //           $state.reload();
-    //       } else {
-    //           $rootScope.ProdoAppMessage(data.error.message,'error');    //ShowError
-    //           $state.reload();
-    //       }
-    //     }
-    // });
-
-    // var cleanupeventnotaddedcampaignerror = $scope.$on("campaignNotAddedSuccessfully", function(event, data){
-    //        $rootScope.ProdoAppMessage("Some issues with server",'error');
-    // });
 
     $scope.restrictEndDates = function()    { $scope.restrictEndDate = $scope.campaign.startDate;  };
 
@@ -513,7 +488,8 @@ angular.module('prodo.CampaignApp')
     {
         $scope.enableEditing = 0;
         $scope.addNewCampaign = 0;
-        $state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
+        //$state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
+        $state.reload();
     };
 
      $scope.enableEditingCampaign = function() {
@@ -720,18 +696,6 @@ angular.module('prodo.CampaignApp')
                     }
                }
       };
-
-      // $scope.assignProdle = function(names)
-      // {
-      //          for(var i = 0 ; i<currentorgproducts.success.product.length;i++)
-      //          {
-      //               if(name === currentorgproducts.success.product[i].name)
-      //               {
-      //                 $scope.campaign.prodle = currentorgproducts.success.product[i].prodle;
-      //               }
-      //          }
-      // };
-
 
       $scope.showBannerImageUpload = function()
       {

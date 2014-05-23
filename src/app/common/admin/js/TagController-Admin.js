@@ -4,10 +4,25 @@ angular.module('prodo.AdminApp').controller('prodoAdminTagInputController', [
   '$rootScope',
   'UserSessionService',
   '$state',
-  'tagAddService','domainTagList', 'tagdata',
+  'tagAddService',
+  'domainTagList', 
+  'tagdata',
+  'checkIfSessionExist',
 
-  function ($scope, $log, $rootScope, UserSessionService, $state, tagAddService, domainTagList, tagdata) {
+  function ($scope, $log, $rootScope, UserSessionService, $state, tagAddService, domainTagList, tagdata, checkIfSessionExist) {
 
+     if(checkIfSessionExist.error)
+     {
+      $state.transitionTo('prodo.landing.signin');
+     }
+     
+     if(checkIfSessionExist.success)
+     {
+      if(checkIfSessionExist.success.user.isAdmin === false )
+      {
+        $state.transitionTo('prodo.home.wall');
+      }
+     }
     $scope.category_selection;
 
     $scope.option1;
@@ -46,6 +61,7 @@ angular.module('prodo.AdminApp').controller('prodoAdminTagInputController', [
     //alert(JSON.stringify(tagdata));
     // domainTagList.getTags();   
      // alert(JSON.stringify(getAllTags)) ;
+
 
     var cleanupeventgetalltags = $scope.$on("gotAllDomainTags",function(event,data){
         if(data.error !== undefined && data.error.code === 'AL001' )
