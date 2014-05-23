@@ -2509,6 +2509,12 @@ text-align: right;
   border: 1px solid #E7EDF1;
 }
 
+.blog-dispalybox-div{
+	-webkit-box-shadow: 4px 3px 5px 0px rgba(7, 7, 7, 0.45);
+-moz-box-shadow:    4px 3px 5px 0px rgba(7, 7, 7, 0.45);
+box-shadow:         4px 3px 5px 0px rgba(7, 7, 7, 0.45);
+}
+
 .prodo-blogListCorousel{ height:130px;}
 
 .blogcontrols-upload

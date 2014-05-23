@@ -5,7 +5,9 @@ angular.module('prodo.BlogApp')
     var BlogS = {
         All_Blog_Data: $resource('/api/blog/:authorid', {}, { getAllBlogs: { method: 'GET'} }),
         Unique_Blog_Data: $resource('/api/blog/:authorid/:blogid', {}, { getUniqueBlog: { method: 'GET' } }),
-        Get_Product_For_Blog: $resource('/api/productname/:authorid', {}, { getBlogProduct: { method: 'GET'} })
+        Get_Product_For_Blog: $resource('/api/productname/:authorid', {}, { getBlogProduct: { method: 'GET'} }),
+        Get_Wall_Blogs: $resource('/api/productblog/:prodle', {}, { getAllProductBlogs: { method: 'GET'} }),
+        Get_Wall_Blog: $resource('/api/productblog/:prodle/:blogid', {}, { getBlog: { method: 'GET'} })
     }
     return BlogS;
   }
@@ -21,7 +23,9 @@ angular.module('prodo.BlogApp')
       Publish: $resource('/api/blogpublish/:authorid/:blogid', {}, { publishBlog: { method: 'POST', params: { authorid: '@authorid', blogid: '@blogid' } } }),
       Update: $resource('/api/blog/:authorid/:blogid', {}, { updateBlog: { method: 'PUT', params: { authorid: '@authorid', blogid: '@blogid' } } }),
       Delete: $resource('/api/blog/:authorid/:blogid', {}, { deleteBlog: { method: 'DELETE', params: { authorid: '@authorid', blogid: '@blogid' } } }),
-      Get: $resource('/api/blog/:authorid/:blogid', {}, { getBlog: { method: 'GET' } })
+      Get: $resource('/api/blog/:authorid/:blogid', {}, { getBlog: { method: 'GET' } }),
+      GetProductBlog: $resource('/api/productblog/:prodle/:blogid', {}, { getWallProductBlog: { method: 'GET', params: { prodle: '@prodle', blogid: '@blogid'}} })
+
     };
     var blog = {};
 
@@ -72,6 +76,16 @@ angular.module('prodo.BlogApp')
       }, function (error) {
         $log.debug(error);
         $rootScope.$broadcast('getBlogNotDone', error.status);
+      });
+    };
+
+    blog.getUniqueProductBlog = function (prodle, blogid) {
+      BlogService.GetProductBlog.getWallProductBlog({ prodle: prodle, blogid: blogid }, function (success) {
+        $log.debug(success);
+        $rootScope.$broadcast('getUniqueProductBlogDone', success);
+      }, function (error) {
+        $log.debug(error);
+        $rootScope.$broadcast('getUniqueProductBlogNotDone', error.status);
       });
     };
     return blog;
