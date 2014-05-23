@@ -15,7 +15,14 @@ angular.module('prodo.AdminApp').controller('prodoAdminTagInputController', [
      {
       $state.transitionTo('prodo.landing.signin');
      }
-
+     
+     if(checkIfSessionExist.success)
+     {
+      if(checkIfSessionExist.success.user.isAdmin === false )
+      {
+        $state.transitionTo('prodo.home.wall');
+      }
+     }
     $scope.category_selection;
 
     $scope.option1;
