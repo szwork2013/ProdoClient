@@ -10,7 +10,7 @@
  * 27-3/2013 | xyx | Add a new property
  *
  */
-angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$log', '$rootScope', 'ProductService', 'UserSessionService', '$http', 'CommentLoadMoreService', 'ENV', 'TagReffDictionaryService', 'ProductFeatureService', '$state','productData','ProductEnquiry', function ($scope, $log, $rootScope, ProductService, UserSessionService, $http, CommentLoadMoreService, ENV, TagReffDictionaryService, ProductFeatureService, $state,productData,ProductEnquiry) {
+angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$log', '$rootScope', 'ProductService', 'UserSessionService', '$http', 'CommentLoadMoreService', 'ENV', 'TagReffDictionaryService', 'ProductFeatureService', '$state','productData','ProductEnquiry','ProductRating', function ($scope, $log, $rootScope, ProductService, UserSessionService, $http, CommentLoadMoreService, ENV, TagReffDictionaryService, ProductFeatureService, $state,productData,ProductEnquiry,ProductRating) {
 
       $scope.pimgs = [];
     
@@ -126,7 +126,7 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
 
 $scope.featuresRates=[];
 $scope.newRates=[];
-
+$scope.myProductFeatureRating=[];
 
 
 
@@ -229,51 +229,49 @@ $scope.sendRating=function(orgid,prodle,featuresRates){
       }
     }
  $log.debug($scope.newRates_l);
-  $rootScope.ProdoAppMessage("Thank you for rating our product features...", 'success');
-    $scope.AllRatings={
-      ratings:featuresRates
+  $scope.AllData={
+      featureratedata:$scope.newRates_l
     }
-
-          // ProductEnquiry.sendRating({
-          //       orgid: orgid,
-          //       prodle: prodle,
-          //     }, $scope.AllRatings, function (success) {
-          //      if(success.success){
-          //       $scope.handleRatingSuccess(success);
-          //      }
-          //      else{
-          //        $scope.handleRatingError(success.error);
-          //      }
-          //     }, function (error) {
-          //       $log.debug(error);
-          //      $rootScope.ProdoAppMessage("Server Error:" + error.status, 'error');
-          //     });
+  // $rootScope.ProdoAppMessage("Thank you for rating our product features...", 'success');
+          ProductRating.add_Rating.addRating({
+                 prodle: prodle,
+              }, $scope.AllData, function (success) {
+               if(success.success){
+                $scope.handleRatingSuccess(success);
+               }
+               else{
+                 $scope.handleRatingError(success.error);
+               }
+              }, function (error) {
+                $log.debug(error);
+               $rootScope.ProdoAppMessage("Server Error:" + error.status, 'error');
+              });
 
 
 
 };
 
-//  $scope.handleRatingSuccess=function(success){
+ $scope.handleRatingSuccess=function(success){
 
-  // $scope.tabForRating.tabOverallRating = true; 
-  // $scope.tabForRating.tabCaptureRating=false; 
+  $scope.tabForRating.tabOverallRating = true; 
+  $scope.tabForRating.tabCaptureRating=false; 
 
 
-//   $log.debug(success.success);
-//   $rootScope.ProdoAppMessage("Your Rating request sent successfully", 'success');
-//  };
+  $log.debug(success);
+  $rootScope.ProdoAppMessage("Your Rating request sent successfully", 'success');
+ };
 
-// $scope.handleRatingError=function(error){
-//   if(error){ 
-//     if(error.code=='AL001'){
-//     $rootScope.showModal();
-//   }
-//    else{
-//      $log.debug(error);
-//     $rootScope.ProdoAppMessage(error.message, 'error');
-//    }
-//  }
-// };
+$scope.handleRatingError=function(error){
+  if(error){ 
+    if(error.code=='AL001'){
+    $rootScope.showModal();
+  }
+   else{
+     $log.debug(error);
+    $rootScope.ProdoAppMessage(error.message, 'error');
+   }
+ }
+};
 
 
   //watch prodle if changed by user by product search or any other source
@@ -345,7 +343,7 @@ $scope.sendRating=function(orgid,prodle,featuresRates){
         $("#ErrMsging").css("display", "none");
         $log.debug(productData.success.product);
         $scope.getProductFeatures(l_prodle, l_orgid);
-
+        $scope.getMyProductFeatureRating(l_prodle);
         $("#prodo-ProductFeatureTable").css("display", "table");
         // $("#prodoCommentsTab").css("display", "inline");
         // $("#tabComments").css("display", "inline");
@@ -462,7 +460,6 @@ $scope.sendRating=function(orgid,prodle,featuresRates){
       $scope.featuresRates.push({featurename:successData.success.productfeature[i].featurename,
                                  featurerates:0 ,rated:false});
     }
-console.log($scope.featuresRates);
   };
 
   $scope.getProductFeatures = function (prodle, orgid) {
@@ -604,9 +601,42 @@ $(document).ready(function(){
 
    
 });
+$scope.getMyProductFeatureRating=function(prodle){
+     ProductRating.get_MyProductFeatureRating.getMyProductFeatureRating({
+        prodle: prodle
+      }, function (successData) {
+        if (successData.success == undefined) {
+         $scope.handleGetMyProductFeatureRatingError(successData.error);
+       } else {
+          $scope.handleGetMyProductFeatureRatingSuccess(successData);
+        }
+      }, function (error) {
+        $rootScope.ProdoAppMessage("Server Error:" + error.status, 'error');
+      });
+
+}
+
+ $scope.handleGetMyProductFeatureRatingError=function(error){
+   if(error.code=='AL001'){
+        $rootScope.showModal();
+      }else{
+        $log.debug(error);
+        $rootScope.ProdoAppMessage(error.message, 'error');
+      }
+ };
+  $scope.handleGetMyProductFeatureRatingSuccess=function(successData){
+      if(successData.success){
+        for(var i=0; i<successData.success.myproductfeaturerating.length;i++){
+            $scope.myProductFeatureRating.push(
+              {featurename:successData.success.myproductfeaturerating[i].featurename,
+                featurerates:successData.success.myproductfeaturerating[i].featurerates});
+        }
+      }
+      $log.debug($scope.myProductFeatureRating);
+      
 
 
-
+  };
 
 
 
