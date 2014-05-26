@@ -1,17 +1,23 @@
 angular.module('prodo.BlogApp')
- .controller('ManageBlogController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$stateParams', '$log', 'growl', 'checkIfSessionExist', 'fileReader','ENV','isLoggedin', 'blogproductdata', 'BlogService', 'getAllblogdata', function($scope, $rootScope, $state, $http, $timeout, $stateParams, $log, growl, checkIfSessionExist, fileReader, ENV, isLoggedin, blogproductdata, BlogService, getAllblogdata) {
+ .controller('ManageBlogController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$stateParams', '$log', 'growl', 'checkIfSessionExist', 'fileReader','ENV','isLoggedin', 'blogproductdata', 'BlogService', 'getAllblogdata', 'getblogdata', function($scope, $rootScope, $state, $http, $timeout, $stateParams, $log, growl, checkIfSessionExist, fileReader, ENV, isLoggedin, blogproductdata, BlogService, getAllblogdata, getblogdata) {
  	$log.debug('initialising manage blog controller...');
 
  	$scope.addNewBlog = false;
 
  	$scope.blogs = [];
 
+  $scope.displayblog = {};
+
+  $scope.editblog = {};
+
   $scope.form = {};
   $scope.submitted = false;
   $scope.$state = $state;
+  $scope.displaySelectedBlog = true;
+  $scope.editSelectedBlog = false;
 
   console.log(blogproductdata);
-  // console.log(getblogdata);
+  console.log(getblogdata);
   console.log(getAllblogdata);
 
   $scope.blogcategoryList = [];
@@ -23,67 +29,302 @@ angular.module('prodo.BlogApp')
  	$scope.cancelAddBlog =function() {
  		$scope.addNewBlog = false;
     $scope.form.addBlogForm.$setPristine();
+    $scope.form.addBlogForm.submitted = false;
     $scope.blog = {
-      productname :  '',
       title :  '',
       content: '',
       category: []
-    }
+    },
+    $scope.productname.name = ''
  	};
 
-
+  $scope.productname = {name:'', prodle:''};
   $scope.blog = {
-    'productname' :  '',
     'title' :  '',
     'content': '',
     'category': []
   };
 
-  if (checkIfSessionExist.success && getAllblogdata.success) { 
     $scope.$watch('$state.$current.locals.globals.getAllblogdata', function (getAllblogdata) {
     
-      if (getAllblogdata.success) {
+      if (getAllblogdata.success && getAllblogdata.success.length !== 0) {
+        console.log(getAllblogdata.success.blog);
         $scope.blogs = getAllblogdata.success.blog; 
-        console.log($scope.blogs);
       } else {
           if (getAllblogdata.error && getAllblogdata.error.code == 'AL001') {
             $rootScope.showModal();
           } else {
+            $scope.blogs = []; 
             $log.debug(getAllblogdata.error.message);
           } 
       }
     });
+
+    $scope.$watch('$state.$current.locals.globals.getblogdata', function (getblogdata) {
+    
+      if (getblogdata.success && getblogdata.success.blog) {
+        console.log(getblogdata);
+        angular.copy(getblogdata.success.blog, $scope.displayblog);
+        angular.copy(getblogdata.success.blog, $scope.editblog);
+      } else {
+          if (getblogdata.error && getblogdata.error.code == 'AL001') {
+            $rootScope.showModal();
+          } else {
+            console.log(getblogdata);
+            $log.debug(getblogdata);
+          } 
+      }
+    });
+
+    $scope.$watch('$state.$current.locals.globals.blogproductdata', function (blogproductdata) {
+      $scope.productnames = blogproductdata.success.productname;
+    });
+
+  $scope.currentPage = 0;
+  $scope.pageSize = 3;
+  $scope.numberOfPages = function () {
+    return Math.ceil($scope.blogs.length / $scope.pageSize);
+  };
+
+  // edit selected blog code starts.................................................
+
+  $scope.imageids = [] ; 
+
+  $scope.checkImage = function(value, imageid){
+    if (value === 'true') {
+      if ($scope.imageids.indexOf(imageid) < 0) {
+        $scope.imageids.push(imageid);
+      }      
+    } else if (value === 'false') {
+      var index = $scope.imageids.indexOf(imageid);
+      if (index !== -1) {
+        $scope.imageids.splice(index, 1);
+      }
+    }
   }
 
-    if (blogproductdata.success) {
-      $scope.productnames = blogproductdata.success.productname;
-    }
- 
-    $scope.currentPage = 0;
-    $scope.pageSize = 3;
-    $scope.numberOfPages = function () {
-      return Math.ceil($scope.blogs.length / $scope.pageSize);
-    };
-  
-  $scope.jsonAddBlogData = function()
-      {
-        var blogdata = 
+  $scope.editCurrentBlog = function(){
+    $scope.displaySelectedBlog = false;
+    $scope.editSelectedBlog = true;
+  }
+
+  $scope.cancelEditBlog = function(){
+    $scope.form.editBlogForm.$setPristine();
+    $scope.form.editBlogForm.submitted = false;
+    $scope.displaySelectedBlog = true;
+    $scope.editSelectedBlog = false;
+  }
+
+
+    $scope.jsonUpdateBlogData = function()
+    {
+      var blogdata = 
+        {
+          blog:
           {
-            blog:
-            {
-              'productname' : $scope.blog.productname,
-              'title' : $scope.blog.title,
-              'content' : $scope.blog.content,
-              'category' : $scope.blog.category
-            }            
-          }
-        return JSON.stringify(blogdata); 
+            'title' : $scope.editblog.title,
+            'content' : $scope.editblog.content,
+            'category' : $scope.editblog.category
+          }            
+        }
+      return JSON.stringify(blogdata); 
+    }
+
+    // function to handle server side responses
+    $scope.handleUpdateBlogResponse = function(data){
+      if (data.success) {
+        $scope.cancelEditBlog();
+        $state.reload();
+        $rootScope.ProdoAppMessage(data.success.message, 'success');
+      } else {
+        if (data.error.code== 'AL001') {     // enter valid data
+            $log.debug(data.error.code + " " + data.error.message);
+            $rootScope.showModal();
+        } else {
+            $log.debug(data.error.message);
+            $rootScope.ProdoAppMessage(data.error.message, 'error');
+        }
       }
+    }; 
+
+
+    // function to handle server side responses
+    $scope.handleDeleteBlogImagesResponse = function(data, authorid, blogid){
+      if (data.success) {
+        BlogService.updateUserBlog($scope.jsonUpdateBlogData(), authorid, blogid);
+      } else {
+        if (data.error.code== 'AL001') {     // enter valid data
+            $log.debug(data.error.code + " " + data.error.message);
+            $rootScope.showModal();
+        } else {
+            $log.debug(data.error.message);
+            $rootScope.ProdoAppMessage(data.error.message, 'error');
+        }
+      }
+    }; 
+
+
+    $scope.saveEditBlog = function(authorid, blogid) {
+      if ($scope.form.editBlogForm.$valid) {
+        if ($scope.imageids.length !== 0) {
+         BlogService.deleteImages(authorid, blogid, $scope.imageids); 
+        } else if ($scope.imageids.length === 0) {
+          BlogService.updateUserBlog($scope.jsonUpdateBlogData(), authorid, blogid);
+        }
+      } else {
+        $scope.form.editBlogForm.submitted = true;
+      }
+    };
+
+    var cleanupEventDeleteBlogImagesDone = $scope.$on("deleteBlogImagesDone", function(event, data, authorid, blogid){
+      $scope.handleDeleteBlogImagesResponse(data, authorid, blogid);  
+    });
+
+    var cleanupEventDeleteBlogImagesNotDone = $scope.$on("deleteBlogImagesNotDone", function(event, data){
+      $rootScope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + data, 'error');    
+    });
+
+    var cleanupEventUpdateBlogDone = $scope.$on("updateBlogDone", function(event, data){
+      $scope.handleUpdateBlogResponse(data);  
+    });
+
+    var cleanupEventUpdateBlogNotDone = $scope.$on("updateBlogNotDone", function(event, data){
+      $rootScope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + data, 'error');    
+    });
+  
+  // display selected blog code starts.................................................
+
+  $scope.showSelectedBlog = function(authorid, blogid) {
+    $scope.addNewBlog = false;
+    $scope.displaySelectedBlog = true;
+    $rootScope.blogid = blogid;
+    BlogService.getUserBlog(authorid, blogid);
+  };
+
+
+  // function to handle server side responses
+    $scope.handleGetBlogResponse = function(data){
+      if (data.success) {
+        angular.copy(data.success.blog, $scope.displayblog);
+        angular.copy(data.success.blog, $scope.editblog);
+        $rootScope.ProdoAppMessage(data.success.message, 'success');
+      } else {
+        if (data.error.code== 'AL001') {     // enter valid data
+            $log.debug(data.error.code + " " + data.error.message);
+            $rootScope.showModal();
+        } else {
+            $log.debug(data.error.message);
+            $rootScope.ProdoAppMessage(data.error.message, 'error');
+        }
+      }
+    };  
+  
+
+  var cleanupEventGetBlogDone = $scope.$on("getBlogDone", function(event, data){
+    $scope.handleGetBlogResponse(data);  
+  });
+
+  var cleanupEventGetBlogNotDone = $scope.$on("getBlogNotDone", function(event, data){
+    $rootScope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + data, 'error');    
+  });
+  
+
+  // delete selected blog code starts.................................................
+
+  $scope.deleteSelectedBlog = function(authorid, blogid) {
+    $rootScope.blogid = blogid;
+    BlogService.deleteUserBlog(authorid, blogid);
+  };
+
+
+  // function to handle server side responses
+    $scope.handleDeleteBlogResponse = function(data){
+      if (data.success) {
+        $rootScope.ProdoAppMessage(data.success.message, 'success');
+        $state.reload();
+      } else {
+        if (data.error.code== 'AL001') {     // enter valid data
+            $log.debug(data.error.code + " " + data.error.message);
+            $rootScope.showModal();
+        } else {
+            $log.debug(data.error.message);
+            $rootScope.ProdoAppMessage(data.error.message, 'error');
+        }
+      }
+    };  
+  
+
+  var cleanupEventDeleteBlogDone = $scope.$on("deleteBlogDone", function(event, data){
+    $scope.handleDeleteBlogResponse(data);  
+  });
+
+  var cleanupEventDeleteBlogNotDone = $scope.$on("deleteBlogNotDone", function(event, data){
+    $rootScope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + data, 'error');    
+  });
+  
+
+    // publish selected blog code starts.................................................
+
+  $scope.publishBlog = function(authorid, blogid) {
+    $rootScope.blogid = blogid;
+    BlogService.publishUserBlog(authorid, blogid);
+  };
+
+
+  // function to handle server side responses
+    $scope.handlePublishBlogResponse = function(data){
+      if (data.success) {
+        $rootScope.ProdoAppMessage(data.success.message, 'success');
+        $state.reload();
+      } else {
+        if (data.error.code== 'AL001') {     // enter valid data
+            $log.debug(data.error.code + " " + data.error.message);
+            $rootScope.showModal();
+        } else {
+            $log.debug(data.error.message);
+            $rootScope.ProdoAppMessage(data.error.message, 'error');
+        }
+      }
+    };  
+  
+
+  var cleanupEventPublishBlogDone = $scope.$on("publishBlogDone", function(event, data){
+    $scope.handlePublishBlogResponse(data);  
+  });
+
+  var cleanupEventPublishBlogNotDone = $scope.$on("publishBlogNotDone", function(event, data){
+    $rootScope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + data, 'error');    
+  });
+  
+
+  // add blog code starts.................................................
+
+
+  $scope.jsonAddBlogData = function()
+  {
+    var blogdata = 
+      {
+        blog:
+        {
+          'productname' : $scope.productname.name.name,
+          'title' : $scope.blog.title,
+          'content' : $scope.blog.content,
+          'category' : $scope.blog.category
+        }            
+      }
+    return JSON.stringify(blogdata); 
+  }
+
+  $scope.addBlogForProdle = function()
+  {
+    return $scope.productname.name.prodle; 
+  };
 
     // function to handle server side responses
     $scope.handleAddBlogResponse = function(data){
       if (data.success) {
         $scope.cancelAddBlog();
+        $state.reload();
         $rootScope.ProdoAppMessage(data.success.message, 'success');
       } else {
         if (data.error.code== 'AL001') {     // enter valid data
@@ -98,9 +339,8 @@ angular.module('prodo.BlogApp')
 
 
     $scope.postBlog = function() {
-      console.log($scope.jsonAddBlogData());
       if ($scope.form.addBlogForm.$valid) {
-        BlogService.addUserBlog($scope.jsonAddBlogData());
+        BlogService.addUserBlog($scope.jsonAddBlogData(), $scope.addBlogForProdle());
       } else {
         $scope.form.addBlogForm.submitted = true;
       }
@@ -114,123 +354,24 @@ angular.module('prodo.BlogApp')
       $rootScope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + data, 'error');    
     });
 
-    
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  $scope.socket = io.connect(ENV.apiEndpoint + ENV.port + '/api/prodoupload', {
-        query: 'session_id=' + $rootScope.usersession.currentUser.sessionid
-      });
-    
-      $scope.handleUploadError=function(error){
-       $("#bar").hide();
-       if(error.code=='AL001'){
-            $rootScope.showModal();
-          }else{
-          $log.debug(error);
-          $rootScope.showModal();
-        }
-      };
-
-    $scope.getFile = function (a) {
-         isLoggedin.checkUserSession(
-         function (successData) {
-                 if (successData.success == undefined) {
-                      if(successData.error)
-                      {
-                         $scope.handleUploadError(successData.error);
-                      } 
-                 }
-                 else { 
-                          fileReader.readAsBinaryString(a, $scope).then(function (result) {
-                          var action;
-                          $scope.imageBfr = result;
-                          $scope.file = a;
-                          $scope.file_data = {
-                            filetype: $scope.file.type,
-                            filename: $scope.file.name,
-                            filebuffer: $scope.imageBfr
-                          };
-                          if (($scope.file.type == 'image/jpg') || ($scope.file.type == 'image/png') || ($scope.file.type == 'image/gif') || ($scope.file.type == 'image/jpeg')) {
-                            if (($scope.file.size / 1024 < 2048)) {
-                                $scope.isValidImage=true;
-                              } else {
-                                 $rootScope.ProdoAppMessage("Image size must ne less than 2MB", 'error');  
-                                 $('#addCampaignForm')[0].reset();      
-                              }
-                         } 
-                         else{
-                           $rootScope.ProdoAppMessage("Please upload image only", 'error'); 
-                            //$scope.campaign = {productName: '',Name:'',Description:'',startDate:'',endDate:'',category:[], campaignBannerText:'', campaignTags : [],prodle:''};
-
-                           // $('#addCampaignForm')[0].reset();      
-                           }
-                        
-                          });
-                    }
-           });  
-      };
-
-      $scope.socket.removeAllListeners('addProductCampaignResponse');
-
-      $scope.socket.on('addProductCampaignResponse', function (error, imagelocation) {
-                     $scope.addProductCampaignResponseHandler(error, imagelocation);
-      });
-
-      $scope.addProductCampaignResponseHandler=function(error, imagelocation){
-       //$('#addCampaignForm')[0].reset();      
-       if (error) {      
-            if (error.error.code == 'AP003') { // user already exist
-              $log.debug(error.error.code + " " + error.error.message);
-              $rootScope.ProdoAppMessage(error.error.message, 'error');
-              
-            } else if (error.error.code == 'AV001') { // user data invalid
-              $scope.ProdoAppMessage(error.error.message, 'error');
-              $log.debug('response from server');
-              //notify({ message:error.error.message, template:'campaign/js/abc.html'} );
-            } else {
-              $rootScope.ProdoAppMessage(error.error.message, 'error');  
-              if(error.error.code === 'AP001')
-              {
-                 $scope.campaign.productName = '';
-              }
-              else
-              {
-                $scope.campaign = {productName: '',Name:'',Description:'',startDate:'',endDate:'',category:[], campaignBannerText:'', campaignTags : [],prodle:''};
-              }
-            }
-          } else{
-            $scope.imageSrc = JSON.stringify(imagelocation.success.invoiceimage);
-            $rootScope.$broadcast("campaignUploadResponseSuccess", "success");
-            $rootScope.ProdoAppMessage("Campaign added successfully", 'success'); 
-            $state.enableEditing = 0;
-            $state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
-            $scope.counter++;
-            //$log.debug($scope.counter);
-            if ($scope.counter < $scope.fileLength) {
-            } else
-            { 
-              $scope.counter = 0;
-            }
-          }
-      };
+    var cleanupEventAddArtworkBlogDone = $scope.$on("blogUploadResponseSuccess", function(event, success){
+      $state.reload();
+    });
 
     $scope.$on('$destroy', function(event, message) {
 
       cleanupEventAddBlogDone(); 
       cleanupEventAddBlogNotDone();
+      cleanupEventGetBlogDone();
+      cleanupEventGetBlogNotDone();
+      cleanupEventDeleteBlogDone();
+      cleanupEventDeleteBlogNotDone();
+      cleanupEventPublishBlogDone();
+      cleanupEventPublishBlogNotDone();
+      cleanupEventUpdateBlogDone();
+      cleanupEventUpdateBlogNotDone();
+      cleanupEventAddArtworkBlogDone();
     });
 
 

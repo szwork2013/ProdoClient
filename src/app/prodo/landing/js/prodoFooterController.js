@@ -4,13 +4,13 @@ angular.module('prodo.ProdonusApp')
     console.log(authorcategorydata);
     $scope.form = {};
     $scope.submitted = false;
+    $scope.category_msg = false;
     $scope.$state = $state;
 
     $scope.author = 
     {
       'fname' :  '',
       'lname' :  '',
-      'email': '',
       'country': '',
       'category': [],
       'aboutu': ''
@@ -292,10 +292,11 @@ angular.module('prodo.ProdonusApp')
 
   $scope.clearAuthorApp = function() {
     $scope.form.authorForm.$setPristine();
+    $scope.form.authorForm.submitted = false;
+    $scope.category_msg = false;
       $scope.author = {
         fname: '',
         lname: '',
-        email: '',
         country: '',
         category: [],
         aboutu: ''
@@ -314,7 +315,6 @@ angular.module('prodo.ProdonusApp')
             {
               'firstname' : $scope.author.fname,
               'lastname' : $scope.author.lname,
-              'email' : $scope.author.email,
               'category' : $scope.author.category,
               'aboutu' : $scope.author.aboutu,
               'country' : $scope.author.country,
@@ -341,11 +341,16 @@ angular.module('prodo.ProdonusApp')
     };  
 
 
-    $scope.sendAuthorRequest = function() {
-      console.log($scope.jsonAuthorAppData());
+    $scope.sendAuthorRequest = function(category) {
       if ($scope.form.authorForm.$valid) {
-        UserSessionService.sendAuthorAppRequest($scope.jsonAuthorAppData());
+        if ($scope.categoriesList.indexOf(category) !== -1) {
+          $scope.category_msg = false;
+          UserSessionService.sendAuthorAppRequest($scope.jsonAuthorAppData());
+        } else {
+          $scope.category_msg = true;
+        }        
       } else {
+        $scope.category_msg = true;
         $scope.form.authorForm.submitted = true;
       }
     }

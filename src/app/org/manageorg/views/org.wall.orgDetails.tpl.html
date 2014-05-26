@@ -65,7 +65,7 @@
                   <div class="error-message" ng-if="invalidDesc !== '' "ng-bind="invalidDesc"></div>  <br> 
                    <b>*Organization Category</b>
                    <div  >
-                           <tags-input  minTags="1" add-on-blur="true" list="returnOrganizationCategory()" ng-model="org.industry_category" min-length="1" required>
+                           <tags-input  minTags="1" add-on-blur="true" list="returnOrganizationCategory()" ng-model="org.industry_category" min-length="1" replace-spaces-with-dashes = "false" required>
                            </tags-input>
                    </div>
                     <div class="error-message" ng-if="errorCategory !=='' " ng-bind="errorCategory"></div>
