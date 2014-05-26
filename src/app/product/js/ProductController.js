@@ -130,6 +130,42 @@ $scope.myProductFeatureRating=[];
 $scope.overallProductFeatureRating=[];
 $scope.combineRating=[];
 
+   $scope.preGetProductPrepaireData=function(){
+     $("#load-more").css("display", "none");
+          
+    // document.getElementById("prodo-comment-search-Textbox").value="";
+    // $scope.searchComment.search="";
+    $scope.commenttextField.userComment="";
+    $scope.tabForComment.tabComment = true;
+    $scope.tabForComment.tabSearch=false;
+    $scope.featuresRates=[];
+    $scope.newRates=[];
+    $scope.myProductFeatureRating=[];
+    $scope.overallProductFeatureRating=[];
+    $scope.combineRating=[];
+    // $log.debug("search "+$scope.searchComment.search);
+   };
+
+   $scope.preGetProductPrepaireData();
+
+  //watch prodle if changed by user by product search or any other source
+  $rootScope.$watch('product_prodle', function () {
+    // $log.debug("Listening" + $rootScope.product_prodle);
+  
+    $scope.features = [];
+    $("#productLogo").attr('src', '');
+    var temp = document.getElementById('prodo-comment-container');
+    if ($rootScope.product_prodle !== undefined || $rootScope.product_prodle !== null || $rootScope.product_prodle !== "") {
+      $scope.getProduct($rootScope.product_prodle, $rootScope.orgid); //if product available, call getproduct
+     
+      $scope.tabComment=true;
+    } else { //show msg to follow product
+      $("#prodo-ProductDetails").css("display", "none");
+      $("#ErrMsging").css("display", "block");
+      document.getElementById("ErrMsging").innerHTML = "Product not available";
+      }
+
+  });
 
   // $scope.$watch('searchBySelected.type', function () {
   //   $scope.searchfields[$scope.searchBySelected.type]='';
@@ -253,7 +289,7 @@ $scope.sendRating=function(orgid,prodle,featuresRates){
 };
 
  $scope.handleRatingSuccess=function(success){
-
+  $scope.getLatestDataAfterRating($scope.product.prodle,$scope.product.orgid);
   $scope.tabForRating.tabOverallRating = true; 
   $scope.tabForRating.tabCaptureRating=false; 
 
@@ -275,25 +311,7 @@ $scope.handleRatingError=function(error){
 };
 
 
-  //watch prodle if changed by user by product search or any other source
-  $rootScope.$watch('product_prodle', function () {
-    // $log.debug("Listening" + $rootScope.product_prodle);
-  
-    $scope.features = [];
-    $("#productLogo").attr('src', '');
-    var temp = document.getElementById('prodo-comment-container');
-    if ($rootScope.product_prodle !== undefined || $rootScope.product_prodle !== null || $rootScope.product_prodle !== "") {
-      $scope.getProduct($rootScope.product_prodle, $rootScope.orgid); //if product available, call getproduct
-     
-      $scope.tabComment=true;
-    } else { //show msg to follow product
-      $("#prodo-ProductDetails").css("display", "none");
-      $("#ErrMsging").css("display", "block");
-      document.getElementById("ErrMsging").innerHTML = "Product not available";
-      
-    }
 
-  });
 
  $scope.$watch('tabForComment.tabTesto', function () {
    if($scope.tabForComment.tabTesto==true){
@@ -328,21 +346,7 @@ $scope.handleRatingError=function(error){
   $scope.getUserDetails();
   //get login details
 
-   $scope.preGetProductPrepaireData=function(){
-     $("#load-more").css("display", "none");
-          
-    // document.getElementById("prodo-comment-search-Textbox").value="";
-    // $scope.searchComment.search="";
-    $scope.commenttextField.userComment="";
-    $scope.tabForComment.tabComment = true;
-    $scope.tabForComment.tabSearch=false;
-    $scope.featuresRates=[];
-    $scope.newRates=[];
-    $scope.myProductFeatureRating=[];
-    $scope.overallProductFeatureRating=[];
-    $scope.combineRating=[];
-    // $log.debug("search "+$scope.searchComment.search);
-   };
+
    $scope.getProductHandleSuccess=function(l_prodle, l_orgid){
       $("#prodo-ProductDetails").css("display", "block");
         $("productExtraInfo").css("display", "block");
@@ -442,9 +446,7 @@ $scope.handleRatingError=function(error){
     // },
      if(productData.error) { //if error geting product
       $scope.getProductHandleError(productData.error);
-      
-    
-    };
+     };
   $scope.isCollapsed = true;  //added by omkar 
   };
   //get product function declaration  
@@ -722,12 +724,21 @@ $scope.getMyProductFeatureRating=function(prodle){
    }
 
   }
-  console.log(myProductFeatureRating);
-  console.log(overallProductFeatureRating);
-  console.log($scope.combineRating);
+  // console.log(myProductFeatureRating);
+  // console.log(overallProductFeatureRating);
+  // console.log($scope.combineRating);
 };
 
+$scope.getLatestDataAfterRating=function(l_prodle,l_orgid){
+   $scope.featuresRates=[];
+    $scope.newRates=[];
+    $scope.myProductFeatureRating=[];
+    $scope.overallProductFeatureRating=[];
+    $scope.combineRating=[];
+    $scope.getProductFeatures(l_prodle, l_orgid);
+    $scope.getMyProductFeatureRating(l_prodle);
+    $scope.getOverallProductFeatureRating(l_prodle);
 
-
+};
 
 }])
