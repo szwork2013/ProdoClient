@@ -343,7 +343,10 @@ angular.module('prodo.ProdonusApp')
 
     $scope.sendAuthorRequest = function(category) {
       if ($scope.form.authorForm.$valid) {
-        if ($scope.categoriesList.indexOf(category) !== -1) {
+        var isValidCategory = category.every(function (val) {
+          return $scope.categoriesList.indexOf(val) >= 0;
+        });
+        if (isValidCategory === true) {
           $scope.category_msg = false;
           UserSessionService.sendAuthorAppRequest($scope.jsonAuthorAppData());
         } else {

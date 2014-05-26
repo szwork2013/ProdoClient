@@ -53,7 +53,7 @@
             <dt>Product Name:</dt>
             <dd style="color:#b3b3b3; font-size:12px;">** Please select product name from the list given below. </dd>
             <dd style="width:60%;">
-              <input name="name" type="text" ng-model="productname.name" class="form-control" placeholder="productname" typeahead="productname as productname.name for productname in productnames | filter:$viewValue"  autofocus required><small ng-show="((form.addBlogForm.name.$dirty && form.addBlogForm.name.$invalid) || (form.addBlogForm.name.$invalid && form.addBlogForm.submitted))">*Please select name from the given list!</small>
+              <input name="name" type="text" ng-model="productname.name" class="form-control" placeholder="productname" typeahead="productname as productname.name for productname in productnames | filter:$viewValue"  autofocus required><small ng-show="((form.addBlogForm.name.$dirty && form.addBlogForm.name.$invalid) || (form.addBlogForm.name.$invalid && form.addBlogForm.submitted))">*Please select name from the given list!</small><small ng-show="productname_err">*Please select product name from the given list only!</small>
             </dd>
           </dl>
         	<dl class="dl-horizontal">
@@ -79,7 +79,7 @@
       		  <dd style="width:60%;">
       		  	<button style="width:49%; background-color:transparent; color:black;" class="btn btn-sm btn-default" ng-click="cancelAddBlog()"><i class="prodo-fa fa fa-times"></i>Cancel</button>
       		  	
-      		  	<button style="width:49%;" class="prodo-button-theme btn btn-sm btn-primary" ng-click="postBlog()"><i class="prodo-fa fa fa-location-arrow"></i>Post</button>
+      		  	<button style="width:49%;" class="prodo-button-theme btn btn-sm btn-primary" ng-click="postBlog(productname.name)"><i class="prodo-fa fa fa-location-arrow"></i>Post</button>
 
       		  </dd>
       		</dl>
@@ -146,7 +146,7 @@
         <dl class="dl-horizontal">
           <dt></dt>
           <dd style="width:60%;">
-            <button style="width:32.5%;" class="btn btn-sm btn-danger" ng-click="deleteSelectedBlog(displayblog.authorid, displayblog.blogid)"><i class="prodo-fa fa fa-trash-o"></i>Delete</button>
+            <button style="width:32.5%;" class="btn btn-sm btn-danger" ng-click="deleteSelectedBlogModal()"><i class="prodo-fa fa fa-trash-o"></i>Delete</button>
               
             <button style="width:32.5%;" class="prodo-button-theme btn btn-sm btn-primary" ng-click="editCurrentBlog()"><i class="prodo-fa fa fa-pencil-square-o"></i>Edit</button>
 
@@ -183,6 +183,28 @@
       <div class="col-xs-1" ></div>
 
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="bloglDeleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">Delete Blog</h4>
+          </div>
+          <div class="modal-body">
+            Once deleted, this blog won't be accessible. Are you sure you want to delete this blog?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default " data-dismiss="modal"><i class=" glyphicon glyphicon-remove"></i> &nbsp; Cancel </button>
+            <button type="button" class="btn btn-danger  " ng-click="deleteSelectedBlog(displayblog.authorid, displayblog.blogid)" data-dismiss="modal" >  <i class=" glyphicon glyphicon-trash"></i> &nbsp; Delete </button>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+      <!-- /.modal -->
   </div> 
   <!-- unique selected blog display end -->
 
