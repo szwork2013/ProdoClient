@@ -146,6 +146,7 @@ angular.module('prodo.BlogApp')
             $rootScope.ProdoAppMessage(data.error.message, 'error');
         }
       }
+      $scope.hideSpinner();
     }; 
 
 
@@ -167,6 +168,7 @@ angular.module('prodo.BlogApp')
 
     $scope.saveEditBlog = function(authorid, blogid) {
       if ($scope.form.editBlogForm.$valid) {
+        $scope.showSpinner();
         if ($scope.imageids.length !== 0) {
           BlogService.deleteImages(authorid, blogid, $scope.imageids); 
         } else if ($scope.imageids.length === 0) {
@@ -271,6 +273,7 @@ angular.module('prodo.BlogApp')
     // publish selected blog code starts.................................................
 
   $scope.publishBlog = function(authorid, blogid) {
+    $scope.showSpinner();
     $rootScope.blogid = blogid;
     BlogService.publishUserBlog(authorid, blogid);
   };
@@ -290,6 +293,7 @@ angular.module('prodo.BlogApp')
             $rootScope.ProdoAppMessage(data.error.message, 'error');
         }
       }
+      $scope.hideSpinner();
     };  
   
 
@@ -340,16 +344,20 @@ angular.module('prodo.BlogApp')
             $rootScope.ProdoAppMessage(data.error.message, 'error');
         }
       }
+      $scope.hideSpinner();
     };  
 
 
     $scope.postBlog = function(productname) {
+      
       if ($scope.form.addBlogForm.$valid) {
-        if ($scope.productnames.indexOf(productname.name) !== -1) {
+        $scope.showSpinner();
+        if ($scope.productnames.indexOf(productname) !== -1) {
           $scope.productname_err = false;
           BlogService.addUserBlog($scope.jsonAddBlogData(), $scope.addBlogForProdle());
         } else {
           $scope.productname_err = true;
+
         }  
       } else {
         $scope.form.addBlogForm.submitted = true;
@@ -382,6 +390,8 @@ angular.module('prodo.BlogApp')
       cleanupEventUpdateBlogDone();
       cleanupEventUpdateBlogNotDone();
       cleanupEventAddArtworkBlogDone();
+      cleanupEventDeleteBlogImagesDone();
+      cleanupEventDeleteBlogImagesNotDone();
     });
 
 

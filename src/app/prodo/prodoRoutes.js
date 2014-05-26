@@ -518,9 +518,7 @@ angular.module('prodo.ProdonusApp')
               return BlogGetService.Get_Wall_Blog.getBlog({prodle: $rootScope.product_prodle, blogid: blogid}).$promise;
             } 
           } else {
-              console.log(blogSliderData.error.message);
-              var message  = 'No blogs exist for this product.'
-              return message;
+              return blogSliderData.error.message;
           }
         }
       },
