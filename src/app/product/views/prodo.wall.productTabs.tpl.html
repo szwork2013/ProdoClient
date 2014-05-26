@@ -134,35 +134,27 @@
                  My Rating
                  </td>
                  </tr>
-                  <tr >
+                  <tr ng-repeat="feature in combineRating" >
                  <td style="padding: 4px;">
-                 acebrophylline
+                 {{feature.featurename}}
                  </td>
                  <td style="padding: 4px;">
-                2
+                 {{feature.featureUserCount}}
                  </td>
                  <td style="padding: 4px;">
-                8
+                  <span ng-show="feature.featureoverall"> {{feature.featureoverall}}</span>
+                  <span ng-show="feature.featureoverall==null"><em> Not Rated</em></span>
+                 
                  </td>
                   <td style="padding: 4px;">
-                9
+                  <span ng-show="feature.featurerates">  {{feature.featurerates}}</span>
+                  <span ng-show="feature.featurerates==null"><em> Not Rated</em></span>
+                
                  </td>
+
                  </tr>
 
-                  <tr >
-                 <td style="padding: 4px;">
-                 test
-                 </td>
-                 <td style="padding: 4px;">
-                4
-                 </td>
-                 <td style="padding: 4px;">
-                9
-                 </td>
-                  <td style="padding: 4px;">
-                5
-                 </td>
-                 </tr>
+                  
 
 
                </table>
@@ -184,8 +176,13 @@
                        <span >{{value.featurename}}</span>
                     </td>
                     <td>
-                     <slider ng-change="getSelectedRates(value)" floor='0' ceiling='10' step='0' precision='0' stickiness='2'
+                     <slider ng-change="getSelectedRates(value)" floor='0' ceiling='10' step='0' precision='0' stickiness='2' 
                               ng-model='value.featurerates' style="width:200px; margin:5px"></slider>
+                    </td>
+                    
+                    <span >
+                      
+                    </span>
                     </td>
                   </tr>
                  </table>

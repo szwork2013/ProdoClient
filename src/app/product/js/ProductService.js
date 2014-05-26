@@ -98,7 +98,7 @@
     var rating = {
         add_Rating: $resource('/api/productfeaturating/:prodle ', {}, { addRating: { method: 'POST' , params : { prodle:'@prodle'}}}),
         get_MyProductFeatureRating: $resource('api/myproductfeaturerating/:prodle ', {}, { getMyProductFeatureRating: { method: 'GET', params : { prodle:'@prodle'}} }),
-        get_OverallProductFeatureRating: $resource('api/overallproductfeaturerating/prodle ', {}, { getOverallProductFeatureRating: { method: 'GET' , params : { prodle:'@prodle'}} })
+        get_OverallProductFeatureRating: $resource('api/overallproductfeaturerating/:prodle ', {}, { getOverallProductFeatureRating: { method: 'GET' , params : { prodle:'@prodle'}} })
     }
     return rating;
   }

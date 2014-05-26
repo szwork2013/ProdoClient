@@ -127,7 +127,8 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
 $scope.featuresRates=[];
 $scope.newRates=[];
 $scope.myProductFeatureRating=[];
-
+$scope.overallProductFeatureRating=[];
+$scope.combineRating=[];
 
 
   // $scope.$watch('searchBySelected.type', function () {
@@ -335,6 +336,11 @@ $scope.handleRatingError=function(error){
     $scope.commenttextField.userComment="";
     $scope.tabForComment.tabComment = true;
     $scope.tabForComment.tabSearch=false;
+    $scope.featuresRates=[];
+    $scope.newRates=[];
+    $scope.myProductFeatureRating=[];
+    $scope.overallProductFeatureRating=[];
+    $scope.combineRating=[];
     // $log.debug("search "+$scope.searchComment.search);
    };
    $scope.getProductHandleSuccess=function(l_prodle, l_orgid){
@@ -344,6 +350,7 @@ $scope.handleRatingError=function(error){
         $log.debug(productData.success.product);
         $scope.getProductFeatures(l_prodle, l_orgid);
         $scope.getMyProductFeatureRating(l_prodle);
+        $scope.getOverallProductFeatureRating(l_prodle);
         $("#prodo-ProductFeatureTable").css("display", "table");
         // $("#prodoCommentsTab").css("display", "inline");
         // $("#tabComments").css("display", "inline");
@@ -407,6 +414,7 @@ $scope.handleRatingError=function(error){
    }
 
    $scope.LoadMoreInit=function(){
+    if(productData.success){
         if (productData.success.product.product_comments) {
           if (productData.success.product.product_comments.length > 4) {
             $("#load-more").css("display", "inline");
@@ -415,6 +423,7 @@ $scope.handleRatingError=function(error){
                $("#load-more").css("display", "none");
           }
         }
+      }
    };
 
    $scope.getProduct = function (l_prodle, l_orgid) {
@@ -630,13 +639,94 @@ $scope.getMyProductFeatureRating=function(prodle){
             $scope.myProductFeatureRating.push(
               {featurename:successData.success.myproductfeaturerating[i].featurename,
                 featurerates:successData.success.myproductfeaturerating[i].featurerates});
+               // if(successData.success.myproductfeaturerating[i].featurerates==null){
+               //    $scope.featuresRates.push({featurename:successData.success.myproductfeaturerating[i].featurename,
+               //                   featurerates:0 ,rated:false});
+               // }
+               // else{
+               //   $scope.featuresRates.push({featurename:successData.success.myproductfeaturerating[i].featurename,
+               //                   featurerates:successData.success.myproductfeaturerating[i].featurerates ,rated:false});
+               // }
+             
         }
       }
-      $log.debug($scope.myProductFeatureRating);
+      // $log.debug($scope.myProductFeatureRating);
       
 
 
   };
+
+  $scope.getOverallProductFeatureRating=function(prodle){
+     ProductRating.get_OverallProductFeatureRating.getOverallProductFeatureRating({
+        prodle: prodle
+      }, function (successData) {
+        if (successData.success == undefined) {
+         $scope.handleGetOverallProductFeatureRatingError(successData.error);
+       } else {
+          $scope.handleGetOverallProductFeatureRatingSuccess(successData);
+        }
+      }, function (error) {
+        $rootScope.ProdoAppMessage("Server Error:" + error.status, 'error');
+      });
+
+}
+
+ $scope.handleGetOverallProductFeatureRatingError=function(error){
+   if(error.code=='AL001'){
+        $rootScope.showModal();
+      }else{
+        $log.debug(error);
+        $rootScope.ProdoAppMessage(error.message, 'error');
+      }
+ };
+  $scope.handleGetOverallProductFeatureRatingSuccess=function(successData){
+      if(successData.success){
+        for(var i=0; i<successData.success.overallproductfeaturerating.length;i++){
+            $scope.overallProductFeatureRating.push(successData.success.overallproductfeaturerating[i]);
+             
+        }
+      }
+      // $log.debug($scope.overallProductFeatureRating);
+      $scope.combineRatings($scope.myProductFeatureRating,successData.success.overallproductfeaturerating);
+     
+
+  };
+
+
+// 
+ $scope.combineRatings=function(myProductFeatureRating, overallProductFeatureRating){
+  var i; var j;
+  for( i=0;  i<myProductFeatureRating.length; i++  ) {
+    
+    if(overallProductFeatureRating[i].featurename == myProductFeatureRating[i].featurename){
+     if(overallProductFeatureRating[i].ratecount==0){
+
+          $scope.combineRating.push ({
+         featurename:myProductFeatureRating[i].featurename,
+         featurerates:myProductFeatureRating[i].featurerates,
+         featureoverall:null,
+         featureUserCount:overallProductFeatureRating[i].usercount
+        
+        });
+     }
+     else{
+
+         $scope.combineRating.push ({
+         featurename:myProductFeatureRating[i].featurename,
+         featurerates:myProductFeatureRating[i].featurerates,
+         featureoverall:(overallProductFeatureRating[i].ratecount/overallProductFeatureRating[i].usercount),
+         featureUserCount:overallProductFeatureRating[i].usercount
+        
+        });
+    }
+   }
+
+  }
+  console.log(myProductFeatureRating);
+  console.log(overallProductFeatureRating);
+  console.log($scope.combineRating);
+};
+
 
 
 
