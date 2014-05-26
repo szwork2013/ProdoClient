@@ -259,7 +259,7 @@ $scope.hideIfNotImage = function (image) {
 //show comment image if exists 
 
 $scope.likedislike=function(likeaction,comment){
-
+ $scope.message={};
 $http({
   method: 'POST',
   url: ENV.apiEndpoint_notSocket + '/api/agreedisagreecomment/' + comment.commentid + '?action=' + likeaction,
@@ -296,14 +296,13 @@ $scope.EditCommentLikeDislike=function(comment,likeaction){
 };
 
   $scope.message={
-    error:'',
-    success:''
+   
   }
  $scope.handleLikeDislikeSuccess=function(success,comment){
     $log.debug(success);
-       // $rootScope.ProdoAppMessage(success.message, 'success'); 
-    $scope.message.error=success.message;
-         $(".agreeSuccess"+comment.commentid).show("slow").delay(4000).hide("slow");
+         $(".agreesuccess"+comment.commentid).text(success.message);
+         $(".agreesuccess"+comment.commentid).show("slow").delay(4000).hide("slow");
+         // $scope.message.success='';
   };
 
 
@@ -313,9 +312,8 @@ $scope.handleLikeDislikeError=function(error,comment){
       }
       else{
          $log.debug(error);
-         $scope.message.error=error.message;
+         $(".agreeError"+comment.commentid).text(error.message);
          $(".agreeError"+comment.commentid).show("slow").delay(4000).hide("slow");
-         // $rootScope.ProdoAppMessage(error.message, 'error'); 
         };
  };
 
