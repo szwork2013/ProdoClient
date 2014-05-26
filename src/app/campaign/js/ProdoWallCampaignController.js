@@ -54,6 +54,7 @@ angular.module('prodo.CampaignApp')
 
   $scope.features=[];
   $scope.featuretags=[];
+  $scope.showLoadMore={status:false};
 
    if($rootScope.campaign_idwall !== "" || $rootScope.campaign_idwall !== undefined){
        $scope.$watch('$state.$current.locals.globals.campaignWalldata', function (campaignWalldata) {
@@ -70,7 +71,8 @@ angular.module('prodo.CampaignApp')
 
 
    $scope.preGetProductPrepaireData=function(){
-     $("#load-more").css("display", "none");
+     // $("#load-more").css("display", "none");
+      $scope.showLoadMore.status=false; 
 	    $scope.searchfields.general='';
 	    $scope.commenttextField.userComment="";
 	    $scope.tabForComment.tabComment = true;
@@ -136,10 +138,12 @@ angular.module('prodo.CampaignApp')
 
         //    if ( $scope.campaign.campaign_comments) {   //##### check comment source
 		      //     if ( $scope.campaign.campaign_comments.length > 4) {
-		      //       $("#load-more").css("display", "inline");
+		      //      // $("#load-more").css("display", "inline");
+           // $scope.showLoadMore.status=true; 
 		      //     } 
 		      //     else{
-		      //       $("#load-more").css("display", "none");
+		            // //$("#load-more").css("display", "none");
+           // $scope.showLoadMore.status=false; 
 		      //     }
 		      //   } 
 
@@ -294,10 +298,12 @@ $scope.handleGetCampaignSuccess=function(successData){
         $("#loadMoreCommentMsg").css("display", "none");
         if ( $scope.campaign.campaign_comments) {  
           if ( $scope.campaign.campaign_comments.length > 4) {
-            $("#load-more").css("display", "inline");
+            // $("#load-more").css("display", "inline");
+             $scope.showLoadMore.status=true; 
           } 
           else{
-               $("#load-more").css("display", "none");
+               // $("#load-more").css("display", "none");
+                $scope.showLoadMore.status=false; 
           }
       } 
        $scope.isCollapsed = true;  //added by omkar 
@@ -307,17 +313,6 @@ $scope.handleGetCampaignSuccess=function(successData){
 
 };
 
-
-   $scope.LoadMoreInit=function(){
-      if ( $scope.campaign.campaign_comments) {  
-          if ( $scope.campaign.campaign_comments.length > 4) {
-            $("#load-more").css("display", "inline");
-          } 
-          else{
-               $("#load-more").css("display", "none");
-          }
-      }
-   };
 
 
 $scope.CheckIfAlreadyFollowingCampaign=function(){
