@@ -63,7 +63,7 @@
  <div id="panel" >
  <center><b> Product enquiry form  </b></center>
 
-<div class="prodo-paddingLeft">
+<div class="prodo-paddingLeft panelFont">
 <table>
 <tr> 
 <td><input type="radio" ng-model="inquiry" value="know"> I want to know more about {{product.name}}   </td>
@@ -176,7 +176,7 @@
                        <span >{{value.featurename}}</span>
                     </td>
                     <td>
-                     <slider ng-change="getSelectedRates(value)" floor='0' ceiling='10' step='0' precision='0' stickiness='2' 
+                     <slider ng-change="getSelectedRates(value)" floor='1' ceiling='10' step='0' precision='0' stickiness='2' 
                               ng-model='value.featurerates' style="width:200px; margin:5px"></slider>
                     </td>
                     

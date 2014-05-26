@@ -1732,6 +1732,10 @@ margin-bottom: 10px;
 
 	display: none;
 	font-family: Helvetica ;
+
+}
+.panelFont{
+	font-size: 12px;
 }
 #panelRating {
 
