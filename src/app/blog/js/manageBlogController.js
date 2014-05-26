@@ -109,6 +109,7 @@ angular.module('prodo.BlogApp')
   }
 
   $scope.cancelEditBlog = function(){
+    $scope.productname_err = false;
     $scope.form.editBlogForm.$setPristine();
     $scope.form.editBlogForm.submitted = false;
     $scope.displaySelectedBlog = true;
@@ -167,7 +168,7 @@ angular.module('prodo.BlogApp')
     $scope.saveEditBlog = function(authorid, blogid) {
       if ($scope.form.editBlogForm.$valid) {
         if ($scope.imageids.length !== 0) {
-         BlogService.deleteImages(authorid, blogid, $scope.imageids); 
+          BlogService.deleteImages(authorid, blogid, $scope.imageids); 
         } else if ($scope.imageids.length === 0) {
           BlogService.updateUserBlog($scope.jsonUpdateBlogData(), authorid, blogid);
         }
@@ -230,6 +231,10 @@ angular.module('prodo.BlogApp')
   
 
   // delete selected blog code starts.................................................
+
+  $scope.deleteSelectedBlogModal = function() {
+    $('#bloglDeleteModal').modal('show');
+  }
 
   $scope.deleteSelectedBlog = function(authorid, blogid) {
     $rootScope.blogid = blogid;
@@ -338,9 +343,14 @@ angular.module('prodo.BlogApp')
     };  
 
 
-    $scope.postBlog = function() {
+    $scope.postBlog = function(productname) {
       if ($scope.form.addBlogForm.$valid) {
-        BlogService.addUserBlog($scope.jsonAddBlogData(), $scope.addBlogForProdle());
+        if ($scope.productnames.indexOf(productname.name) !== -1) {
+          $scope.productname_err = false;
+          BlogService.addUserBlog($scope.jsonAddBlogData(), $scope.addBlogForProdle());
+        } else {
+          $scope.productname_err = true;
+        }  
       } else {
         $scope.form.addBlogForm.submitted = true;
       }
