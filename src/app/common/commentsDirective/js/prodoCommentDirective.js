@@ -259,17 +259,17 @@ $scope.hideIfNotImage = function (image) {
 //show comment image if exists 
 
 $scope.likedislike=function(likeaction,comment){
-
+ $scope.message={};
 $http({
   method: 'POST',
   url: ENV.apiEndpoint_notSocket + '/api/agreedisagreecomment/' + comment.commentid + '?action=' + likeaction,
 }).success(function (data, status, headers, cfg) {
  if(data.success)  {
-  $scope.handleLikeDislikeSuccess(data.success);
+  $scope.handleLikeDislikeSuccess(data.success,comment);
   $scope.EditCommentLikeDislike(comment,likeaction);
 }
 else  if(data.error)  {
-  $scope.handleLikeDislikeError(data.error);
+  $scope.handleLikeDislikeError(data.error,comment);
 }
 }).error(function (data, status, headers, cfg) {
   // $log.debug(status);
@@ -295,19 +295,25 @@ $scope.EditCommentLikeDislike=function(comment,likeaction){
   }
 };
 
+  $scope.message={
+   
+  }
+ $scope.handleLikeDislikeSuccess=function(success,comment){
+    $log.debug(success);
+         $(".agreesuccess"+comment.commentid).text(success.message);
+         $(".agreesuccess"+comment.commentid).show("slow").delay(4000).hide("slow");
+         // $scope.message.success='';
+  };
 
- $scope.handleLikeDislikeSuccess=function(success){
-  $log.debug(success);
-       $rootScope.ProdoAppMessage(success.message, 'success'); 
-};
 
-$scope.handleLikeDislikeError=function(error){
+$scope.handleLikeDislikeError=function(error,comment){
   if(error.code=='AL001'){
         $rootScope.showModal();
       }
       else{
          $log.debug(error);
-         $rootScope.ProdoAppMessage(error.message, 'error'); 
+         $(".agreeError"+comment.commentid).text(error.message);
+         $(".agreeError"+comment.commentid).show("slow").delay(4000).hide("slow");
         };
  };
 
