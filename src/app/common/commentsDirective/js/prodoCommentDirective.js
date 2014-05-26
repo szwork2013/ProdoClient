@@ -67,21 +67,25 @@ $scope.handleLoadMoreCommentResponse = function (result) {
     for (var i = 0; i < result.success.comment.length; i++) {
       $scope.productComments.push(result.success.comment[i]);
     };
-    if((result.success.comment.length)%5 == 0 ){}
+    if((result.success.comment.length)%5 == 0 ){
+      $scope.showLoadMore.status= true; 
+    }
      else{
-      $("#load-more").css("display", "none");
+      // $("#load-more").css("display", "none");
+     $scope.showLoadMore.status=   false;  
       }
   } else {
     $("#loadMoreCommentMsg").css("display", "block");
      setTimeout(function(){ $("#loadMoreCommentMsg").hide();},60000);
    
-    $("#load-more").css("display", "none");
+    // $("#load-more").css("display", "none");
+    $scope.showLoadMore.status=   false;  
      if (result.error.code == 'AL001') {
       $rootScope.showModal();
     }
     else if (result.error.code == 'AC002') {
       $("#loadMoreCommentMsg").html(result.error.message);
-      $("#load-more").hide();
+      // $("#load-more").hide();
       $log.debug(result.error.message);
       } else if (result.error.code == 'AC001') {
       $log.debug(result.error.message);
@@ -94,7 +98,7 @@ $scope.handleLoadMoreCommentResponse = function (result) {
 };
 //Load more comments handler
 //find last comment id
-$("#load-more").show();
+// $("#load-more").show();
 $scope.getLastCommentId = function () {
   $log.debug($scope.productComments);
   $scope.productComments;
@@ -157,22 +161,18 @@ $scope.showRetryIconIfCommentNotAdded = function () {
       if($scope.type=='product'){
          if ($scope.product.product_comments) {
                 if ($scope.product.product_comments==0) {
-                  $("#load-more").css("display", "none");
+                  // $("#load-more").css("display", "none");
+                  $scope.showLoadMore.status=   false;  
                 } 
-                else{
-                     $("#load-more").css("display", "inline");
-                }
-              }
+            }
       }
       else  if($scope.type=='campaign'){
          if ($scope.campaign.campaign_comments) {
                 if ($scope.campaign.campaign_comments==0) {
-                  $("#load-more").css("display", "none");
+                  // $("#load-more").css("display", "none");
+                  $scope.showLoadMore.status=   false;  
                 } 
-                else{
-                     $("#load-more").css("display", "inline");
-                }
-              }
+             }
       }
     
 

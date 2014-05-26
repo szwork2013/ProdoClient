@@ -129,10 +129,11 @@ $scope.newRates=[];
 $scope.myProductFeatureRating=[];
 $scope.overallProductFeatureRating=[];
 $scope.combineRating=[];
+$scope.showLoadMore={status:false};
 
    $scope.preGetProductPrepaireData=function(){
-     $("#load-more").css("display", "none");
-          
+     // $("#load-more").css("display", "none");
+     $scope.showLoadMore.status=   false;  
     // document.getElementById("prodo-comment-search-Textbox").value="";
     // $scope.searchComment.search="";
     $scope.commenttextField.userComment="";
@@ -395,10 +396,12 @@ $scope.handleRatingError=function(error){
         }
         if (productData.success.product.product_comments) {
           if (productData.success.product.product_comments.length > 4) {
-            $("#load-more").css("display", "inline");
+            // $("#load-more").css("display", "inline");
+            $scope.showLoadMore.status=   true;  
           } 
           else{
-               $("#load-more").css("display", "none");
+               // $("#load-more").css("display", "none");
+               $scope.showLoadMore.status=   false;  
           }
         } 
    };
@@ -417,18 +420,7 @@ $scope.handleRatingError=function(error){
      }
    }
 
-   $scope.LoadMoreInit=function(){
-    if(productData.success){
-        if (productData.success.product.product_comments) {
-          if (productData.success.product.product_comments.length > 4) {
-            $("#load-more").css("display", "inline");
-          } 
-          else{
-               $("#load-more").css("display", "none");
-          }
-        }
-      }
-   };
+
 
    $scope.getProduct = function (l_prodle, l_orgid) {
     $log.debug("Prodle n orgid "+ l_prodle + " "+l_orgid);

@@ -182,13 +182,7 @@ $scope.getTagsFromCommentText = function () {
 //On the fly tags
 $scope.$watch('commenttextField.userComment', function () {
    $scope.getTagsFromCommentText();
-  if ($scope.mytags.length == 0) {
-    $("#prodo-productTags").css("display", "none");
-  } else {
-    $("#prodo-productTags").css("display", "inline");
-    // document.getElementById('prodo-comment-commentContainer').style.marginTop='80px';  
-  }
-});
+ });
 
 $scope.$watch('mytags', function () {
   $scope.mytags;
