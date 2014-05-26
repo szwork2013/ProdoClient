@@ -24,7 +24,13 @@ angular.module('prodo.BlogApp')
       Update: $resource('/api/blog/:authorid/:blogid', {}, { updateBlog: { method: 'PUT', params: { authorid: '@authorid', blogid: '@blogid' } } }),
       Delete: $resource('/api/blog/:authorid/:blogid', {}, { deleteBlog: { method: 'DELETE', params: { authorid: '@authorid', blogid: '@blogid' } } }),
       Get: $resource('/api/blog/:authorid/:blogid', {}, { getBlog: { method: 'GET' } }),
-      GetProductBlog: $resource('/api/productblog/:prodle/:blogid', {}, { getWallProductBlog: { method: 'GET', params: { prodle: '@prodle', blogid: '@blogid'}} })
+      GetProductBlog: $resource('/api/productblog/:prodle/:blogid', {}, { getWallProductBlog: { method: 'GET', params: { prodle: '@prodle', blogid: '@blogid'}} }),
+      Delete_Blog_Images: $resource('/api/blog/image/:authorid/:blogid?imageids=:data', {}, {
+        deleteBlogImages: { 
+          method: 'DELETE', 
+          params: { authorid: '@authorid', blogid: '@blogid', data: '@data' }
+        }
+      })
 
     };
     var blog = {};
@@ -86,6 +92,16 @@ angular.module('prodo.BlogApp')
       }, function (error) {
         $log.debug(error);
         $rootScope.$broadcast('getUniqueProductBlogNotDone', error.status);
+      });
+    };
+
+    blog.deleteImages = function (authorid, blogid, imageids) {
+      BlogService.Delete_Blog_Images.deleteBlogImages({authorid: authorid, blogid: blogid, data: imageids }, function (success) {
+        $log.debug(success);
+        $rootScope.$broadcast('deleteBlogImagesDone', success, authorid, blogid);
+      }, function (error) {
+        $log.debug(error);
+        $rootScope.$broadcast('deleteBlogImagesNotDone', error);
       });
     };
     return blog;

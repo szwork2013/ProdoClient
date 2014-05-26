@@ -48,17 +48,18 @@
       <div class="col-xs-1" ></div>
 
       <div class="col-md-10" >
-        <form name="form.addBlogForm" class="css-form" ng-submit="">
+        <form name="form.addBlogForm" class="css-form" ng-submit="" novalidate>
           <dl class="dl-horizontal">
             <dt>Product Name:</dt>
+            <dd style="color:#b3b3b3; font-size:12px;">** Please select product name from the list given below. </dd>
             <dd style="width:60%;">
-              <input name="name" type="text" ng-model="productname.name" class="form-control" placeholder="productname" typeahead="productname as productname.name for productname in productnames | filter:$viewValue"  autofocus required>
+              <input name="name" type="text" ng-model="productname.name" class="form-control" placeholder="productname" typeahead="productname as productname.name for productname in productnames | filter:$viewValue"  autofocus required><small ng-show="((form.addBlogForm.name.$dirty && form.addBlogForm.name.$invalid) || (form.addBlogForm.name.$invalid && form.addBlogForm.submitted))">*Please select name from the given list!</small>
             </dd>
           </dl>
         	<dl class="dl-horizontal">
       		  <dt>Title:</dt>
       		  <dd style="width:60%;">
-      		  	<input name="title" type="text" ng-model="blog.title" class="form-control" placeholder="title" required>
+      		  	<input name="title" type="text" ng-model="blog.title" class="form-control" placeholder="title" ng-maxlength="30" required><small ng-show="((form.addBlogForm.title.$dirty && form.addBlogForm.title.$invalid) || (form.addBlogForm.title.$invalid && form.addBlogForm.submitted))">*Please enter blog title!</small>
       		  </dd>
       		</dl>
       		<dl class="dl-horizontal">
@@ -70,7 +71,7 @@
       		<dl class="dl-horizontal">
       		  <dt>Content:</dt>
       		  <dd style="width:60%;">
-      		  	<textarea type="textarea" rows=15 class="form-control" name="content" ng-model="blog.content" placeholder="blog content" required ng-maxlength="1000"></textarea>
+      		  	<textarea type="textarea" rows=15 class="form-control" name="content" ng-model="blog.content" placeholder="blog content" required ng-maxlength="3000"></textarea><small ng-show="((form.addBlogForm.content.$dirty && form.addBlogForm.content.$invalid) || (form.addBlogForm.content.$invalid && form.addBlogForm.submitted))">*Please enter blog content!</small>
       		  </dd>
       		</dl>
       		<dl class="dl-horizontal">
@@ -157,7 +158,7 @@
         <div    ng-app="prodo.UploadApp" ng-controller="UploadController"  >
           <dl class="dl-horizontal">
             <dt>Artwork:</dt>
-            <dd style="color:#b3b3b3; font-size:12px;">** You can now upload artwork for your blog. </dd>
+            <dd style="color:#b3b3b3; font-size:12px;">** You can now upload artwork for your blog(restricted to maximum 5-6 uploads). </dd>
             <dd style="width:60%;">
               <div class="controls" > 
                 <form id="fileInputsUploadblog">
@@ -193,7 +194,7 @@
       <div class="col-xs-1" ></div>
 
       <div class="col-md-10" >
-        <form name="form.editBlogForm" class="css-form" ng-submit="">
+        <form name="form.editBlogForm" class="css-form" ng-submit=""  novalidate>
           <dl class="dl-horizontal">
             <dt>Product Name:</dt>
             <dd style="width:60%;">
@@ -204,7 +205,7 @@
           <dl class="dl-horizontal">
             <dt>Title:</dt>
             <dd style="width:60%;">
-              <input name="title" type="text" ng-model="editblog.title" class="form-control" placeholder="title" required>
+              <input name="title" type="text" ng-model="editblog.title" class="form-control" placeholder="title" required><small ng-show="((form.editBlogForm.title.$dirty && form.editBlogForm.title.$invalid) || (form.editBlogForm.title.$invalid && form.editBlogForm.submitted))">*Please enter blog title!</small>
             </dd>
           </dl>
           <dl class="dl-horizontal">
@@ -216,9 +217,21 @@
           <dl class="dl-horizontal">
             <dt>Content:</dt>
             <dd style="width:60%;">
-              <textarea type="textarea" rows=15 class="form-control" name="content" ng-model="editblog.content" placeholder="blog content" required ng-maxlength="1000"></textarea>
+              <textarea type="textarea" rows=15 class="form-control" name="content" ng-model="editblog.content" placeholder="blog content" required ng-maxlength="1000"></textarea><small ng-show="((form.editBlogForm.content.$dirty && form.editBlogForm.content.$invalid) || (form.editBlogForm.content.$invalid && form.editBlogForm.submitted))">*Please enter blog content!</small>
             </dd>
           </dl>
+          <dl ng-show="editblog.blog_images.length !== 0" class="dl-horizontal">
+          <dt>Artwork:</dt>
+          <dd style="color:#b3b3b3; font-size:12px;">** Please select the checkbox to remove artwork upload. </dd>
+          <dd style="width:60%;">
+            <div class="row">
+              <div style="padding-right: 2px; padding-left: 2px; border: 1px solid #DBDADA; margin:5px; border-radius: 5px;" ng-repeat="images in editblog.blog_images" class="col-xs-3">
+                <input type="checkbox" ng-model="imageid" ng-true-value="true" ng-false-value="false" ng-change="checkImage(imageid, images.imageid)">
+                <img style="width: 100%; height: 100px;" class="img-rounded" ng-src="{{images.image}}" src="../assets/images/if_no_logo_images_available.gif">
+              </div>
+            </div>
+          </dd>
+        </dl>
           <dl class="dl-horizontal">
             <dt></dt>
             <dd style="width:60%;">

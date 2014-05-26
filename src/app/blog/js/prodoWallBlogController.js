@@ -47,6 +47,10 @@ angular.module('prodo.BlogApp')
     $scope.selected_image = image;
   }
 
+  $scope.openModal = function(){
+    $('#blogImageModal').modal('show');
+  };  
+
   // Display selected blog in product wall.................................
 
   // function to handle server side responses

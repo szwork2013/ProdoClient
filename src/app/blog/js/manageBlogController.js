@@ -29,6 +29,7 @@ angular.module('prodo.BlogApp')
  	$scope.cancelAddBlog =function() {
  		$scope.addNewBlog = false;
     $scope.form.addBlogForm.$setPristine();
+    $scope.form.addBlogForm.submitted = false;
     $scope.blog = {
       title :  '',
       content: '',
@@ -87,12 +88,29 @@ angular.module('prodo.BlogApp')
 
   // edit selected blog code starts.................................................
 
+  $scope.imageids = [] ; 
+
+  $scope.checkImage = function(value, imageid){
+    if (value === 'true') {
+      if ($scope.imageids.indexOf(imageid) < 0) {
+        $scope.imageids.push(imageid);
+      }      
+    } else if (value === 'false') {
+      var index = $scope.imageids.indexOf(imageid);
+      if (index !== -1) {
+        $scope.imageids.splice(index, 1);
+      }
+    }
+  }
+
   $scope.editCurrentBlog = function(){
     $scope.displaySelectedBlog = false;
     $scope.editSelectedBlog = true;
   }
 
   $scope.cancelEditBlog = function(){
+    $scope.form.editBlogForm.$setPristine();
+    $scope.form.editBlogForm.submitted = false;
     $scope.displaySelectedBlog = true;
     $scope.editSelectedBlog = false;
   }
@@ -127,16 +145,44 @@ angular.module('prodo.BlogApp')
             $rootScope.ProdoAppMessage(data.error.message, 'error');
         }
       }
-    };  
+    }; 
+
+
+    // function to handle server side responses
+    $scope.handleDeleteBlogImagesResponse = function(data, authorid, blogid){
+      if (data.success) {
+        BlogService.updateUserBlog($scope.jsonUpdateBlogData(), authorid, blogid);
+      } else {
+        if (data.error.code== 'AL001') {     // enter valid data
+            $log.debug(data.error.code + " " + data.error.message);
+            $rootScope.showModal();
+        } else {
+            $log.debug(data.error.message);
+            $rootScope.ProdoAppMessage(data.error.message, 'error');
+        }
+      }
+    }; 
 
 
     $scope.saveEditBlog = function(authorid, blogid) {
       if ($scope.form.editBlogForm.$valid) {
-        BlogService.updateUserBlog($scope.jsonUpdateBlogData(), authorid, blogid);
+        if ($scope.imageids.length !== 0) {
+         BlogService.deleteImages(authorid, blogid, $scope.imageids); 
+        } else if ($scope.imageids.length === 0) {
+          BlogService.updateUserBlog($scope.jsonUpdateBlogData(), authorid, blogid);
+        }
       } else {
         $scope.form.editBlogForm.submitted = true;
       }
     };
+
+    var cleanupEventDeleteBlogImagesDone = $scope.$on("deleteBlogImagesDone", function(event, data, authorid, blogid){
+      $scope.handleDeleteBlogImagesResponse(data, authorid, blogid);  
+    });
+
+    var cleanupEventDeleteBlogImagesNotDone = $scope.$on("deleteBlogImagesNotDone", function(event, data){
+      $rootScope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + data, 'error');    
+    });
 
     var cleanupEventUpdateBlogDone = $scope.$on("updateBlogDone", function(event, data){
       $scope.handleUpdateBlogResponse(data);  

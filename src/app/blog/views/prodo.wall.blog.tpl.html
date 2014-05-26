@@ -1,3 +1,24 @@
+<style type="text/css"media="screen">
+
+
+        #bloglayerslider * {
+            font-family: Oswald;
+        }
+
+        /*#slider-blog {
+            padding-bottom: 100px;
+            margin-top: 20px;
+        }*/
+
+        .c {
+        text-align: justify;
+        font-weight: 300;
+        font-size: 45px;
+        color: #082953;
+        }
+
+</style>
+
 <div class="prodo-wall-blog-container container">
 	<div ng-show="viewblog != null " style="padding: 5px; margin-bottom: 10px; border-radius: 3px;">
 		<div style="" class="row">
@@ -41,7 +62,7 @@
 				<div ng-show="viewblog.blog_images.length > 1" style="border: 1px solid #E7EDF1;">
 					<div class="row">
 						<div class="col-md-6">
-							<a href=""><img style="width:100%; height:180px;" ng-src="{{selected_image}}"></a>
+							<a href="" ng-click="openModal()"><img style="width:100%; height:180px;" ng-src="{{selected_image}}"></a>
 						</div>
 						<div class="col-md-6">
 							<div ng-if="result == 0" class="row">
@@ -58,6 +79,22 @@
 								</div>
 							</div>
 						</div>
+					</div>
+					<!-- Modal -->
+					<div class="modal fade" id="blogImageModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					  <div class="modal-dialog">
+					    <div class="modal-content">
+					      <div style="min-height:200px;padding: 0px;" class="modal-body">
+					        <div id="slider-blog">
+										<div id="bloglayerslider" marketing-slider class="ls-wp-container" style="width:1280px;height:500px;max-width:1280px;">
+                			<div class="ls-slide" ng-repeat="slides in viewblog.blog_images" data-ls="transition2d:73;">
+                    		<img style="width:1280px;height:500px;max-width:1280px;" class="ls-l" ng-src="{{slides.image}}">
+                			</div>
+				            </div>
+        					</div>
+					      </div>
+					    </div>
+					  </div>
 					</div>					
 				</div>	
 			</div>  
@@ -77,31 +114,8 @@
 			</center>
 		</div>
 	</div>
+
+	<!-- comments for Blog -->
+	<!-- <div><br><h4>Comments</h4></div>	
+	</div> -->
 </div>
-<!--
-				<div style="margin: 5px; padding: 5px;" class="">
-					<div style="" class="row">
-						<div ng-repeat="images in viewblog.blog_images" style="border: 1px solid #E7EDF1; min-height: 100px;" class="col-md-12">
-							<img style="width:100%; height:150px;" src="{{images.image}}">
-						</div>
-					</div>
-				</div>
-				<div style="margin: 5px; padding: 5px;" class="">
-					<div style="" class="row">
-						<div style="border: 1px solid #E7EDF1; min-height: 100px;" class="col-md-12">
-							<p>{{viewblog.content}}</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div ng-show="viewblog == null" class="row">
-			<div class="col-md-12">
-				<center>
-					<p style="font-size:20px; margin: 20px auto;" class="text-success"><strong><em>Currently no blogs available.</em></strong></p>
-				</center>
-			</div>
-		</div>
-		
-	</div>
-</div> -->
