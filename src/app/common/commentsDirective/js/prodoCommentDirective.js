@@ -15,9 +15,9 @@
 angular.module('prodo.CommonApp').directive('prodoComments', function () {
 return {
   restrict: 'A',
-  scope: { commentTemplate: '=' },
-  // templateUrl: {{commentTemplate.url}},
-  template: '<div ng-include="commentTemplate.url"></div>',
+  templateUrl: function (tElement, tAttrs) {
+        return tAttrs.templateUrl;
+      },
   controller: [
   '$scope',
   '$log',
