@@ -85,7 +85,7 @@
 		</tr>
 
 		<tr>
-		    <td> Number of Follow Campaign Impression: : </td> <td> <span ng-bind = "currentCampaign.impression_limit"></span></td>
+		    <td> Number of Follow Campaign Impression:  </td> <td> <span ng-bind = "currentCampaign.impression_limit"></span></td>
 		</tr>
 
 		<tr>
@@ -249,7 +249,7 @@
           </tr>
 
           <tr>
-              <td> * Number of Follow Campaign Impression:  </td>
+              <td> *Number of Follow Campaign Impression:  </td>
           </tr>
 
           <tr>
@@ -306,7 +306,7 @@
 
           <tr>
              <td style="padding-bottom:5%;">
-             		 <input type="text" placeholder="Plaese select result date" ng-model="currentCampaign.resultdate" class="form-control disableEditingMode" name="startDate"  datepicker-popup="{{format}}"  is-open="opened3" min="today"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" style="width:100%;float:left;" readonly="true">
+             		 <input type="text" placeholder="Plaese select result date" ng-model="currentCampaign.resultdate" class="form-control disableEditingMode" name="startDate"  datepicker-popup="{{format}}"  is-open="opened3" min="currentCampaign.enddate"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" style="width:100%;float:left;" readonly="true">
              </td>
           </tr>
 
@@ -426,7 +426,7 @@
      <div class="manage-Campaign-tr">
            <div class="manage-Campaign-td1">*Result Date:  </div>
            <div class="manage-Campaign-td2 manage-campaign-marginbottom" >
-                 <input type="text" ng-model="campaign.resultDate" class="form-control disableEditingMode" name="resultDate"  datepicker-popup="{{format}}"  is-open="opened33" min="today"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close"  readonly="true" placeholder = "Select result date"/>	 
+                 <input type="text" ng-model="campaign.resultDate" class="form-control disableEditingMode" name="resultDate"  datepicker-popup="{{format}}"  is-open="opened33" min="campaign.endDate"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close"  readonly="true" placeholder = "Select result date"/>	 
 				 <div class="error-message-registration" ng-if="errorForInvalidResultDate !== '' "ng-bind="errorForInvalidResultDate"></div>
            </div>	          
      </div>
