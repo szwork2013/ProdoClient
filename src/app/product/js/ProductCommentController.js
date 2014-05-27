@@ -174,7 +174,7 @@ $scope.socket.on($scope.productcommentResponseListener, function (error, result)
           username: result.success.product_comment.user.username,
           orgname: result.success.product_comment.user.orgname,
           grpname: result.success.product_comment.user.grpname,
-          profilepic: result.success.product_comment.user.profilepic
+          profilepic:($rootScope.usersession.currentUser.profile_pic==undefined) ? "../assets/images/avatar.jpg":result.success.product_comment.user.profilepic
         },
         commentid: result.success.product_comment.commentid,
         type: result.success.product_comment.type,
@@ -243,13 +243,7 @@ $scope.getTagsFromCommentText = function () {
 //On the fly tags
 $scope.$watch('commenttextField.userComment', function () {
    $scope.getTagsFromCommentText();
-  if ($scope.mytags.length == 0) {
-    $("#prodo-productTags").css("display", "none");
-  } else {
-    $("#prodo-productTags").css("display", "inline");
-    // document.getElementById('prodo-comment-commentContainer').style.marginTop='80px';  
-  }
-});
+ });
 
 $scope.$watch('mytags', function () {
   $scope.mytags;
@@ -327,7 +321,8 @@ function (successData) {
             username: $scope.usernameFromSession,
             orgname: $scope.orgnameFromSession,
             grpname: $scope.grpnameFromSession,
-            profilepic: $rootScope.usersession.currentUser.profile_pic.image
+            profilepic:($rootScope.usersession.currentUser.profile_pic==undefined) ? "../assets/images/avatar.jpg":$rootScope.usersession.currentUser.profile_pic.image 
+
           },
           commentid: uniquecommentid,
           type: $scope.type,
@@ -349,7 +344,7 @@ function (successData) {
             username: $scope.usernameFromSession,
             orgname: $scope.orgnameFromSession,
             grpname: $scope.grpnameFromSession,
-            profilepic: $rootScope.usersession.currentUser.profile_pic.image
+             profilepic:($rootScope.usersession.currentUser.profile_pic==undefined) ? "../assets/images/avatar.jpg":$rootScope.usersession.currentUser.profile_pic.image 
           },
           commentid: uniquecommentid,
           type: $scope.type,
@@ -372,7 +367,7 @@ function (successData) {
             username: $scope.usernameFromSession,
             orgname: $scope.orgnameFromSession,
             grpname: $scope.grpnameFromSession,
-            profilepic: $rootScope.usersession.currentUser.profile_pic.image
+             profilepic:($rootScope.usersession.currentUser.profile_pic==undefined) ? "../assets/images/avatar.jpg":$rootScope.usersession.currentUser.profile_pic.image 
           },
           commentid: uniquecommentid,
           type: $scope.type,
@@ -394,7 +389,7 @@ function (successData) {
             username: $scope.usernameFromSession,
             orgname: $scope.orgnameFromSession,
             grpname: $scope.grpnameFromSession,
-            profilepic: $rootScope.usersession.currentUser.profile_pic.image
+             profilepic:($rootScope.usersession.currentUser.profile_pic==undefined) ? "../assets/images/avatar.jpg":$rootScope.usersession.currentUser.profile_pic.image 
           },
           commentid: uniquecommentid,
           type: $scope.type,
@@ -470,7 +465,7 @@ function (successData) {
             username: $scope.usernameFromSession,
             orgname: $scope.orgnameFromSession,
             grpname: $scope.grpnameFromSession,
-            profilepic: $rootScope.usersession.currentUser.profile_pic.image
+             profilepic:($rootScope.usersession.currentUser.profile_pic==undefined) ? "../assets/images/avatar.jpg":$rootScope.usersession.currentUser.profile_pic.image 
           },
           commentid: uniquecommentid,
           type: $scope.type,
@@ -492,7 +487,7 @@ function (successData) {
             username: $scope.usernameFromSession,
             orgname: $scope.orgnameFromSession,
             grpname: $scope.grpnameFromSession,
-            profilepic: $rootScope.usersession.currentUser.profile_pic.image
+             profilepic:($rootScope.usersession.currentUser.profile_pic==undefined) ? "../assets/images/avatar.jpg":$rootScope.usersession.currentUser.profile_pic.image 
           },
           commentid:uniquecommentid,
           type: $scope.type,
@@ -515,7 +510,7 @@ function (successData) {
             username: $scope.usernameFromSession,
             orgname: $scope.orgnameFromSession,
             grpname: $scope.grpnameFromSession,
-            profilepic: $rootScope.usersession.currentUser.profile_pic.image
+             profilepic:($rootScope.usersession.currentUser.profile_pic==undefined) ? "../assets/images/avatar.jpg":$rootScope.usersession.currentUser.profile_pic.image 
           },
           commentid: uniquecommentid,
           type: $scope.type,
@@ -537,7 +532,7 @@ function (successData) {
             username: $scope.usernameFromSession,
             orgname: $scope.orgnameFromSession,
             grpname: $scope.grpnameFromSession,
-            profilepic: $rootScope.usersession.currentUser.profile_pic.image
+            profilepic:($rootScope.usersession.currentUser.profile_pic==undefined) ? "../assets/images/avatar.jpg":$rootScope.usersession.currentUser.profile_pic.image 
           },
           commentid: uniquecommentid,
           type: $scope.type,

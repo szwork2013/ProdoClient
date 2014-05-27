@@ -208,10 +208,10 @@
                           <tags-input  add-on-enter="false" add-on-space="true" ng-model="product.category" placeholder="Add tags"  list=""
                             replace-spaces-with-dashes="false"  ></tags-input>
                              </div> -->
-            <tags-input ng-show="(editStatus=='add')" minTags="1" add-on-blur="true" list="listProductCategories.categoriesList" ng-model="category" min-length="1" placeholder="Special symbols (eg. @,-,# etc ) are not allowed.">
+            <tags-input ng-show="(editStatus=='add')" minTags="1" max-length="20" add-on-blur="true" list="listProductCategories.categoriesList" ng-model="category" replace-spaces-with-dashes="false" min-length="1" placeholder="Special symbols (eg. @,-,# etc ) are not allowed.">
             </tags-input>
 
-              <tags-input ng-show="(editStatus=='update')" minTags="1" add-on-blur="true" ng-model="product.category" list="listProductCategories.categoriesList"  min-length="1" placeholder="Special symbols (eg. @,-,# etc ) are not allowed." ></tags-input>               
+              <tags-input ng-show="(editStatus=='update')" minTags="1"  max-length="20" add-on-blur="true" ng-model="product.category" list="listProductCategories.categoriesList"  min-length="1" replace-spaces-with-dashes="false" placeholder="Special symbols (eg. @,-,# etc ) are not allowed." ></tags-input>               
             </td>
           </tr>
 
@@ -219,10 +219,10 @@
             <td  colspan="2">Comment tags   
 
 
-            <tags-input ng-show="(editStatus=='add')" list="listProductCategories.commenttagsList" minTags="1" add-on-blur="true"  ng-model="commentcategory" min-length="1" placeholder="Special symbols (eg. @,-,# etc ) are not allowed.">
+            <tags-input ng-show="(editStatus=='add')"  max-length="20" replace-spaces-with-dashes="false" list="listProductCategories.commenttagsList" minTags="1" add-on-blur="true"  ng-model="commentcategory" min-length="1" placeholder="Special symbols (eg. @,-,# etc ) are not allowed.">
             </tags-input>
 
-              <tags-input ng-show="(editStatus=='update')" list="listProductCategories.commenttagsList" minTags="1" add-on-blur="true" ng-model="product.commentcategory"   min-length="1" placeholder="Special symbols (eg. @,-,# etc ) are not allowed." ></tags-input>               
+              <tags-input ng-show="(editStatus=='update')"  max-length="20" replace-spaces-with-dashes="false"  list="listProductCategories.commenttagsList" minTags="1" add-on-blur="true" ng-model="product.commentcategory"   min-length="1" placeholder="Special symbols (eg. @,-,# etc ) are not allowed." ></tags-input>               
             </td>
           </tr>
 

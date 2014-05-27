@@ -29,58 +29,56 @@ angular.module('prodo.BlogApp')
  	$scope.cancelAddBlog =function() {
  		$scope.addNewBlog = false;
     $scope.form.addBlogForm.$setPristine();
+    $scope.form.addBlogForm.submitted = false;
     $scope.blog = {
       title :  '',
       content: '',
       category: []
     },
-    productname = {name:'', prodle:''}
+    $scope.productname.name = ''
  	};
 
-
+  $scope.productname = {name:'', prodle:''};
   $scope.blog = {
-    'productname' :  '',
     'title' :  '',
     'content': '',
     'category': []
   };
 
-  if (checkIfSessionExist.success && getAllblogdata.success) { 
     $scope.$watch('$state.$current.locals.globals.getAllblogdata', function (getAllblogdata) {
     
       if (getAllblogdata.success && getAllblogdata.success.length !== 0) {
+        console.log(getAllblogdata.success.blog);
         $scope.blogs = getAllblogdata.success.blog; 
       } else {
           if (getAllblogdata.error && getAllblogdata.error.code == 'AL001') {
             $rootScope.showModal();
           } else {
+            $scope.blogs = []; 
             $log.debug(getAllblogdata.error.message);
           } 
       }
     });
-  }
 
-  if (checkIfSessionExist.success && getblogdata.success) { 
     $scope.$watch('$state.$current.locals.globals.getblogdata', function (getblogdata) {
     
       if (getblogdata.success && getblogdata.success.blog) {
+        console.log(getblogdata);
         angular.copy(getblogdata.success.blog, $scope.displayblog);
         angular.copy(getblogdata.success.blog, $scope.editblog);
       } else {
           if (getblogdata.error && getblogdata.error.code == 'AL001') {
             $rootScope.showModal();
           } else {
-            $log.debug(getblogdata.error.message);
+            console.log(getblogdata);
+            $log.debug(getblogdata);
           } 
       }
     });
-  }
 
-  if (checkIfSessionExist.success && blogproductdata.success) {
     $scope.$watch('$state.$current.locals.globals.blogproductdata', function (blogproductdata) {
       $scope.productnames = blogproductdata.success.productname;
     });
-  }
 
   $scope.currentPage = 0;
   $scope.pageSize = 3;
@@ -90,12 +88,30 @@ angular.module('prodo.BlogApp')
 
   // edit selected blog code starts.................................................
 
+  $scope.imageids = [] ; 
+
+  $scope.checkImage = function(value, imageid){
+    if (value === 'true') {
+      if ($scope.imageids.indexOf(imageid) < 0) {
+        $scope.imageids.push(imageid);
+      }      
+    } else if (value === 'false') {
+      var index = $scope.imageids.indexOf(imageid);
+      if (index !== -1) {
+        $scope.imageids.splice(index, 1);
+      }
+    }
+  }
+
   $scope.editCurrentBlog = function(){
     $scope.displaySelectedBlog = false;
     $scope.editSelectedBlog = true;
   }
 
   $scope.cancelEditBlog = function(){
+    $scope.productname_err = false;
+    $scope.form.editBlogForm.$setPristine();
+    $scope.form.editBlogForm.submitted = false;
     $scope.displaySelectedBlog = true;
     $scope.editSelectedBlog = false;
   }
@@ -130,16 +146,46 @@ angular.module('prodo.BlogApp')
             $rootScope.ProdoAppMessage(data.error.message, 'error');
         }
       }
-    };  
+      $scope.hideSpinner();
+    }; 
+
+
+    // function to handle server side responses
+    $scope.handleDeleteBlogImagesResponse = function(data, authorid, blogid){
+      if (data.success) {
+        BlogService.updateUserBlog($scope.jsonUpdateBlogData(), authorid, blogid);
+      } else {
+        if (data.error.code== 'AL001') {     // enter valid data
+            $log.debug(data.error.code + " " + data.error.message);
+            $rootScope.showModal();
+        } else {
+            $log.debug(data.error.message);
+            $rootScope.ProdoAppMessage(data.error.message, 'error');
+        }
+      }
+    }; 
 
 
     $scope.saveEditBlog = function(authorid, blogid) {
       if ($scope.form.editBlogForm.$valid) {
-        BlogService.updateUserBlog($scope.jsonUpdateBlogData(), authorid, blogid);
+        $scope.showSpinner();
+        if ($scope.imageids.length !== 0) {
+          BlogService.deleteImages(authorid, blogid, $scope.imageids); 
+        } else if ($scope.imageids.length === 0) {
+          BlogService.updateUserBlog($scope.jsonUpdateBlogData(), authorid, blogid);
+        }
       } else {
         $scope.form.editBlogForm.submitted = true;
       }
     };
+
+    var cleanupEventDeleteBlogImagesDone = $scope.$on("deleteBlogImagesDone", function(event, data, authorid, blogid){
+      $scope.handleDeleteBlogImagesResponse(data, authorid, blogid);  
+    });
+
+    var cleanupEventDeleteBlogImagesNotDone = $scope.$on("deleteBlogImagesNotDone", function(event, data){
+      $rootScope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + data, 'error');    
+    });
 
     var cleanupEventUpdateBlogDone = $scope.$on("updateBlogDone", function(event, data){
       $scope.handleUpdateBlogResponse(data);  
@@ -152,6 +198,8 @@ angular.module('prodo.BlogApp')
   // display selected blog code starts.................................................
 
   $scope.showSelectedBlog = function(authorid, blogid) {
+    $scope.addNewBlog = false;
+    $scope.displaySelectedBlog = true;
     $rootScope.blogid = blogid;
     BlogService.getUserBlog(authorid, blogid);
   };
@@ -160,8 +208,8 @@ angular.module('prodo.BlogApp')
   // function to handle server side responses
     $scope.handleGetBlogResponse = function(data){
       if (data.success) {
-        angular.copy(getblogdata.success.blog, $scope.displayblog);
-        angular.copy(getblogdata.success.blog, $scope.editblog);
+        angular.copy(data.success.blog, $scope.displayblog);
+        angular.copy(data.success.blog, $scope.editblog);
         $rootScope.ProdoAppMessage(data.success.message, 'success');
       } else {
         if (data.error.code== 'AL001') {     // enter valid data
@@ -185,6 +233,10 @@ angular.module('prodo.BlogApp')
   
 
   // delete selected blog code starts.................................................
+
+  $scope.deleteSelectedBlogModal = function() {
+    $('#bloglDeleteModal').modal('show');
+  }
 
   $scope.deleteSelectedBlog = function(authorid, blogid) {
     $rootScope.blogid = blogid;
@@ -221,6 +273,7 @@ angular.module('prodo.BlogApp')
     // publish selected blog code starts.................................................
 
   $scope.publishBlog = function(authorid, blogid) {
+    $scope.showSpinner();
     $rootScope.blogid = blogid;
     BlogService.publishUserBlog(authorid, blogid);
   };
@@ -240,6 +293,7 @@ angular.module('prodo.BlogApp')
             $rootScope.ProdoAppMessage(data.error.message, 'error');
         }
       }
+      $scope.hideSpinner();
     };  
   
 
@@ -254,7 +308,6 @@ angular.module('prodo.BlogApp')
 
   // add blog code starts.................................................
 
-  $scope.productname = {};
 
   $scope.jsonAddBlogData = function()
   {
@@ -291,12 +344,21 @@ angular.module('prodo.BlogApp')
             $rootScope.ProdoAppMessage(data.error.message, 'error');
         }
       }
+      $scope.hideSpinner();
     };  
 
 
-    $scope.postBlog = function() {
+    $scope.postBlog = function(productname) {
+      
       if ($scope.form.addBlogForm.$valid) {
-        BlogService.addUserBlog($scope.jsonAddBlogData(), $scope.addBlogForProdle());
+        $scope.showSpinner();
+        if ($scope.productnames.indexOf(productname) !== -1) {
+          $scope.productname_err = false;
+          BlogService.addUserBlog($scope.jsonAddBlogData(), $scope.addBlogForProdle());
+        } else {
+          $scope.productname_err = true;
+
+        }  
       } else {
         $scope.form.addBlogForm.submitted = true;
       }
@@ -308,6 +370,11 @@ angular.module('prodo.BlogApp')
 
     var cleanupEventAddBlogNotDone = $scope.$on("addBlogNotDone", function(event, data){
       $rootScope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + data, 'error');    
+    });
+
+
+    var cleanupEventAddArtworkBlogDone = $scope.$on("blogUploadResponseSuccess", function(event, success){
+      $state.reload();
     });
 
     $scope.$on('$destroy', function(event, message) {
@@ -322,6 +389,9 @@ angular.module('prodo.BlogApp')
       cleanupEventPublishBlogNotDone();
       cleanupEventUpdateBlogDone();
       cleanupEventUpdateBlogNotDone();
+      cleanupEventAddArtworkBlogDone();
+      cleanupEventDeleteBlogImagesDone();
+      cleanupEventDeleteBlogImagesNotDone();
     });
 
 

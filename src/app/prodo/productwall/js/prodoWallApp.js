@@ -1,19 +1,42 @@
 angular.module('prodo.ProdoWallApp')
-	.controller('ProdoWallController', ['$rootScope', '$scope', '$state', '$log', 'UserSessionService', 'orgdata', 'orgaddr', 'orgproduct', 'productData', '$stateParams', 'growl', 'checkIfSessionExist', 'dashboardSliderData', function($rootScope, $scope, $state, $log, UserSessionService, orgdata, orgaddr, orgproduct, productData, $stateParams, growl, checkIfSessionExist, dashboardSliderData) {
+	.controller('ProdoWallController', ['$rootScope', '$scope', '$state', '$log', 'UserSessionService', 'orgdata', 'orgaddr', 'orgproduct', 'productData', '$stateParams', 'growl', 'checkIfSessionExist', 'dashboardSliderData', 'blogSliderData', function($rootScope, $scope, $state, $log, UserSessionService, orgdata, orgaddr, orgproduct, productData, $stateParams, growl, checkIfSessionExist, dashboardSliderData, blogSliderData) {
 		
     $log.debug('initialising parent..');
     $scope.$state = $state;
 
     console.log(dashboardSliderData);
+    console.log(blogSliderData);
+  
+    $scope.productblogs = [];
 
     $scope.productcharts = [];
 
     $scope.dataPageSize = 8;
 
+    $scope.$watch('$state.$current.locals.globals.blogSliderData', function (blogSliderData) {
+    
+      if (blogSliderData.success && blogSliderData.success.doc.length !== 0) {
+        console.log(blogSliderData.success.doc);
+        $scope.productblogs = blogSliderData.success.doc; 
+        console.log($scope.productblogs);
+      } else {
+          if (blogSliderData.error && blogSliderData.error.code == 'AL001') {
+            $rootScope.showModal();
+          } else {
+            $scope.productblogs = []; 
+            $log.debug(blogSliderData.error.message);
+          } 
+      }
+    });
+
     if (dashboardSliderData.success) {
       $scope.productcharts = dashboardSliderData.success.doc;
     };
 
+
+    $scope.viewProductBlog = function(prodle, blogid){
+      $rootScope.$broadcast('showUniqueProductBlog', prodle, blogid);
+    }
 
     $scope.viewChart = function(name, query, type){
       $rootScope.$broadcast('showUniqueChart', name, query, type);

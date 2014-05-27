@@ -23,6 +23,7 @@ angular.module('prodo.ProdonusApp', [
   'ngResource',
   'tags-input',
   'ngCookies',
+  'vrdirectivesslider',
   'angular-growl',
   'prodo.CommonApp',
   'prodo.UserApp',

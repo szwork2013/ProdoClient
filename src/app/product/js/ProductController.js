@@ -10,7 +10,7 @@
  * 27-3/2013 | xyx | Add a new property
  *
  */
-angular.module('prodo.ProductApp', ['vrdirectivesslider']).controller('ProductController', ['$scope', '$log', '$rootScope', 'ProductService', 'UserSessionService', '$http', 'CommentLoadMoreService', 'ENV', 'TagReffDictionaryService', 'ProductFeatureService', '$state','productData','ProductEnquiry', function ($scope, $log, $rootScope, ProductService, UserSessionService, $http, CommentLoadMoreService, ENV, TagReffDictionaryService, ProductFeatureService, $state,productData,ProductEnquiry) {
+angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$log', '$rootScope', 'ProductService', 'UserSessionService', '$http', 'CommentLoadMoreService', 'ENV', 'TagReffDictionaryService', 'ProductFeatureService', '$state','productData','ProductEnquiry','ProductRating', function ($scope, $log, $rootScope, ProductService, UserSessionService, $http, CommentLoadMoreService, ENV, TagReffDictionaryService, ProductFeatureService, $state,productData,ProductEnquiry,ProductRating) {
 
       $scope.pimgs = [];
     
@@ -71,8 +71,16 @@ angular.module('prodo.ProductApp', ['vrdirectivesslider']).controller('ProductCo
     $scope.search = {};
   $scope.tabForComment={
     tabComment:'true',
-    tabSearch:'false'
+    tabSearch:'false',
+    tabTesto:'false'
   }
+
+    $scope.tabForRating={
+    tabOverallRating:'true',
+    tabCaptureRating:'false'
+  }
+
+
   // $scope.searchComment="warranty";
   $scope.newProductComment = [];
   $rootScope.productCommentResponsearray = [];
@@ -117,9 +125,48 @@ angular.module('prodo.ProductApp', ['vrdirectivesslider']).controller('ProductCo
   $scope.$state = $state;
 
 $scope.featuresRates=[];
+$scope.newRating=[];
+$scope.myProductFeatureRating=[];
+$scope.overallProductFeatureRating=[];
+$scope.combineRating=[];
+$scope.showLoadMore={status:false};
 
+   $scope.preGetProductPrepaireData=function(){
+     // $("#load-more").css("display", "none");
+     $scope.showLoadMore.status=   false;  
+    // document.getElementById("prodo-comment-search-Textbox").value="";
+    // $scope.searchComment.search="";
+    $scope.commenttextField.userComment="";
+    $scope.tabForComment.tabComment = true;
+    $scope.tabForComment.tabSearch=false;
+    $scope.featuresRates=[];
+    $scope.newRating=[];
+    $scope.myProductFeatureRating=[];
+    $scope.overallProductFeatureRating=[];
+    $scope.combineRating=[];
+    // $log.debug("search "+$scope.searchComment.search);
+   };
 
+   $scope.preGetProductPrepaireData();
 
+  //watch prodle if changed by user by product search or any other source
+  $rootScope.$watch('product_prodle', function () {
+    // $log.debug("Listening" + $rootScope.product_prodle);
+  
+    $scope.features = [];
+    $("#productLogo").attr('src', '');
+    var temp = document.getElementById('prodo-comment-container');
+    if ($rootScope.product_prodle !== undefined || $rootScope.product_prodle !== null || $rootScope.product_prodle !== "") {
+      $scope.getProduct($rootScope.product_prodle, $rootScope.orgid); //if product available, call getproduct
+     
+      $scope.tabComment=true;
+    } else { //show msg to follow product
+      $("#prodo-ProductDetails").css("display", "none");
+      $("#ErrMsging").css("display", "block");
+      document.getElementById("ErrMsging").innerHTML = "Product not available";
+      }
+
+  });
 
   // $scope.$watch('searchBySelected.type', function () {
   //   $scope.searchfields[$scope.searchBySelected.type]='';
@@ -185,6 +232,7 @@ if($scope.EnquiryData.body){
 
  $scope.handleEnquirySuccess=function(success){
   $log.debug(success.success);
+
   $rootScope.ProdoAppMessage("Your enquiry request sent successfully", 'success');
  };
 
@@ -201,72 +249,83 @@ $scope.handleEnquiryError=function(error){
 };
 
 
+$scope.getSelectedRates=function(value){
+for(i=0;i<$scope.featuresRates.length;i++){
+  if($scope.featuresRates[i].featurename==value.featurename){
+   $scope.featuresRates[i].rated=true;
+  }
+}
+
+};
 
 $scope.sendRating=function(orgid,prodle,featuresRates){
-
-$log.debug(featuresRates);
-
- $rootScope.ProdoAppMessage("Thank you for rating our product features...", 'success');
-    $scope.AllRatings={
-      ratings:featuresRates
+ 
+  $scope.newRating_l=[];
+  for(i=0;i<$scope.featuresRates.length;i++){
+    if($scope.featuresRates[i].rated==true){
+       $scope.newRating_l.push({featurename: featuresRates[i].featurename , featurerates: featuresRates[i].featurerates});
+      }
     }
-
-          // ProductEnquiry.sendRating({
-          //       orgid: orgid,
-          //       prodle: prodle,
-          //     }, $scope.AllRatings, function (success) {
-          //      if(success.success){
-          //       $scope.handleRatingSuccess(success);
-          //      }
-          //      else{
-          //        $scope.handleRatingError(success.error);
-          //      }
-          //     }, function (error) {
-          //       $log.debug(error);
-          //      $rootScope.ProdoAppMessage("Server Error:" + error.status, 'error');
-          //     });
+ $log.debug($scope.newRating_l);
+  $scope.AllData={
+      featureratedata:$scope.newRating_l
+    }
+  // $rootScope.ProdoAppMessage("Thank you for rating our product features...", 'success');
+          ProductRating.add_Rating.addRating({
+                 prodle: prodle,
+              }, $scope.AllData, function (success) {
+               if(success.success){
+                $scope.handleRatingSuccess(success);
+               }
+               else{
+                 $scope.handleRatingError(success.error);
+               }
+              }, function (error) {
+                $log.debug(error);
+               $rootScope.ProdoAppMessage("Server Error:" + error.status, 'error');
+              });
 
 
 
 };
 
-//  $scope.handleRatingSuccess=function(success){
-//   $log.debug(success.success);
-//   $rootScope.ProdoAppMessage("Your Rating request sent successfully", 'success');
-//  };
-
-// $scope.handleRatingError=function(error){
-//   if(error){ 
-//     if(error.code=='AL001'){
-//     $rootScope.showModal();
-//   }
-//    else{
-//      $log.debug(error);
-//     $rootScope.ProdoAppMessage(error.message, 'error');
-//    }
-//  }
-// };
+ $scope.handleRatingSuccess=function(success){
+  $scope.getLatestDataAfterRating($scope.product.prodle,$scope.product.orgid);
+  $scope.tabForRating.tabOverallRating = true; 
+  $scope.tabForRating.tabCaptureRating=false; 
 
 
-  //watch prodle if changed by user by product search or any other source
-  $rootScope.$watch('product_prodle', function () {
-    // $log.debug("Listening" + $rootScope.product_prodle);
-  
-    $scope.features = [];
-    $("#productLogo").attr('src', '');
-    var temp = document.getElementById('prodo-comment-container');
-    if ($rootScope.product_prodle !== undefined || $rootScope.product_prodle !== null || $rootScope.product_prodle !== "") {
-      $scope.getProduct($rootScope.product_prodle, $rootScope.orgid); //if product available, call getproduct
-     
-      $scope.tabComment=true;
-    } else { //show msg to follow product
-      $("#prodo-ProductDetails").css("display", "none");
-      $("#ErrMsging").css("display", "block");
-      document.getElementById("ErrMsging").innerHTML = "Product not available";
-      
-    }
+  $log.debug(success);
+  $rootScope.ProdoAppMessage("Your Rating request sent successfully", 'success');
+ };
 
+$scope.handleRatingError=function(error){
+  if(error){ 
+    if(error.code=='AL001'){
+    $rootScope.showModal();
+  }
+   else{
+     $log.debug(error);
+    $rootScope.ProdoAppMessage(error.message, 'error');
+   }
+ }
+};
+
+
+
+
+ $scope.$watch('tabForComment.tabTesto', function () {
+   if($scope.tabForComment.tabTesto==true){
+      $("#prodo-CommentLoadMoreContainer").css("display", "none");
+   }
+   else{
+      $("#prodo-CommentLoadMoreContainer").css("display", "block");
+   }
   });
+
+
+
+
 
   //get login details
   $scope.getUserDetails = function () {
@@ -288,23 +347,15 @@ $log.debug(featuresRates);
   $scope.getUserDetails();
   //get login details
 
-   $scope.preGetProductPrepaireData=function(){
-     $("#load-more").css("display", "none");
-          
-    // document.getElementById("prodo-comment-search-Textbox").value="";
-    // $scope.searchComment.search="";
-    $scope.commenttextField.userComment="";
-    $scope.tabForComment.tabComment = true;
-    $scope.tabForComment.tabSearch=false;
-    // $log.debug("search "+$scope.searchComment.search);
-   };
+
    $scope.getProductHandleSuccess=function(l_prodle, l_orgid){
       $("#prodo-ProductDetails").css("display", "block");
         $("productExtraInfo").css("display", "block");
         $("#ErrMsging").css("display", "none");
         $log.debug(productData.success.product);
         $scope.getProductFeatures(l_prodle, l_orgid);
-
+        $scope.getMyProductFeatureRating(l_prodle);
+        $scope.getOverallProductFeatureRating(l_prodle);
         $("#prodo-ProductFeatureTable").css("display", "table");
         // $("#prodoCommentsTab").css("display", "inline");
         // $("#tabComments").css("display", "inline");
@@ -345,10 +396,12 @@ $log.debug(featuresRates);
         }
         if (productData.success.product.product_comments) {
           if (productData.success.product.product_comments.length > 4) {
-            $("#load-more").css("display", "inline");
+            // $("#load-more").css("display", "inline");
+            $scope.showLoadMore.status=   true;  
           } 
           else{
-               $("#load-more").css("display", "none");
+               // $("#load-more").css("display", "none");
+               $scope.showLoadMore.status=   false;  
           }
         } 
    };
@@ -366,7 +419,10 @@ $log.debug(featuresRates);
     }
      }
    }
-  $scope.getProduct = function (l_prodle, l_orgid) {
+
+
+
+   $scope.getProduct = function (l_prodle, l_orgid) {
     $log.debug("Prodle n orgid "+ l_prodle + " "+l_orgid);
     $scope.preGetProductPrepaireData();
  
@@ -382,9 +438,7 @@ $log.debug(featuresRates);
     // },
      if(productData.error) { //if error geting product
       $scope.getProductHandleError(productData.error);
-      
-    
-    };
+     };
   $scope.isCollapsed = true;  //added by omkar 
   };
   //get product function declaration  
@@ -407,9 +461,8 @@ $log.debug(featuresRates);
       $scope.PFeatures.push(successData.success.productfeature[i]);
       $scope.featuretags.push(successData.success.productfeature[i].featurename);
       $scope.featuresRates.push({featurename:successData.success.productfeature[i].featurename,
-                                 featurerates:0});
+                                 featurerates:0 ,rated:false});
     }
-console.log($scope.featuresRates);
   };
 
   $scope.getProductFeatures = function (prodle, orgid) {
@@ -551,10 +604,133 @@ $(document).ready(function(){
 
    
 });
+$scope.getMyProductFeatureRating=function(prodle){
+     ProductRating.get_MyProductFeatureRating.getMyProductFeatureRating({
+        prodle: prodle
+      }, function (successData) {
+        if (successData.success == undefined) {
+         $scope.handleGetMyProductFeatureRatingError(successData.error);
+       } else {
+          $scope.handleGetMyProductFeatureRatingSuccess(successData);
+        }
+      }, function (error) {
+        $rootScope.ProdoAppMessage("Server Error:" + error.status, 'error');
+      });
+
+}
+
+ $scope.handleGetMyProductFeatureRatingError=function(error){
+   if(error.code=='AL001'){
+        $rootScope.showModal();
+      }else{
+        $log.debug(error);
+        $rootScope.ProdoAppMessage(error.message, 'error');
+      }
+ };
+  $scope.handleGetMyProductFeatureRatingSuccess=function(successData){
+      if(successData.success){
+        for(var i=0; i<successData.success.myproductfeaturerating.length;i++){
+            $scope.myProductFeatureRating.push(
+              {featurename:successData.success.myproductfeaturerating[i].featurename,
+                featurerates:successData.success.myproductfeaturerating[i].featurerates});
+               // if(successData.success.myproductfeaturerating[i].featurerates==null){
+               //    $scope.featuresRates.push({featurename:successData.success.myproductfeaturerating[i].featurename,
+               //                   featurerates:0 ,rated:false});
+               // }
+               // else{
+               //   $scope.featuresRates.push({featurename:successData.success.myproductfeaturerating[i].featurename,
+               //                   featurerates:successData.success.myproductfeaturerating[i].featurerates ,rated:false});
+               // }
+             
+        }
+      }
+      // $log.debug($scope.myProductFeatureRating);
+      
 
 
+  };
+
+  $scope.getOverallProductFeatureRating=function(prodle){
+     ProductRating.get_OverallProductFeatureRating.getOverallProductFeatureRating({
+        prodle: prodle
+      }, function (successData) {
+        if (successData.success == undefined) {
+         $scope.handleGetOverallProductFeatureRatingError(successData.error);
+       } else {
+          $scope.handleGetOverallProductFeatureRatingSuccess(successData);
+        }
+      }, function (error) {
+        $rootScope.ProdoAppMessage("Server Error:" + error.status, 'error');
+      });
+
+}
+
+ $scope.handleGetOverallProductFeatureRatingError=function(error){
+   if(error.code=='AL001'){
+        $rootScope.showModal();
+      }else{
+        $log.debug(error);
+        $rootScope.ProdoAppMessage(error.message, 'error');
+      }
+ };
+  $scope.handleGetOverallProductFeatureRatingSuccess=function(successData){
+      if(successData.success){
+        for(var i=0; i<successData.success.overallproductfeaturerating.length;i++){
+            $scope.overallProductFeatureRating.push(successData.success.overallproductfeaturerating[i]);
+             
+        }
+      }
+      // $log.debug($scope.overallProductFeatureRating);
+      $scope.combineRatings($scope.myProductFeatureRating,successData.success.overallproductfeaturerating);
+     
+
+  };
 
 
+// 
+ $scope.combineRatings=function(myProductFeatureRating, overallProductFeatureRating){
+  var i; var j;
+  for( i=0;  i<myProductFeatureRating.length; i++  ) {
+    
+    if(overallProductFeatureRating[i].featurename == myProductFeatureRating[i].featurename){
+     if(overallProductFeatureRating[i].ratecount==0){
 
+          $scope.combineRating.push ({
+         featurename:myProductFeatureRating[i].featurename,
+         featurerates:myProductFeatureRating[i].featurerates,
+         featureoverall:null,
+         featureUserCount:overallProductFeatureRating[i].usercount
+        
+        });
+     }
+     else{
+
+         $scope.combineRating.push ({
+         featurename:myProductFeatureRating[i].featurename,
+         featurerates:myProductFeatureRating[i].featurerates,
+         featureoverall:(overallProductFeatureRating[i].ratecount/overallProductFeatureRating[i].usercount),
+         featureUserCount:overallProductFeatureRating[i].usercount
+        
+        });
+    }
+   }
+
+  }
+  // console.log(myProductFeatureRating);
+  // console.log(overallProductFeatureRating);
+  // console.log($scope.combineRating);
+};
+
+$scope.getLatestDataAfterRating=function(l_prodle,l_orgid){
+   $scope.featuresRates=[];
+    $scope.newRating=[];
+    $scope.myProductFeatureRating=[];
+    $scope.overallProductFeatureRating=[];
+    $scope.combineRating=[];
+    $scope.getProductFeatures(l_prodle, l_orgid);
+    $scope.getMyProductFeatureRating(l_prodle);
+    $scope.getOverallProductFeatureRating(l_prodle);
+
+};
 
 }])

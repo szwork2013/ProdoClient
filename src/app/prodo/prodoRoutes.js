@@ -401,6 +401,9 @@ angular.module('prodo.ProdonusApp')
         dashboardSliderData: function(prodoDashboardService, $rootScope) {    
           return prodoDashboardService.get_ProductCharts.getProductCharts().$promise;
         },
+        blogSliderData: function(BlogGetService, $rootScope) {    
+          return BlogGetService.Get_Wall_Blogs.getAllProductBlogs({prodle: $rootScope.product_prodle}).$promise;
+        },
         checkIfSessionExist: function(UserService, $rootScope) {
             return UserService.Is_user_loggedin.checkUserSession().$promise;
         } 
@@ -506,13 +509,26 @@ angular.module('prodo.ProdonusApp')
       }
     }) 
     .state('prodo.productwall.wall-blog', {
+      resolve: {
+        getProductBlogData: function(blogSliderData, BlogGetService, $rootScope){
+          if (blogSliderData.success && blogSliderData.success.doc)  {
+            if (blogSliderData.success.doc.length !== 0) {
+              console.log(blogSliderData);
+              var blogid = blogSliderData.success.doc[0].blogid;
+              return BlogGetService.Get_Wall_Blog.getBlog({prodle: $rootScope.product_prodle, blogid: blogid}).$promise;
+            } 
+          } else {
+              return blogSliderData.error.message;
+          }
+        }
+      },
       views: {
         'prodo-productwall-slider' : {
-          templateUrl:  'prodo/productwall/views/prodo.wall.slider.tpl.html'
+          templateUrl:  'blog/views/prodo.wall.slider.blog.tpl.html'
         },
         'prodo-content' : {
           templateUrl:  'blog/views/prodo.wall.blog.tpl.html',
-          controller: 'ProdoWallBlogController',
+          controller: 'ProdoWallBlogController'
         },
         'prodo-advertisment' : {
           templateUrl:  'prodo/productwall/views/prodo.wall.advertisment.tpl.html'
@@ -656,17 +672,19 @@ angular.module('prodo.ProdonusApp')
         getblogdata: function(BlogGetService, getAllblogdata, $rootScope) {
           if (getAllblogdata.success && getAllblogdata.success.blog)  {
             if (getAllblogdata.success.blog.length !== 0) {
-              
+                console.log(getAllblogdata);
                 $rootScope.blogid = getAllblogdata.success.blog[0].blogid;
              
               return BlogGetService.Unique_Blog_Data.getUniqueBlog({authorid: $rootScope.usersession.currentUser.author.authorid, blogid: $rootScope.blogid}).$promise;
             } 
           } else {
-            console.log(getAllblogdata.error.message);
+              console.log(getAllblogdata.error.message);
+              var message  = 'No blogs exist.'
+              return message;
           }
         } 
       },
-      controller: 'ManageBlogController as manageblog'
+      controller: 'ManageBlogController'
     })
  
   }]);

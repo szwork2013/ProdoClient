@@ -144,7 +144,7 @@
                   <div id="holder">
                     <textarea ng-init="commenttextField.userComment=''" id="prodo-comment-Textbox" col="40" type="text" class="form-control prodo-validation" name="txtComment" placeholder="Campaign Conversation [max 300 characters]. You can drag image here to add image with comment..."   ng-model="commenttextField.userComment" comment-limit="300" ng-enter="addProductComment();hideFeature()" required  items="featuretags"  ng-click="showFeature()"></textarea>  
                 
-                    <div id="prodo-productTags" >
+                    <div id="prodo-productTags" ng-show="mytags.length > 0">
                       <form  role="form">
                         <div  class="prodo-TagsBox" >
                           <tags-input  add-on-enter="false" add-on-space="true" ng-model="mytags" placeholder="Add tags"  ng-enter="addProductComment()" replace-spaces-with-dashes="false"></tags-input>
@@ -181,7 +181,7 @@
         <div prodo-comments    id="prodo-comment-commentContainer"  >
         </div>
       </ul>
-      <button class="" id="load-more" ng-click="loadMoreComments()" >  
+      <button class="btn btn-default"  id="load-more" ng-click="loadMoreComments()" ng-show="showLoadMore.status==true ">  
       <span id="img-spinner" > <i  class=" prodo-loadmoreColor fa fa-spinner fa-spin "> </i></span>
       Load more...
       </button>

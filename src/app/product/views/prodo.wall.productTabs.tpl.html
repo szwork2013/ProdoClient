@@ -63,7 +63,7 @@
  <div id="panel" >
  <center><b> Product enquiry form  </b></center>
 
-<div class="prodo-paddingLeft">
+<div class="prodo-paddingLeft panelFont">
 <table>
 <tr> 
 <td><input type="radio" ng-model="inquiry" value="know"> I want to know more about {{product.name}}   </td>
@@ -79,35 +79,131 @@
 </tr>
 <tr>
 <td class="prodo-inquirySubmittr">
-<br/>
-<i  class="btn-slide padding-right30 prodo-cursor prodoCommentDeleteUp glyphicon glyphicon-circle-arrow-up pull-right" ></i>
 
-<button class="pull-right btn btn-primary btn-sm " ng-click="sendEnquiry(product.orgid,product.prodle,inquiry)">Submit</button>
 </td>
 </tr>
 </table>
+<br/>
+<i  class="btn-slide padding-right30 prodo-cursor prodoCommentDeleteUp glyphicon glyphicon-circle-arrow-up pull-right" ></i>
+
+<button class="pull-right btn btn-primary btn-sm btn-slide" ng-click="sendEnquiry(product.orgid,product.prodle,inquiry)">Submit</button>
 </div>   
+<br/><br/>
 </div>
 
 
 <div id="panelRating" >
    <center><b> Product Rating   </b>
-   <br/>
-    <table class="prodo-prodowalltable table " >
-     <tr ng-repeat="value in featuresRates">
-       <td>
-         <span >{{value.featurename}}</span>
-      </td>
-      <td>
-       <slider floor='1' ceiling='10' step='1' precision='2' stickiness='2'
-                ng-model='value.featurerates' style="width:200px; margin:5px"></slider>
-      </td>
-    </tr>
-   </table>
 
-    <i  class="btn-slideRating padding-right30 prodo-cursor prodoCommentDeleteUp glyphicon glyphicon-circle-arrow-up pull-right" ></i>
 
-    <button class="pull-right btn btn-primary btn-sm " ng-click="sendRating(product.orgid,product.prodle,featuresRates)">Submit</button>
+
+          <!-- tabs -->
+      <div class="prodo-comment-Text-tabs prodo-paddingLeft"  id="tabs">
+        <ul id="ratingTab" class=" commentTab nav nav-pills" ng-init="tabForRating.tabCaptureRating = false;
+          tabForRating.tabOverallRating = true" >
+          <li class="Pcomment" ng-class="{active3 : tabForRating.tabOverallRating == 1}" >
+            <a  class="prodo-cursor" id="prodoCommentTab" ng-click="tabForRating.tabOverallRating = true; tabForRating.tabCaptureRating=false;  " >
+             <i class="fa fa-bar-chart-o"></i>  Overall 
+            </a>
+          </li>
+
+          <li class="PSearch" ng-class="{active3 : tabForRating.tabCaptureRating == 1}"  >
+            <a id="prodoCommentSearchTab" class="prodo-cursor" ng-click="tabForRating.tabCaptureRating =  true ; tabForRating.tabOverallRating = false; " >
+           <i class="fa fa-sliders"></i>  Capture 
+             </a>
+          </li>
+         
+        </ul>
+
+
+        </div>
+        <div class="tab-content">
+          <div id="Remove" ng-show="tabForRating.tabOverallRating == true" >
+            <br/>
+                 <table class="table" style="font-size:12px; width:84%">
+                  <tr style="background-color:rgba(222, 184, 135, 0.45); font-weight:bold">
+                    <td style="padding: 4px;">
+                     Feature Name
+                     </td>
+                  
+                        <td style="padding: 4px;">Users Rated</td>
+                        <td style="padding: 4px;">Average Rating</td>
+                
+               
+                  <td style="padding: 4px;">
+                 My Rating
+                 </td>
+                 </tr>
+                  <tr ng-repeat="feature in combineRating" >
+                 <td style="padding: 4px;">
+                 {{feature.featurename}}
+                 </td>
+                 <td style="padding: 4px;">
+                 {{feature.featureUserCount}}
+                 </td>
+                 <td style="padding: 4px;">
+                  <span ng-show="feature.featureoverall"> {{feature.featureoverall}}</span>
+                  <span ng-show="feature.featureoverall==null"><em> Not Rated</em></span>
+                 
+                 </td>
+                  <td style="padding: 4px;">
+                  <span ng-show="feature.featurerates">  {{feature.featurerates}}</span>
+                  <span ng-show="feature.featurerates==null"><em> Not Rated</em></span>
+                
+                 </td>
+
+                 </tr>
+
+                  
+
+
+               </table>
+
+
+
+
+
+                  <i  class="btn-slideRating padding-right30 prodo-cursor prodoCommentDeleteUp glyphicon glyphicon-circle-arrow-up pull-right" ></i>
+          </div>
+          <div id="Remove" ng-show="tabForRating.tabCaptureRating == true" class="prodo-padding-bottom"  >
+
+        
+                 <!-- capture rating -->
+                 <br/>
+                  <table class="prodo-prodowalltable table " >
+                   <tr ng-repeat="value in featuresRates">
+                     <td>
+                       <span >{{value.featurename}}</span>
+                    </td>
+                    <td>
+                     <slider ng-change="getSelectedRates(value)" floor='1' ceiling='10' step='0' precision='0' stickiness='2' 
+                              ng-model='value.featurerates' style="width:200px; margin:5px"></slider>
+                    </td>
+                    
+                    <span >
+                      
+                    </span>
+                    </td>
+                  </tr>
+                 </table>
+
+                
+                  <i  class="btn-slideRating padding-right30 prodo-cursor prodoCommentDeleteUp glyphicon glyphicon-circle-arrow-up pull-right" ></i>
+                  <button class="pull-right btn btn-primary btn-sm " ng-click="sendRating(product.orgid,product.prodle,featuresRates)">Submit</button>
+                 <!-- capture rating -->
+
+          </div>
+    
+        </div>
+
+      <!-- tabs -->
+
+
+
+
+
+
+
 
 
     </center>
@@ -161,16 +257,24 @@
         <ul id="commentTab" class=" commentTab nav nav-pills" ng-init="tabForComment.tabSearch = false;
           tabForComment.tabComment = true" >
           <li class="Pcomment" ng-class="{active2 : tabForComment.tabComment == 1}" >
-            <a  class="prodo-cursor" id="prodoCommentTab" ng-click="tabForComment.tabComment = true; tabForComment.tabSearch=false;  hideSearchCategories(); searchfields.commentcategory='';searchfields.general='';"  >
+            <a  class="prodo-cursor" id="prodoCommentTab" ng-click="tabForComment.tabComment = true; tabForComment.tabSearch=false;tabForComment.tabTesto=false;  hideSearchCategories(); searchfields.commentcategory='';searchfields.general='';"  >
               <div   id="fa-removeComment" name="rm" class=" fa fa-comments-o fa-lg  " ></div>
             </a>
           </li>
 
           <li class="PSearch" ng-class="{active2 : tabForComment.tabSearch == 1}"  >
             <a id="prodoCommentSearchTab" class="prodo-cursor" ng-click="tabForComment.tabSearch =  true ;
-              tabForComment.tabComment = false; hideFeature();" >
+              tabForComment.tabComment = false;tabForComment.tabTesto=false; hideFeature();" >
 
               <div id="fa-tagsComment" class="fa fa-search fa-lg"  ></div>
+            </a>
+          </li>
+
+           <li class="PSearch" ng-class="{active2 : tabForComment.tabTesto == 1}"  >
+            <a id="prodoCommentTestoTab" class="prodo-cursor" ng-click="tabForComment.tabTesto=true; tabForComment.tabSearch =  false ;
+              tabForComment.tabComment = false; hideFeature();" >
+
+              <div id="fa-tagsComment" class="fa fa-users fa-lg"  ></div>
             </a>
           </li>
          
@@ -221,7 +325,7 @@
                   <div id="holder">
                     <textarea ng-init="commenttextField.userComment=''" id="prodo-comment-Textbox" col="40" type="text" class="form-control prodo-validation" name="txtComment" placeholder="Product Conversation [max 300 characters]. You can drag image here to add image with comment..."   ng-model="commenttextField.userComment" comment-limit="300" ng-enter="addProductComment();hideFeature()" required  items="featuretags"  ng-click="showFeature()"></textarea>  
                     <!-- tags -->
-                    <div id="prodo-productTags" >
+                    <div id="prodo-productTags" ng-show="mytags.length > 0">
                       <form  role="form">
                         <div  class="prodo-TagsBox" >
                           <tags-input  add-on-enter="false" add-on-space="true" ng-model="mytags" placeholder="Add tags"  ng-enter="addProductComment()" replace-spaces-with-dashes="false"></tags-input>
@@ -255,6 +359,33 @@
    
 
           </div>
+
+         <div id="Remove" ng-show="tabForComment.tabTesto == true" class="prodo-padding-bottom"  >
+          <br>
+          <b class="prodo-testimonialsTitle">Testimonials</b>
+          <div class="prodo-testomonials">
+             <em>This medicine is realy awesome. I used it, its realy nice. Guys please try this medicine </em>
+            <br/>
+              <span class= "pull-right prodoTestiMonialsUserDetails">
+                <span> <b>Bhagyashri Jangam </b></span> from
+                <span><b> Giant Leap Systems </b></span>
+              </span>
+
+          </div>
+
+          <div class=" prodo-testomonials">
+             <span class="prodo-TestimonialText"><em> This medicine is very effective and does not have any side effects.. </em></span>
+            
+              <span class= "pull-right prodoTestiMonialsUserDetails">
+                <span> <b>Omkar Kanekar</b></span> from
+                <span><b> MIT </b></span>
+              </span>
+
+          </div>
+
+ 
+
+        </div>
     
         </div>
       </div>
@@ -265,15 +396,19 @@
         <strong><div id="UploadCommentIMGErrMsg"></div></strong>
       </div>
     </div>
+    <div id="prodo-CommentLoadMoreContainer">
       <ul class="media-list "  id="prodo-comment-media-list" style="display">
         <div prodo-comments    id="prodo-comment-commentContainer"  >
         </div>
       </ul>
-      <button class="" id="load-more" ng-click="loadMoreComments()" >  
+      <button class="btn btn-default" id="load-more" ng-click="loadMoreComments()" ng-show="showLoadMore.status==true" >  
       <span id="img-spinner" > <i  class=" prodo-loadmoreColor fa fa-spinner fa-spin "> </i></span>
       Load more...
       </button>
       <div id="loadMoreCommentMsg" class="prodo-loadmoreMsg" ></div>
+    </div>
+
+
     </div>
   </div>
 </div>

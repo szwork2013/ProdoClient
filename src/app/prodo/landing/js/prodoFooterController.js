@@ -4,6 +4,7 @@ angular.module('prodo.ProdonusApp')
     console.log(authorcategorydata);
     $scope.form = {};
     $scope.submitted = false;
+    $scope.category_msg = false;
     $scope.$state = $state;
 
     $scope.author = 
@@ -291,6 +292,8 @@ angular.module('prodo.ProdonusApp')
 
   $scope.clearAuthorApp = function() {
     $scope.form.authorForm.$setPristine();
+    $scope.form.authorForm.submitted = false;
+    $scope.category_msg = false;
       $scope.author = {
         fname: '',
         lname: '',
@@ -335,14 +338,24 @@ angular.module('prodo.ProdonusApp')
             $rootScope.ProdoAppMessage(data.error.message, 'error');
         }
       }
+      $scope.hideSpinner();
     };  
 
 
-    $scope.sendAuthorRequest = function() {
-      console.log($scope.jsonAuthorAppData());
+    $scope.sendAuthorRequest = function(category) {
       if ($scope.form.authorForm.$valid) {
-        UserSessionService.sendAuthorAppRequest($scope.jsonAuthorAppData());
+        $scope.showSpinner();
+        var isValidCategory = category.every(function (val) {
+          return $scope.categoriesList.indexOf(val) >= 0;
+        });
+        if (isValidCategory === true) {
+          $scope.category_msg = false;
+          UserSessionService.sendAuthorAppRequest($scope.jsonAuthorAppData());
+        } else {
+          $scope.category_msg = true;
+        }        
       } else {
+        $scope.category_msg = true;
         $scope.form.authorForm.submitted = true;
       }
     }
