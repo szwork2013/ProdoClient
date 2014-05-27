@@ -55,6 +55,9 @@ angular.module('prodo.CampaignApp')
   $scope.features=[];
   $scope.featuretags=[];
   $scope.showLoadMore={status:false};
+  $scope.commentTemplate={
+    url:'common/commentsDirective/views/prodo.comment.tpl.html'
+  };
 
    if($rootScope.campaign_idwall !== "" || $rootScope.campaign_idwall !== undefined){
        $scope.$watch('$state.$current.locals.globals.campaignWalldata', function (campaignWalldata) {
