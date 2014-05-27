@@ -14,7 +14,7 @@ angular.module('prodo.BlogApp')
 
   $scope.$watch('$state.$current.locals.globals.getProductBlogData', function (getProductBlogData) {
     
-    if (getProductBlogData.success && getProductBlogData.success.doc.length !== 0) {
+    if (getProductBlogData.success && getProductBlogData.success.doc !== undefined) {
       $scope.viewblog = angular.copy(getProductBlogData.success.doc); 
       if (getProductBlogData.success.doc.blog_images.length !== 0) {
         $scope.selected_image = getProductBlogData.success.doc.blog_images[0].image; 
@@ -36,11 +36,29 @@ angular.module('prodo.BlogApp')
           $rootScope.showModal();
         } else {
           $scope.viewblog = {}; 
-          $log.debug(getProductBlogData.error.message);
+          console.log($scope.viewblog);
+          $log.debug(getProductBlogData);
         } 
     }
   });
 
+  $scope.checkObj = function(obj) {
+    for(var key in obj) {
+      if(obj.hasOwnProperty(key))
+        return false;
+    }
+    return true;
+  }
+  
+  $scope.isEmpty = function(){
+    if($scope.checkObj($scope.viewblog)) {
+      console.log('object is empty');
+      return true;
+    } else {
+      console.log('object is not empty');
+      return false;
+    }
+  };
   //Display selected image.................................................
 
   $scope.showSelectedImage = function(image){

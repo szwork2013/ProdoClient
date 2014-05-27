@@ -20,7 +20,7 @@
 </style>
 
 <div class="prodo-wall-blog-container container">
-	<div ng-show="viewblog != null " style="padding: 5px; margin-bottom: 10px; border-radius: 3px;">
+	<div ng-show="!isEmpty()" style="padding: 5px; margin-bottom: 10px; border-radius: 3px;">
 		<div style="" class="row">
 			<div style="" class="col-md-12">
 				<center><h3><em>{{viewblog.title}}</em></h3></center>
@@ -107,7 +107,7 @@
 			</div>  
 		</div>		
 	</div>
-	<div ng-show="viewblog == null" class="row">
+	<div ng-show="isEmpty()" class="row">
 		<div class="col-md-12">
 			<center>
 				<p style="font-size:20px; margin: 20px auto;" class="text-success"><strong><em>Currently no blogs available.</em></strong></p>

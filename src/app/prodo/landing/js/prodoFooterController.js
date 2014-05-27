@@ -338,11 +338,13 @@ angular.module('prodo.ProdonusApp')
             $rootScope.ProdoAppMessage(data.error.message, 'error');
         }
       }
+      $scope.hideSpinner();
     };  
 
 
     $scope.sendAuthorRequest = function(category) {
       if ($scope.form.authorForm.$valid) {
+        $scope.showSpinner();
         var isValidCategory = category.every(function (val) {
           return $scope.categoriesList.indexOf(val) >= 0;
         });

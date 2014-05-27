@@ -79,7 +79,7 @@
       		  <dd style="width:60%;">
       		  	<button style="width:49%; background-color:transparent; color:black;" class="btn btn-sm btn-default" ng-click="cancelAddBlog()"><i class="prodo-fa fa fa-times"></i>Cancel</button>
       		  	
-      		  	<button style="width:49%;" class="prodo-button-theme btn btn-sm btn-primary" ng-click="postBlog(productname.name)"><i class="prodo-fa fa fa-location-arrow"></i>Post</button>
+      		  	<button style="width:49%;" class="prodo-button-theme btn btn-sm btn-primary" ng-click="postBlog(productname.name)"><i class="prodo-fa fa fa-location-arrow"></i>Post&nbsp;&nbsp;<div prodo-spinner></div></button>
 
       		  </dd>
       		</dl>
@@ -150,7 +150,7 @@
               
             <button style="width:32.5%;" class="prodo-button-theme btn btn-sm btn-primary" ng-click="editCurrentBlog()"><i class="prodo-fa fa fa-pencil-square-o"></i>Edit</button>
 
-            <button ng-show="displayblog.status == 'init' " style="width:32.5%; background-color:#24677C; border-color:#24677C;" class=" btn btn-sm btn-primary" ng-click="publishBlog(displayblog.authorid, displayblog.blogid)"><i class="prodo-fa fa fa-cloud-upload"></i>Publish</button>
+            <button ng-show="displayblog.status == 'init' " style="width:32.5%; background-color:#24677C; border-color:#24677C;" class=" btn btn-sm btn-primary" ng-click="publishBlog(displayblog.authorid, displayblog.blogid)"><i class="prodo-fa fa fa-cloud-upload"></i>Publish&nbsp;&nbsp;<div prodo-spinner></div></button>
 
             <button ng-hide="displayblog.status == 'init' " style="width:32.5%; background-color:#24677C; border-color:#24677C;" class=" btn btn-sm btn-primary"><i class="prodo-fa fa fa-cloud-upload"></i>Published</button>
           </dd>
@@ -259,7 +259,7 @@
             <dd style="width:60%;">
               <button style="width:49%; background-color:transparent; color:black;" class="btn btn-sm btn-default" ng-click="cancelEditBlog()"><i class="prodo-fa fa fa-times"></i>Cancel</button>
               
-              <button style="width:49%;" class="prodo-button-theme btn btn-sm btn-primary" ng-click="saveEditBlog(editblog.authorid, editblog.blogid)"><i class="prodo-fa fa fa-save"></i>Save</button>
+              <button style="width:49%;" class="prodo-button-theme btn btn-sm btn-primary" ng-click="saveEditBlog(editblog.authorid, editblog.blogid)"><i class="prodo-fa fa fa-save"></i>Save&nbsp;&nbsp;<div prodo-spinner></div></button>
             </dd>
           </dl>
         </form>
