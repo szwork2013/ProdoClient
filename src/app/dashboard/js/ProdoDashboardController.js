@@ -117,12 +117,12 @@ angular.module('prodo.ProdoWallApp').controller('ProdoDashboardController', [
             // $scope.showSampleDataFordualstack = 0;
            // $scope.showSampleDataFordualstack = 0;
 
-            if($scope.chartType === 'Pie Chart')
+            if($scope.chartType.toLowerCase() === 'pie chart')
             {
               $scope.data = pieChartProdle.success.piechart_analytics;
               $scope.showPieChart = 1;
             }
-            else if($scope.chartType === 'Bar Chart')
+            else if($scope.chartType.toLowerCase() === 'bar chart')
             {
               $scope.dataForBarChart = pieChartProdle.success.barchart_analytics; 
               $scope.barChart = function() {

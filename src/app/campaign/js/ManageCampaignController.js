@@ -9,7 +9,7 @@ angular.module('prodo.CampaignApp')
 
     $scope.regexForText = /^[a-zA-Z\s]*$/;
 
-    $scope.regexForNumbers = /[0-9]/;
+    $scope.regexForNumbers = /^[0-9]+$/;
 
     $scope.regexForEmail = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
 
@@ -29,7 +29,7 @@ angular.module('prodo.CampaignApp')
 
     $scope.addNewCampaign = 0; 
 
-    $scope.campaign = {productName: '',Name:'',Description:'',startDate:'',endDate:'',category:[], campaignBannerText:'', campaignTags : [],prodle:''};
+    $scope.campaign = {productName: '',Name:'',Description:'',startDate:'',endDate:'',category:[], campaignBannerText:'', campaignTags : [],prodle:'', campaign_impression : '', resultDate : '' ,impression_limit : ''};
 
     $scope.errorForInvalidProduct = '';
  
@@ -109,6 +109,8 @@ angular.module('prodo.CampaignApp')
     $scope.prodlesOfOrg = [];
 
     $scope.errorForImproperBanner = '';
+
+    $scope.invalidCampaignImpression = '';
 
     if (currentorgproducts.error) 
     {
@@ -204,12 +206,15 @@ angular.module('prodo.CampaignApp')
             'category': $scope.campaign.category,
             'bannertext' : $scope.campaign.campaignBannerText,
             'campaign_tags' : $scope.campaign.campaignTags,
+             
+            'impression_limit' : $scope.campaign.impression_limit,
+            'resultdate' : $scope.campaign.resultDate,
             
            
       };
       return Data; 
     }; 
-
+    $scope.errorForInvalidResultDate = '';
     $scope.saveCampaign = function()
     {     
       $scope.errorForWrongCampaignname = '';  
@@ -222,6 +227,8 @@ angular.module('prodo.CampaignApp')
       $scope.errorForEmptyCategory = '';
       $scope.errorForEmptyCampaigntags = '';
       $scope.errorForImproperBanner = '';
+      $scope.invalidCampaignImpression = '';
+        $scope.errorForInvalidResultDate = '';
       //$scope.errorForInvalidCategory = '';
     	$scope.getProdle();
         if($scope.campaign.Name === undefined || $scope.campaign.Name ==='')
@@ -239,7 +246,11 @@ angular.module('prodo.CampaignApp')
         	      $scope.errorForInvalidEnddate = 'Please select valid end date!'; 
         	      $scope.allValid = 1;  
         }
-
+        if($scope.form.campaign.resultDate.$dirty === false)
+        {
+                $scope.errorForInvalidResultDate = "Please select valid result date";
+                $scope.allValid = 1;
+        }
         if($scope.campaign.Description === undefined || $scope.campaign.Description === '')
         {
         	$scope.invalidDesc = "Please enter valid description";
@@ -270,6 +281,11 @@ angular.module('prodo.CampaignApp')
              $scope.errorForImproperBanner = 'Please enter valid banner text';
              $scope.allValid = 1;
         }
+        if($scope.campaign.impression_limit === undefined || $scope.campaign.impression_limit === '' || $scope.regexForNumbers.test($scope.campaign.impression_limit) === false )
+        {
+             $scope.invalidCampaignImpression = 'Please enter valid campaign impression limit';
+             $scope.allValid = 1;
+        }
         $scope.assignProdleForCampaign($scope.campaign.productName);
         if($scope.allValid === 0 )
         {       
@@ -277,7 +293,7 @@ angular.module('prodo.CampaignApp')
                   $scope.socket.emit('addProductCampaign', $rootScope.usersession.currentUser.userid, $rootScope.usersession.currentUser.org.orgid,$scope.prodleContent, $scope.jsonOrgCampaignData(),$scope.file_data);               
               }
               else if ($scope.showBanner === 2)
-              {    
+              {    console.log($scope.jsonOrgCampaignData());
                     CampaignService.createCampaign($scope.jsonOrgCampaignData(),$scope.campaign.prodle);
               }
               else if($scope.isValidImage === false && $scope.showBanner === 1)
@@ -295,22 +311,28 @@ angular.module('prodo.CampaignApp')
       {
         $scope.currentCampaign.bannertext = '';
       }
-    var Data = 
-    {
-      "campaigndata":
+        var Data = 
         {
-          'name' : $scope.currentCampaign.name,
-          'productname' : $scope.currentCampaign.productname,
-          'enddate': $scope.currentCampaign.enddate,
-          'startdate': $scope.currentCampaign.startdate,
-          'description': $scope.currentCampaign.description,
-          'category': $scope.currentCampaign.category,
-          'bannertext' : $scope.currentCampaign.bannertext,
-        }  
+          "campaigndata":
+            {
+              'name' : $scope.currentCampaign.name,
+              'productname' : $scope.currentCampaign.productname,
+              'enddate': $scope.currentCampaign.enddate,
+              'startdate': $scope.currentCampaign.startdate,
+              'description': $scope.currentCampaign.description,
+              'category': $scope.currentCampaign.category,
+              'bannertext' : $scope.currentCampaign.bannertext,
+              'impression_limit' : $scope.currentCampaign.impression_limit,
+              'resultdate' : $scope.currentCampaign.resultdate,
+            }  
+        };
+        return JSON.stringify(Data); 
     };
-    return JSON.stringify(Data); 
-    };$scope.errorForEmptyCategoryCampaignTags = '';
+
+
+    $scope.errorForEmptyCategoryCampaignTags = '';
     $scope.errorForEmptyBannerText = '';
+    $scope.invalidUpdatedCampaignImpression = '';
     $scope.updateCampaign = function()
     {
     	$scope.errorForWrongCampaignname = '';  
@@ -324,6 +346,8 @@ angular.module('prodo.CampaignApp')
       $scope.errorForEmptyBannerText = '';
       $scope.errorForEmptyCategoryCampaignTags = '';
     	$scope.getProdle();
+      $scope.invalidUpdatedCampaignImpression = '';
+      $scope.invalidChangedResultDate = '';
 
 
       if($scope.currentCampaign.productname === undefined || $scope.currentCampaign.productname ==='')
@@ -355,6 +379,11 @@ angular.module('prodo.CampaignApp')
         $scope.allValidContent = 1;
       }
 
+      if($scope.currentCampaign.impression_limit === undefined || $scope.currentCampaign.impression_limit === '' || $scope.regexForNumbers.test($scope.currentCampaign.impression_limit) === false)
+      {
+        $scope.invalidUpdatedCampaignImpression = 'Please enter valid campaign impression limit';
+        $scope.allValidContent = 1;
+      }
 
       // if($scope.currentCampaign.bannertext === undefined || $scope.currentCampaign.bannertext === '')
       // {
@@ -456,7 +485,7 @@ angular.module('prodo.CampaignApp')
     $scope.add = function()
     {
         $scope.addNewCampaign = 1;
-        $scope.campaign = {productName: '',Name:'',Description:'',startDate:'',endDate:'',category:[], campaignBannerText:'', campaignTags : [],prodle:''};
+        $scope.campaign = {productName: '',Name:'',Description:'',startDate:'',endDate:'',category:[], campaignBannerText:'', campaignTags : [],prodle:'' , impression_limit : '', resultDate:''};
 
     };
 
@@ -465,7 +494,7 @@ angular.module('prodo.CampaignApp')
         $scope.addNewCampaign = 0;
         $scope.addNewCampaign = 0;
         $state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
-        $scope.campaign = {productName: '',Name:'',Description:'',startDate:'',endDate:'',category:[], campaignBannerText:'', campaignTags : [],prodle:''};
+        $scope.campaign = {productName: '',Name:'',Description:'',startDate:'',endDate:'',category:[], campaignBannerText:'', campaignTags : [],prodle:'' , impression_limit : '' , resultDate :''};
 
     };
 
@@ -662,7 +691,7 @@ angular.module('prodo.CampaignApp')
               }
               else
               {
-                $scope.campaign = {productName: '',Name:'',Description:'',startDate:'',endDate:'',category:[], campaignBannerText:'', campaignTags : [],prodle:''};
+                $scope.campaign = {productName: '',Name:'',Description:'',startDate:'',endDate:'',category:[], campaignBannerText:'', campaignTags : [],prodle:'' , impression_limit : '' , resultDate : ''};
               }
             }
           } else{

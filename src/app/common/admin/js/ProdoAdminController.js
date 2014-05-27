@@ -9,6 +9,9 @@ angular.module('prodo.AdminApp').controller('ProdoAdminController', [
   '$stateParams',
   function ($scope, $rootScope, UserSessionService, $state, isLoggedin, prodoAdminService, chartContent, $stateParams) {
 	$scope.chart = {'code':'','charts':[]};
+
+  $scope.editCharts = 0;
+
   $scope.query = {'queryname': '', 'description' : ''};
   
   $scope.assignCodeToCharts = {'code':'', 'chartids':[]};
@@ -21,12 +24,14 @@ angular.module('prodo.AdminApp').controller('ProdoAdminController', [
 
   $scope.list = '';
 
-  prodoAdminService.getAllRequest();     
+  prodoAdminService.getAllRequest();    $scope.test123 = '';   
   
   $scope.saveQueryContent = function()
   {
            prodoAdminService.addQueryContent($scope.query);
   };
+
+  $scope.codeContent = {};
 
   var cleanUpEventQueryAddedSuccessfully = $scope.$on('queryAddedSuccessfully', function (event, data) 
   {
@@ -46,6 +51,44 @@ angular.module('prodo.AdminApp').controller('ProdoAdminController', [
   });
 
   var cleanUpEventQueryAddError = $scope.$on('queryNotAddedSuccessfully', function (event, data) {
+          $rootScope.ProdoAppMessage("There is some issue with the server! Please try after some time",'error');
+  });
+
+  $scope.codeToChange = '';
+
+  $scope.RBONDSCodes = [];
+
+  prodoAdminService.getCodeChartContent();
+
+  $scope.RBONDS = {'code' : ''};
+
+  var cleanUpEventGotContentOfCode = $scope.$on('gotCodeContentSuccess', function (event, data) 
+  {
+    if(data.error!==undefined && data.error.code==='AL001')
+    {
+      $rootScope.showModal();
+    }
+    else if(data.error)
+    {
+       $rootScope.ProdoAppMessage(data.error.message,'error');
+    }
+    else
+    {
+      // $rootScope.ProdoAppMessage(data.success.message,'success');
+       //console.log('----'+JSON.stringify(data.success));
+       $scope.codeContent = data.success.RBONDS_Mapping;
+       $scope.RBONDSCodes = [];
+       for(var i = 0; i<$scope.codeContent.length; i++)
+       {
+        $scope.RBONDSCodes.push($scope.codeContent[i].code);
+       }
+
+     
+    }
+
+  });
+
+  var cleanUpEventNotGotContentOfCode = $scope.$on('notGotCodeContent', function (event, data) {
           $rootScope.ProdoAppMessage("There is some issue with the server! Please try after some time",'error');
   });
 
@@ -126,7 +169,8 @@ angular.module('prodo.AdminApp').controller('ProdoAdminController', [
  }
 
  $scope.assignCodeToChart = function()
- {$scope.assignCodeToCharts = {'code':'', 'chartids':[]};
+ {
+  $scope.assignCodeToCharts = {'code':'', 'chartids':[]};
      for( var i=0;i<$scope.chartsList.length;i++)
      {
           // if(document.getElementById(i).checked === true)
@@ -143,10 +187,12 @@ angular.module('prodo.AdminApp').controller('ProdoAdminController', [
 
  $scope.pushToList = function()
  {
-  $scope.chart.chartname.push($scope.list);
-  console.log($scope.chart.chartname);
+      $scope.chart.chartname.push($scope.list);
+      console.log($scope.chart.chartname);
  };
+
  $scope.authorDetails = {};
+
  $scope.acceptAuthorRequest = function(id, uid)
  { //console.log('userid'+uid);
      prodoAdminService.acceptAuthorRequest(id, uid);
@@ -222,6 +268,68 @@ angular.module('prodo.AdminApp').controller('ProdoAdminController', [
           $rootScope.ProdoAppMessage("There is some issue with the server! Please try after some time",'error');
   });
 
+  $scope.edit = function()
+  {
+    $scope.editCharts = 1;
+  };
+
+  $scope.saveChartsContent = function()
+  {
+    if($scope.RBONDS.code === undefined || $scope.RBONDS.code === '' )
+    {
+      $rootScope.ProdoAppMessage('Please enter atleast one rbonds category', 'error');
+    }
+    else
+    {
+             $scope.updateCodeContent = {'chartids':[]};
+             for( var i=0;i<$scope.chartsList.length;i++)
+             {
+                  if(document.getElementById('I'+i).checked === true)
+                  {
+                    $scope.updateCodeContent.chartids.push($scope.chartsList[i].chartid);
+                  }
+             } 
+
+             if($scope.updateCodeContent.chartids.length === 0)
+             {
+              $rootScope.ProdoAppMessage('Please select atleast one chart for the code selected' , 'error');
+             }
+             else
+             {
+                     prodoAdminService.changeCodeContent($scope.RBONDS.code, $scope.updateCodeContent);
+              }
+    }
+  };
+
+  $scope.back = function()
+  {
+    $scope.editCharts = 0;
+  };
+
+  var cleanUpEventCodeUpdatesSuccessfully = $scope.$on('changedCodeContent', function (event, data) 
+  {
+    if(data.error!==undefined && data.error.code==='AL001')
+    {
+      $rootScope.showModal();
+    }
+    else if(data.error)
+    {
+       $rootScope.ProdoAppMessage(data.error.message,'error');
+    }
+    else
+    {
+       $rootScope.ProdoAppMessage(data.success.message,'success');
+       $state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
+    }
+
+  });
+
+
+
+  var cleanUpEventCodeUpdatesFailure = $scope.$on('notChangedCodeContent', function (event, data) {
+          $rootScope.ProdoAppMessage("There is some issue with the server! Please try after some time",'error');
+  });
+
   	$scope.$on('$destroy', function(event, message) 
   	{
           cleanUpEventQueryAddedSuccessfully();
@@ -232,6 +340,10 @@ angular.module('prodo.AdminApp').controller('ProdoAdminController', [
           cleanUpEventAuthorRequestNotAccepted();
           cleanUpEventRejectAuthorReq();
           cleanUpEventRejectAuthorError();
+          cleanUpEventGotContentOfCode();
+          cleanUpEventNotGotContentOfCode();
+          cleanUpEventCodeUpdatesFailure();
+          cleanUpEventCodeUpdatesSuccessfully();
 				
    	});
 
