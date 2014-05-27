@@ -125,7 +125,7 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
   $scope.$state = $state;
 
 $scope.featuresRates=[];
-$scope.newRates=[];
+$scope.newRating=[];
 $scope.myProductFeatureRating=[];
 $scope.overallProductFeatureRating=[];
 $scope.combineRating=[];
@@ -140,7 +140,7 @@ $scope.showLoadMore={status:false};
     $scope.tabForComment.tabComment = true;
     $scope.tabForComment.tabSearch=false;
     $scope.featuresRates=[];
-    $scope.newRates=[];
+    $scope.newRating=[];
     $scope.myProductFeatureRating=[];
     $scope.overallProductFeatureRating=[];
     $scope.combineRating=[];
@@ -260,15 +260,15 @@ for(i=0;i<$scope.featuresRates.length;i++){
 
 $scope.sendRating=function(orgid,prodle,featuresRates){
  
-  $scope.newRates_l=[];
+  $scope.newRating_l=[];
   for(i=0;i<$scope.featuresRates.length;i++){
     if($scope.featuresRates[i].rated==true){
-       $scope.newRates_l.push({featurename: featuresRates[i].featurename , featurerates: featuresRates[i].featurerates});
+       $scope.newRating_l.push({featurename: featuresRates[i].featurename , featurerates: featuresRates[i].featurerates});
       }
     }
- $log.debug($scope.newRates_l);
+ $log.debug($scope.newRating_l);
   $scope.AllData={
-      featureratedata:$scope.newRates_l
+      featureratedata:$scope.newRating_l
     }
   // $rootScope.ProdoAppMessage("Thank you for rating our product features...", 'success');
           ProductRating.add_Rating.addRating({
@@ -723,7 +723,7 @@ $scope.getMyProductFeatureRating=function(prodle){
 
 $scope.getLatestDataAfterRating=function(l_prodle,l_orgid){
    $scope.featuresRates=[];
-    $scope.newRates=[];
+    $scope.newRating=[];
     $scope.myProductFeatureRating=[];
     $scope.overallProductFeatureRating=[];
     $scope.combineRating=[];

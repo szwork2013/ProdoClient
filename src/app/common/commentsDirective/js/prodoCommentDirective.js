@@ -300,8 +300,8 @@ $scope.EditCommentLikeDislike=function(comment,likeaction){
   }
  $scope.handleLikeDislikeSuccess=function(success,comment){
     $log.debug(success);
-         $(".agreesuccess"+comment.commentid).text(success.message);
-         $(".agreesuccess"+comment.commentid).show("slow").delay(4000).hide("slow");
+         // $(".agreesuccess"+comment.commentid).text(success.message);
+         // $(".agreesuccess"+comment.commentid).show("slow").delay(4000).hide("slow");
          // $scope.message.success='';
   };
 
