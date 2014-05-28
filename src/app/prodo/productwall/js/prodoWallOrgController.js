@@ -55,8 +55,8 @@ angular.module('prodo.ProdoWallApp')
         } else {
           $scope.productlist = orgproduct.success.product; 
           $scope.product_prodles = [];
-         // $rootScope.product_prodle = $scope.productlist[0].prodle;
-          $rootScope.orgid = $scope.productlist[0].orgid;
+         $rootScope.product_prodle = $scope.productlist[0].prodle;
+         $rootScope.orgid = $scope.productlist[0].orgid;
 
           if (UserSessionService.productfollowlist.length > 0) {
             for (var i=0; i< UserSessionService.productfollowlist.length; i++){
