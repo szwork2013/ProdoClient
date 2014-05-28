@@ -1,5 +1,5 @@
 angular.module('prodo.BlogApp')
- .controller('ProdoWallBlogController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$stateParams', '$log', 'growl', 'checkIfSessionExist', 'blogSliderData', 'getProductBlogData', 'BlogService', function($scope, $rootScope, $state, $http, $timeout, $stateParams, $log, growl, checkIfSessionExist, blogSliderData, getProductBlogData, BlogService) {
+ .controller('ProdoWallBlogController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$stateParams', '$log', 'growl', 'checkIfSessionExist', 'blogSliderData', 'getProductBlogData', 'BlogService','UserSessionService', function($scope, $rootScope, $state, $http, $timeout, $stateParams, $log, growl, checkIfSessionExist, blogSliderData, getProductBlogData, BlogService,UserSessionService) {
  	$log.debug('initialising wall blog controller...');
 
  	console.log(getProductBlogData);
@@ -11,11 +11,12 @@ angular.module('prodo.BlogApp')
   $scope.size = '';
   $scope.oddsize = '';
   $scope.upperpartition = '';
-
+  $scope.$state = $state;
   $scope.$watch('$state.$current.locals.globals.getProductBlogData', function (getProductBlogData) {
     
     if (getProductBlogData.success && getProductBlogData.success.doc !== undefined) {
       $scope.viewblog = angular.copy(getProductBlogData.success.doc); 
+      $scope.handleBlogComment($scope.viewblog);
       if (getProductBlogData.success.doc.blog_images.length !== 0) {
         $scope.selected_image = getProductBlogData.success.doc.blog_images[0].image; 
       }      
@@ -75,6 +76,7 @@ angular.module('prodo.BlogApp')
     $scope.handleGetUniqueProductBlogResponse = function(data){
       if (data.success) {
         angular.copy(data.success.doc, $scope.viewblog);
+        $scope.handleBlogComment($scope.viewblog);
         $scope.selected_image = data.success.doc.blog_images[0].image;
         if (data.success.doc.blog_images.length >= 1) {
           var length = data.success.doc.blog_images.length;
@@ -118,5 +120,92 @@ angular.module('prodo.BlogApp')
 		cleanupEventUniqueProductBlogNotDone();    
     cleanupEventViewProductBlog(); 
   });
-  
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  $scope.searchCommentBy;
+  $scope.searchBySelected={
+      type:'general'
+    }
+  $scope.searchfields = {};
+  $scope.searchfields = [
+    {
+      name: 'general',
+      value: 'commenttext'
+    }
+  ];
+  $scope.commenttagSelected={
+     tag:'general'
+  };
+  $scope.productComments = {
+    comments: [{}]
+  };
+  $scope.tabForComment={
+    tabComment:'true',
+    tabSearch:'false'
+  };
+  $scope.type="blog";
+  $scope.newProductComment = [];
+  $rootScope.productCommentResponsearray = [];
+  $scope.mytags;
+  $scope.myFeaturetags;
+  $scope.count = 0;
+  $scope.commenttextField = {
+    userComment: ''
+  };
+  $scope.pretags = [];
+  $scope.featuretags = [];
+  $scope.productcommentResponseListener;
+  $scope.tagPairs = [];
+  $scope.ErrMsging=0;   
+  $scope.pimgs=[];  
+  $rootScope.comment_image_l=[];
+  $rootScope.file_data ="";
+  $rootScope.count=0;
+  $scope.features=[];
+  $scope.featuretags=[];
+  $scope.showLoadMore={status:false};
+
+
+  //get login details
+  $scope.getUserDetails = function () {
+    $scope.userIDFromSession = $rootScope.usersession.currentUser.userid;
+    $scope.usernameFromSession = $rootScope.usersession.currentUser.username;
+    // $scope.ProductsFollowedFromSession = $rootScope.usersession.currentUser.products_followed;
+    $scope.ProductsFollowedFromSession = UserSessionService.productfollowlist
+    // $log.debug("Products  f.. "+JSON.stringify( $scope.ProductsFollowedFromSession));
+    if ($rootScope.usersession.currentUser.org) {
+      $scope.grpnameFromSession = $rootScope.usersession.currentUser.org.grpname;
+      $scope.orgidFromSession = $rootScope.usersession.currentUser.org.orgid;
+      $scope.orgnameFromSession = $rootScope.usersession.currentUser.org.orgname;
+    } else {
+      $scope.grpnameFromSession = "";
+      $scope.orgnameFromSession = "";
+      $scope.orgidFromSession = "";
+    }
+  }
+     $scope.getUserDetails();
+  $scope.handleBlogComment=function(viewblog){
+    $scope.productComments.length=0;
+    console.log(viewblog);
+
+    if(viewblog.blog_comments){
+
+          $scope.productComments=viewblog.blog_comments;
+    }
+    if ($scope.productComments!==undefined){   
+         $("#prodo-comment-media-list").css("display", "block");
+    }
+    $("#loadMoreCommentMsg").css("display", "none");
+    if ( $scope.productComments) {  
+       if ( $scope.productComments.length > 4) {
+           $scope.showLoadMore.status=true; 
+        } 
+        else{
+            $scope.showLoadMore.status=false; 
+        }
+      } 
+       console.log($scope.productComments);
+  }
+///////////////////////////////////////////////////////////////////////////////////////////  
 }]);
