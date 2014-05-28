@@ -20,7 +20,7 @@
 						<br>
 					</div>
 
-					<form name="form.authorForm" class="css-form" ng-submit=""  novalidate>
+					<form name="form.authorForm" class="css-form"  novalidate>
 				
 						<dl>
 						  <dt>Firstname</dt>
@@ -39,8 +39,8 @@
 
 						<dl>
 						  <dt>Category</dt>
-						  <dd style="color:#b3b3b3; font-size:12px;">Please enter the blog category for which you are interested in writing blogs. </dd>
-						  <dd class="prodo-authorTags"><tags-input minTags="1" add-on-blur="true" ng-model="author.category" min-length="1" list="categoriesList"  placeholder="blog category" replace-space-with-dashes ="false" popover-placement="right" popover="Press 'Enter' key after entering category" popover-trigger="mouseenter"></tags-input><small ng-show="category_msg">*Please select category from the given list!</small></dd>
+						  <dd style="color:#b3b3b3; font-size:12px;">Please select category from the list. </dd>
+						  <dd class="prodo-authorTags"><tags-input minTags="1" add-on-blur="true" ng-model="author.category" min-length="1" list="categoriesList"  placeholder="blog category" replace-space-with-dashes ="false" popover-placement="right" popover="Press 'Enter' key after entering category" popover-trigger="mouseenter"></tags-input><small ng-show="category_msg">*Please select category from the given list only!</small></dd>
 						</dl>
 
 						<dl>
@@ -48,10 +48,10 @@
 						  <dd style="color:#b3b3b3; font-size:12px;">Please let us know your blog/s, website/s, Twitter handle, Facebook profile and other activity online. <a class="pull-right" href="" ng-click="addMoreHandles()"><i class="prodo-fa fa fa-plus-square"></i>Add</a></dd>
 						  <dd style="margin: 2px auto;" ng-repeat="handle in handles">
 
-						  	<select style="width: 48%; display: inline;" type="text" name="handletype" class="form-control" ng-model="handle.type" ng-options="option.name for option in options">
+						  	<select style="width: 49.5%; display: inline;" type="text" name="handletype" class="form-control" ng-model="handle.type" ng-options="option.name for option in options">
         				</select>
 
-						  	<input style="width: 48%; display: inline;" class="form-control" ng-model="handle.url" type="text" name="handlename" placeholder="handle"> 				
+						  	<input style="width: 49.5%; display: inline;" class="form-control" ng-model="handle.url" type="text" name="handlename" placeholder="handle"> 				
         				
 						  </dd>
 						</dl>
@@ -65,11 +65,11 @@
 						<dl>
 						  <dt></dt>
 						  <dd>
-						  	<center><button style=" min-width: 32.5%; margin 0px auto; font-size: 12px; font-weight:bold; background-color:transparent; color:black;" class="btn btn-sm btn-default" ng-click="clearAuthorApp()"><i class="prodo-fa fa fa-times"></i>Cancel</button>
+						  	<center><button style=" min-width: 32.5%;  margin 0px auto; font-size: 12px; font-weight:bold; background-color:transparent; color:black;" class=" btn btn-sm btn-default" ng-click="clearAuthorApp()"><i class="prodo-fa fa fa-times"></i>Cancel</button>
 
-						  	<button style=" min-width: 32.5%; margin 0px auto; font-size: 12px; font-weight:bold;" class="prodo-button-theme btn btn-sm btn-primary" ng-click="goState()"><i class="prodo-fa fa fa-chevron-circle-left"></i>Back</button>
+						  	<button style=" min-width: 32.5%;  margin 0px auto; font-size: 12px; font-weight:bold;" class="prodo-button-theme  btn btn-sm btn-primary" ng-click="goState()"><i class="prodo-fa fa fa-chevron-circle-left"></i>Back</button>
 
-						  	<button style=" min-width: 32.5%; margin 0px auto; font-size: 12px; font-weight:bold; background-color:#24677C; border-color:#24677C;" class=" btn btn-sm btn-primary" ng-click="sendAuthorRequest(author.category)"><i class="prodo-fa fa fa-save"></i>Save&nbsp;&nbsp;<div prodo-spinner></div></button></center>
+						  	<button style=" min-width: 32.5%;  margin 0px auto; font-size: 12px; font-weight:bold; background-color:#24677C; border-color:#24677C;" class=" btn btn-sm btn-primary" ng-click="sendAuthorRequest(author.category)"><i class="prodo-fa fa fa-save"></i>Save&nbsp;&nbsp;<div prodo-spinner></div></button></center>
 
 						  </dd>
 						</dl>
