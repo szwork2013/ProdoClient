@@ -355,8 +355,6 @@ function (successData) {
       var a;
       var ennddate=new Date($scope.campaign.enddate);
       var today= new Date();
-      console.log(ennddate);
-      console.log(today);
       if( ennddate < today){
         a=true;
       }
