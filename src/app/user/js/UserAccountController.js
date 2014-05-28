@@ -823,6 +823,9 @@ angular.module('prodo.UserApp')
 
     $scope.editCategory = function(){
       $scope.enableEditCategory = true;
+      if (userdata.success && userdata.success.user !== undefined) {
+        $scope.blogauthor.categories = angular.copy(userdata.success.user.author_category);
+      };
     }
 
     $scope.cancelEditCategory = function(){

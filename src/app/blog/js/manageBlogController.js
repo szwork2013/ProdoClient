@@ -77,7 +77,14 @@ angular.module('prodo.BlogApp')
     });
 
     $scope.$watch('$state.$current.locals.globals.blogproductdata', function (blogproductdata) {
-      $scope.productnames = blogproductdata.success.productname;
+      if (blogproductdata.success && blogproductdata.success.productname !== undefined) {
+        if (blogproductdata.success.productname.length > 0) {
+          $scope.productnames = blogproductdata.success.productname;
+        } else {
+          $scope.productname_err = true;
+          $scope.message = "*As of now, there are no products for the category you have selected during author application. Its because the product does not exist or has been deleted. Please use 'User Account Settings' to change your blog category."
+        }
+      }
     });
 
   $scope.currentPage = 0;
@@ -110,6 +117,7 @@ angular.module('prodo.BlogApp')
 
   $scope.cancelEditBlog = function(){
     $scope.productname_err = false;
+    $scope.message = '';
     $scope.form.editBlogForm.$setPristine();
     $scope.form.editBlogForm.submitted = false;
     $scope.displaySelectedBlog = true;
@@ -354,14 +362,17 @@ angular.module('prodo.BlogApp')
         $scope.showSpinner();
         if ($scope.productnames.indexOf(productname) !== -1) {
           $scope.productname_err = false;
+          $scope.message = '';
           BlogService.addUserBlog($scope.jsonAddBlogData(), $scope.addBlogForProdle());
         } else {
           $scope.productname_err = true;
+          $scope.message = '*Please select product name from the given list only!';
           $scope.hideSpinner();
 
         }  
       } else {
         $scope.form.addBlogForm.submitted = true;
+        $scope.message = '*Please select product name from the given list only!';
         $scope.hideSpinner();
       }
     };
