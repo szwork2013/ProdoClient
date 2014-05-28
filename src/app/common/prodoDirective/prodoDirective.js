@@ -322,7 +322,7 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
             }).color(function (d)
             {  
               return d.data.color;
-            }).width(width).height(height);
+            }).width(width).height(height); 
           d3.select('#productPieChart').datum(scope.data).transition().duration(1200).attr('width', width).attr('height', height).call(chart);
           chart.dispatch.on('stateChange', function (e) {
             nv.log('New State:', JSON.stringify(e));

@@ -6,18 +6,20 @@ angular.module('prodo.BlogApp')
 
   $scope.viewblog = {};
   $scope.selected_image = {};
+  $scope.blog_images = [];
   $scope.$state = $state;
   var gridsize = 12;
   $scope.size = '';
   $scope.oddsize = '';
   $scope.upperpartition = '';
-  $scope.$state = $state;
+  $scope.myInterval = 5000;
   $scope.$watch('$state.$current.locals.globals.getProductBlogData', function (getProductBlogData) {
     
     if (getProductBlogData.success && getProductBlogData.success.doc !== undefined) {
       $scope.viewblog = angular.copy(getProductBlogData.success.doc); 
       $scope.handleBlogComment($scope.viewblog);
       if (getProductBlogData.success.doc.blog_images.length !== 0) {
+        $scope.blog_images = getProductBlogData.success.doc.blog_images;
         $scope.selected_image = getProductBlogData.success.doc.blog_images[0].image; 
       }      
       if (getProductBlogData.success.doc.blog_images.length >= 1) {
@@ -53,10 +55,10 @@ angular.module('prodo.BlogApp')
   
   $scope.isEmpty = function(){
     if($scope.checkObj($scope.viewblog)) {
-      console.log('object is empty');
+      // console.log('object is empty');
       return true;
     } else {
-      console.log('object is not empty');
+      // console.log('object is not empty');
       return false;
     }
   };
@@ -75,9 +77,16 @@ angular.module('prodo.BlogApp')
   // function to handle server side responses
     $scope.handleGetUniqueProductBlogResponse = function(data){
       if (data.success) {
-        angular.copy(data.success.doc, $scope.viewblog);
-        $scope.handleBlogComment($scope.viewblog);
-        $scope.selected_image = data.success.doc.blog_images[0].image;
+        if (data.success.doc !== undefined) {
+          angular.copy(data.success.doc, $scope.viewblog);
+          if (data.success.doc.blog_images.length !== 0) {
+            $scope.blog_images = [];
+            $scope.blog_images = data.success.doc.blog_images;
+            $scope.selected_image = data.success.doc.blog_images[0].image;
+          }
+        }
+         $scope.handleBlogComment($scope.viewblog);
+
         if (data.success.doc.blog_images.length >= 1) {
           var length = data.success.doc.blog_images.length;
           $scope.result = length % 2;

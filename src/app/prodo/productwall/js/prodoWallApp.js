@@ -1,5 +1,5 @@
 angular.module('prodo.ProdoWallApp')
-	.controller('ProdoWallController', ['$rootScope', '$scope', '$state', '$log', 'UserSessionService', 'orgdata', 'orgaddr', 'orgproduct', 'productData', '$stateParams', 'growl', 'checkIfSessionExist', 'dashboardSliderData', 'blogSliderData', function($rootScope, $scope, $state, $log, UserSessionService, orgdata, orgaddr, orgproduct, productData, $stateParams, growl, checkIfSessionExist, dashboardSliderData, blogSliderData) {
+	.controller('ProdoWallController', ['$rootScope', '$scope', '$state', '$log', 'UserSessionService', 'orgdata', 'orgaddr', 'orgproduct', '$stateParams', 'growl', 'checkIfSessionExist', 'dashboardSliderData', 'blogSliderData', function($rootScope, $scope, $state, $log, UserSessionService, orgdata, orgaddr, orgproduct, $stateParams, growl, checkIfSessionExist, dashboardSliderData, blogSliderData) {
 		
     $log.debug('initialising parent..');
     $scope.$state = $state;
