@@ -14,7 +14,7 @@ angular.module('prodo.OrgApp')
 
     $scope.$state=$state;
 
-    $scope.org = {industries:[]}; 
+    //$scope.org = {industries:[]}; 
 
 
 
@@ -559,7 +559,7 @@ angular.module('prodo.OrgApp')
     };
 
     $scope.goToSummary = function() { 
-      if ($scope.org.terms){$('#reg-terms').css('color','#2EB373');
+      if ($scope.org.terms){$('#reg-terms').css('color','#2EB373'); console.log("----"+JSON.stringify($scope.org));
         $state.transitionTo('prodo.orgregistration.finish'); 
       }
     };
