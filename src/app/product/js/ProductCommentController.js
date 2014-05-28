@@ -144,7 +144,7 @@ $scope.socket.on('addcommentResponse', function (error, result) {
     $scope.commentError=error.error.message;
     $log.debug(error.error.message);
      $rootScope.ProdoAppMessage(error.error.message, 'error');
-    $scope.showErrorIfCommentNotAdded(); //If error retry add comment 
+    $scope.showErrorIfCommentNotAdded(error.error.message); //If error retry add comment 
     $scope.showRetryIconIfCommentNotAdded();
     // if(retry) retry.textContent("Error posting comment.. Please try again");
   } else if (result) {

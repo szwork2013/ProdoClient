@@ -133,8 +133,8 @@
          </ul>
         </div>
         <div class="tab-content">
-          <div id="Remove" ng-show="tabForComment.tabComment == true" >
-            <div id="prodo-comment-enterComment" >
+          <div id="Remove" ng-show="tabForComment.tabComment == true"  >
+            <div id="prodo-comment-enterComment" ng-hide="campaign.status=='done'">
               <span class="label label-info   " ng-bind="300 - commenttextField.userComment.length" ></span> 
               <a href="" ng-click="getLatestComments()" >
                 <div class="label label-info prodo-display-discont"  id="responseComment" > {{commentError}} </div>

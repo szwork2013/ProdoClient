@@ -118,11 +118,11 @@ $scope.getLastCommentId = function () {
 $("#img-spinner").hide();
 
 //if error adding comment retry function
-$scope.showErrorIfCommentNotAdded = function () {
+$scope.showErrorIfCommentNotAdded = function (msg) {
   var retry = document.getElementById("responseCommentErr");
   retry.style.display = 'inline';
 
-  retry.innerHTML = 'Error adding comment please try again..';
+  retry.innerHTML = msg;
 };
 //if error adding comment retry function
 //if error adding comment  show retry icon

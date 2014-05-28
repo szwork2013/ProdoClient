@@ -77,7 +77,7 @@
 	       <td  > Campaign Tags: </td> 
 		   <td  >
 		   <ul style = "margin-left:0%;padding-left:0%">
-			  <li ng-repeat = "list in currentCampaign.campaign_tags"   class="prodo-categoryTags">
+			  <li ng-repeat = "list in currentCampaign.campaign_tags"   class="prodo-categoryTags campaignMarginLeft">
 				    <span ng-bind="list"></span>
 			   </li>
 		    </ul>
@@ -85,10 +85,14 @@
 		</tr>
 
 		<tr>
+		    <td> Number of Follow Campaign Impression:  </td> <td> <span ng-bind = "currentCampaign.impression_limit"></span></td>
+		</tr>
+
+		<tr>
 	       <td  > Targeted Audience: </td> 
 		   <td  >
 		   <ul style = "margin-left:0%;padding-left:0%">
-			  <li ng-repeat = "list in currentCampaign.category"   class="prodo-categoryTags">
+			  <li ng-repeat = "list in currentCampaign.category"   class="prodo-categoryTags campaignMarginLeft">
 				    <span ng-bind="list"></span>
 			   </li>
 		    </ul>
@@ -101,6 +105,10 @@
 
 		<tr >
 				<td  >End Date: </td> <td  ><span ng-bind="currentCampaign.enddate | date: 'fullDate'"></span></td>
+		</tr>
+
+		<tr>
+				<td> Result Date: </td> <td> <span ng-bind = "currentCampaign.resultdate | date: 'fullDate'"></span></td>
 		</tr>
 
 
@@ -240,11 +248,22 @@
 		    </td>
           </tr>
 
-          <tr         ng-if="currentCampaign.bannertext !== undefined">
+          <tr>
+              <td> *Number of Follow Campaign Impression:  </td>
+          </tr>
+
+          <tr>
+		          <td style="padding-bottom:5%;" >
+		       		   <input type = "text" class="form-control" ng-model = "currentCampaign.impression_limit">
+		       		   <div class="error-message-registration" ng-if="invalidUpdatedCampaignImpression !== '' " ng-bind="invalidUpdatedCampaignImpression"></div> 
+		          </td>
+          </tr>
+
+          <tr         ng-if="currentCampaign.bannertext !== undefined && currentCampaign.bannertext !== ''">
             <td>*Banner Text</td>
           </tr>
    
-          <tr         ng-if="currentCampaign.bannertext !== undefined">
+          <tr         ng-if="currentCampaign.bannertext !== undefined && currentCampaign.bannertext !== ''">
             <td style="padding-bottom:5%;">
             	<input type="text" ng-model="currentCampaign.bannertext" class="form-control">   
                    <div class="error-message-registration" ng-if="errorForEmptyBannerText !== '' " ng-bind="errorForEmptyBannerText">
@@ -278,7 +297,20 @@
 				   
 				   <input type="text" placeholder="Please select end date" ng-model="currentCampaign.enddate" class="form-control disableEditingMode" name="endDates" datepicker-popup="{{format}}"  is-open="opened4" min="currentCampaign.startdate"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" style="width:48%;float:right;" readonly="true">  
 
+				   <div class="error-message-registration" ng-if="invalidChangedEnddate !== '' " ng-bind="invalidChangedEnddate">
+
             </td>
+          </tr>
+
+          <tr>
+       				   <td> *Result Date </td>
+          </tr>
+
+          <tr>
+             <td style="padding-bottom:5%;">
+             		 <input type="text" placeholder="Plaese select result date" ng-model="currentCampaign.resultdate" class="form-control disableEditingMode" name="startDate"  datepicker-popup="{{format}}"  is-open="opened3" min="currentCampaign.enddate"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" style="width:100%;float:left;" readonly="true">
+             		 <div class="error-message-registration" ng-if="invalidResDate !== '' " ng-bind="invalidResDate">
+             </td>
           </tr>
 
           <tr>
@@ -358,6 +390,14 @@
 					<div class="error-message-registration" ng-if="errorForEmptyCampaigntags !== '' "ng-bind="errorForEmptyCampaigntags"></div>
            </div>	          
      </div>
+
+     <div class="manage-Campaign-tr">
+           <div class="manage-Campaign-td1" style="width:90%;">*Number of Follow Campaign Impression:  </div>
+           <div class="manage-Campaign-td2 manage-campaign-marginbottom"  popover-placement="right" popover="Limit number of users who can follow this campaign" popover-trigger="mouseenter">
+                 <input type="text" ng-model="campaign.impression_limit" class = "form-control">    
+				<div class="error-message-registration" ng-if="invalidCampaignImpression !== '' "ng-bind="invalidCampaignImpression"></div>
+           </div>	          
+     </div>
  
 	  <div class="manage-Campaign-tr" style="margin-bottom:20%;">
 		  <div class="manage-Campaign-td1" style="width:48%;float:left">*Start Date: </div> <div class="manage-Campaign-td1" style="width:48%;float:right">*End Date: </div>
@@ -368,10 +408,10 @@
 
 		     <input ng-click="restrictEndDates()" type="text" placeholder="Please select end date" ng-model="campaign.endDate" class="form-control disableEditingMode" name="endDates" datepicker-popup="{{format}}"  is-open="opened3" min="restrictEndDate"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" style="width:48%;float:right;" readonly="true"/>
 
-		
+		  <div class="error-message-registration" ng-if="errorForEndDate !== '' " ng-bind = 'errorForEndDate' style="width:100%;float:left"></div>
 	      <div class="error-message-registration" ng-if="errorForCampaignStart !=='' " ng-bind = "errorForCampaignStart" style="width:48%;float:left"></div>
 		  <div class="error-message-registration" ng-if="errorForInvalidEnddate !=='' " ng-bind = "errorForInvalidEnddate" style="width:48%;float:right"></div>
-
+         
 
 	     </div>
 	  </div>
@@ -386,7 +426,13 @@
            {{mytime}}
 	      </div>
 	  </div> -->
-
+     <div class="manage-Campaign-tr">
+           <div class="manage-Campaign-td1">*Result Date:  </div>
+           <div class="manage-Campaign-td2 manage-campaign-marginbottom" >
+                 <input type="text" ng-model="campaign.resultDate" class="form-control disableEditingMode" name="resultDate"  datepicker-popup="{{format}}"  is-open="opened33" min="campaign.endDate"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close"  readonly="true" placeholder = "Select result date"/>	 
+				 <div class="error-message-registration" ng-if="errorForInvalidResultDate !== '' "ng-bind="errorForInvalidResultDate"></div>
+           </div>	          
+     </div>
                      				
 	  <div class="manage-Campaign-tr">
            <div class="manage-Campaign-td1">*Targeted Audience:  </div>
