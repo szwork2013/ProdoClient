@@ -1824,7 +1824,7 @@ margin-right: 5px;
 #prodo-product-featuresDescription_textfield{ height:75px;border-radius:10px;font-size:12px; font-family: Helvetica ;  max-height: 75;max-width: 518;resize: none;}
 #prodo-product-productgeneralbtn{text-align: left; height: 37px; width: 560px; background-color: #f3f5f3; color: black; font-size: 16px;box-shadow: 5px 5px 3px #888888;}
 #prodo-product-productgeneralbtn:hover{ background-color: activeborder;}
-.thumb { width:160px; float: left;margin-left: 5px; border: solid 1px #ccc;}
+.thumb { width:160px;height: 120px; float: left;margin-left: 5px; border: solid 1px #ccc;}
 .imagesOrg { width:100px; float: left;margin-left: 5px;margin-bottom: 5px;margin-left: 5px;}
 .collapsed2 div{display:none;}
 .tab-content{ border-bottom: 0px solid white;margin-top: 1px;}
@@ -1849,7 +1849,7 @@ margin-right: 5px;
 .prodo-AdminFearuresAdd{float:right; padding-bottom:20px;}
 .prodo-productFeatureName{width:150px;}
 .prodo-productFeaturedescription{width:300px; }
-.prodo-productImgThumbnail{width: 150px; height: 150px;}
+.prodo-productImgThumbnail{width: 158px; height: 100px;}
 .prodo-OrgImgThumbnail{width: 100px; height: 100px;}
 .prodo-uploadBtnWidth{ width: 200px;}
 .clearBoth{clear:both;}
@@ -1883,11 +1883,14 @@ margin-right: 5px;
 .prodo-productCommentInfoDiv{font-size: 18px;text-align: left;width: 50px;padding-left: 5px;}
 .prodo-productCommentsInfoLable{font-size: 10px;text-align: left;}
 .prodo-delImgs{margin-bottom: 10px;}
-.prodo-checkbox{height: 17px;width: 17px;}
+.prodo-checkbox{height: 14px;width: 14px;vertical-align: super;}
 .prodo-product-Invalid{color:red;}
 .prodo-productwallCenterProduct{padding-right: 70px;}
 #prodo-font{font-size: 13px;}
 #img2{text-align: center;}
+.prodo-productFeatureWidth20{width: 20%;}
+.prodo-productFeatureWidth65{width: 65%;}
+.prodo-productFeatureWidth15{width: 15%;}
 .prodo-categoryTags{
 	display:inline-block;
 	background-color:rgba(161,219,255,1);
