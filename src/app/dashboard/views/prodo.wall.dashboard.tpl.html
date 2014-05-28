@@ -3,11 +3,15 @@
 					<svg id="chart" class="mybarchart" height="500" width="500"></svg>
 			    <prodo-barchart> </prodo-barchart>
 			  </div>
-			  <span class="divider"></span> --> 
+			  <span class="divider"></span> -->  
 
-		  <div ng-if = "showPieChart === 1" style="margin-left:10%">
+			  
 
-		  <div style="margin-left:26%"><b><h4>Overall Product Sentiment</h4></b></div>
+			  <div ng-if="showPieChart === 1" style="width:100%"><center><b><h4 ng-bind = 'chartName'></h4></b></center></div>
+           
+		    <div ng-if = "showPieChart === 1" style="margin-left:10%">
+
+	<!-- 	  <div style="margin-left:26%"><b><h4 ng-bind = "chartName"></h4></b></div> -->
 		     <div id="prodo-piechart-dashboard">
 				    <svg id="productPieChart" class="mypiechart"></svg>
 				    <prodo-piechart></prodo-piechart>
@@ -18,12 +22,13 @@
          <hr ng-if = "showPieChart === 1">
 
    			 <span class="divider"></span>
-	   	   
+	   	     <div ng-if="showBarChart === 1" style="width:100%"><center><b><h4 ng-bind = 'chartName'></h4></b></center></div>
 	   	     <div ng-if="showBarChart === 1" style="margin-left:10%" >   
-	              <div style="margin-left:26%"><b><h4>Detailed Comment Response</h4></b></div>
+	              <!-- <div style="margin-left:26%"><b><h4 ng-bind = 'chartName'></h4></b></div> -->
 	              <div id="prodo-barchart-dashboard"><svg id="chart" class="mybarchart" height="500" width="500"></svg> <prodo-barchart> </prodo-barchart> </div>
 	              <!--    <div style="margin-left:26%"><b>Chart 2. Detailed Comment Response</b></div> -->
 	        </div>
+
 
 
       	  <!-- Code for bar chart -->

@@ -259,7 +259,7 @@ function (successData) {
             username: $scope.usernameFromSession,
             orgname: $scope.orgnameFromSession,
             grpname: $scope.grpnameFromSession,
-            profilepic: $rootScope.usersession.currentUser.profile_pic.image
+             profilepic:($rootScope.usersession.currentUser.profile_pic==undefined) ? "../assets/images/avatar.jpg":$rootScope.usersession.currentUser.profile_pic.image 
           },
           commentid: uniquecommentid,
           type: $scope.type,
@@ -280,7 +280,7 @@ function (successData) {
             username: $scope.usernameFromSession,
             orgname: $scope.orgnameFromSession,
             grpname: $scope.grpnameFromSession,
-            profilepic: $rootScope.usersession.currentUser.profile_pic.image
+             profilepic:($rootScope.usersession.currentUser.profile_pic==undefined) ? "../assets/images/avatar.jpg":$rootScope.usersession.currentUser.profile_pic.image 
           },
           commentid: uniquecommentid,
           type: $scope.type,
@@ -302,7 +302,7 @@ function (successData) {
             username: $scope.usernameFromSession,
             orgname: $scope.orgnameFromSession,
             grpname: $scope.grpnameFromSession,
-            profilepic: $rootScope.usersession.currentUser.profile_pic.image
+             profilepic:($rootScope.usersession.currentUser.profile_pic==undefined) ? "../assets/images/avatar.jpg":$rootScope.usersession.currentUser.profile_pic.image 
           },
           commentid: uniquecommentid,
           type: $scope.type,
@@ -323,7 +323,7 @@ function (successData) {
             username: $scope.usernameFromSession,
             orgname: $scope.orgnameFromSession,
             grpname: $scope.grpnameFromSession,
-            profilepic: $rootScope.usersession.currentUser.profile_pic.image
+            profilepic:($rootScope.usersession.currentUser.profile_pic==undefined) ? "../assets/images/avatar.jpg":$rootScope.usersession.currentUser.profile_pic.image 
           },
           commentid: uniquecommentid,
           type: $scope.type,
@@ -355,8 +355,6 @@ function (successData) {
       var a;
       var ennddate=new Date($scope.campaign.enddate);
       var today= new Date();
-      console.log(ennddate);
-      console.log(today);
       if( ennddate < today){
         a=true;
       }
@@ -420,7 +418,7 @@ function (successData) {
             username: $scope.usernameFromSession,
             orgname: $scope.orgnameFromSession,
             grpname: $scope.grpnameFromSession,
-            profilepic: $rootScope.usersession.currentUser.profile_pic.image
+            profilepic:($rootScope.usersession.currentUser.profile_pic==undefined) ? "../assets/images/avatar.jpg":$rootScope.usersession.currentUser.profile_pic.image 
           },
           commentid: uniquecommentid,
           type: $scope.type,
@@ -441,7 +439,7 @@ function (successData) {
             username: $scope.usernameFromSession,
             orgname: $scope.orgnameFromSession,
             grpname: $scope.grpnameFromSession,
-            profilepic: $rootScope.usersession.currentUser.profile_pic.image
+            profilepic:($rootScope.usersession.currentUser.profile_pic==undefined) ? "../assets/images/avatar.jpg":$rootScope.usersession.currentUser.profile_pic.image 
           },
           commentid:uniquecommentid,
           type: $scope.type,
@@ -463,7 +461,7 @@ function (successData) {
             username: $scope.usernameFromSession,
             orgname: $scope.orgnameFromSession,
             grpname: $scope.grpnameFromSession,
-            profilepic: $rootScope.usersession.currentUser.profile_pic.image
+            profilepic:($rootScope.usersession.currentUser.profile_pic==undefined) ? "../assets/images/avatar.jpg":$rootScope.usersession.currentUser.profile_pic.image 
           },
           commentid: uniquecommentid,
           type: $scope.type,
@@ -484,7 +482,7 @@ function (successData) {
             username: $scope.usernameFromSession,
             orgname: $scope.orgnameFromSession,
             grpname: $scope.grpnameFromSession,
-            profilepic: $rootScope.usersession.currentUser.profile_pic.image
+            profilepic:($rootScope.usersession.currentUser.profile_pic==undefined) ? "../assets/images/avatar.jpg":$rootScope.usersession.currentUser.profile_pic.image 
           },
           commentid: uniquecommentid,
           type: $scope.type,
@@ -551,12 +549,23 @@ $scope.commentError="";
 $scope.socket.removeAllListeners('addCampaignCommentResponse');
 $scope.socket.on('addCampaignCommentResponse', function (error, result) {
   if (error) {
+   if(error.error.code=='CC001'){
     $scope.commentError=error.error.message;
     $log.debug(error.error.message);
-     $rootScope.ProdoAppMessage(error.error.message, 'error');
-    $scope.showErrorIfCommentNotAdded(); //If error retry add comment 
+    $rootScope.ProdoAppMessage(error.error.message+". Your comment can not be added", 'error');
+    $scope.showErrorIfCommentNotAdded(error.error.message+" Your comment can not be added"); //If error retry add comment 
+    // $scope.showRetryIconIfCommentNotAdded();
+   }
+   else{
+    $scope.commentError=error.error.message;
+    $log.debug(error.error.message);
+    $rootScope.ProdoAppMessage(error.error.message, 'error');
+    $scope.showErrorIfCommentNotAdded(error.error.message); //If error retry add comment 
     $scope.showRetryIconIfCommentNotAdded();
     // if(retry) retry.textContent("Error posting comment.. Please try again");
+   }
+
+
   } else if (result) {
     // $log.debug(result.success.message);
     $scope.ifErrorAddingComment = false;
@@ -585,7 +594,7 @@ $scope.socket.on($scope.campaigncommentResponseListener, function (error, result
           username: result.success.campaign_comment.user.username,
           orgname: result.success.campaign_comment.user.orgname,
           grpname: result.success.campaign_comment.user.grpname,
-          profilepic: result.success.campaign_comment.user.profilepic
+          profilepic:($rootScope.usersession.currentUser.profile_pic==undefined) ? "../assets/images/avatar.jpg":result.success.product_comment.user.profilepic
         },
         commentid: result.success.campaign_comment.commentid,
         type: result.success.campaign_comment.type,

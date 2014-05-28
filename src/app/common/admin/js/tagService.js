@@ -37,6 +37,10 @@ angular.module('prodo.AdminApp').factory('tagAddService', [
                  var authorAcceptanceForm = {getListofRequest : $resource('/api/author', {}, { getAllRequest : { method : 'GET'}})};
                  var acceptAuthorRequest = { accept : $resource('/api/author/acceptance/:authorid/:userid' , {} , {acceptRequest : {method : 'PUT', params : { authorid : '@authorid' , userid:'@userid'} }})};
                  var rejectAuthor = { reject : $resource('/api/author/rejection/:authorid/:userid' , {} , {rejectRequest : {method : 'PUT', params : { authorid : '@authorid' , userid : '@userid'} }})};
+                 var getAllCodesWithChart = { get : $resource('/api/dashboard/RBONDS_Mapping', {}, {getContentOfChart : { method : 'GET'}})};
+       
+                 var updateCodeContent = { change : $resource('/api/dashboard/RBONDS_Mapping/:code', {}, {changeCodeContent : { method : 'PUT', params : {code : '@code'}}})};
+       
                  var query = {};
                  query.addQueryContent = function(queryContent)
                  {
@@ -103,6 +107,33 @@ angular.module('prodo.AdminApp').factory('tagAddService', [
                     $rootScope.$broadcast('authorRequestNotRejected', error);
                   };
                   
+                 }
+
+                 query.getCodeChartContent = function()
+                 {
+                  getAllCodesWithChart.get.getContentOfChart(function(success){
+                    $rootScope.$broadcast('gotCodeContentSuccess', success);
+                  }),
+                  function(error)
+                  {
+                    $rootScope.$broadcast('notGotCodeContent', error);
+                  };
+                 }
+
+                 // query.updateRbondsContent = function()
+                 // {
+                 //  updateRBONDS.change.
+                 // }
+                 query.changeCodeContent = function(code, content)
+                 {
+                       updateCodeContent.change.changeCodeContent({code : code}, content , function(success)
+                       {
+                        $rootScope.$broadcast('changedCodeContent', success);
+                       }),
+                       function(error)
+                       {
+                        $rootScope.$broadcast('notChangedCodeContent' , error);
+                       }
                  }
                 return query;
         }
