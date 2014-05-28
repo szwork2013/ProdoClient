@@ -8,7 +8,14 @@ angular.module('prodo.AdminApp')
     .state('admin', {
       url: '/admin',
       abstract: true,
-      templateUrl: 'common/admin/views/prodo.admin.content.container.html'
+      templateUrl: 'common/admin/views/prodo.admin.content.container.html',
+      resolve : {
+                   chartContent: function(charts)
+                                {
+                                     var data =  charts.dashboardCharts.getList().$promise;
+                                     return data;
+                                }
+      }
     })  
     .state('admin.tags', {
       url: '/admin-tags',
@@ -18,21 +25,10 @@ angular.module('prodo.AdminApp')
            var n = domainTagList.Tags.getTag().$promise;
            return n;
         },
-        // checkIfSessionExist: function(UserService, $rootScope) {
-        //     return UserService.Is_user_loggedin.checkUserSession().$promise;
-        // }
+        checkIfSessionExist: function(UserService, $rootScope) {
+            return UserService.Is_user_loggedin.checkUserSession().$promise;
+        }
       },
-  
-      // onEnter : function(checkIfSessionExist, $rootScope,$state)
-      // { 
-      //   if (checkIfSessionExist.error) {
-      //     $state.go('prodo.landing.signin');
-      //   } else if (checkIfSessionExist.success && checkIfSessionExist.success.user.isAdmin === false)
-      //   {
-      //     $state.go($state.$current);
-      //   }
-      // },
-
       controller: "prodoAdminTagInputController"
      
     })  
@@ -52,23 +48,7 @@ angular.module('prodo.AdminApp')
     .state('admin.landingpageslider', {
      // url: '/admin-landingpageslider',
       templateUrl: 'common/admin/views/prodo.landingpageslider.tpl.html',
-      // resolve: {
-      //   checkIfSessionExist: function(UserService, $rootScope) {
-      //       return UserService.Is_user_loggedin.checkUserSession().$promise;
-      //   }
-      // }, 
-      // onEnter : function(checkIfSessionExist, $rootScope,$state)
-      // { 
-      //   if (checkIfSessionExist.error) {
-      //     $state.go('prodo.landing.signin');
-      //   } 
-        // else if (checkIfSessionExist.success && checkIfSessionExist.success.user.isAdmin === false)
-        // {
-          //$state.go('prodo.home');
-        // }
-      // },
-
-       controller: "LandingPageController"
+      controller: "LandingPageController"
 
     })  
     .state('admin.chart', {
@@ -79,51 +59,16 @@ angular.module('prodo.AdminApp')
     .state('admin.chartAssign',{
      // url:'/admin-assignchartsforusers',
       templateUrl: 'common/admin/views/prodo.charts.codeassign.tpl.html',
-      resolve:
-      {
-              chartContent: function(charts)
-                         {
-                           var data =  charts.dashboardCharts.getList().$promise;
-                           return data;
-                         }
-      },
       controller: "ProdoAdminController"
     })
    .state('admin.queryMapping',{
      // url:'/admin-queryMapping',
       templateUrl: 'common/admin/views/prodo.query.mapping.tpl.html',
-      resolve:
-      {
-              chartContent: function(charts)
-                         {
-                           var data =  charts.dashboardCharts.getList().$promise;
-                           return data;
-                         }
-      },
       controller: "ProdoAdminController"
     })
     .state('admin.authorAcceptance',{
       //url:'/admin-authorAcceptance',
-      templateUrl: 'common/admin/views/prodo.blog.author.acceptance.tpl.html',
-       resolve:
-      {
-             chartContent: function(charts)
-             {
-               var data =  charts.dashboardCharts.getList().$promise;
-               return data;
-             },
-             
-      },
-    
+      templateUrl: 'common/admin/views/prodo.blog.author.acceptance.tpl.html',   
       controller: "ProdoAdminController"
     })
-
-
-
-
-
-
-
-
-
   }]);

@@ -186,17 +186,33 @@
         </div>
       </div>
 
-      <div id="Remove" ng-show="tabCommentLike == 1"  class="prodo-font" >
-      <br/>
+      <div id="Remove" ng-show="tabCommentLike == 1"  class="prodo-CommentDeleteMsg" >
+      
+      <div class="{{'agreeError'+comment.commentid}}" style="display:block;  font-weight:bold;"> </div>
+       <div class="{{'agreesuccess'+comment.commentid}}" style="display:block;  font-weight:bold;"> </div>
        <i ng-click="tabCommentLike=0;" class="prodo-cursor prodoCommentDeleteUp glyphicon glyphicon-circle-arrow-up pull-right" ></i>
       
-        <span > Total agree's   <em class="prodo-commentStatusCount" ng-bind="comment.agreecount"></em> 
-        and      <em class="prodo-commentStatusCount" ng-bind="comment.disagreecount"></em> disagree's for this comment
-        </span>
 
+        <table >
+          <tr>
+            <td>
+             Agree's &nbsp; &nbsp;
+            </td>
+            <td>
+               <em class="prodo-commentStatusCount" ng-bind="comment.agreecount"></em> 
+            </td> 
+          </tr>
+            <tr>
+            <td>
+               Disagree's &nbsp; &nbsp;
+            </td>
+            <td>
+            <em class="prodo-commentStatusCount" ng-bind="comment.disagreecount"></em> 
+            </td> 
+          </tr>
+       </table>
         
-      
-       <br/>
+
       </div>
 
 

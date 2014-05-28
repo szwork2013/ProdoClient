@@ -2,33 +2,54 @@
 
 
 
-		<div>
-				<b>Code:</b>
-				<input type="text" ng-model="chart.code">
-		</div>
+  	 <div>
+  				<b>Code:</b>
+  				<input type="text" ng-model="chart.code">
+  	 </div>
 
-		<br>
+		 <br>
 
-<!-- 		<div>
-				<b>Chart List</b>
-				 <input type="text" ng-model="list" typeahead="queryname for queryname in showCharts() " typeahead-on-select="pushToList()"/>
-		</div> -->
-
-		<br>
+	   <br>
         
- <!--        <div>
+     <div ng-repeat = "list in chartName track by $index">
+         <input type="checkbox" value="{{list}}" name="{{list}}" id="{{$index}}">&nbsp;&nbsp;<span ng-bind="list"></span>
+     </div>
+	
 
-           Charts added:
-           <textarea ng-model="chart.chartname"></textarea>
+
+      <button ng-click="assignCodeToChart()">Submit</button> 
+      <h3> Current Codes with charts </h3>
+      <button style="float:right;" ng-click="edit()"> Edit </button>
+      
+
+
+      <table border="1" style="width:100%" >
+      <tr>
+          <td style="width:40%"><b>RBONDS Codes</b></td>
+          <td><b>Charts</b></td>
+      </tr>
+        <tr ng-repeat = "code in codeContent">
+            <td ng-bind="code.code" ></td>
+            <td >
+                 <ul ng-repeat = "chart in code.charts" style="list-style-type: disc;"> <li ng-bind="chart.chartname"></li></ul>
+            </td>      
+        </tr>
+      </table>
+
+       <br> <br> <br> <br>
+
+
+    <div ng-if="editCharts === 1">
+         
+        <input type = "text" ng-model= 'RBONDS.code' typeahead="code for code in RBONDSCodes">
+
+        <div ng-repeat = "list in chartName track by $index">
+             <input type="checkbox" value="{{list}}" name="{{list}}" id="{{'I'+$index}}">&nbsp;&nbsp;<span ng-bind="list"></span>
         </div>
- -->
 
-       <div ng-repeat = "list in chartName track by $index">
-           <input type="checkbox" value="{{list}}" name="{{list}}" id="{{$index}}">&nbsp;&nbsp;<span ng-bind="list"></span>
-       </div>
-		
+        <button ng-click="saveChartsContent()">Save</button>
+         
+    </div>
 
-
-        <button ng-click="assignCodeToChart()">Submit</button> 
 
 </div>

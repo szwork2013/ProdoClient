@@ -1,58 +1,121 @@
-<div class="prodo-wall-blog-container container">
-	<div style="border: 1px solid #E7EDF1; padding: 5px; margin: 10px auto;">
-		<div style="padding: 5px; margin: 5px auto;" class="row">
-			<div style="padding: 5px; margin: 5px auto;" class="col-md-12">
-				<div class="">
-					<div style="" class="row">
-						<div style="padding-left: 25px; padding-right: 5px;" class="col-md-2">
-							<strong>Category:</strong>
-						</div>
-						<div style="padding-left: 0px;" class="col-md-10">
-							{{blog.category}} Mithai
-						</div>
-					</div>
-					<div style="" class="row">
-						<div style="padding-left: 25px; padding-right: 5px;" class="col-md-2">
-							<strong>Title:</strong>
-						</div>
-						<div style="padding-left: 0px;" class="col-md-10">
-							{{blog.title}} Neha's First Mithai Blog
-						</div>
-					</div>
-					<div style="" class="row">
-						<div style="padding-left: 25px; padding-right: 5px;" class="col-md-2">
-							<img style="width:90%; height:40px;" ng-src="../../../assets/images/if_no_org_images_available.jpg">
-						</div>
-						<div style="padding-left: 0px;" class="col-md-4">
-							<div><em>Posted By:</em></div>
-							<div>{{blog.authorname}}Neha</div>
-						</div>
-						<div style="padding-left: 25px; padding-right: 5px;" class="col-md-3">
-							<em>Posted On:</em>
-						</div>
-						<div style="padding-left: 0px;" class="col-md-3">
-							{{blog.postdate}}14th May 2014
-						</div>
-					</div>
-				</div>
-				<div style="margin: 5px; padding: 5px;" class="">
-					<div style="" class="row">
-						<div style="border: 1px solid #E7EDF1; min-height: 100px;" class="col-md-12">
-							{{blog.image}}blog.image
-						</div>
-					</div>
-				</div>
-				<div style="margin: 5px; padding: 5px;" class="">
-					<div style="" class="row">
-						<div style="border: 1px solid #E7EDF1; min-height: 100px;" class="col-md-12">
-							<p>{{blog.content}}Way back in 2000, just before the dot-com bust, I wrote a weekly column for CIO magazine, and I spent months covering “the technology workforce crisis.” The big issue was the cap that the U.S. government had put on H‑1B visas and the strong need that companies had for developers and other technologists. Then along came the dot-com bust, and the news (and my column) was all about layoffs and identifying the real goats in the Internet debacle.
+<style type="text/css"media="screen">
 
-As the economy recovered from the bust, we all took a more balanced view of technology hiring. Companies needed good technology people, and they were able to recruit them pretty easily or augment their teams offshore.</p>
+
+        #bloglayerslider * {
+            font-family: Oswald;
+        }
+
+        /*#slider-blog {
+            padding-bottom: 100px;
+            margin-top: 20px;
+        }*/
+
+        .c {
+        text-align: justify;
+        font-weight: 300;
+        font-size: 45px;
+        color: #082953;
+        }
+
+</style>
+
+<div class="prodo-wall-blog-container container">
+	<div ng-show="!isEmpty()" style="padding: 5px; margin-bottom: 10px; border-radius: 3px;">
+		<div style="" class="row">
+			<div style="" class="col-md-12">
+				<center><h3><em>{{viewblog.title}}</em></h3></center>
+			</div>
+		</div>	
+		<div style="padding: 5px; margin: 1px auto;" class="row">
+			<div style="padding: 5px; margin: 5px auto;" class="col-md-7">
+				<div style="" class="row">
+					<div style="padding-left: 25px; padding-right: 5px;" class="col-md-4">
+						<img style="width:90%; height:60px;" ng-src="{{viewblog.profile_pic.image}}">
+					</div>
+					<div style="padding-left: 0px;" class="col-md-8">
+						<div><em><strong>Posted by:</strong></em>&nbsp;&nbsp;&nbsp;{{viewblog.authorname}}</div>
+						<div class="">
+							<ul style = "margin-left:0%;padding-left:0%; margin:5px;">
+			          <li ng-repeat = "list in viewblog.category"   class="prodo-categoryTags">
+			            <span ng-bind="list"></span>
+			          </li>
+			        </ul>
 						</div>
 					</div>
 				</div>
 			</div>
+			<div style="padding: 5px; margin: 5px auto;" class="col-md-5">
+				<div class="row">
+					<div class="col-md-12">
+						<div><em><strong>Posted on:</strong></em>&nbsp;&nbsp;&nbsp;{{viewblog.datepublished | date:'MMM d, y'}}</div>
+					</div>
+				</div>
+			</div>
+		</div>	
+		<div style="margin:10px auto;" class="row">
+			<div class="col-md-12">
+				<br>
+				
+	  		<div ng-show="viewblog.blog_images.length == 1" ng-repeat="images in viewblog.blog_images" style="border: 1px solid #E7EDF1;">
+					<img style="width:100%; height:180px;" ng-src="{{images.image}}">
+				</div>
+				<div ng-show="viewblog.blog_images.length > 1" style="border: 1px solid #E7EDF1;">
+					<div class="row">
+						<div class="col-md-6">
+							<a href="" ng-click="openModal()"><img style="width:100%; height:180px;" ng-src="{{selected_image}}"></a>
+						</div>
+						<div class="col-md-6">
+							<div ng-if="result == 0" class="row">
+								<div style="padding-left:0px; padding-right:0px;" ng-repeat="images in viewblog.blog_images" class="col-md-{{size}}">
+									<a href="" ng-click="showSelectedImage(images.image)"><img style="width:100%; height:90px; margin:1px auto;" ng-src="{{images.image}}"></a>
+								</div>
+							</div>
+							<div ng-if="result !== 0" class="row">
+								<div ng-if="$index < upperpartition" style="padding-left:0px; padding-right:0px;" ng-repeat="images in viewblog.blog_images" class="col-md-{{oddsize}}">
+									<a href="" ng-click="showSelectedImage(images.image)"><img style="width:100%; height:90px; margin:1px auto;" ng-src="{{images.image}}"></a>
+								</div>
+								<div ng-if="$index >= upperpartition" style="padding-left:0px; padding-right:0px;" ng-repeat="images in viewblog.blog_images" class="col-md-{{size}}">
+									<a href="" ng-click="showSelectedImage(images.image)"><img style="width:100%; height:90px; margin:1px auto;" ng-src="{{images.image}}"></a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Modal -->
+					<div class="modal fade" id="blogImageModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					  <div class="modal-dialog">
+					    <div class="madal-blogwall-content modal-content">
+					      <div style="min-height:200px;padding: 0px;" class="modal-body">
+					        <div id="slider-blog">
+										<div id="bloglayerslider" marketing-slider class="ls-wp-container" style="width:1280px;height:500px;max-width:1280px;">
+                			<div class="ls-slide" ng-repeat="slides in viewblog.blog_images" data-ls="transition2d:73;">
+                    		<img style="width:1280px;height:500px;max-width:1280px;" class="ls-l" ng-src="{{slides.image}}">
+                			</div>
+				            </div>
+        					</div>
+					      </div>
+					    </div>
+					  </div>
+					</div>					
+				</div>	
+			</div>  
 		</div>
-		
+		<div style="margin:10px auto;" class="row">
+			<div style="min-height: 150px;" class="col-md-12">
+				<br>
+				 		
+				<p style="text-align:justify;font-family: georgia;font-size: 18px;">{{viewblog.content}}</p>
+			</div>  
+		</div>		
 	</div>
+	<div ng-show="isEmpty()" class="row">
+		<div class="col-md-12">
+			<center>
+				<p style="font-size:20px; margin: 20px auto;" class="text-success"><strong><em>Currently no blogs available.</em></strong></p>
+			</center>
+		</div>
+	</div>
+
+	<!-- comments for Blog -->
+	<!-- <div><br><h4>Comments</h4></div>	
+	</div> -->
 </div>

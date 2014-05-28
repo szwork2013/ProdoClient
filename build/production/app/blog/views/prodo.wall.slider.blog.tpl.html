@@ -1,0 +1,48 @@
+<div style="min-height: 300px; margin-bottom: 20px; margin-top:5px;">
+
+	<div class="display-slider-blog container">
+
+	<!-- when there are no blogs for product -->
+		<div ng-show="productblogs.length === 0" class="row container">
+			<div class="col-md-2"></div>
+			<div class="col-md-8">
+				<center>
+					<p style="font-size:20px; margin: 100px auto;" class="text-success"><strong><em>Currently no blogs available.</em></strong></p>
+				</center>
+			</div>
+			<div class="col-md-2"></div>
+		</div>
+	<!-- when there are no blogs for product end -->
+
+	<!-- when there are blogs for product -->
+		<div ng-show="productblogs.length !== 0" class="row container">
+			<div style="margin-bottom:10px; padding:5px; color: #4073CE;" class="row">
+				<div class="col-md-12">
+					<center><h2><em><strong>{{productblogs[0].productname}} Blog's</strong></em></h2></center>
+				</div>
+			</div>
+			<paging data="productblogs" current-page="dataCurrentPage" page-size="dataPageSize">
+				<div ng-repeat="blog in productblogs" class="col-md-3">
+					<div ng-click="viewProductBlog(blog.prodle, blog.blogid)" class="blog-dispalybox-div" style=" cursor: pointer;height: 220px;padding-right: 2px; padding-left: 2px; padding-bottom:5px; border: 1px solid #DBDADA; margin:5px; border-radius: 5px;" class="">
+	          <h5 style="padding: 5px;" class="truncated-product-name"><strong><em>{{blog.title}}</em></strong></h5>
+	          <hr style="width: 97%;" class="prodo-wall-org-hr" size=3 noshade>
+	          <div style="font-size:13px; padding: 5px; text-align:justify;height: 110px">
+	          	<p>{{blog.content.substring(0,150)}}</p>
+	          	<p ng-if="blog.content.length >= 150" class="text-right">...more</p>
+	          </div>
+	          <div class="row">
+	          	<div style="padding-right: 2px;" class="col-xs-5">
+	          		<p style="margin: 3px auto;padding: 5px; font-size:14px; color:#4B4B50;"><strong><em>Posted By:</em></strong></p>
+	          	</div>
+	          	<div style="padding-left: 2px;" class="col-xs-7">
+	          		<p style="margin: 3px auto;padding: 5px; font-size:13px; color:#6a6a79;"><em>{{blog.postedby}}</em></p>
+	          	</div>
+	          </div>
+	        </div>
+		     
+				</div>
+			</paging>	
+		</div>
+	<!-- when there are blogs for product end -->
+	
+</div>

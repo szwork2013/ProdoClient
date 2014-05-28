@@ -20,38 +20,38 @@
 						<br>
 					</div>
 
-					<form name="form.authorForm" class="css-form" ng-submit="">
+					<form name="form.authorForm" class="css-form" ng-submit=""  novalidate>
 				
 						<dl>
 						  <dt>Firstname</dt>
-						  <dd><input name="fname" class="form-control" type="text" placeholder="firstname" required ng-model="author.fname" /></dd>
+						  <dd><input name="fname" class="form-control" type="text" placeholder="firstname" required autofocus ng-model="author.fname" /><small ng-show="((form.authorForm.fname.$dirty && form.authorForm.fname.$invalid) || (form.authorForm.fname.$invalid && form.authorForm.submitted))">*Please enter firstname!</small></dd>
 						</dl>
 
 						<dl>
 						  <dt>Lastname</dt>
-						  <dd><input name="lname" class=" form-control" type="text" placeholder="lastname" required ng-model="author.lname" /></dd>
+						  <dd><input name="lname" class=" form-control" type="text" placeholder="lastname" required ng-model="author.lname" /><small ng-show="((form.authorForm.lname.$dirty && form.authorForm.lname.$invalid) || (form.authorForm.lname.$invalid && form.authorForm.submitted))">*Please enter lastname!</small></dd>
 						</dl>
 						
 						<dl>
 						  <dt>Country</dt>
-						  <dd><input name="country" class="form-control" type="text" placeholder="country" required ng-model="author.country" typeahead="country for country in countries | filter:$viewValue | limitTo:6" /></dd>
+						  <dd><input name="country" class="form-control" type="text" placeholder="country" required ng-model="author.country" typeahead="country for country in countries | filter:$viewValue | limitTo:6" /><small ng-show="((form.authorForm.country.$dirty && form.authorForm.country.$invalid) || (form.authorForm.country.$invalid && form.authorForm.submitted))">*Please enter country!</small></dd>
 						</dl>
 
 						<dl>
 						  <dt>Category</dt>
 						  <dd style="color:#b3b3b3; font-size:12px;">Please enter the blog category for which you are interested in writing blogs. </dd>
-						  <dd class="prodo-authorTags"><tags-input minTags="1" add-on-blur="true" ng-model="author.category" min-length="1" list="categoriesList"  placeholder="blog category" popover-placement="right" popover="Press 'Enter' key after entering category" popover-trigger="mouseenter"></tags-input></dd>
+						  <dd class="prodo-authorTags"><tags-input minTags="1" add-on-blur="true" ng-model="author.category" min-length="1" list="categoriesList"  placeholder="blog category" replace-space-with-dashes ="false" popover-placement="right" popover="Press 'Enter' key after entering category" popover-trigger="mouseenter"></tags-input><small ng-show="category_msg">*Please select category from the given list!</small></dd>
 						</dl>
 
 						<dl>
 						  <dt>My Portfolio</dt>
-						  <dd style="color:#b3b3b3; font-size:12px;">Please let us know your blog/s, website/s, Twitter handle, Facebook profile and other activity online. <a class="pull-right" href="" ng-click="addMoreHandles()"><i class="prodo-fa fa fa-plus-square"></i>More</a></dd>
+						  <dd style="color:#b3b3b3; font-size:12px;">Please let us know your blog/s, website/s, Twitter handle, Facebook profile and other activity online. <a class="pull-right" href="" ng-click="addMoreHandles()"><i class="prodo-fa fa fa-plus-square"></i>Add</a></dd>
 						  <dd style="margin: 2px auto;" ng-repeat="handle in handles">
 
-						  	<select style="width: 48%; display: inline;" type="text" name="handletype" class="form-control" ng-model="handle.type" ng-options="option.name for option in options" required>
+						  	<select style="width: 48%; display: inline;" type="text" name="handletype" class="form-control" ng-model="handle.type" ng-options="option.name for option in options">
         				</select>
 
-						  	<input style="width: 48%; display: inline;" class="form-control" ng-model="handle.url" type="text" name="handlename" placeholder="handle" required> 				
+						  	<input style="width: 48%; display: inline;" class="form-control" ng-model="handle.url" type="text" name="handlename" placeholder="handle"> 				
         				
 						  </dd>
 						</dl>
@@ -59,7 +59,7 @@
 						<dl>
 						  <dt>Tell us about you</dt>
 						  <dd style="color:#b3b3b3; font-size:12px;">What are you doing right now? What experiences do you have in the activities you're interested in blogging towards industries and products?</dd>
-						  <dd><textarea rows="5" name="aboutu" class=" form-control" type="text" placeholder="tell us about u" required ng-model="author.aboutu"></textarea></dd>
+						  <dd><textarea rows="5" name="aboutu" class=" form-control" type="text" placeholder="tell us about u" required ng-model="author.aboutu"></textarea><small ng-show="((form.authorForm.aboutu.$dirty && form.authorForm.aboutu.$invalid) || (form.authorForm.aboutu.$invalid && form.authorForm.submitted))">*Please enter content!</small></dd>
 						</dl>
 
 						<dl>
@@ -69,7 +69,7 @@
 
 						  	<button style=" min-width: 32.5%; margin 0px auto; font-size: 12px; font-weight:bold;" class="prodo-button-theme btn btn-sm btn-primary" ng-click="goState()"><i class="prodo-fa fa fa-chevron-circle-left"></i>Back</button>
 
-						  	<button style=" min-width: 32.5%; margin 0px auto; font-size: 12px; font-weight:bold; background-color:#24677C; border-color:#24677C;" class=" btn btn-sm btn-primary" ng-click="sendAuthorRequest()"><i class="prodo-fa fa fa-save"></i>Save</button></center>
+						  	<button style=" min-width: 32.5%; margin 0px auto; font-size: 12px; font-weight:bold; background-color:#24677C; border-color:#24677C;" class=" btn btn-sm btn-primary" ng-click="sendAuthorRequest(author.category)"><i class="prodo-fa fa fa-save"></i>Save&nbsp;&nbsp;<div prodo-spinner></div></button></center>
 
 						  </dd>
 						</dl>

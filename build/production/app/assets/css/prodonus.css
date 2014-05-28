@@ -2,6 +2,14 @@
 *	html body
 **/
 
+
+.madal-blogwall-content{
+	 background: white 
+                url('http://i.stack.imgur.com/FhHRx.gif') 
+                50% 50% 
+                no-repeat;
+}
+
 /*change the body style*/
 html,body{
 	height:100%;
@@ -1693,6 +1701,7 @@ width: 90%;overflow-x: hidden;overflow-y: auto;left: 55px;position: relative;top
 #padding0del{padding: 0px;}
 #padding0img{padding: 0px; padding-right: 5px;}
 #commentTab>li.active2 a{ border-bottom :solid 3px #1A8A04;border-radius: 0px;}
+#ratingTab>li.active3 a{ border-bottom :solid 2px #1A8A04;border-radius: 0px;}
 .Pcomment:hover{ color : gray;}
 .PSearch:hover{ color : gray;}
 .commentSearchTextbox{
@@ -1713,8 +1722,8 @@ background-color: transparent;
 }
 #load-more{
 /*bottom: -3rem;*/
-background-color: rgb(236, 236, 236);
-color: black;
+background-color: rgb(243, 243, 243);
+color: rgb(102, 98, 122);
 line-height: 20px;
 text-align: center;
 /*padding: 10px 0;*/
@@ -1728,13 +1737,17 @@ margin-bottom: 10px;
 
 #panel {
 
-	height: 200px;
+
 	display: none;
 	font-family: Helvetica ;
+
+}
+.panelFont{
+	font-size: 12px;
 }
 #panelRating {
 
-	height: 200px;
+
 	display: none;
 	font-family: Helvetica ;
 }
@@ -1811,7 +1824,7 @@ margin-right: 5px;
 #prodo-product-featuresDescription_textfield{ height:75px;border-radius:10px;font-size:12px; font-family: Helvetica ;  max-height: 75;max-width: 518;resize: none;}
 #prodo-product-productgeneralbtn{text-align: left; height: 37px; width: 560px; background-color: #f3f5f3; color: black; font-size: 16px;box-shadow: 5px 5px 3px #888888;}
 #prodo-product-productgeneralbtn:hover{ background-color: activeborder;}
-.thumb { width:160px; float: left;margin-left: 5px; border: solid 1px #ccc;}
+.thumb { width:160px;height: 120px; float: left;margin-left: 5px; border: solid 1px #ccc;}
 .imagesOrg { width:100px; float: left;margin-left: 5px;margin-bottom: 5px;margin-left: 5px;}
 .collapsed2 div{display:none;}
 .tab-content{ border-bottom: 0px solid white;margin-top: 1px;}
@@ -1836,7 +1849,7 @@ margin-right: 5px;
 .prodo-AdminFearuresAdd{float:right; padding-bottom:20px;}
 .prodo-productFeatureName{width:150px;}
 .prodo-productFeaturedescription{width:300px; }
-.prodo-productImgThumbnail{width: 150px; height: 150px;}
+.prodo-productImgThumbnail{width: 158px; height: 100px;}
 .prodo-OrgImgThumbnail{width: 100px; height: 100px;}
 .prodo-uploadBtnWidth{ width: 200px;}
 .clearBoth{clear:both;}
@@ -1870,11 +1883,14 @@ margin-right: 5px;
 .prodo-productCommentInfoDiv{font-size: 18px;text-align: left;width: 50px;padding-left: 5px;}
 .prodo-productCommentsInfoLable{font-size: 10px;text-align: left;}
 .prodo-delImgs{margin-bottom: 10px;}
-.prodo-checkbox{height: 17px;width: 17px;}
+.prodo-checkbox{height: 14px;width: 14px;vertical-align: super;}
 .prodo-product-Invalid{color:red;}
 .prodo-productwallCenterProduct{padding-right: 70px;}
 #prodo-font{font-size: 13px;}
 #img2{text-align: center;}
+.prodo-productFeatureWidth20{width: 20%;}
+.prodo-productFeatureWidth65{width: 65%;}
+.prodo-productFeatureWidth15{width: 15%;}
 .prodo-categoryTags{
 	display:inline-block;
 	background-color:rgba(161,219,255,1);
@@ -2509,6 +2525,12 @@ text-align: right;
   border: 1px solid #E7EDF1;
 }
 
+.blog-dispalybox-div{
+	-webkit-box-shadow: 4px 3px 5px 0px rgba(7, 7, 7, 0.45);
+-moz-box-shadow:    4px 3px 5px 0px rgba(7, 7, 7, 0.45);
+box-shadow:         4px 3px 5px 0px rgba(7, 7, 7, 0.45);
+}
+
 .prodo-blogListCorousel{ height:130px;}
 
 .blogcontrols-upload
@@ -2977,6 +2999,11 @@ max-height: 100px;
       0px 0px 4px #fff;
 }
 
+.campaignMarginLeft
+{
+	margin-left: 0%;
+}
+
 @-webkit-keyframes blur{
   from{
       text-shadow:0px 0px 10px #fff,
@@ -3108,3 +3135,35 @@ slider {
 
 /*rating*/
 
+/*Testomonials*/
+.prodo-testomonials{
+    width: 87%;
+    margin-bottom: 10px;
+	-webkit-border-radius: 3px;
+	-webkit-box-orient: vertical;
+	-webkit-transition: 200ms -webkit-transform;
+	background: white;
+	box-shadow: 0 1px 2px 1px rgba(248, 245, 245, 0.2), 0 2px 6px rgba(0,0,0,0.15);
+	color: #333;
+	display: -webkit-box;
+	padding: 10px;
+	position: relative;
+	z-index: 0;
+	margin-bottom: 10px;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+
+
+}
+
+.prodo-testimonialsTitle{
+font-size: 18px;
+color: saddlebrown;
+}
+.prodoTestiMonialsUserDetails{
+	border-top: solid 1px gainsboro;
+    padding-top: 4px;
+}
+.prodo-TestimonialText{
+	padding-bottom: 5px;
+}
