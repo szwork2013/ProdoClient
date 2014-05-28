@@ -1889,8 +1889,8 @@ margin-right: 5px;
 #prodo-font{font-size: 13px;}
 #img2{text-align: center;}
 .prodo-productFeatureWidth20{width: 20%;}
-.prodo-productFeatureWidth65{width: 65%;}
-.prodo-productFeatureWidth15{width: 15%;}
+.prodo-productFeatureWidth65{width: 60%;}
+.prodo-productFeatureWidth15{width: 20%;}
 .prodo-categoryTags{
 	display:inline-block;
 	background-color:rgba(161,219,255,1);

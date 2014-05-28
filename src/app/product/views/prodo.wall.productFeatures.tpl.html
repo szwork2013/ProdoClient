@@ -304,17 +304,17 @@
             <td>
               <dt>Description </dt>
             </td>
-            <td ng-if="isAdminCheck == true" ng-hide="features.length<2">
+            <td ng-if="isAdminCheck == true" >
               <dt>Option</dt>
             </td>
           </tr>
           <tr  class="prodo-productTableFont" ng-repeat="feature in features track by $index">
             <td ng-hide="edit" class="prodo-productFeatureWidth20"> <span class="prodo-featurename" ng-bind="feature.featurename"> </span></td>
-            <td  ng-show="edit" ><input ng-model="feature.featurename"  class="form-control prodo-productFeatureName prodo-validation prodo-featurename"  type="text"   ng-maxlength="50"  required name="name" /> </td>
+            <td  ng-show="edit" class="prodo-productFeatureWidth20"><input ng-model="feature.featurename"  class="form-control prodo-productFeatureName prodo-validation prodo-featurename"  type="text"   ng-maxlength="50"  required name="name" /> </td>
             <td ng-hide="edit" class="prodo-productFeatureWidth65"> <span class="prodo-featureDescription" ng-bind="feature.featuredescription"> </span></td>
-            <td  ng-show="edit" ><input ng-model="feature.featuredescription" class="form-control prodo-productFeaturedescription prodo-validation prodo-featureDescription"  ng-maxlength="500" type="text"   required name="description" /> </td>
-            <td ng-hide="edit || features.length<2" class="prodo-EditIcons prodo-productFeatureWidth15" > 
-              <a  ng-hide="$first" href="" ng-click="edit = ! edit; editStatus='update';  "> <i class="fa fa-pencil " /> </a>
+            <td  ng-show="edit" class="prodo-productFeatureWidth65"><input ng-model="feature.featuredescription" class="form-control prodo-productFeaturedescription prodo-validation prodo-featureDescription"  ng-maxlength="500" type="text"   required name="description" /> </td>
+            <td ng-hide="edit " class="prodo-EditIcons prodo-productFeatureWidth15" > 
+              <a   href="" ng-click="edit = ! edit; editStatus='update';  "> <i class="fa fa-pencil " /> </a>
               &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
               <a  ng-hide="$first" href="" ng-click="getSelectedFeature(feature)" data-toggle="modal" data-target="#ProductFeatureDelModal">  <i class="glyphicon glyphicon-trash " /></a>
               <!-- Modal -->
@@ -340,7 +340,7 @@
               </div>
               <!-- /.modal -->
             </td>
-            <td ng-show="edit">
+            <td ng-show="edit" class="prodo-productFeatureWidth15">
                <a id="Editfeature1" ng-click="updateProductFeature(feature,feature.featureid);edit = ! edit;" class="btn btn-default   fa fa-floppy-o prodo-margin5" ng-disabled="productFeatureUpdate.$invalid" ></a>
             
               <a id="Editfeature1" class="btn btn-default  glyphicon glyphicon-remove prodo-margin5" ng-click="edit = ! edit; getProductFeatures(product.prodle,product.orgid); "></a>
