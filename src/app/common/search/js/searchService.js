@@ -12,10 +12,10 @@ angular.module('prodo.ProdoWallApp')
       searchService.Product.searchProductByKey(productData, function (success) {
         $log.debug(success); 
         $rootScope.$broadcast('getSearchProductDone', success);
-      }), function (error) { 
+      }, function (error) { 
         $log.debug(error);         
         $rootScope.$broadcast('getSearchProductNotDone', error);
-      };
+      });
     };
     return search;
   }
@@ -33,10 +33,10 @@ angular.module('prodo.ProdoWallApp')
       searchService.Product.searchProductByKey(searchData,function (success) {
         $log.debug(success);
         $rootScope.$broadcast('gotAllProducts', success);
-      }), function (error) {
+      }, function (error) {
         $log.debug(error);
         $rootScope.$broadcast('notGotAllProducts', error);
-      };
+      });
     };
     return search;
   }
@@ -54,20 +54,20 @@ angular.module('prodo.ProdoWallApp')
       trendingProducts.Product.searchTrendingProducts(function (success) {
         $log.debug(success);
         $rootScope.$broadcast('gotTrendingProducts', success);
-      }), function (error) {
+      }, function (error) {
         $log.debug(error);
         $rootScope.$broadcast('notGotTrendingProducts', error);
-      };
+      });
     };
 
     products.getTrendingProductsIndustrySpecific = function () {
       trendingProductsIndustry.Product.getIndustryTrending(function (success) {
         $log.debug(success);
         $rootScope.$broadcast('gotIndustrySpecificTrendingProducts', success);
-      }), function (error) {
+      }, function (error) {
         $log.debug(error);
         $rootScope.$broadcast('notGotIndustrySpecificTrendingProducts', error);
-      };
+      });
     };
     return products;
   }
