@@ -55,13 +55,21 @@ angular.module('prodo.OrgApp')
         {
           getAllOrgs: { method: 'GET', isArray: true },
           getOrgSettings: { method: 'GET', params: { orgid : '@orgid' }},
-          saveOrg: { method: 'POST'},
+          saveOrg: { method: 'POST'},          
           updateOrgSettings: { method: 'PUT', params: { orgid: '@orgid' }, isArray: false},
           // deleteOrgSettings: { method: 'DELETE', params: { orgid: '@orgid' }}
+        }),
+        GetOrgFirstProduct: $resource('/api/product/:orgid?limit=:data', {}, 
+        { 
+          getFirstProduct: { method: 'GET', params: { orgid: '@orgid', data: '@data' } }
         }),
         OrgDeleteRequest: $resource('/api/orgdeleterequest/:orgid',{},
         {
           sendDeleteRequest: {method: 'POST', params: { orgid:'@orgid'}}
+        }),
+        OrgPublishRequest: $resource('/api/publishorganization/:orgid',{},
+        {
+          PublishOrgnization: {method: 'POST', params: { orgid:'@orgid'}}
         }),
         ManageOrgLocation: $resource('/api/orgaddress/:orgid/:orgaddressid', {},
         {
@@ -118,17 +126,18 @@ angular.module('prodo.OrgApp')
 
     var organization = {};
 
-    // organization.getAllGroups = function() {
-    //   OrgService.GetOrgGroupMembers.getGroupDetails({orgid: $rootScope.usersession.currentUser.org.orgid},     // calling function of UserSigninService to make POST method call to signin user.
-    //     function(success){
-    //       $log.debug(success);
-    //       $rootScope.$broadcast("getOrgGroupDone", success);
-    //     },
-    //     function(error){
-    //       $log.debug(error);
-    //       $rootScope.$broadcast("getOrgGroupNotDone", error.status);
-    //     });
-    // }
+    organization.get_Product= function (productnumber) {
+      OrgService.GetOrgFirstProduct.getFirstProduct({orgid: $rootScope.usersession.currentUser.org.orgid, data: productnumber},     // calling function of UserSigninService to make POST method call to signin user.
+      function(success){
+        $log.debug(success);
+        $rootScope.$broadcast("getFirstProductDone", success);
+      },
+      function(error){
+        $log.debug(error);
+        $rootScope.$broadcast("getFirstProductNotDone", error.status);
+      });
+    }
+
 
     organization.deleteMember = function(usergrpid, memberid) {
       OrgService.RemoveOrgGroupMember.deleteGrpMember({orgid: $rootScope.usersession.currentUser.org.orgid, grpid: usergrpid, userid: memberid},     // calling function of UserSigninService to make POST method call to signin user.
@@ -141,6 +150,19 @@ angular.module('prodo.OrgApp')
           $rootScope.$broadcast("deleteOrgGroupMemberNotDone", error.status);
         });
     }
+
+    organization.Publish_Organization= function () {
+      OrgService.OrgPublishRequest.PublishOrgnization({orgid: $rootScope.usersession.currentUser.org.orgid},     // calling function of UserSigninService to make POST method call to signin user.
+      function(success){
+        $log.debug(success);
+        $rootScope.$broadcast("publishOrgDone", success);
+      },
+      function(error){
+        $log.debug(error);
+        $rootScope.$broadcast("publishOrgNotDone", error.status);
+      });
+    }
+
 
     // organization.getAllProducts = function(orgidD) {
     //   OrgService.GetOrgProducts.getAllOrgProducts({orgid: orgidD},     // calling function of UserSigninService to make POST method call to signin user.

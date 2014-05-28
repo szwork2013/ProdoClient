@@ -21,6 +21,7 @@ angular.module('prodo.UserApp')
         Signup: $resource('/api/user/signup', {}, { saveUser: { method: 'POST' } }),
         Signin: $resource('/api/user/signin', {}, { signinUser: { method: 'POST' } }),
         Author: $resource('/api/author', {}, { sendAuthorApplication: { method: 'POST' } }),
+        UpdateAuthor: $resource('/api/author/:authorid', {}, { updateAuthorBlogCategory: { method: 'PUT', params: { authorid: '@authorid' } } }),
         ManageUser: $resource('/api/user/:userid', {}, {
           getAllUsers: {
             method: 'GET',
@@ -140,6 +141,16 @@ angular.module('prodo.UserApp')
       }, function (error) {
         $log.debug(error);
         $rootScope.$broadcast('activateAuthorRequestNotDone', error.status);
+      });
+    };
+
+    session.sendAuthorUpdateCategory = function (categoryData) {
+      UserService.UpdateAuthor.updateAuthorBlogCategory({authorid: $rootScope.usersession.currentUser.author.authorid}, categoryData, function (success) {
+        $log.debug(success);
+        $rootScope.$broadcast('updateAuthorCategoryDone', success);
+      }, function (error) {
+        $log.debug(error);
+        $rootScope.$broadcast('updateAuthorCategoryNotDone', error.status);
       });
     };
 

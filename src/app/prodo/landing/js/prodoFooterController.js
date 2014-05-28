@@ -345,16 +345,23 @@ angular.module('prodo.ProdonusApp')
     $scope.sendAuthorRequest = function(category) {
       if ($scope.form.authorForm.$valid) {
         $scope.showSpinner();
-        var isValidCategory = category.every(function (val) {
-          return $scope.categoriesList.indexOf(val) >= 0;
-        });
-        if (isValidCategory === true) {
-          $scope.category_msg = false;
-          UserSessionService.sendAuthorAppRequest($scope.jsonAuthorAppData());
-        } else {
+        if (category.length !== 0) {
+          var isValidCategory = category.every(function (val) {
+            return $scope.categoriesList.indexOf(val) >= 0;
+          });
+          if (isValidCategory === true) {
+            $scope.category_msg = false;
+            UserSessionService.sendAuthorAppRequest($scope.jsonAuthorAppData());
+          } else {
+            $scope.hideSpinner();
+            $scope.category_msg = true;
+          }
+        } else if (category.length === 0) {
+          $scope.hideSpinner();
           $scope.category_msg = true;
         }        
       } else {
+        $scope.hideSpinner();
         $scope.category_msg = true;
         $scope.form.authorForm.submitted = true;
       }

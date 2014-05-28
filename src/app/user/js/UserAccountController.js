@@ -1,10 +1,14 @@
 angular.module('prodo.UserApp')
- .controller('UserAccountController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$log', 'growl', 'UserSessionService', 'OrgRegistrationService', 'userdata', 'checkIfSessionExist', '$stateParams', function($scope, $rootScope, $state, $http, $timeout, $log, growl, UserSessionService, OrgRegistrationService, userdata, checkIfSessionExist, $stateParams) {
+ .controller('UserAccountController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$log', 'growl', 'UserSessionService', 'OrgRegistrationService', 'userdata', 'authorcategorydata', 'checkIfSessionExist', '$stateParams', function($scope, $rootScope, $state, $http, $timeout, $log, growl, UserSessionService, OrgRegistrationService, userdata, authorcategorydata, checkIfSessionExist, $stateParams) {
 
     $scope.user ={};
     $scope.form = {};
     $scope.products_followed = [];
+    $scope.author_categories = [];
+    $scope.blogauthor= {};
+    $scope.categoriesList = [];
     $scope.submitted = false;
+    $scope.enableEditCategory = false;
     $scope.$state = $state;
     
     $scope.editEmail = false;
@@ -366,12 +370,22 @@ angular.module('prodo.UserApp')
       };
     });
 
+    if (authorcategorydata.success) {
+      $scope.categoriesList = angular.copy(authorcategorydata.success.categorytags);
+    } else {
+      $scope.categoriesList = ['software', 'IT', 'automobiles'];
+    }
+
+
     if (checkIfSessionExist.success && userdata.success) { 
       $scope.$watch('$state.$current.locals.globals.userdata', function (userdata) {
       
         if (userdata.success) {
+          console.log(userdata.success.user);
           $scope.user = userdata.success.user;
           $rootScope.usersession.currentUser = userdata.success.user;
+          $scope.author_categories = angular.copy(userdata.success.user.author_category);
+          $scope.blogauthor.categories = angular.copy(userdata.success.user.author_category);
           if (userdata.success.user.firstname != null) {
             $scope.hasPersonalDetail = true;
           }
@@ -804,6 +818,77 @@ angular.module('prodo.UserApp')
     // Delete user account ends........................................
 
 
+    // update author category start........................................
+
+
+    $scope.editCategory = function(){
+      $scope.enableEditCategory = true;
+    }
+
+    $scope.cancelEditCategory = function(){
+      $scope.enableEditCategory = false; 
+      $scope.category_msg = false;
+    }
+
+    $scope.jsonAuthorCategoryData = function()
+    {
+      var authordata = 
+        {
+          author:
+          {
+            'category' : $scope.blogauthor.categories
+          }            
+        }
+      return JSON.stringify(authordata); 
+    }
+
+    // function to handle server side responses
+    $scope.handleUpdateAuthorCategoryResponse = function(data){
+      if (data.success) {
+        $rootScope.ProdoAppMessage(data.success.message, 'success');
+        $scope.enableEditCategory = false; 
+        $scope.category_msg = false;
+        $state.reload();
+      } else {
+        if (data.error.code== 'AL001') {     // enter valid data
+            $log.debug(data.error.code + " " + data.error.message);
+            $rootScope.showModal();
+        } else {
+            $log.debug(data.error.message);
+            $rootScope.ProdoAppMessage(data.error.message, 'error');
+        }
+      }
+      // $scope.hideSpinner();
+    };
+
+    $scope.updateAuthorCategory = function(category) {
+      if (category.length !== 0) {
+        var isValidCategory = category.every(function (val) {
+          return $scope.categoriesList.indexOf(val) >= 0;
+        });
+        if (isValidCategory === true) {
+          $scope.category_msg = false;
+          // $scope.showSpinner();
+          UserSessionService.sendAuthorUpdateCategory($scope.jsonAuthorCategoryData());
+        } else {
+          $scope.category_msg = true;
+        }
+      } else if (category.length === 0) {
+        $scope.category_msg = true;
+      }        
+    }
+
+    var cleanupEventUpdateAuthorCategoryDone = $scope.$on("updateAuthorCategoryDone", function(event, message){
+      $scope.handleUpdateAuthorCategoryResponse(message);
+    });
+    var cleanupEventUpdateAuthorCategoryNotDone = $scope.$on("updateAuthorCategoryNotDone", function(event, message){
+      $rootScope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message, 'error');
+    });
+
+    // update author category ends........................................
+
+
+
     $scope.$on('$destroy', function(event, message) {
 
       cleanupEventUpdateUserEmailDone(); 
@@ -820,6 +905,8 @@ angular.module('prodo.UserApp')
       cleanupEventUnfollowProductDone(); 
       cleanupEventUnfollowProductNotDone();  
       cleanupEventUserUploadResponseSuccess();
+      cleanupEventUpdateAuthorCategoryDone();
+      cleanupEventUpdateAuthorCategoryNotDone();
     });
 }]);
  

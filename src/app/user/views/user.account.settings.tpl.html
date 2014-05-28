@@ -260,6 +260,29 @@
         </div>
     </accordion-group>
 
+    <accordion-group ng-show='user.author.isAuthor'>
+      <accordion-heading>
+           <p class="prodo-accordion-heading">AUTHOR BLOG CATEGORIES<i class="fa fa-pencil pull-right"></i></p>
+        </accordion-heading>
+        <div ng-show="!enableEditCategory" style="margin: 20px auto;" class="">
+          <ul style = "margin-left:0%;padding-left:0%">
+            <li ng-repeat = "list in author_categories"   class="prodo-categoryTags">
+              <span ng-bind="list"></span>
+            </li>
+          </ul>
+          <a class=" prodo-account-btn btn btn-primary btn-sm pull-right" href="#" ng-click="editCategory()"><i class="prodo-fa fa fa-pencil-square-o"></i>Edit</a>
+        </div>
+        <div ng-show="enableEditCategory" style="margin: 20px auto;" class="">
+          <dl>
+            <dt></dt>
+            <dd style="color:#b3b3b3; font-size:12px;">Please select category from the list. </dd>
+            <dd class="prodo-authorTags"><tags-input minTags="1" add-on-blur="true" ng-model="blogauthor.categories" min-length="1" list="categoriesList"  placeholder="blog category" replace-space-with-dashes ="false" popover-placement="right" popover="Press 'Enter' key after entering category" popover-trigger="mouseenter"></tags-input><small ng-show="category_msg">*Please select category from the given list only!</small></dd>
+          </dl>
+          <a style="background-color:transparent;" class=" prodo-account-btn btn btn-default btn-sm pull-right" href="#" ng-click="cancelEditCategory()"><i class="prodo-fa fa fa-times"></i>Cancel</a>
+          <a class=" prodo-account-btn btn btn-primary btn-sm pull-right" href="#" ng-click="updateAuthorCategory(blogauthor.categories)"><i class="prodo-fa fa fa-save"></i>Save&nbsp;&nbsp;<div prodo-spinner></div></a>
+        </div>
+    </accordion-group>
+
 
     <accordion-group ng-hide='user.org.orgid'>
     	<accordion-heading>

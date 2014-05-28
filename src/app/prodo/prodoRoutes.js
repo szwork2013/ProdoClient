@@ -171,11 +171,14 @@ angular.module('prodo.ProdonusApp')
       templateUrl:  'user/views/user.account.settings.tpl.html',
       controller: 'UserAccountController',
       resolve: {
-          UserService: 'UserService',
-          userdata: function(UserService, $rootScope) {
-            return UserService.user_data.getUserSettings({userid: $rootScope.usersession.currentUser.userid}).$promise;
-          }
+        UserService: 'UserService',
+        userdata: function(UserService, $rootScope) {
+          return UserService.user_data.getUserSettings({userid: $rootScope.usersession.currentUser.userid}).$promise;
+        },
+        authorcategorydata: function(UserService, $rootScope) {
+          return UserService.author.getAuthorCategoryData().$promise;
         }
+      }
     })
 
     /* ----User Content Routes---- */
@@ -376,7 +379,10 @@ angular.module('prodo.ProdonusApp')
     /* ----Prodo ProductWall Routes---- */
     .state('prodo.productwall', {
       resolve: {
-        orgdata: function(OrgService, $rootScope) {
+        checkIfSessionExist: function(UserService, $rootScope) {
+            return UserService.Is_user_loggedin.checkUserSession().$promise;
+        }, 
+        orgdata: function(OrgService, checkIfSessionExist, $rootScope) {
           return OrgService.org_data.getOrgSettings({orgid: $rootScope.orgid}).$promise;
         },
         orgaddr: function(OrgService, $rootScope) {
@@ -385,28 +391,15 @@ angular.module('prodo.ProdonusApp')
         orgproduct: function(OrgService, $rootScope) {
           return OrgService.GetOrgProducts.getAllOrgProducts({orgid: $rootScope.orgid}).$promise;
         },
-        productData: function(ProductService, orgproduct, $rootScope) {
-          if (orgproduct.success) {
-            var prodle = orgproduct.success.product[0].prodle;
-            return ProductService.getProduct({orgid: $rootScope.orgid, prodle: prodle}).$promise;
-          } else {
-            var product = 'no product available';
-            return orgproduct;
-          }
-          
-        },
         broadcastData: function(OrgService, $rootScope) {
-            return OrgService.GetOrg_Broadcast_Messages.getOrgBroadcastMessage({orgid: $rootScope.orgid}).$promise;
+          return OrgService.GetOrg_Broadcast_Messages.getOrgBroadcastMessage({orgid: $rootScope.orgid}).$promise;
         },
         dashboardSliderData: function(prodoDashboardService, $rootScope) {    
           return prodoDashboardService.get_ProductCharts.getProductCharts().$promise;
         },
         blogSliderData: function(BlogGetService, $rootScope) {    
           return BlogGetService.Get_Wall_Blogs.getAllProductBlogs({prodle: $rootScope.product_prodle}).$promise;
-        },
-        checkIfSessionExist: function(UserService, $rootScope) {
-            return UserService.Is_user_loggedin.checkUserSession().$promise;
-        } 
+        }
       },
       controller: 'ProdoWallController',
       onEnter: function(UserSessionService, checkIfSessionExist, $state, $rootScope){
