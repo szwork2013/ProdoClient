@@ -357,10 +357,12 @@ angular.module('prodo.BlogApp')
           BlogService.addUserBlog($scope.jsonAddBlogData(), $scope.addBlogForProdle());
         } else {
           $scope.productname_err = true;
+          $scope.hideSpinner();
 
         }  
       } else {
         $scope.form.addBlogForm.submitted = true;
+        $scope.hideSpinner();
       }
     };
 

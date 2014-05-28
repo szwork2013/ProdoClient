@@ -7,6 +7,8 @@ $scope.form = {};
 
 $scope.productlist = [];
 
+console.log(currentorgdata);
+
 $scope.islocation = false;
 
 $scope.user = { password: '' };
@@ -1494,6 +1496,45 @@ $scope.joinbrCstfororginvites = function()
     $scope.custinvitesbody.customerinvites_body = $scope.custinvitesbody.customerinvites_body + '\n';
 };
 
+//.............................publish organization.........................
+
+// function to handle server side responses
+$scope.handlePublishOrgResponse = function(data){
+  if (data.success) {
+    console.log(data);
+    $rootScope.orgid = currentorgdata.success.organization.orgid;
+    $rootScope.ProdoAppMessage(data.success.message, 'success');
+    $state.reload();
+  } else {
+    if (data.error.code== 'AL001') {     // enter valid data
+        $log.debug(data.error.code + " " + data.error.message);
+        $rootScope.showModal();
+    } else {
+        $log.debug(data.error.message);
+        $rootScope.ProdoAppMessage(data.error.message, 'error');
+    }
+  }
+}; 
+
+
+$scope.publishOrg = function(){
+  if (currentorgproduct.success && currentorgproduct.success.product) {
+    if (currentorgproduct.success.product.length !== 0) {
+      OrgRegistrationService.Publish_Organization();
+    }
+  } else {
+    growl.addWarnMessage('Warning!!  As of now you have no products available. To publish your organization, please use manage product console and add atleast one product.'); 
+  }  
+}
+
+var cleanupEventPublishOrgDone = $scope.$on("publishOrgDone", function(event, data, authorid, blogid){
+  $scope.handlePublishOrgResponse(data);  
+});
+
+var cleanupEventPublishOrgNotDone = $scope.$on("publishOrgNotDone", function(event, data){
+  $rootScope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + data, 'error');    
+});
+
 $scope.$on('$destroy', function(event, message) {
       cleanupEventUpdateOrgDone();      
       cleanupEventUpdateOrgNotDone();       
@@ -1518,6 +1559,8 @@ $scope.$on('$destroy', function(event, message) {
       cleanupEventOrgUploadResponseSuccess();
       cleanupeventKeyClientDelete();
       cleanupeventKeyClientDeleteFails();
+      cleanupEventPublishOrgDone();
+      cleanupEventPublishOrgNotDone();
     });
 
 }]);
