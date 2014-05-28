@@ -559,7 +559,7 @@ angular.module('prodo.OrgApp')
     };
 
     $scope.goToSummary = function() { 
-      if ($scope.org.terms){$('#reg-terms').css('color','#2EB373'); console.log("----"+JSON.stringify($scope.org));
+      if ($scope.org.terms){$('#reg-terms').css('color','#2EB373');
         $state.transitionTo('prodo.orgregistration.finish'); 
       }
     };
@@ -648,7 +648,7 @@ angular.module('prodo.OrgApp')
                 var n = data.products_followed.length - 1;
                 console.log(n);
                 $rootScope.orgid= data.products_followed[n].orgid;
-                $rootScope.product_prodle= data.products_followed[n].prodle;console.log("in org registration controller");
+                $rootScope.product_prodle= data.products_followed[n].prodle;
                 for (var i=0;i<data.products_followed.length;i++){
                   if(data.products_followed[i] && data.products_followed[i].prodle){
                     var prodle = data.products_followed[i].prodle;

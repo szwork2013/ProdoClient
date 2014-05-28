@@ -542,18 +542,18 @@ angular.module('prodo.ProdonusApp')
         },
         'prodo-content' : {
           templateUrl:  'dashboard/views/prodo.wall.dashboard.tpl.html',
-          resolve : {
-            prodoDashboardService: 'prodoDashboardService',
-            pieChartProdle : function(prodoDashboardService, $rootScope) 
-            {
-              return  prodoDashboardService.Product.prodlePieChart({prodle : $rootScope.product_prodle}).$promise;
-            },
-            trendingChartContent : function(prodoDashboardService , $rootScope)
-            // barChartProdle : function(prodoDashboardService, $rootScope) 
-            {
-              return  prodoDashboardService.Trending.getTrendingChart({prodle : $rootScope.product_prodle}).$promise;
-            }
-          },
+          // resolve : {
+          //   prodoDashboardService: 'prodoDashboardService',
+          //   pieChartProdle : function(prodoDashboardService, $rootScope) 
+          //   {
+          //     return  prodoDashboardService.Product.prodlePieChart({prodle : $rootScope.product_prodle}).$promise;
+          //   },
+          //   trendingChartContent : function(prodoDashboardService , $rootScope)
+          //   // barChartProdle : function(prodoDashboardService, $rootScope) 
+          //   {
+          //     return  prodoDashboardService.Trending.getTrendingChart({prodle : $rootScope.product_prodle}).$promise;
+          //   }
+          // },
           controller: 'ProdoDashboardController',
         },
         'prodo-advertisment' : {

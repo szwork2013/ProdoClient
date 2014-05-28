@@ -2,8 +2,8 @@ angular.module('prodo.ProdoWallApp').controller('ProdoDashboardController', [
   '$scope',
   '$rootScope',
   '$state',
-  'prodoDashboardService','pieChartProdle','trendingChartContent','dashboardSliderData','allChartsData','dashboardSliderData',
-  function ($scope, $rootScope, $state, prodoDashboardService,pieChartProdle, trendingChartContent,dashboardSliderData, allChartsData, dashboardSliderData) {
+  'prodoDashboardService','allChartsData',
+  function ($scope, $rootScope, $state, prodoDashboardService, allChartsData) {
    // prodoDashboardService.getChartData();
 
     //console.log(JSON.stringify(dashboardSliderData.success.doc));
@@ -91,10 +91,12 @@ angular.module('prodo.ProdoWallApp').controller('ProdoDashboardController', [
     // }
     $scope.chartType = ''; $scope.chartName = '';
 
-    $scope.$on('showUniqueChart', function (event, name, query, type) {
+    $scope.$on('showUniqueChart', function (event, name, query, type) {   
           allChartsData.getContent(query); 
           $scope.chartType = type; 
           $scope.chartName = name; 
+          $scope.showBarChart = 0;
+          $scope.showPieChart = 0;
 
           if($scope.chartType === 'Dual Stack')
           {
@@ -110,21 +112,39 @@ angular.module('prodo.ProdoWallApp').controller('ProdoDashboardController', [
           $rootScope.showModal();
         }
         if(data.success)
-        {
-            $scope.showPieChart = 0;
-            
-            $scope.showBarChart = 0;
+        { 
+          
             // $scope.showSampleDataFordualstack = 0;
            // $scope.showSampleDataFordualstack = 0;
 
             if($scope.chartType.toLowerCase() === 'pie chart')
             {
-              $scope.data = pieChartProdle.success.piechart_analytics;
-              $scope.showPieChart = 1;
+              $scope.pieChartObject = [];
+              $scope.data = [];
+              $scope.pieChartObject = data.success.doc;
+              for(var i = 0 ;i<data.success.doc.length ; i++)
+              {
+                if($scope.pieChartObject[i].emotionname.toLowerCase() === 'positive' )
+                {
+                  $scope.pieChartObject[i].color = "#009933";
+                }
+               else if($scope.pieChartObject[i].emotionname.toLowerCase() === 'negative')
+               {
+                   $scope.pieChartObject[i].color = "#CC3300";
+               }
+               else if( $scope.pieChartObject[i].emotionname.toLowerCase() === 'neutral')
+               {
+                    $scope.pieChartObject[i].color = "#3399CC";
+               }
+              }
+
+   
+                $scope.data = $scope.pieChartObject;
+                $scope.showPieChart = 1;
             }
             else if($scope.chartType.toLowerCase() === 'bar chart')
             {
-              $scope.dataForBarChart = pieChartProdle.success.barchart_analytics; 
+              $scope.dataForBarChart = data.success.doc; 
               $scope.barChart = function() {
               return [{
                 key: 'Product Ratings',
