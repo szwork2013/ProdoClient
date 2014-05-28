@@ -297,6 +297,8 @@
 				   
 				   <input type="text" placeholder="Please select end date" ng-model="currentCampaign.enddate" class="form-control disableEditingMode" name="endDates" datepicker-popup="{{format}}"  is-open="opened4" min="currentCampaign.startdate"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" style="width:48%;float:right;" readonly="true">  
 
+				   <div class="error-message-registration" ng-if="invalidChangedEnddate !== '' " ng-bind="invalidChangedEnddate">
+
             </td>
           </tr>
 
@@ -307,6 +309,7 @@
           <tr>
              <td style="padding-bottom:5%;">
              		 <input type="text" placeholder="Plaese select result date" ng-model="currentCampaign.resultdate" class="form-control disableEditingMode" name="startDate"  datepicker-popup="{{format}}"  is-open="opened3" min="currentCampaign.enddate"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" style="width:100%;float:left;" readonly="true">
+             		 <div class="error-message-registration" ng-if="invalidResDate !== '' " ng-bind="invalidResDate">
              </td>
           </tr>
 
@@ -405,10 +408,10 @@
 
 		     <input ng-click="restrictEndDates()" type="text" placeholder="Please select end date" ng-model="campaign.endDate" class="form-control disableEditingMode" name="endDates" datepicker-popup="{{format}}"  is-open="opened3" min="restrictEndDate"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" style="width:48%;float:right;" readonly="true"/>
 
-		
+		  <div class="error-message-registration" ng-if="errorForEndDate !== '' " ng-bind = 'errorForEndDate' style="width:100%;float:left"></div>
 	      <div class="error-message-registration" ng-if="errorForCampaignStart !=='' " ng-bind = "errorForCampaignStart" style="width:48%;float:left"></div>
 		  <div class="error-message-registration" ng-if="errorForInvalidEnddate !=='' " ng-bind = "errorForInvalidEnddate" style="width:48%;float:right"></div>
-
+         
 
 	     </div>
 	  </div>
