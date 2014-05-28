@@ -716,9 +716,9 @@ $scope.getMyProductFeatureRating=function(prodle){
    }
 
   }
-  // console.log(myProductFeatureRating);
-  // console.log(overallProductFeatureRating);
-  // console.log($scope.combineRating);
+  $log.debug(myProductFeatureRating);
+  $log.debug(overallProductFeatureRating);
+  $log.debug($scope.combineRating);
 };
 
 $scope.getLatestDataAfterRating=function(l_prodle,l_orgid){
