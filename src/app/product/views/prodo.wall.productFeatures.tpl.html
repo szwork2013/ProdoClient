@@ -55,7 +55,7 @@
     <div ng-show="productlist.length>0"  ng-repeat="product1 in productlist  | startFrom:currentPage*pageSize | limitTo:pageSize" >
     <div class="prodo-productThumbnailView"   ng-class="{activeProduct : product1.prodle==product.prodle}" >
       <a ng-click="getSelectedProduct(product1);" class="prodo-cursor"  href="" >
-        <p class="prodo-AddProductBtn prodo-productNameList" >{{product1.name.substring(0,13)}}</p>
+        <p class="prodo-AddProductBtn prodo-productNameList" >{{product1.name.substring(0,28)}}<span ng-show="product1.name.length>28">...</span></p>
         <img  ng-src="{{product1.product_logo.image}}" alt-SRC src="../assets/images/if_no_org_images_available.jpg"  class="prodo-productThumbnailImg img-rounded">
       </a>
     </div>

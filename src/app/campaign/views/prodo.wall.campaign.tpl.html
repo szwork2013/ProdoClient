@@ -56,7 +56,7 @@
     <div ng-show="allCampaignData.length>0"  ng-repeat="campaign1 in allCampaignData  | startFrom:currentPage*pageSize | limitTo:pageSize"  >
     <div class="prodo-productThumbnailView"   ng-class="{activeProduct : campaign1.campaign_id==campaign.campaign_id}" >
       <a ng-click="getSelectedCampaign(campaign1.campaign_id);" class="prodo-cursor"  href="" >
-        <p class="prodo-AddProductBtn prodo-productNameList" >{{campaign1.name.substring(0,13)}}</p>
+        <p class="prodo-AddProductBtn prodo-productNameList" >{{campaign1.name.substring(0,28)}}<span ng-show="campaign1.name.length > 28">...</span></p>
         <img  ng-src="{{campaign1.banner_image.image}}" alt-SRC src="../assets/images/if_no_org_images_available.jpg"  class="prodo-productThumbnailImg img-rounded">
       </a>
     </div>
