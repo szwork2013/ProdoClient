@@ -1523,7 +1523,7 @@ $scope.publishOrg = function(){
       OrgRegistrationService.Publish_Organization();
     }
   } else {
-    growl.addWarnMessage('Warning!!  As of now you have no products available. To publish your organization, please use manage product console and add atleast one product.'); 
+    growl.addWarnMessage("No products added to the organization. To publish your organization go to 'Manage Product Console' and add a product."); 
   }  
 }
 

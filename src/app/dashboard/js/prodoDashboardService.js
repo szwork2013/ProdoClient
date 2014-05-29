@@ -40,11 +40,11 @@ angular.module('prodo.ProdoWallApp')
     {
     	getChartContent.chart.getContent({prodle: $rootScope.product_prodle , queryid : queryid}, function(success){
     		$rootScope.$broadcast('gotChartDataSuccessfully', success);
-    	}),
+    	},
     	function(error)
     	{
     		$rootScope.$broadcast('notGotChartData', error);
-    	}
+    	})
     };
 
     return query;

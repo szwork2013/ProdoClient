@@ -52,7 +52,7 @@
           <dl class="dl-horizontal">
             <dt>Product Name:</dt>
             <dd style="width:60%;">
-              <input name="name" type="text" ng-model="productname.name" class="form-control" placeholder="productname" typeahead="productname as productname.name for productname in productnames | filter:$viewValue" popover-placement="right" popover="Please select product name from the list given below." popover-trigger="mouseenter"  autofocus required><small ng-show="((form.addBlogForm.name.$dirty && form.addBlogForm.name.$invalid) || (form.addBlogForm.name.$invalid && form.addBlogForm.submitted))">*Please enter product name!</small>&nbsp;&nbsp;<small ng-show="productname_err">*Please select product name from the given list only!</small>
+              <input name="name" type="text" ng-model="productname.name" class="form-control" placeholder="productname" typeahead="productname as productname.name for productname in productnames | filter:$viewValue" popover-placement="right" popover="Please select product name from the list given below." popover-trigger="mouseenter"  autofocus required><small ng-show="((form.addBlogForm.name.$dirty && form.addBlogForm.name.$invalid) || (form.addBlogForm.name.$invalid && form.addBlogForm.submitted))">*Please enter product name!</small><small ng-show="productname_err">{{ message}}</small>
             </dd>
           </dl>
         	<dl class="dl-horizontal">
@@ -64,7 +64,7 @@
       		<dl class="dl-horizontal">
       		  <dt>Category:</dt>
       		  <dd class="prodo-regTagsWidth">
-      		  	<tags-input minTags="1" add-on-blur="true" ng-model="blog.category"  min-length="1"  placeholder="blog category" list="blogcategoryList" replace-space-with-dashes ="false" popover-placement="right" popover="Press 'Enter' key after entering category" popover-trigger="mouseenter"></tags-input>  
+      		  	<tags-input minTags="1" add-on-blur="true" ng-model="blog.category"  min-length="1"  placeholder="blog category" list="blogcategoryList" replace-spaces-with-dashes ="false" popover-placement="right" popover="Press 'Enter' key after entering category" popover-trigger="mouseenter"></tags-input>  
       		  </dd>
       		</dl>
       		<dl class="dl-horizontal">
@@ -76,9 +76,9 @@
       		<dl class="dl-horizontal">
       		  <dt></dt>
       		  <dd style="width:60%;">
-      		  	<button style="width:49%; background-color:transparent; color:black;" class="prodo-account-btn btn btn-sm btn-default" ng-click="cancelAddBlog()"><i class="prodo-fa fa fa-times"></i>Cancel</button>
+      		  	<button style="width:49%; background-color:transparent; color:black;" class=" btn btn-sm btn-default" ng-click="cancelAddBlog()"><i class="prodo-fa fa fa-times"></i>Cancel</button>
       		  	
-      		  	<button style="width:49%;" class="prodo-button-theme prodo-account-btn btn btn-sm btn-primary" ng-click="postBlog(productname.name)"><i class="prodo-fa fa fa-location-arrow"></i>Post&nbsp;&nbsp;<div prodo-spinner></div></button>
+      		  	<button style="width:49%;" class="prodo-button-theme  btn btn-sm btn-primary" ng-click="postBlog(productname.name)"><i class="prodo-fa fa fa-location-arrow"></i>Post&nbsp;&nbsp;<div prodo-spinner></div></button>
 
       		  </dd>
       		</dl>
@@ -145,13 +145,13 @@
         <dl class="dl-horizontal">
           <dt></dt>
           <dd style="width:60%;">
-            <button style="width:32.5%;" class="prodo-account-btn btn btn-sm btn-danger" ng-click="deleteSelectedBlogModal()"><i class="prodo-fa fa fa-trash-o"></i>Delete</button>
+            <button style="width:32.5%;" class=" btn btn-sm btn-danger" ng-click="deleteSelectedBlogModal()"><i class="prodo-fa fa fa-trash-o"></i>Delete</button>
               
-            <button style="width:32.5%;" class="prodo-button-theme prodo-account-btn btn btn-sm btn-primary" ng-click="editCurrentBlog()"><i class="prodo-fa fa fa-pencil-square-o"></i>Edit</button>
+            <button style="width:32.5%;" class="prodo-button-theme  btn btn-sm btn-primary" ng-click="editCurrentBlog()"><i class="prodo-fa fa fa-pencil-square-o"></i>Edit</button>
 
-            <button ng-show="displayblog.status == 'init' " style="width:32.5%; background-color:#24677C; border-color:#24677C;" class=" prodo-account-btn btn btn-sm btn-primary" ng-click="publishBlog(displayblog.authorid, displayblog.blogid)"><i class="prodo-fa fa fa-cloud-upload"></i>Publish&nbsp;&nbsp;<div prodo-spinner></div></button>
+            <button ng-show="displayblog.status == 'init' " style="width:32.5%; background-color:#24677C; border-color:#24677C;" class="  btn btn-sm btn-primary" ng-click="publishBlog(displayblog.authorid, displayblog.blogid)"><i class="prodo-fa fa fa-cloud-upload"></i>Publish&nbsp;&nbsp;<div prodo-spinner></div></button>
 
-            <button ng-hide="displayblog.status == 'init' " style="width:32.5%; background-color:#24677C; border-color:#24677C;" class=" prodo-account-btn btn btn-sm btn-primary"><i class="prodo-fa fa fa-cloud-upload"></i>Published</button>
+            <button ng-hide="displayblog.status == 'init' " style="width:32.5%; background-color:#24677C; border-color:#24677C;" class="  btn btn-sm btn-primary"><i class="prodo-fa fa fa-cloud-upload"></i>Published</button>
           </dd>
         </dl>
         <div    ng-app="prodo.UploadApp" ng-controller="UploadController"  >
@@ -232,7 +232,7 @@
           <dl class="dl-horizontal">
             <dt>Category:</dt>
             <dd class="prodo-regTagsWidth">
-              <tags-input minTags="1" add-on-blur="true" ng-model="editblog.category"  min-length="1"  placeholder="blog category" list="blogcategoryList" replace-space-with-dashes ="false" popover-placement="right" popover="Press 'Enter' key after entering category" popover-trigger="mouseenter"></tags-input>  
+              <tags-input minTags="1" add-on-blur="true" ng-model="editblog.category"  min-length="1"  placeholder="blog category" list="blogcategoryList" replace-spaces-with-dashes ="false" popover-placement="right" popover="Press 'Enter' key after entering category" popover-trigger="mouseenter"></tags-input>  
             </dd>
           </dl>
           <dl class="dl-horizontal">
@@ -256,9 +256,9 @@
           <dl class="dl-horizontal">
             <dt></dt>
             <dd style="width:60%;">
-              <button style="width:49%; background-color:transparent; color:black;" class="prodo-account-btn btn btn-sm btn-default" ng-click="cancelEditBlog()"><i class="prodo-fa fa fa-times"></i>Cancel</button>
+              <button style="width:49%; background-color:transparent; color:black;" class=" btn btn-sm btn-default" ng-click="cancelEditBlog()"><i class="prodo-fa fa fa-times"></i>Cancel</button>
               
-              <button style="width:49%;" class="prodo-button-theme prodo-account-btn btn btn-sm btn-primary" ng-click="saveEditBlog(editblog.authorid, editblog.blogid)"><i class="prodo-fa fa fa-save"></i>Save&nbsp;&nbsp;<div prodo-spinner></div></button>
+              <button style="width:49%;" class="prodo-button-theme  btn btn-sm btn-primary" ng-click="saveEditBlog(editblog.authorid, editblog.blogid)"><i class="prodo-fa fa fa-save"></i>Save&nbsp;&nbsp;<div prodo-spinner></div></button>
             </dd>
           </dl>
         </form>

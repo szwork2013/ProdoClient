@@ -10,10 +10,10 @@ angular.module('prodo.AdminApp').factory('tagAddService', [
       addService.Product.addTags(tagInputData, function (success) {
         $log.debug(success);
         $rootScope.$broadcast('tagAddedSuccessfully', success);
-      }), function (error) {
+      }, function (error) {
         $log.debug(error);
         $rootScope.$broadcast('tagsNotAddedSuccessfully', error);
-      };
+      });
     };
     return tagAddObject;
   }
@@ -47,54 +47,54 @@ angular.module('prodo.AdminApp').factory('tagAddService', [
                   queryMappingFunction.query.insertQuery(queryContent, function(success)
                   {
                     $rootScope.$broadcast('queryAddedSuccessfully', success);
-                  }),
+                  },
                   function(error) 
                   {
                     $rootScope.$broadcast('queryNotAddesSuccessfully' , error);
-                  };
+                  });
                  }
                  query.getAllQueries = function()
                  {
                   getQueryFunction.queryContent.getQueryContent(function(success)
                   {
                     $rootScope.$broadcast('gotAllQueriesList',success);
-                  }),
+                  },
                   function(error)
                   {
                     $rootScope.$broadcast('notGotAllQueries', error);
-                  };
+                  });
                  }
                  query.insertChartsToCode = function(content)
                  {
                   assignCodeToChart.codeToChart.submitChart(content, function(success)
                   {
                     $rootScope.$broadcast('chartsSubmittedSuccessfully', success);
-                  }),
+                  },
                   function(error)
                   {
                         $rootScope.$broadcast('chartsNotSubmittedSuccessfully', success);
-                  }
+                  })
                  }
                  query.getAllRequest = function()
                  {
                   authorAcceptanceForm.getListofRequest.getAllRequest(function(success)
                   {
                     $rootScope.$broadcast("gotAllRequests", success);
-                  }),
+                  },
                   function(error)
                   {
                     $rootScope.$broadcast('notGotAllRequests', error);
-                  };
+                  });
                  }
                  query.acceptAuthorRequest = function(data, id)
                  {
                   acceptAuthorRequest.accept.acceptRequest( { authorid : data , userid : id} ,function(success)
                   {
                     $rootScope.$broadcast("authorRequestAcceptedSuccessfully", success);
-                  }),   function(error)
+                  },   function(error)
                   {
                     $rootScope.$broadcast('authorRequestNotAcceptedSuccessfully', error);
-                  };
+                  });
                   
                  }
                  query.rejectAuthorRequest = function(data, id)
@@ -102,10 +102,10 @@ angular.module('prodo.AdminApp').factory('tagAddService', [
                   rejectAuthor.reject.rejectRequest( { authorid : data , userid : id} ,function(success)
                   {
                     $rootScope.$broadcast("authorRequestRejected", success);
-                  }),   function(error)
+                  },   function(error)
                   {
                     $rootScope.$broadcast('authorRequestNotRejected', error);
-                  };
+                  });
                   
                  }
 
@@ -113,11 +113,11 @@ angular.module('prodo.AdminApp').factory('tagAddService', [
                  {
                   getAllCodesWithChart.get.getContentOfChart(function(success){
                     $rootScope.$broadcast('gotCodeContentSuccess', success);
-                  }),
+                  },
                   function(error)
                   {
                     $rootScope.$broadcast('notGotCodeContent', error);
-                  };
+                  });
                  }
 
                  // query.updateRbondsContent = function()
@@ -129,11 +129,11 @@ angular.module('prodo.AdminApp').factory('tagAddService', [
                        updateCodeContent.change.changeCodeContent({code : code}, content , function(success)
                        {
                         $rootScope.$broadcast('changedCodeContent', success);
-                       }),
+                       },
                        function(error)
                        {
                         $rootScope.$broadcast('notChangedCodeContent' , error);
-                       }
+                       })
                  }
                 return query;
         }
