@@ -175,6 +175,15 @@ $scope.showRetryIconIfCommentNotAdded = function () {
                 } 
              }
       }
+
+      else  if($scope.type=='blog'){
+        
+                if ($scope.productComments.length==0) {
+                  // $("#load-more").css("display", "none");
+                  $scope.showLoadMore.status=   false;  
+              
+             }
+      }
     
 
   };
