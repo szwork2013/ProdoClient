@@ -175,6 +175,15 @@ $scope.showRetryIconIfCommentNotAdded = function () {
                 } 
              }
       }
+
+      else  if($scope.type=='blog'){
+        
+                if ($scope.productComments.length==0) {
+                  // $("#load-more").css("display", "none");
+                  $scope.showLoadMore.status=   false;  
+              
+             }
+      }
     
 
   };
@@ -313,6 +322,7 @@ $scope.handleLikeDislikeError=function(error,comment){
       }
       else{
          $log.debug(error);
+          $rootScope.ProdoAppMessage(error.message, 'error'); 
          $(".agreeError"+comment.commentid).text(error.message);
          $(".agreeError"+comment.commentid).show("slow").delay(4000).hide("slow");
         };
