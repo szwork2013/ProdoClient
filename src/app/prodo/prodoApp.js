@@ -170,7 +170,7 @@ angular.module('prodo.ProdonusApp', [
                 $rootScope.orgid = data.org.orgid;
                 $log.debug('active_manufacturer' + $rootScope.orgid);
                 var firstproduct = 1;
-                OrgRegistrationService.get_Product(firstproduct);
+                OrgRegistrationService.get_Product(firstproduct, data.org.orgid);
               } else if (data.products_followed.length > 0) {
                 var  lastProductFollowed = data.products_followed.length - 1;
                 $rootScope.orgid= data.products_followed[ lastProductFollowed].orgid;
@@ -185,7 +185,7 @@ angular.module('prodo.ProdonusApp', [
     $scope.handleGetFirstProductResponse = function(data){
       if (data.success) {
         if (data.success.product.length > 0) {
-          $rootScope.product_prodle = data.success.product[0].prodle; 
+          $rootScope.product_prodle = data.success.product[0].prodle;
         }
         $state.transitionTo('prodo.home.wall');
       } else {
