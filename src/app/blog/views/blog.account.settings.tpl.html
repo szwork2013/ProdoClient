@@ -45,9 +45,7 @@
   <div class="addblog-display ">
     <div ng-show="addNewBlog" class="row">
 
-      <div class="col-xs-1" ></div>
-
-      <div class="col-md-10" >
+      <div class="col-md-12" >
         <form name="form.addBlogForm" class="css-form" novalidate>
           <dl class="dl-horizontal">
             <dt>Product Name:</dt>
@@ -58,7 +56,7 @@
         	<dl class="dl-horizontal">
       		  <dt>Title:</dt>
       		  <dd style="width:60%;">
-      		  	<input name="title" type="text" ng-model="blog.title" class="form-control" placeholder="title" ng-maxlength="30" required><small ng-show="((form.addBlogForm.title.$dirty && form.addBlogForm.title.$invalid) || (form.addBlogForm.title.$invalid && form.addBlogForm.submitted))">*Please enter blog title!</small>
+      		  	<input name="title" type="text" ng-model="blog.title" class="form-control" placeholder="title" ng-maxlength="100" required><small ng-show="((form.addBlogForm.title.$dirty && form.addBlogForm.title.$invalid) || (form.addBlogForm.title.$invalid && form.addBlogForm.submitted))">*Please enter blog title and should not exceed 100 characters!</small>
       		  </dd>
       		</dl>
       		<dl class="dl-horizontal">
@@ -70,7 +68,7 @@
       		<dl class="dl-horizontal">
       		  <dt>Content:</dt>
       		  <dd style="width:60%;">
-      		  	<textarea type="textarea" rows=15 class="form-control" name="content" ng-model="blog.content" placeholder="blog content" required ng-maxlength="3000"></textarea><small ng-show="((form.addBlogForm.content.$dirty && form.addBlogForm.content.$invalid) || (form.addBlogForm.content.$invalid && form.addBlogForm.submitted))">*Please enter blog content!</small>
+      		  	<textarea type="textarea" rows=15 class="form-control" name="content" ng-model="blog.content" placeholder="blog content" required ng-maxlength="3000"></textarea><small ng-show="((form.addBlogForm.content.$dirty && form.addBlogForm.content.$invalid) || (form.addBlogForm.content.$invalid && form.addBlogForm.submitted))">*Please enter blog content and should not exceed 3000 characters!</small>
       		  </dd>
       		</dl>
       		<dl class="dl-horizontal">
@@ -85,8 +83,6 @@
         </form>
       </div> 
 
-      <div class="col-xs-1" ></div>
-
     </div>
   </div>  
   <!-- add blog form display end -->
@@ -96,9 +92,7 @@
   <div class="selctedblog-display ">
     <div ng-if="!addNewBlog && displaySelectedBlog && blogs.length != 0" class="row">
 
-      <div class="col-xs-1" ></div>
-
-      <div class="col-md-10" >
+      <div class="col-md-12" >
         <dl class="dl-horizontal">
           <dt>Product Name:</dt>
           <dd style="width:60%;">
@@ -179,8 +173,6 @@
 
       </div> 
 
-      <div class="col-xs-1" ></div>
-
     </div>
 
     <!-- Modal -->
@@ -212,9 +204,8 @@
   <div class="selctedblog-edit ">
     <div ng-if="!addNewBlog && !displaySelectedBlog && editSelectedBlog && blogs.length != 0" class="row">
 
-      <div class="col-xs-1" ></div>
 
-      <div class="col-md-10" >
+      <div class="col-md-12" >
         <form name="form.editBlogForm" class="css-form" ng-submit=""  novalidate>
           <dl class="dl-horizontal">
             <dt>Product Name:</dt>
@@ -226,7 +217,7 @@
           <dl class="dl-horizontal">
             <dt>Title:</dt>
             <dd style="width:60%;">
-              <input name="title" type="text" ng-model="editblog.title" class="form-control" placeholder="title" required><small ng-show="((form.editBlogForm.title.$dirty && form.editBlogForm.title.$invalid) || (form.editBlogForm.title.$invalid && form.editBlogForm.submitted))">*Please enter blog title!</small>
+              <input name="title" type="text" ng-model="editblog.title" class="form-control" placeholder="title" ng-maxlength="100" autofocus required><small ng-show="((form.editBlogForm.title.$dirty && form.editBlogForm.title.$invalid) || (form.editBlogForm.title.$invalid && form.editBlogForm.submitted))">*Please enter blog title and should not exceed 100 characters!</small>
             </dd>
           </dl>
           <dl class="dl-horizontal">
@@ -238,7 +229,7 @@
           <dl class="dl-horizontal">
             <dt>Content:</dt>
             <dd style="width:60%;">
-              <textarea type="textarea" rows=15 class="form-control" name="content" ng-model="editblog.content" placeholder="blog content" required ng-maxlength="1000"></textarea><small ng-show="((form.editBlogForm.content.$dirty && form.editBlogForm.content.$invalid) || (form.editBlogForm.content.$invalid && form.editBlogForm.submitted))">*Please enter blog content!</small>
+              <textarea type="textarea" rows=15 class="form-control" name="content" ng-model="editblog.content" placeholder="blog content" required ng-maxlength="3000"></textarea><small ng-show="((form.editBlogForm.content.$dirty && form.editBlogForm.content.$invalid) || (form.editBlogForm.content.$invalid && form.editBlogForm.submitted))">*Please enter blog title and should not exceed 3000 characters!</small>
             </dd>
           </dl>
           <dl ng-show="editblog.blog_images.length !== 0" class="dl-horizontal">
@@ -284,8 +275,6 @@
           </dl>
         </div>
       </div> 
-
-      <div class="col-xs-1" ></div>
 
     </div>
   </div> 
