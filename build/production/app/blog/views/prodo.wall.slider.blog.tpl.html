@@ -27,15 +27,11 @@
 	          <h5 style="padding: 5px;" class="truncated-product-name"><strong><em>{{blog.title}}</em></strong></h5>
 	          <hr style="width: 97%;" class="prodo-wall-org-hr" size=3 noshade>
 	          <div style="font-size:13px; padding: 5px; text-align:justify;height: 110px">
-	          	<p>{{blog.content.substring(0,150)}}</p>
-	          	<p ng-if="blog.content.length >= 150" class="text-right">...more</p>
+	          	<p>{{blog.content.substring(0,150)}}<span ng-if="blog.content.length >= 150">...</span></p>
 	          </div>
 	          <div class="row">
-	          	<div style="padding-right: 2px;" class="col-xs-5">
-	          		<p style="margin: 3px auto;padding: 5px; font-size:14px; color:#4B4B50;"><strong><em>Posted By:</em></strong></p>
-	          	</div>
-	          	<div style="padding-left: 2px;" class="col-xs-7">
-	          		<p style="margin: 3px auto;padding: 5px; font-size:13px; color:#6a6a79;"><em>{{blog.postedby}}</em></p>
+	          	<div style="padding-right: 2px;" class="col-xs-12">
+	          		<div><p style="margin: 3px auto;padding: 5px; font-size:14px; color:#4B4B50;"><strong><em>Posted By:</em></strong>&nbsp;&nbsp;{{blog.postedby}}</p></div>
 	          	</div>
 	          </div>
 	        </div>

@@ -45,47 +45,43 @@
   <div class="addblog-display ">
     <div ng-show="addNewBlog" class="row">
 
-      <div class="col-xs-1" ></div>
-
-      <div class="col-md-10" >
+      <div class="col-md-12" >
         <form name="form.addBlogForm" class="css-form" novalidate>
           <dl class="dl-horizontal">
             <dt>Product Name:</dt>
             <dd style="width:60%;">
-              <input name="name" type="text" ng-model="productname.name" class="form-control" placeholder="productname" typeahead="productname as productname.name for productname in productnames | filter:$viewValue" popover-placement="right" popover="Please select product name from the list given below." popover-trigger="mouseenter"  autofocus required><small ng-show="((form.addBlogForm.name.$dirty && form.addBlogForm.name.$invalid) || (form.addBlogForm.name.$invalid && form.addBlogForm.submitted))">*Please enter product name!</small>&nbsp;&nbsp;<small ng-show="productname_err">*Please select product name from the given list only!</small>
+              <input name="name" type="text" ng-model="productname.name" class="form-control" placeholder="productname" typeahead="productname as productname.name for productname in productnames | filter:$viewValue" popover-placement="right" popover="Please select product name from the list given below." popover-trigger="mouseenter"  autofocus required><small ng-show="((form.addBlogForm.name.$dirty && form.addBlogForm.name.$invalid) || (form.addBlogForm.name.$invalid && form.addBlogForm.submitted))">*Please enter product name!</small><small ng-show="productname_err">{{ message}}</small>
             </dd>
           </dl>
         	<dl class="dl-horizontal">
       		  <dt>Title:</dt>
       		  <dd style="width:60%;">
-      		  	<input name="title" type="text" ng-model="blog.title" class="form-control" placeholder="title" ng-maxlength="30" required><small ng-show="((form.addBlogForm.title.$dirty && form.addBlogForm.title.$invalid) || (form.addBlogForm.title.$invalid && form.addBlogForm.submitted))">*Please enter blog title!</small>
+      		  	<input name="title" type="text" ng-model="blog.title" class="form-control" placeholder="title" ng-maxlength="100" required><small ng-show="((form.addBlogForm.title.$dirty && form.addBlogForm.title.$invalid) || (form.addBlogForm.title.$invalid && form.addBlogForm.submitted))">*Please enter blog title and should not exceed 100 characters!</small>
       		  </dd>
       		</dl>
       		<dl class="dl-horizontal">
       		  <dt>Category:</dt>
       		  <dd class="prodo-regTagsWidth">
-      		  	<tags-input minTags="1" add-on-blur="true" ng-model="blog.category"  min-length="1"  placeholder="blog category" list="blogcategoryList" replace-space-with-dashes ="false" popover-placement="right" popover="Press 'Enter' key after entering category" popover-trigger="mouseenter"></tags-input>  
+      		  	<tags-input minTags="1" add-on-blur="true" ng-model="blog.category"  min-length="1"  placeholder="blog category" list="blogcategoryList" replace-spaces-with-dashes ="false" popover-placement="right" popover="Press 'Enter' key after entering category" popover-trigger="mouseenter"></tags-input>  
       		  </dd>
       		</dl>
       		<dl class="dl-horizontal">
       		  <dt>Content:</dt>
       		  <dd style="width:60%;">
-      		  	<textarea type="textarea" rows=15 class="form-control" name="content" ng-model="blog.content" placeholder="blog content" required ng-maxlength="3000"></textarea><small ng-show="((form.addBlogForm.content.$dirty && form.addBlogForm.content.$invalid) || (form.addBlogForm.content.$invalid && form.addBlogForm.submitted))">*Please enter blog content!</small>
+      		  	<textarea type="textarea" rows=15 class="form-control" name="content" ng-model="blog.content" placeholder="blog content" required ng-maxlength="3000"></textarea><small ng-show="((form.addBlogForm.content.$dirty && form.addBlogForm.content.$invalid) || (form.addBlogForm.content.$invalid && form.addBlogForm.submitted))">*Please enter blog content and should not exceed 3000 characters!</small>
       		  </dd>
       		</dl>
       		<dl class="dl-horizontal">
       		  <dt></dt>
       		  <dd style="width:60%;">
-      		  	<button style="width:49%; background-color:transparent; color:black;" class="prodo-account-btn btn btn-sm btn-default" ng-click="cancelAddBlog()"><i class="prodo-fa fa fa-times"></i>Cancel</button>
+      		  	<button style="width:49%; background-color:transparent; color:black;" class=" btn btn-sm btn-default" ng-click="cancelAddBlog()"><i class="prodo-fa fa fa-times"></i>Cancel</button>
       		  	
-      		  	<button style="width:49%;" class="prodo-button-theme prodo-account-btn btn btn-sm btn-primary" ng-click="postBlog(productname.name)"><i class="prodo-fa fa fa-location-arrow"></i>Post&nbsp;&nbsp;<div prodo-spinner></div></button>
+      		  	<button style="width:49%;" class="prodo-button-theme  btn btn-sm btn-primary" ng-click="postBlog(productname.name)"><i class="prodo-fa fa fa-location-arrow"></i>Post&nbsp;&nbsp;<div prodo-spinner></div></button>
 
       		  </dd>
       		</dl>
         </form>
       </div> 
-
-      <div class="col-xs-1" ></div>
 
     </div>
   </div>  
@@ -96,9 +92,7 @@
   <div class="selctedblog-display ">
     <div ng-if="!addNewBlog && displaySelectedBlog && blogs.length != 0" class="row">
 
-      <div class="col-xs-1" ></div>
-
-      <div class="col-md-10" >
+      <div class="col-md-12" >
         <dl class="dl-horizontal">
           <dt>Product Name:</dt>
           <dd style="width:60%;">
@@ -145,13 +139,13 @@
         <dl class="dl-horizontal">
           <dt></dt>
           <dd style="width:60%;">
-            <button style="width:32.5%;" class="prodo-account-btn btn btn-sm btn-danger" ng-click="deleteSelectedBlogModal()"><i class="prodo-fa fa fa-trash-o"></i>Delete</button>
+            <button style="width:32.5%;" class=" btn btn-sm btn-danger" ng-click="deleteSelectedBlogModal()"><i class="prodo-fa fa fa-trash-o"></i>Delete</button>
               
-            <button style="width:32.5%;" class="prodo-button-theme prodo-account-btn btn btn-sm btn-primary" ng-click="editCurrentBlog()"><i class="prodo-fa fa fa-pencil-square-o"></i>Edit</button>
+            <button style="width:32.5%;" class="prodo-button-theme  btn btn-sm btn-primary" ng-click="editCurrentBlog()"><i class="prodo-fa fa fa-pencil-square-o"></i>Edit</button>
 
-            <button ng-show="displayblog.status == 'init' " style="width:32.5%; background-color:#24677C; border-color:#24677C;" class=" prodo-account-btn btn btn-sm btn-primary" ng-click="publishBlog(displayblog.authorid, displayblog.blogid)"><i class="prodo-fa fa fa-cloud-upload"></i>Publish&nbsp;&nbsp;<div prodo-spinner></div></button>
+            <button ng-show="displayblog.status == 'init' " style="width:32.5%; background-color:#24677C; border-color:#24677C;" class="  btn btn-sm btn-primary" ng-click="publishBlog(displayblog.authorid, displayblog.blogid)"><i class="prodo-fa fa fa-cloud-upload"></i>Publish&nbsp;&nbsp;<div prodo-spinner></div></button>
 
-            <button ng-hide="displayblog.status == 'init' " style="width:32.5%; background-color:#24677C; border-color:#24677C;" class=" prodo-account-btn btn btn-sm btn-primary"><i class="prodo-fa fa fa-cloud-upload"></i>Published</button>
+            <button ng-hide="displayblog.status == 'init' " style="width:32.5%; background-color:#24677C; border-color:#24677C;" class="  btn btn-sm btn-primary"><i class="prodo-fa fa fa-cloud-upload"></i>Published</button>
           </dd>
         </dl>
         <div    ng-app="prodo.UploadApp" ng-controller="UploadController"  >
@@ -178,8 +172,6 @@
         </div>
 
       </div> 
-
-      <div class="col-xs-1" ></div>
 
     </div>
 
@@ -212,9 +204,8 @@
   <div class="selctedblog-edit ">
     <div ng-if="!addNewBlog && !displaySelectedBlog && editSelectedBlog && blogs.length != 0" class="row">
 
-      <div class="col-xs-1" ></div>
 
-      <div class="col-md-10" >
+      <div class="col-md-12" >
         <form name="form.editBlogForm" class="css-form" ng-submit=""  novalidate>
           <dl class="dl-horizontal">
             <dt>Product Name:</dt>
@@ -226,19 +217,19 @@
           <dl class="dl-horizontal">
             <dt>Title:</dt>
             <dd style="width:60%;">
-              <input name="title" type="text" ng-model="editblog.title" class="form-control" placeholder="title" required><small ng-show="((form.editBlogForm.title.$dirty && form.editBlogForm.title.$invalid) || (form.editBlogForm.title.$invalid && form.editBlogForm.submitted))">*Please enter blog title!</small>
+              <input name="title" type="text" ng-model="editblog.title" class="form-control" placeholder="title" ng-maxlength="100" autofocus required><small ng-show="((form.editBlogForm.title.$dirty && form.editBlogForm.title.$invalid) || (form.editBlogForm.title.$invalid && form.editBlogForm.submitted))">*Please enter blog title and should not exceed 100 characters!</small>
             </dd>
           </dl>
           <dl class="dl-horizontal">
             <dt>Category:</dt>
             <dd class="prodo-regTagsWidth">
-              <tags-input minTags="1" add-on-blur="true" ng-model="editblog.category"  min-length="1"  placeholder="blog category" list="blogcategoryList" replace-space-with-dashes ="false" popover-placement="right" popover="Press 'Enter' key after entering category" popover-trigger="mouseenter"></tags-input>  
+              <tags-input minTags="1" add-on-blur="true" ng-model="editblog.category"  min-length="1"  placeholder="blog category" list="blogcategoryList" replace-spaces-with-dashes ="false" popover-placement="right" popover="Press 'Enter' key after entering category" popover-trigger="mouseenter"></tags-input>  
             </dd>
           </dl>
           <dl class="dl-horizontal">
             <dt>Content:</dt>
             <dd style="width:60%;">
-              <textarea type="textarea" rows=15 class="form-control" name="content" ng-model="editblog.content" placeholder="blog content" required ng-maxlength="1000"></textarea><small ng-show="((form.editBlogForm.content.$dirty && form.editBlogForm.content.$invalid) || (form.editBlogForm.content.$invalid && form.editBlogForm.submitted))">*Please enter blog content!</small>
+              <textarea type="textarea" rows=15 class="form-control" name="content" ng-model="editblog.content" placeholder="blog content" required ng-maxlength="3000"></textarea><small ng-show="((form.editBlogForm.content.$dirty && form.editBlogForm.content.$invalid) || (form.editBlogForm.content.$invalid && form.editBlogForm.submitted))">*Please enter blog title and should not exceed 3000 characters!</small>
             </dd>
           </dl>
           <dl ng-show="editblog.blog_images.length !== 0" class="dl-horizontal">
@@ -256,9 +247,9 @@
           <dl class="dl-horizontal">
             <dt></dt>
             <dd style="width:60%;">
-              <button style="width:49%; background-color:transparent; color:black;" class="prodo-account-btn btn btn-sm btn-default" ng-click="cancelEditBlog()"><i class="prodo-fa fa fa-times"></i>Cancel</button>
+              <button style="width:49%; background-color:transparent; color:black;" class=" btn btn-sm btn-default" ng-click="cancelEditBlog()"><i class="prodo-fa fa fa-times"></i>Cancel</button>
               
-              <button style="width:49%;" class="prodo-button-theme prodo-account-btn btn btn-sm btn-primary" ng-click="saveEditBlog(editblog.authorid, editblog.blogid)"><i class="prodo-fa fa fa-save"></i>Save&nbsp;&nbsp;<div prodo-spinner></div></button>
+              <button style="width:49%;" class="prodo-button-theme  btn btn-sm btn-primary" ng-click="saveEditBlog(editblog.authorid, editblog.blogid)"><i class="prodo-fa fa fa-save"></i>Save&nbsp;&nbsp;<div prodo-spinner></div></button>
             </dd>
           </dl>
         </form>
@@ -284,8 +275,6 @@
           </dl>
         </div>
       </div> 
-
-      <div class="col-xs-1" ></div>
 
     </div>
   </div> 

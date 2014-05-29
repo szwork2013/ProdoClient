@@ -1,23 +1,17 @@
 <!--/*
-  * Overview: comment Template
+  * Overview:blog comment Template
   * Its a comment template which displays comments
-  * Dated: 29/10/2013.
+  * Dated: 28/05/2014.
   * Author: Bhagyashri Jangam
   * Copyright: Prodonus Software Private Limited and GiantLeap Systems Private Limited 2013
   * Change History:
   *
   * date | author | description 
   *
-  * 27-3/2013 | xyx | Add a new property
+  * 28/05/2014 | xyx | Add a new property
   * 
   */-->
 <li  id="prodo-comment-media"  class="media list-animate-item" ng-repeat="comment in productComments | filter:{commenttext: searchfields.general}|filter:{ commentcategory: searchfields.commentcategory} " >
-
-
-<!--  <a class="pull-left" href="#">
-    <img class="media-object" id="img-user" style="height:60px; width:50px" ng-src="{{comment.user.profilepic}}" alt="User"/> 
-    </a> -->
-
 
   <a class="pull-left" href="#"  ng-click="userProfileModal(comment.user.userid,comment.user.profilepic,comment.user.username)" ng-controller="prodoUserProfileDataController"  id="triggerModal">
   <img class="media-object prodo-userAvatar" id="img-user" ng-src="{{comment.user.profilepic}}"  alt-SRC src="../assets/images/avatar.jpg" id="triggerModals" data-toggle="modal"/> 
@@ -70,51 +64,19 @@
   <div class="media-body">
   <div>
     <div class=" pull-left " id="prodo-comment-userName"  ><span ng-bind="comment.user.username.substring(0,15)"></span></div>
-    <div ng-style="hideIfNoOrg(comment.user.orgname)" id="prodo-comment-companyName" class="pull-left"   >  &nbsp; &nbsp; &nbsp; &nbsp; @ <span ng-bind="toCamelCase(comment.user.orgname).substring(0,14)"></span>
+    <div ng-style="hideIfNoOrg(comment.user.orgname)" id="prodo-comment-companyName" class="pull-left"   >  &nbsp; &nbsp; &nbsp; &nbsp; @ <span ng-bind="toCamelCase(comment.user.orgname).substring(0,15)"></span>
 
     </div>
-    <div id="prodo-comment-companyName"  ><span ng-style="hideIfNogrp(comment.user.grpname)" >&nbsp; &nbsp; - &nbsp;</span>  <span ng-style="hideIfNogrp(comment.user.grpname)" ng-bind="comment.user.grpname.substring(0,10)"></span>
+    <div id="prodo-comment-companyName"  ><span ng-style="hideIfNogrp(comment.user.grpname)" >&nbsp; &nbsp; - &nbsp;</span>  <span ng-style="hideIfNogrp(comment.user.grpname)" ng-bind="comment.user.grpname.substring(0,15)"></span>
     <ul id="commentNavTab" class="prodo-tabDelComment nav nav-pills pull-right" ng-init="tabCommentTags = false;
       tabCommentRemove = false" >
-      <!--    <li><a    ng-click="tabCommentTags = tabCommentTags === false ? true : false;
-        tabCommentRemove = false;"><div id="fa-tagsComment" class="fa fa-tags"  ></div></a></li> -->
+  
        <li>
         <a id="padding0img" class=" prodo-cursor "  ng-style="hideIfNotImage(comment.comment_image[0].image)"  ng-click="tabCommentImg = tabCommentImg === true ? false : true;
           tabCommentRemove = false; tabCommentLike=false;">
           <div id="fa-tagsComment" class="fa fa-picture-o"  ></div>
         </a>
       </li>
-
-     <li>
-     <a id="padding0del" class=" prodo-cursor " ng-click="tabCommentRemove = false ;
-          tabCommentImg = false; tabCommentLike=false;">
-     <div class="prodo-comment-statusContainer ">
-          <table>
-          <tr>
-          <td>
-
-          <a  class=" prodo-cursor "  ng-click="likeaction='agree';  prelikedislike(likeaction,comment);">
-          <!-- <img class="prodo-commentStatusImg" src="../assets/images/agree.png"> -->
-          <i class="fa fa-thumbs-o-up "></i><span class="prodo-colorGreen prodo-commentStatusCount" ng-bind="comment.agreecount"></span>
-          </a>
-        <!--   <p class="prodo-commentStatusCount" ng-bind="comment.agreecount"></p> -->
-
-          </td>
-          <td style="padding-left:4px;">
-          <a class=" prodo-cursor "  ng-click="likeaction='disagree' ; prelikedislike(likeaction,comment);" >
-          <i class="fa fa-thumbs-o-down"></i><span class="prodo-colorRed prodo-commentStatusCount" ng-bind="comment.disagreecount"></span>
-          <!-- <img class="prodo-commentStatusImg" src="../assets/images/disagree.png"> -->
-          </a>
-       <!--    <p class="prodo-commentStatusCount" ng-bind="comment.disagreecount"></p> -->
-          </td>
-          </tr>
-
-          </table>
-
-        </div> 
-       </a>
-
-     </li>
 
       <li ng-style="hideIfNotUser(comment.user.userid)" >
       <!-- <li ng-if="comment.user.userid === userIDFromSession" > -->
@@ -126,13 +88,7 @@
       
     </ul>
        </div>
-      <!--  -->
- 
-<!--  -->
 
-
-
- 
   
   </div>
    
@@ -147,33 +103,10 @@
 
 
   <div class="prodo-comment-tabs " id="tabs"  >
-   <!--  <ul id="commentNavTab" class="nav nav-pills" ng-init="tabCommentTags = false;
-      tabCommentRemove = false" > -->
-      <!--    <li><a    ng-click="tabCommentTags = tabCommentTags === false ? true : false;
-        tabCommentRemove = false;"><div id="fa-tagsComment" class="fa fa-tags"  ></div></a></li> -->
-     <!--  <li ng-style="hideIfNotUser(comment.user.userid)" >
-        <a class="prodo-cursor" ng-click="tabCommentRemove = tabCommentRemove === false ? true : false;
-          tabCommentImg = false;">
-          <div  id="fa-removeComment" name="rm" class=" fa fa-trash-o  "  ></div>
-        </a>
-      </li>
-      <li>
-        <a   ng-style="hideIfNotImage(comment.comment_image[0].image)"  ng-click="tabCommentImg = tabCommentImg === true ? false : true;
-          tabCommentRemove = false;">
-          <div id="fa-tagsComment" class="fa fa-picture-o"  ></div>
-        </a>
-      </li>
-    </ul> -->
+  
     <div style="clear:both"></div>
     <div class="tab-content">
-      <!--   <div id="Tag" ng-show="tabCommentTags == 1" >
-        <form class="form-horizontal" role="form">
-            <div class="form-group"   >
-                <tags-input   ng-model="comment.tags" placeholder="Add tags" list="pretags" min-length="5"
-                             replace-spaces-with-dashes="false"></tags-input>
-            </div>
-        </form>
-        </div> -->
+     
 
       <div id="Remove" ng-show="tabCommentRemove == 1" class="prodo-CommentDeleteMsg" >
          Are you sure you want to delete this comment ?
@@ -186,34 +119,7 @@
         </div>
       </div>
 
-<!--       <div id="Remove" ng-show="tabCommentLike == 1"  class="prodo-CommentDeleteMsg" >
-      
-      <div class="{{'agreeError'+comment.commentid}}" style="display:block;  font-weight:bold;"> </div>
-       <div class="{{'agreesuccess'+comment.commentid}}" style="display:block;  font-weight:bold;"> </div>
-       <i ng-click="tabCommentLike=0;" class="prodo-cursor prodoCommentDeleteUp glyphicon glyphicon-circle-arrow-up pull-right" ></i>
-      
 
-        <table >
-          <tr>
-            <td>
-             Agree's &nbsp; &nbsp;
-            </td>
-            <td>
-               <em class="prodo-commentStatusCount" ng-bind="comment.agreecount"></em> 
-            </td> 
-          </tr>
-            <tr>
-            <td>
-               Disagree's &nbsp; &nbsp;
-            </td>
-            <td>
-            <em class="prodo-commentStatusCount" ng-bind="comment.disagreecount"></em> 
-            </td> 
-          </tr>
-       </table>
-        
-
-      </div> -->
 
 
     </div>
