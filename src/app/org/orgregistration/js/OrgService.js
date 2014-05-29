@@ -126,15 +126,23 @@ angular.module('prodo.OrgApp')
 
     var organization = {};
 
-    organization.get_Product= function (productnumber) {
-      OrgService.GetOrgFirstProduct.getFirstProduct({orgid: $rootScope.usersession.currentUser.org.orgid, data: productnumber},     // calling function of UserSigninService to make POST method call to signin user.
+    organization.get_Product= function (productnumber, orgid) {
+      OrgService.GetOrgFirstProduct.getFirstProduct({orgid: orgid, data: productnumber},     // calling function of UserSigninService to make POST method call to signin user.
       function(success){
         $log.debug(success);
-        $rootScope.$broadcast("getFirstProductDone", success);
+        if (orgid == $rootScope.usersession.currentUser.org.orgid) {
+          $rootScope.$broadcast("getFirstProductDone", success);
+        } else {
+          $rootScope.$broadcast("getOtherOrgFirstProductDone", success);
+        }  
       },
       function(error){
         $log.debug(error);
-        $rootScope.$broadcast("getFirstProductNotDone", error.status);
+        if (orgid == $rootScope.usersession.currentUser.org.orgid) {
+          $rootScope.$broadcast("getFirstProductNotDone", error.status);
+        } else {
+          $rootScope.$broadcast("getOtherOrgFirstProductNotDone", error.status);
+        }
       });
     }
 
