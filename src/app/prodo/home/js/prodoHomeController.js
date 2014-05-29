@@ -84,7 +84,11 @@ angular.module('prodo.ProdoHomeApp')
     $scope.transitionToOrgWall = function(orgid){
       $rootScope.orgid = orgid;
       var firstproduct = 1;
-      OrgRegistrationService.get_Product(firstproduct, orgid);
+      if (orgid !== $rootScope.usersession.currentUser.org.orgid) {
+        OrgRegistrationService.get_Product(firstproduct, orgid);
+      } else {
+        $state.transitionTo('prodo.productwall.wall-org');
+      }
     };
 
     $scope.handleFirstProductResponse = function(data){
