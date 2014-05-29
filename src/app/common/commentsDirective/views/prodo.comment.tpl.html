@@ -70,10 +70,10 @@
   <div class="media-body">
   <div>
     <div class=" pull-left " id="prodo-comment-userName"  ><span ng-bind="comment.user.username.substring(0,15)"></span></div>
-    <div ng-style="hideIfNoOrg(comment.user.orgname)" id="prodo-comment-companyName" class="pull-left"   >  &nbsp; &nbsp; &nbsp; &nbsp; @ <span ng-bind="toCamelCase(comment.user.orgname).substring(0,15)"></span>
+    <div ng-style="hideIfNoOrg(comment.user.orgname)" id="prodo-comment-companyName" class="pull-left"   >  &nbsp; &nbsp; &nbsp; &nbsp; @ <span ng-bind="toCamelCase(comment.user.orgname).substring(0,14)"></span>
 
     </div>
-    <div id="prodo-comment-companyName"  ><span ng-style="hideIfNogrp(comment.user.grpname)" >&nbsp; &nbsp; - &nbsp;</span>  <span ng-style="hideIfNogrp(comment.user.grpname)" ng-bind="comment.user.grpname.substring(0,15)"></span>
+    <div id="prodo-comment-companyName"  ><span ng-style="hideIfNogrp(comment.user.grpname)" >&nbsp; &nbsp; - &nbsp;</span>  <span ng-style="hideIfNogrp(comment.user.grpname)" ng-bind="comment.user.grpname.substring(0,10)"></span>
     <ul id="commentNavTab" class="prodo-tabDelComment nav nav-pills pull-right" ng-init="tabCommentTags = false;
       tabCommentRemove = false" >
       <!--    <li><a    ng-click="tabCommentTags = tabCommentTags === false ? true : false;
@@ -87,7 +87,7 @@
 
      <li>
      <a id="padding0del" class=" prodo-cursor " ng-click="tabCommentRemove = false ;
-          tabCommentImg = false; tabCommentLike=true;">
+          tabCommentImg = false; tabCommentLike=false;">
      <div class="prodo-comment-statusContainer ">
           <table>
           <tr>
@@ -95,14 +95,14 @@
 
           <a  class=" prodo-cursor "  ng-click="likeaction='agree';  prelikedislike(likeaction,comment);">
           <!-- <img class="prodo-commentStatusImg" src="../assets/images/agree.png"> -->
-          <i class="fa fa-thumbs-o-up "></i>
+          <i class="fa fa-thumbs-o-up "></i><span class="prodo-colorGreen prodo-commentStatusCount" ng-bind="comment.agreecount"></span>
           </a>
         <!--   <p class="prodo-commentStatusCount" ng-bind="comment.agreecount"></p> -->
 
           </td>
           <td style="padding-left:4px;">
           <a class=" prodo-cursor "  ng-click="likeaction='disagree' ; prelikedislike(likeaction,comment);" >
-          <i class="fa fa-thumbs-o-down"></i>
+          <i class="fa fa-thumbs-o-down"></i><span class="prodo-colorRed prodo-commentStatusCount" ng-bind="comment.disagreecount"></span>
           <!-- <img class="prodo-commentStatusImg" src="../assets/images/disagree.png"> -->
           </a>
        <!--    <p class="prodo-commentStatusCount" ng-bind="comment.disagreecount"></p> -->
@@ -186,7 +186,7 @@
         </div>
       </div>
 
-      <div id="Remove" ng-show="tabCommentLike == 1"  class="prodo-CommentDeleteMsg" >
+<!--       <div id="Remove" ng-show="tabCommentLike == 1"  class="prodo-CommentDeleteMsg" >
       
       <div class="{{'agreeError'+comment.commentid}}" style="display:block;  font-weight:bold;"> </div>
        <div class="{{'agreesuccess'+comment.commentid}}" style="display:block;  font-weight:bold;"> </div>
@@ -213,7 +213,7 @@
        </table>
         
 
-      </div>
+      </div> -->
 
 
     </div>

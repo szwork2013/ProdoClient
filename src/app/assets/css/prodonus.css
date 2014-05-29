@@ -1640,6 +1640,8 @@ margin: 2px auto; position:absolute; }
 /*Product Comment drag images*/
 
 /* Prodo-Comment-CSS*/
+.prodo-colorGreen{color:rgb(32, 122, 54);}
+.prodo-colorRed{color:rgb(218, 36, 36);}
 #prodo-comment-media:hover{background-color:#CEE3F6;}
 /*#fa-tagsComment:hover{zoom:1.2;-webkit-transform: scale( 1.2); -moz-transform: scale( 1.2);}*/
 .fa-picture-o:hover{color:rgb(139, 9, 241)}
@@ -1657,7 +1659,7 @@ ul {list-style-type: none; }
 /*.prodo-comment-statusContainer{height:70px;width: 20px;}*/
 .prodo-font26{font-size: 26px;}
 .prodo-commentStatusLable{font-size: 12px;}
-.prodo-commentStatusCount{font-family:Arial,sans-serif; font-size: 16px;color: #468847 }
+.prodo-commentStatusCount{font-size: 10px;vertical-align: text-bottom;padding-left: 4px;padding-right: 4px; }
 .prodo-commentStatusImg{height: 22px;}
 .prodo-font{font-family: Helvetica ;}
 .prodo-comment-agreeDis.{margin-top: -5px;

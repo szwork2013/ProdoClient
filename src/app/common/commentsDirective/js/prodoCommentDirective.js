@@ -322,6 +322,7 @@ $scope.handleLikeDislikeError=function(error,comment){
       }
       else{
          $log.debug(error);
+          $rootScope.ProdoAppMessage(error.message, 'error'); 
          $(".agreeError"+comment.commentid).text(error.message);
          $(".agreeError"+comment.commentid).show("slow").delay(4000).hide("slow");
         };
