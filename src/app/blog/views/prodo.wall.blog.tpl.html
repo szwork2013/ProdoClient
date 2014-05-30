@@ -85,11 +85,6 @@
 					  <div class="modal-dialog">
 					    <div class="madal-blogwall-content modal-content">
 					      <div style="min-height:200px;padding: 0px;" class="modal-body">
-					      	<!-- <carousel interval="myInterval">
-							      <slide ng-repeat="slide in blog_images" active="slide.active">
-							        <img style="width:600px;height:400px;" ng-src="{{slide.image}}">
-							      </slide>
-							    </carousel> -->
 					        <div id="slider-blog">
 										<div id="bloglayerslider" marketing-slider class="ls-wp-container" style="width:1280px;height:500px;max-width:1280px;">
                 			<div class="ls-slide" ng-repeat="slides in blog_images" data-ls="transition2d:73;">
@@ -108,7 +103,7 @@
 			<div style="min-height: 150px;" class="col-md-12">
 				<br>
 				 		
-				<p style="text-align:justify;font-family: georgia;font-size: 18px;">{{viewblog.content}}</p>
+				<p style="text-align:justify;font-family: georgia;font-size: 18px;" ng-bind-html="viewblog.content"></p>
 			</div>  
 		</div>		
 	</div>
