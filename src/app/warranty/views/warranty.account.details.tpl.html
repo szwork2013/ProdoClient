@@ -86,7 +86,7 @@
     <div ng-show="warranties.length>0"  ng-repeat="warranty1 in warranties  | startFrom:currentPage*pageSize | limitTo:pageSize" >
     <div class="prodo-productThumbnailView"   ng-class="{activeProduct : warranty1.warranty_id==warranty.warranty_id}" >
       <a ng-click="getSelectedWarranty(warranty1);" class="prodo-cursor"  href="" >
-        <p class="prodo-AddProductBtn prodo-productNameList" >{{warranty1.name.substring(0,13)}}</p>
+        <p class="prodo-AddProductBtn prodo-productNameList" >{{warranty1.name.substring(0,28)}}<span ng-show="warranty1.name.length>28">...</span></p>
         <img  ng-src="{{warranty1.invoice_image.image}}" alt-SRC src="../assets/images/if_no_org_images_available.jpg"  class="prodo-productThumbnailImg img-rounded">
       </a>
     </div>

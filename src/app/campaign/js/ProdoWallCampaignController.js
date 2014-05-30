@@ -56,6 +56,7 @@ angular.module('prodo.CampaignApp')
   $scope.featuretags=[];
   $scope.showLoadMore={status:false};
 
+
    if($rootScope.campaign_idwall !== "" || $rootScope.campaign_idwall !== undefined){
        $scope.$watch('$state.$current.locals.globals.campaignWalldata', function (campaignWalldata) {
        if(campaignWalldata.error){

@@ -120,7 +120,92 @@
 		</div>
 	</div>
 
+
+<!-- .........................................comments................................................. -->
 	<!-- comments for Blog -->
-	<!-- <div><br><h4>Comments</h4></div>	
-	</div> -->
+	<div ng-show="viewblog.blogid"><h4>Comments</h4>	
+
+   <div id="prodo-ProdoProductComments" class="prodo-paddingLeft">
+    <div id="prodo-comment-fixed" ng-controller="BlogCommentController">
+
+      <div class="prodo-comment-Text-tabs " id="tabs">
+        <ul id="commentTab" class=" commentTab nav nav-pills" ng-init="tabForComment.tabSearch = false;
+          tabForComment.tabComment = true" >
+          <li class="Pcomment" ng-class="{active2 : tabForComment.tabComment == 1}" >
+            <a  class="prodo-cursor" id="prodoCommentTab" ng-click="tabForComment.tabComment = true; tabForComment.tabSearch=false; searchfields.general=''; "  >
+              <div   id="fa-removeComment" name="rm" class=" fa fa-comments-o fa-lg  " ></div>
+            </a>
+          </li>
+
+          <li class="PSearch" ng-class="{active2 : tabForComment.tabSearch == 1}"  >
+            <a id="prodoCommentSearchTab" class="prodo-cursor" ng-click="tabForComment.tabSearch =  true ;
+              tabForComment.tabComment = false; hideFeature()" >
+
+              <div id="fa-tagsComment" class="fa fa-search fa-lg"  ></div>
+            </a>
+          </li>
+         
+        </ul>
+
+        <div class="tab-content">
+          <div id="Remove" ng-show="tabForComment.tabComment == true"  >
+            <div id="prodo-comment-enterComment" ng-hide="campaign.status=='done'">
+              <span class="label label-info   " ng-bind="300 - commenttextField.userComment.length" ></span> 
+              <a href="" ng-click="getLatestComments()" >
+                <div class="label label-info prodo-display-discont"  id="responseComment" > {{commentError}} </div>
+              </a>
+              <div ng-controller="DragImageController">
+                <div id="prodo-comment-textBox-container">
+                  <div id="holder">
+                    <textarea ng-init="commenttextField.userComment=''" id="prodo-comment-Textbox" col="40" type="text" class="form-control prodo-validation" name="txtComment" placeholder="Blog Conversation [max 300 characters]. You can drag image here to add image with comment..."   ng-model="commenttextField.userComment" comment-limit="300" ng-enter="addProductComment();hideFeature()" required  items="featuretags"  ng-click="showFeature()"></textarea>  
+                
+                    <div id="prodo-productTags" ng-show="mytags.length > 0">
+                      <form  role="form">
+                        <div  class="prodo-TagsBox" >
+                          <tags-input  add-on-enter="false" add-on-space="true" ng-model="mytags" placeholder="Add tags"  ng-enter="addProductComment()" replace-spaces-with-dashes="false"></tags-input>
+                        </div>
+                      </form>
+                    </div>
+                
+                  </div>
+                    <div class="prodo-CommentImgPrePosting" id="CommentImg">
+                          <a class="close prodo-display-discont" id= "crossButton" ng-click="clearReader()">&times;</a> 
+                          <img class="prodo-uploadedImg" id="prodo-uploadedCommentImage" />
+                    </div>
+                </div>
+             
+              </div>
+              <p id="upload" class="hidden">
+                <label  >
+                <br>
+                <input type="file"    >
+                </label>
+              </p>
+            </div>
+          </div>
+          <div id="Remove" ng-show="tabForComment.tabSearch == true" class="prodo-padding-bottom"  >
+            <br>
+            <input  ng-model="searchfields[searchBySelected.type]" class="commentSearchTextbox form-control " id="prodo-comment-search-Textbox"  type="text"   placeholder="Search comments ...">
+          </div>
+    
+        </div>
+      </div>
+ 
+
+      <ul class="media-list "  id="prodo-comment-media-list" style="display" ng-show="productComments.length>0">
+        <div prodo-comments  template-url="../common/commentsDirective/views/prodo.blogcomment.tpl.html" id="prodo-comment-commentContainer"  >
+        </div>
+      </ul>
+      <button class="btn btn-default"  id="load-more" ng-click="loadMoreComments()" ng-show="showLoadMore.status==true ">  
+      <span id="img-spinner" > <i  class=" prodo-loadmoreColor fa fa-spinner fa-spin "> </i></span>
+      Load more...
+      </button>
+      <div id="loadMoreCommentMsg" class="prodo-loadmoreMsg" ></div>
+    </div>
+    </div>
+
+
+
+
+<!-- .........................................comments.................................................
 </div>

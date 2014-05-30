@@ -1,6 +1,6 @@
 
 angular.module('prodo.ProdoHomeApp')
-	.controller('ProdoHomeController', ['$rootScope', '$scope', '$state', '$log', 'UserSessionService', '$stateParams', 'growl', 'allOrgData', 'allCampaignData', 'prodoSearchService', 'checkIfSessionExist','trendingProductService', function($rootScope, $scope, $state, $log, UserSessionService, $stateParams, growl, allOrgData, allCampaignData, prodoSearchService, checkIfSessionExist, trendingProductService) {
+	.controller('ProdoHomeController', ['$rootScope', '$scope', '$state', '$log', 'UserSessionService', 'OrgRegistrationService', '$stateParams', 'growl', 'allOrgData', 'allCampaignData', 'prodoSearchService', 'checkIfSessionExist','trendingProductService', function($rootScope, $scope, $state, $log, UserSessionService, OrgRegistrationService, $stateParams, growl, allOrgData, allCampaignData, prodoSearchService, checkIfSessionExist, trendingProductService) {
 
 
     $log.debug(allOrgData);
@@ -51,9 +51,9 @@ angular.module('prodo.ProdoHomeApp')
     $scope.$watch('$state.$current.locals.globals.checkIfSessionExist', function (checkIfSessionExist) {
       if (checkIfSessionExist!== null && checkIfSessionExist !==undefined){
         if(checkIfSessionExist.error) {
-        $rootScope.showModal();
-      } 
-    }
+          $rootScope.showModal();
+        } 
+      }
     });
 
     if (allOrgData.success) {
@@ -83,8 +83,37 @@ angular.module('prodo.ProdoHomeApp')
    
     $scope.transitionToOrgWall = function(orgid){
       $rootScope.orgid = orgid;
-      $state.transitionTo('prodo.productwall.wall-org');
+      var firstproduct = 1;
+      if (orgid !== $rootScope.usersession.currentUser.org.orgid) {
+        OrgRegistrationService.get_Product(firstproduct, orgid);
+      } else {
+        $state.transitionTo('prodo.productwall.wall-org');
+      }
     };
+
+    $scope.handleFirstProductResponse = function(data){
+      if (data.success) {
+        if (data.success.product.length > 0) {
+          $rootScope.product_prodle = data.success.product[0].prodle;
+        }
+        $state.transitionTo('prodo.productwall.wall-org');
+      } else {
+        if(data.error !== undefined && data.error.code === 'AL001' ) {
+          $rootScope.showModal();
+        } else {
+          $log.debug(data.error.message);
+          $rootScope.ProdoAppMessage(data.error.message,'error');        
+        }
+      }
+    }; 
+
+    var cleanupEventFirstProductDone = $scope.$on('getOtherOrgFirstProductDone', function (event, data) {
+      $scope.handleFirstProductResponse(data);
+    });
+
+    var cleanupEventFirstProductNotDone = $scope.$on('getOtherOrgFirstProductNotDone', function (event, data) {
+      $rootScope.ProdoAppMessage("It looks as though we have broken something on our server system. Our support team is notified and will take immediate action to fix it." + message, 'error');   
+    });
 
     $scope.transitionToCampaignWall = function(orgid, campaignid, prodle){
       $rootScope.orgid = orgid;
@@ -214,7 +243,9 @@ angular.module('prodo.ProdoHomeApp')
       cleanEventGotTrendingProducts();
       cleanEventNotGotTrendingProducts();   
       cleanEventGetSearchProductDone(); 
-      cleanEventGetSearchProductNotDone();  
+      cleanEventGetSearchProductNotDone(); 
+      cleanupEventFirstProductDone();
+      cleanupEventFirstProductNotDone(); 
     });
 
 	}]);

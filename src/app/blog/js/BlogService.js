@@ -106,4 +106,18 @@ angular.module('prodo.BlogApp')
     };
     return blog;
   }
-]);
+])
+
+ .factory('BlogCommentService', ['$resource', function($resource) {
+  return $resource('/api/blogcomment/:commentid', {},
+  {
+    deleteComment: {method: 'DELETE', params: {commentid: "id"}}
+  });
+}])
+
+ .factory('BlogCommentLoadMoreService', ['$resource', function($resource) {
+  return $resource('/api/blog/nextcomments/:commentid', {},
+  {
+    loadMoreComments: {method: 'GET', params: {commentid: "id"}}
+  });
+}])
