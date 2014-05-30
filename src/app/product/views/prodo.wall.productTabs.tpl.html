@@ -208,26 +208,30 @@
 
    
     <br/>
-     <div  ng-show="(productTestiForm.name.$dirty && productTestiForm.name.$invalid==true)" class="prodo-product-Invalid">
+     <div  ng-show="(productTestiForm.name.$dirty )||(productForm.submitted==true && productForm.display_name.$invalid==true)"  class="prodo-product-Invalid">
         <span ng-show="productTestiForm.name.$error.required">Please enter name text</span>
         <span ng-show="productTestiForm.name.$error.maxlength">Name can not be more than 100 characters</span>
      </div>
 
 
-      <div  ng-show="(productTestiForm.testimonial.$dirty && productTestiForm.testimonial.$invalid==true)" class="prodo-product-Invalid">
-        <span ng-show="productTestiForm.testimonial.$error.required">Please enter testimonial text</span>
-        <span ng-show="productTestiForm.testimonial.$error.maxlength">Testimonial can not be more than 1000 characters</span>
-     </div>
+     <!--  <div class="prodo-product-Invalid">
+        <span ng-show="testimonialError.required==true" >Please enter testimonial text</span>
+        <span ng-show="testimonialError.maxlength==true">Testimonial can not be more than 1000 characters</span>
+     </div> -->
 
-        <form   name="productTestiForm"  >
+        <form class=" width500 "   name="productTestiForm"  >
              <input  type="text" 
               ng-maxlength="100"  class="form-control prodo-validation width500" placeholder="Enter your name here..." ng-model="testimonial.name" required name="name"  ></input><br/>
-              <textarea  type="text" 
-              ng-maxlength="1000" class="form-control prodo-validation width500 resizevertical" placeholder="Enter testimonial text here..." ng-model="testimonial.testimonial" required name="testimonial" col="40"  ></textarea>
+             
+               <text-angular name="testimonial"  ng-model="testimonial.testimonial" ta-toolbar-button-class="texteditor-btn btn btn-default" ta-toolbar="[['h1','h2','h3', 'h4', 'h5', 'h6', 'p', 'quote','bold','italics','underline','ul', 'ol', 'undo', 'redo', 'clear', 'justifyLeft', 'justifyCenter', 'justifyRight']]"></text-angular><small ng-show="contentblog_err">{{ }}</small>
+
+
+              <!-- <textarea  type="text" 
+              ng-maxlength="1000" class="form-control prodo-validation width500 resizevertical" placeholder="Enter testimonial text here..." ng-model="testimonial.testimonial" required name="testimonial" col="40"  ></textarea> -->
         </form>
         <br/>
-        <i  class="btn-slideTesti padding-right30 prodo-cursor prodoCommentDeleteUp glyphicon glyphicon-circle-arrow-up pull-right" ></i>
-        <button  class="pull-right btn btn-primary btn-sm btn-slideTesti" ng-click="sendTestimonial(product.orgid,product.prodle,testimonial)">Submit</button>
+        <i id="btn-slideTesti" class="btn-slideTesti padding-right30 prodo-cursor prodoCommentDeleteUp glyphicon glyphicon-circle-arrow-up pull-right" ></i>
+        <button  class="pull-right btn btn-primary btn-sm" ng-click="sendTestimonial(product.orgid,product.prodle,testimonial)">Submit</button>
 
      
       </div>   
@@ -389,10 +393,10 @@
            <b ng-hide="allTestimonials.length>0"  class="prodo-testimonialsTitle">No testimonials for this product...</b>
           <b ng-show="allTestimonials.length>0"  class="prodo-testimonialsTitle">Testimonials</b>
           <div ng-show="allTestimonials.length>0" class="prodo-testomonials" ng-repeat="testimonial1 in allTestimonials">
-          <p>
-           <div class="pull-right" id="prodo-comment-timePosted" ><span ng-bind="fromNow(testimonial1.createdate)"></span></div>
-          </p>
-             <em ng-bind="testimonial1.text"></em>
+         
+           <div class="pull-right"  ><span ng-bind="fromNowTestimonial(testimonial1.createdate)"></span></div>
+          
+             <em ng-bind-html="testimonial1.text"></em>
             <br/>
               <span class= "pull-right prodoTestiMonialsUserDetails">
                 <span > <b ng-bind="testimonial1.displayname"> </b></span> from

@@ -131,7 +131,7 @@ $scope.overallProductFeatureRating=[];
 $scope.combineRating=[];
 $scope.showLoadMore={status:false};
 $scope.allTestimonials=[];
-
+    $scope.testimonialError={}
    $scope.preGetProductPrepaireData=function(){
      // $("#load-more").css("display", "none");
      $scope.showLoadMore.status=   false;  
@@ -169,16 +169,31 @@ $scope.allTestimonials=[];
 
   });
 
+  $scope.fromNowTestimonial = function (time) {
+    if (time != undefined) {
+      return moment(time).calendar();
+    }
+  };
 
 $scope.sendTestimonial=function(orgid,prodle,testimonial){
 $scope.testimonialData={
   testimonialdata:{"text":testimonial.testimonial,displayname:testimonial.name}
 };
   if($scope.productTestiForm.$invalid){
-      // $rootScope.ProdoAppMessage("Please add valid information", 'error');
-      $scope.productTestiForm.submitted=true;
+          $scope.productTestiForm.submitted=true;
+           $rootScope.ProdoAppMessage(" Please enter testimonial data", 'error');
     }
   else{
+  if(testimonial.testimonial==""){
+        $rootScope.ProdoAppMessage(" Please enter testimonial text", 'error');
+    }
+    else if(testimonial.testimonial.length>1000){
+      $rootScope.ProdoAppMessage("Testimonial can not be more than 1000 characters", 'error');
+    
+    }
+ 
+    else{
+   
     $scope.productTestiForm.$setPristine();
     ProductTestimonial.send_Testimonial.sendTestimonial({
                 orgid: orgid,
@@ -195,14 +210,15 @@ $scope.testimonialData={
                $rootScope.ProdoAppMessage("Server Error:" + error.status, 'error');
               });
 
-}
-
+   }
+  }
 }
 
  $scope.handleTestimonialSuccess=function(success){
   $log.debug(success.success);
-      $scope.testimonial="";
+   $scope.testimonial="";
   $rootScope.ProdoAppMessage("Your Testimonial added successfully", 'success');
+   $( "#btn-slideTesti").click();
  };
 
 $scope.handleTestimonialError=function(error){
