@@ -10,7 +10,7 @@
  * 27-3/2013 | xyx | Add a new property
  *
  */
-angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$log', '$rootScope', 'ProductService', 'UserSessionService', '$http', 'CommentLoadMoreService', 'ENV', 'TagReffDictionaryService', 'ProductFeatureService', '$state','productData','ProductEnquiry','ProductRating', function ($scope, $log, $rootScope, ProductService, UserSessionService, $http, CommentLoadMoreService, ENV, TagReffDictionaryService, ProductFeatureService, $state,productData,ProductEnquiry,ProductRating) {
+angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$log', '$rootScope', 'ProductService', 'UserSessionService', '$http', 'CommentLoadMoreService', 'ENV', 'TagReffDictionaryService', 'ProductFeatureService', '$state','productData','ProductEnquiry','ProductRating','ProductTestimonial', function ($scope, $log, $rootScope, ProductService, UserSessionService, $http, CommentLoadMoreService, ENV, TagReffDictionaryService, ProductFeatureService, $state,productData,ProductEnquiry,ProductRating,ProductTestimonial) {
 
       $scope.pimgs = [];
     
@@ -123,7 +123,7 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
   $scope.isCollapsed = true;
 
   $scope.$state = $state;
-
+$scope.testimonial="";
 $scope.featuresRates=[];
 $scope.newRating=[];
 $scope.myProductFeatureRating=[];
@@ -168,16 +168,53 @@ $scope.showLoadMore={status:false};
 
   });
 
-  // $scope.$watch('searchBySelected.type', function () {
-  //   $scope.searchfields[$scope.searchBySelected.type]='';
-  //   if($scope.searchBySelected.type=='category'){
-  //     $scope.searchCommentBy="commenttag";
-  //   }
-  //   else{
-  //      $scope.searchCommentBy="commenttext";
-  //   }
-  // });
 
+$scope.sendTestimonial=function(orgid,prodle,testimonial){
+$scope.testimonialData={
+  testimonialdata:{"text":testimonial}
+};
+  if($scope.productTestiForm.$invalid){
+      // $rootScope.ProdoAppMessage("Please add valid information", 'error');
+      $scope.productTestiForm.submitted=true;
+    }
+  else{
+    $scope.productTestiForm.$setPristine();
+  ProductTestimonial.sendTestimonial({
+                orgid: orgid,
+                prodle: prodle
+              }, $scope.testimonialData, function (success) {
+               if(success.success){
+                $scope.handleTestimonialSuccess(success);
+               }
+               else{
+                 $scope.handleTestimonialError(success.error);
+               }
+              }, function (error) {
+                $log.debug(error);
+               $rootScope.ProdoAppMessage("Server Error:" + error.status, 'error');
+              });
+
+}
+
+}
+
+ $scope.handleTestimonialSuccess=function(success){
+  $log.debug(success.success);
+      $scope.testimonial="";
+  $rootScope.ProdoAppMessage("Your Testimonial added successfully", 'success');
+ };
+
+$scope.handleTestimonialError=function(error){
+  if(error){ 
+    if(error.code=='AL001'){
+    $rootScope.showModal();
+  }
+   else{
+     $log.debug(error);
+    $rootScope.ProdoAppMessage(error.message, 'error');
+   }
+ }
+};
 
 
 
@@ -570,6 +607,22 @@ $scope.isCollapsedSearch=1;
 $(document).ready(function(){
 
  // $(".example-a").barrating();
+
+ $(".btn-slideTesti").click(function(){
+    var hidden = $("#panelTesti").is(":hidden");
+    $("#panelTesti").slideToggle("slow");
+    $(this).toggleClass("active"); 
+   if(hidden){
+      $('#prodoBtnTesti').css('backgroundColor', '#BF8618');
+      $('#prodoBtnTesti').css('borderColor', '#BF8618');
+     }
+    else{
+       $('#prodoBtnTesti').css('backgroundColor', '#3276b1');
+       $('#prodoBtnTesti').css('borderColor', '#3276b1');
+    }
+    return false;
+  });
+
 
  $(".btn-slide").click(function(){
     var hidden = $("#panel").is(":hidden");

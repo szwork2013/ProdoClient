@@ -20,11 +20,11 @@
   <a href="" ng-style="CheckIfAlreadyFollowingProduct()" id="prodo-followBtn"  ng-click="followCurrentProduct()"   class="prodo-button-theme prodo-followBtn pull-right btn btn-primary btn-sm ">  Talkin </a>
 
 
-
-
+      <p class="slide pull-right"><a href="#" id="prodoBtnTesti" ng-click="productTestiForm.$setPristine();" class="btn-slideTesti btn btn-primary  btn-sm">Add Testimonial</a></p>
+       
       <p class="slide pull-right"><a href="#" id="prodoBtnEnquiry" class="btn-slide btn btn-primary  btn-sm">Product Enquiry</a></p>
 
-        <p class="slide pull-right"><a href="#" id="prodoBtnRating" class="btn-slideRating btn btn-primary  btn-sm">Product Rating</a></p>
+      <p class="slide pull-right"><a href="#" id="prodoBtnRating" class="btn-slideRating btn btn-primary  btn-sm">Product Rating</a></p>
 
 
         <br/> <br/> <br/>
@@ -198,17 +198,34 @@
 
       <!-- tabs -->
 
-
-
-
-
-
-
-
-
     </center>
 </div>
 
+ <div id="panelTesti" >
+     <center><b> Add Testimonial </b></center>
+
+      <div class="prodo-paddingLeft panelFont">
+
+   
+    <br/>
+      <div  ng-show="(productTestiForm.testimonial.$dirty && productTestiForm.testimonial.$invalid==true)" class="prodo-product-Invalid">
+        <span ng-show="productTestiForm.testimonial.$error.required">Please enter testimonial text</span>
+        <span ng-show="productTestiForm.testimonial.$error.maxlength">Testimonial can not be more than 1000 characters</span>
+     </div>
+
+        <form   name="productTestiForm"  >
+    
+              <textarea  type="text" 
+              ng-maxlength="1000" id="prodo-product-featuresDescription_textfield" class="form-control prodo-validation width500" placeholder="Enter testimonial text here..." ng-model="testimonial" required name="testimonial" col="40"  ></textarea>
+        </form>
+        <br/>
+        <i  class="btn-slideTesti padding-right30 prodo-cursor prodoCommentDeleteUp glyphicon glyphicon-circle-arrow-up pull-right" ></i>
+        <button  class="pull-right btn btn-primary btn-sm btn-slideTesti" ng-click="sendTestimonial(product.orgid,product.prodle,testimonial)">Submit</button>
+
+     
+      </div>   
+    <br/><br/>
+</div>
 
 
     <br>

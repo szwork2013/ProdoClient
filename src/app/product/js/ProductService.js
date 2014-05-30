@@ -85,12 +85,12 @@
   });
 }])
 
-// .factory('ProductRating', ['$resource', function($resource) {
-//   return $resource('/api/productfeaturating/:prodle', {},
-//   {
-//     addRating: {method: 'POST', params: { prodle: 'id'}}
-//   });
-// }])
+ .factory('ProductTestimonial', ['$resource', function($resource) {
+  return $resource('api/testimonial/:orgid/:prodle ', {},
+  {
+    sendTestimonial: {method: 'POST', params: {orgid: 'id', prodle: 'id'}}
+  });
+}])
 
 .factory('ProductRating', [
   '$resource',

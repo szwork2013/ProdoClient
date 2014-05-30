@@ -1736,7 +1736,9 @@ margin-bottom: 10px;
  }  
 /*#load-more:hover            { color:#666; }   */
 
-
+.width500{
+	width: 500px;
+}
 #panel {
 
 
@@ -1750,6 +1752,11 @@ margin-bottom: 10px;
 #panelRating {
 
 
+	display: none;
+	font-family: Helvetica ;
+}
+
+#panelTesti{
 	display: none;
 	font-family: Helvetica ;
 }
