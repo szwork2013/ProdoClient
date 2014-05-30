@@ -10,6 +10,11 @@
                 no-repeat;
 }
 
+.texteditor-btn{
+	padding: 2px 6px;
+	font-size: 13px;
+}
+
 /*change the body style*/
 html,body{
 	height:100%;
@@ -117,7 +122,7 @@ background-color: transparent;
 font-weight: bold; 
 }
 .prodo-regTagsWidth{
-	width: 60%;
+	width: 70%;
 	margin: 10px auto;
 }
 
@@ -1736,7 +1741,9 @@ margin-bottom: 10px;
  }  
 /*#load-more:hover            { color:#666; }   */
 
-
+.width500{
+	width: 500px;
+}
 #panel {
 
 
@@ -1744,12 +1751,20 @@ margin-bottom: 10px;
 	font-family: Helvetica ;
 
 }
+.resizevertical{
+	resize:vertical;
+}
 .panelFont{
 	font-size: 12px;
 }
 #panelRating {
 
 
+	display: none;
+	font-family: Helvetica ;
+}
+
+#panelTesti{
 	display: none;
 	font-family: Helvetica ;
 }
@@ -1765,6 +1780,11 @@ margin-right: 5px;
 
 }
 .btn-slideRating {
+
+margin-right: 5px;
+
+}
+.btn-slideTesti {
 
 margin-right: 5px;
 
@@ -1814,6 +1834,8 @@ margin-right: 5px;
  /* Prodo-Comment-CSS*/
 
  /* Prodo-ProductFeature-CSS*/
+ .font10{font-size: 10px;}
+ .padding-top10{padding-top: 10px;}
 .padding-right30{margin-left: 30px;}
   .prodo-inquirySubmittr{width: 473px;}
  .prodo-productwalltextWidth{width: 473px}

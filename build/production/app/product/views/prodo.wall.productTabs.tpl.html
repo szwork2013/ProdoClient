@@ -20,11 +20,11 @@
   <a href="" ng-style="CheckIfAlreadyFollowingProduct()" id="prodo-followBtn"  ng-click="followCurrentProduct()"   class="prodo-button-theme prodo-followBtn pull-right btn btn-primary btn-sm ">  Talkin </a>
 
 
-
-
+      <p class="slide pull-right"><a href="#" id="prodoBtnTesti" ng-click="productTestiForm.$setPristine();" class="btn-slideTesti btn btn-primary  btn-sm">Add Testimonial</a></p>
+       
       <p class="slide pull-right"><a href="#" id="prodoBtnEnquiry" class="btn-slide btn btn-primary  btn-sm">Product Enquiry</a></p>
 
-        <p class="slide pull-right"><a href="#" id="prodoBtnRating" class="btn-slideRating btn btn-primary  btn-sm">Product Rating</a></p>
+      <p class="slide pull-right"><a href="#" id="prodoBtnRating" class="btn-slideRating btn btn-primary  btn-sm">Product Rating</a></p>
 
 
         <br/> <br/> <br/>
@@ -198,17 +198,45 @@
 
       <!-- tabs -->
 
-
-
-
-
-
-
-
-
     </center>
 </div>
 
+ <div id="panelTesti" >
+     <center><b> Add Testimonial </b></center>
+
+      <div class="prodo-paddingLeft panelFont">
+
+   
+    <br/>
+     <div  ng-show="(productTestiForm.name.$dirty )||(productForm.submitted==true && productForm.display_name.$invalid==true)"  class="prodo-product-Invalid">
+        <span ng-show="productTestiForm.name.$error.required">Please enter name text</span>
+        <span ng-show="productTestiForm.name.$error.maxlength">Name can not be more than 100 characters</span>
+     </div>
+
+
+     <!--  <div class="prodo-product-Invalid">
+        <span ng-show="testimonialError.required==true" >Please enter testimonial text</span>
+        <span ng-show="testimonialError.maxlength==true">Testimonial can not be more than 1000 characters</span>
+     </div> -->
+
+        <form class=" width500 "   name="productTestiForm"  >
+             <input  type="text" 
+              ng-maxlength="100"  class="form-control prodo-validation width500" placeholder="Enter your name here..." ng-model="testimonial.name" required name="name"  ></input><br/>
+             
+               <text-angular name="testimonial"  ng-model="testimonial.testimonial" ta-toolbar-button-class="texteditor-btn btn btn-default" ta-toolbar="[['h1','h2','h3', 'h4', 'h5', 'h6', 'p', 'quote','bold','italics','underline','ul', 'ol', 'undo', 'redo', 'clear', 'justifyLeft', 'justifyCenter', 'justifyRight']]"></text-angular><small ng-show="contentblog_err">{{ }}</small>
+
+
+              <!-- <textarea  type="text" 
+              ng-maxlength="1000" class="form-control prodo-validation width500 resizevertical" placeholder="Enter testimonial text here..." ng-model="testimonial.testimonial" required name="testimonial" col="40"  ></textarea> -->
+        </form>
+        <br/>
+        <i id="btn-slideTesti" class="btn-slideTesti padding-right30 prodo-cursor prodoCommentDeleteUp glyphicon glyphicon-circle-arrow-up pull-right" ></i>
+        <button  class="pull-right btn btn-primary btn-sm" ng-click="sendTestimonial(product.orgid,product.prodle,testimonial)">Submit</button>
+
+     
+      </div>   
+    <br/><br/>
+</div>
 
 
     <br>
@@ -362,28 +390,20 @@
 
          <div id="Remove" ng-show="tabForComment.tabTesto == true" class="prodo-padding-bottom"  >
           <br>
-          <b class="prodo-testimonialsTitle">Testimonials</b>
-          <div class="prodo-testomonials">
-             <em>This medicine is realy awesome. I used it, its realy nice. Guys please try this medicine </em>
+           <b ng-hide="allTestimonials.length>0"  class="prodo-testimonialsTitle">No testimonials for this product...</b>
+          <b ng-show="allTestimonials.length>0"  class="prodo-testimonialsTitle">Testimonials</b>
+          <div ng-show="allTestimonials.length>0" class="prodo-testomonials" ng-repeat="testimonial1 in allTestimonials">
+         
+          
+      
+             <em ng-bind-html="testimonial1.text"></em>
             <br/>
               <span class= "pull-right prodoTestiMonialsUserDetails">
-                <span> <b>Bhagyashri Jangam </b></span> from
-                <span><b> Giant Leap Systems </b></span>
+                <span > <b ng-bind="testimonial1.displayname"> </b></span> from
+                <span ><b ng-bind="testimonial1.user.orgname">  </b></span>
               </span>
-
+             <span class="pull-left padding-top10 font10" >Posted On <span ng-bind="fromNowTestimonial(testimonial1.createdate)"></span></span>
           </div>
-
-          <div class=" prodo-testomonials">
-             <span class="prodo-TestimonialText"><em> This medicine is very effective and does not have any side effects.. </em></span>
-            
-              <span class= "pull-right prodoTestiMonialsUserDetails">
-                <span> <b>Omkar Kanekar</b></span> from
-                <span><b> MIT </b></span>
-              </span>
-
-          </div>
-
- 
 
         </div>
     
