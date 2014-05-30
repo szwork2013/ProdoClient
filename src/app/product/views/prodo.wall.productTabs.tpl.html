@@ -389,6 +389,9 @@
            <b ng-hide="allTestimonials.length>0"  class="prodo-testimonialsTitle">No testimonials for this product...</b>
           <b ng-show="allTestimonials.length>0"  class="prodo-testimonialsTitle">Testimonials</b>
           <div ng-show="allTestimonials.length>0" class="prodo-testomonials" ng-repeat="testimonial1 in allTestimonials">
+          <p>
+           <div class="pull-right" id="prodo-comment-timePosted" ><span ng-bind="fromNow(testimonial1.createdate)"></span></div>
+          </p>
              <em ng-bind="testimonial1.text"></em>
             <br/>
               <span class= "pull-right prodoTestiMonialsUserDetails">
