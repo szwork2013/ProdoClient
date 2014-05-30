@@ -394,15 +394,15 @@
           <b ng-show="allTestimonials.length>0"  class="prodo-testimonialsTitle">Testimonials</b>
           <div ng-show="allTestimonials.length>0" class="prodo-testomonials" ng-repeat="testimonial1 in allTestimonials">
          
-           <div class="pull-right"  ><span ng-bind="fromNowTestimonial(testimonial1.createdate)"></span></div>
           
+      
              <em ng-bind-html="testimonial1.text"></em>
             <br/>
               <span class= "pull-right prodoTestiMonialsUserDetails">
                 <span > <b ng-bind="testimonial1.displayname"> </b></span> from
                 <span ><b ng-bind="testimonial1.user.orgname">  </b></span>
               </span>
-
+             <span class="pull-left padding-top10 font10" >Posted On <span ng-bind="fromNowTestimonial(testimonial1.createdate)"></span></span>
           </div>
 
         </div>
