@@ -208,15 +208,22 @@
 
    
     <br/>
+     <div  ng-show="(productTestiForm.name.$dirty && productTestiForm.name.$invalid==true)" class="prodo-product-Invalid">
+        <span ng-show="productTestiForm.name.$error.required">Please enter name text</span>
+        <span ng-show="productTestiForm.name.$error.maxlength">Name can not be more than 100 characters</span>
+     </div>
+
+
       <div  ng-show="(productTestiForm.testimonial.$dirty && productTestiForm.testimonial.$invalid==true)" class="prodo-product-Invalid">
         <span ng-show="productTestiForm.testimonial.$error.required">Please enter testimonial text</span>
         <span ng-show="productTestiForm.testimonial.$error.maxlength">Testimonial can not be more than 1000 characters</span>
      </div>
 
         <form   name="productTestiForm"  >
-    
+             <input  type="text" 
+              ng-maxlength="100"  class="form-control prodo-validation width500" placeholder="Enter your name here..." ng-model="testimonial.name" required name="name"  ></input><br/>
               <textarea  type="text" 
-              ng-maxlength="1000" id="prodo-product-featuresDescription_textfield" class="form-control prodo-validation width500" placeholder="Enter testimonial text here..." ng-model="testimonial" required name="testimonial" col="40"  ></textarea>
+              ng-maxlength="1000" class="form-control prodo-validation width500 resizevertical" placeholder="Enter testimonial text here..." ng-model="testimonial.testimonial" required name="testimonial" col="40"  ></textarea>
         </form>
         <br/>
         <i  class="btn-slideTesti padding-right30 prodo-cursor prodoCommentDeleteUp glyphicon glyphicon-circle-arrow-up pull-right" ></i>
@@ -379,28 +386,17 @@
 
          <div id="Remove" ng-show="tabForComment.tabTesto == true" class="prodo-padding-bottom"  >
           <br>
-          <b class="prodo-testimonialsTitle">Testimonials</b>
-          <div class="prodo-testomonials">
-             <em>This medicine is realy awesome. I used it, its realy nice. Guys please try this medicine </em>
+           <b ng-hide="allTestimonials.length>0"  class="prodo-testimonialsTitle">No testimonials for this product...</b>
+          <b ng-show="allTestimonials.length>0"  class="prodo-testimonialsTitle">Testimonials</b>
+          <div ng-show="allTestimonials.length>0" class="prodo-testomonials" ng-repeat="testimonial1 in allTestimonials">
+             <em ng-bind="testimonial1.text"></em>
             <br/>
               <span class= "pull-right prodoTestiMonialsUserDetails">
-                <span> <b>Bhagyashri Jangam </b></span> from
-                <span><b> Giant Leap Systems </b></span>
+                <span > <b ng-bind="testimonial1.displayname"> </b></span> from
+                <span ><b ng-bind="testimonial1.user.orgname">  </b></span>
               </span>
 
           </div>
-
-          <div class=" prodo-testomonials">
-             <span class="prodo-TestimonialText"><em> This medicine is very effective and does not have any side effects.. </em></span>
-            
-              <span class= "pull-right prodoTestiMonialsUserDetails">
-                <span> <b>Omkar Kanekar</b></span> from
-                <span><b> MIT </b></span>
-              </span>
-
-          </div>
-
- 
 
         </div>
     

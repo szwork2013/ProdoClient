@@ -91,6 +91,16 @@
     sendTestimonial: {method: 'POST', params: {orgid: 'id', prodle: 'id'}}
   });
 }])
+.factory('ProductTestimonial', [
+  '$resource',
+  function ($resource) {
+    var ProductTestimonial = {
+        send_Testimonial: $resource('api/testimonial/:orgid/:prodle', {}, { sendTestimonial: { method: 'POST' , params: {orgid: 'id', prodle: 'id'}}}),
+        get_Testimonials: $resource('api/testimonial/:prodle ', {}, { getTestimonials: { method: 'GET', params : { prodle:'@prodle'}} })
+      }
+    return ProductTestimonial;
+  }
+])
 
 .factory('ProductRating', [
   '$resource',

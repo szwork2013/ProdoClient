@@ -123,13 +123,14 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
   $scope.isCollapsed = true;
 
   $scope.$state = $state;
-$scope.testimonial="";
+$scope.testimonial={};
 $scope.featuresRates=[];
 $scope.newRating=[];
 $scope.myProductFeatureRating=[];
 $scope.overallProductFeatureRating=[];
 $scope.combineRating=[];
 $scope.showLoadMore={status:false};
+$scope.allTestimonials=[];
 
    $scope.preGetProductPrepaireData=function(){
      // $("#load-more").css("display", "none");
@@ -171,7 +172,7 @@ $scope.showLoadMore={status:false};
 
 $scope.sendTestimonial=function(orgid,prodle,testimonial){
 $scope.testimonialData={
-  testimonialdata:{"text":testimonial}
+  testimonialdata:{"text":testimonial.testimonial,displayname:testimonial.name}
 };
   if($scope.productTestiForm.$invalid){
       // $rootScope.ProdoAppMessage("Please add valid information", 'error');
@@ -179,7 +180,7 @@ $scope.testimonialData={
     }
   else{
     $scope.productTestiForm.$setPristine();
-  ProductTestimonial.sendTestimonial({
+    ProductTestimonial.send_Testimonial.sendTestimonial({
                 orgid: orgid,
                 prodle: prodle
               }, $scope.testimonialData, function (success) {
@@ -215,6 +216,36 @@ $scope.handleTestimonialError=function(error){
    }
  }
 };
+
+$scope.getTestimonials=function(prodle){
+     ProductTestimonial.get_Testimonials.getTestimonials({
+        prodle: prodle
+      }, function (successData) {
+        if (successData.success == undefined) {
+         $scope.handlegetTestimonialsError(successData.error);
+       } else {
+          $scope.handlegetTestimonialsSuccess(successData);
+        }
+      }, function (error) {
+        $rootScope.ProdoAppMessage("Server Error:" + error.status, 'error');
+      });
+
+}
+
+ $scope.handlegetTestimonialsError=function(error){
+   if(error.code=='AL001'){
+        $rootScope.showModal();
+      }else{
+        $log.debug(error);
+        // $rootScope.ProdoAppMessage(error.message, 'error');
+      }
+ };
+  $scope.handlegetTestimonialsSuccess=function(successData){
+      if(successData.success){
+           $scope.allTestimonials=successData.success.testimonials;
+           $log.debug($scope.allTestimonials);
+      }
+  };
 
 
 
@@ -393,6 +424,7 @@ $scope.handleRatingError=function(error){
         $scope.getProductFeatures(l_prodle, l_orgid);
         $scope.getMyProductFeatureRating(l_prodle);
         $scope.getOverallProductFeatureRating(l_prodle);
+        $scope.getTestimonials(l_prodle);
         $("#prodo-ProductFeatureTable").css("display", "table");
         // $("#prodoCommentsTab").css("display", "inline");
         // $("#tabComments").css("display", "inline");

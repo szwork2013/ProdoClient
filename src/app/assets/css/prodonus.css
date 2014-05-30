@@ -1746,6 +1746,9 @@ margin-bottom: 10px;
 	font-family: Helvetica ;
 
 }
+.resizevertical{
+	resize:vertical;
+}
 .panelFont{
 	font-size: 12px;
 }
