@@ -33,10 +33,20 @@ angular.module('prodo.ProdonusApp').factory('notify',['$timeout','cgNotifyTempla
 						templateElement.remove();
 						templateElement.splice(messageElements.indexOf(templateElement),1);
 					}
-				});	
+				});	 
 
 				$('body').append(templateElement);	
-				messageElements.push(templateElement);
+
+				if(messageElements.length <2)
+				{
+						messageElements.push(templateElement);
+				}
+				else if(messageElements.length >=2)
+				{
+						templateElement.remove();
+						templateElement.splice(messageElements.indexOf(templateElement),1);
+						messageElements.length =  0;
+				}
 
 				if (args.position === 'center'){
 					$timeout(function(){
