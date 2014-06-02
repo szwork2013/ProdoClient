@@ -45,6 +45,17 @@ angular.module('prodo.ProdonusApp').factory('notify',['$timeout','cgNotifyTempla
 				{
 						templateElement.remove();
 						templateElement.splice(messageElements.indexOf(templateElement),1);
+						
+						var j = 0;
+						for(var i = messageElements.length - 1; i >= 0; i --){
+						var element = messageElements[i];
+						var top = startTop + (j * verticalSpacing);
+						element.css('top',top + 'px');
+						if (element.css('opacity') === '1'){
+							element.css('opacity',0);
+						}
+						j ++;
+						}
 						messageElements.length =  0;
 				}
 
