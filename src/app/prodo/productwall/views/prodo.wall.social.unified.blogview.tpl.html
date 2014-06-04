@@ -1,26 +1,19 @@
-<style type="text/css"media="screen">
+<!-- Prodonus Home - After Signin -->
+<div id="prodo-container">
 
+	<br>
+	<div>
+		<button class="prodo-button-theme btn btn-sm pull-right" ng-click="goToUnifiedView()">Back</button>
+	</div>
+	<div prodo-signin-modal></div>
 
-        #bloglayerslider * {
-            font-family: Oswald;
-        }
-
-        /*#slider-blog {
-            padding-bottom: 100px;
-            margin-top: 20px;
-        }*/
-
-        .c {
-        text-align: justify;
-        font-weight: 300;
-        font-size: 45px;
-        color: #082953;
-        }
-
-</style>
-
-<div class="prodo-wall-blog-container container">
-	<div ng-show="!isEmpty()" style="padding: 5px; margin-bottom: 10px; border-radius: 3px;">
+	<div class="container">
+		<div id="prodo-row" class="row">
+		
+			<div id="prodo-col-md-9" class="prodo-wall-col-container col-md-9">
+				<div id="prodo-content-unified">
+					<div class="prodo-wall-blog-container container">
+						<div ng-show="!isEmpty()" style="padding: 5px; margin-bottom: 10px; border-radius: 3px;">
 		<div style="" class="row">
 			<div style="" class="col-md-12">
 				<center><h3><em>{{viewblog.title}}</em></h3></center>
@@ -85,6 +78,11 @@
 					  <div class="modal-dialog">
 					    <div class="madal-blogwall-content modal-content">
 					      <div style="min-height:200px;padding: 0px;" class="modal-body">
+					      	<!-- <carousel interval="myInterval">
+							      <slide ng-repeat="slide in blog_images" active="slide.active">
+							        <img style="width:600px;height:400px;" ng-src="{{slide.image}}">
+							      </slide>
+							    </carousel> -->
 					        <div id="slider-blog">
 										<div id="bloglayerslider" marketing-slider class="ls-wp-container" style="width:1280px;height:500px;max-width:1280px;">
                 			<div class="ls-slide" ng-repeat="slides in blog_images" data-ls="transition2d:73;">
@@ -201,6 +199,13 @@
 
 
 </div>
-</div>
+					</div>  
 
-<!-- .........................................comments.................................................
+				</div>
+			</div>
+		</div>
+		
+	</div>
+
+
+</div>

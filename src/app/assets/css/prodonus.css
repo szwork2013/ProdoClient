@@ -2656,7 +2656,7 @@ border: 1px solid #b3b3b3; padding: 30px;
 	background-color: #ffffff;
   margin-bottom: 20px;
   border-radius: 10px;
-  padding: 20px;
+  padding: 5px;
 }
 
 .prodo-wall-campaign-container{
@@ -2687,6 +2687,10 @@ margin:2px auto; padding: 5px; display:block; text-align:left; font-weight:bold;
 
 .prodo-wall-org-productimg{
 	margin:1px auto; display:block; width:95%; height: 100px; 
+}
+
+.prodo-wall-unifiedview-productimg{
+	margin:1px auto; display:block; width:60%; height: 60px; 
 }
 
 .prodo-wall-product-text{

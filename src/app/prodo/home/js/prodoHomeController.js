@@ -87,7 +87,7 @@ angular.module('prodo.ProdoHomeApp')
       if (orgid !== $rootScope.usersession.currentUser.org.orgid) {
         OrgRegistrationService.get_Product(firstproduct, orgid);
       } else {
-        $state.transitionTo('prodo.productwall.wall-org');
+        $state.transitionTo('prodo.productwall.wall-unified');
       }
     };
 
@@ -96,7 +96,7 @@ angular.module('prodo.ProdoHomeApp')
         if (data.success.product.length > 0) {
           $rootScope.product_prodle = data.success.product[0].prodle;
         }
-        $state.transitionTo('prodo.productwall.wall-org');
+        $state.transitionTo('prodo.productwall.wall-unified');
       } else {
         if(data.error !== undefined && data.error.code === 'AL001' ) {
           $rootScope.showModal();

@@ -1,0 +1,19 @@
+<div id="prodo-container" style="margin:2px; padding:5px;" class="prodo-wall-org-container container">
+  <div id="prodo-row" class="row">
+    <div class="col-md-1" style="padding-right: 1px;">
+      <img ng-src="{{productdata.product_logo.image}}" alt=" No Image" src="../../../assets/images/if_no_org_images_available.jpg" class="prodo-wall-unifiedview-productimg img-rounded">
+    </div>
+    <div class="col-md-11" style="padding-left: 1px;">
+      <div style=" color: #1c2a47;font: bold 20px/30px 'lucida grande',tahoma, verdana, arial, sans-serif;">{{productdata.name}}
+        <button class="prodo-button-theme btn btn-sm pull-right" ng-click="goToUnifiedView()">Back</button>
+      </div>  
+    </div>
+  </div>
+  <br>
+  <div style="margin:0px;" class="social-view-heading row">
+    <div class="col-md-12">
+      <h3 class="prodo-wall-org-heading-text">Organization Analysis View - {{productdata.name}}</h3>
+      <hr class="prodo-wall-org-hr" size=3 noshade>
+    </div>
+  </div>
+</div>  
