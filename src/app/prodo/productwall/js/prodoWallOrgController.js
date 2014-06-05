@@ -55,12 +55,6 @@ angular.module('prodo.ProdoWallApp')
         if (orgdata.success.organization.org_logo == undefined) {
           $rootScope.orgdata.org_logo = {image: '../../../assets/images/if_no_logo_images_available.gif'}
         }
-        if (orgdata.success.organization.org_images.length !== 0) {
-          $log.debug("Org images emitting ");
-          $scope.$emit('emittingOrgImages',orgdata.success.organization.org_images);
-        } else {
-          $scope.$emit('emittingNoOrgImages',orgdata.success.organization.org_images);
-        }
         $log.debug($rootScope.orgdata);
       });
     }

@@ -1,12 +1,12 @@
 angular.module('prodo.ProdoWallApp')
-	.controller('ProdoWallController', ['$rootScope', '$scope', '$state', '$log', 'UserSessionService', 'orgproduct', 'broadcastData', '$stateParams', 'growl', 'checkIfSessionExist', 'dashboardSliderData', 'blogSliderData', function($rootScope, $scope, $state, $log, UserSessionService, orgproduct, broadcastData, $stateParams, growl, checkIfSessionExist, dashboardSliderData, blogSliderData) {
+	.controller('ProdoWallController', ['$rootScope', '$scope', '$state', '$log', 'UserSessionService', 'orgdata', 'orgproduct', 'broadcastData', '$stateParams', 'growl', 'checkIfSessionExist', 'dashboardSliderData', 'blogSliderData', function($rootScope, $scope, $state, $log, UserSessionService, orgdata, orgproduct, broadcastData, $stateParams, growl, checkIfSessionExist, dashboardSliderData, blogSliderData) {
 		
     $log.debug('initialising parent..');
     $scope.$state = $state;
 
     console.log(orgproduct);
     $scope.messages = [];
-  
+    $rootScope.images = [];
     $scope.productdata = {};
 
     $scope.$watch('$state.$current.locals.globals.orgproduct', function (orgproduct) {
@@ -23,6 +23,17 @@ angular.module('prodo.ProdoWallApp')
           } 
       }
     });
+
+    if (checkIfSessionExist.success && orgdata.success) {
+      $scope.$watch('$state.$current.locals.globals.orgdata', function (orgdata) {
+        if (orgdata.success.organization.org_images.length !== 0) {
+          $rootScope.images = orgdata.success.organization.org_images;
+        } else {
+          $rootScope.images = [{image: '../../../assets/images/if_no_org_images_available.gif' }]; 
+        }
+        $log.debug($rootScope.orgdata);
+      });
+    }
 
     if (checkIfSessionExist.success && broadcastData.success) {
       $scope.$watch('$state.$current.locals.globals.broadcastData', function (broadcastData) {
