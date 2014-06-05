@@ -1668,7 +1668,7 @@ margin-right: 5px;}
 #prodo-comment-textBox-container {padding-bottom: 10px;}
 #prodo-comment-media-list{border:3px;font-family: Helvetica ;font-size:14px;}
 #prodo-comment-Textbox { padding: 5px; height:40px;border-radius:10px;font-size:12px;   overflow: hidden;
-	font-family: Helvetica ; border: solid 1px #5bc0de; max-height: 75px;max-width: 473px;resize: none;}
+	font-family: Helvetica ; border: solid 1px #5bc0de; max-height: 75px;resize: none;}
 #prodo-comment-search-Textbox {  height:40px;width:87%;border-radius:10px;font-size:12px; 
 	font-family: Helvetica ; border: solid 1px #5bc0de; }
 #prodo-comment-fixed { margin-left:17px;}
@@ -1907,9 +1907,13 @@ margin-right: 5px;
 	font-size: 12px;
 	margin-left: 5px;
 }
-
+.prodo-paddingLeftUnifiedWall{
+	padding-left: 250px;
+	width: 85%
+}
 .prodo-productDiscontinued{
 	background-color: #FFBABA;
+	width: 85%;
 }
 .prodo-lblSelectall{vertical-align: super;}
 .activeProduct{border-bottom: 5px solid greenyellow;}
