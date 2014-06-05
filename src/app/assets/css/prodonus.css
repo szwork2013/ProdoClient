@@ -117,9 +117,15 @@ background-color: transparent;
 font-weight: bold; 
 }
 .prodo-regTagsWidth{
-	width: 60%;
+	width: 70%;
 	margin: 10px auto;
 }
+
+.texteditor-btn{
+ 	padding: 2px 6px;
+	font-size: 13px;
+ }
+ 
 
 .prodo-authorTags{
 width: 100%;
