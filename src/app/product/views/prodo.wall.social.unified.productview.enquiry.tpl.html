@@ -1,3 +1,40 @@
 <div style="margin: 20px auto;">
-	<h4>Enquiry</h4>
+
+
+
+	 <div style="padding-left: 250px;padding-right: 250px;" >
+	 <br/><br/>
+	 <center><b> Product enquiry form  </b></center>
+
+<br/>
+<div class="">
+<table>
+<tr> 
+<td><input type="radio" ng-model="inquiry" value="know"> I want to know more about {{product.name}}   </td>
+</tr>
+<tr> 
+<td><input type="radio" ng-model="inquiry" value="buy"> I want to buy {{product.name}}  </td>
+</tr>
+<tr> 
+<td><input type="radio" ng-model="inquiry" value="custom" > Custom  </td>
+</tr>
+<tr>
+<td><input  type="text" ng-model="productreqMsg "  class="prodo-productwalltextWidth form-control">   </td>
+</tr>
+<tr>
+<td class="prodo-inquirySubmittr">
+
+</td>
+</tr>
+</table>
+<br/>
+<i  class="btn-slide padding-right30 prodo-cursor prodoCommentDeleteUp glyphicon glyphicon-circle-arrow-up pull-right" ></i>
+
+<button class="pull-right btn btn-primary btn-sm btn-slide" ng-click="sendEnquiry(product.orgid,product.prodle,inquiry)">Submit</button>
+</div>   
+<br/><br/>
+</div>
+
+
+
 </div>
