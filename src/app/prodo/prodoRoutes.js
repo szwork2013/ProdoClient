@@ -405,6 +405,9 @@ angular.module('prodo.ProdonusApp')
         orgaddr: function(OrgService, $rootScope) {
           return OrgService.ManageOrgLocation.getAllOrgAddress({orgid: $rootScope.orgid}).$promise;
         },
+        orgAllproducts: function(OrgService, $rootScope) {
+          return OrgService.GetOrgProducts.getAllOrgProducts({orgid: $rootScope.orgid}).$promise;
+        },
         orgproduct: function(OrgService, $rootScope) {
           return OrgService.GetSpecificOrgProduct.getOrgProduct({orgid: $rootScope.orgid, prodle: $rootScope.product_prodle}).$promise;
         },
@@ -445,13 +448,7 @@ angular.module('prodo.ProdonusApp')
     
     .state('prodo.productwall.wall-org.info', {
       templateUrl:  'org/manageorg/views/prodo.wall.social.unified.organalysisview.info.tpl.html'
-    }) 
-    .state('prodo.productwall.wall-org.keyclients', {
-      templateUrl:  'org/manageorg/views/prodo.wall.social.unified.organalysisview.keyclients.tpl.html'
-    }) 
-    .state('prodo.productwall.wall-org.product', {
-      templateUrl:  'org/manageorg/views/prodo.wall.social.unified.organalysisview.product.tpl.html'
-    }) 
+    })
     .state('prodo.productwall.wall-org.analytics', {
       templateUrl:  'org/manageorg/views/prodo.wall.social.unified.organalysisview.analytics.tpl.html'
     }) 

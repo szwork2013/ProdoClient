@@ -1,10 +1,11 @@
 angular.module('prodo.ProdoWallApp')
-	.controller('ProdoWallController', ['$rootScope', '$scope', '$state', '$log', 'UserSessionService', 'orgproduct', '$stateParams', 'growl', 'checkIfSessionExist', 'dashboardSliderData', 'blogSliderData', function($rootScope, $scope, $state, $log, UserSessionService, orgproduct, $stateParams, growl, checkIfSessionExist, dashboardSliderData, blogSliderData) {
+	.controller('ProdoWallController', ['$rootScope', '$scope', '$state', '$log', 'UserSessionService', 'orgproduct', 'broadcastData', '$stateParams', 'growl', 'checkIfSessionExist', 'dashboardSliderData', 'blogSliderData', function($rootScope, $scope, $state, $log, UserSessionService, orgproduct, broadcastData, $stateParams, growl, checkIfSessionExist, dashboardSliderData, blogSliderData) {
 		
     $log.debug('initialising parent..');
     $scope.$state = $state;
 
     console.log(orgproduct);
+    $scope.messages = [];
   
     $scope.productdata = {};
 
@@ -22,6 +23,16 @@ angular.module('prodo.ProdoWallApp')
           } 
       }
     });
+
+    if (checkIfSessionExist.success && broadcastData.success) {
+      $scope.$watch('$state.$current.locals.globals.broadcastData', function (broadcastData) {
+        if (broadcastData.success.broadcast.length !== 0) {
+          $scope.messages = broadcastData.success.broadcast;
+          $log.debug($scope.messages);
+        }
+      });
+    }
+
 
     $rootScope.goToUnifiedView = function(){
       $state.transitionTo('prodo.productwall.wall-unified');
