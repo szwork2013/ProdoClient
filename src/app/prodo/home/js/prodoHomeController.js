@@ -33,7 +33,7 @@ angular.module('prodo.ProdoHomeApp')
     {     
             $rootScope.product_prodle = prodle;
             $rootScope.orgid = orgid;   
-            $state.transitionTo("prodo.productwall.wall-product");
+            $state.transitionTo("prodo.productwall.wall-unified");
     };
 
     var cleanEventGotTrendingProducts = $scope.$on('gotTrendingProducts', function (event, data) 

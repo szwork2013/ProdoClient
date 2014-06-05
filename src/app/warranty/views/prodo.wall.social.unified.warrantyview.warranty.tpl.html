@@ -1,0 +1,68 @@
+<div style="margin: 20px auto;" class="container">
+	<div id="prodo-row" class="row">
+		<div class="col-md-2"></div>
+		<div id="prodo-col-md-8" class="prodo-wall-col-container col-md-8">
+			<div class="prodo-wall-warranty-container container">
+				<div ng-show="warranties.length == 0">
+					<p class="prodo-wall-product-text text-success"><strong><em>Currently no warranties available.</em></strong></p>
+				</div>
+				<div class="list-group">
+				<div class="wall-warranty-list list-group-item" ng-show="warranties.length != 0" ng-repeat="warranty in warranties">
+					<div style="" class="row">
+					  <div class="col-md-9">
+					  	<span class="wall-warranty-expiry-label label label-success"><strong>Expires on Date: {{ warranty.expirydate |  date:'MMM d, y'}}</strong>
+					  	</span>
+					  </div>
+
+					  <div class="col-md-3">
+					  	<button ng-click="OpenInvoiceImage = !OpenInvoiceImage" class="wall-warranty-invoice-btn btn btn-primary btn-sm"><i class="prodo-fa fa fa-picture-o"></i>Invoice</button>
+					  </div>
+					</div>
+					<hr size=3 class="prodo-wall-org-hr" noshade>
+					<div>
+						<table class="warranty-table table table-condensed">
+								<tbody>
+					 			<tr class="warranty-table-tr">
+					 				<td style="font-weight: bold; width:25%;" class="">Organization Name:</td>
+					 				<td style="width:25%;" class="wordwrap">{{ warranty.orgname}}</td>
+					 				<td style="font-weight: bold; width:25%;"></td>
+					 				<td style="width:25%;" class="wordwrap" ng-show="warranty.prodle && warranty.orgid">		<span class="label label-success" tooltip="The warranty information (model no. & serial no.) are verified with the organization - {{warranty.orgname}}." tooltip-placement="top">Verified</span>
+					 				</td>
+					  			<td class="wordwrap" ng-hide="warranty.prodle && warranty.orgid">
+					  				<span class="label label-danger" tooltip="The warranty information (model no. & serial no.) are not verified with the organization - {{warranty.orgname}}." tooltip-placement="top">Not Verified</span>
+					  			</td>
+					 			</tr>
+					 			<tr class="warranty-table-tr">
+					 				<td style="font-weight: bold; width:25%;" class="">Product Name:</td>
+					 				<td style="width:25%;" class="wordwrap">{{ warranty.name}}</td>
+					 				<td style="font-weight: bold; width:25%;" class="">Model Name: </td>
+					 				<td style="width:25%;" class="wordwrap">{{ warranty.model_name}}</td>
+					 			</tr>
+					 			<tr class="warranty-table-tr">
+					 				<td style="font-weight: bold; width:25%;" class="">Model No.:</td>
+					 				<td style="width:25%;" class="wordwrap">{{ warranty.model_no}}</td>
+					 				<td style="font-weight: bold; width:25%;" class="">Serial No.: </td>
+					 				<td style="width:25%;" class="wordwrap">{{ warranty.serial_no}}</td>
+					 			</tr>
+					 			<tr class="warranty-table-tr">
+					 				<td style="font-weight: bold; width:25%;" class="">Purchase Date:</td>
+					 				<td style="width:25%;" class="wordwrap">{{ warranty.purchase_date |  date:'MMM d, y'}}</td>
+					 				<td style="font-weight: bold; width:25%;" class="">Purchase Location: </td>
+					 				<td style="width:25%;" class="wordwrap">{{ warranty.purchase_location.city}}, {{warranty.purchase_location.country}}</td>
+					 			</tr>
+								</tbody>
+					 	</table>	
+					</div>
+					<div id="#invoice-img-div" ng-show="OpenInvoiceImage" class="row">
+						<img ng-show="warranty.invoice_image" ng-src="{{warranty.invoice_image.image}}" alt="..." class="wall-warranty-invoice-img img-rounded">
+						<img ng-hide="warranty.invoice_image" src="../../assets/images/if_no_org_images_available.jpg" alt="..." class="wall-warranty-invoice-img img-rounded">
+					</div>
+				</div>
+				<div ng-show="warranties.length > 4" class="wall-warranty-btn">
+					<center><a href="" ng-click="loadWarranties()"><strong>LOAD MORE WARRANTIES</strong>&nbsp;&nbsp;&nbsp;<div prodo-spinner></div></a></center>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-2"></div>
+	</div>
+</div>

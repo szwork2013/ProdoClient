@@ -18,15 +18,15 @@ angular.module('prodo.ProdoWallApp')
       } else if (id == 'video') {
         $state.transitionTo('prodo.productwall.wall-video', null, {'reload':true});
       } else if (id == 0) {
-        $state.transitionTo('prodo.productwall.wall-org', null, {'reload':true});
+        $state.transitionTo('prodo.productwall.wall-org.info', null, {'reload':true});
       } else if (id == 1) {
         $state.transitionTo('prodo.productwall.wall-product.info', null, {'reload':true});
       } else if (id == 2) {
-        $state.transitionTo('prodo.productwall.wall-campaign', null, {'reload':true});
+        $state.transitionTo('prodo.productwall.wall-campaign.campaign', null, {'reload':true});
       } else if (id == 3) {
-        $state.transitionTo('prodo.productwall.wall-blog', null, {'reload':true});
+        $state.transitionTo('prodo.productwall.wall-blog.blog', null, {'reload':true});
       } else if (id == 4) {
-        $state.transitionTo('prodo.productwall.wall-warranty', null, {'reload':true});
+        $state.transitionTo('prodo.productwall.wall-warranty.warranty', null, {'reload':true});
       } else if (id == 5) {
         $state.transitionTo('prodo.productwall.wall-realtime', null, {'reload':true});
       } else if (id == 6) {
