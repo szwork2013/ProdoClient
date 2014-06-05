@@ -358,8 +358,7 @@ $scope.handleEnquiryError=function(error){
       $scope.features.push(successData.success.productfeature[i]);
       $scope.PFeatures.push(successData.success.productfeature[i]);
       $scope.featuretags.push(successData.success.productfeature[i].featurename);
-      $scope.featuresRates.push({featurename:successData.success.productfeature[i].featurename,
-                                 featurerates:0 ,rated:false});
+
     }
   };
 
