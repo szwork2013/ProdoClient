@@ -419,6 +419,9 @@ angular.module('prodo.ProdonusApp')
         },
         blogSliderData: function(BlogGetService, $rootScope) {    
           return BlogGetService.Get_Wall_Blogs.getAllProductBlogs({prodle: $rootScope.product_prodle}).$promise;
+        },
+        productData: function(ProductService, $rootScope) { 
+          return ProductService.getProduct({orgid: $rootScope.orgid, prodle: $rootScope.product_prodle}).$promise;
         }
       },
       controller: 'ProdoWallController',
@@ -456,11 +459,6 @@ angular.module('prodo.ProdonusApp')
     /*-------------------------nested routes for wall-org end---------------------*/
  
     .state('prodo.productwall.wall-product', {
-      resolve: {
-        productData: function(ProductService, $rootScope) { 
-          return ProductService.getProduct({orgid: $rootScope.orgid, prodle: $rootScope.product_prodle}).$promise;
-        }
-      },
       templateUrl:  'prodo/productwall/views/prodo.wall.social.unified.productview.tpl.html',
       controller: 'ProductController'
     }) 
@@ -581,7 +579,8 @@ angular.module('prodo.ProdonusApp')
       templateUrl:  'prodo/productwall/views/prodo.wall.social.unified.customeropportunityview.tpl.html'
     })
     .state('prodo.productwall.wall-rrt', {
-      templateUrl:  'prodo/productwall/views/prodo.wall.social.unified.rrtview.tpl.html'
+      templateUrl:  'prodo/productwall/views/prodo.wall.social.unified.rrtview.tpl.html',
+      controller:'ProductController'
     })
 
     /*-------------------------nested routes for wall-rrt start-------------------*/
