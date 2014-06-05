@@ -11,7 +11,7 @@
         <ul id="ratingTab" class=" commentTab nav nav-pills" ng-init="tabForTesti.tabCaptureTesti = false;
           tabForTesti.tabAllTesti = true" >
           <li class="Pcomment" ng-class="{active3 : tabForTesti.tabAllTesti == 1}" >
-            <a  class="prodo-cursor" id="prodoCommentTab" ng-click="tabForTesti.tabAllTesti = true; tabForTesti.tabCaptureTesti=false;  " >
+            <a  class="prodo-cursor" id="prodoCommentTab" ng-click="tabForTesti.tabAllTesti = true; tabForTesti.tabCaptureTesti=false; " >
              <i class="fa fa-users  fa-lg"></i>  
             </a>
           </li>
@@ -26,7 +26,7 @@
 
 
         </div>
-        <div class="tab-content">
+        <div class="tab-content" style="padding-left: 42px;">
           <div id="Remove" ng-show="tabForTesti.tabAllTesti == true" >
 
                  <br>
@@ -39,8 +39,10 @@
              <em ng-bind-html="testimonial1.text"></em>
             <br/>
               <span class= "pull-right prodoTestiMonialsUserDetails">
-                <span > <b ng-bind="testimonial1.displayname"> </b></span> from
+                <span > <b ng-bind="testimonial1.displayname"> </b></span> 
+              <span ng-show="testimonial1.user.orgname"> from
                 <span ><b ng-bind="testimonial1.user.orgname">  </b></span>
+              </span>  
               </span>
              <span class="pull-left padding-top10 font10" >Posted On <span ng-bind="fromNowTestimonial(testimonial1.createdate)"></span></span>
           </div>

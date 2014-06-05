@@ -589,10 +589,12 @@ angular.module('prodo.ProdonusApp')
       templateUrl:  'rrt/views/prodo.wall.social.unified.rrtview.recommendation.tpl.html'
     }) 
     .state('prodo.productwall.wall-rrt.rating', {
-      templateUrl:  'rrt/views/prodo.wall.social.unified.rrtview.rating.tpl.html'
+      templateUrl:  'rrt/views/prodo.wall.social.unified.rrtview.rating.tpl.html',
+      controller:'ProductRatingController'
     }) 
     .state('prodo.productwall.wall-rrt.testimonial', {
-      templateUrl:  'rrt/views/prodo.wall.social.unified.rrtview.testimonial.tpl.html'
+      templateUrl:  'rrt/views/prodo.wall.social.unified.rrtview.testimonial.tpl.html',
+      controller:'ProductTestimonialController'
     }) 
     .state('prodo.productwall.wall-rrt.analytics', {
       templateUrl:  'rrt/views/prodo.wall.social.unified.rrtview.analytics.tpl.html'
