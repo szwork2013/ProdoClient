@@ -1907,6 +1907,10 @@ margin-right: 5px;
 	font-size: 12px;
 	margin-left: 5px;
 }
+
+.prodo-productDiscontinued{
+	background-color: #FFBABA;
+}
 .prodo-lblSelectall{vertical-align: super;}
 .activeProduct{border-bottom: 5px solid greenyellow;}
 /*.activeProduct{border:1px solid lightblue;animation:mymove 5s infinite;-webkit-animation:mymove 5s infinite;}@keyframes mymove{50% {border:5px solid lightblue;}}@-webkit-keyframes mymove{50% {border:5px solid lightblue;}}*/
@@ -1922,7 +1926,7 @@ margin-right: 5px;
  max-width: 100%;
 }
 #profile-description .text {
-word-break: break-word; max-width: 91%; margin-bottom: 5px; color: #777; padding: 0 15px; position:relative; font-family: Arial; font-size: 14px; display: block;
+word-break: break-word; max-width: 91%; margin-bottom: 5px;  position:relative; font-family: Arial; font-size: 14px; display: block;
 }
 
 #profile-description .show-more:hover { 
