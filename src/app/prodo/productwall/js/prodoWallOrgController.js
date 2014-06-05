@@ -20,7 +20,7 @@ angular.module('prodo.ProdoWallApp')
       } else if (id == 0) {
         $state.transitionTo('prodo.productwall.wall-org', null, {'reload':true});
       } else if (id == 1) {
-        $state.transitionTo('prodo.productwall.wall-product', null, {'reload':true});
+        $state.transitionTo('prodo.productwall.wall-product.info', null, {'reload':true});
       } else if (id == 2) {
         $state.transitionTo('prodo.productwall.wall-campaign', null, {'reload':true});
       } else if (id == 3) {

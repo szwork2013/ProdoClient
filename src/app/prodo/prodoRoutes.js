@@ -449,6 +449,25 @@ angular.module('prodo.ProdonusApp')
       templateUrl:  'prodo/productwall/views/prodo.wall.social.unified.productview.tpl.html',
       controller: 'ProductController'
     }) 
+
+    /*-------------------------nested routes for wall-product start-------------------*/
+    
+    .state('prodo.productwall.wall-product.info', {
+      templateUrl:  'product/views/prodo.wall.social.unified.productview.info.tpl.html'
+    }) 
+    .state('prodo.productwall.wall-product.conversation', {
+      templateUrl:  'product/views/prodo.wall.social.unified.productview.conversation.tpl.html'
+    }) 
+    .state('prodo.productwall.wall-product.enquiry', {
+      templateUrl:  'product/views/prodo.wall.social.unified.productview.enquiry.tpl.html'
+    }) 
+    .state('prodo.productwall.wall-product.analytics', {
+      templateUrl:  'product/views/prodo.wall.social.unified.productview.analytics.tpl.html'
+    }) 
+
+    /*-------------------------nested routes for wall-product end---------------------*/
+
+
     .state('prodo.productwall.wall-campaign', {
       resolve: {
         campaignWalldata: function(CampaignWallService, $rootScope) {    
