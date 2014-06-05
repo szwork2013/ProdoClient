@@ -580,9 +580,27 @@ angular.module('prodo.ProdonusApp')
     .state('prodo.productwall.wall-customeropportunity', {
       templateUrl:  'prodo/productwall/views/prodo.wall.social.unified.customeropportunityview.tpl.html'
     })
-    .state('prodo.productwall.wall-rating', {
-      templateUrl:  'prodo/productwall/views/prodo.wall.social.unified.ratingview.tpl.html'
+    .state('prodo.productwall.wall-rrt', {
+      templateUrl:  'prodo/productwall/views/prodo.wall.social.unified.rrtview.tpl.html'
     })
+
+    /*-------------------------nested routes for wall-rrt start-------------------*/
+    
+    .state('prodo.productwall.wall-rrt.recommendation', {
+      templateUrl:  'rrt/views/prodo.wall.social.unified.rrtview.recommendation.tpl.html'
+    }) 
+    .state('prodo.productwall.wall-rrt.rating', {
+      templateUrl:  'rrt/views/prodo.wall.social.unified.rrtview.rating.tpl.html'
+    }) 
+    .state('prodo.productwall.wall-rrt.testimonial', {
+      templateUrl:  'rrt/views/prodo.wall.social.unified.rrtview.testimonial.tpl.html'
+    }) 
+    .state('prodo.productwall.wall-rrt.analytics', {
+      templateUrl:  'rrt/views/prodo.wall.social.unified.rrtview.analytics.tpl.html'
+    }) 
+
+    /*-------------------------nested routes for wall-rrt end---------------------*/
+
 
     .state('prodo.productwall.wall-realtime', {
       templateUrl:  'prodo/productwall/views/prodo.wall.social.unified.realtimeview.tpl.html'

@@ -5,6 +5,7 @@ angular.module('prodo.ProdoWallApp')
     $log.debug('initialising org child..');
     $scope.orgaddr = [];
     $scope.productlist = [];
+    $scope.messages = [];
     $scope.keyclients = [];
     $scope.isFollowing = false;
     $scope.views=[];
@@ -29,7 +30,7 @@ angular.module('prodo.ProdoWallApp')
       } else if (id == 5) {
         $state.transitionTo('prodo.productwall.wall-realtime', null, {'reload':true});
       } else if (id == 6) {
-        $state.transitionTo('prodo.productwall.wall-rating', null, {'reload':true});
+        $state.transitionTo('prodo.productwall.wall-rrt.recommendation', null, {'reload':true});
       } else if (id == 7) {
         $state.transitionTo('prodo.productwall.wall-competitiveanalysis', null, {'reload':true});
       } else if (id == 8) {

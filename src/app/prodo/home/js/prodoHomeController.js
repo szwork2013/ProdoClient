@@ -119,7 +119,7 @@ angular.module('prodo.ProdoHomeApp')
       $rootScope.orgid = orgid;
       $rootScope.product_prodle = prodle;
       $rootScope.campaign_idwall = campaignid;
-      $state.transitionTo('prodo.productwall.wall-campaign');
+      $state.transitionTo('prodo.productwall.wall-campaign.campaign');
     };
 
     $scope.search = {productsearchdata:{}};  
