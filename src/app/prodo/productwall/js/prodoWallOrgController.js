@@ -1,11 +1,10 @@
 angular.module('prodo.ProdoWallApp')
-	.controller('ProdoWallOrgController', ['$rootScope', '$scope', '$state', '$log', 'UserSessionService', 'orgdata', 'orgaddr', 'orgproduct', 'broadcastData', '$stateParams', 'growl', 'checkIfSessionExist', function($rootScope, $scope, $state, $log, UserSessionService, orgdata, orgaddr, orgproduct, broadcastData, $stateParams, growl, checkIfSessionExist) {
+	.controller('ProdoWallOrgController', ['$rootScope', '$scope', '$state', '$log', 'UserSessionService', 'orgdata', 'orgaddr', 'orgproduct', 'orgAllproducts', 'broadcastData', '$stateParams', 'growl', 'checkIfSessionExist', function($rootScope, $scope, $state, $log, UserSessionService, orgdata, orgaddr, orgproduct, orgAllproducts, broadcastData, $stateParams, growl, checkIfSessionExist) {
 
     $rootScope.orgdata = {};
     $log.debug('initialising org child..');
     $scope.orgaddr = [];
     $scope.productlist = [];
-    $scope.messages = [];
     $scope.keyclients = [];
     $scope.isFollowing = false;
     $scope.views=[];
@@ -18,15 +17,15 @@ angular.module('prodo.ProdoWallApp')
       } else if (id == 'video') {
         $state.transitionTo('prodo.productwall.wall-video', null, {'reload':true});
       } else if (id == 0) {
-        $state.transitionTo('prodo.productwall.wall-org', null, {'reload':true});
+        $state.transitionTo('prodo.productwall.wall-org.info', null, {'reload':true});
       } else if (id == 1) {
         $state.transitionTo('prodo.productwall.wall-product.info', null, {'reload':true});
       } else if (id == 2) {
-        $state.transitionTo('prodo.productwall.wall-campaign', null, {'reload':true});
+        $state.transitionTo('prodo.productwall.wall-campaign.campaign', null, {'reload':true});
       } else if (id == 3) {
-        $state.transitionTo('prodo.productwall.wall-blog', null, {'reload':true});
+        $state.transitionTo('prodo.productwall.wall-blog.blog', null, {'reload':true});
       } else if (id == 4) {
-        $state.transitionTo('prodo.productwall.wall-warranty', null, {'reload':true});
+        $state.transitionTo('prodo.productwall.wall-warranty.warranty', null, {'reload':true});
       } else if (id == 5) {
         $state.transitionTo('prodo.productwall.wall-realtime', null, {'reload':true});
       } else if (id == 6) {
@@ -43,63 +42,55 @@ angular.module('prodo.ProdoWallApp')
     $scope.$state = $state;
 
 
-    // if (checkIfSessionExist.success && orgdata.success) {
-    //   $scope.$watch('$state.$current.locals.globals.orgdata', function (orgdata) {
+    if (checkIfSessionExist.success && orgdata.success) {
+      $scope.$watch('$state.$current.locals.globals.orgdata', function (orgdata) {
         
-    //     $rootScope.orgdata = orgdata.success.organization;
+        $rootScope.orgdata = orgdata.success.organization;
         
-    //     if (orgdata.success.organization.keyclients && orgdata.success.organization.keyclients.length !== 0) {
-    //       $scope.keyclients = orgdata.success.organization.keyclients;
-    //     }
+        if (orgdata.success.organization.keyclients && orgdata.success.organization.keyclients.length !== 0) {
+          $scope.keyclients = orgdata.success.organization.keyclients;
+        }
         
-    //     if (orgdata.success.organization.org_logo == undefined) {
-    //       $rootScope.orgdata.org_logo = {image: '../../../assets/images/if_no_logo_images_available.gif'}
-    //     }
-    //     if (orgdata.success.organization.org_images.length !== 0) {
-    //       $log.debug("Org images emitting ");
-    //       $scope.$emit('emittingOrgImages',orgdata.success.organization.org_images);
-    //     } else {
-    //       $scope.$emit('emittingNoOrgImages',orgdata.success.organization.org_images);
-    //     }
-    //     $log.debug($rootScope.orgdata);
-    //   });
-    // }
+        if (orgdata.success.organization.org_logo == undefined) {
+          $rootScope.orgdata.org_logo = {image: '../../../assets/images/if_no_logo_images_available.gif'}
+        }
+        if (orgdata.success.organization.org_images.length !== 0) {
+          $log.debug("Org images emitting ");
+          $scope.$emit('emittingOrgImages',orgdata.success.organization.org_images);
+        } else {
+          $scope.$emit('emittingNoOrgImages',orgdata.success.organization.org_images);
+        }
+        $log.debug($rootScope.orgdata);
+      });
+    }
 
-    // if (checkIfSessionExist.success && broadcastData.success) {
-    //   $scope.$watch('$state.$current.locals.globals.broadcastData', function (broadcastData) {
-    //     if (broadcastData.success.broadcast.length !== 0) {
-    //       $scope.messages = broadcastData.success.broadcast;
-    //       $log.debug($scope.messages);
-    //     }
-    //   });
-    // }
+    if (checkIfSessionExist.success && orgaddr.success) {
+      $scope.$watch('$state.$current.locals.globals.orgaddr', function (orgaddr) {
+        $scope.orgaddr = orgaddr.success.orgaddress;
+      });
+    }
 
-    // if (checkIfSessionExist.success && orgaddr.success) {
-    //   $scope.$watch('$state.$current.locals.globals.orgaddr', function (orgaddr) {
-    //     $scope.orgaddr = orgaddr.success.orgaddress;
-    //   });
-    // }
-
-    // if (checkIfSessionExist.success && orgproduct.success) {
-    //   $scope.$watch('$state.$current.locals.globals.orgproduct', function (orgproduct) {
-    //     if (orgproduct.error) {
-    //       $log.debug('No product available'); 
-    //     } else {
-    //       $scope.productlist = orgproduct.success.product; 
-    //       $scope.product_prodles = [];
-    //       if (UserSessionService.productfollowlist.length > 0) {
-    //         for (var i=0; i< UserSessionService.productfollowlist.length; i++){
-    //           if(UserSessionService.productfollowlist[i] && UserSessionService.productfollowlist[i].prodle){
-    //             var prodle = UserSessionService.productfollowlist[i].prodle;
-    //             if ($scope.product_prodles.indexOf(prodle)<0) {
-    //               $scope.product_prodles.push(prodle);
-    //             }              
-    //           }
-    //         }
-    //       };
-    //     }
-    //   });
-    // }
+    if (checkIfSessionExist.success && orgAllproducts.success) {
+      $scope.$watch('$state.$current.locals.globals.orgAllproducts', function (orgAllproducts) {
+        if (orgAllproducts.error) {
+          $log.debug('No product available'); 
+        } else {
+          $scope.productlist = orgAllproducts.success.product; 
+          console.log($scope.productlist);
+          $scope.product_prodles = [];
+          if (UserSessionService.productfollowlist.length > 0) {
+            for (var i=0; i< UserSessionService.productfollowlist.length; i++){
+              if(UserSessionService.productfollowlist[i] && UserSessionService.productfollowlist[i].prodle){
+                var prodle = UserSessionService.productfollowlist[i].prodle;
+                if ($scope.product_prodles.indexOf(prodle)<0) {
+                  $scope.product_prodles.push(prodle);
+                }              
+              }
+            }
+          };
+        }
+      });
+    }
 
     var cleanEventUnfollowProductFromSidelist = $scope.$on("unfollowProductFromSidelist", function(event, success){
       $state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });

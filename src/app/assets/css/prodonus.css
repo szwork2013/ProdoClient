@@ -2532,7 +2532,7 @@ text-align: right;
   background-color: #ffffff;
   margin-bottom: 20px;
   border-radius: 10px;
-  border: 1px solid #E7EDF1;
+  /*border: 1px solid #E7EDF1;*/
 }
 
 .blog-dispalybox-div{
@@ -2652,7 +2652,7 @@ border: 1px solid #b3b3b3; padding: 30px;
 }*/
 
 .prodo-wall-warranty-container{
-	border: 1px solid #E7EDF1;
+	/*border: 1px solid #E7EDF1;*/
 	background-color: #ffffff;
   margin-bottom: 20px;
   border-radius: 10px;
@@ -2702,7 +2702,7 @@ margin:2px auto; padding: 5px; display:block; text-align:left; font-weight:bold;
 }
 
 .prodo-wall-product-text{
-	text-align:left; font-size:20px; margin: 20px auto;
+	text-align:center; font-size:20px; margin: 20px auto;
 }
 
 #prodo-row-static-content{
@@ -2819,7 +2819,7 @@ vertical-align: bottom;
 }
 
 .wall-broadcast-carousel{
- background-color:  rgb(250, 248, 239);	border: 1px solid #9FBACC; font-size:14px; font-weight: 100; font-family:monospace; padding: 10px; border-radius: 6px; min-height: 30px;
+ background-color:  transparent; font-size:14px; font-weight: bold; font-family:monospace; padding: 2px; border-radius: 6px; min-height: 20px;
 }
 
 .wall-broadcast-carousel-normal-item{

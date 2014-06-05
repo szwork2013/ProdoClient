@@ -405,6 +405,9 @@ angular.module('prodo.ProdonusApp')
         orgaddr: function(OrgService, $rootScope) {
           return OrgService.ManageOrgLocation.getAllOrgAddress({orgid: $rootScope.orgid}).$promise;
         },
+        orgAllproducts: function(OrgService, $rootScope) {
+          return OrgService.GetOrgProducts.getAllOrgProducts({orgid: $rootScope.orgid}).$promise;
+        },
         orgproduct: function(OrgService, $rootScope) {
           return OrgService.GetSpecificOrgProduct.getOrgProduct({orgid: $rootScope.orgid, prodle: $rootScope.product_prodle}).$promise;
         },
@@ -439,7 +442,19 @@ angular.module('prodo.ProdonusApp')
     .state('prodo.productwall.wall-org', {
       templateUrl: 'prodo/productwall/views/prodo.wall.social.unified.organalysisview.tpl.html',
       controller: 'ProdoWallOrgController'
-    })    
+    })   
+
+    /*-------------------------nested routes for wall-org start-------------------*/
+    
+    .state('prodo.productwall.wall-org.info', {
+      templateUrl:  'org/manageorg/views/prodo.wall.social.unified.organalysisview.info.tpl.html'
+    })
+    .state('prodo.productwall.wall-org.analytics', {
+      templateUrl:  'org/manageorg/views/prodo.wall.social.unified.organalysisview.analytics.tpl.html'
+    }) 
+
+    /*-------------------------nested routes for wall-org end---------------------*/
+ 
     .state('prodo.productwall.wall-product', {
       resolve: {
         productData: function(ProductService, $rootScope) { 
@@ -490,8 +505,20 @@ angular.module('prodo.ProdonusApp')
         }
       },
       templateUrl:  'prodo/productwall/views/prodo.wall.social.unified.campaignview.tpl.html',
-      controller: 'ProdoWallCampaignController',
+      controller: 'ProdoWallCampaignController'
+    })
+
+    /*-------------------------nested routes for wall-campaign start-------------------*/
+    
+    .state('prodo.productwall.wall-campaign.campaign', {
+      templateUrl:  'campaign/views/prodo.wall.social.unified.campaignview.campaign.tpl.html'
+    })  
+    .state('prodo.productwall.wall-campaign.analytics', {
+      templateUrl:  'campaign/views/prodo.wall.social.unified.campaignview.analytics.tpl.html'
     }) 
+
+    /*-------------------------nested routes for wall-campaign end---------------------*/
+ 
     .state('prodo.productwall.wall-blog', {
       resolve: {
         getProductBlogData: function(blogSliderData, BlogGetService, $rootScope){
@@ -509,151 +536,66 @@ angular.module('prodo.ProdonusApp')
       templateUrl:  'prodo/productwall/views/prodo.wall.social.unified.blogview.tpl.html',
       controller: 'ProdoWallBlogController'
     })
-    .state('prodo.productwall.wall-warranty', {
-      templateUrl:  'prodo/productwall/views/prodo.wall.social.unified.warrantyview.tpl.html'
+
+    /*-------------------------nested routes for wall-blog start-------------------*/
+    
+    .state('prodo.productwall.wall-blog.blog', {
+      templateUrl:  'blog/views/prodo.wall.social.unified.blogview.blog.tpl.html'
+    })  
+    .state('prodo.productwall.wall-blog.analytics', {
+      templateUrl:  'blog/views/prodo.wall.social.unified.blogview.analytics.tpl.html'
     })
+
+    /*-------------------------nested routes for wall-blog end---------------------*/
+
+    .state('prodo.productwall.wall-warranty', {
+      resolve: {
+        warrantydata: function(WarrantyService, $rootScope) {
+          return WarrantyService.get_latest5warranties.getLatestWarrantyDetails({userid: $rootScope.usersession.currentUser.userid}).$promise;
+        }
+      },
+      templateUrl:  'prodo/productwall/views/prodo.wall.social.unified.warrantyview.tpl.html',
+      controller: 'ProdoWallWarrantyController'
+    })
+
+    /*-------------------------nested routes for wall-warranty start-------------------*/
+    
+    .state('prodo.productwall.wall-warranty.warranty', {
+      templateUrl:  'warranty/views/prodo.wall.social.unified.warrantyview.warranty.tpl.html'
+    })  
+    .state('prodo.productwall.wall-warranty.analytics', {
+      templateUrl:  'warranty/views/prodo.wall.social.unified.warrantyview.analytics.tpl.html'
+    })
+
+    /*-------------------------nested routes for wall-warranty end---------------------*/
+
     .state('prodo.productwall.wall-media', {
       templateUrl:  'prodo/productwall/views/prodo.wall.social.unified.mediaview.tpl.html'
     })
+
     .state('prodo.productwall.wall-competitiveanalysis', {
       templateUrl:  'prodo/productwall/views/prodo.wall.social.unified.competitiveanalysisview.tpl.html'
     })
+
     .state('prodo.productwall.wall-customeropportunity', {
       templateUrl:  'prodo/productwall/views/prodo.wall.social.unified.customeropportunityview.tpl.html'
     })
     .state('prodo.productwall.wall-rating', {
       templateUrl:  'prodo/productwall/views/prodo.wall.social.unified.ratingview.tpl.html'
     })
+
     .state('prodo.productwall.wall-realtime', {
       templateUrl:  'prodo/productwall/views/prodo.wall.social.unified.realtimeview.tpl.html'
     })
+
     .state('prodo.productwall.wall-video', {
       templateUrl:  'prodo/productwall/views/prodo.wall.social.unified.videoview.tpl.html'
     })
     .state('prodo.productwall.wall-photo', {
       templateUrl:  'prodo/productwall/views/prodo.wall.social.unified.photoview.tpl.html'
     })
-   //    views: {
-   //      'prodo-productwall-slider' : {
-   //        templateUrl:  'blog/views/prodo.wall.slider.blog.tpl.html'
-   //      },
-   //      'prodo-content' : {
-   //        templateUrl:  'blog/views/prodo.wall.blog.tpl.html',
-   //        controller: 'ProdoWallBlogController'
-   //      },
-   //      // 'prodo-advertisment' : {
-   //      //   templateUrl:  'prodo/productwall/views/prodo.wall.advertisment.tpl.html'
-   //      // }
-   //    }
-   //  })
-   // .state('prodo.productwall.wall-warranty', {
-   //    resolve: {
-   //      warrantydata: function(WarrantyService, $rootScope) {
-   //        return WarrantyService.get_latest5warranties.getLatestWarrantyDetails({userid: $rootScope.usersession.currentUser.userid}).$promise;
-   //      }
-   //    },
-   //    views: {
-   //      'prodo-productwall-slider' : {
-   //        templateUrl:  'prodo/productwall/views/prodo.wall.slider.tpl.html'
-   //      },
-   //      'prodo-content' : {
-   //        templateUrl:  'warranty/views/prodo.wall.warranty.tpl.html',
-   //        controller: 'ProdoWallWarrantyController',
-   //      },
-   //      // 'prodo-advertisment' : {
-   //      //   templateUrl:  'prodo/productwall/views/prodo.wall.advertisment.tpl.html'
-   //      // }
-   //    }
-   //  }) 
-   //  .state('prodo.productwall.wall-campaign', {
-   //     resolve: {
-   //          campaignWalldata: function(CampaignWallService, $rootScope) {    
-   //            return CampaignWallService.get_All_ProductCampaigns.getAllProductCampaigns({prodle: $rootScope.product_prodle}).$promise;
-   //          },
-   //          assignCampaignId: function(campaignWalldata, $rootScope){
-   //            console.log(campaignWalldata);
-   //             if(campaignWalldata.success){
-   //              if(campaignWalldata.success.Product_Campaigns.length > 0){
-   //                 if($rootScope.campaign_idwall ){console.log('idfirst' +$rootScope.campaign_idwall ) }
-   //                  else{
 
-   //                   $rootScope.campaignidWall=campaignWalldata.success.Product_Campaigns[0].campaign_id;
-   //                   console.log('idsecond' +$rootScope.campaignidWall)
-   //                  }
-                  
-                   
-   //              }
-   //             }
-   //          }
-   //        },
-   //    views: {
-   //      'prodo-productwall-slider' : {
-   //        templateUrl:  'prodo/productwall/views/prodo.wall.slider.tpl.html'
-   //      },
-   //      'prodo-content' : {
-   //       templateUrl:  'campaign/views/prodo.wall.campaign.tpl.html',
-   //        controller: 'ProdoWallCampaignController',
-   //      },
-   //      // 'prodo-advertisment' : {
-   //      //   templateUrl:  'prodo/productwall/views/prodo.wall.advertisment.tpl.html'
-   //      // }
-   //    }
-   //  }) 
-   //  .state('prodo.productwall.wall-blog', {
-   //    resolve: {
-   //      getProductBlogData: function(blogSliderData, BlogGetService, $rootScope){
-   //        if (blogSliderData.success && blogSliderData.success.doc)  {
-   //          if (blogSliderData.success.doc.length !== 0) {
-   //            console.log(blogSliderData);
-   //            var blogid = blogSliderData.success.doc[0].blogid;
-   //            return BlogGetService.Get_Wall_Blog.getBlog({prodle: $rootScope.product_prodle, blogid: blogid}).$promise;
-   //          } 
-   //        } else {
-   //            return blogSliderData.error.message;
-   //        }
-   //      }
-   //    },
-   //    views: {
-   //      'prodo-productwall-slider' : {
-   //        templateUrl:  'blog/views/prodo.wall.slider.blog.tpl.html'
-   //      },
-   //      'prodo-content' : {
-   //        templateUrl:  'blog/views/prodo.wall.blog.tpl.html',
-   //        controller: 'ProdoWallBlogController'
-   //      },
-   //      // 'prodo-advertisment' : {
-   //      //   templateUrl:  'prodo/productwall/views/prodo.wall.advertisment.tpl.html'
-   //      // }
-   //    }
-   //  }) 
-   //  .state('prodo.productwall.wall-dashboard', {   
-   //    views: {
-   //      'prodo-productwall-slider' : {
-   //        templateUrl:  'prodo/productwall/views/prodo.wall.slider.dashboard.tpl.html'
-   //      },
-   //      'prodo-content' : {
-   //        templateUrl:  'dashboard/views/prodo.wall.dashboard.tpl.html',
-   //        // resolve : {
-   //        //   prodoDashboardService: 'prodoDashboardService',
-   //        //   pieChartProdle : function(prodoDashboardService, $rootScope) 
-   //        //   {
-   //        //     return  prodoDashboardService.Product.prodlePieChart({prodle : $rootScope.product_prodle}).$promise;
-   //        //   },
-   //        //   trendingChartContent : function(prodoDashboardService , $rootScope)
-   //        //   // barChartProdle : function(prodoDashboardService, $rootScope) 
-   //        //   {
-   //        //     return  prodoDashboardService.Trending.getTrendingChart({prodle : $rootScope.product_prodle}).$promise;
-   //        //   }
-   //        // },
-   //        controller: 'ProdoDashboardController',
-   //      },
-   //      // 'prodo-advertisment' : {
-   //      //   templateUrl:  'prodo/productwall/views/prodo.wall.advertisment.tpl.html'
-   //      // }
-   //    } 
-   //  })
-
-    /* -----------------------Prodo ProductWall Routes----------------------- */
+    /* -----------------------Prodo ProductWall Routes End----------------------- */
 
 
     /* ------------------------Warranty Account Routes------------------------ */
