@@ -1,10 +1,10 @@
 angular.module('prodo.BlogApp')
  .controller('ManageBlogController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$stateParams', '$log', 'growl', 'checkIfSessionExist', 'fileReader','ENV','isLoggedin', 'blogproductdata', 'BlogService', 'getAllblogdata', 'getblogdata', function($scope, $rootScope, $state, $http, $timeout, $stateParams, $log, growl, checkIfSessionExist, fileReader, ENV, isLoggedin, blogproductdata, BlogService, getAllblogdata, getblogdata) {
- 	$log.debug('initialising manage blog controller...');
+  $log.debug('initialising manage blog controller...');
 
- 	$scope.addNewBlog = false;
+  $scope.addNewBlog = false;
 
- 	$scope.blogs = [];
+  $scope.blogs = [];
 
   $scope.displayblog = {};
 
@@ -22,12 +22,16 @@ angular.module('prodo.BlogApp')
 
   $scope.blogcategoryList = [];
 
- 	$scope.addBlog = function() {
- 		$scope.addNewBlog = true;
- 	}
+  $scope.addBlog = function() {
+    $scope.addNewBlog = true;
+  }
 
- 	$scope.cancelAddBlog =function() {
- 		$scope.addNewBlog = false;
+  $scope.cancelAddBlog =function() {
+    $scope.productname_err = false;
+    $scope.message = '';
+    $scope.contentmessage = '';
+    $scope.contentblog_err = false;
+    $scope.addNewBlog = false;
     $scope.form.addBlogForm.$setPristine();
     $scope.form.addBlogForm.submitted = false;
     $scope.blog = {
@@ -36,7 +40,7 @@ angular.module('prodo.BlogApp')
       category: []
     },
     $scope.productname.name = ''
- 	};
+  };
 
   $scope.productname = {name:'', prodle:''};
   $scope.blog = {
@@ -116,8 +120,8 @@ angular.module('prodo.BlogApp')
   }
 
   $scope.cancelEditBlog = function(){
-    $scope.productname_err = false;
-    $scope.message = '';
+    $scope.contentmessage = '';
+    $scope.contentblog_err = false;
     $scope.form.editBlogForm.$setPristine();
     $scope.form.editBlogForm.submitted = false;
     $scope.displaySelectedBlog = true;
@@ -176,13 +180,21 @@ angular.module('prodo.BlogApp')
 
     $scope.saveEditBlog = function(authorid, blogid) {
       if ($scope.form.editBlogForm.$valid) {
-        $scope.showSpinner();
-        if ($scope.imageids.length !== 0) {
-          BlogService.deleteImages(authorid, blogid, $scope.imageids); 
-        } else if ($scope.imageids.length === 0) {
-          BlogService.updateUserBlog($scope.jsonUpdateBlogData(), authorid, blogid);
+        if ($scope.editblog.content.length <= 3000) {
+          $scope.showSpinner();
+          if ($scope.imageids.length !== 0) {
+            BlogService.deleteImages(authorid, blogid, $scope.imageids); 
+          } else if ($scope.imageids.length === 0) {
+            BlogService.updateUserBlog($scope.jsonUpdateBlogData(), authorid, blogid);
+          }
+        } else {
+          $scope.contentmessage = '*Please enter blog content and should not exceed 3000 characters';
+          $scope.contentblog_err = true;
         }
+        
       } else {
+        $scope.contentmessage = '*Please enter blog content and should not exceed 3000 characters';
+        $scope.contentblog_err = true;
         $scope.form.editBlogForm.submitted = true;
       }
     };
@@ -357,13 +369,20 @@ angular.module('prodo.BlogApp')
 
 
     $scope.postBlog = function(productname) {
-      
       if ($scope.form.addBlogForm.$valid) {
         $scope.showSpinner();
         if ($scope.productnames.indexOf(productname) !== -1) {
-          $scope.productname_err = false;
-          $scope.message = '';
-          BlogService.addUserBlog($scope.jsonAddBlogData(), $scope.addBlogForProdle());
+          if ($scope.blog.content.length <= 3000) {
+            $scope.contentblog_err = false;
+            $scope.contentmessage = '';
+            $scope.productname_err = false;
+            $scope.message = '';
+            BlogService.addUserBlog($scope.jsonAddBlogData(), $scope.addBlogForProdle());
+          } else {
+            $scope.contentblog_err = true;
+            $scope.contentmessage = '*Please enter blog content and should not exceed 3000 characters';
+            $scope.hideSpinner();
+          }
         } else {
           $scope.productname_err = true;
           $scope.message = '*Please select product name from the given list only!';
@@ -373,6 +392,8 @@ angular.module('prodo.BlogApp')
       } else {
         $scope.form.addBlogForm.submitted = true;
         $scope.message = '*Please select product name from the given list only!';
+        $scope.contentblog_err = true;
+        $scope.contentmessage = '*Please enter blog content and should not exceed 3000 characters';
         $scope.hideSpinner();
       }
     };
