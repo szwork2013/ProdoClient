@@ -135,6 +135,8 @@ angular.module('prodo.ProdonusApp')
           } else if (checkIfSessionExist.success.user.isOtpPassword) {
             $state.transitionTo('prodo.landing.resetpassword');
           } 
+        } else {
+          $state.transitionTo('prodo.landing.signup');
         }
       }
     })
@@ -432,6 +434,8 @@ angular.module('prodo.ProdonusApp')
           } else if (checkIfSessionExist.success.user.isOtpPassword) {
             $state.transitionTo('prodo.landing.resetpassword');
           } 
+        } else {
+          $state.transitionTo('prodo.landing.signup');
         }
       },
       templateUrl: 'prodo/productwall/views/prodo.container.html',
