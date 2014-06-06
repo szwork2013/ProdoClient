@@ -47,21 +47,21 @@
 										<img style="width:100%; height:180px;" ng-src="{{images.image}}">
 									</div>
 									<div ng-show="viewblog.blog_images.length > 1" style="border: 1px solid #E7EDF1;">
-										<div class="row">
-											<div class="col-md-6">
+										<div style="margin:0px;" class="row">
+											<div  style=" padding:1px;" class="col-md-6">
 												<a href="" ng-click="openModal()"><img style="width:100%; height:180px;" ng-src="{{selected_image}}"></a>
 											</div>
 											<div class="col-md-6">
 												<div ng-if="result == 0" class="row">
-													<div style="padding-left:0px; padding-right:0px;" ng-repeat="images in blog_images" class="col-md-{{size}}">
+													<div style="padding-left:1px; padding-right:1px;" ng-repeat="images in blog_images" class="col-md-{{size}}">
 														<a href="" ng-click="showSelectedImage(images.image)"><img style="width:100%; height:90px; margin:1px auto;" ng-src="{{images.image}}"></a>
 													</div>
 												</div>
 												<div ng-if="result !== 0" class="row">
-													<div ng-if="$index < upperpartition" style="padding-left:0px; padding-right:0px;" ng-repeat="images in blog_images" class="col-md-{{oddsize}}">
+													<div ng-if="$index < upperpartition" style="padding-left:1px; padding-right:1px;" ng-repeat="images in blog_images" class="col-md-{{oddsize}}">
 														<a href="" ng-click="showSelectedImage(images.image)"><img style="width:100%; height:90px; margin:1px auto;" ng-src="{{images.image}}"></a>
 													</div>
-													<div ng-if="$index >= upperpartition" style="padding-left:0px; padding-right:0px;" ng-repeat="images in blog_images" class="col-md-{{size}}">
+													<div ng-if="$index >= upperpartition" style="padding-left:1px; padding-right:1px;" ng-repeat="images in blog_images" class="col-md-{{size}}">
 														<a href="" ng-click="showSelectedImage(images.image)"><img style="width:100%; height:90px; margin:1px auto;" ng-src="{{images.image}}"></a>
 													</div>
 												</div>
@@ -89,7 +89,7 @@
 							<div style="margin:10px auto;" class="row">
 								<div style="min-height: 150px;" class="col-md-12">
 									<br>
-									<p style="text-align:justify;font-family: georgia;font-size: 18px;" ng-bind-html="viewblog.content"></p> 		
+									<p style="text-align:justify;font-family: georgia;font-size: 15px;" ng-bind-html="viewblog.content"></p> 		
 								</div>  
 							</div>		
 						</div>

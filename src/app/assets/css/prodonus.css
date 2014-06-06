@@ -2,7 +2,21 @@
 *	html body
 **/
 
+/*.unified.ng-enter {
+    transition: all 2s linear;
+    opacity: 0;
+}
 
+.unified.ng-enter-active {
+    opacity: 1;
+}
+
+
+.unified.ng-leave,
+.unified.ng-enter.ng-enter-active {
+  -webkit-transform: translate3d(0, 0, 0);
+}
+*/
 .madal-blogwall-content{
 	 background: white 
                 url('http://i.stack.imgur.com/FhHRx.gif') 

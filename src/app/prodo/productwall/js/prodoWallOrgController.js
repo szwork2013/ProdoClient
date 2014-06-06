@@ -14,29 +14,29 @@ angular.module('prodo.ProdoWallApp')
 
     $scope.goToState = function(id) {
       if (id == 'photo') {
-        $state.transitionTo('prodo.productwall.wall-photo', null, {'reload':true});
+        $state.transitionTo('prodo.productwall.wall-photo');
       } else if (id == 'video') {
-        $state.transitionTo('prodo.productwall.wall-video', null, {'reload':true});
+        $state.transitionTo('prodo.productwall.wall-video');
       } else if (id == 0) {
-        $state.transitionTo('prodo.productwall.wall-org.info', null, {'reload':true});
+        $state.transitionTo('prodo.productwall.wall-org.info');
       } else if (id == 1) {
-        $state.transitionTo('prodo.productwall.wall-product.info', null, {'reload':true});
+        $state.transitionTo('prodo.productwall.wall-product.info');
       } else if (id == 2) {
-        $state.transitionTo('prodo.productwall.wall-campaign.campaign', null, {'reload':true});
+        $state.transitionTo('prodo.productwall.wall-campaign.campaign');
       } else if (id == 3) {
-        $state.transitionTo('prodo.productwall.wall-blog.blog', null, {'reload':true});
+        $state.transitionTo('prodo.productwall.wall-blog.blog');
       } else if (id == 4) {
-        $state.transitionTo('prodo.productwall.wall-warranty.warranty', null, {'reload':true});
+        $state.transitionTo('prodo.productwall.wall-warranty.warranty');
       } else if (id == 5) {
-        $state.transitionTo('prodo.productwall.wall-realtime', null, {'reload':true});
+        $state.transitionTo('prodo.productwall.wall-realtime');
       } else if (id == 6) {
-        $state.transitionTo('prodo.productwall.wall-rrt.recommendation', null, {'reload':true});
+        $state.transitionTo('prodo.productwall.wall-rrt.recommendation');
       } else if (id == 7) {
-        $state.transitionTo('prodo.productwall.wall-competitiveanalysis', null, {'reload':true});
+        $state.transitionTo('prodo.productwall.wall-competitiveanalysis');
       } else if (id == 8) {
-        $state.transitionTo('prodo.productwall.wall-customeropportunity', null, {'reload':true});
+        $state.transitionTo('prodo.productwall.wall-customeropportunity');
       } else if (id == 9) {
-        $state.transitionTo('prodo.productwall.wall-media', null, {'reload':true});
+        $state.transitionTo('prodo.productwall.wall-media');
       }
     }
 
