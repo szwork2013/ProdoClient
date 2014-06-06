@@ -2,17 +2,26 @@
 *	html body
 **/
 
+/*.unified.ng-enter {
+    transition: all 2s linear;
+    opacity: 0;
+}
 
+.unified.ng-enter-active {
+    opacity: 1;
+}
+
+
+.unified.ng-leave,
+.unified.ng-enter.ng-enter-active {
+  -webkit-transform: translate3d(0, 0, 0);
+}
+*/
 .madal-blogwall-content{
 	 background: white 
                 url('http://i.stack.imgur.com/FhHRx.gif') 
                 50% 50% 
                 no-repeat;
-}
-
-.texteditor-btn{
-	padding: 2px 6px;
-	font-size: 13px;
 }
 
 /*change the body style*/
@@ -33,8 +42,8 @@ div.inner-1:hover {
 }
 
 div.inner-2 {
-    width: 180px;
-    height: 140px;
+    width: 95%;
+    height: 122px;
     color: white;
     padding: 10px;
     border: 1px solid #b3b3b3;
@@ -125,6 +134,12 @@ font-weight: bold;
 	width: 70%;
 	margin: 10px auto;
 }
+
+.texteditor-btn{
+ 	padding: 2px 6px;
+	font-size: 13px;
+ }
+ 
 
 .prodo-authorTags{
 width: 100%;
@@ -1673,7 +1688,7 @@ margin-right: 5px;}
 #prodo-comment-textBox-container {padding-bottom: 10px;}
 #prodo-comment-media-list{border:3px;font-family: Helvetica ;font-size:14px;}
 #prodo-comment-Textbox { padding: 5px; height:40px;border-radius:10px;font-size:12px;   overflow: hidden;
-	font-family: Helvetica ; border: solid 1px #5bc0de; max-height: 75px;max-width: 473px;resize: none;}
+	font-family: Helvetica ; border: solid 1px #5bc0de; max-height: 75px;resize: none;}
 #prodo-comment-search-Textbox {  height:40px;width:87%;border-radius:10px;font-size:12px; 
 	font-family: Helvetica ; border: solid 1px #5bc0de; }
 #prodo-comment-fixed { margin-left:17px;}
@@ -1741,9 +1756,7 @@ margin-bottom: 10px;
  }  
 /*#load-more:hover            { color:#666; }   */
 
-.width500{
-	width: 500px;
-}
+
 #panel {
 
 
@@ -1751,20 +1764,12 @@ margin-bottom: 10px;
 	font-family: Helvetica ;
 
 }
-.resizevertical{
-	resize:vertical;
-}
 .panelFont{
 	font-size: 12px;
 }
 #panelRating {
 
 
-	display: none;
-	font-family: Helvetica ;
-}
-
-#panelTesti{
 	display: none;
 	font-family: Helvetica ;
 }
@@ -1780,11 +1785,6 @@ margin-right: 5px;
 
 }
 .btn-slideRating {
-
-margin-right: 5px;
-
-}
-.btn-slideTesti {
 
 margin-right: 5px;
 
@@ -1834,8 +1834,6 @@ margin-right: 5px;
  /* Prodo-Comment-CSS*/
 
  /* Prodo-ProductFeature-CSS*/
- .font10{font-size: 10px;}
- .padding-top10{padding-top: 10px;}
 .padding-right30{margin-left: 30px;}
   .prodo-inquirySubmittr{width: 473px;}
  .prodo-productwalltextWidth{width: 473px}
@@ -1929,6 +1927,14 @@ margin-right: 5px;
 	font-size: 12px;
 	margin-left: 5px;
 }
+.prodo-paddingLeftUnifiedWall{
+	padding-left: 250px;
+	width: 85%
+}
+.prodo-productDiscontinued{
+	background-color: #FFBABA;
+	width: 85%;
+}
 .prodo-lblSelectall{vertical-align: super;}
 .activeProduct{border-bottom: 5px solid greenyellow;}
 /*.activeProduct{border:1px solid lightblue;animation:mymove 5s infinite;-webkit-animation:mymove 5s infinite;}@keyframes mymove{50% {border:5px solid lightblue;}}@-webkit-keyframes mymove{50% {border:5px solid lightblue;}}*/
@@ -1944,7 +1950,7 @@ margin-right: 5px;
  max-width: 100%;
 }
 #profile-description .text {
-word-break: break-word; max-width: 91%; margin-bottom: 5px; color: #777; padding: 0 15px; position:relative; font-family: Arial; font-size: 14px; display: block;
+word-break: break-word; max-width: 91%; margin-bottom: 5px;  position:relative; font-family: Arial; font-size: 14px; display: block;
 }
 
 #profile-description .show-more:hover { 
@@ -2546,7 +2552,7 @@ text-align: right;
   background-color: #ffffff;
   margin-bottom: 20px;
   border-radius: 10px;
-  border: 1px solid #E7EDF1;
+  /*border: 1px solid #E7EDF1;*/
 }
 
 .blog-dispalybox-div{
@@ -2666,7 +2672,7 @@ border: 1px solid #b3b3b3; padding: 30px;
 }*/
 
 .prodo-wall-warranty-container{
-	border: 1px solid #E7EDF1;
+	/*border: 1px solid #E7EDF1;*/
 	background-color: #ffffff;
   margin-bottom: 20px;
   border-radius: 10px;
@@ -2678,7 +2684,7 @@ border: 1px solid #b3b3b3; padding: 30px;
 	background-color: #ffffff;
   margin-bottom: 20px;
   border-radius: 10px;
-  padding: 20px;
+  padding: 5px;
 }
 
 .prodo-wall-campaign-container{
@@ -2711,8 +2717,12 @@ margin:2px auto; padding: 5px; display:block; text-align:left; font-weight:bold;
 	margin:1px auto; display:block; width:95%; height: 100px; 
 }
 
+.prodo-wall-unifiedview-productimg{
+	margin:1px auto; display:block; width:60%; height: 60px; 
+}
+
 .prodo-wall-product-text{
-	text-align:left; font-size:20px; margin: 20px auto;
+	text-align:center; font-size:20px; margin: 20px auto;
 }
 
 #prodo-row-static-content{
@@ -2829,7 +2839,7 @@ vertical-align: bottom;
 }
 
 .wall-broadcast-carousel{
- background-color:  rgb(250, 248, 239);	border: 1px solid #9FBACC; font-size:14px; font-weight: 100; font-family:monospace; padding: 10px; border-radius: 6px; min-height: 30px;
+ background-color:  transparent; font-size:14px; font-weight: bold; font-family:monospace; padding: 2px; border-radius: 6px; min-height: 20px;
 }
 
 .wall-broadcast-carousel-normal-item{

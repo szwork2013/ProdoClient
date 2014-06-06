@@ -1,0 +1,128 @@
+<div style="margin: 20px auto;">
+	
+ <div id="prodo-ProdoProductComments" class="prodo-paddingLeftUnifiedWall">
+    <div id="prodo-comment-fixed" ng-controller="ProductCommentController">
+      <!-- tabs -->
+      <div class="prodo-comment-Text-tabs " id="tabs">
+        <ul id="commentTab" class=" commentTab nav nav-pills" ng-init="tabForComment.tabSearch = false;
+          tabForComment.tabComment = true" >
+          <li class="Pcomment" ng-class="{active2 : tabForComment.tabComment == 1}" >
+            <a  class="prodo-cursor" id="prodoCommentTab" ng-click="tabForComment.tabComment = true; tabForComment.tabSearch=false;tabForComment.tabTesto=false;  hideSearchCategories(); searchfields.commentcategory='';searchfields.general='';"  >
+              <div   id="fa-removeComment" name="rm" class=" fa fa-comments-o fa-lg  " ></div>
+            </a>
+          </li>
+
+          <li class="PSearch" ng-class="{active2 : tabForComment.tabSearch == 1}"  >
+            <a id="prodoCommentSearchTab" class="prodo-cursor" ng-click="tabForComment.tabSearch =  true ;
+              tabForComment.tabComment = false;tabForComment.tabTesto=false; hideFeature();" >
+
+              <div id="fa-tagsComment" class="fa fa-search fa-lg"  ></div>
+            </a>
+          </li>
+
+
+         
+        </ul>
+
+      <div collapse="isCollapsedSearch" style="width:80%;margin-left:30px;"> 
+       <b> Search By : </b>
+         <!-- <p style="font-size:12px; color:green">Search :  &nbsp;<span class="commentCategoryTabsSelected"> {{searchBySelected.type}} </span></p> -->
+
+          <ul style="max-height:60px;overflow-x:hidden; overflow-y: auto;">
+              <li ng-repeat="feature in searchfields track by $index"  class="hyperlinkPointer commentCategoryTabs"  ng-class="{commentCategoryTabsSelected : searchBySelected.type==feature.name}"> 
+              <span ng-bind="feature.name" ng-click="searchBySelected.type=feature.name ; searchfields.commentcategory='';searchfields.general='';" style="font-size:12px;"> </span>
+              </li>
+           </ul>
+
+        </div>
+
+       <div collapse="isCollapsed" style="width:80%;margin-left:30px;"> 
+       <!-- comment tags -->
+       <div ng-if="product.commentcategory">
+           <b> Select a comment category </b>
+           <!-- <p style="font-size:12px; color:green">Comment category : &nbsp;<span class="commentCategoryTabsSelected"> {{commenttagSelected.tag}} </span></p> -->
+            <ul style="max-height:60px;overflow-x:hidden; overflow-y: auto;">
+                        <li ng-repeat="feature in product.commentcategory track by $index"  class="hyperlinkPointer commentCategoryTabs" ng-class="{commentCategoryTabsSelected : commenttagSelected.tag==feature}" > 
+                        <span ng-bind="feature" ng-click="commenttagSelected.tag=feature" style="font-size:12px;"> </span>
+                        </li>
+                     </ul>
+        </div>             
+
+       <!-- comment tags -->
+               <b> Select a feature to talk on </b>
+               <p style="font-size:10px;">Features are vertically scrollable</p>
+                     <ul style="max-height:60px;overflow-x:hidden; overflow-y: auto;">
+                        <li ng-repeat="feature in features track by $index"  class="hyperlinkPointer featureTabs" style=""> 
+                        <span ng-bind="feature.featurename" ng-click="addFeatureToComment(feature.featurename)" style="font-size:12px;"> </span>
+                        </li>
+                     </ul>
+        </div>
+        <div class="tab-content">
+          <div id="Remove" ng-show="tabForComment.tabComment == true" >
+            <div id="prodo-comment-enterComment" >
+              <span class="label label-info   " ng-bind="300 - commenttextField.userComment.length" ></span> 
+              <a href="" ng-click="getLatestComments()" >
+                <div class="label label-info prodo-display-discont"  id="responseComment" > {{commentError}} </div>
+              </a>
+              <div ng-controller="DragImageController">
+                <div id="prodo-comment-textBox-container">
+                  <div id="holder">
+                    <textarea style="width: 85%;" ng-init="commenttextField.userComment=''" id="prodo-comment-Textbox" col="40" type="text" class="form-control prodo-validation" name="txtComment" placeholder="Product Conversation [max 300 characters]. You can drag image here to add image with comment..."   ng-model="commenttextField.userComment" comment-limit="300" ng-enter="addProductComment();hideFeature()" required  items="featuretags"  ng-click="showFeature()"></textarea>  
+                    <!-- tags -->
+                    <div id="prodo-productTags" style="width:85%" ng-show="mytags.length > 0">
+                      <form  role="form">
+                        <div   >
+                          <tags-input  add-on-enter="false" add-on-space="true" ng-model="mytags" placeholder="Add tags"  ng-enter="addProductComment()" replace-spaces-with-dashes="false"></tags-input>
+                        </div>
+                      </form>
+                    </div>
+                
+                  </div>
+                    <div class="prodo-CommentImgPrePosting" id="CommentImg">
+                          <a class="close prodo-display-discont" id= "crossButton" ng-click="clearReader()">&times;</a> 
+                          <img class="prodo-uploadedImg" id="prodo-uploadedCommentImage" />
+                    </div>
+                </div>
+                <!--   <span > 
+                  tags
+                  
+                  </span> -->
+              </div>
+              <p id="upload" class="hidden">
+                <label  >
+                <br>
+                <input type="file"    >
+                </label>
+              </p>
+            </div>
+          </div>
+          <div id="Remove" ng-show="tabForComment.tabSearch == true" class="prodo-padding-bottom"  >
+            <br>
+            <input style="width: 85%;" ng-model="searchfields[searchBySelected.type]" class="commentSearchTextbox form-control " id="prodo-comment-search-Textbox"  type="text"   placeholder="Search comments ..." ng-click="showSearchCategories()">
+          </div>
+
+       </div>
+      </div>
+      <!-- tabs -->
+      <div class="span4 spanCommentIMGErr " >
+      <div class="alert alert-danger fade" id="text">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <strong><div id="UploadCommentIMGErrMsg"></div></strong>
+      </div>
+    </div>
+    <div id="prodo-CommentLoadMoreContainer">
+      <ul class="media-list "  id="prodo-comment-media-list" style="display">
+        <div prodo-comments   template-url="../common/commentsDirective/views/prodo.comment.tpl.html" id="prodo-comment-commentContainer"  >
+        </div>
+      </ul>
+      <button class="btn btn-default" id="load-more" ng-click="loadMoreComments()" ng-show="showLoadMore.status==true" >  
+      <span id="img-spinner" > <i  class=" prodo-loadmoreColor fa fa-spinner fa-spin "> </i></span>
+      Load more...
+      </button>
+      <div id="loadMoreCommentMsg" class="prodo-loadmoreMsg" ></div>
+    </div>
+
+
+    </div>
+  </div>
+</div>

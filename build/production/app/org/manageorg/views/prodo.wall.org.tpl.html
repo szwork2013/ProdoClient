@@ -1,114 +1,37 @@
 <div class="prodo-wall-org-container container">
-	<div id="prodo-view-orlogodisplay" class="container">
-		<img class="prodo-wall-org-logo" ng-src="{{orgdata.org_logo.image}}" src="../assets/images/if_no_org_images_available.jpg">
-		<strong class="prodo-wall-org-name-text">{{orgdata.name}}</strong>
-	</div>
-
-	<div ng-show='messages.length !== 0'>
-	<br>
-	<h5 class="prodo-wall-org-heading-text">COMPANY INFORMATION BROADCAST</h5>
-  <hr size=3 class="prodo-wall-org-hr" noshade>    
-    <div prodo-broadcast-carousel id="myCarousel" class="carousel slide vertical">
-        <!-- Carousel items -->
-        <div class="wall-broadcast-carousel carousel-inner">
-            <div ng-class="{active: messages.indexOf(msg) == 0}"  class="item" ng-repeat="msg in messages">
-              <center><p ng-if="msg.broadcasttype.toLowerCase() == 'urgent' " class="wall-broadcast-carousel-urgent-item">{{msg.message}}</p></center>
-              <center><p ng-if="msg.broadcasttype.toLowerCase() == 'normal' " class="wall-broadcast-carousel-normal-item">{{msg.message}}</p></center>
-            </div>
-        </div>                 
+  <div style="margin:10px;" class="social-unified-view">
+    <div class="product-logo-view row">
+      <div class="col-md-2">
+        <img ng-src="{{productlist[0].product_logo.image}}" alt=" No Image" src="../../../assets/images/if_no_org_images_available.jpg" class="prodo-wall-org-productimg img-rounded">
+      </div>
+      <div class="col-md-9">
+        <h4><em>{{productlist[0].name}}</em></h4>
+      </div>
     </div>
-  </div>
-	<br>
-	<h5 class="prodo-wall-org-heading-text">COMPANY DETAILS</h5>
-  <hr class="prodo-wall-org-hr" size=3 noshade>
-	<dl class="dl-horizontal">
-	  <dt>Description:</dt>
-	  <dd>{{orgdata.description}}</dd>
-	</dl>
-
-	<div ng-repeat="orgAd in orgaddr">
-		<dl ng-show="(orgAd.loctype != 'Service Centers')" ng-repeat='addr in orgAd.location' class="dl-horizontal">
-    <dt>Company Address:</dt>
-    <dd>
-      <address>
-        {{addr.address.address1}}<br>
-        {{addr.address.address2}}<br>
-        {{addr.address.address3}} {{addr.address.city}}<br>
-        {{addr.address.state + ','}} {{addr.address.country}}<br>
-        {{addr.address.zipcode}}
-      </address>
-    </dd>
-    <dt>Contact:</dt>
-    <dd ng-repeat='contact in addr.contacts'>{{contact.customerhelpline}}</dd>
-  </dl>
-	</div>
-   
-	<div ng-show="orgAd.loctype == 'Service Centers' " ng-repeat="orgAd in orgaddr">
     <br>
-  	<h5 class="prodo-wall-org-heading-text">SERVICE CENTERS</h5>
-    <hr class="prodo-wall-org-hr" size=3 noshade>
-
-   
-    	<div class="bar">
-    		<div class="right-inner-addon ">
-      		<i class="fa fa-search"></i>
-      		<input type="search" class="org-address-search-form-control form-control" placeholder="Search" ng-model="searchAddress"/>
-  			</div>
+    <div class="social-view">
+      <div class="social-view-heading row">
+        <div class="col-md-12">
+          <center><em><strong><h3 class="panel-title">Social Unified View For {{productlist[0].name}}</h3></strong></em></center>
+        </div>
       </div>
       <br>
-      <table  class="table table-condensed">
-        <tr style="font-weight: bold">
-          <td style="width:5%">#</td>
-          <td style="width:35%">Address</td>
-          <td style="width:20%">Country</td>
-          <td style="width:20%">State</td>
-          <td style="width:20%">Contacts</td>
-        </tr>
-        <tbody>
-          <tr ng-repeat="addr in orgAd.location | filter:searchAddress">
-          <td>{{$index + 1}}</td>
-          <td>
-            {{addr.address.address1}}<br>{{addr.address.address2}} {{addr.address.address3}} {{addr.address.city}} {{addr.address.zipcode}}
-          </td>
-          <td>
-            {{addr.address.country}}
-          </td>
-          <td>
-            {{addr.address.state}}
-          </td>
-          <td>
-            {{addr.contacts[0].customerhelpline}}<br>{{addr.contacts[1].customerhelpline}}<br>{{addr.contacts[2].customerhelpline}}
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  	</div>
-
-  <div ng-show="keyclients.length != 0">
-    <br>
-    <h5 class="prodo-wall-org-heading-text">KEY CLIENTS</h5>
-    <hr size=3 class="prodo-wall-org-hr" noshade>
-    <div class="row">
-      <div class="prodo-wall-org-product-container col-xs-2" ng-repeat="keyclient in keyclients">
-        <img ng-src="{{keyclient.image}}" alt=" No Image" class="prodo-wall-org-productimg img-rounded">
-    </div>
-    </div>
-  </div>
-  
-  <br>
-  <h5 class="prodo-wall-org-heading-text">PRODUCTS</h5>
-  <hr size=3 class="prodo-wall-org-hr" noshade>
-  <div ng-show='isFollowing' growl></div>
-    <div ng-show='productlist.length == 0'> <p class="prodo-wall-product-text text-success"><strong><em>Currently no products available.</em></strong></p></div>
-    <div class="row">
-      <div class="prodo-wall-org-product-container col-xs-2" ng-repeat="product in productlist">
-        
-        <p class="truncated-product-name prodo-wall-org-product-name" tooltip="{{product.name}}" tooltip-placement="right">{{product.name}}</p>
-        <img ng-show="product.product_logo" src="{{product.product_logo.image}}" alt=" No Image" class="prodo-wall-org-productimg img-rounded">
-        <img ng-hide="product.product_logo" src="../../../assets/images/if_no_org_images_available.jpg" alt=" No Image" class="prodo-wall-org-productimg img-rounded">
-        <button ng-show="product_prodles.indexOf(product.prodle)>=0" class="prodo-following-button-theme prodo-following-btn btn btn-primary btn-sm" tooltip="product in conversation" tooltip-placement="right"><i class="fa fa-comments fa-lg"></i></button>
-
-        <button ng-show="product_prodles.indexOf(product.prodle)<0" id="{{product.prodle + '_fbtn'}}" class="prodo-button-theme prodo-follow-btn btn btn-primary btn-sm" ng-click='follow(product)'>Talkin</button>
+      <div style="border: 1px solid #E7EDF1; background-color: #FAF9EA; padding: 5px;" class="social-view-body">
+        <div class="all-unified-views row">
+          <div style="margin: 10px auto; " ng-repeat="view in views" class="col-md-4">
+            <a href="" ng-click="goToState(view.id)">
+              <div style="border: 1px solid #ffffff; height: 180px; border-radius: 5px;background-color: #ffffff;" class="specific-view">
+                <center>
+                  <img style="height:120px; width: 80%; margin: 5px; " ng-src="{{view.image}}" class="img-rounded">
+              
+                  <h5><strong>{{view.name}}</strong></h5>
+                </center>
+                <p>{{view.description}}</p>
+              </div>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
-  	</div>
+  </div>
+</div>  

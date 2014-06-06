@@ -272,7 +272,7 @@ $scope.likedislike=function(likeaction,comment){
  $scope.message={};
 $http({
   method: 'POST',
-  url: ENV.apiEndpoint_notSocket + '/api/agreedisagreecomment/' + comment.commentid + '?action=' + likeaction,
+  url: '/api/agreedisagreecomment/' + comment.commentid + '?action=' + likeaction,
 }).success(function (data, status, headers, cfg) {
  if(data.success)  {
   $scope.handleLikeDislikeSuccess(data.success,comment);

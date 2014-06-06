@@ -1,0 +1,118 @@
+<div style="margin: 20px auto;">
+
+	<div class="row">
+     <div class="col-md-2"></div>
+   
+
+<div class="col-md-8" >
+   <center><b> Product Rating   </b>
+
+
+
+          <!-- tabs -->
+      <div class="prodo-comment-Text-tabs prodo-paddingLeft"  id="tabs">
+        <ul id="ratingTab" class=" commentTab nav nav-pills" ng-init="tabForRating.tabCaptureRating = false;
+          tabForRating.tabOverallRating = true" >
+          <li class="Pcomment" ng-class="{active3 : tabForRating.tabOverallRating == 1}" >
+            <a  class="prodo-cursor" id="prodoCommentTab" ng-click="tabForRating.tabOverallRating = true; tabForRating.tabCaptureRating=false;  " >
+             <i class="fa fa-bar-chart-o"></i>  Overall 
+            </a>
+          </li>
+
+          <li class="PSearch" ng-class="{active3 : tabForRating.tabCaptureRating == 1}"  >
+            <a id="prodoCommentSearchTab" class="prodo-cursor" ng-click="tabForRating.tabCaptureRating =  true ; tabForRating.tabOverallRating = false; " >
+           <i class="fa fa-sliders"></i>  Capture 
+             </a>
+          </li>
+         
+        </ul>
+
+
+        </div>
+        <div class="tab-content">
+          <div id="Remove" ng-show="tabForRating.tabOverallRating == true" >
+            <br/>
+                 <table class="table" style="font-size:12px; width:84%">
+                  <tr style="background-color:rgba(222, 184, 135, 0.45); font-weight:bold">
+                    <td style="padding: 4px;">
+                     Feature Name
+                     </td>
+                  
+                        <td style="padding: 4px;">Users Rated</td>
+                        <td style="padding: 4px;">Average Rating</td>
+                
+               
+                  <td style="padding: 4px;">
+                 My Rating
+                 </td>
+                 </tr>
+                  <tr ng-repeat="feature in combineRating" >
+                 <td style="padding: 4px;">
+                 {{feature.featurename}}
+                 </td>
+                 <td style="padding: 4px;">
+                 {{feature.featureUserCount}}
+                 </td>
+                 <td style="padding: 4px;">
+                  <span ng-show="feature.featureoverall"> {{feature.featureoverall}}</span>
+                  <span ng-show="feature.featureoverall==null"><em> Not Rated</em></span>
+                 
+                 </td>
+                  <td style="padding: 4px;">
+                  <span ng-show="feature.featurerates">  {{feature.featurerates}}</span>
+                  <span ng-show="feature.featurerates==null"><em> Not Rated</em></span>
+                
+                 </td>
+
+                 </tr>
+
+               </table>
+
+     
+          </div>
+          <div id="Remove" ng-show="tabForRating.tabCaptureRating == true" class="prodo-padding-bottom"  >
+
+        
+                 <!-- capture rating -->
+                 <br/>
+                  <table class="prodo-prodowalltable table " >
+                   <tr ng-repeat="value in featuresRates">
+                     <td>
+                       <span >{{value.featurename}}</span>
+                    </td>
+                    <td>
+                     <slider ng-change="getSelectedRates(value)" floor='1' ceiling='10' step='0' precision='0' stickiness='2' 
+                              ng-model='value.featurerates' style="width:200px; margin:5px"></slider>
+                    </td>
+                    
+                    </tr>
+                 </table>
+
+                
+               
+                  <button class="pull-right btn btn-primary btn-sm " ng-click="sendRating(product.orgid,product.prodle,featuresRates)">Submit</button>
+                 <!-- capture rating -->
+
+          </div>
+    
+        </div>
+
+      <!-- tabs -->
+
+
+
+
+
+
+
+
+
+    </center>
+</div>
+
+
+  <div class="col-md-2"></div>
+</div>
+
+
+</div>
