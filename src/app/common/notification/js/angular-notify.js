@@ -45,7 +45,7 @@ angular.module('prodo.ProdonusApp').factory('notify',['$timeout','cgNotifyTempla
 				{
 						templateElement.remove();
 						templateElement.splice(messageElements.indexOf(templateElement),1);
-						
+
 						var j = 0;
 						for(var i = messageElements.length - 1; i >= 0; i --){
 						var element = messageElements[i];

@@ -53,33 +53,33 @@
               <input name="name" type="text" ng-model="productname.name" class="form-control" placeholder="productname" typeahead="productname as productname.name for productname in productnames | filter:$viewValue" popover-placement="right" popover="Please select product name from the list given below." popover-trigger="mouseenter"  autofocus required><small ng-show="((form.addBlogForm.name.$dirty && form.addBlogForm.name.$invalid) || (form.addBlogForm.name.$invalid && form.addBlogForm.submitted))">*Please enter product name!</small><small ng-show="productname_err">{{ message}}</small>
             </dd>
           </dl>
-        	<dl class="dl-horizontal">
-      		  <dt>Title:</dt>
-      		  <dd style="width:70%;">
-      		  	<input name="title" type="text" ng-model="blog.title" class="form-control" placeholder="title" ng-maxlength="100" required><small ng-show="((form.addBlogForm.title.$dirty && form.addBlogForm.title.$invalid) || (form.addBlogForm.title.$invalid && form.addBlogForm.submitted))">*Please enter blog title and should not exceed 100 characters!</small>
-      		  </dd>
-      		</dl>
-      		<dl class="dl-horizontal">
-      		  <dt>Category:</dt>
-      		  <dd class="prodo-regTagsWidth">
-      		  	<tags-input minTags="1" add-on-blur="true" ng-model="blog.category"  min-length="1"  placeholder="blog category" list="blogcategoryList" replace-spaces-with-dashes ="false" popover-placement="right" popover="Press 'Enter' key after entering category" popover-trigger="mouseenter"></tags-input>  
-      		  </dd>
-      		</dl>
-      		<dl class="dl-horizontal">
-      		  <dt>Content:</dt>
-      		  <dd style="width:70%;">
+          <dl class="dl-horizontal">
+            <dt>Title:</dt>
+            <dd style="width:70%;">
+              <input name="title" type="text" ng-model="blog.title" class="form-control" placeholder="title" ng-maxlength="100" required><small ng-show="((form.addBlogForm.title.$dirty && form.addBlogForm.title.$invalid) || (form.addBlogForm.title.$invalid && form.addBlogForm.submitted))">*Please enter blog title and should not exceed 100 characters!</small>
+            </dd>
+          </dl>
+          <dl class="dl-horizontal">
+            <dt>Category:</dt>
+            <dd class="prodo-regTagsWidth">
+              <tags-input minTags="1" add-on-blur="true" ng-model="blog.category"  min-length="1"  placeholder="blog category" list="blogcategoryList" replace-spaces-with-dashes ="false" popover-placement="right" popover="Press 'Enter' key after entering category" popover-trigger="mouseenter"></tags-input>  
+            </dd>
+          </dl>
+          <dl class="dl-horizontal">
+            <dt>Content:</dt>
+            <dd style="width:70%;">
               <text-angular name="content" ng-model="blog.content" ta-toolbar-button-class="texteditor-btn btn btn-default" ta-toolbar="[['h1','h2','h3', 'h4', 'h5', 'h6', 'p', 'quote','bold','italics','underline','ul', 'ol', 'undo', 'redo', 'clear', 'justifyLeft', 'justifyCenter', 'justifyRight']]"></text-angular><small ng-show="contentblog_err">{{ contentmessage}}</small>
-      		  </dd>
-      		</dl>
-      		<dl class="dl-horizontal">
-      		  <dt></dt>
-      		  <dd style="width:70%;">
-      		  	<button style="width:49%; background-color:transparent; color:black;" class=" btn btn-sm btn-default" ng-click="cancelAddBlog()"><i class="prodo-fa fa fa-times"></i>Cancel</button>
-      		  	
-      		  	<button style="width:49%;" class="prodo-button-theme  btn btn-sm btn-primary" ng-click="postBlog(productname.name)"><i class="prodo-fa fa fa-location-arrow"></i>Post&nbsp;&nbsp;<div prodo-spinner></div></button>
+            </dd>
+          </dl>
+          <dl class="dl-horizontal">
+            <dt></dt>
+            <dd style="width:70%;">
+              <button style="width:49%; background-color:transparent; color:black;" class=" btn btn-sm btn-default" ng-click="cancelAddBlog()"><i class="prodo-fa fa fa-times"></i>Cancel</button>
+              
+              <button style="width:49%;" class="prodo-button-theme  btn btn-sm btn-primary" ng-click="postBlog(productname.name)"><i class="prodo-fa fa fa-location-arrow"></i>Post&nbsp;&nbsp;<div prodo-spinner></div></button>
 
-      		  </dd>
-      		</dl>
+            </dd>
+          </dl>
         </form>
       </div> 
 

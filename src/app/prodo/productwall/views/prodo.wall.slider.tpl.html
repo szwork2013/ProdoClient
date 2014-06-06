@@ -191,7 +191,7 @@
 	
 <div id="wall-slider" class="">
 	<div id="layerslider-container">	
-		<div id="layerslider" prodo-slider style="width:100%; height: 400px; margin: 0px auto;" class="prodo-wall-slider-container">
+		<div id="layerslider" prodo-slider style="width:100%; height: 500px; margin: 0px auto;" class="prodo-wall-slider-container">
 
 <!-- Case : where user have not followed any organization and user login type is not organisation -->
 
@@ -267,7 +267,7 @@
 <!-- Case : organization with images-->
       <div ng-if="manageSlider !== 0 ">
 				<div class="ls-slide" ng-repeat="slide in images track by $index" style=" transition2d: 5, 10,16; ">
-					<img ng-src="{{slide.image}}"class="ls-l" style="width: 100%; height: 400px;" alt="Slide background">
+					<img ng-src="{{slide.image}}"class="ls-l" style="width: 100%; height: 500px;" alt="Slide background">
 				</div>
 	  	</div>
 <!-- End of case -->
@@ -275,7 +275,7 @@
 <!-- Case : organization without images -->
       <div ng-if="manageSlider === 0 && usersession.currentUser.org!==undefined">
         <div class="ls-slide" ng-repeat="slide in images track by $index" style=" transition2d: 5, 10,16; ">
-					<img ng-src="{{slide.image}}"class="ls-l" style=" width: 100%; height: 400px;" alt="Slide background">
+					<img ng-src="{{slide.image}}"class="ls-l" style=" width: 100%; height: 500px;" alt="Slide background">
 				</div>
       </div>
 <!-- End of case -->

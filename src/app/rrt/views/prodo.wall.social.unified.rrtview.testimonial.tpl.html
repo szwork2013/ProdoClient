@@ -1,0 +1,96 @@
+<div style="margin: 20px auto;">
+	<div class="row">
+     <div class="col-md-2"></div>
+   
+
+<div class="col-md-8" >
+
+
+
+ <div class="prodo-comment-Text-tabs prodo-paddingLeft"  id="tabs">
+        <ul id="ratingTab" class=" commentTab nav nav-pills" ng-init="tabForTesti.tabCaptureTesti = false;
+          tabForTesti.tabAllTesti = true" >
+          <li class="Pcomment" ng-class="{active3 : tabForTesti.tabAllTesti == 1}" >
+            <a  class="prodo-cursor" id="prodoCommentTab" ng-click="tabForTesti.tabAllTesti = true; tabForTesti.tabCaptureTesti=false; " >
+             <i class="fa fa-users  fa-lg"></i>  
+            </a>
+          </li>
+
+          <li class="PSearch" ng-class="{active3 : tabForTesti.tabCaptureTesti == 1}"  >
+            <a id="prodoCommentSearchTab" class="prodo-cursor" ng-click="tabForTesti.tabCaptureTesti =  true ; tabForTesti.tabAllTesti = false; " >
+           <i class="fa fa-plus fa-lg"></i> 
+             </a>
+          </li>
+         
+        </ul>
+
+
+        </div>
+        <div class="tab-content" style="padding-left: 42px;">
+          <div id="Remove" ng-show="tabForTesti.tabAllTesti == true" >
+
+                 <br>
+           <b ng-hide="allTestimonials.length>0"  class="prodo-testimonialsTitle">No testimonials for this product...</b>
+          <b ng-show="allTestimonials.length>0"  class="prodo-testimonialsTitle">Testimonials</b>
+          <div ng-show="allTestimonials.length>0" class="prodo-testomonials" ng-repeat="testimonial1 in allTestimonials">
+         
+          
+      
+             <em ng-bind-html="testimonial1.text"></em>
+            <br/>
+              <span class= "pull-right prodoTestiMonialsUserDetails">
+                <span > <b ng-bind="testimonial1.displayname"> </b></span> 
+              <span ng-show="testimonial1.user.orgname"> from
+                <span ><b ng-bind="testimonial1.user.orgname">  </b></span>
+              </span>  
+              </span>
+             <span class="pull-left padding-top10 font10" >Posted On <span ng-bind="fromNowTestimonial(testimonial1.createdate)"></span></span>
+          </div>
+
+
+          </div>
+
+
+          <div id="Remove" ng-show="tabForTesti.tabCaptureTesti == true" >
+
+          <!-- add -->
+			 <div id="panelTesti" >
+			     <center><b> Add Testimonial </b></center>
+
+
+			    <br/>
+			     <div  ng-show="(productTestiForm.name.$dirty )||(productForm.submitted==true && productForm.display_name.$invalid==true)"  class="prodo-product-Invalid">
+			        <span ng-show="productTestiForm.name.$error.required">Please enter name text</span>
+			        <span ng-show="productTestiForm.name.$error.maxlength">Name can not be more than 100 characters</span>
+			     </div>
+
+
+			        <form class=" width500 "   name="productTestiForm"  >
+			             <input  type="text" 
+			              ng-maxlength="100"  class="form-control prodo-validation width500" placeholder="Enter your name here..." ng-model="testimonial.name" required name="name" /><br/>
+			             
+			               <text-angular name="testimonial"  ng-model="testimonial.testimonial" ta-toolbar-button-class="texteditor-btn btn btn-default" ta-toolbar="[['h1','h2','h3', 'h4', 'h5', 'h6', 'p', 'quote','bold','italics','underline','ul', 'ol', 'undo', 'redo', 'clear', 'justifyLeft', 'justifyCenter', 'justifyRight']]"></text-angular><small ng-show="contentblog_err">{{ }}</small>
+
+			        </form>
+			        <br/>
+
+			        <button  class="pull-right btn btn-primary btn-sm" ng-click="sendTestimonial(product.orgid,product.prodle,testimonial)">Submit</button>
+
+			     
+			      </div>   
+			<!-- add -->
+
+
+
+          </div>
+
+        </div>
+
+
+
+
+ <div class="col-md-2"></div>
+ </div>
+
+
+</div>

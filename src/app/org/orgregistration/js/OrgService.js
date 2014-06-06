@@ -38,6 +38,7 @@ angular.module('prodo.OrgApp')
         org_data: $resource('/api/organization/:orgid', {}, { getOrgSettings: { method: 'GET'} }),
         all_org_data: $resource('/api/organalytics', {}, { getAllOrgAnalytics: { method: 'GET'} }),
         ManageOrgLocation: $resource('/api/orgaddress/:orgid/:orgaddressid', {}, { getAllOrgAddress: { method: 'GET'} }),
+        GetSpecificOrgProduct: $resource('/api/product/:orgid/:prodle', {}, { getOrgProduct: { method: 'GET'} }),
         GetOrgProducts: $resource('/api/product/:orgid', {}, { getAllOrgProducts: { method: 'GET'} }),
         GetOrgGroupMembers: $resource('/api/orggroupmembers/:orgid', {}, { getGroupDetails: { method: 'GET'} }),
         GetOrg_Broadcast_Messages: $resource('/api/organization/broadcast/:orgid', {}, { getOrgBroadcastMessage: { method: 'GET'} }),

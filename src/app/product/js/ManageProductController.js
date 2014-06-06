@@ -575,7 +575,7 @@ $scope.handledeleteProductImagesError=function(error){
       }
       $http({
         method: 'DELETE',
-        url: ENV.apiEndpoint_notSocket + '/api/image/product/' + $scope.orgidFromSession + '/' + $scope.currentProdle + '?prodleimageids=' + $scope.imgIds,
+        url: '/api/image/product/'+$scope.orgidFromSession + '/' + $scope.currentProdle + '?prodleimageids=' + $scope.imgIds,
         // url: 'www.prodonus.com/api/image/product/' + $scope.orgidFromSession + '/' + $scope.currentProdle +'?prodleimageids='+$scope.imgIds ,
         // data: {'prodleimageids':[ $scope.imgIdsJson]}
       }).success(function (data, status, headers, cfg) {

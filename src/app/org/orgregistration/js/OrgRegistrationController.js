@@ -658,7 +658,7 @@ angular.module('prodo.OrgApp')
                   UserSessionService.getProductFollowed($scope.prodlesfollowed);
                 }
                   $rootScope.orgid = data.org.orgid;
-                  $state.transitionTo('prodo.productwall.wall-org');
+                  $state.transitionTo('prodo.home.wall');
             } 
           } 
            $scope.hideSpinner();

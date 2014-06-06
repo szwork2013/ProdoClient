@@ -1,10 +1,10 @@
 angular.module('prodo.BlogApp')
  .controller('ManageBlogController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$stateParams', '$log', 'growl', 'checkIfSessionExist', 'fileReader','ENV','isLoggedin', 'blogproductdata', 'BlogService', 'getAllblogdata', 'getblogdata', function($scope, $rootScope, $state, $http, $timeout, $stateParams, $log, growl, checkIfSessionExist, fileReader, ENV, isLoggedin, blogproductdata, BlogService, getAllblogdata, getblogdata) {
- 	$log.debug('initialising manage blog controller...');
+  $log.debug('initialising manage blog controller...');
 
- 	$scope.addNewBlog = false;
+  $scope.addNewBlog = false;
 
- 	$scope.blogs = [];
+  $scope.blogs = [];
 
   $scope.displayblog = {};
 
@@ -22,16 +22,16 @@ angular.module('prodo.BlogApp')
 
   $scope.blogcategoryList = [];
 
- 	$scope.addBlog = function() {
- 		$scope.addNewBlog = true;
- 	}
+  $scope.addBlog = function() {
+    $scope.addNewBlog = true;
+  }
 
- 	$scope.cancelAddBlog =function() {
+  $scope.cancelAddBlog =function() {
     $scope.productname_err = false;
     $scope.message = '';
     $scope.contentmessage = '';
     $scope.contentblog_err = false;
- 		$scope.addNewBlog = false;
+    $scope.addNewBlog = false;
     $scope.form.addBlogForm.$setPristine();
     $scope.form.addBlogForm.submitted = false;
     $scope.blog = {
@@ -40,7 +40,7 @@ angular.module('prodo.BlogApp')
       category: []
     },
     $scope.productname.name = ''
- 	};
+  };
 
   $scope.productname = {name:'', prodle:''};
   $scope.blog = {

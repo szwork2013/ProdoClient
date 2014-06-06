@@ -152,9 +152,9 @@ angular.module('prodo.UserApp')
       if (data.success) {
           if ($rootScope.usersession.currentUser.hasDonePayment && $rootScope.usersession.currentUser.org && $rootScope.usersession.currentUser.org.orgtype == 'Manufacturer') {
             $rootScope.orgid = $rootScope.usersession.currentUser.org.orgid;
-            $state.transitionTo('prodo.productwall.wall-org');
+            $state.transitionTo('prodo.home.wall');
           } else if ($rootScope.usersession.currentUser.hasDonePayment) {
-            $state.transitionTo('prodo.productwall.wall-org');
+            $state.transitionTo('prodo.home.wall');
           } 
           $scope.resetPasswordForm.$setPristine();
           $scope.clearformData();

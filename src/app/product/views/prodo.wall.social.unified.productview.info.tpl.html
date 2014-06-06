@@ -1,0 +1,76 @@
+<div style="margin: 20px auto;">
+
+<div id="ErrMsging" class="prodo-ErrMsging"></div>
+
+<div id="prodo-ProductDetails" style="padding-left: 250px;padding-right: 250px;">
+
+  <a href="" ng-style="CheckIfAlreadyFollowingProduct()" id="prodo-followBtn"  ng-click="followCurrentProduct()"   class="prodo-button-theme prodo-followBtn pull-right btn btn-primary btn-sm ">  Talkin </a>
+
+<center>
+
+<table class="table" style="padding-left:250px;">
+	<tr>
+		<td>
+			Model No :
+		</td>
+		
+		<td>
+	        <span ng-bind="product.model_no"></span>
+		</td>
+	</tr>
+
+	<tr>
+	<td>
+		  Category :  
+	</td>
+	
+	<td>
+         <ul style="padding-left: 0px;" >
+            <li ng-repeat="category in product.category track by $index" class=" prodo-categoryTags" >  <span ng-bind="category" > </span>
+            </li>
+         </ul>
+	</td>
+	</tr>
+
+	<tr>
+	<td style="width: 25%;">
+		Description : 
+	</td>
+	
+	<td>
+            <div id="profile-description">
+		      <div ng-bind="product.description">
+		        
+		      </div>
+		     
+	</td>
+	</tr>
+
+	     <!--  <tr id="prodo-productbnd" class="prodo-productTabledis"  ng-show="product.banneddate">
+        <td>Product Banned on : &nbsp;<span ng-bind="formatDate(product.banneddate)"></span></td>
+      </tr> -->
+     <tr   class="prodo-productDiscontinued" ng-show="product.sale_discontinuation_date">
+        <td style="width: 25%;">
+           Product Discontinued On 
+        </td>
+        <td >
+         <span ng-bind="formatDate(product.sale_discontinuation_date)">
+          </span>
+        </td>
+     </tr>
+      <tr   class="prodo-productDiscontinued" ng-show="product.support_discontinuation_date">
+        <td style="width: 25%;">
+            Support Discontinued On 
+		</td>
+		<td>
+            <span ng-bind="formatDate(product.support_discontinuation_date)" > </span>
+         </td>
+      </tr>
+
+</table>
+
+</center>
+
+
+</div>
+</div>

@@ -3,159 +3,25 @@
 
 <div id="prodo-container">
 
-	<div id="wall-navbar">
-
-		<div id="prodo-view-navbar" class="prodo-product-wall-navbar-theme">
-      <ul id="prodo-slider-nav-pills" class="nav nav-pills nav-justified">
-	   		<li id="{{nav.id}}" ng-class="{active: navs.indexOf(nav) == index}" ng-repeat="nav in navs"><a showtab="" href="" ng-click='goToState(nav.id)'>{{nav.name}}</a></li>
-			</ul>
-    </div>
-
-	</div>
-	<div id="wall-slider" class="">
-			<div ui-view="prodo-productwall-slider"></div>
-
-	</div>
 	<br>
 	<div prodo-signin-modal></div>
 	<div class="container">
-		<div id="prodo-row" class="row">
-			<div id="prodo-col-md-2" class="prodo-wall-col-container col-md-3">
-				<div id="wall-sidebar" class="" ng-controller="prodoSearchController">
-				  
-					<!-- Product follow list code -->
-					<div id="prodo-sidebar-followedproductlist-container">
-					 <div id="prodo-sidebar-list-group" class="list-group">
-					   <div id="prodo-sidebar-list" class="list">
-					      <a class="prodo-search-list-heading-theme list-group-item active" >Products In Conversation</a>
-					      <div ng-repeat="fp in usersession.productfollowlist | limitTo:followedProductsCount track by $index" href="#" id="prodo-sidebar-list-group-item" class="list-group-item " ng-if="regularExpressionForProdonus.test(fp.name) !== true">          
-					          <table class="sidebarTableStyling">  
-					            <tr>
-					                <td style="text-align: left;width:77%">
-					                    <div ng-click="orgProdleEmitter(fp.prodle,fp.orgid)" class="hyperlinkPointer productNameWidth" ng-bind="fp.name" CLASS=""></div>   
-					                </td>
-					                <td>                    
-					                    <button class="prodo-button-theme btn btn-default btn-xs floatRight" ng-click="unfollowProduct(fp)" >Talkout</button>   
-					                </td>
-					            </tr>        
-					          </table>               
-					      </div>
-					      <a  class="list-group-item hyperlinkPointer" ng-if="usersession.productfollowlist.length>6" ng-click="loadMoreFollowedProduct()"> <center id="tabMore">Read More</center></a>
-					   </div>
-					 </div>
-					</div>
-
-<!-- Product list code -->
-					<div id="prodo-sidebar-search-container">
-					  <div id="prodo-sidebar-list-group" class="list-group">
-					    <div id="prodo-sidebar-list" class="list" >
-
-					      <a id="prodo-sidebar-list-group-item" class="prodo-wall-sidebar-list-heading list-group-item active" ng-bind="title"></a>
-					      <div  id="prodo-sidebar-list-group-main" class="list-group-item" > 
-
-
-					        <input general-search type="text" class="form-control prodoNormalSearchTextbox"  name="product" typeahead="name for name in enhancement | limitTo:10" id="searchText" ng-model="productSearch.product"  style="width:100%" placeholder="Current Org. Product Search"  typeahead-on-select="quickSearchEmit()" ng-click="toggleTitleForDiv()" typeahead-loading="name" typeahead-wait-ms="720">
-<!-- 
-					      <a id="prodo-sidebar-list-group-item" class="prodo-search-list-heading-theme list-group-item active" ng-bind="title"></a>
-					      <div  id="prodo-sidebar-list-group-main" class="list-group-item">         
-					        <input general-search type="text" class="form-control prodoNormalSearchTextbox"  name="product" typeahead="name for name in enhancement | limitTo:10" id="searchText" ng-model="productSearch.product"  style="width:100%" placeholder="Current Org. Product Search"  typeahead-on-select="quickSearchEmit()" ng-click="toggleTitleForDiv()" typeahead-loading="name" typeahead-wait-ms="720" > -->
-
-<!--                   <i ng-show="name" class="glyphicon glyphicon-refresh" id="refreshIcon"></i>  --> 
-   <!--  <p ng-click="a()">test</p> -->
-					        <a ng-click="openSearchModal(); modalReset()" class="hyperlinkPointer" >Advanced Search</a>
-					         <div ng-bind="errors" class="errorClassMessage cursorResize" id="sidebarErrors" ng-click="toggleTitleForDiv()"></div>
-					   <!-- start of advanced search -->
-					            <div id = "advancedSearchModal" class="modal fade" style="">      <!-- Modal Code Starts for Advansed-Search -->
-					              <div class="modal-dialog">
-					                <div class="modal-content">
-					                  <div>
-					                    <h4 align="center">Advanced Search </h4>   
-					                    <div id="lineHr"></div>             
-					                  </div>  
-				                  
-		                  <div class="modalAppearance">
-		                    <div class="modalMessageContainer">*Type Comma (,) between all the words you want. Eg: Apple Iphone , Samsung Duos</div>            
-		                      <div class="textBoxContainer" >                                                  
-		                      <input type="text" class="prodoAdvancedSearchTextbox form-control" placeholder="Organization Name [ eg:Prodonus ]" id="textBoxOrgName" ng-model="org" ng-enter="searchProductData()"/>       
-
-		                      <input type="text" class="prodoAdvancedSearchTextbox form-control" placeholder="Product Name [ eg:Samsung, Nokia ]" id="textBoxProductName" ng-model="product_name" ng-enter="searchProductData()"> 
-
-		                      <input type="text" class="prodoAdvancedSearchTextbox form-control"  placeholder="Feature [ eg:JBL Speaker, BOSE Speakers ]" id="textBoxFeatureName"  ng-model="feature" ng-enter="searchProductData()">   
-
-		                     <input type="text" class="prodoAdvancedSearchTextbox form-control" placeholder="Category [ eg:Mobiles, Tablets ]" id="textBoxCategoryName" ng-model="category" ng-enter="searchProductData()">           
-
-		                       <input type="text" placeholder="Please Enter Exact  Model Number [ eg:Grand Duos, S4 ]"  ng-model="model_number" id="textBoxModelNumber" class="prodoAdvancedSearchTextbox form-control" ng-enter="searchProductData()">              
-		                      </div>    
-
-                      <div id="prodo-searchResults"><br>
-                       <div style="" class="borderBoxResult advanceSearchResult textBoxContainer" ng-bind="message"></div>                      
-                        <ol class="resultScrollable">
-                        <li ng-repeat="list in result">                                             
-                           <span ng-bind="list.name" ng-if="list.products!==undefined" class="organisationSearchResult"></span>
-                           <a ng-bind="list.name" ng-click="orgProdleEmitter(list.prodle,list.orgid)" ng-if="list.products===undefined" class="hyperlinkPointer"> 
-                           </a>
-                           <div style="width:100%;" ng-if="list.products===undefined" >[ Description : <span ng-bind="list.description"></span> ]</div>
-
-                            <div style="width:100%;" ng-if=" list.info!==undefined && list.info ==='No products exist for this organisation' ">[ Info : <span ng-bind="list.info"></span> ]</div>
-                          
-                                  <ul >
-                                     <li ng-repeat="product_list in list.products" class="productSearchResult" ng-if="product_list.name!==''">
-                                             <a ng-bind="product_list.name" ng-click="orgProdleEmitter(product_list.prodle,list.orgid)" ng-if='product_list.name!==""' class="hyperlinkPointer"></a>
-                                            <div  class="textBoxContainer">[ Description : <span ng-bind="product_list.description" ></span> ]</div>
-                                     </li>
-                                  </ul>                                                      
-                          </li>    
-                         </ol>   
-                       </div>
-                  </div>                                                                                                 
-                  <div class="modal-footer">
-                    <button class="btn btn-info" style="background-color:#ACB2B4;border-color:#ACB2B4;" data-dismiss="modal" ng-click="modalReset()">Cancel</button>         
-                     <button type="button" class="btn btn-info"  ng-click="searchProductData()" id="final" data-dismiss="modal " ><b>Search</b></button>   
-                  </div>                                       
-                 </div>
-              </div>
-           </div>
-<!--End of advanced search  --> 
-       </div>
-    </div>
-    
-        <div id="prodo-sidebar-list" class="list">
-          <div class="list-group-item hyperlinkPointer" ng-if="regularExpressionForProdonus.test(product.name) !== true" ng-repeat="product in trendingProducts | limitTo:6" ng-click="orgProdleEmitter(product.prodle,product.orgid)"  > 
-             <table style=" width: 100%; color: black;text-align: center">
-                <tr style="">
-                  <td colspan ="2" style="">
-                      <div style="font-size: 16px; text-align: center ; " ng-bind="product.name"></div>
-                  </td>
-                </tr> 
-                <tr>
-                  <td style="border-right:1px solid #dbdbdb;" class="thinnerFonts" style=" width: 50%;">
-                    <div style="font-size: 18px;"  ng-bind="product.followedcount"></div><div style="font-size: 10px;"> Talkins</div> 
-                  </td>
-                  <td class="thinnerFonts" style=" width: 50%;">
-                      <div style="font-size: 18px;" ng-bind="product.commentcount"></div><div style="font-size: 10px;"> Comments</div> 
-                  </td>
-                </tr>
-             </table>
-          </div>
-        </div>
-
-  </div>
-</div>
- 
-
-			</div> 
+		<div ng-show='messages.length !== 0' style="padding: 1px; border-radius: 4px;" class="">
+			<div class="">
+				<div prodo-broadcast-carousel id="myCarousel" class="carousel slide vertical">
+	        <!-- Carousel items -->
+	        <div class="wall-broadcast-carousel carousel-inner">
+            <div ng-class="{active: messages.indexOf(msg) == 0}"  class="item" ng-repeat="msg in messages">
+              <center><p ng-if="msg.broadcasttype.toLowerCase() == 'urgent' " class="wall-broadcast-carousel-urgent-item">{{msg.message}}</p></center>
+              <center><p ng-if="msg.broadcasttype.toLowerCase() == 'normal' " class="wall-broadcast-carousel-normal-item">{{msg.message}}</p></center>
+            </div>
+	        </div>                 
+			  </div>
+			</div>
 		</div>
-		
-		<div id="prodo-col-md-7" class="prodo-wall-col-container col-md-7">
-			<div ui-view="prodo-content"></div>
-
+		<div class="">
+			<div class="unified" ui-view></div> 
 		</div>
-
-		<div id="prodo-col-md-2" class="prodo-wall-col-container col-md-2">
-			<div ui-view="prodo-advertisment"></div>
-		</div>
-
-	</div>
 	</div>
 
 </div>

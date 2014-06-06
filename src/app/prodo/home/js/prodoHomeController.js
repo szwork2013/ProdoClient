@@ -33,7 +33,7 @@ angular.module('prodo.ProdoHomeApp')
     {     
             $rootScope.product_prodle = prodle;
             $rootScope.orgid = orgid;   
-            $state.transitionTo("prodo.productwall.wall-product");
+            $state.transitionTo("prodo.productwall.wall-unified");
     };
 
     var cleanEventGotTrendingProducts = $scope.$on('gotTrendingProducts', function (event, data) 
@@ -87,7 +87,7 @@ angular.module('prodo.ProdoHomeApp')
       if (orgid !== $rootScope.usersession.currentUser.org.orgid) {
         OrgRegistrationService.get_Product(firstproduct, orgid);
       } else {
-        $state.transitionTo('prodo.productwall.wall-org');
+        $state.transitionTo('prodo.productwall.wall-unified');
       }
     };
 
@@ -96,7 +96,7 @@ angular.module('prodo.ProdoHomeApp')
         if (data.success.product.length > 0) {
           $rootScope.product_prodle = data.success.product[0].prodle;
         }
-        $state.transitionTo('prodo.productwall.wall-org');
+        $state.transitionTo('prodo.productwall.wall-unified');
       } else {
         if(data.error !== undefined && data.error.code === 'AL001' ) {
           $rootScope.showModal();
@@ -119,7 +119,7 @@ angular.module('prodo.ProdoHomeApp')
       $rootScope.orgid = orgid;
       $rootScope.product_prodle = prodle;
       $rootScope.campaign_idwall = campaignid;
-      $state.transitionTo('prodo.productwall.wall-campaign');
+      $state.transitionTo('prodo.productwall.wall-campaign.campaign');
     };
 
     $scope.search = {productsearchdata:{}};  
