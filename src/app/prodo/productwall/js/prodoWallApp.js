@@ -10,6 +10,8 @@ angular.module('prodo.ProdoWallApp')
     $scope.productdata = {};
     $scope.productblogs = [];
 
+    $scope.searchResults = 0;
+
     $scope.$watch('$state.$current.locals.globals.orgproduct', function (orgproduct) {
     
       if (orgproduct.success && orgproduct.success.product !== undefined) {
@@ -97,6 +99,34 @@ angular.module('prodo.ProdoWallApp')
       $log.debug('listening in Org controller by user profile')
       $state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
     });
+
+    //......................................................Search Result Code For product Wall Search start................................ 
+    $scope.searchContent = {};
+
+    $scope.$on("searchResultSent", function(event, result, flag){
+      if(flag === 'true')
+      {
+         $scope.searchContent = {};
+         $scope.searchResults = 1;
+         $scope.searchContent = result.doc;
+         $scope.message = result.message;
+      }
+    });
+
+  $scope.orgProdleEmitter = function(dataProdle,dataOrgid)
+  {   
+     $rootScope.product_prodle = dataProdle;
+     $rootScope.orgid = dataOrgid;    
+     $rootScope.$broadcast('emittingOrgid', 'success');
+     $scope.searchResults = 0;
+  };
+
+   $scope.resetSearchResult = function()
+   {
+       $scope.searchResults = 0;
+   }
+
+    //......................................................Search Result Code For product Wall Search end................................ 
 
 
     $scope.$on('$destroy', function(event, data) {
