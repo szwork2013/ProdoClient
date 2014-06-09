@@ -3,11 +3,14 @@ angular.module('prodo.ProdoWallApp')
 		
     $log.debug('initialising parent..');
     $scope.$state = $state;
-
+    console.log(blogSliderData);
     console.log(orgproduct);
     $scope.messages = [];
     $rootScope.images = [];
     $scope.productdata = {};
+    $scope.productblogs = [];
+
+    $scope.searchResults = 0;
 
     $scope.$watch('$state.$current.locals.globals.orgproduct', function (orgproduct) {
     
@@ -20,6 +23,21 @@ angular.module('prodo.ProdoWallApp')
           } else {
             $scope.productdata = {}; 
             $log.debug(orgproduct.error.message);
+          } 
+      }
+    });
+
+    $scope.$watch('$state.$current.locals.globals.blogSliderData', function (blogSliderData) {
+    
+      if (blogSliderData.success && blogSliderData.success.doc.length !== 0) {
+        $scope.productblogs = blogSliderData.success.doc; 
+        console.log($scope.productblogs)
+      } else {
+          if (blogSliderData.error && blogSliderData.error.code == 'AL001') {
+            $rootScope.showModal();
+          } else {
+            $scope.productblogs = []; 
+            $log.debug(blogSliderData.error.message);
           } 
       }
     });
@@ -50,7 +68,9 @@ angular.module('prodo.ProdoWallApp')
     }
 
     $scope.viewProductBlog = function(prodle, blogid){
-      $rootScope.$broadcast('showUniqueProductBlog', prodle, blogid);
+      $rootScope.product_prodle = prodle;
+      $rootScope.product_blogid = blogid;
+      $state.transitionTo('prodo.productwall.wall-blogdetail.detailview');
     }
 
     $scope.viewChart = function(name, query, type){
@@ -79,6 +99,34 @@ angular.module('prodo.ProdoWallApp')
       $log.debug('listening in Org controller by user profile')
       $state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
     });
+
+    //......................................................Search Result Code For product Wall Search start................................ 
+    $scope.searchContent = {};
+
+    $scope.$on("searchResultSent", function(event, result, flag){
+      if(flag === 'true')
+      {
+         $scope.searchContent = {};
+         $scope.searchResults = 1;
+         $scope.searchContent = result.doc;
+         $scope.message = result.message;
+      }
+    });
+
+  $scope.orgProdleEmitter = function(dataProdle,dataOrgid)
+  {   
+     $rootScope.product_prodle = dataProdle;
+     $rootScope.orgid = dataOrgid;    
+     $rootScope.$broadcast('emittingOrgid', 'success');
+     $scope.searchResults = 0;
+  };
+
+   $scope.resetSearchResult = function()
+   {
+       $scope.searchResults = 0;
+   }
+
+    //......................................................Search Result Code For product Wall Search end................................ 
 
 
     $scope.$on('$destroy', function(event, data) {
