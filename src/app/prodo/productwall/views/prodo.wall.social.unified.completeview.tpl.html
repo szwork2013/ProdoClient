@@ -9,61 +9,118 @@
 			<div id="prodo-col-md-9" class="prodo-wall-col-container col-md-9">
 				<div id="prodo-content-unified">
 					<div class="prodo-wall-org-container container">
-  <div style="margin:10px;" class="social-unified-view">
-    <div class="product-logo-view row">
-      <div class="col-md-2" style="padding-right: 1px;">
-        <img ng-src="{{productdata.product_logo.image}}" alt=" No Image" src="../../../assets/images/if_no_org_images_available.jpg" class="prodo-wall-unifiedview-productimg img-rounded">
-      </div>
-      <div class="col-md-7" style="padding-left: 1px;">
-        <div class="row">
-          <div style=" color: #1c2a47;font: bold 20px/30px 'lucida grande',tahoma, verdana, arial, sans-serif;">{{productdata.name}}</div>
-        </div>
-        <div style="color:gray; font: 11px/20px 'lucida grande',tahoma, verdana, arial, sans-serif;" class="row">
-          <div class="col-md-3" style="border-right: 2px solid #E7EDF1; color:gray; font: 11px/15px 'lucida grande',tahoma, verdana, arial, sans-serif;">
-            <div style="margin: 0px; font: 11px/15px 'lucida grande',tahoma, verdana, arial, sans-serif;">{{productdata.trending.followedcount}}</div>
-            <div style="margin: 0px;font: 11px/15px 'lucida grande',tahoma, verdana, arial, sans-serif; color: rgb(59, 89, 152);">Talkins</div>
-          </div>
-          <div class="col-md-3">
-            <p style="margin: 0px;font: 11px/15px 'lucida grande',tahoma, verdana, arial, sans-serif;">{{productdata.trending.commentcount}}</p>
-            <p style="margin: 0px;font: 11px/15px 'lucida grande',tahoma, verdana, arial, sans-serif;color: rgb(59, 89, 152);">Comments</p>
-          </div>
-        </div>
-        
-      </div>
-      <div class="col-md-3"></div>
-    </div>
-    <br>
-    <div class="social-view">
-      <div class="social-view-heading row">
-        <div class="col-md-12">
-          <h3 class="prodo-wall-org-heading-text">Social Unified View - {{productdata.name}}</h3>
-          <hr class="prodo-wall-org-hr" size=3 noshade>
-          <!-- <em><strong><h3 class="panel-title">Social Unified View For {{productdata.name}}</h3></strong></em> -->
-        </div>
-      </div>
-      <br>
-      <div style="border: 1px solid #E7EDF1; background-color: #FAF9EA; padding: 5px;" class="social-view-body">
-        <div class="all-unified-views row">
-          <div style="margin: 10px auto; " ng-repeat="view in views" class="col-md-4">
-            <a href="" ng-click="goToState(view.id);">
-              <div style="border: 1px solid #ffffff; height: 180px; border-radius: 5px;background-color: #ffffff;" class="specific-view">
-                <center>
-                  <img style="height:120px; width: 80%; margin: 5px; " ng-src="{{view.image}}" class="img-rounded">
-              
-                  <h5><strong>{{view.name}}</strong></h5>
-                </center>
-                <p>{{view.description}}</p>
+            <div style="margin:10px;" class="social-unified-view">
+              <div class="product-logo-view row">
+                <div class="col-md-2" style="padding-right: 1px;">
+                  <img ng-src="{{productdata.product_logo.image}}" alt=" No Image" src="../../../assets/images/if_no_org_images_available.jpg" class="prodo-wall-unifiedview-productimg img-rounded">
+                </div>
+                <div class="col-md-7" style="padding-left: 1px;">
+                  <div class="row">
+                    <div style=" color: #1c2a47;font: bold 20px/30px 'lucida grande',tahoma, verdana, arial, sans-serif;">{{productdata.name}}</div>
+                  </div>
+                  <div style="color:gray; font: 11px/20px 'lucida grande',tahoma, verdana, arial, sans-serif;" class="row">
+                    <div class="col-md-3" style="border-right: 2px solid #E7EDF1; color:gray; font: 11px/15px 'lucida grande',tahoma, verdana, arial, sans-serif;">
+                      <div style="margin: 0px; font: 11px/15px 'lucida grande',tahoma, verdana, arial, sans-serif;">{{productdata.trending.followedcount}}</div>
+                      <div style="margin: 0px;font: 11px/15px 'lucida grande',tahoma, verdana, arial, sans-serif; color: rgb(59, 89, 152);">Talkins</div>
+                    </div>
+                    <div class="col-md-3">
+                      <p style="margin: 0px;font: 11px/15px 'lucida grande',tahoma, verdana, arial, sans-serif;">{{productdata.trending.commentcount}}</p>
+                      <p style="margin: 0px;font: 11px/15px 'lucida grande',tahoma, verdana, arial, sans-serif;color: rgb(59, 89, 152);">Comments</p>
+                    </div>
+                  </div>
+                  
+                </div>
+                <div class="col-md-3"></div>
               </div>
-            </a>
+              <br>
+              <div ng-if="searchResults === 0" class="social-view">
+                <div class="social-view-heading row">
+                  <div class="col-md-12">
+                    <h3 class="prodo-wall-org-heading-text">Social Unified View - {{productdata.name}}</h3>
+                    <hr class="prodo-wall-org-hr" size=3 noshade>
+                    <!-- <em><strong><h3 class="panel-title">Social Unified View For {{productdata.name}}</h3></strong></em> -->
+                  </div>
+                </div>
+                <br>
+                <div style="border: 1px solid #E7EDF1; background-color: #FAF9EA; padding: 5px;" class="social-view-body">
+                  <div class="all-unified-views row">
+                    <div style="margin: 10px auto; " ng-repeat="view in views" class="col-md-4">
+                      <a href="" ng-click="goToState(view.id);">
+                        <div style="border: 1px solid #ffffff; height: 180px; border-radius: 5px;background-color: #ffffff;" class="specific-view">
+                          <center>
+                            <img style="height:120px; width: 80%; margin: 5px; " ng-src="{{view.image}}" class="img-rounded">
+                        
+                            <h5><strong>{{view.name}}</strong></h5>
+                          </center>
+                          <p>{{view.description}}</p>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ......................................................Search Result Code For product Wall Search start................................ -->
+
+              <div ng-if="searchResults === 1" class="search-view">
+                <div class="search-view-heading row">
+                  <div class="col-md-12">
+                    <button style="background-color: rgba(57, 54, 55, 0.95); opacity:.8;color:white;" class="btn btn-sm glyphicon glyphicon-resize-small pull-right" ng-click="resetSearchResult()"></button>
+                    <h3 class="prodo-wall-org-heading-text" ng-bind = "message"></h3>
+                    <hr class="prodo-wall-org-hr" size=3 noshade>
+                  </div>
+                </div>
+                <br>
+                <div class="search-view-body">
+                  <div class="row">
+                    <div class="col-md-12">
+                                                   
+                           <div id="prodo-searchResults">
+                                 
+                                   <div ng-repeat = 'list in searchContent' ng-if = 'list.products !== undefined' style = "margin-bottom:4px">
+                                       <div >
+                                         <div style = "text-decoration : underline; margin-bottom : 15px;"> <h4 ng-bind = "list.name" ></h4></div>
+                                         <div class="row">
+                                           <div ng-repeat = 'product in list.products' class="col-md-3">
+                                               <div ng-click = "orgProdleEmitter(product.prodle, list.orgid)" class = "hyperlinkPointer">
+                                                   <div style = "height : 120px; width : 150px;">
+                                                        <center>
+                                                               <img src = "../assets/images/if_no_org_images_available.jpg" style = "height : 90px ; width : 120px;" ng-if = 'product.product_logo === undefined'>
+                                                               <img ng-src = '{{product.product_logo.image}}' style = "height : 90px ; width : 120px;" ng-if = 'product.product_logo !== undefined'>
+
+                                                               <h6 ng-bind = 'product.name' class = 'productNameWidth'></h6>
+
+                                                        </center>       
+                                                   </div>
+                                               </div>
+                                           </div>
+                                        </div> 
+                                       </div> 
+                                   </div>
+
+                                 <div ng-repeat = 'list in searchContent' ng-if = 'list.products === undefined' style = "margin-bottom:4px" class="col-md-3" >
+                                      <div class = "hyperlinkPointer" ng-click = "orgProdleEmitter(list.prodle, list.orgid)" >
+                                           <div style = "height : 120px; width : 150px;">
+                                                <center>
+                                                       <img src = "../assets/images/if_no_org_images_available.jpg" style = "height : 90px ; width : 120px;" ng-if = 'list.product_logo === undefined'>
+                                                       <img ng-src = '{{list.product_logo.image}}' style = "height : 90px ; width : 120px;" ng-if = 'list.product_logo !== undefined'>
+                                                       <h6 ng-bind = 'list.name' class = 'productNameWidth'></h6>
+                                                </center>       
+                                           </div>
+                                      </div>
+                                 </div>
+                           </div>    
+                        <!--          </ol>    -->
+                               </div>
+                          </div> 
+                    </div>
+              </div>
+
+              <!-- ........................................................Search Result Code For product Wall Search end..................................... --> 
+
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-</div>  
-  
-
-				</div>
 			</div>
 		</div>
 	</div>

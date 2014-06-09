@@ -1,6 +1,56 @@
 				<div id="wall-sidebar" class="" ng-controller="prodoSearchController">
 				  
 					<!-- Product follow list code -->
+					
+				<div id="prodo-sidebar-followedproductlist-container">
+					 <div id="prodo-sidebar-list-group" class="list-group">
+					   <div id="prodo-sidebar-list" class="list">
+					      <a class="prodo-search-list-heading-theme list-group-item active" >Context Search</a>
+					      <div id="prodo-sidebar-list-group-item" class="list-group-item " >          
+                                         <input general-search type="text" class="form-control prodoNormalSearchTextbox"  name="product" typeahead="name for name in enhancement | limitTo:10" id="searchText" ng-model="productSearch.product"  style="width:100%" placeholder="Current Org. Product Search"  typeahead-on-select="quickSearchEmit()" ng-click="toggleTitleForDiv()" typeahead-loading="name" typeahead-wait-ms="720">
+                                         <div ng-bind="errors" class="errorClassMessage cursorResize" id="sidebarErrors" ng-click="toggleTitleForDiv()"></div>
+					      </div>
+					   </div>
+					 </div>
+					</div>
+
+				<div id="prodo-sidebar-followedproductlist-container" class="hyperlinkPointer">
+					 <div id="prodo-sidebar-list-group" class="list-group">
+					   <div id="prodo-sidebar-list" class="list">
+					      	
+
+					      	<a class="prodo-search-list-heading-theme list-group-item active" ng-click="isCollapsed = !isCollapsed;modalReset()">
+							      	<i class="fa fa-search"></i>
+							      	&nbsp;&nbsp;Organization Search&nbsp;&nbsp;
+							      	<i class="fa fa-arrow-down" ng-if="isCollapsed===true"></i>
+							      	<i class="fa fa-arrow-up" ng-if="isCollapsed===false"></i>
+					      	</a>
+
+
+							<div collapse="isCollapsed">
+								<div>
+									<div class="homeContainerAdvancedsearch" >                                                  	                    
+							 <!--            <input type="text" class="prodoAdvancedSearchTextbox form-control" placeholder="Organization Name" id="textBoxOrgName"  ng-model="org.orgName" ng-enter="searchProductData()"/>     -->   
+
+							                    <input type="text" class="prodoAdvancedSearchTextbox form-control" placeholder="Organization Name [ eg:Prodonus ]" id="textBoxOrgName" ng-model="org" ng-enter="searchProductData()"> 
+
+							                    <input type="text" class="prodoAdvancedSearchTextbox form-control"  placeholder="Product Name [ eg:Samsung, Nokia ]" id="textBoxProductName" ng-model="product_name" ng-enter="searchProductData()">  
+
+							                    <input type="text" class="prodoAdvancedSearchTextbox form-control" placeholder="Feature [ eg:JBL Speaker, BOSE Speakers ]" id="textBoxFeatureName"  ng-model="feature" ng-enter="searchProductData()"> 
+
+							                    <input type="text" class="prodoAdvancedSearchTextbox form-control" placeholder="Category [ eg:Mobiles, Tablets ]" id="textBoxCategoryName" ng-model="category" ng-enter="searchProductData()">           
+
+							                    <input type="text" placeholder="Please Enter Exact  Model Number [ eg:Grand Duos, S4 ]"  ng-model="model_number" id="textBoxModelNumber" class="prodoAdvancedSearchTextbox form-control" ng-enter="searchProductData()">       
+
+							                    <button class="btn btn-info prodoAdvancedSearchTextbox" ng-click="searchProductData()">Search</button>       
+											 
+							         </div>    
+								</div> 
+							</div>
+					   </div>
+					 </div>
+					</div>
+
 					<div id="prodo-sidebar-followedproductlist-container">
 					 <div id="prodo-sidebar-list-group" class="list-group">
 					   <div id="prodo-sidebar-list" class="list">
@@ -27,29 +77,22 @@
 					  <div id="prodo-sidebar-list-group" class="list-group">
 					    <div id="prodo-sidebar-list" class="list" >
 
-					      <a id="prodo-sidebar-list-group-item" class="prodo-wall-sidebar-list-heading list-group-item active" ng-bind="title"></a>
-					      <div  id="prodo-sidebar-list-group-main" class="list-group-item" > 
-
+					      <a id="prodo-sidebar-list-group-item" class="prodo-wall-sidebar-list-heading list-group-item active" > Trending Products</a>
+				<!-- 	      <div  id="prodo-sidebar-list-group-main" class="list-group-item" >  -->
+<!-- 
 
 					        <input general-search type="text" class="form-control prodoNormalSearchTextbox"  name="product" typeahead="name for name in enhancement | limitTo:10" id="searchText" ng-model="productSearch.product"  style="width:100%" placeholder="Current Org. Product Search"  typeahead-on-select="quickSearchEmit()" ng-click="toggleTitleForDiv()" typeahead-loading="name" typeahead-wait-ms="720">
-<!-- 
-					      <a id="prodo-sidebar-list-group-item" class="prodo-search-list-heading-theme list-group-item active" ng-bind="title"></a>
-					      <div  id="prodo-sidebar-list-group-main" class="list-group-item">         
-					        <input general-search type="text" class="form-control prodoNormalSearchTextbox"  name="product" typeahead="name for name in enhancement | limitTo:10" id="searchText" ng-model="productSearch.product"  style="width:100%" placeholder="Current Org. Product Search"  typeahead-on-select="quickSearchEmit()" ng-click="toggleTitleForDiv()" typeahead-loading="name" typeahead-wait-ms="720" > -->
-
-<!--                   <i ng-show="name" class="glyphicon glyphicon-refresh" id="refreshIcon"></i>  --> 
-   <!--  <p ng-click="a()">test</p> -->
 					        <a ng-click="openSearchModal(); modalReset()" class="hyperlinkPointer" >Advanced Search</a>
-					         <div ng-bind="errors" class="errorClassMessage cursorResize" id="sidebarErrors" ng-click="toggleTitleForDiv()"></div>
+					         <div ng-bind="errors" class="errorClassMessage cursorResize" id="sidebarErrors" ng-click="toggleTitleForDiv()"></div> -->
 					   <!-- start of advanced search -->
-					            <div id = "advancedSearchModal" class="modal fade" style="">      <!-- Modal Code Starts for Advansed-Search -->
-					              <div class="modal-dialog">
-					                <div class="modal-content">
-					                  <div>
-					                    <h4 align="center">Advanced Search </h4>   
-					                    <div id="lineHr"></div>             
-					                  </div>  
-				                  
+       <!--      <div id = "advancedSearchModal" class="modal fade" style="">     
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div>
+                    <h4 align="center">Advanced Search </h4>   
+                    <div id="lineHr"></div>             
+                  </div>  
+              
 		                  <div class="modalAppearance">
 		                    <div class="modalMessageContainer">*Type Comma (,) between all the words you want. Eg: Apple Iphone , Samsung Duos</div>            
 		                      <div class="textBoxContainer" >                                                  
@@ -91,9 +134,9 @@
                   </div>                                       
                  </div>
               </div>
-           </div>
+           </div> -->
 <!--End of advanced search  --> 
-       </div>
+     <!--   </div> -->
     </div>
     
         <div id="prodo-sidebar-list" class="list">
@@ -120,4 +163,4 @@
 </div>
  
 
-			</div>
+</div>
