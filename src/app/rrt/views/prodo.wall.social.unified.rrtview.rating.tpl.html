@@ -32,7 +32,10 @@
         <div class="tab-content">
           <div id="Remove" ng-show="tabForRating.tabOverallRating == true" >
             <br/>
-                 <table class="table" style="font-size:12px; width:84%">
+
+             <span id="img-spinner" ng-hide="combineRating.length>0" style="font-size: 22px;"> <i  class=" prodo-loadmoreColor fa fa-spinner fa-spin "> </i></span>
+
+              <table ng-show="combineRating.length>0" class="table" style="font-size:12px; width:84%">
                   <tr style="background-color:rgba(222, 184, 135, 0.45); font-weight:bold">
                     <td style="padding: 4px;">
                      Feature Name

@@ -281,7 +281,7 @@ $scope.getLatestDataAfterRating=function(l_prodle,l_orgid){
 
 };
 
-   $scope.getProductFeatures($rootScope.product_prodle,$rootScope.orgid);
+
         $scope.getProductFeatures($rootScope.product_prodle,$rootScope.orgid);
         $scope.getMyProductFeatureRating($rootScope.product_prodle);
         $scope.getOverallProductFeatureRating($rootScope.product_prodle);
