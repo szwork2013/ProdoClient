@@ -24,7 +24,6 @@ angular.module('prodo.ProdonusApp', [
   'tags-input',
   'ngCookies',
   'textAngular',
-  'vrdirectivesslider',
   'angular-growl',
   'prodo.CommonApp',
   'prodo.UserApp',
