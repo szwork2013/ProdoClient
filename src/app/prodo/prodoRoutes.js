@@ -479,11 +479,12 @@ angular.module('prodo.ProdonusApp')
       templateUrl:  'product/views/prodo.wall.social.unified.productview.enquiry.tpl.html'
     }) 
     .state('prodo.productwall.wall-product.analytics', {
-      templateUrl:  'product/views/prodo.wall.social.unified.productview.analytics.tpl.html'
+      templateUrl:  'product/views/prodo.wall.social.unified.productview.analytics.tpl.html',
+      controller : 'ProdoProductDashboardController',
+    })
+    .state('prodo.productwall.wall-product.analytics.details', {
+      templateUrl:  'product/views/prodo.wall.social.unified.productview.detailanalytics.tpl.html'
     }) 
-
-    /*-------------------------nested routes for wall-product end---------------------*/
-
 
     .state('prodo.productwall.wall-campaign', {
       resolve: {

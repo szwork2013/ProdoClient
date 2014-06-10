@@ -55,11 +55,6 @@ angular.module('prodo.ProdoWallApp')
       $rootScope.$broadcast('showUniqueProductBlog', prodle, blogid);
     }
 
-    $scope.viewChart = function(name, query, type){
-      $rootScope.$broadcast('showUniqueChart', name, query, type);
-    }
-
-
     $scope.$watch('$state.$current.locals.globals.checkIfSessionExist', function (checkIfSessionExist) {
       if (checkIfSessionExist.error) {
         $rootScope.showModal();
