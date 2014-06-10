@@ -62,6 +62,17 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
     trigger: 'hover' 
   });
 
+  $scope.isCollapsed = true;
+
+     $scope.product_name = "";
+     $scope.model_number = "";
+     $scope.category = "";
+     $scope.feature = "";
+     $scope.search.productsearchdata = {};
+     $scope.result = [];
+     $scope.org = "";
+     $scope.message = "";
+
 
   $scope.openSearchModal = function() {
     $('#advancedSearchModal').modal({ 
@@ -206,7 +217,10 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
     {
      $scope.result = data.success.doc;
      $scope.message = "";
-     $scope.message = data.success.message;}
+     $scope.message = data.success.message;
+     $scope.broadcastContent(data.success, 'true');
+
+     }
      });
 
      var cleanEventGetSearchProductNotDone = $scope.$on('getSearchProductNotDone', function (event, data) {
@@ -220,6 +234,11 @@ angular.module('prodo.ProdoWallApp').controller('prodoSearchController', [
      $rootScope.orgid = dataOrgid;    
      $('#advancedSearchModal').modal('hide');  //code for cloasing modal
      $rootScope.$broadcast('emittingOrgid', 'success');
+  };
+
+  $scope.broadcastContent = function(result,flag)
+  {   
+       $rootScope.$broadcast('searchResultSent', result, flag);
   };
 
   //This functions resets the advanced search modal

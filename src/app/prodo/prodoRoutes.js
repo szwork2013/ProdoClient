@@ -479,11 +479,12 @@ angular.module('prodo.ProdonusApp')
       templateUrl:  'product/views/prodo.wall.social.unified.productview.enquiry.tpl.html'
     }) 
     .state('prodo.productwall.wall-product.analytics', {
-      templateUrl:  'product/views/prodo.wall.social.unified.productview.analytics.tpl.html'
+      templateUrl:  'product/views/prodo.wall.social.unified.productview.analytics.tpl.html',
+      controller : 'ProdoProductDashboardController',
+    })
+    .state('prodo.productwall.wall-product.analytics.details', {
+      templateUrl:  'product/views/prodo.wall.social.unified.productview.detailanalytics.tpl.html'
     }) 
-
-    /*-------------------------nested routes for wall-product end---------------------*/
-
 
     .state('prodo.productwall.wall-campaign', {
       resolve: {
@@ -522,20 +523,23 @@ angular.module('prodo.ProdonusApp')
     /*-------------------------nested routes for wall-campaign end---------------------*/
  
     .state('prodo.productwall.wall-blog', {
+      templateUrl:  'prodo/productwall/views/prodo.wall.social.unified.blogview.tpl.html'
+    })
+
+    .state('prodo.productwall.wall-blogdetail', {
       resolve: {
         getProductBlogData: function(blogSliderData, BlogGetService, $rootScope){
           if (blogSliderData.success && blogSliderData.success.doc)  {
             if (blogSliderData.success.doc.length !== 0) {
               console.log(blogSliderData);
-              var blogid = blogSliderData.success.doc[0].blogid;
-              return BlogGetService.Get_Wall_Blog.getBlog({prodle: $rootScope.product_prodle, blogid: blogid}).$promise;
+              return BlogGetService.Get_Wall_Blog.getBlog({prodle: $rootScope.product_prodle, blogid: $rootScope.product_blogid}).$promise;
             } 
           } else {
               return blogSliderData.error.message;
           }
         }
       },
-      templateUrl:  'prodo/productwall/views/prodo.wall.social.unified.blogview.tpl.html',
+      templateUrl:  'prodo/productwall/views/prodo.wall.social.unified.blogdetailview.tpl.html',
       controller: 'ProdoWallBlogController'
     })
 
@@ -543,6 +547,9 @@ angular.module('prodo.ProdonusApp')
     
     .state('prodo.productwall.wall-blog.blog', {
       templateUrl:  'blog/views/prodo.wall.social.unified.blogview.blog.tpl.html'
+    }) 
+    .state('prodo.productwall.wall-blogdetail.detailview', {
+      templateUrl:  'blog/views/prodo.wall.social.unified.blogview.blogdetail.tpl.html'
     })  
     .state('prodo.productwall.wall-blog.analytics', {
       templateUrl:  'blog/views/prodo.wall.social.unified.blogview.analytics.tpl.html'

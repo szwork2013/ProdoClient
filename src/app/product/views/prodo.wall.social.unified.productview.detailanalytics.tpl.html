@@ -1,0 +1,52 @@
+<div class="analytic-detail-view-container">
+ <div>
+    <a ng-click = "backToAnalytics()" style = "float : right" class = "hyperlinkPointer">
+         <i class="fa fa-chevron-left" class = "hyperlinkPointer"></i>&nbsp;Go Back To Charts
+    </a>
+
+    <center>
+         <div  ng-if = 'chartType.toLowerCase() === "pie chart"' style="width:100%"><center><b><h4 ng-bind = "chartName+'-'+productdata.name"></h4></b></center></div>     
+
+          <div ng-if = 'chartType.toLowerCase() === "pie chart"' >
+             <div id="prodo-piechart-dashboard">
+                  <svg id="productPieChart" class="mypiechart"></svg>
+                  <prodo-piechart></prodo-piechart>
+             </div> 
+          </div>
+    </center>
+
+    <span class="divider"></span>
+             
+    <div ng-if="chartType.toLowerCase() === 'bar chart'" style="width:100%">
+          <center><b><h4 ng-bind = 'chartName+"-"+productdata.name'></h4></b></center>
+    </div>
+            
+    <div ng-if="chartType.toLowerCase() === 'bar chart'" style = "margin-left : 18%;">   
+          <div id="prodo-barchart-dashboard">
+                  <svg id="chart" class="mybarchart" height="500" width="500"></svg> 
+                  <prodo-barchart> </prodo-barchart> 
+          </div>
+    </div>
+ 
+    <span class="divider"></span>
+     
+    <div ng-if="chartType !== undefined && chartType === ''">
+         <div style="margin-left:10%"> 
+                 <div >  
+                     <div style="margin-left:31%">
+                        <b><h4>Product Social Engagement</h4></b>    
+                     </div>
+                 </div>
+                    <div id="prodo-barchart-dashboard" style = "margin-left : 18%;">
+                        <svg id="allTrendingChart" class="mybarchart" height="500" width="500"></svg> 
+                        <prodo-trendingchart> </prodo-trendingchart> 
+                    </div>
+          </div>
+              
+          <div style="margin-left:10%">
+            Note: This chart is generated using sample data due to unavailability of real data. Chart will be updated once sufficient real data is available
+          </div>
+    </div>
+         
+  </div>
+</div>   
