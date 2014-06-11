@@ -1,9 +1,8 @@
 <div id="prodo-container" style="margin:2px; padding:5px;" class="prodo-wall-org-container container">
-
   <div style="margin:0px;" class="social-view-heading row">
     <div class="col-md-12">
       <button style="background-color: rgba(57, 54, 55, 0.95); opacity:.8;color:white;" class="btn btn-sm glyphicon glyphicon-resize-small pull-right" ng-click="goToUnifiedView()"></button>
-      <h3 class="prodo-wall-org-heading-text">Product View - {{productdata.name}}</h3>
+      <h3 class="prodo-wall-org-heading-text">Product View - {{productdata.name}} <span ng-show="productdata.trending.recommendcount"> [ {{productdata.trending.recommendcount}} Recommendations ]</span></h3>
       <hr class="prodo-wall-org-hr" size=3 noshade>
     </div>
   </div>
@@ -24,4 +23,4 @@
       <div ui-view></div>
     </div>  
   </div>
-</div>  
+</div> 
