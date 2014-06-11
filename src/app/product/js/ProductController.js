@@ -165,11 +165,11 @@ $scope.sendEnquiry=function(orgid,prodle,inquiry){
 $scope.subjectbody="";
 
 if(inquiry=='know'){
-  $scope.EnquiryData.subject="know";
+  $scope.EnquiryData.subject="Product Enquiry "+ $scope.product.name;
   $scope.EnquiryData.body="I want to know more about product";
 }
 else if(inquiry=='buy'){
-  $scope.EnquiryData.subject="buy";
+  $scope.EnquiryData.subject="Product Buy Request "+ $scope.product.name;
   $scope.EnquiryData.body="I want to buy this product";
 }
 else if(inquiry=='custom'){
