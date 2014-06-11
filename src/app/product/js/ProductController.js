@@ -445,6 +445,35 @@ $scope.handleEnquiryError=function(error){
       }
     });
 
+  $scope.recommendCurrentProduct = function (prodle) {
+       ProductRating.recommend_product.recommendProduct({
+           prodle: prodle,
+        }, function (success) {
+         if(success.success){
+          $log.debug(success.success);
+          $rootScope.ProdoAppMessage(success.success.message, 'success');
+         }
+         else{
+           $log.debug(success.error);
+           $rootScope.ProdoAppMessage(success.error.message, 'error');
+         }
+        }, function (error) {
+          $log.debug(error);
+         $rootScope.ProdoAppMessage("Server Error:" + error.status, 'error');
+        });
+
+
+
+  };
+
+
+
+
+
+
+
+
+
   $scope.$on('$destroy', function(event, message) {
       cleanEventFollowProductDone();
   });
