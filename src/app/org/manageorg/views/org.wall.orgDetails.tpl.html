@@ -420,9 +420,16 @@
 
                 <input type="text" class="form-control" placeholder="Subject" style="margin-bottom:20px;" ng-model="customerinvites.subject">
                      <div class="error-message-registration" ng-if="orgCustSubjectError!==''" ng-bind="orgCustSubjectError" style="margin-top:-2.5%"></div>
+<!-- 
 
+                <textarea class="form-control" ng-model="custinvitesbody.customerinvites_body" style="margin-bottom:20px;" rows=23 ng-enter="joinbrCstfororginvites()"></textarea> -->
 
-                <textarea class="form-control" ng-model="custinvitesbody.customerinvites_body" style="margin-bottom:20px;" rows=23 ng-enter="joinbrCstfororginvites()"></textarea>
+      <!--             <text-angular name="content" ng-model="template.content " ta-toolbar-button-class="texteditor-btn btn btn-default" class="form-control" style="margin-bottom:20px;" ta-toolbar="[['h1','h2','h3', 'h4', 'h5', 'h6', 'p', 'quote','bold','italics','underline','ul', 'ol', 'undo', 'redo', 'clear', 'justifyLeft', 'justifyCenter', 'justifyRight']]"></text-angular> -->
+          <div style="margin-bottom:20px;">
+                 <text-angular name="content" ng-model="custinvitesbody.customerinvites_body " ta-toolbar-button-class="texteditor-btn btn btn-default"  ta-toolbar="[['h1','h2','h3', 'h4', 'h5', 'h6', 'p', 'quote','bold','italics','underline','ul', 'ol', 'undo', 'redo', 'clear', 'justifyLeft', 'justifyCenter', 'justifyRight']]" >
+                 </text-angular>
+         </div>
+
 
 
                <div class="error-message-registration" ng-if="orgCustContentError!==''" ng-bind="orgCustContentError" style="margin-top:-2.5%"></div>
@@ -456,8 +463,13 @@
 
                         <div class="error-message-registration" ng-if="orgInvitesSubjectError!==''" ng-bind="orgInvitesSubjectError" style="margin-top:-2.5%"></div>
 
-                        <textarea class="form-control" style="margin-bottom:20px;" ng-model = "orginvitesbody.orginvites_body" rows=22 ng-enter="joinbrfororginvites()">
-                        </textarea>
+                     <!--    <textarea class="form-control" style="margin-bottom:20px;" ng-model = "orginvitesbody.orginvites_body" rows=22 ng-enter="joinbrfororginvites()">
+                        </textarea> -->
+
+                      <div style="margin-bottom:20px;">
+                               <text-angular name="content4" ng-model="orginvitesbody.orginvites_body" ta-toolbar-button-class="texteditor-btn btn btn-default"  ta-toolbar="[['h1','h2','h3', 'h4', 'h5', 'h6', 'p', 'quote','bold','italics','underline','ul', 'ol', 'undo', 'redo', 'clear', 'justifyLeft', 'justifyCenter', 'justifyRight']]" >
+                               </text-angular>
+                       </div>
 
                         <div class="error-message-registration" ng-if="orgInvitesBodyError!==''" ng-bind="orgInvitesBodyError" style="margin-top:-2.5%"></div>
              
