@@ -517,8 +517,13 @@ angular.module('prodo.ProdonusApp')
       templateUrl:  'campaign/views/prodo.wall.social.unified.campaignview.campaign.tpl.html'
     })  
     .state('prodo.productwall.wall-campaign.analytics', {
-      templateUrl:  'campaign/views/prodo.wall.social.unified.campaignview.analytics.tpl.html'
+      templateUrl:  'campaign/views/prodo.wall.social.unified.campaignview.analytics.tpl.html',
+      controller : 'ProdoCampaignDashboardController'
     }) 
+    .state('prodo.productwall.wall-campaign.analytics.charts',
+    {
+      templateUrl : 'campaign/views/prodo.wall.social.unified.campaignview.analytics.chart.tpl.html'
+    })
 
     /*-------------------------nested routes for wall-campaign end---------------------*/
  
