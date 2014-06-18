@@ -15,7 +15,7 @@
 
       <ul ng-cloak ng-show="usersession.isLoggedIn" class="nav nav-pills  nav-ul  navbar-nav navbar-right">
 
-        <li><a ng-show="((usersession.currentUser.org) || (usersession.currentUser.prodousertype == 'individual'))" class="btn defaultPointer"   >Trial : {{ daysRemaining }} Days Remaining</a></li>
+        <li><a ng-show="((usersession.currentUser.org) || (usersession.currentUser.prodousertype == 'individual'))" class="btn defaultPointer"   ng-bind = 'daysRemaining'></a></li>
 
         <li><a class="navbar-home-link btn" ui-sref="prodo.home.wall"><i  ng-class="{pillHomeNavs : home == 1}"  class="prodo-fa-navbar fa fa-home"></i>Home</a></li>
 
