@@ -114,7 +114,7 @@
        
 
 			  Organization  <input ng-model="productOrgName.name"  id="prodo_warranty_org" class="warranty-textField form-control prodo-validation  prodo-display-right" 
-               type="text"   required name="warranty_org" typeahead="allOrgName as allOrgName.name for allOrgName in allOrgNames | filter:$viewValue:startsWith | limitTo:8"  />
+               type="text"  required name="warranty_org" typeahead="allOrgName as allOrgName.name for allOrgName in allOrgNames | filter:$viewValue:startsWith | limitTo:8"  />
            
              
               <div  ng-show="(form.WarrantyForm.warranty_org.$dirty && editMode.editorEnabledWarranty ==true) ||(form.WarrantyForm.submitted==true && form.WarrantyForm.warranty_org.$invalid==true)" class="prodo-warranty-Invalid">

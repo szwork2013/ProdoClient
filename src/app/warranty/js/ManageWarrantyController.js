@@ -412,6 +412,7 @@ $scope.handleGetWarrantySuccess=function(successData,l_warrantyid){
    $scope.handleUploadError(successData.error);
   } 
  else{
+
   if($scope.form.WarrantyForm.$invalid){
       $scope.form.WarrantyForm.submitted=true;
       $log.debug("Invalid data");
@@ -419,22 +420,32 @@ $scope.handleGetWarrantySuccess=function(successData,l_warrantyid){
       $log.debug("Wrong purchase_date");
       $rootScope.ProdoAppMessage("Purchase date should not be greater than todays date. Please Enter correct purchase date", 'error'); 
     }
-    }
-    else{
-  $scope.getNewWarrantyData();
-  $log.debug( $scope.newWarranty);
-
-  if($scope.isValidImage==true){
-
-       $scope.socket.emit('addWarranty', $rootScope.usersession.currentUser.userid, $scope.newWarranty.warrantydata,$scope.file_data);
-       $log.debug("data emitted");
  
-  }
-  else{
-  	$log.debug("Upload invoice image");
-    $rootScope.ProdoAppMessage("Invoice is mandatory. Please upload the scanned image , digital or pdf of invoice...", 'error');
-   }
+    }
 
+    else{
+        $scope.getNewWarrantyData();
+         if($scope.org.orgnamefromUser.length>50){
+          $rootScope.ProdoAppMessage("Organization name  should not be greater than 50 characters", 'error'); 
+        }
+       else if( $scope.product.productnamefromUser.length>50){
+        $rootScope.ProdoAppMessage("Product name  should not be greater than 50 characters", 'error'); 
+       }
+      else{
+
+          $log.debug( $scope.newWarranty);
+
+          if($scope.isValidImage==true){
+         
+               $scope.socket.emit('addWarranty', $rootScope.usersession.currentUser.userid, $scope.newWarranty.warrantydata,$scope.file_data);
+               $log.debug("data emitted");
+         
+          }
+          else{
+          	$log.debug("Upload invoice image");
+            $rootScope.ProdoAppMessage("Invoice is mandatory. Please upload the scanned image , digital or pdf of invoice...", 'error');
+           }
+        }
    }
  }
  }); 
@@ -557,25 +568,34 @@ $log.debug($scope.warranty);
 
 $scope.getOrgProductDetailsForUpdate();
 
- 
- $log.debug($scope.updatedWarranty);
 
-  WarrantyService.update_warranty.updateWarranty(
-   {
-     userid:$rootScope.usersession.currentUser.userid,
-     warrantyid:$scope.warranty.warranty_id
-   },  $scope.updatedWarranty,
-   function(success){
-     if(success.success){
-        $scope.handleUpdateWarrantySuccess(success);
-     }
-       else if(success.error){
-          $scope.handleUpdateWarrantyError(success.error);
+   if($scope.org_l.orgnamefromUser.length>50){
+          $rootScope.ProdoAppMessage("Organization name  should not be greater than 50 characters", 'error'); 
+        }
+       else if($scope.product_l.productnamefromUser.length>50){
+        $rootScope.ProdoAppMessage("Product name  should not be greater than 50 characters", 'error'); 
        }
+      else{
 
-   },function(error){
-      $log.debug(error);
-   });
+       $log.debug($scope.updatedWarranty);
+
+        WarrantyService.update_warranty.updateWarranty(
+         {
+           userid:$rootScope.usersession.currentUser.userid,
+           warrantyid:$scope.warranty.warranty_id
+         },  $scope.updatedWarranty,
+         function(success){
+           if(success.success){
+              $scope.handleUpdateWarrantySuccess(success);
+           }
+             else if(success.error){
+                $scope.handleUpdateWarrantyError(success.error);
+             }
+
+         },function(error){
+            $log.debug(error);
+         });
+    }
    }
  };
 
