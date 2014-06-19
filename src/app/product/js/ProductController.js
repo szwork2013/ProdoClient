@@ -82,7 +82,7 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
   // $scope.searchComment="warranty";
   $scope.newProductComment = [];
   $rootScope.productCommentResponsearray = [];
-  $scope.mytags;
+  $scope.mytags=[];
   $scope.myFeaturetags;
   $scope.count = 0;
   $scope.commenttextField = {
