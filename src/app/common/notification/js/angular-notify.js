@@ -54,7 +54,7 @@ angular.module('prodo.ProdonusApp').factory('notify',['$timeout','cgNotifyTempla
 						if (element.css('opacity') === '1'){
 							element.css('opacity',0);
 						}
-						j ++;
+						j ++; messageElements.length--;
 						}
 						messageElements.length =  0;
 				}
