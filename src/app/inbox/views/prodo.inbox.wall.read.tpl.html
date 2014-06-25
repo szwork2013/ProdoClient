@@ -1,0 +1,18 @@
+<div class="inbox-content-container">
+	<div class="row">
+		<div class="col-md-8">
+			<div style="box-shadow: 4px 3px 7px 0px rgba(7, 7, 7, 0.19); padding:2px; margin: 5px auto;" class="inbox-messagetype-navigation-container">
+				<ul style="background-color:#f9f9f1; color: black; font-size:13px;" class="inbox-nav nav nav-pills nav-justified">
+				  <li><a showtab="" href="" ng-click="goState()"><i class="prodo-fa fa fa-arrow-circle-left"></i>Back</a></li>
+				  <li><a showtab="" href="" ng-click="delete_read_message(delete_messageid)"><i class="prodo-fa fa fa-trash-o"></i>Delete</a></li>
+				  <li><a showtab="" href="" ng-click="showReply()"><i class="prodo-fa fa fa-reply"></i>Reply</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div ui-view></div>
+		</div>
+	</div>
+</div>

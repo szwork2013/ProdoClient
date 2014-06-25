@@ -71,44 +71,84 @@ angular.module('prodo.ProdonusApp')
 
 
     /* --------------------------Prodo Inbox Routes-------------------------- */
-    // .state('prodo.inbox', {
-    //   abstract: true,
-    //   templateUrl: 'inbox/views/prodo.inbox.container.html',
-    //   controller:'ProdoInboxController',
-    //   // resolve: {
-    //   //   allOrgData: function(OrgService, $rootScope) {
-    //   //     return OrgService.all_org_data.getAllOrgAnalytics().$promise;
-    //   //   },
-    //   //   allCampaignData: function(HomeService, $rootScope) {
-    //   //     return HomeService.all_campaign_data.getAllCampaigns().$promise;
-    //   //   },
-    //   //   checkIfSessionExist: function(UserService, $rootScope) {
-    //   //       return UserService.Is_user_loggedin.checkUserSession().$promise;
-    //   //   } 
-    //   // },
-    //   onEnter: function(UserSessionService, checkIfSessionExist, $state){
-    //     if (checkIfSessionExist.success) {
-    //       if (checkIfSessionExist.success.user.prodousertype == 'business' && checkIfSessionExist.success.user.org == undefined) {
-    //         $state.transitionTo('prodo.orgregistration.company');
-    //       } else if (checkIfSessionExist.success.user.isOtpPassword) {
-    //         $state.transitionTo('prodo.landing.resetpassword');
-    //       } 
-    //     }
-    //   }
-    // })
-    // .state('prodo.inbox.i_wall', {
-    //   views: {
-    //     'prodo-home-walladvertising': {
-    //       templateUrl: 'prodo/home/views/prodo.home.walladvertising.tpl.html'
-    //     },
-    //     'prodo-home-wallsearch' : {
-    //       templateUrl:  'prodo/home/views/prodo.home.wallsearchbar.tpl.html'
-    //     },
-    //     'prodo-home-wall' : {
-    //       templateUrl:  'prodo/home/views/prodo.home.wall.tpl.html'
-    //     }
-    //   }
-    // }) 
+    .state('prodo.inbox', {
+      templateUrl: 'inbox/views/prodo.inbox.container.html',
+      controller:'ProdoInboxController',
+      resolve: {
+        checkIfSessionExist: function(UserService, $rootScope) {
+          return UserService.Is_user_loggedin.checkUserSession().$promise;
+        } 
+      },
+      onEnter: function(UserSessionService, checkIfSessionExist, $state){
+        if (checkIfSessionExist.success) {
+          if (checkIfSessionExist.success.user.prodousertype == 'business' && checkIfSessionExist.success.user.org == undefined) {
+            $state.transitionTo('prodo.orgregistration.company');
+          } else if (checkIfSessionExist.success.user.isOtpPassword) {
+            $state.transitionTo('prodo.landing.resetpassword');
+          } 
+        }
+      }
+    })
+    .state('prodo.inbox.content', {
+      views: {
+        'inbox' : {
+          templateUrl:  'inbox/views/prodo.inbox.wall.tpl.html'
+        }
+      }
+    }) 
+    .state('prodo.inbox.content.primary', {
+      templateUrl:  'inbox/views/prodo.inbox.wall.primary.tpl.html',
+      controller:'ProdoPrimaryInboxController',
+      resolve: {
+        primarymessage  : function(InboxGetService, $rootScope) {
+          console.log('Primary');
+          var ntype = 'normal';
+          return InboxGetService.All_Inbox_Message.getAllMessages({userid: $rootScope.usersession.currentUser.userid, data: ntype}).$promise;
+        }
+      }  
+    })
+    .state('prodo.inbox.content.enquiry', {
+      templateUrl:  'inbox/views/prodo.inbox.wall.enquiry.tpl.html',
+      controller:'ProdoEnquiryInboxController',
+      resolve: {
+        enquirymessage  : function(InboxGetService, $rootScope) {
+          console.log('enquiry');
+          var etype = 'enquiry';
+          return InboxGetService.All_Inbox_Message.getAllMessages({userid: $rootScope.usersession.currentUser.userid, data: etype}).$promise;
+        }
+      }
+    }) 
+    .state('prodo.inbox.content.testimonial', {
+      templateUrl:  'inbox/views/prodo.inbox.wall.testimonial.tpl.html',
+      controller:'ProdoTestimonialInboxController',
+      resolve: {
+        testimonialmessage  : function(InboxGetService, $rootScope) {
+          console.log('testimonial');
+          var type = 'testimonial';
+          return InboxGetService.All_Inbox_Message.getAllMessages({userid: $rootScope.usersession.currentUser.userid, data: type}).$promise;
+        }
+      }
+    })  
+    .state('prodo.inbox.content.draft', {
+      templateUrl:  'inbox/views/prodo.inbox.wall.draft.tpl.html'
+    }) 
+
+    .state('prodo.inbox.readcontent', {
+      views: {
+        'inbox' : {
+          templateUrl:  'inbox/views/prodo.inbox.wall.read.tpl.html'
+        }
+      }
+    }) 
+    .state('prodo.inbox.readcontent.primary', {
+      templateUrl:  'inbox/views/prodo.inbox.wall.primary.read.tpl.html'
+    }) 
+    .state('prodo.inbox.readcontent.enquiry', {
+      templateUrl:  'inbox/views/prodo.inbox.wall.enquiry.read.tpl.html'
+    }) 
+    .state('prodo.inbox.readcontent.testimonial', {
+      templateUrl:  'inbox/views/prodo.inbox.wall.testimonial.read.tpl.html'
+    }) 
     /* --------------------------Prodo Inbox Routes-------------------------- */
 
 

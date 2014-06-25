@@ -17,6 +17,31 @@
   -webkit-transform: translate3d(0, 0, 0);
 }
 */
+
+.inbox-nav>li.active>a, .inbox-nav>li.active>a:hover, .inbox-nav>li.active>a:focus {
+color: #fff;
+background-color: #5A6D7E;
+}
+
+.inbox-nav>li>a {
+border-bottom-left-radius: 0px;
+border-bottom-right-radius: 0px;	
+border-top-left-radius: 6px;
+border-top-right-radius: 6px;
+}
+
+.prodo-inbox-hr-theme{
+	color: #585B61;
+	height: 1px;
+	margin-bottom: 10px;
+	width: 96%;
+}
+
+a.inbox-read{
+	background-color: rgba(202, 192, 192, 0.28);
+}
+
+
 .madal-blogwall-content{
 	 background: white 
                 url('http://i.stack.imgur.com/FhHRx.gif') 

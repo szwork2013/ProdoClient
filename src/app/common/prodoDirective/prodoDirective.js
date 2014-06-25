@@ -49,6 +49,27 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
   };
 })
 
+.directive('prodoTruncateHtml', function () {
+  var truncatedef = {
+      required: 'ngBindHtml',
+      restrict: 'A',
+      scope: {
+        'str':'='
+      },
+      link: function (scope, ele, attrs, c) {
+        var $log = $( ele ),
+        m = $.truncate(scope.str, {
+          length: 65,
+          words: true,
+          noBreaks: true
+        });
+
+        n = $.parseHTML( m );
+        $log.append( n );
+      }
+    };
+  return truncatedef;
+})
 .directive('prodoSpinner', [
   '$timeout',
   function ($timeout) {

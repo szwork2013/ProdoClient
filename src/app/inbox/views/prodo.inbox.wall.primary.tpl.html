@@ -1,0 +1,43 @@
+<div class="inbox-primary-message-container container">
+	<div ng-show="primary_message.length != 0" class="row">
+		<div style="padding:5px;" class="col-md-12">
+			<div style="font-size:12px;" class="list-group">
+			  <a href="#" class="list-group-item" ng-repeat='message in primary_message' ng-class="{'inbox-read': message.status == 'read' }">
+			  	<div class="row">
+			  		<div class="col-md-2">
+			  			<img ng-show="message.status == 'read' " style="width:13.5px;height:13.5px;" src="../../../assets/images/read1.gif">
+			  			<img ng-hide="message.status == 'read' " style="width:13.5px;height:13.5px;" src="../../../assets/images/unread1.gif">
+			  			<strong>&nbsp;{{message.from.username}}</strong>
+			  		</div>
+			  		<div ng-click="read_primary_message(message)"  class="col-md-7">
+			  			<strong>{{message.subject}}</strong> -&nbsp;<span prodo-truncate-html str="message.body"></span>
+			  		</div>
+			  		<div style="padding:1px;" class="col-md-2">
+			  			{{fromNow(message.createdate)}}
+			  		</div>
+			  		<div style="padding:1px;" class="col-md-1">
+			  			<span ng-click="delete_message(message.messageid)"><i class="prodo-fa fa fa-trash-o"></i></span>
+			  		</div>
+			  	</div>
+			  </a>
+			</div>
+		</div>
+	</div>
+	<div ng-show="message_length >= 10" class="row">
+		<div class="col-md-12">
+			<ul style="margin:0px; margin-bottom:10px;font-size:13px;" class="pager pull-right">
+			  <li><a style="border-radius:10px;" href="" ng-click="loadMorePrimaryMessages()">Load More &rarr;</a></li>
+			</ul>
+		</div>
+	</div>	
+	<div style="padding:40px; opacity: .8;margin-top: 2px;margin-bottom: 1px; color: rgb(80, 74, 74);background-color:#F1F1F1;" ng-show="primary_message.length == 0" class="row">
+		<div class="col-md-12">
+			<div class="no-message">
+				<center>
+					<p style="font-size:14px;">You have no messages in primary tab.</p>			
+				  <p style="font-size:12px;">Prodonus related deals, offers and other messages will be shown here.</p>
+				</center>
+			</div>
+		</div>
+	</div>
+</div>

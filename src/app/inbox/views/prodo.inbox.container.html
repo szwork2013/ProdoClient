@@ -1,0 +1,25 @@
+<div style="padding:5px;" class="prodo-home-container">
+  <div class="inbox-container container">
+    <div style="z-index:10; margin: 10px auto;border-bottom: 1px solid #EFF1F5;" id="prodo-row-main-view" class="row">
+      <div style="padding-right: 2px; padding-left: 2px;" class="col-md-2">
+        <h4 style="font-family: 'Gotham SSm A', 'Gotham SSm B', sans-serif; font-size: 20px;"><strong>MessageBox</strong></h4>
+      </div>
+      <div style="padding-right: 2px; padding-left: 2px;" class="col-md-9">
+        <div style="width: 70%;" class="input-group">
+          <input type="text" class="form-control" ng-model="search.mail" placeholder="search">
+          <span style="background-color:rgb(54, 117, 197); color:white; border: rgb(54, 117, 197);" class="input-group-addon"><i class="fa fa-search"></i> </span>
+        </div>
+      </div>
+      <div class="col-md-1"></div>
+    </div>
+    <div style="margin: 5px auto;border-bottom: 1px solid #EFF1F5;" id="prodo-row-main-view" class="row">
+
+      <div style="padding-right: 2px; padding-left: 2px;" class="col-md-2"></div>
+      <!-- Prodonus Home - SideSearch View-->
+      <div style="padding-right: 2px; padding-left: 2px;" class="col-md-10">
+        <div ui-view="inbox"></div> 
+      </div>
+
+    </div>
+  </div>  
+</div>

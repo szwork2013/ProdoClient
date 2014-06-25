@@ -1,0 +1,19 @@
+<div class="inbox-content-container">
+	<div class="row">
+		<div class="col-md-8">
+			<div style="box-shadow: 4px 3px 7px 0px rgba(7, 7, 7, 0.19); padding:2px; margin: 5px auto;" class="inbox-messagetype-navigation-container">
+				<ul style="background-color:#f9f9f1; color: black; font-size:13px;" class="inbox-nav nav nav-pills nav-justified">
+				  <li class="active"><a showtab="" href="" ui-sref="prodo.inbox.content.primary"><i class="prodo-fa fa fa-envelope-square"></i>Primary</a></li>
+				  <li><a showtab="" href="" ui-sref="prodo.inbox.content.enquiry"><i class="prodo-fa fa fa-info-circle"></i>Enquiry</a></li>
+				  <li><a showtab="" href="" ui-sref="prodo.inbox.content.testimonial"><i class="prodo-fa fa fa-comments"></i>Testimonial</a></li>
+				  <li><a showtab="" href="" ui-sref="prodo.inbox.content.draft"><i class="prodo-fa fa fa-file-text"></i>Draft</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div ui-view></div>
+		</div>
+	</div>
+</div>

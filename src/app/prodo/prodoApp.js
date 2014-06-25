@@ -14,6 +14,7 @@ angular.module('prodo.SubscriptionApp', []);
 angular.module('prodo.UploadApp', []);
 angular.module('prodo.CampaignApp', []);
 angular.module('prodo.ProdoHomeApp', []);
+angular.module('prodo.InboxApp', []);
 angular.module('prodo.ProdonusApp', [
   'ui.router',
   'ui.bootstrap',
@@ -42,6 +43,7 @@ angular.module('prodo.ProdonusApp', [
   'prodo.UploadApp',
   'prodo.CampaignApp',
   'prodo.ProdoHomeApp',
+  'prodo.InboxApp',
   'configSocket',
 ]).config([
   '$logProvider', 'growlProvider', '$httpProvider',
@@ -77,7 +79,7 @@ angular.module('prodo.ProdonusApp', [
         $rootScope.wall = 1;
         $rootScope.home = 0;
         $rootScope.inbox = 0;
-      } else if ($rootScope.currentState == 'prodo.inbox.i_wall') {
+      } else if ($rootScope.currentState == 'prodo.inbox.content') {
         $rootScope.wall = 0;
         $rootScope.home = 0;
         $rootScope.inbox = 1;

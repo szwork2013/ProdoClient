@@ -51,7 +51,7 @@ angular.module('prodo.BlogApp')
 
     $scope.$watch('$state.$current.locals.globals.getAllblogdata', function (getAllblogdata) {
     
-      if (getAllblogdata.success && getAllblogdata.success.length !== 0) {
+      if (getAllblogdata.success && getAllblogdata.success.blog.length !== 0) {
         console.log(getAllblogdata.success.blog);
         $scope.blogs = getAllblogdata.success.blog; 
       } else {
