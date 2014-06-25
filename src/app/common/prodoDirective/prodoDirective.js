@@ -323,7 +323,7 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
             }).y(function (d) {
               return d.tagcount;
             }).staggerLabels(true).tooltips(true).showValues(true);
-          d3.select('#chart').datum(scope.barChart()).transition().duration(50).call(chart);
+          d3.select('#chart').datum(scope.chartData).transition().duration(50).call(chart);
           nv.utils.windowResize(chart.update);
           return chart;
         });
@@ -344,7 +344,7 @@ angular.module('prodo.CommonApp').directive('prodonusPasswordCheck', [
             {  
               return d.data.color;
             }).width(width).height(height); 
-          d3.select('#productPieChart').datum(scope.data).transition().duration(1200).attr('width', width).attr('height', height).call(chart);
+          d3.select('#productPieChart').datum(scope.chartData).transition().duration(1200).attr('width', width).attr('height', height).call(chart);
           chart.dispatch.on('stateChange', function (e) {
             nv.log('New State:', JSON.stringify(e));
           });

@@ -13,6 +13,7 @@
 angular.module('prodo.ProductApp')
 .controller('ProductCommentController', ['$scope', '$log', '$rootScope', 'ProductService', 'UserSessionService', '$http', 'CommentLoadMoreService', 'ENV', 'TagReffDictionaryService', 'ProductFeatureService', 'isLoggedin','CommentService',  function ($scope, $log, $rootScope, ProductService, UserSessionService, $http, CommentLoadMoreService, ENV, TagReffDictionaryService, ProductFeatureService ,isLoggedin,CommentService) {
     
+    $scope.mytags=[];
 $scope.prelikedislike=function(likeaction,comment){
     var follow;
     for (i = 0; i < $scope.ProductsFollowedFromSession.length; i++) {
@@ -430,7 +431,7 @@ function (successData) {
       document.getElementById('prodo-comment-commentContainer').style.marginTop = '0px';
       document.getElementById("crossButton").style.display = "none";
       $("#prodo-uploadedCommentImage").css("display", "none");
-      $scope.mytags = "";
+      $scope.mytags=[] ;
     } else {
       $rootScope.ProdoAppMessage("Please talkin this product to start commenting...", 'error');
     }
@@ -568,7 +569,7 @@ function (successData) {
       document.getElementById('prodo-comment-commentContainer').style.marginTop = '0px';
       document.getElementById("crossButton").style.display = "none";
       $("#prodo-uploadedCommentImage").css("display", "none");
-      $scope.mytags = "";
+      $scope.mytags = [];
   
   
  }

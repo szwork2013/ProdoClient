@@ -3226,3 +3226,20 @@ color: saddlebrown;
 .prodo-TestimonialText{
 	padding-bottom: 5px;
 }
+
+
+
+.rangeContainer{
+	width:250px;
+}
+.prodo-font9{
+	font-size: 9px;
+}
+
+.prodo-currentrate{left: 52%;
+top: 35%;
+font-weight: bold;}
+
+.red{color: rgb(239, 81, 81);}
+
+.green{color: rgb(99, 183, 99);}

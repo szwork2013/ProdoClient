@@ -32,7 +32,10 @@
         <div class="tab-content">
           <div id="Remove" ng-show="tabForRating.tabOverallRating == true" >
             <br/>
-                 <table class="table" style="font-size:12px; width:84%">
+
+             <span id="img-spinner" ng-hide="combineRating.length>0" style="font-size: 22px;"> <i  class=" prodo-loadmoreColor fa fa-spinner fa-spin "> </i></span>
+
+              <table ng-show="combineRating.length>0" class="table" style="font-size:12px; width:84%">
                   <tr style="background-color:rgba(222, 184, 135, 0.45); font-weight:bold">
                     <td style="padding: 4px;">
                      Feature Name
@@ -72,7 +75,9 @@
           </div>
           <div id="Remove" ng-show="tabForRating.tabCaptureRating == true" class="prodo-padding-bottom"  >
 
-        
+              
+            
+
                  <!-- capture rating -->
                  <br/>
                   <table class="prodo-prodowalltable table " >
@@ -81,8 +86,18 @@
                        <span >{{value.featurename}}</span>
                     </td>
                     <td>
-                     <slider ng-change="getSelectedRates(value)" floor='1' ceiling='10' step='0' precision='0' stickiness='2' 
-                              ng-model='value.featurerates' style="width:200px; margin:5px"></slider>
+                     
+
+                     <div class="rangeContainer">
+                     <span class='bubble middle pull-right prodo-currentrate' ng-bind="value.featurerates"  ng-class="{red : value.featurerates<5 , green:value.featurerates>=5 }"  ></span>
+                     <span class='pointer low prodo-font9'>1</span>
+                     <input type="range" ng-change="getSelectedRates(value)" ng-model="value.featurerates" min="1" max="10" step="1" style="width: 200px" class="ng-pristine ng-valid">
+                      <span class='pointer high prodo-font9'>10</span>
+                    </div>
+                      <br/>
+
+         <!--             <slider ng-change="getSelectedRates(value)" floor='1' ceiling='10' step='0' precision='0' stickiness='2' 
+                             ng-model='value.featurerates' style="width:200px; margin:5px"></slider>  -->
                     </td>
                     
                     </tr>

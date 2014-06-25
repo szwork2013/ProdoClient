@@ -25,7 +25,6 @@ angular.module('prodo.ProdonusApp', [
   'tags-input',
   'ngCookies',
   'textAngular',
-  'vrdirectivesslider',
   'angular-growl',
   'prodo.CommonApp',
   'prodo.UserApp',
@@ -147,7 +146,15 @@ angular.module('prodo.ProdonusApp', [
       if ($rootScope.usersession.isLoggedIn) {
         var planExpiryDate = moment.utc(moment(data.subscription.planexpirydate));
         var todaysDate = moment.utc(moment());
-        $rootScope.daysRemaining = planExpiryDate.diff(todaysDate, 'days');
+        $scope.remainingDaysCount = planExpiryDate.diff(todaysDate, 'days'); 
+        if($scope.remainingDaysCount >= 0)
+        {
+                $rootScope.daysRemaining = 'Trial : ' + $scope.remainingDaysCount + ' Days Remaining';
+        }
+        else if($scope.remainingDaysCount < 0)
+        {
+                $rootScope.daysRemaining = ''; 
+        }
   
         if (data.prodousertype == 'business' && data.org == undefined) {
           $state.transitionTo('prodo.orgregistration.company');

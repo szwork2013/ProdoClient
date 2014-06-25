@@ -519,11 +519,12 @@ angular.module('prodo.ProdonusApp')
       templateUrl:  'product/views/prodo.wall.social.unified.productview.enquiry.tpl.html'
     }) 
     .state('prodo.productwall.wall-product.analytics', {
-      templateUrl:  'product/views/prodo.wall.social.unified.productview.analytics.tpl.html'
+      templateUrl:  'product/views/prodo.wall.social.unified.productview.analytics.tpl.html',
+      controller : 'ProdoProductDashboardController',
+    })
+    .state('prodo.productwall.wall-product.analytics.details', {
+      templateUrl:  'product/views/prodo.wall.social.unified.productview.detailanalytics.tpl.html'
     }) 
-
-    /*-------------------------nested routes for wall-product end---------------------*/
-
 
     .state('prodo.productwall.wall-campaign', {
       resolve: {
@@ -556,8 +557,13 @@ angular.module('prodo.ProdonusApp')
       templateUrl:  'campaign/views/prodo.wall.social.unified.campaignview.campaign.tpl.html'
     })  
     .state('prodo.productwall.wall-campaign.analytics', {
-      templateUrl:  'campaign/views/prodo.wall.social.unified.campaignview.analytics.tpl.html'
+      templateUrl:  'campaign/views/prodo.wall.social.unified.campaignview.analytics.tpl.html',
+      controller : 'ProdoCampaignDashboardController'
     }) 
+    .state('prodo.productwall.wall-campaign.analytics.charts',
+    {
+      templateUrl : 'campaign/views/prodo.wall.social.unified.campaignview.analytics.chart.tpl.html'
+    })
 
     /*-------------------------nested routes for wall-campaign end---------------------*/
  

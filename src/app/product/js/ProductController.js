@@ -82,7 +82,7 @@ angular.module('prodo.ProductApp').controller('ProductController', ['$scope', '$
   // $scope.searchComment="warranty";
   $scope.newProductComment = [];
   $rootScope.productCommentResponsearray = [];
-  $scope.mytags;
+  $scope.mytags=[];
   $scope.myFeaturetags;
   $scope.count = 0;
   $scope.commenttextField = {
@@ -165,11 +165,11 @@ $scope.sendEnquiry=function(orgid,prodle,inquiry){
 $scope.subjectbody="";
 
 if(inquiry=='know'){
-  $scope.EnquiryData.subject="know";
+  $scope.EnquiryData.subject="Product Enquiry "+ $scope.product.name;
   $scope.EnquiryData.body="I want to know more about product";
 }
 else if(inquiry=='buy'){
-  $scope.EnquiryData.subject="buy";
+  $scope.EnquiryData.subject="Product Buy Request "+ $scope.product.name;
   $scope.EnquiryData.body="I want to buy this product";
 }
 else if(inquiry=='custom'){
@@ -444,6 +444,35 @@ $scope.handleEnquiryError=function(error){
         }
       }
     });
+
+  $scope.recommendCurrentProduct = function (prodle) {
+       ProductRating.recommend_product.recommendProduct({
+           prodle: prodle,
+        }, function (success) {
+         if(success.success){
+          $log.debug(success.success);
+          $rootScope.ProdoAppMessage(success.success.message, 'success');
+         }
+         else{
+           $log.debug(success.error);
+           $rootScope.ProdoAppMessage(success.error.message, 'error');
+         }
+        }, function (error) {
+          $log.debug(error);
+         $rootScope.ProdoAppMessage("Server Error:" + error.status, 'error');
+        });
+
+
+
+  };
+
+
+
+
+
+
+
+
 
   $scope.$on('$destroy', function(event, message) {
       cleanEventFollowProductDone();

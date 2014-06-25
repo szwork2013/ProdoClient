@@ -85,12 +85,6 @@
   });
 }])
 
- .factory('ProductTestimonial', ['$resource', function($resource) {
-  return $resource('api/testimonial/:orgid/:prodle ', {},
-  {
-    sendTestimonial: {method: 'POST', params: {orgid: 'id', prodle: 'id'}}
-  });
-}])
 .factory('ProductTestimonial', [
   '$resource',
   function ($resource) {
@@ -106,6 +100,7 @@
   '$resource',
   function ($resource) {
     var rating = {
+        recommend_product: $resource('/api/productrecommend/:prodle', {}, { recommendProduct: { method: 'PUT' , params : { prodle:'@prodle'}}}),
         add_Rating: $resource('/api/productfeaturating/:prodle ', {}, { addRating: { method: 'POST' , params : { prodle:'@prodle'}}}),
         get_MyProductFeatureRating: $resource('api/myproductfeaturerating/:prodle ', {}, { getMyProductFeatureRating: { method: 'GET', params : { prodle:'@prodle'}} }),
         get_OverallProductFeatureRating: $resource('api/overallproductfeaturerating/:prodle ', {}, { getOverallProductFeatureRating: { method: 'GET' , params : { prodle:'@prodle'}} })

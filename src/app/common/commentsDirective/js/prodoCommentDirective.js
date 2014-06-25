@@ -35,6 +35,7 @@ return {
 
 $scope.likeaction="";
 $scope.handleGetAllTagsSuccess=function(successData){
+  $scope.pretags=[];
      for (var i = 0; i < successData.success.tags.length; i++) {
       $scope.pretags.push(successData.success.tags[i].tagname);
     }
